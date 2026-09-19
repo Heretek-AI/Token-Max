@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Sliders, Zap, FileCode, Brain, Building2, ReceiptText, Database, CreditCard, BarChart2, ShieldAlert, Skull } from 'lucide-react';
+import { LayoutDashboard, Sliders, Zap, FileCode, Brain, Building2, ReceiptText, Cpu, Database, CreditCard, BarChart2, ShieldAlert, Skull } from 'lucide-react';
 
 export function Header() {
   const navClass = ({ isActive }: { isActive: boolean }) =>
@@ -52,6 +52,10 @@ export function Header() {
           <NavLink to="/receipt" className={navClass}>
             <ReceiptText className="w-4 h-4" />
             Receipt
+          </NavLink>
+          <NavLink to="/hardware" className={navClass}>
+            <Cpu className="w-4 h-4" />
+            Hardware
           </NavLink>
           <NavLink to="/models" className={navClass}>
             <Database className="w-4 h-4" />

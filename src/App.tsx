@@ -12,6 +12,7 @@ import ConfigExporter from './pages/ConfigExporter';
 import ReasoningExploder from './pages/ReasoningExploder';
 import TeamEconomics from './pages/TeamEconomics';
 import SessionReceipt from './pages/SessionReceipt';
+import HardwareBreakeven from './pages/HardwareBreakeven';
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
               <Route path="/reasoning" element={<ReasoningExploder />} />
               <Route path="/teams" element={<TeamEconomics />} />
               <Route path="/receipt" element={<SessionReceipt />} />
+              <Route path="/hardware" element={<HardwareBreakeven />} />
               <Route path="/models" element={<ModelsExplorer />} />
               <Route path="/plans" element={<PlansCompare />} />
               <Route path="/benchmarks" element={<BenchmarksPage />} />
