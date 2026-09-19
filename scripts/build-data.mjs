@@ -97,6 +97,37 @@ async function buildData() {
       }
     }
 
+    // Cache rate calculation heuristics
+    const inputPrice = model.pricing?.input || 0;
+    const outputPrice = model.pricing?.output || 0;
+    const provLower = (model.provider || '').toLowerCase();
+    const idLower = (model.id || '').toLowerCase();
+
+    let cachedInput = model.pricing?.cachedInput;
+    if (cachedInput === null || cachedInput === undefined) {
+      if (provLower.includes('anthropic') || idLower.includes('claude')) {
+        cachedInput = inputPrice * 0.10;
+      } else if (provLower.includes('deepseek') || idLower.includes('deepseek')) {
+        cachedInput = inputPrice * 0.10;
+      } else if (provLower.includes('z-ai') || idLower.includes('glm')) {
+        cachedInput = inputPrice * 0.10;
+      } else if (provLower.includes('google') || idLower.includes('gemini')) {
+        cachedInput = inputPrice * 0.25;
+      } else if (provLower.includes('openai') || idLower.includes('gpt') || idLower.includes('codex')) {
+        cachedInput = inputPrice * 0.50;
+      }
+      if (model.pricing && cachedInput !== null && cachedInput !== undefined) {
+        model.pricing.cachedInput = parseFloat(cachedInput.toFixed(4));
+      }
+    }
+
+    // Standard Agent Request: 20k input (75% cached) + 1k output = 21k context
+    const freshIn = 20000 * 0.25;
+    const cachedIn = 20000 * 0.75;
+    const cachePrice = cachedInput !== null && cachedInput !== undefined ? cachedInput : (inputPrice * 0.50);
+    const agentReqCost = (freshIn * inputPrice / 1e6) + (cachedIn * cachePrice / 1e6) + (1000 * outputPrice / 1e6);
+    model.agentBlendedCost = parseFloat(((agentReqCost / 21000) * 1e6).toFixed(4));
+
     // Assign tier
     model.tierClass = classifyModelTier(model);
 

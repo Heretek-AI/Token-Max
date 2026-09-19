@@ -5,7 +5,8 @@ import type {
   FrontierLab,
   CodingPlan,
   PlanTier,
-  ApplesToApplesOption
+  ApplesToApplesOption,
+  CacheRate
 } from './types';
 
 export function formatPrice(price: number): string {
@@ -74,9 +75,9 @@ export function calculateBudgetResults(
 
 export function computeWeightedScore(model: NormalizedModel): number {
   const weights = {
-    codingIndex: 0.35,
+    codingIndex: 0.50,
     agenticIndex: 0.30,
-    intelligenceIndex: 0.25,
+    intelligenceIndex: 0.20,
   };
   const b = model.benchmarks;
   let score = 0;
@@ -151,12 +152,47 @@ export interface ApplesToApplesResult {
   } | null;
 }
 
+export function getModelCacheDiscountMultiplier(provider: string, id: string): number {
+  const p = provider.toLowerCase();
+  const mid = id.toLowerCase();
+  if (p.includes('anthropic') || mid.includes('claude')) return 0.10; // 90% discount on cache read
+  if (p.includes('deepseek') || mid.includes('deepseek')) return 0.10; // 90% discount
+  if (p.includes('z-ai') || mid.includes('glm')) return 0.10; // 90% discount
+  if (p.includes('google') || mid.includes('gemini')) return 0.25; // 75% discount
+  if (p.includes('openai') || mid.includes('gpt') || mid.includes('codex')) return 0.50; // 50% discount
+  return 0.50;
+}
+
+export function calculateAgentRequestCost(
+  model: NormalizedModel,
+  cacheRate: CacheRate = 0.75
+): { costPerRequest: number; effectiveBlendedCost: number } {
+  const inPrice = model.pricing.input || model.blendedCost * 0.75;
+  const outPrice = model.pricing.output || model.blendedCost * 1.75;
+  const cacheMult = getModelCacheDiscountMultiplier(model.provider, model.id);
+
+  // Standard Agent Request: 20k input context + 1k output completion (21k total)
+  const freshInputTokens = 20000 * (1 - cacheRate);
+  const cachedInputTokens = 20000 * cacheRate;
+  const outputTokens = 1000;
+
+  const cost = (freshInputTokens * inPrice / 1e6) +
+               (cachedInputTokens * inPrice * cacheMult / 1e6) +
+               (outputTokens * outPrice / 1e6);
+
+  const safeCost = cost > 0 ? cost : 0.0001;
+  const effectiveBlendedCost = (safeCost / 21000) * 1e6;
+
+  return { costPerRequest: safeCost, effectiveBlendedCost };
+}
+
 export function computeApplesToApples(
   models: NormalizedModel[],
   plans: CodingPlan[],
   lab: FrontierLab,
   budget: number,
-  minCodingIndex: number = 0
+  minCodingIndex: number = 0,
+  cacheRate: CacheRate = 0.75
 ): ApplesToApplesResult {
   const excludedPatterns = [
     'nemo', 'granite', 'lunaris', 'hermes', 'gemma-1', 'llama-2', 'gpt-3.5',
@@ -174,10 +210,9 @@ export function computeApplesToApples(
   });
 
   const apiOptions: ApplesToApplesOption[] = cleanModels.map(m => {
-    const monthlyTokens = budget / m.blendedCost;
-    // Standard agentic prompt: 20k in, 1k out (~21k tokens)
-    const costPerRequest = 0.021 * m.blendedCost;
-    const monthlyRequests = Math.round(budget / (costPerRequest > 0 ? costPerRequest : 0.01));
+    const { costPerRequest, effectiveBlendedCost } = calculateAgentRequestCost(m, cacheRate);
+    const monthlyRequests = Math.round(budget / costPerRequest);
+    const monthlyTokens = (monthlyRequests * 21000) / 1e6;
     const modelLab = detectModelLab(m);
 
     return {
@@ -192,8 +227,8 @@ export function computeApplesToApples(
       monthlyRequests,
       codingIndex: m.benchmarks?.codingIndex ?? null,
       intelligenceIndex: m.benchmarks?.intelligenceIndex ?? null,
-      costPer1kRequests: m.costPer1kRequests,
-      notes: `Pay-as-you-go API @ $${m.blendedCost.toFixed(2)}/M blended tokens`,
+      costPer1kRequests: costPerRequest * 1000,
+      notes: `Pay-as-you-go API @ $${effectiveBlendedCost.toFixed(2)}/M effective (${Math.round(cacheRate * 100)}% cache)`,
     };
   });
 

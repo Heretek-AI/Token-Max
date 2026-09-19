@@ -67,6 +67,28 @@ async function fetchModels() {
       }
     }
 
+    let cachedInput = null;
+    const provLower = provider.toLowerCase();
+    const idLower = id.toLowerCase();
+    if (provLower.includes('anthropic') || idLower.includes('claude')) {
+      cachedInput = inputPrice * 0.10; // 90% off
+    } else if (provLower.includes('deepseek') || idLower.includes('deepseek')) {
+      cachedInput = inputPrice * 0.10; // 90% off
+    } else if (provLower.includes('z-ai') || idLower.includes('glm')) {
+      cachedInput = inputPrice * 0.10; // 90% off
+    } else if (provLower.includes('google') || idLower.includes('gemini')) {
+      cachedInput = inputPrice * 0.25; // 75% off
+    } else if (provLower.includes('openai') || idLower.includes('gpt') || idLower.includes('codex')) {
+      cachedInput = inputPrice * 0.50; // 50% off
+    }
+
+    // Agentic coding calculation: 20k input context (75% cached) + 1k output completion = 21k context
+    const freshIn = 20000 * 0.25;
+    const cachedIn = 20000 * 0.75;
+    const cachePrice = cachedInput !== null ? cachedInput : (inputPrice * 0.50);
+    const agentReqCost = (freshIn * inputPrice / 1e6) + (cachedIn * cachePrice / 1e6) + (1000 * outputPrice / 1e6);
+    const agentBlendedCost = (agentReqCost / 21000) * 1e6;
+
     normalized.push({
       id: model.id,
       name: model.name,
@@ -77,12 +99,13 @@ async function fetchModels() {
       pricing: {
         input: inputPrice,
         output: outputPrice,
-        cachedInput: null,
+        cachedInput: cachedInput ? parseFloat(cachedInput.toFixed(4)) : null,
         cachedInputWrite: null,
         reasoning: null,
         webSearch: null,
       },
       blendedCost,
+      agentBlendedCost: parseFloat(agentBlendedCost.toFixed(4)),
       costPer1kRequests,
       benchmarks,
       reasoning: null,

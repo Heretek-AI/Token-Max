@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import type { NormalizedModel, CodingPlan, FrontierLab, DisplayUnit } from '../../lib/types';
+import type { NormalizedModel, CodingPlan, FrontierLab, DisplayUnit, CacheRate } from '../../lib/types';
 import { computeApplesToApples, formatMillionTokens, getProviderColor } from '../../lib/pricing';
 import { 
   Sparkles, 
@@ -9,7 +9,9 @@ import {
   TrendingUp, 
   Zap, 
   Bot, 
-  SlidersHorizontal 
+  SlidersHorizontal,
+  Info,
+  Database
 } from 'lucide-react';
 
 interface LabDecisionEngineProps {
@@ -27,6 +29,8 @@ export function LabDecisionEngine({
 }: LabDecisionEngineProps) {
   const [selectedLab, setSelectedLab] = useState<FrontierLab>('all');
   const [displayUnit, setDisplayUnit] = useState<DisplayUnit>('tokens');
+  const [cacheRate, setCacheRate] = useState<CacheRate>(0.75);
+  const [showRequestInfo, setShowRequestInfo] = useState<boolean>(false);
   const [minCodingScore, setMinCodingScore] = useState<number>(0);
   const [showThresholdSlider, setShowThresholdSlider] = useState<boolean>(false);
 
@@ -43,8 +47,8 @@ export function LabDecisionEngine({
 
   // Compute the apples-to-apples comparison
   const { options, bestApi, bestSubscription, bestWorkhorse, arbitrageCallout } = useMemo(() => {
-    return computeApplesToApples(models, plans, selectedLab, budget, minCodingScore);
-  }, [models, plans, selectedLab, budget, minCodingScore]);
+    return computeApplesToApples(models, plans, selectedLab, budget, minCodingScore, cacheRate);
+  }, [models, plans, selectedLab, budget, minCodingScore, cacheRate]);
 
   const formatYield = (tokensM: number, requests: number) => {
     if (displayUnit === 'requests') {
@@ -57,7 +61,7 @@ export function LabDecisionEngine({
     <div className="space-y-6">
       {/* 1. Header Controls: Lab Tabs */}
       <div className="bg-surface rounded-2xl border border-border p-4 shadow-sm">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-4">
           <div>
             <h2 className="text-xl font-extrabold text-text flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-primary" />
@@ -68,31 +72,100 @@ export function LabDecisionEngine({
             </p>
           </div>
 
-          {/* Unit Switcher: Tokens vs Requests */}
-          <div className="flex items-center gap-1 bg-surface-alt p-1 rounded-xl border border-border text-xs">
+          {/* Right Controls: Cache Toggle + Unit Switcher + Info Button */}
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Prompt Cache Toggle */}
+            <div className="flex items-center gap-1 bg-surface-alt p-1 rounded-xl border border-border text-xs">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-text-muted px-2 flex items-center gap-1">
+                <Database className="w-3 h-3 text-primary" /> Cache:
+              </span>
+              <button
+                onClick={() => setCacheRate(0)}
+                className={`px-2 py-1 rounded-md font-semibold transition-colors ${
+                  cacheRate === 0
+                    ? 'bg-surface text-text shadow-xs border border-border'
+                    : 'text-text-muted hover:text-text'
+                }`}
+                title="Cold fresh context on every request (0% prompt cache hit)"
+              >
+                0% (Fresh)
+              </button>
+              <button
+                onClick={() => setCacheRate(0.75)}
+                className={`px-2 py-1 rounded-md font-semibold transition-colors ${
+                  cacheRate === 0.75
+                    ? 'bg-surface text-primary shadow-xs border border-border font-bold'
+                    : 'text-text-muted hover:text-text'
+                }`}
+                title="Standard multi-turn agent session (75% context read from cache)"
+              >
+                75% (Agent)
+              </button>
+              <button
+                onClick={() => setCacheRate(0.90)}
+                className={`px-2 py-1 rounded-md font-semibold transition-colors ${
+                  cacheRate === 0.90
+                    ? 'bg-surface text-success shadow-xs border border-border font-bold'
+                    : 'text-text-muted hover:text-text'
+                }`}
+                title="Long multi-file coding session (90% context read from cache)"
+              >
+                90% (Deep)
+              </button>
+            </div>
+
+            {/* Unit Switcher: Tokens vs Requests */}
+            <div className="flex items-center gap-1 bg-surface-alt p-1 rounded-xl border border-border text-xs">
+              <button
+                onClick={() => setDisplayUnit('tokens')}
+                className={`px-3 py-1.5 rounded-lg font-semibold transition-colors ${
+                  displayUnit === 'tokens'
+                    ? 'bg-surface text-primary shadow-xs border border-border'
+                    : 'text-text-muted hover:text-text'
+                }`}
+              >
+                Tokens (M)
+              </button>
+              <button
+                onClick={() => setDisplayUnit('requests')}
+                className={`px-3 py-1.5 rounded-lg font-semibold transition-colors ${
+                  displayUnit === 'requests'
+                    ? 'bg-surface text-primary shadow-xs border border-border'
+                    : 'text-text-muted hover:text-text'
+                }`}
+                title="Standard agent request: 20K input tokens + 1K output tokens"
+              >
+                Agent Requests
+              </button>
+            </div>
+
+            {/* Standard Agent Info Trigger */}
             <button
-              onClick={() => setDisplayUnit('tokens')}
-              className={`px-3 py-1.5 rounded-lg font-semibold transition-colors ${
-                displayUnit === 'tokens'
-                  ? 'bg-surface text-primary shadow-xs border border-border'
-                  : 'text-text-muted hover:text-text'
+              onClick={() => setShowRequestInfo(!showRequestInfo)}
+              className={`p-2 rounded-xl border text-xs transition-colors ${
+                showRequestInfo ? 'bg-primary text-white border-primary' : 'bg-surface-alt text-text-muted border-border hover:text-text'
               }`}
+              title="What is the Token-Max Standard Agent Request?"
             >
-              Tokens (M)
-            </button>
-            <button
-              onClick={() => setDisplayUnit('requests')}
-              className={`px-3 py-1.5 rounded-lg font-semibold transition-colors ${
-                displayUnit === 'requests'
-                  ? 'bg-surface text-primary shadow-xs border border-border'
-                  : 'text-text-muted hover:text-text'
-              }`}
-              title="Standard agent request: 20K input tokens + 1K output tokens"
-            >
-              Agent Requests
+              <Info className="w-4 h-4" />
             </button>
           </div>
         </div>
+
+        {/* Informational Banner about the Standard Agent Request Model */}
+        {showRequestInfo && (
+          <div className="mb-4 p-3.5 bg-primary/5 rounded-xl border border-primary/20 text-xs text-text animate-in fade-in duration-200">
+            <div className="font-bold text-primary flex items-center gap-1.5 mb-1">
+              <Info className="w-4 h-4" />
+              <span>Token-Max Standard Coding Agent Request Anatomy:</span>
+            </div>
+            <p className="text-text-muted leading-relaxed">
+              Real-world agentic coding (Cursor, Claude Code, Cline, Copilot Edits) consumes large codebase context for concise diffs:
+              <strong> 20,000 input context tokens</strong> (files, AST, conversation history, linters) + <strong>1,000 output tokens</strong> (code patch).
+              With prompt caching enabled (<strong>{Math.round(cacheRate * 100)}% active</strong>), up to {Math.round(20000 * cacheRate).toLocaleString()} input tokens per turn are billed at provider cache discount rates (up to <strong>90% off</strong> on Anthropic, DeepSeek, and Z.ai).
+            </p>
+          </div>
+        )}
 
         {/* Lab Selection Pills */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">

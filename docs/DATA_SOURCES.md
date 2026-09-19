@@ -71,13 +71,17 @@ flowchart TD
      $$\text{inputPrice} = \text{parseFloat}(\text{pricing.prompt}) \times 1,000,000$$
      $$\text{outputPrice} = \text{parseFloat}(\text{pricing.completion}) \times 1,000,000$$
    - Cached read discounts (`pricing.request_discount` or cached token pricing) and reasoning token rates are captured where published.
-3. **Blended Cost Formula**:
-   In coding and software development tasks, prompt tokens substantially outnumber completion tokens due to large file contexts, repository maps, and multi-file project indexing. We use a standard **3:1 Input-to-Output ratio**:
-   $$\text{Blended Cost (\$/M)} = \frac{3 \times \text{Input Cost} + 1 \times \text{Output Cost}}{4}$$
-4. **Cost Per 1,000 Requests**:
-   Assuming a standard developer interaction consisting of **2,000 input tokens** (context, file snippets, instructions) and **1,000 output tokens** (code modifications, explanations):
-   $$\text{Cost per 1k Requests} = 1,000 \times (2,000 \times \text{prompt\_rate} + 1,000 \times \text{completion\_rate})$$
-5. **Variant Separation**:
+3. **Blended Cost Formulas**:
+   - **Legacy Chatbot Blended Cost (3:1)**:
+     $$\text{Blended Cost (\$/M)} = \frac{3 \times \text{Input Cost} + 1 \times \text{Output Cost}}{4}$$
+   - **Token-Max Agentic Blended Cost (20:1 with Prompt Caching)**:
+     Modern coding agents (Cursor, Claude Code, Cline, Copilot Edits) ingest substantial repository context (AST, file snippets, linter logs) for concise code diffs.
+     We standardize on the **Token-Max Agent Request**: **20,000 input context tokens + 1,000 output completion tokens (21,000 total)** with a dynamic prompt cache hit rate ($H$):
+     $$\text{Cost per Request} = \frac{20,000 \times (1 - H) \times P_{\text{in}} + 20,000 \times H \times P_{\text{cached}} + 1,000 \times P_{\text{out}}}{1,000,000}$$
+     $$\text{Agent Blended Cost (\$/M)} = \frac{\text{Cost per Request}}{21,000} \times 1,000,000$$
+     Where $H = 0.75$ by default (typical agent session), and $P_{\text{cached}}$ reflects provider-specific cache discount multipliers ($90\%$ off for Anthropic, DeepSeek, and Z.ai; $75\%$ off for Gemini; $50\%$ off for OpenAI).
+
+4. **Variant Separation**:
    Models with `:free` or `:batch` suffixes are flagged (`isFree: true`, `isBatch: true`) to avoid skewing standard pay-as-you-go comparisons.
 
 ---
@@ -100,14 +104,12 @@ The script paginates through all available models (page size ~200, tracking `has
 | **Throughput (Tokens/s)** | `performance.median_output_tokens_per_second` | Speed of code generation. Crucial for fast autocomplete and interactive pair programming. |
 | **Latency (TTFT)** | `performance.median_time_to_first_token_seconds` | Time To First Token. Determines editor responsiveness when triggering completions. |
 
-### Slug Matching Algorithm
-Because OpenRouter and Artificial Analysis use different slug conventions (e.g. OpenRouter: `anthropic/claude-sonnet-5`, AA: `claude-3-7-sonnet` or `claude-sonnet-5`), `scripts/build-data.mjs` executes a multi-pass normalization matching routine:
-1. Exact match on normalized slug (stripping `/`, `-`, `_`, `.` and lowercase).
-2. Creator prefix match (e.g. `openai`, `anthropic`, `google`, `deepseek`, `meta`, `z-ai`).
-3. Core version identifier matching (e.g. `sonnet-5`, `astra`, `gpt-5.6-sol`, `glm-5.3`, `v4.1-flash`).
+### Quality Scoring & Intelligence Weights
+To provide a developer-centric evaluation, Token-Max weights benchmark components with heavy emphasis on software engineering utility:
+$$\text{Weighted Score} = 0.50 \times \text{Coding Index} + 0.30 \times \text{Agentic Index} + 0.20 \times \text{Intelligence Index}$$
 
 ### Quality-Per-Dollar ("Value Score") Formula
-$$\text{Value Score} = \frac{\text{Coding Index}}{\text{Blended Cost (\$/M)}} \times 100$$
+$$\text{Value Score} = \frac{\text{Coding Index}}{\text{Blended Cost (\$/M)}} \times 10$$
 Models with high coding intelligence and low per-token cost score highest on the Value Score (e.g. DeepSeek V4.1 Flash, Gemini 3.8 Flash, GLM-5.3-Flash, Qwen 3.8 Max).
 
 ---
