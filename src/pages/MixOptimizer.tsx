@@ -88,7 +88,11 @@ export default function MixOptimizer() {
         const parsed: MixEntry[] = [];
         for (const p of parts) {
           const [id, tok] = p.split(':');
-          if (id && tok) parsed.push({ modelId: decodeURIComponent(id), tokensMillion: Number(tok) || 10 });
+          if (id && tok) {
+            const rawTok = Number(tok);
+            const safeTok = Number.isFinite(rawTok) ? Math.max(0.1, Math.min(100_000, rawTok)) : 10;
+            parsed.push({ modelId: decodeURIComponent(id), tokensMillion: safeTok });
+          }
         }
         if (parsed.length > 0) return parsed;
       } catch {
@@ -333,7 +337,7 @@ export default function MixOptimizer() {
                 min={1}
                 max={2000}
                 value={addTokens}
-                onChange={e => setAddTokens(Math.max(1, Number(e.target.value)))}
+                onChange={e => setAddTokens(Math.max(1, Math.min(100_000, Number(e.target.value) || 1)))}
                 className="w-20 text-xs bg-surface-alt border border-border rounded-xl px-2 py-2 text-text font-mono text-center"
                 placeholder="M tok"
               />

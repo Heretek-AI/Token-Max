@@ -123,4 +123,26 @@ describe('Agent Log Parser & Session Receipt Engine', () => {
     expect(cursor).toBeDefined();
     expect(cursor!.quotaConsumedPercentage).toBeCloseTo(7.6, 1); // 38/500 = 7.6%
   });
+
+  it('safely handles non-numeric and NaN tokens in logs without corrupting totals', () => {
+    const corruptedJson = JSON.stringify({
+      ui_messages: [
+        { role: 'user', tokensIn: 'invalid', cacheReads: null, tokensOut: undefined },
+        { role: 'assistant', tokensIn: 5000, cacheReads: 3000, tokensOut: 200 },
+      ],
+    });
+
+    const session = parseAgentLog(corruptedJson, 'corrupt.json');
+    expect(Number.isFinite(session.totalInputTokens)).toBe(true);
+    expect(Number.isFinite(session.totalCachedTokens)).toBe(true);
+    expect(Number.isFinite(session.totalOutputTokens)).toBe(true);
+    expect(session.totalInputTokens).toBe(5000);
+    expect(session.totalCachedTokens).toBe(3000);
+    expect(session.totalOutputTokens).toBe(200);
+  });
+
+  it('rejects payloads exceeding the 25MB safety limit', () => {
+    const hugeLog = 'x'.repeat(26 * 1024 * 1024);
+    expect(() => parseAgentLog(hugeLog, 'huge.json')).toThrow('25MB');
+  });
 });

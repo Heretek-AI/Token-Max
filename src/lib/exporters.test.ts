@@ -98,4 +98,18 @@ describe('BYOK Config Exporters', () => {
     const parsedContinue = JSON.parse(continueFile.content);
     expect(parsedContinue.models[0].apiBase).toBe('http://localhost:11434/v1');
   });
+
+  it('sanitizes newline and YAML delimiter injections in aider config', () => {
+    const maliciousConfig: AgentStackConfig = {
+      ...sampleConfig,
+      architectModelId: 'claude-3-5\n  malicious_key: evil_payload',
+      editorModelId: '# injected comment',
+      provider: 'custom',
+      customBaseUrl: 'http://localhost:8000\nfoo: bar',
+    };
+
+    const aider = generateAiderConfig(maliciousConfig);
+    expect(aider.content).not.toContain('\n  malicious_key: evil_payload');
+    expect(aider.content).not.toContain('\nfoo: bar');
+  });
 });

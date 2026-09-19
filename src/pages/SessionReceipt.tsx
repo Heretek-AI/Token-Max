@@ -37,8 +37,14 @@ export default function SessionReceipt() {
     return calculateSessionReceipt(activeSession, models);
   }, [activeSession, models]);
 
+  const MAX_FILE_SIZE_BYTES = 15 * 1024 * 1024; // 15MB limit
+
   const handleFileUpload = (file: File) => {
     setErrorMsg(null);
+    if (file.size > MAX_FILE_SIZE_BYTES) {
+      setErrorMsg(`File exceeds maximum size limit of 15MB (${(file.size / (1024 * 1024)).toFixed(1)}MB).`);
+      return;
+    }
     const reader = new FileReader();
     reader.onload = (e) => {
       try {

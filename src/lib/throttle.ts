@@ -87,13 +87,16 @@ export function simulateSprintThrottle(
   params: SprintSimulationParams
 ): SimulationResult {
   const { concurrency, sprintDurationHours, turnPace, priorMonthlyUsagePercent = 20 } = params;
-  const cadence = CADENCE_DEFINITIONS[turnPace];
+  const safePace = turnPace in CADENCE_DEFINITIONS ? turnPace : 'standard';
+  const cadence = CADENCE_DEFINITIONS[safePace];
+  const safeDuration = Number.isFinite(sprintDurationHours) && sprintDurationHours > 0 ? sprintDurationHours : 1;
+  const safeConcurrency = Number.isFinite(concurrency) && concurrency > 0 ? Math.round(concurrency) : 1;
 
-  const totalMinutes = Math.round(sprintDurationHours * 60);
   const stepMinutes = 5;
+  const totalMinutes = Math.max(stepMinutes, Math.round(safeDuration * 60));
   const turnsPerMinutePerAgent = 60 / cadence.secondsPerTurn;
   const turnsPerStepPerAgent = turnsPerMinutePerAgent * stepMinutes;
-  const turnsPerStep = turnsPerStepPerAgent * concurrency;
+  const turnsPerStep = turnsPerStepPerAgent * safeConcurrency;
 
   // Monthly fast request starting balance
   let remainingMonthlyFast = profile.monthlyFastRequests !== null
@@ -128,7 +131,7 @@ export function simulateSprintThrottle(
   ];
 
   // Immediate concurrency check: if parallel agents exceed the profile's max concurrency
-  const hasConcurrencyViolation = concurrency > profile.maxConcurrency;
+  const hasConcurrencyViolation = safeConcurrency > profile.maxConcurrency;
 
   for (let currentMinute = stepMinutes; currentMinute <= totalMinutes; currentMinute += stepMinutes) {
     const turnsAttempted = turnsPerStep;
@@ -140,13 +143,13 @@ export function simulateSprintThrottle(
       if (profile.exhaustionBehavior === 'hard-block') {
         stepStatus = 'blocked';
         if (!firstThrottleReason) {
-          firstThrottleReason = `Concurrency ceiling hit: ${concurrency} parallel agents exceed limit of ${profile.maxConcurrency}`;
+          firstThrottleReason = `Concurrency ceiling hit: ${safeConcurrency} parallel agents exceed limit of ${profile.maxConcurrency}`;
         }
       } else {
         stepStatus = 'queued';
-        stepDelay = profile.slowQueueDelaySec * (concurrency - profile.maxConcurrency);
+        stepDelay = profile.slowQueueDelaySec * (safeConcurrency - profile.maxConcurrency);
         if (!firstThrottleReason) {
-          firstThrottleReason = `Concurrency queued: ${concurrency} agents exceed limit of ${profile.maxConcurrency}, queuing excess requests`;
+          firstThrottleReason = `Concurrency queued: ${safeConcurrency} agents exceed limit of ${profile.maxConcurrency}, queuing excess requests`;
         }
       }
     }
@@ -246,7 +249,7 @@ export function simulateSprintThrottle(
   let headroomScore = 100;
   if (overallStatus === 'blocked') {
     // Score based on how far into the sprint we survived before hard block
-    headroomScore = Math.max(5, Math.round((survivalMinutes / totalMinutes) * 40));
+    headroomScore = totalMinutes > 0 ? Math.max(5, Math.round((survivalMinutes / totalMinutes) * 40)) : 5;
   } else if (overallStatus === 'queued') {
     // Survived, but experienced queue delays
     const slowFraction = slowTurnsCompleted / (fastTurnsCompleted + slowTurnsCompleted || 1);
@@ -254,9 +257,9 @@ export function simulateSprintThrottle(
   } else {
     // Fully smooth: deduct minor points if running close to concurrency or window capacity
     let capacityPressure = 0;
-    if (profile.rollingWindowTurns !== null && rollingWindowMinutes !== null) {
+    if (profile.rollingWindowTurns !== null && profile.rollingWindowTurns > 0 && rollingWindowMinutes !== null) {
       const peakWindowTurns = Math.max(...timeline.map((t) => t.rollingWindowTurns));
-      capacityPressure = peakWindowTurns / profile.rollingWindowTurns;
+      capacityPressure = Math.min(1, peakWindowTurns / profile.rollingWindowTurns);
     }
     headroomScore = Math.max(90, Math.round(100 - capacityPressure * 10));
   }

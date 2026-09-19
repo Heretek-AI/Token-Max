@@ -54,10 +54,18 @@ export const SAMPLE_AGENT_SESSION: ParsedAgentSession = {
   }),
 };
 
+function safeTokenNumber(val: any): number {
+  const n = Number(val);
+  return Number.isFinite(n) && n >= 0 ? n : 0;
+}
+
 /**
  * Parses raw text from an agent log file. Auto-detects format.
  */
 export function parseAgentLog(rawText: string, filename: string = 'transcript.jsonl'): ParsedAgentSession {
+  if (rawText.length > 25 * 1024 * 1024) {
+    throw new Error('Log content exceeds 25MB safety limit.');
+  }
   const trimmed = rawText.trim();
   if (!trimmed) {
     throw new Error('Log file is empty.');
@@ -97,9 +105,9 @@ function parseClineJson(data: any, filename: string): ParsedAgentSession {
   const turns: ParsedSessionTurn[] = [];
 
   messages.forEach((msg, idx) => {
-    const inTok = Number(msg.tokensIn || msg.inputTokens || (msg.usage && msg.usage.prompt_tokens) || 0);
-    const cachedTok = Number(msg.cacheReads || msg.cachedTokens || (msg.usage?.prompt_tokens_details?.cached_tokens) || 0);
-    const outTok = Number(msg.tokensOut || msg.outputTokens || (msg.usage && msg.usage.completion_tokens) || 0);
+    const inTok = safeTokenNumber(msg.tokensIn ?? msg.inputTokens ?? msg.usage?.prompt_tokens);
+    const cachedTok = safeTokenNumber(msg.cacheReads ?? msg.cachedTokens ?? msg.usage?.prompt_tokens_details?.cached_tokens);
+    const outTok = safeTokenNumber(msg.tokensOut ?? msg.outputTokens ?? msg.usage?.completion_tokens);
     const tools = Array.isArray(msg.tool_calls || msg.tools) ? (msg.tool_calls || msg.tools).length : 0;
 
     if (inTok > 0 || outTok > 0 || tools > 0) {
@@ -158,9 +166,9 @@ function parseJsonlSession(lines: string[], filename: string): ParsedAgentSessio
       toolInvocationsCount += tools;
 
       // Token tracking if explicitly recorded
-      let inTok = Number(obj.input_tokens || obj.tokens_in || (obj.usage && obj.usage.prompt_tokens) || 0);
-      let cachedTok = Number(obj.cached_tokens || obj.cache_reads || (obj.usage?.prompt_tokens_details?.cached_tokens) || 0);
-      let outTok = Number(obj.output_tokens || obj.tokens_out || (obj.usage && obj.usage.completion_tokens) || 0);
+      let inTok = safeTokenNumber(obj.input_tokens ?? obj.tokens_in ?? obj.usage?.prompt_tokens);
+      let cachedTok = safeTokenNumber(obj.cached_tokens ?? obj.cache_reads ?? obj.usage?.prompt_tokens_details?.cached_tokens);
+      let outTok = safeTokenNumber(obj.output_tokens ?? obj.tokens_out ?? obj.usage?.completion_tokens);
 
       // If token fields are omitted in raw transcript, derive empirical agent tokens
       if (inTok === 0 && outTok === 0) {
