@@ -10,6 +10,7 @@
     "fetch-benchmarks": "node scripts/fetch-benchmarks.mjs",
     "build-data": "node scripts/build-data.mjs",
     "update-data": "node scripts/fetch-models.mjs && node scripts/fetch-benchmarks.mjs && node scripts/build-data.mjs",
+    "validate-data": "node scripts/validate-data.mjs",
     "lint": "oxlint",
     "preview": "vite preview"
   },

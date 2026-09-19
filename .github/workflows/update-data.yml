@@ -30,6 +30,9 @@ jobs:
           AA_API_KEY: ${{ secrets.AA_API_KEY }}
         run: npm run update-data
 
+      - name: Validate data invariants
+        run: npm run validate-data
+
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"

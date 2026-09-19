@@ -17,9 +17,11 @@
         "Tabnine Protected"
       ],
       "estimatedTokenBudget": {
-        "description": "Uncapped volumes; token cost = LLM provider list price + 5% service fee",
-        "estimatedMillionTokens": 0,
-        "assumptions": "No fixed monthly token bundle; supply your own LLM for unlimited usage, or reserve token quota at actual provider rates"
+        "description": "Platform fee; ~19.5M fee-equivalent tokens",
+        "estimatedMillionTokens": 19.5,
+        "midpointEstimate": 39,
+        "optimisticEstimate": 78,
+        "assumptions": "Platform-fee plan: no token bundle included; Tabnine-provided LLM access is billed at provider list price + 5% handling fee, BYO LLM endpoint is unlimited. Figures are fee-equivalent at ~$2.00/M (conservative), ~$1.00/M (midpoint) and ~$0.50/M (optimistic) for cross-plan comparison only"
       },
       "notes": "Completions + grounded chat in IDEs; Jira integration; SOC 2/ISO 27001"
     },
@@ -35,9 +37,11 @@
         "Tabnine Protected"
       ],
       "estimatedTokenBudget": {
-        "description": "Uncapped; provider list price + 5% handling fee",
-        "estimatedMillionTokens": 0,
-        "assumptions": "No fixed token bundle; value is the platform, agents and context engine rather than quota"
+        "description": "Platform fee; ~29.5M fee-equivalent tokens",
+        "estimatedMillionTokens": 29.5,
+        "midpointEstimate": 59,
+        "optimisticEstimate": 118,
+        "assumptions": "Platform-fee plan: no token bundle included; same LLM economics as Code Assistant. Figures are fee-equivalent at ~$2.00/M / ~$1.00/M / ~$0.50/M for cross-plan comparison only"
       },
       "notes": "Adds autonomous agents, Coaching Guidelines, Jira/Confluence/database MCP access"
     },

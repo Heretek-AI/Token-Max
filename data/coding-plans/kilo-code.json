@@ -33,9 +33,11 @@
         "Kilo Gateway (500+ models)"
       ],
       "estimatedTokenBudget": {
-        "description": "Platform fee only; inference at provider list rates",
-        "estimatedMillionTokens": 0,
-        "assumptions": "Token cost = provider rates + 5% gateway fee (or BYOK, zero fee)"
+        "description": "Platform fee; ~15M fee-equivalent tokens at open-model rates",
+        "estimatedMillionTokens": 15,
+        "midpointEstimate": 30,
+        "optimisticEstimate": 45,
+        "assumptions": "Platform-fee plan: no token bundle included; inference billed separately at provider rates + 5% gateway fee (BYOK zero fee). Figures are the fee-equivalent value of $15 at ~$1.00/M (conservative) to ~$0.33/M (optimistic open-model gateway rates) for cross-plan comparison only"
       },
       "notes": "Security/governance features included"
     },

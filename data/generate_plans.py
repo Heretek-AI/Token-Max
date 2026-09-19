@@ -5,7 +5,8 @@ null = None
 false = False
 true = True
 
-target_dir = "/home/john/Projects/Token-Max/data/coding-plans"
+LAST_VERIFIED = "2026-09-18"
+target_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "coding-plans")
 os.makedirs(target_dir, exist_ok=True)
 
 
@@ -24,7 +25,7 @@ write_json(
         "name": "Cursor",
         "category": "coding-ide",
         "url": "https://cursor.com/docs/account/pricing",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Hobby",
@@ -142,7 +143,7 @@ write_json(
         "name": "GitHub Copilot",
         "category": "coding-ide",
         "url": "https://github.com/features/copilot/plans",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Free",
@@ -284,7 +285,7 @@ write_json(
         "name": "Claude Code",
         "category": "coding-ide",
         "url": "https://claude.com/pricing",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Pro",
@@ -365,7 +366,7 @@ write_json(
         "name": "OpenAI Codex (ChatGPT)",
         "category": "coding-ide",
         "url": "https://openai.com/chatgpt/pricing/",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Free",
@@ -457,7 +458,7 @@ write_json(
         "name": "Google Antigravity",
         "category": "coding-ide",
         "url": "https://antigravity.google/pricing",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Individual",
@@ -584,7 +585,7 @@ write_json(
         "name": "Meta Muse Code",
         "category": "coding-ide",
         "url": "https://developer.meta.com/ai/products/muse-code",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Everyday",
@@ -657,7 +658,7 @@ write_json(
         "name": "Kiro",
         "category": "coding-ide",
         "url": "https://kiro.dev/pricing/",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Free",
@@ -784,7 +785,7 @@ write_json(
         "name": "Kilo Code",
         "category": "coding-router",
         "url": "https://kilo.ai/pricing",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Individual",
@@ -810,9 +811,11 @@ write_json(
                 },
                 "models": ["Kilo Gateway (500+ models)"],
                 "estimatedTokenBudget": {
-                    "description": "Platform fee only; inference at provider list rates",
-                    "estimatedMillionTokens": 0,
-                    "assumptions": "Token cost = provider rates + 5% gateway fee (or BYOK, zero fee)",
+                    "description": "Platform fee; ~15M fee-equivalent tokens at open-model rates",
+                    "estimatedMillionTokens": 15,
+                    "midpointEstimate": 30,
+                    "optimisticEstimate": 45,
+                    "assumptions": "Platform-fee plan: no token bundle included; inference billed separately at provider rates + 5% gateway fee (BYOK zero fee). Figures are the fee-equivalent value of $15 at ~$1.00/M (conservative) to ~$0.33/M (optimistic open-model gateway rates) for cross-plan comparison only",
                 },
                 "notes": "Security/governance features included",
             },
@@ -849,7 +852,7 @@ write_json(
         "name": "Lovable",
         "category": "coding-ide",
         "url": "https://lovable.dev/pricing",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Free",
@@ -921,7 +924,7 @@ write_json(
         "name": "Kimi Code",
         "category": "coding-router",
         "url": "https://www.kimi.com/coding-plan/",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Moderato",
@@ -1004,7 +1007,7 @@ write_json(
         "name": "Windsurf (Cognition)",
         "category": "coding-ide",
         "url": "https://windsurf.com/pricing",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Free",
@@ -1111,7 +1114,7 @@ write_json(
         "name": "Augment Code",
         "category": "coding-ide",
         "url": "https://www.augmentcode.com/pricing",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Standard",
@@ -1180,7 +1183,7 @@ write_json(
         "name": "Replit",
         "category": "coding-ide",
         "url": "https://replit.com/pricing",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Core",
@@ -1249,7 +1252,7 @@ write_json(
         "name": "Amazon Q Developer",
         "category": "coding-ide",
         "url": "https://aws.amazon.com/q/developer/pricing/",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Free Tier",
@@ -1303,7 +1306,7 @@ write_json(
         "name": "Tabnine",
         "category": "coding-ide",
         "url": "https://www.tabnine.com/pricing/",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Code Assistant",
@@ -1315,9 +1318,11 @@ write_json(
                 },
                 "models": ["Tabnine Protected"],
                 "estimatedTokenBudget": {
-                    "description": "Uncapped volumes; token cost = LLM provider list price + 5% service fee",
-                    "estimatedMillionTokens": 0,
-                    "assumptions": "No fixed monthly token bundle; supply your own LLM for unlimited usage, or reserve token quota at actual provider rates",
+                    "description": "Platform fee; ~19.5M fee-equivalent tokens",
+                    "estimatedMillionTokens": 19.5,
+                    "midpointEstimate": 39,
+                    "optimisticEstimate": 78,
+                    "assumptions": "Platform-fee plan: no token bundle included; Tabnine-provided LLM access is billed at provider list price + 5% handling fee, BYO LLM endpoint is unlimited. Figures are fee-equivalent at ~$2.00/M (conservative), ~$1.00/M (midpoint) and ~$0.50/M (optimistic) for cross-plan comparison only",
                 },
                 "notes": "Completions + grounded chat in IDEs; Jira integration; SOC 2/ISO 27001",
             },
@@ -1331,9 +1336,11 @@ write_json(
                 },
                 "models": ["Tabnine Protected"],
                 "estimatedTokenBudget": {
-                    "description": "Uncapped; provider list price + 5% handling fee",
-                    "estimatedMillionTokens": 0,
-                    "assumptions": "No fixed token bundle; value is the platform, agents and context engine rather than quota",
+                    "description": "Platform fee; ~29.5M fee-equivalent tokens",
+                    "estimatedMillionTokens": 29.5,
+                    "midpointEstimate": 59,
+                    "optimisticEstimate": 118,
+                    "assumptions": "Platform-fee plan: no token bundle included; same LLM economics as Code Assistant. Figures are fee-equivalent at ~$2.00/M / ~$1.00/M / ~$0.50/M for cross-plan comparison only",
                 },
                 "notes": "Adds autonomous agents, Coaching Guidelines, Jira/Confluence/database MCP access",
             },
@@ -1375,7 +1382,7 @@ write_json(
         "name": "Aider",
         "category": "coding-ide",
         "url": "https://aider.chat",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Free / BYOK",
@@ -1421,7 +1428,7 @@ write_json(
         "name": "CommandCode",
         "category": "coding-router",
         "url": "https://commandcode.ai/pricing",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Go",
@@ -1530,7 +1537,7 @@ write_json(
         "name": "OpenCode",
         "category": "coding-router",
         "url": "https://opencode.ai/zen",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "OpenSource CLI",
@@ -1565,9 +1572,11 @@ write_json(
                     "Free stealth models",
                 ],
                 "estimatedTokenBudget": {
-                    "description": "Per-token billing at curated gateway rates; min $20",
-                    "estimatedMillionTokens": 0,
-                    "assumptions": "Balance-based; cost equals published per-model rates",
+                    "description": "Prepaid balance (~10M fee-equivalent tokens)",
+                    "estimatedMillionTokens": 10,
+                    "midpointEstimate": 20,
+                    "optimisticEstimate": 40,
+                    "assumptions": "$20 minimum balance at zero markup buys $20 of inference at curated gateway rates; conservative 10M at ~$2.00/M frontier blend, midpoint 20M at ~$1.00/M, optimistic 40M at ~$0.50/M open-model rates; excludes the $1.23 card fee",
                 },
                 "notes": "US-hosted, zero retention",
             },
@@ -1612,7 +1621,7 @@ write_json(
         "name": "OpenRouter",
         "category": "coding-router",
         "url": "https://openrouter.ai",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Free",
@@ -1668,7 +1677,7 @@ write_json(
         "name": "BytePlus ModelArk Coding Plan",
         "category": "api-provider",
         "url": "https://www.byteplus.com/en/activity/arkcodingplan",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Lite",
@@ -1734,7 +1743,7 @@ write_json(
         "name": "Alibaba Cloud",
         "category": "api-provider",
         "url": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Personal Lite",
@@ -1849,7 +1858,7 @@ write_json(
         "name": "MiniMax Token Plan",
         "category": "api-provider",
         "url": "https://platform.minimax.io/docs/guides/pricing-token-plan",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Plus",
@@ -1932,7 +1941,7 @@ write_json(
         "name": "OpenAI API",
         "category": "api-provider",
         "url": "https://platform.openai.com",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "PAYG",
@@ -1981,7 +1990,7 @@ write_json(
         "name": "Anthropic API",
         "category": "api-provider",
         "url": "https://console.anthropic.com",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "PAYG",
@@ -2030,7 +2039,7 @@ write_json(
         "name": "Google AI Studio",
         "category": "api-provider",
         "url": "https://aistudio.google.com",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Free",
@@ -2119,7 +2128,7 @@ write_json(
         "name": "DeepSeek API",
         "category": "api-provider",
         "url": "https://platform.deepseek.com",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "PAYG (Flash)",
@@ -2174,7 +2183,7 @@ write_json(
         "name": "Groq API",
         "category": "api-provider",
         "url": "https://console.groq.com",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Free",
@@ -2228,7 +2237,7 @@ write_json(
         "name": "Mistral API",
         "category": "api-provider",
         "url": "https://mistral.ai/pricing",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Free (Le Plan Studio)",
@@ -2289,7 +2298,7 @@ write_json(
         "name": "Together.ai",
         "category": "api-provider",
         "url": "https://together.ai",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Free",
@@ -2345,7 +2354,7 @@ write_json(
         "name": "Fireworks.ai",
         "category": "api-provider",
         "url": "https://fireworks.ai",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Free",
@@ -2398,7 +2407,7 @@ write_json(
         "name": "Meta Llama API",
         "category": "api-provider",
         "url": "https://meta.com",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Standard",
@@ -2454,7 +2463,7 @@ write_json(
         "name": "Ollama Cloud",
         "category": "api-provider",
         "url": "https://ollama.com",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Free",
@@ -2544,7 +2553,7 @@ write_json(
         "name": "Z.ai GLM Coding Plan",
         "category": "api-provider",
         "url": "https://z.ai/subscribe",
-        "lastVerified": "2026-09-18",
+        "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "Lite",

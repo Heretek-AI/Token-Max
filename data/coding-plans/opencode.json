@@ -40,9 +40,11 @@
         "Free stealth models"
       ],
       "estimatedTokenBudget": {
-        "description": "Per-token billing at curated gateway rates; min $20",
-        "estimatedMillionTokens": 0,
-        "assumptions": "Balance-based; cost equals published per-model rates"
+        "description": "Prepaid balance (~10M fee-equivalent tokens)",
+        "estimatedMillionTokens": 10,
+        "midpointEstimate": 20,
+        "optimisticEstimate": 40,
+        "assumptions": "$20 minimum balance at zero markup buys $20 of inference at curated gateway rates; conservative 10M at ~$2.00/M frontier blend, midpoint 20M at ~$1.00/M, optimistic 40M at ~$0.50/M open-model rates; excludes the $1.23 card fee"
       },
       "notes": "US-hosted, zero retention"
     },

@@ -30,6 +30,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Lint
+        run: npm run lint
+
+      - name: Validate data invariants
+        run: npm run validate-data
+
       - name: Build site
         run: npm run build
 

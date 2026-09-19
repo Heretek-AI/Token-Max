@@ -1283,9 +1283,11 @@
           "Kilo Gateway (500+ models)"
         ],
         "estimatedTokenBudget": {
-          "description": "Platform fee only; inference at provider list rates",
-          "estimatedMillionTokens": 0,
-          "assumptions": "Token cost = provider rates + 5% gateway fee (or BYOK, zero fee)"
+          "description": "Platform fee; ~15M fee-equivalent tokens at open-model rates",
+          "estimatedMillionTokens": 15,
+          "midpointEstimate": 30,
+          "optimisticEstimate": 45,
+          "assumptions": "Platform-fee plan: no token bundle included; inference billed separately at provider rates + 5% gateway fee (BYOK zero fee). Figures are the fee-equivalent value of $15 at ~$1.00/M (conservative) to ~$0.33/M (optimistic open-model gateway rates) for cross-plan comparison only"
         },
         "notes": "Security/governance features included"
       },
@@ -2177,9 +2179,11 @@
           "Free stealth models"
         ],
         "estimatedTokenBudget": {
-          "description": "Per-token billing at curated gateway rates; min $20",
-          "estimatedMillionTokens": 0,
-          "assumptions": "Balance-based; cost equals published per-model rates"
+          "description": "Prepaid balance (~10M fee-equivalent tokens)",
+          "estimatedMillionTokens": 10,
+          "midpointEstimate": 20,
+          "optimisticEstimate": 40,
+          "assumptions": "$20 minimum balance at zero markup buys $20 of inference at curated gateway rates; conservative 10M at ~$2.00/M frontier blend, midpoint 20M at ~$1.00/M, optimistic 40M at ~$0.50/M open-model rates; excludes the $1.23 card fee"
         },
         "notes": "US-hosted, zero retention"
       },
@@ -2359,9 +2363,11 @@
           "Tabnine Protected"
         ],
         "estimatedTokenBudget": {
-          "description": "Uncapped volumes; token cost = LLM provider list price + 5% service fee",
-          "estimatedMillionTokens": 0,
-          "assumptions": "No fixed monthly token bundle; supply your own LLM for unlimited usage, or reserve token quota at actual provider rates"
+          "description": "Platform fee; ~19.5M fee-equivalent tokens",
+          "estimatedMillionTokens": 19.5,
+          "midpointEstimate": 39,
+          "optimisticEstimate": 78,
+          "assumptions": "Platform-fee plan: no token bundle included; Tabnine-provided LLM access is billed at provider list price + 5% handling fee, BYO LLM endpoint is unlimited. Figures are fee-equivalent at ~$2.00/M (conservative), ~$1.00/M (midpoint) and ~$0.50/M (optimistic) for cross-plan comparison only"
         },
         "notes": "Completions + grounded chat in IDEs; Jira integration; SOC 2/ISO 27001"
       },
@@ -2377,9 +2383,11 @@
           "Tabnine Protected"
         ],
         "estimatedTokenBudget": {
-          "description": "Uncapped; provider list price + 5% handling fee",
-          "estimatedMillionTokens": 0,
-          "assumptions": "No fixed token bundle; value is the platform, agents and context engine rather than quota"
+          "description": "Platform fee; ~29.5M fee-equivalent tokens",
+          "estimatedMillionTokens": 29.5,
+          "midpointEstimate": 59,
+          "optimisticEstimate": 118,
+          "assumptions": "Platform-fee plan: no token bundle included; same LLM economics as Code Assistant. Figures are fee-equivalent at ~$2.00/M / ~$1.00/M / ~$0.50/M for cross-plan comparison only"
         },
         "notes": "Adds autonomous agents, Coaching Guidelines, Jira/Confluence/database MCP access"
       },
