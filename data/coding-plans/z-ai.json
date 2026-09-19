@@ -25,6 +25,8 @@
       "estimatedTokenBudget": {
         "description": "10K weekly credits (~48M–97M GLM-5.3 or ~146M–292M Flash/wk)",
         "estimatedMillionTokens": 300,
+        "midpointEstimate": 400,
+        "optimisticEstimate": 600,
         "assumptions": "48M–97M tokens/week at 95% cache hit rate * 4 weeks (~200M–600M tokens/mo depending on off-peak usage)"
       },
       "notes": "Entry tier for individual developers. Up to 92% savings vs pay-as-you-go"
@@ -49,6 +51,8 @@
       "estimatedTokenBudget": {
         "description": "60K weekly credits (~290M–580M GLM-5.3 or ~877M–1.7B Flash/wk)",
         "estimatedMillionTokens": 1500,
+        "midpointEstimate": 2100,
+        "optimisticEstimate": 3000,
         "assumptions": "290M–580M tokens/week at 95% cache hit rate * 4 weeks (~1.2B–3B tokens/mo)"
       },
       "notes": "5x Lite usage capacity for full-time engineers and agent loops"
@@ -73,6 +77,8 @@
       "estimatedTokenBudget": {
         "description": "140K weekly credits (~676M–1.35B GLM-5.3 or ~2B–4B Flash/wk)",
         "estimatedMillionTokens": 4000,
+        "midpointEstimate": 5500,
+        "optimisticEstimate": 8000,
         "assumptions": "676M–1.35B tokens/week at 95% cache hit rate * 4 weeks (~3B–8B tokens/mo)"
       },
       "notes": "20x Lite usage capacity for power developers and heavy autonomous agents"
@@ -95,7 +101,9 @@
       "estimatedTokenBudget": {
         "description": "66K weekly credits/seat (~319M–638M GLM-5.3 tokens/wk/seat)",
         "estimatedMillionTokens": 1600,
-        "assumptions": "319M–638M tokens/week * 4 weeks per seat"
+        "midpointEstimate": 1920,
+        "optimisticEstimate": 2552,
+        "assumptions": "319M–638M tokens/week * 4 weeks per seat (~1.3B–2.6B tokens/mo/seat)"
       },
       "notes": "Enterprise team workspace with Zero Data Retention and seat controls"
     }

@@ -78,7 +78,16 @@
                 "type": "string"
               },
               "estimatedMillionTokens": {
-                "type": "number"
+                "type": "number",
+                "description": "Conservative (floor) estimate of monthly million tokens"
+              },
+              "midpointEstimate": {
+                "type": "number",
+                "description": "Midpoint of the documented monthly token range (millions)"
+              },
+              "optimisticEstimate": {
+                "type": "number",
+                "description": "Optimistic (ceiling) estimate of monthly token range (millions)"
               },
               "assumptions": {
                 "type": "string"

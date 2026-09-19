@@ -123,6 +123,8 @@ export interface PlanTier {
   estimatedTokenBudget: {
     description?: string;
     estimatedMillionTokens: number;
+    midpointEstimate?: number;
+    optimisticEstimate?: number;
     assumptions: string;
   } | null;
   notes?: string;
