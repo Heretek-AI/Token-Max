@@ -539,10 +539,10 @@
     "blendedCost": 20,
     "costPer1kRequests": 70,
     "benchmarks": {
-      "intelligenceIndex": 52.5,
-      "codingIndex": 75.9,
-      "agenticIndex": 50.6,
-      "valueScore": 38
+      "intelligenceIndex": 52.8,
+      "codingIndex": 76.9,
+      "agenticIndex": 51.5,
+      "valueScore": 38.5
     },
     "reasoning": null,
     "isFree": false,
@@ -771,10 +771,10 @@
     "blendedCost": 1.5,
     "costPer1kRequests": 5.25,
     "benchmarks": {
-      "intelligenceIndex": 40,
-      "codingIndex": 74.1,
-      "agenticIndex": 40.5,
-      "valueScore": 494
+      "intelligenceIndex": 41.2,
+      "codingIndex": 76.3,
+      "agenticIndex": 41.1,
+      "valueScore": 508.7
     },
     "reasoning": null,
     "isFree": false,
@@ -829,10 +829,10 @@
     "blendedCost": 20,
     "costPer1kRequests": 70,
     "benchmarks": {
-      "intelligenceIndex": 47,
-      "codingIndex": 75.2,
-      "agenticIndex": 47.8,
-      "valueScore": 37.6
+      "intelligenceIndex": 53.4,
+      "codingIndex": 81.6,
+      "agenticIndex": 58,
+      "valueScore": 40.8
     },
     "reasoning": null,
     "isFree": false,
@@ -1322,10 +1322,10 @@
     "blendedCost": 1.3975,
     "costPer1kRequests": 4.68,
     "benchmarks": {
-      "intelligenceIndex": 41.9,
-      "codingIndex": 71.5,
-      "agenticIndex": 51.2,
-      "valueScore": 511.6
+      "intelligenceIndex": 44.9,
+      "codingIndex": 74.8,
+      "agenticIndex": 53.4,
+      "valueScore": 535.2
     },
     "reasoning": null,
     "isFree": false,
@@ -1380,10 +1380,10 @@
     "blendedCost": 0.798,
     "costPer1kRequests": 2.978,
     "benchmarks": {
-      "intelligenceIndex": 22.4,
-      "codingIndex": 44.6,
-      "agenticIndex": 23.9,
-      "valueScore": 558.9
+      "intelligenceIndex": 33.9,
+      "codingIndex": 68.1,
+      "agenticIndex": 46.5,
+      "valueScore": 853.4
     },
     "reasoning": null,
     "isFree": false,
@@ -1699,10 +1699,10 @@
     "blendedCost": 3,
     "costPer1kRequests": 10,
     "benchmarks": {
-      "intelligenceIndex": 43,
-      "codingIndex": 74.4,
-      "agenticIndex": 51.2,
-      "valueScore": 248
+      "intelligenceIndex": 44.4,
+      "codingIndex": 76.8,
+      "agenticIndex": 53.4,
+      "valueScore": 256
     },
     "reasoning": null,
     "isFree": false,
@@ -2076,10 +2076,10 @@
     "blendedCost": 0.6375,
     "costPer1kRequests": 2.1,
     "benchmarks": {
-      "intelligenceIndex": 25.5,
-      "codingIndex": 52.1,
-      "agenticIndex": 24.3,
-      "valueScore": 817.3
+      "intelligenceIndex": 26.1,
+      "codingIndex": 52.9,
+      "agenticIndex": 25,
+      "valueScore": 829.8
     },
     "reasoning": null,
     "isFree": false,
@@ -2163,10 +2163,10 @@
     "blendedCost": 10,
     "costPer1kRequests": 35,
     "benchmarks": {
-      "intelligenceIndex": 49.7,
-      "codingIndex": 77,
-      "agenticIndex": 55.5,
-      "valueScore": 77
+      "intelligenceIndex": 50.7,
+      "codingIndex": 78,
+      "agenticIndex": 56.2,
+      "valueScore": 78
     },
     "reasoning": null,
     "isFree": false,
@@ -2221,10 +2221,10 @@
     "blendedCost": 0.0315,
     "costPer1kRequests": 0.10500000000000001,
     "benchmarks": {
-      "intelligenceIndex": 25,
-      "codingIndex": 57,
-      "agenticIndex": 30,
-      "valueScore": 18095.2
+      "intelligenceIndex": 20.6,
+      "codingIndex": 50.6,
+      "agenticIndex": 21,
+      "valueScore": 16063.5
     },
     "reasoning": null,
     "isFree": false,
@@ -2366,15 +2366,15 @@
     "blendedCost": 0.85,
     "costPer1kRequests": 3.1,
     "benchmarks": {
-      "intelligenceIndex": 33,
-      "codingIndex": 70.1,
-      "agenticIndex": 27.3,
-      "valueScore": 824.7
+      "intelligenceIndex": 22.7,
+      "codingIndex": 49.3,
+      "agenticIndex": 15.9,
+      "valueScore": 580
     },
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
-    "tierClass": "frontier",
+    "tierClass": "balanced",
     "agentBlendedCost": 0.244
   },
   {
@@ -2569,10 +2569,10 @@
     "blendedCost": 4.1925,
     "costPer1kRequests": 14.82,
     "benchmarks": {
-      "intelligenceIndex": 30.5,
-      "codingIndex": 72,
-      "agenticIndex": 30.7,
-      "valueScore": 171.7
+      "intelligenceIndex": 43.8,
+      "codingIndex": 76.2,
+      "agenticIndex": 50.6,
+      "valueScore": 181.8
     },
     "reasoning": null,
     "isFree": false,
@@ -2743,15 +2743,15 @@
     "blendedCost": 0.44999999999999996,
     "costPer1kRequests": 1.5999999999999999,
     "benchmarks": {
-      "intelligenceIndex": 21.5,
-      "codingIndex": 44.2,
-      "agenticIndex": 17.9,
-      "valueScore": 982.2
+      "intelligenceIndex": 37.5,
+      "codingIndex": 71.4,
+      "agenticIndex": 42.7,
+      "valueScore": 1586.7
     },
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
-    "tierClass": "balanced",
+    "tierClass": "frontier",
     "agentBlendedCost": 0.1762
   },
   {
@@ -2859,15 +2859,15 @@
     "blendedCost": 4.5,
     "costPer1kRequests": 16,
     "benchmarks": {
-      "intelligenceIndex": 30.4,
-      "codingIndex": 64.7,
-      "agenticIndex": 31.4,
-      "valueScore": 143.8
+      "intelligenceIndex": 42.3,
+      "codingIndex": 76.7,
+      "agenticIndex": 43.7,
+      "valueScore": 170.4
     },
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
-    "tierClass": "balanced",
+    "tierClass": "frontier",
     "agentBlendedCost": 1.7619
   },
   {
@@ -2975,15 +2975,15 @@
     "blendedCost": 4,
     "costPer1kRequests": 14,
     "benchmarks": {
-      "intelligenceIndex": 33.8,
-      "codingIndex": 69.7,
-      "agenticIndex": 32.6,
-      "valueScore": 174.3
+      "intelligenceIndex": 47.1,
+      "codingIndex": 77.4,
+      "agenticIndex": 50.5,
+      "valueScore": 193.5
     },
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
-    "tierClass": "balanced",
+    "tierClass": "frontier",
     "agentBlendedCost": 1.6667
   },
   {
@@ -3033,7 +3033,7 @@
     "blendedCost": 3,
     "costPer1kRequests": 10,
     "benchmarks": {
-      "intelligenceIndex": 22.5,
+      "intelligenceIndex": 39.1,
       "codingIndex": 72.4,
       "agenticIndex": 42.1,
       "valueScore": 241.3
@@ -3149,10 +3149,10 @@
     "blendedCost": 0.23099999999999996,
     "costPer1kRequests": 0.7919999999999999,
     "benchmarks": {
-      "intelligenceIndex": 22.7,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 25.8,
+      "codingIndex": 58.8,
+      "agenticIndex": 25.6,
+      "valueScore": 2545.5
     },
     "reasoning": null,
     "isFree": false,
@@ -3236,7 +3236,7 @@
     "blendedCost": 4,
     "costPer1kRequests": 14,
     "benchmarks": {
-      "intelligenceIndex": 24.7,
+      "intelligenceIndex": 38.4,
       "codingIndex": 71.5,
       "agenticIndex": 44.3,
       "valueScore": 178.8
@@ -3439,7 +3439,7 @@
     "blendedCost": 0.8513999999999999,
     "costPer1kRequests": 2.8512,
     "benchmarks": {
-      "intelligenceIndex": 27.9,
+      "intelligenceIndex": 34,
       "codingIndex": 68.8,
       "agenticIndex": 39.4,
       "valueScore": 808.1
@@ -3555,7 +3555,7 @@
     "blendedCost": 1.33215,
     "costPer1kRequests": 4.622400000000001,
     "benchmarks": {
-      "intelligenceIndex": 12.7,
+      "intelligenceIndex": 26.3,
       "codingIndex": 60.8,
       "agenticIndex": 22.5,
       "valueScore": 456.4
@@ -3613,10 +3613,10 @@
     "blendedCost": 20,
     "costPer1kRequests": 70,
     "benchmarks": {
-      "intelligenceIndex": 47,
-      "codingIndex": 75.2,
-      "agenticIndex": 47.8,
-      "valueScore": 37.6
+      "intelligenceIndex": 49.7,
+      "codingIndex": 76.5,
+      "agenticIndex": 51,
+      "valueScore": 38.3
     },
     "reasoning": null,
     "isFree": false,
@@ -4193,7 +4193,7 @@
     "blendedCost": 1.5625,
     "costPer1kRequests": 5,
     "benchmarks": {
-      "intelligenceIndex": 24.8,
+      "intelligenceIndex": 25.4,
       "codingIndex": 42.2,
       "agenticIndex": 17.2,
       "valueScore": 270.1
@@ -4251,7 +4251,7 @@
     "blendedCost": 3,
     "costPer1kRequests": 10.5,
     "benchmarks": {
-      "intelligenceIndex": 5.5,
+      "intelligenceIndex": 14.9,
       "codingIndex": 46.9,
       "agenticIndex": 9.4,
       "valueScore": 156.3
@@ -4570,10 +4570,10 @@
     "blendedCost": 0.3,
     "costPer1kRequests": 1.0999999999999999,
     "benchmarks": {
-      "intelligenceIndex": 15.2,
-      "codingIndex": 28.1,
+      "intelligenceIndex": 18.8,
+      "codingIndex": 41.9,
       "agenticIndex": 15,
-      "valueScore": 936.7
+      "valueScore": 1396.7
     },
     "reasoning": null,
     "isFree": false,
@@ -4628,10 +4628,10 @@
     "blendedCost": 0.725,
     "costPer1kRequests": 2.6,
     "benchmarks": {
-      "intelligenceIndex": 19.8,
-      "codingIndex": 46.6,
+      "intelligenceIndex": 21.9,
+      "codingIndex": 53.7,
       "agenticIndex": 20.1,
-      "valueScore": 642.8
+      "valueScore": 740.7
     },
     "reasoning": null,
     "isFree": false,
@@ -4773,10 +4773,10 @@
     "blendedCost": 0.8447699999999999,
     "costPer1kRequests": 2.703264,
     "benchmarks": {
-      "intelligenceIndex": 30.1,
-      "codingIndex": 58.7,
-      "agenticIndex": 27.7,
-      "valueScore": 694.9
+      "intelligenceIndex": 36.3,
+      "codingIndex": 68.8,
+      "agenticIndex": 42.3,
+      "valueScore": 814.4
     },
     "reasoning": null,
     "isFree": false,
@@ -4802,10 +4802,10 @@
     "blendedCost": 0.06055000000000001,
     "costPer1kRequests": 0.19376000000000002,
     "benchmarks": {
-      "intelligenceIndex": 35,
-      "codingIndex": 65,
-      "agenticIndex": 48.1,
-      "valueScore": 10734.9
+      "intelligenceIndex": 34.5,
+      "codingIndex": 69.1,
+      "agenticIndex": 41.7,
+      "valueScore": 11412.1
     },
     "reasoning": null,
     "isFree": false,
@@ -5034,7 +5034,7 @@
     "blendedCost": 10,
     "costPer1kRequests": 35,
     "benchmarks": {
-      "intelligenceIndex": 30.9,
+      "intelligenceIndex": 40.7,
       "codingIndex": 73.6,
       "agenticIndex": 39.5,
       "valueScore": 73.6
@@ -5092,7 +5092,7 @@
     "blendedCost": 1.4834999999999998,
     "costPer1kRequests": 4.967999999999999,
     "benchmarks": {
-      "intelligenceIndex": 27.9,
+      "intelligenceIndex": 26.4,
       "codingIndex": 55.8,
       "agenticIndex": 25.2,
       "valueScore": 376.1
@@ -5353,7 +5353,7 @@
     "blendedCost": 1.5625,
     "costPer1kRequests": 5,
     "benchmarks": {
-      "intelligenceIndex": 25.2,
+      "intelligenceIndex": 25.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -5527,10 +5527,10 @@
     "blendedCost": 0.4625,
     "costPer1kRequests": 1.65,
     "benchmarks": {
-      "intelligenceIndex": 23,
-      "codingIndex": 37.8,
+      "intelligenceIndex": 21.2,
+      "codingIndex": 56.1,
       "agenticIndex": 17.7,
-      "valueScore": 817.3
+      "valueScore": 1213
     },
     "reasoning": null,
     "isFree": false,
@@ -5585,7 +5585,7 @@
     "blendedCost": 1.6875,
     "costPer1kRequests": 6,
     "benchmarks": {
-      "intelligenceIndex": 19.7,
+      "intelligenceIndex": 24.6,
       "codingIndex": 56.1,
       "agenticIndex": 19.7,
       "valueScore": 332.4
@@ -5817,10 +5817,10 @@
     "blendedCost": 0.11249999999999999,
     "costPer1kRequests": 0.3499999999999999,
     "benchmarks": {
-      "intelligenceIndex": 13.3,
-      "codingIndex": 23.5,
+      "intelligenceIndex": 13.7,
+      "codingIndex": 28.7,
       "agenticIndex": null,
-      "valueScore": 2088.9
+      "valueScore": 2551.1
     },
     "reasoning": null,
     "isFree": false,
@@ -5933,7 +5933,7 @@
     "blendedCost": 5.625,
     "costPer1kRequests": 20,
     "benchmarks": {
-      "intelligenceIndex": 19.7,
+      "intelligenceIndex": 39,
       "codingIndex": 71.1,
       "agenticIndex": null,
       "valueScore": 126.4
@@ -6165,10 +6165,10 @@
     "blendedCost": 0.7150000000000001,
     "costPer1kRequests": 2.6,
     "benchmarks": {
-      "intelligenceIndex": 17.7,
-      "codingIndex": 43.3,
+      "intelligenceIndex": 16.2,
+      "codingIndex": 45.7,
       "agenticIndex": 9.6,
-      "valueScore": 605.6
+      "valueScore": 639.2
     },
     "reasoning": null,
     "isFree": false,
@@ -6252,7 +6252,7 @@
     "blendedCost": 4.8125,
     "costPer1kRequests": 17.5,
     "benchmarks": {
-      "intelligenceIndex": 23,
+      "intelligenceIndex": 32.5,
       "codingIndex": 37.8,
       "agenticIndex": null,
       "valueScore": 78.5
@@ -6513,7 +6513,7 @@
     "blendedCost": 0.9299999999999999,
     "costPer1kRequests": 3.1199999999999997,
     "benchmarks": {
-      "intelligenceIndex": 26.6,
+      "intelligenceIndex": 27.9,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -6542,7 +6542,7 @@
     "blendedCost": 1.56,
     "costPer1kRequests": 5.46,
     "benchmarks": {
-      "intelligenceIndex": 15.6,
+      "intelligenceIndex": 21.3,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -6716,7 +6716,7 @@
     "blendedCost": 0.8999999999999999,
     "costPer1kRequests": 3.15,
     "benchmarks": {
-      "intelligenceIndex": 12.7,
+      "intelligenceIndex": 23.5,
       "codingIndex": 46.8,
       "agenticIndex": null,
       "valueScore": 520
@@ -6745,7 +6745,7 @@
     "blendedCost": 0.26249999999999996,
     "costPer1kRequests": 0.9,
     "benchmarks": {
-      "intelligenceIndex": 20.2,
+      "intelligenceIndex": 7.8,
       "codingIndex": 16.2,
       "agenticIndex": 1.4,
       "valueScore": 617.1
@@ -7035,7 +7035,7 @@
     "blendedCost": 0.7375,
     "costPer1kRequests": 2.5500000000000003,
     "benchmarks": {
-      "intelligenceIndex": 14.9,
+      "intelligenceIndex": 22.2,
       "codingIndex": 45.3,
       "agenticIndex": null,
       "valueScore": 614.2
@@ -7238,7 +7238,7 @@
     "blendedCost": 4.8125,
     "costPer1kRequests": 17.5,
     "benchmarks": {
-      "intelligenceIndex": 28.5,
+      "intelligenceIndex": 30.4,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -7615,7 +7615,7 @@
     "blendedCost": 0.30174999999999996,
     "costPer1kRequests": 0.938,
     "benchmarks": {
-      "intelligenceIndex": 13.9,
+      "intelligenceIndex": 16,
       "codingIndex": 44.2,
       "agenticIndex": null,
       "valueScore": 1464.8
@@ -7644,7 +7644,7 @@
     "blendedCost": 10,
     "costPer1kRequests": 35,
     "benchmarks": {
-      "intelligenceIndex": 29.1,
+      "intelligenceIndex": 23.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -7731,7 +7731,7 @@
     "blendedCost": 3.4375,
     "costPer1kRequests": 12.5,
     "benchmarks": {
-      "intelligenceIndex": 23.7,
+      "intelligenceIndex": 24.7,
       "codingIndex": 49.4,
       "agenticIndex": null,
       "valueScore": 143.7
@@ -7818,7 +7818,7 @@
     "blendedCost": 0.6875,
     "costPer1kRequests": 2.5,
     "benchmarks": {
-      "intelligenceIndex": 23.7,
+      "intelligenceIndex": 20.4,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -7847,7 +7847,7 @@
     "blendedCost": 1.075,
     "costPer1kRequests": 3.7,
     "benchmarks": {
-      "intelligenceIndex": 12.7,
+      "intelligenceIndex": 22,
       "codingIndex": 21,
       "agenticIndex": null,
       "valueScore": 195.3
@@ -7992,7 +7992,7 @@
     "blendedCost": 0.44625000000000004,
     "costPer1kRequests": 1.53,
     "benchmarks": {
-      "intelligenceIndex": 22.8,
+      "intelligenceIndex": 18.6,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -8398,7 +8398,7 @@
     "blendedCost": 0.76,
     "costPer1kRequests": 2.61,
     "benchmarks": {
-      "intelligenceIndex": 8.4,
+      "intelligenceIndex": 14.9,
       "codingIndex": 45.8,
       "agenticIndex": null,
       "valueScore": 602.6
@@ -8630,7 +8630,7 @@
     "blendedCost": 1.56,
     "costPer1kRequests": 5.46,
     "benchmarks": {
-      "intelligenceIndex": 12.6,
+      "intelligenceIndex": 15.6,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -8688,7 +8688,7 @@
     "blendedCost": 0.4525,
     "costPer1kRequests": 1.54,
     "benchmarks": {
-      "intelligenceIndex": 15.4,
+      "intelligenceIndex": 13.9,
       "codingIndex": 43.5,
       "agenticIndex": 8.9,
       "valueScore": 961.3
@@ -8833,7 +8833,7 @@
     "blendedCost": 1.075,
     "costPer1kRequests": 3.7,
     "benchmarks": {
-      "intelligenceIndex": 12.7,
+      "intelligenceIndex": 15.3,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -9036,7 +9036,7 @@
     "blendedCost": 3.4375,
     "costPer1kRequests": 12.5,
     "benchmarks": {
-      "intelligenceIndex": 28.5,
+      "intelligenceIndex": 23,
       "codingIndex": 37.8,
       "agenticIndex": null,
       "valueScore": 110
@@ -9152,7 +9152,7 @@
     "blendedCost": 0.13749999999999998,
     "costPer1kRequests": 0.5,
     "benchmarks": {
-      "intelligenceIndex": 7.1,
+      "intelligenceIndex": 13,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -9210,10 +9210,10 @@
     "blendedCost": 0.26249999999999996,
     "costPer1kRequests": 0.9,
     "benchmarks": {
-      "intelligenceIndex": 10.2,
-      "codingIndex": 21.2,
+      "intelligenceIndex": 12.3,
+      "codingIndex": 30.4,
       "agenticIndex": 6.2,
-      "valueScore": 807.6
+      "valueScore": 1158.1
     },
     "reasoning": null,
     "isFree": false,
@@ -9268,7 +9268,7 @@
     "blendedCost": 0.055,
     "costPer1kRequests": 0.18999999999999997,
     "benchmarks": {
-      "intelligenceIndex": 10,
+      "intelligenceIndex": 9,
       "codingIndex": 20.7,
       "agenticIndex": 1.4,
       "valueScore": 3763.6
@@ -9471,7 +9471,7 @@
     "blendedCost": 1,
     "costPer1kRequests": 3.4000000000000004,
     "benchmarks": {
-      "intelligenceIndex": 6.7,
+      "intelligenceIndex": 12.8,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -9500,7 +9500,7 @@
     "blendedCost": 0.31,
     "costPer1kRequests": 1.11,
     "benchmarks": {
-      "intelligenceIndex": 12.8,
+      "intelligenceIndex": 11.1,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -9703,7 +9703,7 @@
     "blendedCost": 1.0025,
     "costPer1kRequests": 3.4400000000000004,
     "benchmarks": {
-      "intelligenceIndex": 27.5,
+      "intelligenceIndex": 12.7,
       "codingIndex": 61.8,
       "agenticIndex": 22.1,
       "valueScore": 616.5
@@ -9935,7 +9935,7 @@
     "blendedCost": 0.85,
     "costPer1kRequests": 3.1,
     "benchmarks": {
-      "intelligenceIndex": 6.7,
+      "intelligenceIndex": 9.9,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -9993,7 +9993,7 @@
     "blendedCost": 3.4375,
     "costPer1kRequests": 12.5,
     "benchmarks": {
-      "intelligenceIndex": 14.5,
+      "intelligenceIndex": 16.7,
       "codingIndex": 33.3,
       "agenticIndex": 3.5,
       "valueScore": 96.9
@@ -10051,7 +10051,7 @@
     "blendedCost": 35,
     "costPer1kRequests": 120,
     "benchmarks": {
-      "intelligenceIndex": 20.2,
+      "intelligenceIndex": 21.9,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -10196,7 +10196,7 @@
     "blendedCost": 0.8,
     "costPer1kRequests": 2.8,
     "benchmarks": {
-      "intelligenceIndex": 9.5,
+      "intelligenceIndex": 9,
       "codingIndex": 20.5,
       "agenticIndex": 3.1,
       "valueScore": 256.3
@@ -10428,7 +10428,7 @@
     "blendedCost": 3.5,
     "costPer1kRequests": 12,
     "benchmarks": {
-      "intelligenceIndex": 11,
+      "intelligenceIndex": 20.2,
       "codingIndex": 16.3,
       "agenticIndex": 0.9,
       "valueScore": 46.6
@@ -10602,7 +10602,7 @@
     "blendedCost": 0.7,
     "costPer1kRequests": 2.4,
     "benchmarks": {
-      "intelligenceIndex": 12.7,
+      "intelligenceIndex": 10.2,
       "codingIndex": 20.2,
       "agenticIndex": null,
       "valueScore": 288.6
@@ -10660,7 +10660,7 @@
     "blendedCost": 0.175,
     "costPer1kRequests": 0.6,
     "benchmarks": {
-      "intelligenceIndex": 12.7,
+      "intelligenceIndex": 7.8,
       "codingIndex": 11.1,
       "agenticIndex": null,
       "valueScore": 634.3
@@ -10805,7 +10805,7 @@
     "blendedCost": 262.5,
     "costPer1kRequests": 899.9999999999999,
     "benchmarks": {
-      "intelligenceIndex": 15.2,
+      "intelligenceIndex": 12.4,
       "codingIndex": 39.7,
       "agenticIndex": null,
       "valueScore": 1.5
@@ -10921,7 +10921,7 @@
     "blendedCost": 4.375,
     "costPer1kRequests": 15,
     "benchmarks": {
-      "intelligenceIndex": 13.9,
+      "intelligenceIndex": 7,
       "codingIndex": 27.8,
       "agenticIndex": 3.6,
       "valueScore": 63.5
@@ -10950,7 +10950,7 @@
     "blendedCost": 0.125,
     "costPer1kRequests": 0.39999999999999997,
     "benchmarks": {
-      "intelligenceIndex": 6.4,
+      "intelligenceIndex": 5.6,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -11037,7 +11037,7 @@
     "blendedCost": 3.5,
     "costPer1kRequests": 12,
     "benchmarks": {
-      "intelligenceIndex": 8.7,
+      "intelligenceIndex": 11.8,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -11269,7 +11269,7 @@
     "blendedCost": 1.9250000000000003,
     "costPer1kRequests": 6.6,
     "benchmarks": {
-      "intelligenceIndex": 11,
+      "intelligenceIndex": 12.5,
       "codingIndex": 16.3,
       "agenticIndex": 0.9,
       "valueScore": 84.7
@@ -11356,7 +11356,7 @@
     "blendedCost": 1,
     "costPer1kRequests": 3,
     "benchmarks": {
-      "intelligenceIndex": 8.7,
+      "intelligenceIndex": 7.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -11414,7 +11414,7 @@
     "blendedCost": 1.15,
     "costPer1kRequests": 3.9,
     "benchmarks": {
-      "intelligenceIndex": 11.4,
+      "intelligenceIndex": 13.1,
       "codingIndex": 24.6,
       "agenticIndex": 1.1,
       "valueScore": 213.9
@@ -11472,7 +11472,7 @@
     "blendedCost": 0.08750000000000001,
     "costPer1kRequests": 0.28,
     "benchmarks": {
-      "intelligenceIndex": 5.8,
+      "intelligenceIndex": 5.9,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -11559,10 +11559,10 @@
     "blendedCost": 26.25,
     "costPer1kRequests": 90.00000000000001,
     "benchmarks": {
-      "intelligenceIndex": 11.4,
-      "codingIndex": 34,
+      "intelligenceIndex": 15.2,
+      "codingIndex": 39.7,
       "agenticIndex": null,
-      "valueScore": 13
+      "valueScore": 15.1
     },
     "reasoning": null,
     "isFree": false,
@@ -12168,7 +12168,7 @@
     "blendedCost": 4.375,
     "costPer1kRequests": 15,
     "benchmarks": {
-      "intelligenceIndex": 6.7,
+      "intelligenceIndex": 7.7,
       "codingIndex": 13.1,
       "agenticIndex": null,
       "valueScore": 29.9
@@ -12284,7 +12284,7 @@
     "blendedCost": 0.26249999999999996,
     "costPer1kRequests": 0.9,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 6.7,
       "codingIndex": 11.4,
       "agenticIndex": null,
       "valueScore": 434.3
@@ -12400,7 +12400,7 @@
     "blendedCost": 4.375,
     "costPer1kRequests": 15,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 8.4,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -12429,10 +12429,10 @@
     "blendedCost": 7.5,
     "costPer1kRequests": 25,
     "benchmarks": {
-      "intelligenceIndex": 6.7,
-      "codingIndex": 13.1,
+      "intelligenceIndex": 7.3,
+      "codingIndex": 24.2,
       "agenticIndex": null,
-      "valueScore": 17.5
+      "valueScore": 32.3
     },
     "reasoning": null,
     "isFree": false,
@@ -12545,10 +12545,10 @@
     "blendedCost": 15,
     "costPer1kRequests": 50,
     "benchmarks": {
-      "intelligenceIndex": 6.7,
-      "codingIndex": 13.1,
+      "intelligenceIndex": 7,
+      "codingIndex": 21.5,
       "agenticIndex": null,
-      "valueScore": 8.7
+      "valueScore": 14.3
     },
     "reasoning": null,
     "isFree": false,
@@ -12632,7 +12632,7 @@
     "blendedCost": 3,
     "costPer1kRequests": 10,
     "benchmarks": {
-      "intelligenceIndex": 6.8,
+      "intelligenceIndex": 5.8,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
@@ -12922,7 +12922,7 @@
     "blendedCost": 37.5,
     "costPer1kRequests": 120.00000000000001,
     "benchmarks": {
-      "intelligenceIndex": 12.7,
+      "intelligenceIndex": 6.7,
       "codingIndex": 13.1,
       "agenticIndex": null,
       "valueScore": 3.5
