@@ -24,7 +24,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "unbiased/pareto",
@@ -51,7 +52,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "~deepseek/deepseek-pro-latest",
@@ -78,7 +80,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "~deepseek/deepseek-flash-latest",
@@ -105,7 +108,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "inference-net/schematron-v2-turbo",
@@ -132,7 +136,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "inference-net/schematron-v2-small",
@@ -159,7 +164,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "~openai/gpt-astra-latest",
@@ -186,7 +192,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "~openai/gpt-sol-latest",
@@ -213,7 +220,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "~openai/gpt-terra-latest",
@@ -240,7 +248,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "~openai/gpt-luna-latest",
@@ -267,7 +276,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "sakana/fugu-ultra-v2",
@@ -294,7 +304,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "sakana/fugu-max",
@@ -321,7 +332,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "inclusionai/ling-3.0-flash-vl",
@@ -344,11 +356,12 @@
       "intelligenceIndex": 25,
       "codingIndex": 57,
       "agenticIndex": 30,
-      "valueScore": 63333.333333333336
+      "valueScore": 6333.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "inclusionai/ling-3.0-flash-vl:free",
@@ -375,7 +388,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-v4.1-flash",
@@ -402,7 +416,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "inception/mercury-2.5",
@@ -423,13 +438,14 @@
     "costPer1kRequests": 0.23,
     "benchmarks": {
       "intelligenceIndex": 11.5,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "codingIndex": 31.1,
+      "agenticIndex": 4,
+      "valueScore": 4607.4
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "nex-agi/nex-n2.5-mini:free",
@@ -456,7 +472,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "nex-agi/nex-n2.5-pro:free",
@@ -483,7 +500,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "openai/gpt-6-astra",
@@ -503,14 +521,15 @@
     "blendedCost": 20,
     "costPer1kRequests": 70,
     "benchmarks": {
-      "intelligenceIndex": 52.8,
-      "codingIndex": 76.9,
-      "agenticIndex": 51.5,
-      "valueScore": 384.5
+      "intelligenceIndex": 52.5,
+      "codingIndex": 75.9,
+      "agenticIndex": 50.6,
+      "valueScore": 38
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "openai/gpt-6-astra:batch",
@@ -533,11 +552,12 @@
       "intelligenceIndex": 52.8,
       "codingIndex": 76.9,
       "agenticIndex": 51.5,
-      "valueScore": 769
+      "valueScore": 76.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "openai/gpt-6-astra-pro",
@@ -558,13 +578,14 @@
     "costPer1kRequests": 70,
     "benchmarks": {
       "intelligenceIndex": 52.8,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "codingIndex": 76.9,
+      "agenticIndex": 51.5,
+      "valueScore": 38.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "openai/gpt-6-astra-pro:batch",
@@ -585,13 +606,14 @@
     "costPer1kRequests": 35,
     "benchmarks": {
       "intelligenceIndex": 52.8,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "codingIndex": 76.9,
+      "agenticIndex": 51.5,
+      "valueScore": 76.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "inclusionai/ling-3.0-flash-sante:free",
@@ -611,14 +633,15 @@
     "blendedCost": 0,
     "costPer1kRequests": 0,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
+      "intelligenceIndex": 20.6,
+      "codingIndex": 50.6,
+      "agenticIndex": 21,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.8-max-0902",
@@ -641,11 +664,12 @@
       "intelligenceIndex": 45.4,
       "codingIndex": 76.2,
       "agenticIndex": 56.1,
-      "valueScore": 2540
+      "valueScore": 254
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "meta/muse-spark-1.3-contributor",
@@ -665,14 +689,15 @@
     "blendedCost": 0.125,
     "costPer1kRequests": 0.39999999999999997,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 48.2,
+      "codingIndex": 75.8,
+      "agenticIndex": 55.7,
+      "valueScore": 6064
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "meta/muse-spark-1.3",
@@ -692,14 +717,15 @@
     "blendedCost": 2,
     "costPer1kRequests": 6.750000000000001,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 48.2,
+      "codingIndex": 75.8,
+      "agenticIndex": 55.7,
+      "valueScore": 379
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "google/gemini-3.8-flash",
@@ -719,14 +745,15 @@
     "blendedCost": 1.5,
     "costPer1kRequests": 5.25,
     "benchmarks": {
-      "intelligenceIndex": 41.2,
-      "codingIndex": 76.3,
-      "agenticIndex": 41.1,
-      "valueScore": 5086.666666666667
+      "intelligenceIndex": 40,
+      "codingIndex": 74.1,
+      "agenticIndex": 40.5,
+      "valueScore": 494
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "google/gemini-3.8-flash:batch",
@@ -749,11 +776,12 @@
       "intelligenceIndex": 41.2,
       "codingIndex": 76.3,
       "agenticIndex": 41.1,
-      "valueScore": 10173.333333333334
+      "valueScore": 1017.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "anthropic/claude-fable-5.1",
@@ -773,14 +801,15 @@
     "blendedCost": 20,
     "costPer1kRequests": 70,
     "benchmarks": {
-      "intelligenceIndex": 53.4,
-      "codingIndex": 81.6,
-      "agenticIndex": 58,
-      "valueScore": 408
+      "intelligenceIndex": 47,
+      "codingIndex": 75.2,
+      "agenticIndex": 47.8,
+      "valueScore": 37.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "anthropic/claude-fable-5.1:batch",
@@ -803,11 +832,12 @@
       "intelligenceIndex": 53.4,
       "codingIndex": 81.6,
       "agenticIndex": 58,
-      "valueScore": 816
+      "valueScore": 81.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "ibm-granite/granite-4.2-8b",
@@ -830,11 +860,12 @@
       "intelligenceIndex": 11.8,
       "codingIndex": 22.4,
       "agenticIndex": 3.7,
-      "valueScore": 20837.20930232558
+      "valueScore": 2083.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "tencent/hy4-preview",
@@ -861,7 +892,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "inclusionai/ling-3.0-flash-fin",
@@ -884,11 +916,12 @@
       "intelligenceIndex": 23,
       "codingIndex": 55.6,
       "agenticIndex": 29.3,
-      "valueScore": 61777.77777777778
+      "valueScore": 6177.8
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "inclusionai/ling-3.0-flash-fin:free",
@@ -915,7 +948,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "~z-ai/glm-flash-latest",
@@ -942,7 +976,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.8-flash",
@@ -962,14 +997,15 @@
     "blendedCost": 0.22999999999999998,
     "costPer1kRequests": 0.7699999999999999,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 39.9,
+      "codingIndex": 73.1,
+      "agenticIndex": 53.9,
+      "valueScore": 3178.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "z-ai/glm-5.3-flash",
@@ -992,11 +1028,12 @@
       "intelligenceIndex": 41.9,
       "codingIndex": 71.5,
       "agenticIndex": 51.2,
-      "valueScore": 50175.43859649122
+      "valueScore": 5017.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "z-ai/glm-5.3-flash:batch",
@@ -1019,11 +1056,12 @@
       "intelligenceIndex": 41.9,
       "codingIndex": 71.5,
       "agenticIndex": 51.2,
-      "valueScore": 60210.52631578948
+      "valueScore": 6021.1
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "meta/muse-spark-1.2-contributor",
@@ -1043,14 +1081,15 @@
     "blendedCost": 0.125,
     "costPer1kRequests": 0.39999999999999997,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 39.8,
+      "codingIndex": 72.2,
+      "agenticIndex": 44,
+      "valueScore": 5776
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "deepseek/deepseek-v4-flash-vision-exp",
@@ -1070,14 +1109,15 @@
     "blendedCost": 0.3234,
     "costPer1kRequests": 1.078,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 35,
+      "codingIndex": 65,
+      "agenticIndex": 48.1,
+      "valueScore": 2009.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-v4-flash-vision-exp:batch",
@@ -1097,14 +1137,15 @@
     "blendedCost": 0.165,
     "costPer1kRequests": 0.55,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 35,
+      "codingIndex": 65,
+      "agenticIndex": 48.1,
+      "valueScore": 3939.4
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "tencent/hy-mt2-1.8b",
@@ -1131,7 +1172,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "tencent/hy-mt2-30b-a3b",
@@ -1158,7 +1200,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "~z-ai/glm-latest",
@@ -1185,7 +1228,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "tencent/hy-mt2-7b",
@@ -1212,7 +1256,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "z-ai/glm-5.3",
@@ -1232,14 +1277,15 @@
     "blendedCost": 1.3975,
     "costPer1kRequests": 4.68,
     "benchmarks": {
-      "intelligenceIndex": 44.9,
-      "codingIndex": 74.8,
-      "agenticIndex": 53.4,
-      "valueScore": 5352.415026833632
+      "intelligenceIndex": 41.9,
+      "codingIndex": 71.5,
+      "agenticIndex": 51.2,
+      "valueScore": 511.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "z-ai/glm-5.3:batch",
@@ -1259,14 +1305,15 @@
     "blendedCost": 1.075,
     "costPer1kRequests": 3.6,
     "benchmarks": {
-      "intelligenceIndex": 44.9,
+      "intelligenceIndex": 27.9,
       "codingIndex": 74.8,
       "agenticIndex": 53.4,
-      "valueScore": 6958.13953488372
+      "valueScore": 695.8
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "qwen/qwen3.8-27b",
@@ -1286,14 +1333,15 @@
     "blendedCost": 0.798,
     "costPer1kRequests": 2.978,
     "benchmarks": {
-      "intelligenceIndex": 33.9,
-      "codingIndex": 68.1,
-      "agenticIndex": 46.5,
-      "valueScore": 8533.834586466164
+      "intelligenceIndex": 22.4,
+      "codingIndex": 44.6,
+      "agenticIndex": 23.9,
+      "valueScore": 558.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.8-27b:free",
@@ -1320,7 +1368,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "dots-studio/dots-3-note-preview:free",
@@ -1347,7 +1396,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "google/gemini-3.7-flash",
@@ -1370,11 +1420,12 @@
       "intelligenceIndex": 39.4,
       "codingIndex": 76.1,
       "agenticIndex": 36.4,
-      "valueScore": 5073.333333333333
+      "valueScore": 507.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "google/gemini-3.7-flash:batch",
@@ -1397,11 +1448,12 @@
       "intelligenceIndex": 39.4,
       "codingIndex": 76.1,
       "agenticIndex": 36.4,
-      "valueScore": 10146.666666666666
+      "valueScore": 1014.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "bytedance-seed/seed-2-1-turbo",
@@ -1428,7 +1480,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.8-2.4t-a95b",
@@ -1451,11 +1504,12 @@
       "intelligenceIndex": 40,
       "codingIndex": 71.9,
       "agenticIndex": 50.4,
-      "valueScore": 2396.666666666667
+      "valueScore": 239.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "qwen/qwen3.8-2.4t-a95b:batch",
@@ -1478,11 +1532,12 @@
       "intelligenceIndex": 40,
       "codingIndex": 71.9,
       "agenticIndex": 50.4,
-      "valueScore": 2396.666666666667
+      "valueScore": 239.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "bytedance-seed/seed-2.0-code",
@@ -1509,7 +1564,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-v4-pro-0813",
@@ -1532,11 +1588,12 @@
       "intelligenceIndex": 36.3,
       "codingIndex": 68.8,
       "agenticIndex": 42.3,
-      "valueScore": 7933.213412665466
+      "valueScore": 793.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-v4-pro-0813:batch",
@@ -1559,11 +1616,12 @@
       "intelligenceIndex": 36.3,
       "codingIndex": 68.8,
       "agenticIndex": 42.3,
-      "valueScore": 6949.49494949495
+      "valueScore": 694.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "x-ai/grok-4.6",
@@ -1583,14 +1641,15 @@
     "blendedCost": 3,
     "costPer1kRequests": 10,
     "benchmarks": {
-      "intelligenceIndex": 44.4,
-      "codingIndex": 76.8,
-      "agenticIndex": 53.4,
-      "valueScore": 2560
+      "intelligenceIndex": 43,
+      "codingIndex": 74.4,
+      "agenticIndex": 51.2,
+      "valueScore": 248
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "liquid/lfm-2.5-2.6b:free",
@@ -1610,14 +1669,15 @@
     "blendedCost": 0,
     "costPer1kRequests": 0,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
+      "intelligenceIndex": 8.4,
+      "codingIndex": 7.7,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "nvidia/nemotron-3.5-lightning",
@@ -1640,11 +1700,12 @@
       "intelligenceIndex": 13.6,
       "codingIndex": 26.8,
       "agenticIndex": 6.1,
-      "valueScore": 26146.341463414632
+      "valueScore": 2614.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "nvidia/nemotron-3.5-lightning:free",
@@ -1671,7 +1732,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "sakana/sakana-namazu",
@@ -1698,7 +1760,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "upstage/solar-pro4",
@@ -1721,11 +1784,12 @@
       "intelligenceIndex": 28.2,
       "codingIndex": 52.7,
       "agenticIndex": null,
-      "valueScore": 33460.31746031746
+      "valueScore": 3346
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "meta/muse-glimmer-30b",
@@ -1745,14 +1809,15 @@
     "blendedCost": 0.6375,
     "costPer1kRequests": 2.2,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 18.1,
+      "codingIndex": 49,
+      "agenticIndex": 10.5,
+      "valueScore": 768.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "meta/muse-glimmer-30b:batch",
@@ -1772,14 +1837,15 @@
     "blendedCost": 0.31875,
     "costPer1kRequests": 1.1,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 18.1,
+      "codingIndex": 49,
+      "agenticIndex": 10.5,
+      "valueScore": 1537.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "meta/muse-spark-1.2",
@@ -1802,11 +1868,12 @@
       "intelligenceIndex": 39.8,
       "codingIndex": 72.2,
       "agenticIndex": 44,
-      "valueScore": 3610
+      "valueScore": 361
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "~deepseek/deepseek-v4-flash-latest",
@@ -1826,14 +1893,15 @@
     "blendedCost": 0.07722000000000001,
     "costPer1kRequests": 0.25739999999999996,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 34.5,
+      "codingIndex": 69.1,
+      "agenticIndex": 41.7,
+      "valueScore": 8948.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-v4-flash-0731",
@@ -1856,11 +1924,12 @@
       "intelligenceIndex": 34.5,
       "codingIndex": 69.1,
       "agenticIndex": 41.7,
-      "valueScore": 92133.33333333333
+      "valueScore": 9213.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-v4-flash-0731:batch",
@@ -1883,11 +1952,12 @@
       "intelligenceIndex": 34.5,
       "codingIndex": 69.1,
       "agenticIndex": 41.7,
-      "valueScore": 41878.78787878787
+      "valueScore": 4187.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-v4-flash-0731:free",
@@ -1914,7 +1984,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "thinkingmachines/inkling-small",
@@ -1934,14 +2005,15 @@
     "blendedCost": 0.6375,
     "costPer1kRequests": 2.1,
     "benchmarks": {
-      "intelligenceIndex": 26.1,
-      "codingIndex": 52.9,
-      "agenticIndex": 25,
-      "valueScore": 8298.039215686274
+      "intelligenceIndex": 25.5,
+      "codingIndex": 52.1,
+      "agenticIndex": 24.3,
+      "valueScore": 817.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "thinkingmachines/inkling-small:free",
@@ -1961,14 +2033,15 @@
     "blendedCost": 0,
     "costPer1kRequests": 0,
     "benchmarks": {
-      "intelligenceIndex": 26.1,
-      "codingIndex": 52.9,
-      "agenticIndex": 25,
+      "intelligenceIndex": 25.5,
+      "codingIndex": 52.1,
+      "agenticIndex": 24.3,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.7-flash",
@@ -1995,7 +2068,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "anthropic/claude-opus-5",
@@ -2015,14 +2089,15 @@
     "blendedCost": 10,
     "costPer1kRequests": 35,
     "benchmarks": {
-      "intelligenceIndex": 50.7,
-      "codingIndex": 78,
-      "agenticIndex": 56.2,
-      "valueScore": 780
+      "intelligenceIndex": 49.7,
+      "codingIndex": 77,
+      "agenticIndex": 55.5,
+      "valueScore": 77
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "anthropic/claude-opus-5:batch",
@@ -2045,11 +2120,12 @@
       "intelligenceIndex": 50.7,
       "codingIndex": 78,
       "agenticIndex": 56.2,
-      "valueScore": 1560
+      "valueScore": 156
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "inclusionai/ling-3.0-flash",
@@ -2069,14 +2145,15 @@
     "blendedCost": 0.0315,
     "costPer1kRequests": 0.10500000000000001,
     "benchmarks": {
-      "intelligenceIndex": 20.6,
-      "codingIndex": 50.6,
-      "agenticIndex": 21,
-      "valueScore": 160634.92063492062
+      "intelligenceIndex": 25,
+      "codingIndex": 57,
+      "agenticIndex": 30,
+      "valueScore": 18095.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "poolside/laguna-s-2.1",
@@ -2103,7 +2180,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "poolside/laguna-s-2.1:free",
@@ -2130,7 +2208,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "google/gemini-3.6-flash",
@@ -2153,11 +2232,12 @@
       "intelligenceIndex": 34.3,
       "codingIndex": 69.2,
       "agenticIndex": 30.2,
-      "valueScore": 4613.333333333333
+      "valueScore": 461.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-3.6-flash:batch",
@@ -2180,11 +2260,12 @@
       "intelligenceIndex": 34.3,
       "codingIndex": 69.2,
       "agenticIndex": 30.2,
-      "valueScore": 9226.666666666666
+      "valueScore": 922.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-3.5-flash-lite",
@@ -2204,14 +2285,15 @@
     "blendedCost": 0.85,
     "costPer1kRequests": 3.1,
     "benchmarks": {
-      "intelligenceIndex": 22.7,
-      "codingIndex": 49.3,
-      "agenticIndex": 15.9,
-      "valueScore": 5800
+      "intelligenceIndex": 33,
+      "codingIndex": 70.1,
+      "agenticIndex": 27.3,
+      "valueScore": 824.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "google/gemini-3.5-flash-lite:batch",
@@ -2231,14 +2313,15 @@
     "blendedCost": 0.425,
     "costPer1kRequests": 1.55,
     "benchmarks": {
-      "intelligenceIndex": 22.7,
-      "codingIndex": 49.3,
-      "agenticIndex": 15.9,
-      "valueScore": 11600
+      "intelligenceIndex": 33,
+      "codingIndex": 70.1,
+      "agenticIndex": 27.3,
+      "valueScore": 1649.4
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "meituan/longcat-2.0",
@@ -2261,11 +2344,12 @@
       "intelligenceIndex": 19.7,
       "codingIndex": 45.3,
       "agenticIndex": 15.9,
-      "valueScore": 8628.57142857143
+      "valueScore": 862.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "thinkingmachines/inkling",
@@ -2288,11 +2372,12 @@
       "intelligenceIndex": 25.5,
       "codingIndex": 52.1,
       "agenticIndex": 24.3,
-      "valueScore": 2956.0283687943265
+      "valueScore": 295.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "thinkingmachines/inkling:batch",
@@ -2315,11 +2400,12 @@
       "intelligenceIndex": 25.5,
       "codingIndex": 52.1,
       "agenticIndex": 24.3,
-      "valueScore": 2956.0283687943265
+      "valueScore": 295.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "thinkingmachines/inkling:free",
@@ -2346,7 +2432,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openrouter/auto-beta",
@@ -2373,7 +2460,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "moonshotai/kimi-k3",
@@ -2393,14 +2481,15 @@
     "blendedCost": 4.1925,
     "costPer1kRequests": 14.82,
     "benchmarks": {
-      "intelligenceIndex": 43.8,
-      "codingIndex": 76.2,
-      "agenticIndex": 50.6,
-      "valueScore": 1817.531305903399
+      "intelligenceIndex": 30.5,
+      "codingIndex": 72,
+      "agenticIndex": 30.7,
+      "valueScore": 171.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "moonshotai/kimi-k3:batch",
@@ -2423,11 +2512,12 @@
       "intelligenceIndex": 43.8,
       "codingIndex": 76.2,
       "agenticIndex": 50.6,
-      "valueScore": 1270
+      "valueScore": 127
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "meta/muse-spark-1.1",
@@ -2450,11 +2540,12 @@
       "intelligenceIndex": 34.3,
       "codingIndex": 71.3,
       "agenticIndex": 27.5,
-      "valueScore": 3565
+      "valueScore": 356.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "kwaipilot/kat-coder-pro-v2.5",
@@ -2474,14 +2565,15 @@
     "blendedCost": 1.295,
     "costPer1kRequests": 4.4399999999999995,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
+      "intelligenceIndex": 21.7,
+      "codingIndex": 59.5,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 459.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.6-luna-pro",
@@ -2501,14 +2593,15 @@
     "blendedCost": 0.44999999999999996,
     "costPer1kRequests": 1.5999999999999999,
     "benchmarks": {
-      "intelligenceIndex": 23,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 37.5,
+      "codingIndex": 71.4,
+      "agenticIndex": 42.7,
+      "valueScore": 1586.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "openai/gpt-5.6-luna-pro:batch",
@@ -2528,14 +2621,15 @@
     "blendedCost": 0.22499999999999998,
     "costPer1kRequests": 0.7999999999999999,
     "benchmarks": {
-      "intelligenceIndex": 23,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 37.5,
+      "codingIndex": 71.4,
+      "agenticIndex": 42.7,
+      "valueScore": 3173.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "openai/gpt-5.6-luna",
@@ -2555,14 +2649,15 @@
     "blendedCost": 0.44999999999999996,
     "costPer1kRequests": 1.5999999999999999,
     "benchmarks": {
-      "intelligenceIndex": 37.5,
-      "codingIndex": 71.4,
-      "agenticIndex": 42.7,
-      "valueScore": 15866.666666666668
+      "intelligenceIndex": 21.5,
+      "codingIndex": 44.2,
+      "agenticIndex": 17.9,
+      "valueScore": 982.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.6-luna:batch",
@@ -2585,11 +2680,12 @@
       "intelligenceIndex": 37.5,
       "codingIndex": 71.4,
       "agenticIndex": 42.7,
-      "valueScore": 31733.333333333336
+      "valueScore": 3173.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "openai/gpt-5.6-terra-pro",
@@ -2610,13 +2706,14 @@
     "costPer1kRequests": 16,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 84
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.6-terra-pro:batch",
@@ -2637,13 +2734,14 @@
     "costPer1kRequests": 8,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 168
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.6-terra",
@@ -2663,14 +2761,15 @@
     "blendedCost": 4.5,
     "costPer1kRequests": 16,
     "benchmarks": {
-      "intelligenceIndex": 42.3,
-      "codingIndex": 76.7,
-      "agenticIndex": 43.7,
-      "valueScore": 1704.4444444444443
+      "intelligenceIndex": 30.4,
+      "codingIndex": 64.7,
+      "agenticIndex": 31.4,
+      "valueScore": 143.8
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.6-terra:batch",
@@ -2690,14 +2789,15 @@
     "blendedCost": 2.25,
     "costPer1kRequests": 8,
     "benchmarks": {
-      "intelligenceIndex": 42.3,
-      "codingIndex": 76.7,
+      "intelligenceIndex": 23,
+      "codingIndex": 37.8,
       "agenticIndex": 43.7,
-      "valueScore": 3408.8888888888887
+      "valueScore": 168
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.6-sol-pro",
@@ -2718,13 +2818,14 @@
     "costPer1kRequests": 14,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 94.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.6-sol-pro:batch",
@@ -2745,13 +2846,14 @@
     "costPer1kRequests": 7,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 189
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.6-sol",
@@ -2771,14 +2873,15 @@
     "blendedCost": 4,
     "costPer1kRequests": 14,
     "benchmarks": {
-      "intelligenceIndex": 47.1,
-      "codingIndex": 77.4,
-      "agenticIndex": 50.5,
-      "valueScore": 1935.0000000000002
+      "intelligenceIndex": 33.8,
+      "codingIndex": 69.7,
+      "agenticIndex": 32.6,
+      "valueScore": 174.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.6-sol:batch",
@@ -2798,14 +2901,15 @@
     "blendedCost": 2,
     "costPer1kRequests": 7,
     "benchmarks": {
-      "intelligenceIndex": 47.1,
-      "codingIndex": 77.4,
+      "intelligenceIndex": 23,
+      "codingIndex": 37.8,
       "agenticIndex": 50.5,
-      "valueScore": 3870.0000000000005
+      "valueScore": 189
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "x-ai/grok-4.5",
@@ -2825,14 +2929,15 @@
     "blendedCost": 3,
     "costPer1kRequests": 10,
     "benchmarks": {
-      "intelligenceIndex": 39.1,
+      "intelligenceIndex": 22.5,
       "codingIndex": 72.4,
       "agenticIndex": 42.1,
-      "valueScore": 2413.3333333333335
+      "valueScore": 241.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "~x-ai/grok-latest",
@@ -2859,7 +2964,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "aion-labs/aion-3.0-mini",
@@ -2886,7 +2992,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "aion-labs/aion-3.0",
@@ -2913,7 +3020,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "tencent/hy3",
@@ -2933,14 +3041,15 @@
     "blendedCost": 0.23099999999999996,
     "costPer1kRequests": 0.7919999999999999,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 22.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "poolside/laguna-xs-2.1",
@@ -2967,7 +3076,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "poolside/laguna-xs-2.1:free",
@@ -2994,7 +3104,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "anthropic/claude-sonnet-5",
@@ -3014,14 +3125,15 @@
     "blendedCost": 4,
     "costPer1kRequests": 14,
     "benchmarks": {
-      "intelligenceIndex": 38.4,
+      "intelligenceIndex": 24.7,
       "codingIndex": 71.5,
       "agenticIndex": 44.3,
-      "valueScore": 1787.5
+      "valueScore": 178.8
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "anthropic/claude-sonnet-5:batch",
@@ -3044,11 +3156,12 @@
       "intelligenceIndex": 38.4,
       "codingIndex": 71.5,
       "agenticIndex": 44.3,
-      "valueScore": 3575
+      "valueScore": 357.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "google/gemini-3.1-flash-lite-image",
@@ -3075,7 +3188,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "sakana/fugu-ultra",
@@ -3102,7 +3216,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-3.1-flash-image",
@@ -3129,7 +3244,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-3-pro-image",
@@ -3149,14 +3265,15 @@
     "blendedCost": 4.5,
     "costPer1kRequests": 16,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 28,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "cohere/north-mini-code:free",
@@ -3183,7 +3300,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "z-ai/glm-5.2",
@@ -3203,14 +3321,15 @@
     "blendedCost": 0.8513999999999999,
     "costPer1kRequests": 2.8512,
     "benchmarks": {
-      "intelligenceIndex": 34,
+      "intelligenceIndex": 27.9,
       "codingIndex": 68.8,
       "agenticIndex": 39.4,
-      "valueScore": 8080.808080808081
+      "valueScore": 808.1
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "z-ai/glm-5.2:batch",
@@ -3230,14 +3349,15 @@
     "blendedCost": 1.075,
     "costPer1kRequests": 3.6,
     "benchmarks": {
-      "intelligenceIndex": 34,
+      "intelligenceIndex": 27.9,
       "codingIndex": 68.8,
       "agenticIndex": 39.4,
-      "valueScore": 6400
+      "valueScore": 640
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "z-ai/glm-5.2:free",
@@ -3257,14 +3377,15 @@
     "blendedCost": 0,
     "costPer1kRequests": 0,
     "benchmarks": {
-      "intelligenceIndex": 34,
+      "intelligenceIndex": 27.9,
       "codingIndex": 68.8,
       "agenticIndex": 39.4,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openrouter/fusion",
@@ -3284,14 +3405,15 @@
     "blendedCost": -1000000,
     "costPer1kRequests": -3000000,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
+      "intelligenceIndex": 9.5,
+      "codingIndex": 19.7,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "moonshotai/kimi-k2.7-code",
@@ -3311,14 +3433,15 @@
     "blendedCost": 1.33215,
     "costPer1kRequests": 4.622400000000001,
     "benchmarks": {
-      "intelligenceIndex": 26.3,
+      "intelligenceIndex": 12.7,
       "codingIndex": 60.8,
       "agenticIndex": 22.5,
-      "valueScore": 4564.050594902977
+      "valueScore": 456.4
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "~anthropic/claude-fable-latest",
@@ -3345,7 +3468,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "anthropic/claude-fable-5",
@@ -3365,14 +3489,15 @@
     "blendedCost": 20,
     "costPer1kRequests": 70,
     "benchmarks": {
-      "intelligenceIndex": 49.7,
-      "codingIndex": 76.5,
-      "agenticIndex": 51,
-      "valueScore": 382.5
+      "intelligenceIndex": 47,
+      "codingIndex": 75.2,
+      "agenticIndex": 47.8,
+      "valueScore": 37.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "anthropic/claude-fable-5:batch",
@@ -3395,11 +3520,12 @@
       "intelligenceIndex": 49.7,
       "codingIndex": 76.5,
       "agenticIndex": 51,
-      "valueScore": 765
+      "valueScore": 76.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "nvidia/nemotron-3.5-content-safety",
@@ -3426,7 +3552,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "nvidia/nemotron-3.5-content-safety:free",
@@ -3453,7 +3580,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "nvidia/nemotron-3-ultra-550b-a55b",
@@ -3476,11 +3604,12 @@
       "intelligenceIndex": 23.4,
       "codingIndex": 49.3,
       "agenticIndex": 21.7,
-      "valueScore": 4695.238095238095
+      "valueScore": 469.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "nvidia/nemotron-3-ultra-550b-a55b:free",
@@ -3507,7 +3636,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.7-plus",
@@ -3530,11 +3660,12 @@
       "intelligenceIndex": 25.8,
       "codingIndex": 55.9,
       "agenticIndex": 19.7,
-      "valueScore": 9982.142857142855
+      "valueScore": 998.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "minimax/minimax-m3",
@@ -3557,11 +3688,12 @@
       "intelligenceIndex": 29.6,
       "codingIndex": 58.6,
       "agenticIndex": 30.8,
-      "valueScore": 11161.904761904763
+      "valueScore": 1116.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "minimax/minimax-m3:batch",
@@ -3584,11 +3716,12 @@
       "intelligenceIndex": 29.6,
       "codingIndex": 58.6,
       "agenticIndex": 30.8,
-      "valueScore": 11161.904761904763
+      "valueScore": 1116.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "stepfun/step-3.7-flash",
@@ -3608,14 +3741,15 @@
     "blendedCost": 0.4375,
     "costPer1kRequests": 1.55,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 19.5,
       "codingIndex": 39.6,
       "agenticIndex": null,
-      "valueScore": 9051.428571428572
+      "valueScore": 905.1
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "anthropic/claude-opus-4.8",
@@ -3638,11 +3772,12 @@
       "intelligenceIndex": 42,
       "codingIndex": 74.3,
       "agenticIndex": 42.6,
-      "valueScore": 743
+      "valueScore": 74.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "anthropic/claude-opus-4.8:batch",
@@ -3665,11 +3800,12 @@
       "intelligenceIndex": 42,
       "codingIndex": 74.3,
       "agenticIndex": 42.6,
-      "valueScore": 1486
+      "valueScore": 148.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "qwen/qwen3.7-max",
@@ -3692,11 +3828,12 @@
       "intelligenceIndex": 29.9,
       "codingIndex": 66,
       "agenticIndex": 23.9,
-      "valueScore": 2983.050847457627
+      "valueScore": 298.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "x-ai/grok-build-0.1",
@@ -3716,14 +3853,15 @@
     "blendedCost": 1.25,
     "costPer1kRequests": 4,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 27.2,
       "codingIndex": 51.5,
       "agenticIndex": null,
-      "valueScore": 4120
+      "valueScore": 412
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-3.5-flash",
@@ -3746,11 +3884,12 @@
       "intelligenceIndex": 33,
       "codingIndex": 70.1,
       "agenticIndex": 27.3,
-      "valueScore": 2077.037037037037
+      "valueScore": 207.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "google/gemini-3.5-flash:batch",
@@ -3773,11 +3912,12 @@
       "intelligenceIndex": 33,
       "codingIndex": 70.1,
       "agenticIndex": 27.3,
-      "valueScore": 4154.074074074074
+      "valueScore": 415.4
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "perceptron/perceptron-mk1",
@@ -3804,7 +3944,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-3.1-flash-lite",
@@ -3824,14 +3965,15 @@
     "blendedCost": 0.5625,
     "costPer1kRequests": 2,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 16,
+      "codingIndex": 34.7,
+      "agenticIndex": 3.2,
+      "valueScore": 616.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-3.1-flash-lite:batch",
@@ -3858,7 +4000,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-chat-latest",
@@ -3885,7 +4028,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "x-ai/grok-4.3",
@@ -3905,14 +4049,15 @@
     "blendedCost": 1.5625,
     "costPer1kRequests": 5,
     "benchmarks": {
-      "intelligenceIndex": 25.4,
+      "intelligenceIndex": 24.8,
       "codingIndex": 42.2,
       "agenticIndex": 17.2,
-      "valueScore": 2700.8
+      "valueScore": 270.1
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "x-ai/grok-4.3:batch",
@@ -3932,14 +4077,15 @@
     "blendedCost": 1.25,
     "costPer1kRequests": 4,
     "benchmarks": {
-      "intelligenceIndex": 25.4,
+      "intelligenceIndex": 22.5,
       "codingIndex": 42.2,
       "agenticIndex": 17.2,
-      "valueScore": 3376.0000000000005
+      "valueScore": 337.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/mistral-medium-3-5",
@@ -3959,14 +4105,15 @@
     "blendedCost": 3,
     "costPer1kRequests": 10.5,
     "benchmarks": {
-      "intelligenceIndex": 14.9,
+      "intelligenceIndex": 5.5,
       "codingIndex": 46.9,
       "agenticIndex": 9.4,
-      "valueScore": 1563.3333333333333
+      "valueScore": 156.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/mistral-medium-3-5:batch",
@@ -3986,14 +4133,15 @@
     "blendedCost": 1.5,
     "costPer1kRequests": 5.25,
     "benchmarks": {
-      "intelligenceIndex": 14.9,
+      "intelligenceIndex": 5.5,
       "codingIndex": 46.9,
       "agenticIndex": 9.4,
-      "valueScore": 3126.6666666666665
+      "valueScore": 312.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
@@ -4013,14 +4161,15 @@
     "blendedCost": 0,
     "costPer1kRequests": 0,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 10.3,
       "codingIndex": 13.8,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "~anthropic/claude-haiku-latest",
@@ -4047,7 +4196,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "~openai/gpt-mini-latest",
@@ -4074,7 +4224,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "~google/gemini-pro-latest",
@@ -4101,7 +4252,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "~moonshotai/kimi-latest",
@@ -4128,7 +4280,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "~google/gemini-flash-latest",
@@ -4155,7 +4308,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "~anthropic/claude-sonnet-latest",
@@ -4182,7 +4336,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.5-plus-20260420",
@@ -4209,7 +4364,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.6-flash",
@@ -4236,7 +4392,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.6-35b-a3b",
@@ -4256,14 +4413,15 @@
     "blendedCost": 0.3,
     "costPer1kRequests": 1.0999999999999999,
     "benchmarks": {
-      "intelligenceIndex": 18.8,
-      "codingIndex": 41.9,
+      "intelligenceIndex": 15.2,
+      "codingIndex": 28.1,
       "agenticIndex": 15,
-      "valueScore": 13966.666666666666
+      "valueScore": 936.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.6-max-preview",
@@ -4283,14 +4441,15 @@
     "blendedCost": 2.31075,
     "costPer1kRequests": 8.216000000000001,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 28.4,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.6-27b",
@@ -4310,14 +4469,15 @@
     "blendedCost": 0.725,
     "costPer1kRequests": 2.6,
     "benchmarks": {
-      "intelligenceIndex": 21.9,
-      "codingIndex": 53.7,
+      "intelligenceIndex": 19.8,
+      "codingIndex": 46.6,
       "agenticIndex": 20.1,
-      "valueScore": 7406.896551724138
+      "valueScore": 642.8
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.5-pro",
@@ -4337,14 +4497,15 @@
     "blendedCost": 67.5,
     "costPer1kRequests": 240.00000000000003,
     "benchmarks": {
-      "intelligenceIndex": 23,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 38.6,
+      "codingIndex": 74.9,
+      "agenticIndex": 37.3,
+      "valueScore": 11.1
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "openai/gpt-5.5-pro:batch",
@@ -4364,14 +4525,15 @@
     "blendedCost": 33.75,
     "costPer1kRequests": 120.00000000000001,
     "benchmarks": {
-      "intelligenceIndex": 23,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 38.6,
+      "codingIndex": 74.9,
+      "agenticIndex": 37.3,
+      "valueScore": 22.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "openai/gpt-5.5",
@@ -4394,11 +4556,12 @@
       "intelligenceIndex": 38.6,
       "codingIndex": 74.9,
       "agenticIndex": 37.3,
-      "valueScore": 665.7777777777778
+      "valueScore": 66.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "openai/gpt-5.5:batch",
@@ -4421,11 +4584,12 @@
       "intelligenceIndex": 38.6,
       "codingIndex": 74.9,
       "agenticIndex": 37.3,
-      "valueScore": 1331.5555555555557
+      "valueScore": 133.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "deepseek/deepseek-v4-pro",
@@ -4445,14 +4609,15 @@
     "blendedCost": 0.8447699999999999,
     "costPer1kRequests": 2.703264,
     "benchmarks": {
-      "intelligenceIndex": 30.9,
-      "codingIndex": 59.4,
+      "intelligenceIndex": 30.1,
+      "codingIndex": 58.7,
       "agenticIndex": 27.7,
-      "valueScore": 7031.49969814269
+      "valueScore": 694.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-v4-flash",
@@ -4472,14 +4637,15 @@
     "blendedCost": 0.06055000000000001,
     "costPer1kRequests": 0.19376000000000002,
     "benchmarks": {
-      "intelligenceIndex": 24.8,
-      "codingIndex": 52,
-      "agenticIndex": 27.9,
-      "valueScore": 85879.43848059453
+      "intelligenceIndex": 35,
+      "codingIndex": 65,
+      "agenticIndex": 48.1,
+      "valueScore": 10734.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "tencent/hy3-preview",
@@ -4499,14 +4665,15 @@
     "blendedCost": 0.28500000000000003,
     "costPer1kRequests": 0.96,
     "benchmarks": {
-      "intelligenceIndex": 25.8,
+      "intelligenceIndex": 22.7,
       "codingIndex": 58.8,
       "agenticIndex": 25.6,
-      "valueScore": 20631.57894736842
+      "valueScore": 2063.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "xiaomi/mimo-v2.5-pro",
@@ -4529,11 +4696,12 @@
       "intelligenceIndex": 26.4,
       "codingIndex": 60.2,
       "agenticIndex": 22.7,
-      "valueScore": 11071.264367816093
+      "valueScore": 1107.1
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "xiaomi/mimo-v2.5",
@@ -4553,14 +4721,15 @@
     "blendedCost": 0.17500000000000002,
     "costPer1kRequests": 0.56,
     "benchmarks": {
-      "intelligenceIndex": 22.3,
-      "codingIndex": 56.8,
-      "agenticIndex": 17.4,
-      "valueScore": 32457.14285714285
+      "intelligenceIndex": 26.4,
+      "codingIndex": 60.2,
+      "agenticIndex": 22.7,
+      "valueScore": 3440
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.4-image-2",
@@ -4581,13 +4750,14 @@
     "costPer1kRequests": 31,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 38.8
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "~anthropic/claude-opus-latest",
@@ -4614,7 +4784,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "openrouter/pareto-code",
@@ -4641,7 +4812,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "moonshotai/kimi-k2.6",
@@ -4664,11 +4836,12 @@
       "intelligenceIndex": 27.5,
       "codingIndex": 61.8,
       "agenticIndex": 22.1,
-      "valueScore": 3608.759124087591
+      "valueScore": 360.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "anthropic/claude-opus-4.7",
@@ -4688,14 +4861,15 @@
     "blendedCost": 10,
     "costPer1kRequests": 35,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 30.9,
       "codingIndex": 73.6,
       "agenticIndex": 39.5,
-      "valueScore": 736
+      "valueScore": 73.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "anthropic/claude-opus-4.7:batch",
@@ -4715,14 +4889,15 @@
     "blendedCost": 5,
     "costPer1kRequests": 17.5,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 40.7,
       "codingIndex": 73.6,
       "agenticIndex": 39.5,
-      "valueScore": 1472
+      "valueScore": 147.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "z-ai/glm-5.1",
@@ -4742,14 +4917,15 @@
     "blendedCost": 1.4834999999999998,
     "costPer1kRequests": 4.967999999999999,
     "benchmarks": {
-      "intelligenceIndex": 26.4,
+      "intelligenceIndex": 27.9,
       "codingIndex": 55.8,
       "agenticIndex": 25.2,
-      "valueScore": 3761.375126390293
+      "valueScore": 376.1
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemma-4-26b-a4b-it",
@@ -4769,14 +4945,15 @@
     "blendedCost": 0.14250000000000002,
     "costPer1kRequests": 0.48,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 16.7,
       "codingIndex": 39.3,
       "agenticIndex": null,
-      "valueScore": 27578.947368421046
+      "valueScore": 2757.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemma-4-26b-a4b-it:free",
@@ -4796,14 +4973,15 @@
     "blendedCost": 0,
     "costPer1kRequests": 0,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 16.7,
       "codingIndex": 39.3,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "google/gemma-4-31b-it",
@@ -4826,11 +5004,12 @@
       "intelligenceIndex": 15.4,
       "codingIndex": 43.4,
       "agenticIndex": 6.7,
-      "valueScore": 28459.016393442624
+      "valueScore": 2845.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemma-4-31b-it:free",
@@ -4857,7 +5036,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.6-plus",
@@ -4877,14 +5057,15 @@
     "blendedCost": 0.73125,
     "costPer1kRequests": 2.6,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 27,
       "codingIndex": 54.5,
       "agenticIndex": null,
-      "valueScore": 7452.991452991453
+      "valueScore": 745.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "z-ai/glm-5v-turbo",
@@ -4911,7 +5092,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "arcee-ai/trinity-large-thinking",
@@ -4934,11 +5116,12 @@
       "intelligenceIndex": 10.9,
       "codingIndex": 25.8,
       "agenticIndex": 1.2,
-      "valueScore": 6658.064516129033
+      "valueScore": 665.8
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "x-ai/grok-4.20-multi-agent",
@@ -4958,14 +5141,15 @@
     "blendedCost": 1.5625,
     "costPer1kRequests": 5,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 22.5,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "x-ai/grok-4.20",
@@ -4985,14 +5169,15 @@
     "blendedCost": 1.5625,
     "costPer1kRequests": 5,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 25.2,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/lyria-3-pro-preview",
@@ -5019,7 +5204,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "google/lyria-3-clip-preview",
@@ -5046,7 +5232,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "kwaipilot/kat-coder-pro-v2",
@@ -5066,14 +5253,15 @@
     "blendedCost": 0.5249999999999999,
     "costPer1kRequests": 1.8,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 21.7,
       "codingIndex": 59.5,
       "agenticIndex": null,
-      "valueScore": 11333.333333333336
+      "valueScore": 1133.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "rekaai/reka-edge",
@@ -5100,7 +5288,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "minimax/minimax-m2.7",
@@ -5123,11 +5312,12 @@
       "intelligenceIndex": 23.2,
       "codingIndex": 52.6,
       "agenticIndex": 16.8,
-      "valueScore": 10019.04761904762
+      "valueScore": 1001.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.4-nano",
@@ -5147,14 +5337,15 @@
     "blendedCost": 0.4625,
     "costPer1kRequests": 1.65,
     "benchmarks": {
-      "intelligenceIndex": 21.2,
-      "codingIndex": 56.1,
+      "intelligenceIndex": 23,
+      "codingIndex": 37.8,
       "agenticIndex": 17.7,
-      "valueScore": 12129.72972972973
+      "valueScore": 817.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.4-nano:batch",
@@ -5174,14 +5365,15 @@
     "blendedCost": 0.23125,
     "costPer1kRequests": 0.825,
     "benchmarks": {
-      "intelligenceIndex": 21.2,
-      "codingIndex": 56.1,
+      "intelligenceIndex": 23,
+      "codingIndex": 37.8,
       "agenticIndex": 17.7,
-      "valueScore": 24259.45945945946
+      "valueScore": 1634.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.4-mini",
@@ -5201,14 +5393,15 @@
     "blendedCost": 1.6875,
     "costPer1kRequests": 6,
     "benchmarks": {
-      "intelligenceIndex": 24.6,
+      "intelligenceIndex": 19.7,
       "codingIndex": 56.1,
       "agenticIndex": 19.7,
-      "valueScore": 3324.444444444445
+      "valueScore": 332.4
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.4-mini:batch",
@@ -5228,14 +5421,15 @@
     "blendedCost": 0.84375,
     "costPer1kRequests": 3,
     "benchmarks": {
-      "intelligenceIndex": 24.6,
-      "codingIndex": 56.1,
+      "intelligenceIndex": 23,
+      "codingIndex": 37.8,
       "agenticIndex": 19.7,
-      "valueScore": 6648.88888888889
+      "valueScore": 448
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/mistral-small-2603",
@@ -5255,14 +5449,15 @@
     "blendedCost": 0.26249999999999996,
     "costPer1kRequests": 0.9,
     "benchmarks": {
-      "intelligenceIndex": 11.5,
+      "intelligenceIndex": 5.8,
       "codingIndex": 26.6,
       "agenticIndex": 1.4,
-      "valueScore": 10133.333333333336
+      "valueScore": 1013.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/mistral-small-2603:batch",
@@ -5282,14 +5477,15 @@
     "blendedCost": 0.13124999999999998,
     "costPer1kRequests": 0.45,
     "benchmarks": {
-      "intelligenceIndex": 11.5,
+      "intelligenceIndex": 5.8,
       "codingIndex": 26.6,
       "agenticIndex": 1.4,
-      "valueScore": 20266.66666666667
+      "valueScore": 2026.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "z-ai/glm-5-turbo",
@@ -5316,7 +5512,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "nvidia/nemotron-3-super-120b-a12b",
@@ -5339,11 +5536,12 @@
       "intelligenceIndex": 13.6,
       "codingIndex": 37.7,
       "agenticIndex": 4.1,
-      "valueScore": 21855.07246376812
+      "valueScore": 2185.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "nvidia/nemotron-3-super-120b-a12b:free",
@@ -5370,7 +5568,8 @@
     },
     "reasoning": null,
     "isFree": true,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "bytedance-seed/seed-2.0-lite",
@@ -5397,7 +5596,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.5-9b",
@@ -5417,14 +5617,15 @@
     "blendedCost": 0.11249999999999999,
     "costPer1kRequests": 0.3499999999999999,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": 28.7,
+      "intelligenceIndex": 13.3,
+      "codingIndex": 23.5,
       "agenticIndex": null,
-      "valueScore": 25511.111111111113
+      "valueScore": 2088.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.5-9b:batch",
@@ -5444,14 +5645,15 @@
     "blendedCost": 0.19,
     "costPer1kRequests": 0.5900000000000001,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 13.7,
       "codingIndex": 28.7,
       "agenticIndex": null,
-      "valueScore": 15105.263157894737
+      "valueScore": 1510.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.4-pro",
@@ -5472,13 +5674,14 @@
     "costPer1kRequests": 240.00000000000003,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 5.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.4-pro:batch",
@@ -5499,13 +5702,14 @@
     "costPer1kRequests": 120.00000000000001,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 11.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.4",
@@ -5525,14 +5729,15 @@
     "blendedCost": 5.625,
     "costPer1kRequests": 20,
     "benchmarks": {
-      "intelligenceIndex": 23,
+      "intelligenceIndex": 19.7,
       "codingIndex": 71.1,
       "agenticIndex": null,
-      "valueScore": 1263.9999999999998
+      "valueScore": 126.4
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "openai/gpt-5.4:batch",
@@ -5553,13 +5758,14 @@
     "costPer1kRequests": 10,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": 71.1,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": 2527.9999999999995
+      "valueScore": 134.4
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "inception/mercury-2",
@@ -5582,11 +5788,12 @@
       "intelligenceIndex": 11.5,
       "codingIndex": 31.1,
       "agenticIndex": 4,
-      "valueScore": 8293.333333333334
+      "valueScore": 829.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-3.1-flash-lite-preview",
@@ -5609,11 +5816,12 @@
       "intelligenceIndex": 16,
       "codingIndex": 34.7,
       "agenticIndex": 3.2,
-      "valueScore": 6168.88888888889
+      "valueScore": 616.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "bytedance-seed/seed-2.0-mini",
@@ -5640,7 +5848,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-3.1-flash-image-preview",
@@ -5667,7 +5876,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.5-35b-a3b",
@@ -5687,14 +5897,15 @@
     "blendedCost": 0.446875,
     "costPer1kRequests": 1.625,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 19.3,
       "codingIndex": 37,
       "agenticIndex": null,
-      "valueScore": 8279.72027972028
+      "valueScore": 828
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.5-27b",
@@ -5714,14 +5925,15 @@
     "blendedCost": 0.53625,
     "costPer1kRequests": 1.9500000000000004,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 22.9,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.5-122b-a10b",
@@ -5741,14 +5953,15 @@
     "blendedCost": 0.7150000000000001,
     "costPer1kRequests": 2.6,
     "benchmarks": {
-      "intelligenceIndex": 16.2,
-      "codingIndex": 45.7,
+      "intelligenceIndex": 17.7,
+      "codingIndex": 43.3,
       "agenticIndex": 9.6,
-      "valueScore": 6391.608391608392
+      "valueScore": 605.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.5-flash-02-23",
@@ -5775,7 +5988,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-3.1-pro-preview-customtools",
@@ -5795,14 +6009,15 @@
     "blendedCost": 4.5,
     "costPer1kRequests": 16,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 30.4,
+      "codingIndex": 68.8,
+      "agenticIndex": 10.3,
+      "valueScore": 152.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.3-codex",
@@ -5823,13 +6038,14 @@
     "costPer1kRequests": 17.5,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 78.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "aion-labs/aion-2.0",
@@ -5856,7 +6072,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-3.1-pro-preview",
@@ -5879,11 +6096,12 @@
       "intelligenceIndex": 30.4,
       "codingIndex": 68.8,
       "agenticIndex": 10.3,
-      "valueScore": 1528.8888888888887
+      "valueScore": 152.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-3.1-pro-preview:batch",
@@ -5906,11 +6124,12 @@
       "intelligenceIndex": 30.4,
       "codingIndex": 68.8,
       "agenticIndex": 10.3,
-      "valueScore": 3057.7777777777774
+      "valueScore": 305.8
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "anthropic/claude-sonnet-4.6",
@@ -5930,14 +6149,15 @@
     "blendedCost": 6,
     "costPer1kRequests": 21,
     "benchmarks": {
-      "intelligenceIndex": 30.5,
+      "intelligenceIndex": 24.7,
       "codingIndex": 63,
       "agenticIndex": 33.1,
-      "valueScore": 1050
+      "valueScore": 105
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "anthropic/claude-sonnet-4.6:batch",
@@ -5957,14 +6177,15 @@
     "blendedCost": 3,
     "costPer1kRequests": 10.5,
     "benchmarks": {
-      "intelligenceIndex": 30.5,
+      "intelligenceIndex": 24.7,
       "codingIndex": 63,
       "agenticIndex": 33.1,
-      "valueScore": 2100
+      "valueScore": 210
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.5-plus-02-15",
@@ -5991,7 +6212,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3.5-397b-a17b",
@@ -6014,11 +6236,12 @@
       "intelligenceIndex": 19.1,
       "codingIndex": 48.2,
       "agenticIndex": 10.6,
-      "valueScore": 3743.689320388349
+      "valueScore": 374.4
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "minimax/minimax-m2.5",
@@ -6038,14 +6261,15 @@
     "blendedCost": 0.47250000000000003,
     "costPer1kRequests": 1.6199999999999999,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 22.8,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "z-ai/glm-5",
@@ -6065,14 +6289,15 @@
     "blendedCost": 0.9299999999999999,
     "costPer1kRequests": 3.1199999999999997,
     "benchmarks": {
-      "intelligenceIndex": 27.9,
+      "intelligenceIndex": 26.6,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-max-thinking",
@@ -6092,14 +6317,15 @@
     "blendedCost": 1.56,
     "costPer1kRequests": 5.46,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 15.6,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "anthropic/claude-opus-4.6",
@@ -6119,14 +6345,15 @@
     "blendedCost": 10,
     "costPer1kRequests": 35,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 26.4,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "anthropic/claude-opus-4.6:batch",
@@ -6146,14 +6373,15 @@
     "blendedCost": 5,
     "costPer1kRequests": 17.5,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 26.4,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "qwen/qwen3-coder-next",
@@ -6176,11 +6404,12 @@
       "intelligenceIndex": 10.1,
       "codingIndex": 36.2,
       "agenticIndex": 3.6,
-      "valueScore": 12482.758620689658
+      "valueScore": 1248.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openrouter/free",
@@ -6207,7 +6436,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "stepfun/step-3.5-flash",
@@ -6227,14 +6457,15 @@
     "blendedCost": 0.15,
     "costPer1kRequests": 0.5,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 17,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "moonshotai/kimi-k2.5",
@@ -6257,11 +6488,12 @@
       "intelligenceIndex": 12.7,
       "codingIndex": 46.8,
       "agenticIndex": null,
-      "valueScore": 5200
+      "valueScore": 520
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "upstage/solar-pro-3",
@@ -6281,14 +6513,15 @@
     "blendedCost": 0.26249999999999996,
     "costPer1kRequests": 0.9,
     "benchmarks": {
-      "intelligenceIndex": 7.8,
+      "intelligenceIndex": 20.2,
       "codingIndex": 16.2,
       "agenticIndex": 1.4,
-      "valueScore": 6171.4285714285725
+      "valueScore": 617.1
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "minimax/minimax-m2-her",
@@ -6308,14 +6541,15 @@
     "blendedCost": 0.5249999999999999,
     "costPer1kRequests": 1.8,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 18.6,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "writer/palmyra-x5",
@@ -6342,7 +6576,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-audio",
@@ -6369,7 +6604,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-audio-mini",
@@ -6396,7 +6632,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "z-ai/glm-4.7-flash",
@@ -6416,14 +6653,15 @@
     "blendedCost": 0.145375,
     "costPer1kRequests": 0.521,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 14.9,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.2-codex",
@@ -6443,14 +6681,15 @@
     "blendedCost": 4.8125,
     "costPer1kRequests": 17.5,
     "benchmarks": {
-      "intelligenceIndex": 23,
+      "intelligenceIndex": 28.5,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "bytedance-seed/seed-1.6-flash",
@@ -6477,7 +6716,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "bytedance-seed/seed-1.6",
@@ -6504,7 +6744,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "minimax/minimax-m2.1",
@@ -6524,14 +6765,15 @@
     "blendedCost": 0.5249999999999999,
     "costPer1kRequests": 1.8,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 20.9,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "z-ai/glm-4.7",
@@ -6551,14 +6793,15 @@
     "blendedCost": 0.7375,
     "costPer1kRequests": 2.5500000000000003,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 14.9,
       "codingIndex": 45.3,
       "agenticIndex": null,
-      "valueScore": 6142.372881355932
+      "valueScore": 614.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-3-flash-preview",
@@ -6578,14 +6821,15 @@
     "blendedCost": 1.125,
     "costPer1kRequests": 4,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 17.9,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-3-flash-preview:batch",
@@ -6605,14 +6849,15 @@
     "blendedCost": 0.5625,
     "costPer1kRequests": 2,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 17.9,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "nvidia/nemotron-3-nano-30b-a3b",
@@ -6632,14 +6877,15 @@
     "blendedCost": 0.105,
     "costPer1kRequests": 0.36,
     "benchmarks": {
-      "intelligenceIndex": 8.9,
+      "intelligenceIndex": 20.2,
       "codingIndex": 14.4,
       "agenticIndex": 1,
-      "valueScore": 13714.285714285714
+      "valueScore": 1371.4
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.2-chat",
@@ -6660,13 +6906,14 @@
     "costPer1kRequests": 17.5,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 78.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.2-pro",
@@ -6687,13 +6934,14 @@
     "costPer1kRequests": 209.99999999999997,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 6.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.2-pro:batch",
@@ -6714,13 +6962,14 @@
     "costPer1kRequests": 104.99999999999999,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 13.1
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.2",
@@ -6740,14 +6989,15 @@
     "blendedCost": 4.8125,
     "costPer1kRequests": 17.5,
     "benchmarks": {
-      "intelligenceIndex": 23,
+      "intelligenceIndex": 28.5,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.2:batch",
@@ -6768,13 +7018,14 @@
     "costPer1kRequests": 8.75,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 157.1
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/devstral-2512",
@@ -6797,11 +7048,12 @@
       "intelligenceIndex": 9.4,
       "codingIndex": 31.3,
       "agenticIndex": 4.9,
-      "valueScore": 3912.5
+      "valueScore": 391.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "relace/relace-search",
@@ -6828,7 +7080,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "z-ai/glm-4.6v",
@@ -6848,14 +7101,15 @@
     "blendedCost": 0.44999999999999996,
     "costPer1kRequests": 1.5,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 8.4,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openrouter/bodybuilder",
@@ -6882,7 +7136,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "openai/gpt-5.1-codex-max",
@@ -6902,14 +7157,15 @@
     "blendedCost": 3.4375,
     "costPer1kRequests": 12.5,
     "benchmarks": {
-      "intelligenceIndex": 23,
+      "intelligenceIndex": 23.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "amazon/nova-2-lite-v1",
@@ -6932,11 +7188,12 @@
       "intelligenceIndex": null,
       "codingIndex": 23,
       "agenticIndex": null,
-      "valueScore": 2705.8823529411766
+      "valueScore": 270.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/ministral-14b-2512",
@@ -6959,11 +7216,12 @@
       "intelligenceIndex": 6,
       "codingIndex": 14.4,
       "agenticIndex": 1.1,
-      "valueScore": 7200.000000000002
+      "valueScore": 720
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/ministral-8b-2512",
@@ -6986,11 +7244,12 @@
       "intelligenceIndex": 5.5,
       "codingIndex": 9.7,
       "agenticIndex": 0.6,
-      "valueScore": 6466.666666666667
+      "valueScore": 646.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/ministral-8b-2512:batch",
@@ -7013,11 +7272,12 @@
       "intelligenceIndex": 5.5,
       "codingIndex": 9.7,
       "agenticIndex": 0.6,
-      "valueScore": 12933.333333333334
+      "valueScore": 1293.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/ministral-3b-2512",
@@ -7040,11 +7300,12 @@
       "intelligenceIndex": 4.8,
       "codingIndex": 4.8,
       "agenticIndex": 0.8,
-      "valueScore": 4800
+      "valueScore": 480
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/mistral-large-2512:batch",
@@ -7064,14 +7325,15 @@
     "blendedCost": 0.375,
     "costPer1kRequests": 1.25,
     "benchmarks": {
-      "intelligenceIndex": 9.7,
+      "intelligenceIndex": 7.6,
       "codingIndex": 20.1,
       "agenticIndex": 2.4,
-      "valueScore": 5360
+      "valueScore": 536
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-v3.2",
@@ -7091,14 +7353,15 @@
     "blendedCost": 0.30174999999999996,
     "costPer1kRequests": 0.938,
     "benchmarks": {
-      "intelligenceIndex": 8.5,
+      "intelligenceIndex": 13.9,
       "codingIndex": 44.2,
       "agenticIndex": null,
-      "valueScore": 14647.887323943663
+      "valueScore": 1464.8
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "anthropic/claude-opus-4.5",
@@ -7118,14 +7381,15 @@
     "blendedCost": 10,
     "costPer1kRequests": 35,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 29.1,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "anthropic/claude-opus-4.5:batch",
@@ -7145,14 +7409,15 @@
     "blendedCost": 5,
     "costPer1kRequests": 17.5,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 23.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "google/gemini-3-pro-image-preview",
@@ -7172,14 +7437,15 @@
     "blendedCost": 4.5,
     "costPer1kRequests": 16,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 28,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.1",
@@ -7199,14 +7465,15 @@
     "blendedCost": 3.4375,
     "costPer1kRequests": 12.5,
     "benchmarks": {
-      "intelligenceIndex": 23,
+      "intelligenceIndex": 23.7,
       "codingIndex": 49.4,
       "agenticIndex": null,
-      "valueScore": 1437.090909090909
+      "valueScore": 143.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.1:batch",
@@ -7227,13 +7494,14 @@
     "costPer1kRequests": 6.25,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": 49.4,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": 2874.181818181818
+      "valueScore": 219.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.1-codex",
@@ -7253,14 +7521,15 @@
     "blendedCost": 3.4375,
     "costPer1kRequests": 12.5,
     "benchmarks": {
-      "intelligenceIndex": 23,
+      "intelligenceIndex": 23.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5.1-codex-mini",
@@ -7280,14 +7549,15 @@
     "blendedCost": 0.6875,
     "costPer1kRequests": 2.5,
     "benchmarks": {
-      "intelligenceIndex": 23,
+      "intelligenceIndex": 23.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "moonshotai/kimi-k2-thinking",
@@ -7310,11 +7580,12 @@
       "intelligenceIndex": 12.7,
       "codingIndex": 21,
       "agenticIndex": null,
-      "valueScore": 1953.4883720930231
+      "valueScore": 195.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "amazon/nova-premier-v1",
@@ -7334,14 +7605,15 @@
     "blendedCost": 5,
     "costPer1kRequests": 17.5,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 9.2,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "perplexity/sonar-pro-search",
@@ -7368,7 +7640,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/voxtral-small-24b-2507",
@@ -7395,7 +7668,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-oss-safeguard-20b",
@@ -7422,7 +7696,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "minimax/minimax-m2",
@@ -7442,14 +7717,15 @@
     "blendedCost": 0.44625000000000004,
     "costPer1kRequests": 1.53,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 22.8,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-vl-32b-instruct",
@@ -7469,14 +7745,15 @@
     "blendedCost": 0.18200000000000002,
     "costPer1kRequests": 0.624,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 8.4,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "ibm-granite/granite-4.0-h-micro",
@@ -7503,7 +7780,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "openai/gpt-5-image-mini",
@@ -7524,13 +7802,14 @@
     "costPer1kRequests": 7,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 159.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "anthropic/claude-haiku-4.5",
@@ -7553,11 +7832,12 @@
       "intelligenceIndex": 17.6,
       "codingIndex": 43.9,
       "agenticIndex": 10.3,
-      "valueScore": 2195
+      "valueScore": 219.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "anthropic/claude-haiku-4.5:batch",
@@ -7580,11 +7860,12 @@
       "intelligenceIndex": 17.6,
       "codingIndex": 43.9,
       "agenticIndex": 10.3,
-      "valueScore": 4390
+      "valueScore": 439
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-vl-8b-thinking",
@@ -7611,7 +7892,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-vl-8b-instruct",
@@ -7638,7 +7920,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5-image",
@@ -7659,13 +7942,14 @@
     "costPer1kRequests": 30,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 37.8
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-2.5-flash-image",
@@ -7685,14 +7969,15 @@
     "blendedCost": 0.85,
     "costPer1kRequests": 3.1,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 9.9,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-vl-30b-a3b-thinking",
@@ -7719,7 +8004,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-vl-30b-a3b-instruct",
@@ -7739,14 +8025,15 @@
     "blendedCost": 0.32499999999999996,
     "costPer1kRequests": 1.0999999999999999,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 7.9,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5-pro",
@@ -7767,13 +8054,14 @@
     "costPer1kRequests": 150.00000000000003,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 9.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5-pro:batch",
@@ -7794,13 +8082,14 @@
     "costPer1kRequests": 75.00000000000001,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 18.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "z-ai/glm-4.6",
@@ -7820,14 +8109,15 @@
     "blendedCost": 0.76,
     "costPer1kRequests": 2.61,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 8.4,
       "codingIndex": 45.8,
       "agenticIndex": null,
-      "valueScore": 6026.315789473683
+      "valueScore": 602.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "anthropic/claude-sonnet-4.5",
@@ -7850,11 +8140,12 @@
       "intelligenceIndex": 21.2,
       "codingIndex": 52.1,
       "agenticIndex": 17.5,
-      "valueScore": 868.3333333333334
+      "valueScore": 86.8
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "anthropic/claude-sonnet-4.5:batch",
@@ -7877,11 +8168,12 @@
       "intelligenceIndex": 21.2,
       "codingIndex": 52.1,
       "agenticIndex": 17.5,
-      "valueScore": 1736.6666666666667
+      "valueScore": 173.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-v3.2-exp",
@@ -7902,13 +8194,14 @@
     "costPer1kRequests": 0.95,
     "benchmarks": {
       "intelligenceIndex": 8.5,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "codingIndex": 23,
+      "agenticIndex": 0.8,
+      "valueScore": 754.1
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "thedrummer/cydonia-24b-v4.1",
@@ -7935,7 +8228,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "relace/relace-apply-3",
@@ -7962,7 +8256,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-vl-235b-a22b-thinking",
@@ -7989,7 +8284,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-vl-235b-a22b-instruct",
@@ -8009,14 +8305,15 @@
     "blendedCost": 0.6325,
     "costPer1kRequests": 2.32,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 9.9,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-max",
@@ -8036,14 +8333,15 @@
     "blendedCost": 1.56,
     "costPer1kRequests": 5.46,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 12.6,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-coder-plus",
@@ -8070,7 +8368,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-v3.1-terminus",
@@ -8093,11 +8392,12 @@
       "intelligenceIndex": 15.4,
       "codingIndex": 43.5,
       "agenticIndex": 8.9,
-      "valueScore": 9613.259668508288
+      "valueScore": 961.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-coder-flash",
@@ -8124,7 +8424,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-next-80b-a3b-thinking",
@@ -8147,11 +8448,12 @@
       "intelligenceIndex": null,
       "codingIndex": 17.4,
       "agenticIndex": null,
-      "valueScore": 4218.181818181818
+      "valueScore": 421.8
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-next-80b-a3b-instruct",
@@ -8178,7 +8480,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen-plus-2025-07-28",
@@ -8205,7 +8508,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "moonshotai/kimi-k2-0905",
@@ -8232,7 +8536,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-30b-a3b-thinking-2507",
@@ -8255,11 +8560,12 @@
       "intelligenceIndex": 9.8,
       "codingIndex": 12.1,
       "agenticIndex": 0.9,
-      "valueScore": 1613.3333333333333
+      "valueScore": 161.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "nousresearch/hermes-4-405b",
@@ -8286,7 +8592,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-chat-v3.1",
@@ -8313,7 +8620,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/mistral-medium-3.1",
@@ -8336,11 +8644,12 @@
       "intelligenceIndex": 9.5,
       "codingIndex": 20.5,
       "agenticIndex": 3.1,
-      "valueScore": 2562.5
+      "valueScore": 256.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/mistral-medium-3.1:batch",
@@ -8363,11 +8672,12 @@
       "intelligenceIndex": 9.5,
       "codingIndex": 20.5,
       "agenticIndex": 3.1,
-      "valueScore": 5125
+      "valueScore": 512.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "z-ai/glm-4.5v",
@@ -8387,14 +8697,15 @@
     "blendedCost": 0.8999999999999999,
     "costPer1kRequests": 3,
     "benchmarks": {
-      "intelligenceIndex": 12.8,
+      "intelligenceIndex": 6.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5",
@@ -8414,14 +8725,15 @@
     "blendedCost": 3.4375,
     "costPer1kRequests": 12.5,
     "benchmarks": {
-      "intelligenceIndex": 23,
+      "intelligenceIndex": 28.5,
       "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": 1099.6363636363635
+      "valueScore": 110
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5:batch",
@@ -8444,11 +8756,12 @@
       "intelligenceIndex": 23,
       "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": 2199.272727272727
+      "valueScore": 219.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5-mini",
@@ -8471,11 +8784,12 @@
       "intelligenceIndex": 17.4,
       "codingIndex": 15.6,
       "agenticIndex": 8.9,
-      "valueScore": 2269.090909090909
+      "valueScore": 226.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5-mini:batch",
@@ -8498,11 +8812,12 @@
       "intelligenceIndex": 17.4,
       "codingIndex": 15.6,
       "agenticIndex": 8.9,
-      "valueScore": 4538.181818181818
+      "valueScore": 453.8
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5-nano",
@@ -8522,14 +8837,15 @@
     "blendedCost": 0.13749999999999998,
     "costPer1kRequests": 0.5,
     "benchmarks": {
-      "intelligenceIndex": 23,
+      "intelligenceIndex": 7.1,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-5-nano:batch",
@@ -8550,13 +8866,14 @@
     "costPer1kRequests": 0.25,
     "benchmarks": {
       "intelligenceIndex": 23,
-      "codingIndex": null,
+      "codingIndex": 37.8,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 5498.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "economy"
   },
   {
     "id": "openai/gpt-oss-120b",
@@ -8576,14 +8893,15 @@
     "blendedCost": 0.26249999999999996,
     "costPer1kRequests": 0.9,
     "benchmarks": {
-      "intelligenceIndex": 12.3,
-      "codingIndex": 30.4,
+      "intelligenceIndex": 10.2,
+      "codingIndex": 21.2,
       "agenticIndex": 6.2,
-      "valueScore": 11580.952380952382
+      "valueScore": 807.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-oss-120b:batch",
@@ -8606,11 +8924,12 @@
       "intelligenceIndex": 12.3,
       "codingIndex": 30.4,
       "agenticIndex": 6.2,
-      "valueScore": 11580.952380952382
+      "valueScore": 1158.1
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-oss-20b",
@@ -8630,14 +8949,15 @@
     "blendedCost": 0.055,
     "costPer1kRequests": 0.18999999999999997,
     "benchmarks": {
-      "intelligenceIndex": 9,
+      "intelligenceIndex": 10,
       "codingIndex": 20.7,
       "agenticIndex": 1.4,
-      "valueScore": 37636.36363636364
+      "valueScore": 3763.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "anthropic/claude-opus-4.1",
@@ -8664,7 +8984,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "anthropic/claude-opus-4.1:batch",
@@ -8691,7 +9012,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "frontier"
   },
   {
     "id": "mistralai/codestral-2508",
@@ -8718,7 +9040,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/codestral-2508:batch",
@@ -8745,7 +9068,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-coder-30b-a3b-instruct",
@@ -8765,14 +9089,15 @@
     "blendedCost": 0.12250000000000001,
     "costPer1kRequests": 0.42000000000000004,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 9.6,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-30b-a3b-instruct-2507",
@@ -8792,14 +9117,15 @@
     "blendedCost": 0.084375,
     "costPer1kRequests": 0.28935,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 6.6,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "z-ai/glm-4.5",
@@ -8819,14 +9145,15 @@
     "blendedCost": 1,
     "costPer1kRequests": 3.4000000000000004,
     "benchmarks": {
-      "intelligenceIndex": 12.8,
+      "intelligenceIndex": 6.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "z-ai/glm-4.5-air",
@@ -8853,7 +9180,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-235b-a22b-thinking-2507",
@@ -8876,11 +9204,12 @@
       "intelligenceIndex": 12.7,
       "codingIndex": 22.1,
       "agenticIndex": 1.3,
-      "valueScore": 2956.521739130435
+      "valueScore": 295.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-coder",
@@ -8900,14 +9229,15 @@
     "blendedCost": 0.475,
     "costPer1kRequests": 1.5999999999999999,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 11.9,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "bytedance/ui-tars-1.5-7b",
@@ -8934,7 +9264,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-2.5-flash-lite",
@@ -8954,14 +9285,15 @@
     "blendedCost": 0.175,
     "costPer1kRequests": 0.6,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 6.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-2.5-flash-lite:batch",
@@ -8981,14 +9313,15 @@
     "blendedCost": 0.0875,
     "costPer1kRequests": 0.3,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 6.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-235b-a22b-2507",
@@ -9015,7 +9348,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "moonshotai/kimi-k2",
@@ -9035,14 +9369,15 @@
     "blendedCost": 1.0025,
     "costPer1kRequests": 3.4400000000000004,
     "benchmarks": {
-      "intelligenceIndex": 12.7,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 27.5,
+      "codingIndex": 61.8,
+      "agenticIndex": 22.1,
+      "valueScore": 616.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "cognitivecomputations/dolphin-mistral-24b-venice-edition",
@@ -9069,7 +9404,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "tencent/hunyuan-a13b-instruct",
@@ -9096,7 +9432,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "morph/morph-v3-large",
@@ -9123,7 +9460,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "morph/morph-v3-fast",
@@ -9150,7 +9488,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "baidu/ernie-4.5-vl-424b-a47b",
@@ -9177,7 +9516,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/mistral-small-3.2-24b-instruct",
@@ -9197,14 +9537,15 @@
     "blendedCost": 0.1328125,
     "costPer1kRequests": 0.4375,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 7,
+      "codingIndex": 12.5,
+      "agenticIndex": 1,
+      "valueScore": 941.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "minimax/minimax-m1",
@@ -9224,14 +9565,15 @@
     "blendedCost": 0.8500000000000001,
     "costPer1kRequests": 3,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 10,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-2.5-flash",
@@ -9251,14 +9593,15 @@
     "blendedCost": 0.85,
     "costPer1kRequests": 3.1,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 6.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-2.5-flash:batch",
@@ -9278,14 +9621,15 @@
     "blendedCost": 0.425,
     "costPer1kRequests": 1.55,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 9.9,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-2.5-pro",
@@ -9305,14 +9649,15 @@
     "blendedCost": 3.4375,
     "costPer1kRequests": 12.5,
     "benchmarks": {
-      "intelligenceIndex": 16.7,
+      "intelligenceIndex": 14.5,
       "codingIndex": 33.3,
       "agenticIndex": 3.5,
-      "valueScore": 968.7272727272725
+      "valueScore": 96.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-2.5-pro:batch",
@@ -9335,11 +9680,12 @@
       "intelligenceIndex": 16.7,
       "codingIndex": 33.3,
       "agenticIndex": 3.5,
-      "valueScore": 1937.454545454545
+      "valueScore": 193.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/o3-pro",
@@ -9366,7 +9712,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-2.5-pro-preview",
@@ -9386,14 +9733,15 @@
     "blendedCost": 3.4375,
     "costPer1kRequests": 12.5,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 16.7,
+      "codingIndex": 33.3,
+      "agenticIndex": 3.5,
+      "valueScore": 96.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-r1-0528",
@@ -9413,14 +9761,15 @@
     "blendedCost": 0.9125000000000001,
     "costPer1kRequests": 3.15,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 13.1,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "anthropic/claude-opus-4",
@@ -9440,14 +9789,15 @@
     "blendedCost": 30,
     "costPer1kRequests": 105,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 29.1,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "frontier"
   },
   {
     "id": "anthropic/claude-sonnet-4",
@@ -9467,14 +9817,15 @@
     "blendedCost": 6,
     "costPer1kRequests": 21,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 24.7,
       "codingIndex": 37.6,
       "agenticIndex": null,
-      "valueScore": 626.6666666666666
+      "valueScore": 62.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/mistral-medium-3",
@@ -9494,14 +9845,15 @@
     "blendedCost": 0.8,
     "costPer1kRequests": 2.8,
     "benchmarks": {
-      "intelligenceIndex": 5.5,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 9.5,
+      "codingIndex": 20.5,
+      "agenticIndex": 3.1,
+      "valueScore": 256.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "meta-llama/llama-guard-4-12b",
@@ -9528,7 +9880,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-30b-a3b",
@@ -9548,14 +9901,15 @@
     "blendedCost": 0.215,
     "costPer1kRequests": 0.74,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 7.6,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-8b",
@@ -9575,14 +9929,15 @@
     "blendedCost": 0.2015,
     "costPer1kRequests": 0.689,
     "benchmarks": {
-      "intelligenceIndex": 5.2,
+      "intelligenceIndex": 8.1,
       "codingIndex": 9,
       "agenticIndex": 0.8,
-      "valueScore": 4466.501240694789
+      "valueScore": 446.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-14b",
@@ -9605,11 +9960,12 @@
       "intelligenceIndex": 6.4,
       "codingIndex": 13.8,
       "agenticIndex": 0.9,
-      "valueScore": 9200.000000000002
+      "valueScore": 920
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-32b",
@@ -9632,11 +9988,12 @@
       "intelligenceIndex": 7.2,
       "codingIndex": 15.3,
       "agenticIndex": 0.9,
-      "valueScore": 11769.23076923077
+      "valueScore": 1176.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen3-235b-a22b",
@@ -9656,14 +10013,15 @@
     "blendedCost": 0.7962499999999999,
     "costPer1kRequests": 2.73,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 12,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/o4-mini-high",
@@ -9683,14 +10041,15 @@
     "blendedCost": 1.9250000000000003,
     "costPer1kRequests": 6.6,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 16.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/o3",
@@ -9710,14 +10069,15 @@
     "blendedCost": 3.5,
     "costPer1kRequests": 12,
     "benchmarks": {
-      "intelligenceIndex": 20.2,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 11,
+      "codingIndex": 16.3,
+      "agenticIndex": 0.9,
+      "valueScore": 46.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/o3:batch",
@@ -9744,7 +10104,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/o4-mini",
@@ -9764,14 +10125,15 @@
     "blendedCost": 1.9250000000000003,
     "costPer1kRequests": 6.6,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 16.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/o4-mini:batch",
@@ -9791,14 +10153,15 @@
     "blendedCost": 0.9625000000000001,
     "costPer1kRequests": 3.3,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 16.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4.1",
@@ -9818,14 +10181,15 @@
     "blendedCost": 3.5,
     "costPer1kRequests": 12,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 12.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4.1:batch",
@@ -9845,14 +10209,15 @@
     "blendedCost": 1.75,
     "costPer1kRequests": 6,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 12.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4.1-mini",
@@ -9872,14 +10237,15 @@
     "blendedCost": 0.7,
     "costPer1kRequests": 2.4,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 12.7,
       "codingIndex": 20.2,
       "agenticIndex": null,
-      "valueScore": 2885.714285714286
+      "valueScore": 288.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4.1-mini:batch",
@@ -9899,14 +10265,15 @@
     "blendedCost": 0.35,
     "costPer1kRequests": 1.2,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 12.7,
       "codingIndex": 20.2,
       "agenticIndex": null,
-      "valueScore": 5771.428571428572
+      "valueScore": 577.1
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4.1-nano",
@@ -9926,14 +10293,15 @@
     "blendedCost": 0.175,
     "costPer1kRequests": 0.6,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 12.7,
       "codingIndex": 11.1,
       "agenticIndex": null,
-      "valueScore": 6342.857142857143
+      "valueScore": 634.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4.1-nano:batch",
@@ -9953,14 +10321,15 @@
     "blendedCost": 0.0875,
     "costPer1kRequests": 0.3,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 12.7,
       "codingIndex": 11.1,
       "agenticIndex": null,
-      "valueScore": 12685.714285714286
+      "valueScore": 1268.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "economy"
   },
   {
     "id": "meta-llama/llama-4-maverick",
@@ -9983,11 +10352,12 @@
       "intelligenceIndex": 9.3,
       "codingIndex": 16.3,
       "agenticIndex": 0.6,
-      "valueScore": 5366.2551440329225
+      "valueScore": 536.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "meta-llama/llama-4-scout",
@@ -10010,11 +10380,12 @@
       "intelligenceIndex": 6.5,
       "codingIndex": 8.2,
       "agenticIndex": 0.5,
-      "valueScore": 5466.666666666666
+      "valueScore": 546.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-chat-v3-0324",
@@ -10037,11 +10408,12 @@
       "intelligenceIndex": 9.7,
       "codingIndex": 21.2,
       "agenticIndex": 0.8,
-      "valueScore": 4845.714285714285
+      "valueScore": 484.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/o1-pro",
@@ -10061,14 +10433,15 @@
     "blendedCost": 262.5,
     "costPer1kRequests": 899.9999999999999,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
+      "intelligenceIndex": 15.2,
+      "codingIndex": 39.7,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 1.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/mistral-small-3.1-24b-instruct",
@@ -10088,14 +10461,15 @@
     "blendedCost": 0.40199999999999997,
     "costPer1kRequests": 1.257,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 7.4,
+      "codingIndex": 26.3,
+      "agenticIndex": 2.1,
+      "valueScore": 654.2
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemma-3-4b-it",
@@ -10118,11 +10492,12 @@
       "intelligenceIndex": 4.8,
       "codingIndex": 2.7,
       "agenticIndex": null,
-      "valueScore": 4320
+      "valueScore": 432
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "google/gemma-3-12b-it",
@@ -10145,11 +10520,12 @@
       "intelligenceIndex": 3.8,
       "codingIndex": 5.8,
       "agenticIndex": 0.1,
-      "valueScore": 7733.333333333333
+      "valueScore": 773.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "cohere/command-a",
@@ -10172,11 +10548,12 @@
       "intelligenceIndex": 13.9,
       "codingIndex": 27.8,
       "agenticIndex": 3.6,
-      "valueScore": 635.4285714285714
+      "valueScore": 63.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "rekaai/reka-flash-3",
@@ -10196,14 +10573,15 @@
     "blendedCost": 0.125,
     "costPer1kRequests": 0.39999999999999997,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 6.4,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemma-3-27b-it",
@@ -10226,11 +10604,12 @@
       "intelligenceIndex": 4.9,
       "codingIndex": 10.1,
       "agenticIndex": 0.1,
-      "valueScore": 5855.072463768116
+      "valueScore": 585.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "thedrummer/skyfall-36b-v2",
@@ -10257,7 +10636,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "perplexity/sonar-reasoning-pro",
@@ -10284,7 +10664,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "perplexity/sonar-pro",
@@ -10311,7 +10692,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "perplexity/sonar-deep-research",
@@ -10331,14 +10713,15 @@
     "blendedCost": 3.5,
     "costPer1kRequests": 12,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 7.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/mistral-saba",
@@ -10358,14 +10741,15 @@
     "blendedCost": 0.3,
     "costPer1kRequests": 1,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 6.5,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/o3-mini-high",
@@ -10388,11 +10772,12 @@
       "intelligenceIndex": 11,
       "codingIndex": 16.3,
       "agenticIndex": 0.9,
-      "valueScore": 846.7532467532467
+      "valueScore": 84.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "aion-labs/aion-rp-llama-3.1-8b",
@@ -10419,7 +10804,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen2.5-vl-72b-instruct",
@@ -10446,7 +10832,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen-plus",
@@ -10473,7 +10860,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/o3-mini",
@@ -10493,14 +10881,15 @@
     "blendedCost": 1.9250000000000003,
     "costPer1kRequests": 6.6,
     "benchmarks": {
-      "intelligenceIndex": 20.2,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
+      "intelligenceIndex": 11,
+      "codingIndex": 16.3,
+      "agenticIndex": 0.9,
+      "valueScore": 84.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/o3-mini:batch",
@@ -10527,7 +10916,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/mistral-small-24b-instruct-2501",
@@ -10547,14 +10937,15 @@
     "blendedCost": 0.057499999999999996,
     "costPer1kRequests": 0.18,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 5.8,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "perplexity/sonar",
@@ -10574,14 +10965,15 @@
     "blendedCost": 1,
     "costPer1kRequests": 3,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 8.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-r1-distill-llama-70b",
@@ -10601,14 +10993,15 @@
     "blendedCost": 0.7999999999999999,
     "costPer1kRequests": 2.4,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 7.9,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "deepseek/deepseek-r1",
@@ -10631,11 +11024,12 @@
       "intelligenceIndex": 11.4,
       "codingIndex": 24.6,
       "agenticIndex": 1.1,
-      "valueScore": 2139.130434782609
+      "valueScore": 213.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "minimax/minimax-01",
@@ -10662,7 +11056,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "microsoft/phi-4",
@@ -10682,14 +11077,15 @@
     "blendedCost": 0.08750000000000001,
     "costPer1kRequests": 0.28,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 5.8,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "deepseek/deepseek-chat",
@@ -10716,7 +11112,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "sao10k/l3.3-euryale-70b",
@@ -10743,7 +11140,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/o1",
@@ -10763,14 +11161,15 @@
     "blendedCost": 26.25,
     "costPer1kRequests": 90.00000000000001,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": 39.7,
+      "intelligenceIndex": 11.4,
+      "codingIndex": 34,
       "agenticIndex": null,
-      "valueScore": 151.23809523809524
+      "valueScore": 13
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "cohere/command-r7b-12-2024",
@@ -10797,7 +11196,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "meta-llama/llama-3.3-70b-instruct",
@@ -10820,11 +11220,12 @@
       "intelligenceIndex": null,
       "codingIndex": 11.9,
       "agenticIndex": null,
-      "valueScore": 7677.41935483871
+      "valueScore": 767.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "amazon/nova-lite-v1",
@@ -10844,14 +11245,15 @@
     "blendedCost": 0.105,
     "costPer1kRequests": 0.36,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 6.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "amazon/nova-micro-v1",
@@ -10878,7 +11280,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "amazon/nova-pro-v1",
@@ -10898,14 +11301,15 @@
     "blendedCost": 1.4,
     "costPer1kRequests": 4.8,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4o-2024-11-20",
@@ -10925,14 +11329,15 @@
     "blendedCost": 4.375,
     "costPer1kRequests": 15,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
+      "intelligenceIndex": 6.7,
+      "codingIndex": 13.1,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 29.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/mistral-large-2407",
@@ -10959,7 +11364,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen-2.5-coder-32b-instruct",
@@ -10979,14 +11385,15 @@
     "blendedCost": 0.745,
     "costPer1kRequests": 2.32,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 6.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "thedrummer/unslopnemo-12b",
@@ -11006,14 +11413,15 @@
     "blendedCost": 0.39999999999999997,
     "costPer1kRequests": 1.2,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
+      "intelligenceIndex": 15.2,
+      "codingIndex": 39.7,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 992.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "anthracite-org/magnum-v4-72b",
@@ -11040,7 +11448,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen-2.5-7b-instruct",
@@ -11067,7 +11476,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "meta-llama/llama-3.2-1b-instruct",
@@ -11094,7 +11504,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "meta-llama/llama-3.2-3b-instruct",
@@ -11121,7 +11532,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "qwen/qwen-2.5-72b-instruct",
@@ -11141,14 +11553,15 @@
     "blendedCost": 0.37,
     "costPer1kRequests": 1.1199999999999999,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 7.7,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "cohere/command-r-08-2024",
@@ -11175,7 +11588,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "cohere/command-r-plus-08-2024",
@@ -11202,7 +11616,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "sao10k/l3.1-euryale-70b",
@@ -11229,7 +11644,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "nousresearch/hermes-3-llama-3.1-70b",
@@ -11249,14 +11665,15 @@
     "blendedCost": 0.7,
     "costPer1kRequests": 2.1,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 6,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "nousresearch/hermes-3-llama-3.1-405b",
@@ -11283,7 +11700,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "sao10k/l3-lunaris-8b",
@@ -11310,7 +11728,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4o-2024-08-06",
@@ -11330,14 +11749,15 @@
     "blendedCost": 4.375,
     "costPer1kRequests": 15,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
+      "intelligenceIndex": 6.7,
+      "codingIndex": 13.1,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 29.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "meta-llama/llama-3.1-70b-instruct",
@@ -11364,7 +11784,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "meta-llama/llama-3.1-8b-instruct",
@@ -11387,11 +11808,12 @@
       "intelligenceIndex": null,
       "codingIndex": 5.4,
       "agenticIndex": null,
-      "valueScore": 9391.30434782609
+      "valueScore": 939.1
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "mistralai/mistral-nemo",
@@ -11418,7 +11840,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "openai/gpt-4o-mini",
@@ -11441,11 +11864,12 @@
       "intelligenceIndex": null,
       "codingIndex": 11.4,
       "agenticIndex": null,
-      "valueScore": 4342.857142857144
+      "valueScore": 434.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4o-mini-2024-07-18",
@@ -11465,14 +11889,15 @@
     "blendedCost": 0.26249999999999996,
     "costPer1kRequests": 0.9,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
+      "intelligenceIndex": 6.7,
+      "codingIndex": 13.1,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 499
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4o-mini:batch",
@@ -11492,14 +11917,15 @@
     "blendedCost": 0.13124999999999998,
     "costPer1kRequests": 0.45,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": 11.4,
+      "intelligenceIndex": 6.7,
+      "codingIndex": 13.1,
       "agenticIndex": null,
-      "valueScore": 8685.714285714288
+      "valueScore": 998.1
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "google/gemma-2-27b-it",
@@ -11526,7 +11952,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4o",
@@ -11553,7 +11980,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4o-2024-05-13",
@@ -11573,14 +12001,15 @@
     "blendedCost": 7.5,
     "costPer1kRequests": 25,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": 24.2,
+      "intelligenceIndex": 6.7,
+      "codingIndex": 13.1,
       "agenticIndex": null,
-      "valueScore": 322.66666666666663
+      "valueScore": 17.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4o:batch",
@@ -11600,14 +12029,15 @@
     "blendedCost": 2.1875,
     "costPer1kRequests": 7.5,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
+      "intelligenceIndex": 6.7,
+      "codingIndex": 13.1,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 59.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/mixtral-8x22b-instruct",
@@ -11634,7 +12064,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "microsoft/wizardlm-2-8x22b",
@@ -11661,7 +12092,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4-turbo",
@@ -11681,14 +12113,15 @@
     "blendedCost": 15,
     "costPer1kRequests": 50,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": 21.5,
+      "intelligenceIndex": 6.7,
+      "codingIndex": 13.1,
       "agenticIndex": null,
-      "valueScore": 143.33333333333334
+      "valueScore": 8.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4-turbo:batch",
@@ -11708,14 +12141,15 @@
     "blendedCost": 7.5,
     "costPer1kRequests": 25,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": 21.5,
+      "intelligenceIndex": 6.7,
+      "codingIndex": 13.1,
       "agenticIndex": null,
-      "valueScore": 286.6666666666667
+      "valueScore": 17.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "anthropic/claude-3-haiku",
@@ -11742,7 +12176,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mistralai/mistral-large",
@@ -11762,14 +12197,15 @@
     "blendedCost": 3,
     "costPer1kRequests": 10,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 6.8,
       "codingIndex": null,
       "agenticIndex": null,
       "valueScore": null
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-3.5-turbo-0613",
@@ -11789,14 +12225,15 @@
     "blendedCost": 1.25,
     "costPer1kRequests": 4,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
+      "intelligenceIndex": 5.5,
+      "codingIndex": 10.7,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 85.6
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openrouter/auto",
@@ -11823,7 +12260,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "openai/gpt-3.5-turbo-instruct",
@@ -11843,14 +12281,15 @@
     "blendedCost": 1.625,
     "costPer1kRequests": 5,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
+      "intelligenceIndex": 5.5,
+      "codingIndex": 10.7,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 65.8
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-3.5-turbo-16k",
@@ -11870,14 +12309,15 @@
     "blendedCost": 3.25,
     "costPer1kRequests": 10,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
+      "intelligenceIndex": 5.5,
+      "codingIndex": 10.7,
       "agenticIndex": null,
-      "valueScore": null
+      "valueScore": 32.9
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "mancer/weaver",
@@ -11904,7 +12344,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "undi95/remm-slerp-l2-13b",
@@ -11931,7 +12372,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "gryphe/mythomax-l2-13b",
@@ -11958,7 +12400,8 @@
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "economy"
   },
   {
     "id": "openai/gpt-3.5-turbo",
@@ -11978,14 +12421,15 @@
     "blendedCost": 0.75,
     "costPer1kRequests": 2.5,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 5.5,
       "codingIndex": 10.7,
       "agenticIndex": null,
-      "valueScore": 1426.6666666666665
+      "valueScore": 142.7
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-3.5-turbo:batch",
@@ -12005,14 +12449,15 @@
     "blendedCost": 0.375,
     "costPer1kRequests": 1.25,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 5.5,
       "codingIndex": 10.7,
       "agenticIndex": null,
-      "valueScore": 2853.333333333333
+      "valueScore": 285.3
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": true
+    "isBatch": true,
+    "tierClass": "balanced"
   },
   {
     "id": "openai/gpt-4",
@@ -12032,13 +12477,14 @@
     "blendedCost": 37.5,
     "costPer1kRequests": 120.00000000000001,
     "benchmarks": {
-      "intelligenceIndex": null,
+      "intelligenceIndex": 12.7,
       "codingIndex": 13.1,
       "agenticIndex": null,
-      "valueScore": 34.93333333333333
+      "valueScore": 3.5
     },
     "reasoning": null,
     "isFree": false,
-    "isBatch": false
+    "isBatch": false,
+    "tierClass": "balanced"
   }
 ]

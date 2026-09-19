@@ -14,6 +14,9 @@ export interface ModelBenchmarks {
   valueScore: number | null;
 }
 
+export type ModelTierClass = 'frontier' | 'balanced' | 'economy';
+export type BudgetSortMode = 'best-value' | 'frontier' | 'max-tokens';
+
 export interface NormalizedModel {
   id: string;
   name: string;
@@ -25,6 +28,7 @@ export interface NormalizedModel {
   blendedCost: number;
   costPer1kRequests: number;
   benchmarks: ModelBenchmarks;
+  tierClass?: ModelTierClass;
   reasoning: {
     mandatory: boolean;
     defaultEnabled: boolean;
@@ -68,7 +72,10 @@ export interface BudgetResult {
   millionTokens: number;
   requests1k: number;
   codingIndex: number | null;
+  intelligenceIndex: number | null;
+  valueScore: number | null;
   blendedCost: number;
+  tierClass?: ModelTierClass;
 }
 
 export interface AABenchmark {

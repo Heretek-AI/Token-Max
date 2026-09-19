@@ -5,10 +5,7 @@ const OUTPUT_FILE = path.join(process.cwd(), 'public/data/benchmarks.json');
 
 async function fetchBenchmarks() {
   console.log('Fetching benchmarks from Artificial Analysis...');
-  const apiKey = process.env.AA_API_KEY;
-  if (!apiKey) {
-    console.warn('Warning: AA_API_KEY environment variable not set. API may reject the request.');
-  }
+  const apiKey = process.env.AA_API_KEY || 'aa_deImEvQhbDWBmUhmWwipzqxziyAMKZur';
 
   const headers = {};
   if (apiKey) {
@@ -16,35 +13,34 @@ async function fetchBenchmarks() {
   }
 
   let allModels = [];
-  let nextCursor = null;
-  let hasMore = true;
+  let page = 1;
+  let totalPages = 1;
 
-  while (hasMore) {
-    let url = 'https://artificialanalysis.ai/api/v2/language/models/free';
-    if (nextCursor) {
-      url += `?cursor=${nextCursor}`;
-    }
+  while (page <= totalPages) {
+    const url = `https://artificialanalysis.ai/api/v2/language/models/free?page=${page}`;
+    console.log(`Fetching ${url} (page ${page}/${totalPages})...`);
 
-    console.log(`Fetching ${url}`);
     const res = await fetch(url, { headers });
     if (!res.ok) {
-       console.error(`Failed to fetch AA API: ${res.status} ${res.statusText}`);
-       // If it fails (e.g. 401 without key), write empty array and exit gracefully
-       break;
+      console.error(`Failed to fetch AA API page ${page}: ${res.status} ${res.statusText}`);
+      break;
     }
 
     const data = await res.json();
+    totalPages = data.pagination?.total_pages || 1;
     const items = data.data || [];
-    
+
     for (const item of items) {
       allModels.push({
+        id: item.id,
         slug: item.slug,
         name: item.name,
+        creator: item.model_creator?.name || 'Unknown',
         releaseDate: item.release_date,
         evaluations: {
           intelligenceIndex: item.evaluations?.artificial_analysis_intelligence_index ?? null,
-          codingIndex: item.evaluations?.coding_index ?? null,
-          agenticIndex: item.evaluations?.agentic_index ?? null,
+          codingIndex: item.evaluations?.artificial_analysis_coding_index ?? null,
+          agenticIndex: item.evaluations?.artificial_analysis_agentic_index ?? null,
         },
         pricing: {
           input: item.pricing?.price_1m_input_tokens ?? null,
@@ -63,8 +59,7 @@ async function fetchBenchmarks() {
       });
     }
 
-    hasMore = data.has_more || false;
-    nextCursor = data.next_cursor || null;
+    page++;
   }
 
   await fs.mkdir(path.dirname(OUTPUT_FILE), { recursive: true });

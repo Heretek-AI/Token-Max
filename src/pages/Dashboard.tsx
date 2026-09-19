@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 export default function Dashboard() {
   const { models, loading: modelsLoading } = useModels();
   const { plans, loading: plansLoading } = usePlans();
-  const { budget, setBudget, results } = useBudget(models);
+  const { budget, setBudget, sortMode, setSortMode, results } = useBudget(models);
 
   if (modelsLoading || plansLoading) return <LoadingSpinner />;
 
@@ -63,8 +63,18 @@ export default function Dashboard() {
       </section>
 
       <section>
-        <BudgetInput budget={budget} onChange={setBudget} />
-        <BudgetResults results={results} plans={plans} budget={budget} />
+        <BudgetInput 
+          budget={budget} 
+          onChange={setBudget} 
+          sortMode={sortMode} 
+          onSortModeChange={setSortMode} 
+        />
+        <BudgetResults 
+          results={results} 
+          plans={plans} 
+          budget={budget} 
+          sortMode={sortMode} 
+        />
       </section>
     </div>
   );

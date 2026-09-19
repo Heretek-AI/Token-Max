@@ -4,15 +4,53 @@ import path from 'path';
 const PUBLIC_DATA_DIR = path.join(process.cwd(), 'public/data');
 const PLANS_DIR = path.join(process.cwd(), 'data/coding-plans');
 
+function normalizeStr(str) {
+  return (str || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function classifyModelTier(model) {
+  const id = (model.id || '').toLowerCase();
+  const name = (model.name || '').toLowerCase();
+  const codingScore = model.benchmarks?.codingIndex || 0;
+  const cost = model.blendedCost;
+
+  if (
+    codingScore >= 70 ||
+    id.includes('astra') ||
+    id.includes('fable') ||
+    id.includes('opus') ||
+    id.includes('sonnet-5') ||
+    id.includes('gpt-6') ||
+    id.includes('gpt-sol') ||
+    id.includes('qwen3.8-max')
+  ) {
+    return 'frontier';
+  }
+
+  if (
+    codingScore >= 40 ||
+    cost > 0.1 ||
+    id.includes('flash') ||
+    id.includes('mini') ||
+    id.includes('luna') ||
+    id.includes('terra') ||
+    id.includes('haiku')
+  ) {
+    return 'balanced';
+  }
+
+  return 'economy';
+}
+
 async function buildData() {
   console.log('Building consolidated data...');
 
-  // 1. Load models and benchmarks
+  // 1. Load models
   let models = [];
   try {
     const modelsData = await fs.readFile(path.join(PUBLIC_DATA_DIR, 'models.json'), 'utf-8');
     models = JSON.parse(modelsData);
-  } catch (e) {
+  } catch {
     console.log('No models.json found, skipping models processing.');
   }
 
@@ -20,35 +58,59 @@ async function buildData() {
   try {
     const benchData = await fs.readFile(path.join(PUBLIC_DATA_DIR, 'benchmarks.json'), 'utf-8');
     benchmarks = JSON.parse(benchData);
-  } catch (e) {
+  } catch {
     console.log('No benchmarks.json found, skipping benchmarks processing.');
   }
 
-  // 2. Merge benchmarks into models
+  // 2. Merge benchmarks into models with enhanced matching
+  let matchedCount = 0;
   for (const model of models) {
-    // Try to match AA slug to OR id or name
-    const match = benchmarks.find(b => 
-      b.slug === model.id.split('/').pop() || 
-      b.slug === model.id.replace(/\//g, '-') ||
-      b.name.toLowerCase() === model.name.toLowerCase() ||
-      model.id.toLowerCase().includes(b.slug)
-    );
+    const modelIdClean = model.id.split('/').pop() || '';
+    const mIdNorm = normalizeStr(modelIdClean);
+    const mNameNorm = normalizeStr(model.name);
 
-    if (match) {
-      model.benchmarks.intelligenceIndex = model.benchmarks.intelligenceIndex ?? match.evaluations.intelligenceIndex;
-      model.benchmarks.codingIndex = model.benchmarks.codingIndex ?? match.evaluations.codingIndex;
-      model.benchmarks.agenticIndex = model.benchmarks.agenticIndex ?? match.evaluations.agenticIndex;
+    // Find best match in AA benchmarks
+    const match = benchmarks.find(b => {
+      const bSlugClean = b.slug || '';
+      const bSlugNorm = normalizeStr(bSlugClean);
+      const bNameNorm = normalizeStr(b.name);
+
+      return (
+        bSlugNorm === mIdNorm ||
+        bSlugClean === modelIdClean ||
+        bNameNorm === mNameNorm ||
+        mIdNorm.includes(bSlugNorm) ||
+        bSlugNorm.includes(mIdNorm)
+      );
+    });
+
+    if (match && match.evaluations) {
+      matchedCount++;
+      if (match.evaluations.codingIndex != null) {
+        model.benchmarks.codingIndex = match.evaluations.codingIndex;
+      }
+      if (match.evaluations.intelligenceIndex != null) {
+        model.benchmarks.intelligenceIndex = match.evaluations.intelligenceIndex;
+      }
+      if (match.evaluations.agenticIndex != null) {
+        model.benchmarks.agenticIndex = match.evaluations.agenticIndex;
+      }
     }
 
-    // Compute value score
+    // Assign tier
+    model.tierClass = classifyModelTier(model);
+
+    // Compute value score: (Coding Index / Blended Cost) * 10
     if (model.benchmarks.codingIndex != null && model.blendedCost > 0) {
-      model.benchmarks.valueScore = (model.benchmarks.codingIndex / model.blendedCost) * 100;
+      model.benchmarks.valueScore = parseFloat(((model.benchmarks.codingIndex / model.blendedCost) * 10).toFixed(1));
+    } else {
+      model.benchmarks.valueScore = null;
     }
   }
 
-  // Write updated models back if we made modifications
+  console.log(`Matched ${matchedCount} models with Artificial Analysis benchmarks.`);
   await fs.writeFile(path.join(PUBLIC_DATA_DIR, 'models.json'), JSON.stringify(models, null, 2));
-  console.log('Updated models.json with benchmark data.');
+  console.log('Updated models.json with benchmark data and tier classifications.');
 
   // 3. Compute Budgets
   const budgets = [5, 10, 20, 50, 100, 200];
@@ -63,13 +125,10 @@ async function buildData() {
       if (model.blendedCost > 0) {
         millionsOfTokens = budget / model.blendedCost;
       } else if (model.blendedCost === 0 && model.isFree) {
-         // Infinite tokens conceptually for free models, but let's put null or max
-         millionsOfTokens = null;
+        millionsOfTokens = null;
       }
 
       if (model.costPer1kRequests > 0) {
-        thousandRequests = budget / (model.costPer1kRequests / 1000); // Wait, costPer1kRequests is for 1000 requests. 
-        // 1k requests = 1 unit. cost for 1 unit = costPer1kRequests
         thousandRequests = budget / model.costPer1kRequests;
       } else if (model.costPer1kRequests === 0 && model.isFree) {
         thousandRequests = null;
@@ -85,7 +144,7 @@ async function buildData() {
   await fs.writeFile(path.join(PUBLIC_DATA_DIR, 'budget-precomputed.json'), JSON.stringify(budgetPrecomputed, null, 2));
   console.log('Wrote budget-precomputed.json');
 
-  // 4. Load coding plans
+  // 4. Load coding plans (safely skipping _schema.json)
   const plans = [];
   try {
     const files = await fs.readdir(PLANS_DIR);
