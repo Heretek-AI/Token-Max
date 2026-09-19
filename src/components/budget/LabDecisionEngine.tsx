@@ -2,14 +2,15 @@ import { useState, useMemo } from 'react';
 import type { NormalizedModel, CodingPlan, FrontierLab, DisplayUnit, CacheRate, EngineMode, MixBundle, DaveStack, StackCandidate } from '../../lib/types';
 import { computeApplesToApples, computeMixAndMatch, computeDaveStacks, buildStackCandidates, formatMillionTokens, getProviderColor, QUALITY } from '../../lib/pricing';
 import { DEFAULT_CACHE_RATE, AGENT_REQUEST_INPUT_TOKENS } from '../../lib/estimate-constants';
-import { 
-  Sparkles, 
-  Layers, 
-  ExternalLink, 
-  Sliders, 
-  TrendingUp, 
-  Zap, 
-  Bot, 
+import { useQueryState } from '../../hooks/useQueryState';
+import {
+  Sparkles,
+  Layers,
+  ExternalLink,
+  Sliders,
+  TrendingUp,
+  Zap,
+  Bot,
   SlidersHorizontal,
   Info,
   Database,
@@ -17,7 +18,9 @@ import {
   Flame,
   Package,
   XCircle,
-  AlertCircle
+  AlertCircle,
+  Link2,
+  Check
 } from 'lucide-react';
 
 interface LabDecisionEngineProps {
@@ -33,13 +36,15 @@ export function LabDecisionEngine({
   budget,
   onBudgetChange
 }: LabDecisionEngineProps) {
-  const [selectedLab, setSelectedLab] = useState<FrontierLab>('all');
-  const [displayUnit, setDisplayUnit] = useState<DisplayUnit>('tokens');
-  const [cacheRate, setCacheRate] = useState<CacheRate>(DEFAULT_CACHE_RATE);
+  const [selectedLab, setSelectedLab] = useQueryState<FrontierLab>('lab', 'all');
+  const [displayUnit, setDisplayUnit] = useQueryState<DisplayUnit>('unit', 'tokens');
+  const [cacheRate, setCacheRate] = useQueryState<CacheRate>('cache', DEFAULT_CACHE_RATE);
   const [showRequestInfo, setShowRequestInfo] = useState<boolean>(false);
-  const [minCodingScore, setMinCodingScore] = useState<number>(0);
+  const [minCodingScore, setMinCodingScore] = useQueryState<number>('q', 0);
   const [showThresholdSlider, setShowThresholdSlider] = useState<boolean>(false);
-  const [mode, setMode] = useState<EngineMode>('standard');
+  const [mode, setMode] = useQueryState<EngineMode>('mode', 'standard');
+  const [copied, setCopied] = useState<boolean>(false);
+  const [showAllOptions, setShowAllOptions] = useState<boolean>(false);
 
   const budgetPresets = [10, 20, 50, 100, 200];
 
@@ -78,6 +83,16 @@ export function LabDecisionEngine({
     return `${formatMillionTokens(tokensM)} tokens`;
   };
 
+  async function copyShareLink() {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* clipboard unavailable */
+    }
+  }
+
   return (
     <div className="space-y-6">
       {/* 1. Header Controls: Lab Tabs */}
@@ -93,8 +108,19 @@ export function LabDecisionEngine({
             </p>
           </div>
 
-          {/* Right Controls: Cache Toggle + Unit Switcher + Info Button */}
+          {/* Right Controls: Cache Toggle + Unit Switcher + Info + Share */}
           <div className="flex items-center gap-2 flex-wrap">
+            {/* Share button — copies the current configuration as a URL */}
+            <button
+              onClick={copyShareLink}
+              title="Copy a link that reproduces this exact comparison (budget, quality baseline, lab, unit, mode)"
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-semibold border transition-colors ${
+                copied ? 'bg-success/15 text-success border-success/30' : 'bg-surface-alt text-text-muted border-border hover:text-primary hover:border-primary/40'
+              }`}
+            >
+              {copied ? <Check className="w-3.5 h-3.5" /> : <Link2 className="w-3.5 h-3.5" />}
+              {copied ? 'Link Copied' : 'Copy Link'}
+            </button>
             {/* Prompt Cache Toggle */}
             <div className="flex items-center gap-1 bg-surface-alt p-1 rounded-xl border border-border text-xs">
               <span className="text-[10px] font-bold uppercase tracking-wider text-text-muted px-2 flex items-center gap-1">
@@ -746,7 +772,7 @@ export function LabDecisionEngine({
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              {options.slice(0, 25).map((opt, index) => {
+              {options.slice(0, showAllOptions ? 25 : 3).map((opt, index) => {
                 const isWinner = index === 0;
                 return (
                   <tr
@@ -854,6 +880,21 @@ export function LabDecisionEngine({
                   </tr>
                 );
               })}
+              {options.length > 3 && (
+                <tr>
+                  <td colSpan={7} className="px-4 py-2.5 text-center">
+                    <button
+                      type="button"
+                      onClick={() => setShowAllOptions(v => !v)}
+                      className="text-xs font-semibold text-primary hover:underline"
+                    >
+                      {showAllOptions
+                        ? 'Show top 3 only'
+                        : `See full ranking (${options.length - 3} more options)`}
+                    </button>
+                  </td>
+                </tr>
+              )}
               {mode === 'mix' && mixBundles.map(bundle => (
                 <tr
                   key={`stacked-${bundle.id}`}

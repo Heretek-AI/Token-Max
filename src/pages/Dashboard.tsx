@@ -1,16 +1,21 @@
-import { useState } from 'react';
 import { useModels } from '../hooks/useModels';
 import { usePlans } from '../hooks/usePlans';
 import { LabDecisionEngine } from '../components/budget/LabDecisionEngine';
 import { WorkflowCalculator } from '../components/budget/WorkflowCalculator';
 import { LoadingSpinner } from '../components/shared/LoadingSpinner';
+import { useQueryState } from '../hooks/useQueryState';
 import { Database, CreditCard, Zap, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
   const { models, loading: modelsLoading } = useModels();
   const { plans, loading: plansLoading } = usePlans();
-  const [budget, setBudget] = useState<number>(20);
+  const [budget, setBudget] = useQueryState<number>('b', 20);
+
+  function scrollToEngine() {
+    const el = document.getElementById('decision-engine');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 
   if (modelsLoading || plansLoading) return <LoadingSpinner />;
 
@@ -37,11 +42,19 @@ export default function Dashboard() {
           <p className="text-base text-text-muted max-w-2xl mx-auto">
             Compare real compute yields for Anthropic, OpenAI, Google, DeepSeek, and Z.ai to find where your dollar gets the most intelligence.
           </p>
+          <button
+            type="button"
+            onClick={scrollToEngine}
+            className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary/90 hover:bg-primary text-void-950 font-bold text-sm tracking-wide shadow-[0_0_16px_hsl(0_70%_40%_/0.3)] transition-all hover:shadow-[0_0_24px_hsl(0_75%_45%_/0.45)]"
+          >
+            Start with your budget
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
       </section>
 
       {/* Primary Feature: Frontier Intelligence Decision Engine */}
-      <section>
+      <section id="decision-engine" className="scroll-mt-20">
         <LabDecisionEngine
           models={models}
           plans={plans}
