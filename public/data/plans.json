@@ -740,6 +740,10 @@
           "Qwen Max",
           "MiniMax M3"
         ],
+        "modelAllowances": {
+          "open": 10,
+          "default": 10
+        },
         "estimatedTokenBudget": {
           "description": "$10 compute credits (~15M tokens on open models)",
           "estimatedMillionTokens": 15,
@@ -767,6 +771,13 @@
           "Qwen 3.8 27B",
           "DeepSeek V4 Flash"
         ],
+        "modelAllowances": {
+          "deepseek": 60,
+          "economy": 60,
+          "standard": 40,
+          "frontier": 20,
+          "default": 60
+        },
         "estimatedTokenBudget": {
           "description": "$70 compute credits (~70M tokens)",
           "estimatedMillionTokens": 70,
@@ -794,6 +805,13 @@
           "GLM-5.2",
           "MiniMax M3"
         ],
+        "modelAllowances": {
+          "deepseek": 80,
+          "economy": 80,
+          "standard": 60,
+          "frontier": 30,
+          "default": 80
+        },
         "estimatedTokenBudget": {
           "description": "$80 compute credits (~80M tokens)",
           "estimatedMillionTokens": 80,
@@ -817,6 +835,9 @@
         "models": [
           "All 30+ models"
         ],
+        "modelAllowances": {
+          "default": 150
+        },
         "estimatedTokenBudget": {
           "description": "$150 compute credits (~150M tokens)",
           "estimatedMillionTokens": 150,
@@ -840,6 +861,9 @@
         "models": [
           "All 30+ models"
         ],
+        "modelAllowances": {
+          "default": 300
+        },
         "estimatedTokenBudget": {
           "description": "$300 compute credits (~300M tokens)",
           "estimatedMillionTokens": 300,
@@ -2972,6 +2996,14 @@
           "GPT-5.6 Luna",
           "MiMo-V2.5"
         ],
+        "modelAllowances": {
+          "deepseek": 60,
+          "glm": 60,
+          "economy": 60,
+          "standard": 30,
+          "frontier": 15,
+          "default": 30
+        },
         "estimatedTokenBudget": {
           "description": "Open-model subscription (~30M tokens/mo est.)",
           "estimatedMillionTokens": 30,

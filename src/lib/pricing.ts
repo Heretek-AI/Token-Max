@@ -11,7 +11,10 @@ import type {
   StackCandidate,
   StackComponent,
   MixBundle,
-  DaveStack
+  DaveStack,
+  WorkloadItem,
+  PoolDrainResult,
+  PoolDrainRow
 } from './types';
 import {
   AGENT_REQUEST_INPUT_TOKENS,
@@ -19,6 +22,7 @@ import {
   STANDARD_AGENT_REQUEST_TOKENS,
   DEFAULT_CACHE_RATE,
   CACHE_WRITE_PREMIUM,
+  TIME_OF_DAY_BLEND,
 } from './estimate-constants';
 
 export function formatPrice(price: number): string {
@@ -722,3 +726,111 @@ export function computeMixAndMatch(
     };
   });
 }
+
+/**
+ * Calculates time-of-day blended cost for models with documented off-peak discounts
+ * (e.g. DeepSeek 50% discount off-peak, Z.ai 50% discount off-peak).
+ * Reads the shared blend shares from estimate-constants (default 80% off-peak, 20% peak).
+ */
+export function calculateTimeBlendedCost(
+  model: NormalizedModel,
+  offPeakShare: number = TIME_OF_DAY_BLEND.offPeakShare
+): number {
+  const baseCost = model.agentBlendedCost ?? model.blendedCost;
+  const prov = (model.provider || '').toLowerCase();
+  const id = (model.id || '').toLowerCase();
+  const hasTimeDiscount = prov.includes('deepseek') || prov.includes('z-ai') || id.includes('deepseek') || id.includes('glm');
+  if (!hasTimeDiscount) return baseCost;
+
+  const peakShare = 1 - offPeakShare;
+  // 50% off-peak discount: effective multiplier = offPeakShare * 0.5 + peakShare * 1.0
+  const timeMultiplier = offPeakShare * 0.5 + peakShare * 1.0;
+  return baseCost * timeMultiplier;
+}
+
+/**
+ * Multi-Model Pool Drain Engine:
+ * Simulates a subscription tier's quota consumption across an arbitrary mix of models.
+ * Drains the subscription pool (100%) sequentially. Usage exceeding the pool spills
+ * over into direct pay-per-use rates (overage).
+ */
+export function calculatePoolDrain(
+  plan: CodingPlan,
+  tier: PlanTier,
+  workload: WorkloadItem[],
+  estimateBasis: 'conservative' | 'midpoint' | 'optimistic' = 'conservative'
+): PoolDrainResult {
+  const monthlyPrice = tier.monthlyPrice ?? 0;
+  const tb = tier.estimatedTokenBudget;
+  const budgetTokens = tb
+    ? estimateBasis === 'optimistic'
+      ? (tb.optimisticEstimate ?? tb.estimatedMillionTokens)
+      : estimateBasis === 'midpoint'
+      ? (tb.midpointEstimate ?? tb.estimatedMillionTokens)
+      : tb.estimatedMillionTokens
+    : 0;
+
+  const totalDirectCost = workload.reduce((sum, item) => sum + item.costPpu, 0);
+
+  let remainingPoolFraction = 1.0;
+  let totalFractionConsumed = 0;
+  const rows: PoolDrainRow[] = [];
+
+  for (const item of workload) {
+    let allowance = 0;
+    if (tier.modelAllowances) {
+      const matchKey = Object.keys(tier.modelAllowances).find(k =>
+        item.modelId.toLowerCase().includes(k.toLowerCase()) ||
+        item.modelName.toLowerCase().includes(k.toLowerCase())
+      );
+      if (matchKey) {
+        allowance = tier.modelAllowances[matchKey];
+      }
+    }
+
+    if (allowance <= 0) {
+      const impliedRatePerMillion = item.tokensMillion > 0 ? item.costPpu / item.tokensMillion : 1.0;
+      allowance = Math.max(monthlyPrice, budgetTokens * impliedRatePerMillion);
+    }
+
+    const fraction = allowance > 0 ? item.costPpu / allowance : 1.0;
+    totalFractionConsumed += fraction;
+
+    const usedFraction = Math.min(fraction, Math.max(0, remainingPoolFraction));
+    remainingPoolFraction = Math.max(0, remainingPoolFraction - usedFraction);
+
+    const coveredCost = usedFraction * allowance;
+    const overageCost = Math.max(0, item.costPpu - coveredCost);
+
+    rows.push({
+      modelName: item.modelName,
+      share: item.share,
+      costPpu: item.costPpu,
+      effectiveAllowance: allowance,
+      fractionConsumed: fraction,
+      coveredCost,
+      overageCost,
+    });
+  }
+
+  const coveredDirectCost = rows.reduce((sum, r) => sum + r.coveredCost, 0);
+  const overageCost = rows.reduce((sum, r) => sum + r.overageCost, 0);
+  const totalPlanCost = monthlyPrice + overageCost;
+  const savings = totalDirectCost - totalPlanCost;
+
+  return {
+    planId: plan.id,
+    planName: plan.name,
+    tierName: tier.name,
+    monthlyPrice,
+    poolUtilizedPercent: Math.round(totalFractionConsumed * 100),
+    totalDirectCost,
+    coveredDirectCost,
+    overageCost,
+    totalPlanCost,
+    savings,
+    isCapped: totalFractionConsumed > 1.0,
+    rows,
+  };
+}
+

@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
-import type { CodingPlan, NormalizedModel, CacheRate } from '../../lib/types';
-import { getEffectiveCacheMultiplier, QUALITY } from '../../lib/pricing';
+import type { CodingPlan, NormalizedModel, CacheRate, WorkloadItem } from '../../lib/types';
+import { getEffectiveCacheMultiplier, calculatePoolDrain, QUALITY } from '../../lib/pricing';
 import { DEFAULT_CACHE_RATE } from '../../lib/estimate-constants';
 import {
   Workflow,
@@ -116,6 +116,7 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
   const [mcpStack, setMcpStack] = useState<McpStackKey>('light');
   const [estimateBasis, setEstimateBasis] = useState<EstimateBasis>('conservative');
   const [qualityKey, setQualityKey] = useState<QualityKey>('balanced');
+  const [pipelineMode, setPipelineMode] = useState<'single' | 'hybrid'>('single');
 
   const contextTokens = CONTEXT_OPTIONS.find(c => c.key === contextKey)!.tokens;
   const minCodingIndex = QUALITY_PRESETS.find(q => q.key === qualityKey)!.min;
@@ -201,6 +202,35 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
     const dailyDemand = inputMode === 'session'
       ? (sessionInputSum + sessionOutput) * sessionsPerDay
       : usage.totalTokens / WORKDAYS_PER_MONTH;
+
+    const workloadItems: WorkloadItem[] =
+      pipelineMode === 'hybrid' && apiComparables.workhorse && apiComparables.frontier
+        ? [
+            {
+              modelId: apiComparables.workhorse.model.id,
+              modelName: apiComparables.workhorse.model.name,
+              share: 0.75,
+              tokensMillion: requiredTokens * 0.75,
+              costPpu: apiComparables.workhorse.monthlyCost * 0.75,
+            },
+            {
+              modelId: apiComparables.frontier.model.id,
+              modelName: apiComparables.frontier.model.name,
+              share: 0.25,
+              tokensMillion: requiredTokens * 0.25,
+              costPpu: apiComparables.frontier.monthlyCost * 0.25,
+            },
+          ]
+        : [
+            {
+              modelId: (apiComparables.workhorse || apiComparables.frontier)?.model.id || 'default',
+              modelName: (apiComparables.workhorse || apiComparables.frontier)?.model.name || 'Default Model',
+              share: 1.0,
+              tokensMillion: requiredTokens,
+              costPpu: (apiComparables.workhorse || apiComparables.frontier)?.monthlyCost || 0,
+            },
+          ];
+
     return plans
       .flatMap(plan =>
         (plan.tiers || [])
@@ -219,6 +249,8 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
             const borderline = !fits && caps.optimistic > caps.basis && caps.optimistic >= requiredTokens;
             const dailyCapacity = (caps.basis * 1e6) / 30;
             const windowRisk = dailyDemand > dailyCapacity;
+            const poolDrain = calculatePoolDrain(plan, tier, workloadItems, estimateBasis);
+
             return {
               planId: plan.id,
               planName: plan.name,
@@ -231,18 +263,22 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
               dailyDemand,
               dailyCapacity,
               windowRisk,
+              poolDrain,
             };
           })
       )
       .filter(r => r.caps.basis > 0)
       .sort((a, b) => a.monthlyPrice - b.monthlyPrice);
-  }, [plans, usage, estimateBasis, inputMode, sessionInputSum, sessionOutput, sessionsPerDay]);
+  }, [plans, usage, estimateBasis, inputMode, sessionInputSum, sessionOutput, sessionsPerDay, pipelineMode, apiComparables]);
 
   const cheapestFit = tierRecommendations.find(r => r.fits) || null;
   const cheapestBorderline = tierRecommendations.find(r => r.borderline && !cheapestFit) || null;
-  const overageApi = apiComparables.workhorse && apiComparables.frontier
-    ? Math.min(apiComparables.workhorse.monthlyCost, apiComparables.frontier.monthlyCost)
-    : apiComparables.workhorse?.monthlyCost ?? apiComparables.frontier?.monthlyCost ?? null;
+  const overageApi =
+    pipelineMode === 'hybrid' && apiComparables.workhorse && apiComparables.frontier
+      ? apiComparables.workhorse.monthlyCost * 0.75 + apiComparables.frontier.monthlyCost * 0.25
+      : apiComparables.workhorse && apiComparables.frontier
+      ? Math.min(apiComparables.workhorse.monthlyCost, apiComparables.frontier.monthlyCost)
+      : apiComparables.workhorse?.monthlyCost ?? apiComparables.frontier?.monthlyCost ?? null;
 
   const cachedDominant = inputMode === 'session' && cacheRate >= 0.9;
 
@@ -338,6 +374,31 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
                 {rate === 0 ? '0%' : `${Math.round(rate * 100)}%`}
               </button>
             ))}
+          </div>
+
+          <div className="flex items-center gap-1 bg-surface-alt p-1 rounded-xl border border-border text-xs">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-text-muted px-2">Pipeline:</span>
+            <button
+              onClick={() => setPipelineMode('single')}
+              className={`px-2.5 py-1 rounded-md font-semibold transition-colors ${
+                pipelineMode === 'single'
+                  ? 'bg-surface text-text shadow-xs border border-border'
+                  : 'text-text-muted hover:text-text'
+              }`}
+            >
+              Single
+            </button>
+            <button
+              onClick={() => setPipelineMode('hybrid')}
+              className={`px-2.5 py-1 rounded-md font-semibold transition-colors ${
+                pipelineMode === 'hybrid'
+                  ? 'bg-surface text-text shadow-xs border border-border'
+                  : 'text-text-muted hover:text-text'
+              }`}
+              title="75% Workhorse (bulk coding) + 25% Frontier (planning & architecture)"
+            >
+              Hybrid (75/25)
+            </button>
           </div>
         </div>
       </div>
@@ -688,6 +749,14 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
                       <> · saves ${Math.max(0, overageApi - r.monthlyPrice).toFixed(2)} vs API</>
                     )}
                   </div>
+                  {r.poolDrain && (
+                    <div className="text-[10px] text-text-muted mt-1 flex items-center justify-between">
+                      <span>Pool usage: ~{r.poolDrain.poolUtilizedPercent}%</span>
+                      {r.poolDrain.isCapped && (
+                        <span className="text-warning font-semibold">+${r.poolDrain.overageCost.toFixed(2)} API overage</span>
+                      )}
+                    </div>
+                  )}
                   {r.windowRisk && (
                     <div className="text-[10px] text-warning mt-1" title="Monthly capacity averaged over 30 days is lower than your busiest working day, and most plans cap usage in 5-hour/weekly windows">
                       Peak-window risk: ~{formatTokens(r.dailyDemand / 1e6)}/day demand vs ~{formatTokens(r.dailyCapacity / 1e6)}/day average capacity
@@ -721,7 +790,26 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
         <h3 className="text-xs font-bold uppercase tracking-wider text-text-muted mb-3 flex items-center gap-1.5">
           <TrendingUp className="w-3.5 h-3.5 text-success" /> Direct API Equivalents ({Math.round(cacheRate * 100)}% cache · {minCodingIndex}+ CI)
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className={`grid grid-cols-1 ${pipelineMode === 'hybrid' && apiComparables.frontier && apiComparables.workhorse ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-3`}>
+          {pipelineMode === 'hybrid' && apiComparables.frontier && apiComparables.workhorse && (
+            <div className="border border-primary/40 rounded-xl p-3 bg-primary/5">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-primary mb-1">
+                Hybrid Pipeline (75/25)
+              </div>
+              <div className="text-sm font-bold text-text truncate">
+                {apiComparables.workhorse.model.name} + {apiComparables.frontier.model.name}
+              </div>
+              <div className="flex items-baseline gap-1 mt-1">
+                <span className="text-xl font-black text-primary">
+                  ${(apiComparables.workhorse.monthlyCost * 0.75 + apiComparables.frontier.monthlyCost * 0.25).toFixed(2)}
+                </span>
+                <span className="text-xs text-text-muted">/mo blended</span>
+              </div>
+              <div className="text-[11px] text-text-muted mt-1">
+                75% workhorse bulk + 25% frontier architect
+              </div>
+            </div>
+          )}
           {(['frontier', 'workhorse'] as const).map(key => {
             const c = apiComparables[key];
             if (!c) return null;

@@ -79,6 +79,23 @@ Fixed against official sources:
 
 ## Verification passes
 
+### 2026-09-19 — Quota calculation methodology evaluation & pool drain engine
+
+Forensic comparative audit of competitor and peer methodologies (**DeepFrugal**, **AI-10-USD**) versus Token-Max's pricing logic. Implemented architectural enhancements:
+- **Shared Constants:** Added `timeOfDayBlend` (80% off-peak, 20% peak) and `agentCachePresets` to [`data/estimate-constants.json`](file:///home/john/Projects/Token-Max/data/estimate-constants.json) and [`src/lib/estimate-constants.ts`](file:///home/john/Projects/Token-Max/src/lib/estimate-constants.ts).
+- **Time-of-Day Blending:** Added `calculateTimeBlendedCost()` in [`src/lib/pricing.ts`](file:///home/john/Projects/Token-Max/src/lib/pricing.ts) to model off-peak discounts (DeepSeek, Z.ai).
+- **Multi-Model Pool Drain Engine:** Implemented `calculatePoolDrain()` in [`src/lib/pricing.ts`](file:///home/john/Projects/Token-Max/src/lib/pricing.ts) modeling sequential subscription quota exhaustion across mixed model pipelines with pay-per-use overage billing.
+- **Model-Specific Tier Allowances:** Extended `_schema.json` and populated `modelAllowances` in [`data/generate_plans.py`](file:///home/john/Projects/Token-Max/data/generate_plans.py) for router plans (CommandCode, OpenCode Go).
+- **Hybrid Pipeline Workflow Mode:** Enhanced [`src/components/budget/WorkflowCalculator.tsx`](file:///home/john/Projects/Token-Max/src/components/budget/WorkflowCalculator.tsx) with a Single vs. Hybrid Pipeline toggle (75% Workhorse / 25% Frontier) displaying subscription pool usage and overages.
+
+Commands run from repository root, all green:
+1. `python3 data/generate_plans.py` — regenerated all 33 plan files with modelAllowances.
+2. `node scripts/build-data.mjs` — rebuilt `public/data/plans.json`.
+3. `npm run validate-data` — 33/33 plans conform to schema invariants.
+4. `npm test` — 46/46 unit tests passing (+4 new tests for pool drain & time blending).
+5. `npm run lint` — 0 errors, 0 warnings (oxlint).
+6. `npm run build` — TypeScript and Vite production build succeeds.
+
 ### 2026-09-19 — Comprehensive live web crawl & quota validation pass
 
 Systematic multi-batch web crawl of all 33 coding plans using Firecrawl MCP (`firecrawl-firecrawl_scrape`) and live search verification against official documentation and pricing portals. Detailed audit log stored in [`docs/CRAWL_AUDIT_2026.md`](file:///home/john/Projects/Token-Max/docs/CRAWL_AUDIT_2026.md).

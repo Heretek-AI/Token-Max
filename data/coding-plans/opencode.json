@@ -73,6 +73,14 @@
         "GPT-5.6 Luna",
         "MiMo-V2.5"
       ],
+      "modelAllowances": {
+        "deepseek": 60.0,
+        "glm": 60.0,
+        "economy": 60.0,
+        "standard": 30.0,
+        "frontier": 15.0,
+        "default": 30.0
+      },
       "estimatedTokenBudget": {
         "description": "Open-model subscription (~30M tokens/mo est.)",
         "estimatedMillionTokens": 30,

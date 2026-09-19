@@ -133,6 +133,7 @@ export interface PlanTier {
   annualPrice?: number | null;
   limits: Record<string, any>;
   models?: string[];
+  modelAllowances?: Record<string, number>;
   estimatedTokenBudget: {
     description?: string;
     estimatedMillionTokens: number;
@@ -141,6 +142,39 @@ export interface PlanTier {
     assumptions: string;
   } | null;
   notes?: string;
+}
+
+export interface WorkloadItem {
+  modelId: string;
+  modelName: string;
+  share: number; // fraction 0 to 1
+  tokensMillion: number;
+  costPpu: number; // direct pay-per-use cost for this model
+}
+
+export interface PoolDrainRow {
+  modelName: string;
+  share: number;
+  costPpu: number;
+  effectiveAllowance: number;
+  fractionConsumed: number;
+  coveredCost: number;
+  overageCost: number;
+}
+
+export interface PoolDrainResult {
+  planId: string;
+  planName: string;
+  tierName: string;
+  monthlyPrice: number;
+  poolUtilizedPercent: number;
+  totalDirectCost: number;
+  coveredDirectCost: number;
+  overageCost: number;
+  totalPlanCost: number; // monthlyPrice + overageCost
+  savings: number; // totalDirectCost - totalPlanCost
+  isCapped: boolean; // whether overage occurred
+  rows: PoolDrainRow[];
 }
 
 export interface CodingPlan {

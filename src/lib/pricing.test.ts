@@ -10,6 +10,8 @@ import {
   computeMixAndMatch,
   matchesPlanModel,
   formatMillionTokens,
+  calculateTimeBlendedCost,
+  calculatePoolDrain,
 } from './pricing';
 import type { CodingPlan, NormalizedModel, PlanTier, StackCandidate } from './types';
 
@@ -317,3 +319,54 @@ describe('computeMixAndMatch', () => {
     }
   });
 });
+
+describe('calculateTimeBlendedCost', () => {
+  it('applies 80/20 off-peak 50% discount to deepseek models', () => {
+    const dsModel = model({ id: 'deepseek/deepseek-v4.1-flash', provider: 'deepseek', blendedCost: 1.0 });
+    const blended = calculateTimeBlendedCost(dsModel, 0.8);
+    // 0.8 * 0.5 + 0.2 * 1.0 = 0.60 multiplier
+    expect(blended).toBeCloseTo(0.60, 4);
+  });
+
+  it('leaves standard models unchanged', () => {
+    const antModel = model({ id: 'anthropic/claude-sonnet-5', provider: 'anthropic', blendedCost: 4.0 });
+    expect(calculateTimeBlendedCost(antModel, 0.8)).toBe(4.0);
+  });
+});
+
+describe('calculatePoolDrain', () => {
+  it('drains pool within budget when usage is under quota', () => {
+    const testPlan = plan();
+    const testTier = tier({ monthlyPrice: 20, estimatedTokenBudget: { estimatedMillionTokens: 100, assumptions: 'test' } });
+    const workload = [
+      { modelId: 'deepseek-flash', modelName: 'DeepSeek Flash', share: 0.7, tokensMillion: 50, costPpu: 5 },
+      { modelId: 'claude-sonnet', modelName: 'Claude Sonnet', share: 0.3, tokensMillion: 10, costPpu: 8 },
+    ];
+    const result = calculatePoolDrain(testPlan, testTier, workload);
+    expect(result.isCapped).toBe(false);
+    expect(result.overageCost).toBe(0);
+    expect(result.totalPlanCost).toBe(20);
+    expect(result.totalDirectCost).toBe(13);
+    expect(result.poolUtilizedPercent).toBeLessThanOrEqual(100);
+  });
+
+  it('correctly calculates pay-per-use overage when usage exceeds plan allowance', () => {
+    const testPlan = plan();
+    // A tier with modelAllowances: e.g. OpenCode Go style with $15 allowance for expensive models
+    const testTier = tier({
+      monthlyPrice: 10,
+      modelAllowances: { 'claude': 15 },
+      estimatedTokenBudget: { estimatedMillionTokens: 50, assumptions: 'test' }
+    });
+    const workload = [
+      { modelId: 'claude-opus', modelName: 'Claude Opus', share: 1.0, tokensMillion: 20, costPpu: 30 }
+    ];
+    const result = calculatePoolDrain(testPlan, testTier, workload);
+    expect(result.isCapped).toBe(true);
+    expect(result.coveredDirectCost).toBe(15);
+    expect(result.overageCost).toBe(15); // 30 - 15 = 15 overage
+    expect(result.totalPlanCost).toBe(25); // 10 sub + 15 overage
+    expect(result.savings).toBe(5); // 30 direct - 25 plan
+  });
+});
+

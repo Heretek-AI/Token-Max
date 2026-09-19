@@ -1741,6 +1741,10 @@ write_json(
                     "requests": "~15K",
                 },
                 "models": ["GPT-5.6 Luna", "Grok 4.5", "Qwen Max", "MiniMax M3"],
+                "modelAllowances": {
+                    "open": 10.0,
+                    "default": 10.0,
+                },
                 "estimatedTokenBudget": {
                     "description": "$10 compute credits (~15M tokens on open models)",
                     "estimatedMillionTokens": 15,
@@ -1762,6 +1766,13 @@ write_json(
                     "Qwen 3.8 27B",
                     "DeepSeek V4 Flash",
                 ],
+                "modelAllowances": {
+                    "deepseek": 60.0,
+                    "economy": 60.0,
+                    "standard": 40.0,
+                    "frontier": 20.0,
+                    "default": 60.0,
+                },
                 "estimatedTokenBudget": {
                     "description": "$70 compute credits (~70M tokens)",
                     "estimatedMillionTokens": 70,
@@ -1780,6 +1791,13 @@ write_json(
                     "GLM-5.2",
                     "MiniMax M3",
                 ],
+                "modelAllowances": {
+                    "deepseek": 80.0,
+                    "economy": 80.0,
+                    "standard": 60.0,
+                    "frontier": 30.0,
+                    "default": 80.0,
+                },
                 "estimatedTokenBudget": {
                     "description": "$80 compute credits (~80M tokens)",
                     "estimatedMillionTokens": 80,
@@ -1795,6 +1813,9 @@ write_json(
                     "requests": "~219K",
                 },
                 "models": ["All 30+ models"],
+                "modelAllowances": {
+                    "default": 150.0,
+                },
                 "estimatedTokenBudget": {
                     "description": "$150 compute credits (~150M tokens)",
                     "estimatedMillionTokens": 150,
@@ -1810,6 +1831,9 @@ write_json(
                     "requests": "~437K",
                 },
                 "models": ["All 30+ models"],
+                "modelAllowances": {
+                    "default": 300.0,
+                },
                 "estimatedTokenBudget": {
                     "description": "$300 compute credits (~300M tokens)",
                     "estimatedMillionTokens": 300,
@@ -1896,6 +1920,14 @@ write_json(
                     "GPT-5.6 Luna",
                     "MiMo-V2.5",
                 ],
+                "modelAllowances": {
+                    "deepseek": 60.0,
+                    "glm": 60.0,
+                    "economy": 60.0,
+                    "standard": 30.0,
+                    "frontier": 15.0,
+                    "default": 30.0,
+                },
                 "estimatedTokenBudget": {
                     "description": "Open-model subscription (~30M tokens/mo est.)",
                     "estimatedMillionTokens": 30,

@@ -82,6 +82,13 @@
               "type": "string"
             }
           },
+          "modelAllowances": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            },
+            "description": "Optional model-family or model-specific monthly credit allowance in USD"
+          },
           "estimatedTokenBudget": {
             "type": [
               "object",

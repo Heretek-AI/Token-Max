@@ -19,5 +19,15 @@
     "optimisticTokens": 900000
   },
   "defaultCacheRate": 0.75,
-  "cacheWritePremium": 1.25
+  "cacheWritePremium": 1.25,
+  "timeOfDayBlend": {
+    "_comment": "Time-of-day volume blend for providers with off-peak discounts (e.g. DeepSeek, Z.ai). Default 80% off-peak, 20% peak.",
+    "offPeakShare": 0.8,
+    "peakShare": 0.2
+  },
+  "agentCachePresets": {
+    "chat": 0.5,
+    "standard": 0.75,
+    "deepAgent": 0.92
+  }
 }
