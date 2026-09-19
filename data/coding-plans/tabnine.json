@@ -2,76 +2,73 @@
   "id": "tabnine",
   "name": "Tabnine",
   "category": "coding-ide",
-  "url": "https://tabnine.com/pricing",
+  "url": "https://www.tabnine.com/pricing/",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
-      "name": "Starter",
-      "monthlyPrice": 0,
-      "limits": {
-        "completions": "Short-line basic completions",
-        "chat": "Limited trial",
-        "context": "Local file only"
-      },
-      "models": [
-        "Tabnine Local Model"
-      ],
-      "estimatedTokenBudget": {
-        "description": "Local completion model (~0.2M tokens/mo)",
-        "estimatedMillionTokens": 0.2,
-        "assumptions": "Lightweight local completions"
-      },
-      "notes": "Basic code completions run locally on device"
-    },
-    {
-      "name": "Pro",
-      "monthlyPrice": 15,
-      "limits": {
-        "completions": "Unlimited whole-line & full function completions",
-        "chat": "500 chat queries/day",
-        "context": "Project-wide context"
-      },
-      "models": [
-        "Tabnine Protected",
-        "Claude Sonnet",
-        "GPT-5 mini"
-      ],
-      "estimatedTokenBudget": {
-        "description": "Unlimited completions + 15K chats/mo (~10M tokens)",
-        "estimatedMillionTokens": 10,
-        "assumptions": "500 queries/day * 30 days"
-      },
-      "notes": "Zero Data Retention with permissive model switching"
-    },
-    {
-      "name": "Enterprise",
+      "name": "Code Assistant",
       "monthlyPrice": 39,
       "limits": {
-        "completions": "Unlimited",
-        "chat": "Unlimited",
-        "deployment": "VPC or On-premises air-gapped"
+        "billing": "$39/user/mo (annual subscription)",
+        "usage": "Unlimited when using your own LLM on-prem/VPC; Tabnine-provided LLM access billed at provider list price + 5% handling fee",
+        "deployment": "SaaS, VPC, on-prem, or air-gapped; zero code retention"
       },
       "models": [
-        "Tabnine Protected Enterprise",
-        "Custom fine-tuned"
+        "Tabnine Protected"
       ],
       "estimatedTokenBudget": {
-        "description": "Enterprise uncapped volume (~30M tokens/mo)",
-        "estimatedMillionTokens": 30,
-        "assumptions": "Air-gapped enterprise volume"
+        "description": "Uncapped volumes; token cost = LLM provider list price + 5% service fee",
+        "estimatedMillionTokens": 0,
+        "assumptions": "No fixed monthly token bundle; supply your own LLM for unlimited usage, or reserve token quota at actual provider rates"
       },
-      "notes": "Full enterprise security and compliance governance"
+      "notes": "Completions + grounded chat in IDEs; Jira integration; SOC 2/ISO 27001"
+    },
+    {
+      "name": "Agentic Platform",
+      "monthlyPrice": 59,
+      "limits": {
+        "billing": "$59/user/mo (annual subscription)",
+        "usage": "Same LLM economics as Code Assistant",
+        "included": "Context Engine, Tabnine CLI agents, MCP tool use, headless agents (optional add-on)"
+      },
+      "models": [
+        "Tabnine Protected"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Uncapped; provider list price + 5% handling fee",
+        "estimatedMillionTokens": 0,
+        "assumptions": "No fixed token bundle; value is the platform, agents and context engine rather than quota"
+      },
+      "notes": "Adds autonomous agents, Coaching Guidelines, Jira/Confluence/database MCP access"
+    },
+    {
+      "name": "Enterprise (Custom)",
+      "monthlyPrice": null,
+      "limits": {
+        "volume": "Quote-based; IP indemnification subject to terms",
+        "compliance": "GDPR, SOC 2, ISO 27001"
+      },
+      "models": [
+        "Tabnine Protected"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Custom volume contract",
+        "estimatedMillionTokens": 0,
+        "assumptions": "Negotiated enterprise agreement"
+      },
+      "notes": "Headless agent add-on priced separately at tabnine.com/headless-agent-pricing"
     }
   ],
   "gotchas": [
-    "Very limited free tier compared to modern competitors",
-    "Zero Data Retention guarantee applies strictly to Tabnine Protected models",
-    "Custom connection setup required for enterprise SSO"
+    "Tabnine was acquired by Tricentis (agentic quality engineering) and consumer self-serve tiers (Starter/Pro $15) are discontinued",
+    "Pricing is enterprise-first: annual per-user subscription with quote-based procurement",
+    "Using your own LLM endpoint = unlimited usage; Tabnine-provided LLM access adds a 5% handling fee over provider list prices",
+    "Reserve-token model means monthly token totals are not fixed"
   ],
   "tosHighlights": [
-    "ZDR (Zero Data Retention) policy certified by third-party auditors",
-    "IP indemnification protects against copyright infringement"
+    "Zero code retention; no training on your code on all plans",
+    "License-safe usage with provenance and attribution reporting"
   ],
-  "dataTraining": "ZDR (Zero Data Retention)",
+  "dataTraining": "Training never occurs on customer code",
   "ipIndemnity": true
 }

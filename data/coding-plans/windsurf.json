@@ -1,101 +1,108 @@
 {
   "id": "windsurf",
-  "name": "Windsurf",
+  "name": "Windsurf (Cognition)",
   "category": "coding-ide",
-  "url": "https://windsurf.dev",
+  "url": "https://windsurf.com/pricing",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Free",
       "monthlyPrice": 0,
       "limits": {
-        "autocomplete": "Unlimited basic autocomplete",
-        "cascadePrompts": "25 Cascade agent prompts/mo",
-        "concurrency": "1"
+        "quota": "Light auto-refreshing usage allowance (daily + weekly)",
+        "models": "Limited model availability",
+        "concurrency": "Up to 10 concurrent sessions"
       },
       "models": [
-        "SWE-1.5",
-        "Codeium Fast"
+        "SWE-2",
+        "Kimi K2.5",
+        "GPT 5.2 Mini",
+        "Claude Haiku 4.5"
       ],
       "estimatedTokenBudget": {
-        "description": "25 Cascade prompts + autocomplete (~1M tokens)",
-        "estimatedMillionTokens": 1,
-        "assumptions": "25 Cascade prompts + autocomplete"
+        "description": "Light agent quota (~2M tokens/mo)",
+        "estimatedMillionTokens": 2,
+        "assumptions": "Usage allowance refreshes daily+weekly; size not published; research estimate at ~150K tokens/agent task, low confidence"
       },
-      "notes": "Free tier with unlimited standard completions"
+      "notes": "Unlimited inline edits and Tab completions"
     },
     {
       "name": "Pro",
       "monthlyPrice": 20,
       "limits": {
-        "autocomplete": "Unlimited premium autocomplete",
-        "cascadePrompts": "500 fast Cascade prompts/mo",
-        "slowQueue": "Unlimited slow queue"
+        "quota": "Increased auto-refreshing daily + weekly allowance (size not published)",
+        "overage": "Extra usage purchased at API pricing",
+        "concurrency": "Up to 10 concurrent sessions"
       },
       "models": [
-        "SWE-1.5",
-        "Claude Sonnet 4.6",
-        "GPT-5.4",
-        "Claude Sonnet 5"
+        "SWE-2",
+        "Claude Sonnet 5",
+        "Claude Haiku 4.5",
+        "GPT-5.2 Mini",
+        "Kimi K2.5"
       ],
       "estimatedTokenBudget": {
-        "description": "500 fast Cascade prompts (~15M tokens/mo)",
-        "estimatedMillionTokens": 15,
-        "assumptions": "500 fast Cascade agent requests @ ~30K context"
+        "description": "Pro daily+weekly quota (~45M tokens/mo)",
+        "estimatedMillionTokens": 45,
+        "assumptions": "Research estimate: ~150K tokens/agent task * ~300 agent tasks/mo; official quotas unpublished, low confidence"
       },
-      "notes": "Fast Cascade agent flows + priority autocomplete"
+      "notes": "Frontier OpenAI/Claude/Gemini access + open-source models; Devin Cloud included"
     },
     {
       "name": "Max",
       "monthlyPrice": 200,
       "limits": {
-        "autocomplete": "Unlimited priority autocomplete",
-        "cascadePrompts": "5,000 fast Cascade prompts/mo",
-        "concurrency": "5 concurrent agents"
+        "quota": "Significantly higher daily + weekly allowance (size not published)",
+        "overage": "Extra usage at API pricing",
+        "concurrency": "Unlimited concurrent sessions"
       },
       "models": [
-        "SWE-1.5",
-        "Claude Opus 5",
-        "GPT-6 Astra",
-        "Claude Sonnet 5"
+        "SWE-2",
+        "Claude Sonnet 5",
+        "Claude Haiku 4.5",
+        "GPT-5.2 Mini",
+        "Kimi K2.5"
       ],
       "estimatedTokenBudget": {
-        "description": "5,000 fast Cascade prompts (~150M tokens/mo)",
-        "estimatedMillionTokens": 150,
-        "assumptions": "5,000 agent prompts with priority compute allocation"
+        "description": "Max daily+weekly quota (~225M tokens/mo)",
+        "estimatedMillionTokens": 225,
+        "assumptions": "Research estimate scaled from Pro tier (10x presumed headroom), low confidence"
       },
-      "notes": "Uncapped agentic coding for power developers"
+      "notes": "Power tier for daily-driver agent workflows"
     },
     {
       "name": "Teams",
-      "monthlyPrice": 40,
+      "monthlyPrice": 80,
       "limits": {
-        "perSeat": "$40/user/mo",
-        "cascadePrompts": "1,000 fast prompts/user",
-        "teamAnalytics": "Included"
+        "quota": "Pro-level quota per full dev seat",
+        "billing": "$80/mo team base + $40/mo per full user seat",
+        "concurrency": "Unlimited concurrent sessions"
       },
       "models": [
-        "SWE-1.5",
+        "SWE-2",
         "Claude Sonnet 5",
-        "GPT-5.4"
+        "Claude Haiku 4.5",
+        "GPT-5.2 Mini",
+        "Kimi K2.5"
       ],
       "estimatedTokenBudget": {
-        "description": "1,000 fast prompts/user (~30M tokens/mo)",
-        "estimatedMillionTokens": 30,
-        "assumptions": "1,000 fast prompts/user/mo"
+        "description": "Pro-level quota per full user seat (~45M tokens/mo/seat)",
+        "estimatedMillionTokens": 45,
+        "assumptions": "Per-seat quota mirrors Pro tier; additional seats $40/mo each"
       },
-      "notes": "Centralized management and security controls"
+      "notes": "Includes Devin Desktop, sharing, centralized billing, admin analytics"
     }
   ],
   "gotchas": [
-    "Legacy Codeium credits retired in favor of Cascade prompt quotas",
-    "Complex multi-file agent flows consume 3-5 prompt units per action",
-    "Slow queue wait times increase during peak US working hours"
+    "After Cognition's acquisition, windsurf.com/pricing serves the Devin-branded plan sheet; there is no separate Windsurf editor pricing",
+    "Quotas are undisclosed 'usage allowances' that refresh daily and weekly; overage is consumed at API pricing",
+    "SWE-2 is included free in Devin Desktop and CLI only through Oct 10, 2026",
+    "Message cost varies by model, task size and complexity - not a fixed token count",
+    "Old 'Cascade prompts' / 'Fast prompts' terminology is retired from pricing"
   ],
   "tosHighlights": [
-    "Zero data retention for paid Pro/Teams accounts",
-    "SOC2 Type II certified infrastructure"
+    "Concurrent sessions: up to 10 on Free/Pro, unlimited on Max/Teams"
   ],
-  "dataTraining": "No",
+  "dataTraining": "Not published on pricing page",
   "ipIndemnity": false
 }

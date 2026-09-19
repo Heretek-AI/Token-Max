@@ -10,95 +10,135 @@
       "monthlyPrice": 0,
       "limits": {
         "completions": "2,000 completions/mo",
-        "chatRequests": "50 messages/mo",
-        "aiCredits": "0 credits"
+        "aiCredits": "Limited allowance (auto model selection only)",
+        "agents": "Limited"
       },
       "models": [
-        "GPT-5 mini",
-        "Claude Haiku 4.5"
+        "Auto model selection only"
       ],
       "estimatedTokenBudget": {
-        "description": "50 chats + 2K completions (~0.4M tokens)",
+        "description": "Limited free allowance (~0.4M tokens/mo)",
         "estimatedMillionTokens": 0.4,
-        "assumptions": "50 chat queries @ ~8K tokens avg"
+        "assumptions": "2,000 completions * ~20 tokens + limited agent credits * $0.01/credit at ~$2/M blended = ~0.4M tokens; low confidence (allowance size not published)"
       },
-      "notes": "Basic code completions and limited chat"
+      "notes": "Basic completions and limited chat; auto model selection only"
     },
     {
       "name": "Pro",
       "monthlyPrice": 10,
       "limits": {
-        "completions": "Unlimited completions",
-        "aiCredits": "1,500 credits ($15 value)",
-        "chatRequests": "Unlimited standard"
+        "completions": "Unlimited completions on paid tiers",
+        "aiCredits": "1,000 base + 500 flex = 1,500 GitHub AI credits/mo"
       },
       "models": [
         "Claude Sonnet 5",
-        "GPT-5 mini",
-        "Gemini 3.8 Flash",
-        "o3-mini"
+        "Claude Haiku 4.5",
+        "GPT-5.4",
+        "GPT-5.3-Codex",
+        "Gemini 3.5 Flash",
+        "Gemini 3.6 Flash",
+        "Gemini 3.7 Flash",
+        "Gemini 3.8 Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "1,500 credits ($15 compute budget, ~7.5M tokens)",
-        "estimatedMillionTokens": 7.5,
-        "assumptions": "1 credit = $0.01; $15 budget / $2.00/M blended on Sonnet 5 = 7.5M tokens"
+        "description": "1,500 AI credits/mo (~7.1M tokens)",
+        "estimatedMillionTokens": 7.1,
+        "assumptions": "1 credit = $0.01; $15.00 budget / ~$2.10/M blended Sonnet 5 rate (with 75-90% cache discount) ~= 7.1M tokens"
       },
-      "notes": "1 AI Credit = $0.01. Unlimited autocomplete"
+      "notes": "Claude Sonnet 4.6 only for annual subscribers; premium models cost multiple credits"
     },
     {
       "name": "Pro+",
       "monthlyPrice": 39,
       "limits": {
         "completions": "Unlimited completions",
-        "aiCredits": "7,000 credits ($70 value)",
-        "agentTasks": "Multi-file edits included"
+        "aiCredits": "3,900 base + 3,100 flex = 7,000 GitHub AI credits/mo",
+        "agents": "Delegate to Claude/Codex agents"
       },
       "models": [
+        "Claude Opus 5",
+        "Claude Fable 5.1",
         "Claude Sonnet 5",
-        "GPT-5.4",
-        "Gemini 3.8 Flash",
-        "Claude Opus 5"
+        "GPT-5.3-Codex",
+        "GPT-5.4 nano",
+        "GPT-6 Astra",
+        "Gemini 3.8 Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "7,000 credits ($70 compute budget, ~35M tokens)",
-        "estimatedMillionTokens": 35,
-        "assumptions": "7,000 credits = $70 / $2.00/M = 35M tokens on Sonnet 5"
+        "description": "7,000 AI credits/mo (~33M tokens)",
+        "estimatedMillionTokens": 33,
+        "assumptions": "1 credit = $0.01; $70.00 budget / ~$2.10/M blended = ~33M tokens; premium models (Opus/Fable) burn credits ~10x faster"
       },
-      "notes": "Designed for agentic coding workflows"
+      "notes": "Priority premium-model access; agent delegation Pro+ only"
     },
     {
       "name": "Max",
       "monthlyPrice": 100,
       "limits": {
         "completions": "Unlimited completions",
-        "aiCredits": "20,000 credits ($200 value)",
-        "prReviews": "Unlimited PR summaries"
+        "aiCredits": "10,000 base + 10,000 flex = 20,000 GitHub AI credits/mo"
       },
       "models": [
         "Claude Opus 5",
+        "Claude Fable 5.1",
         "GPT-6 Astra",
-        "Claude Sonnet 5",
-        "All Frontier Models"
+        "GPT-5.3-Codex",
+        "Gemini 3.8 Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "20,000 credits ($200 compute budget, ~100M tokens)",
-        "estimatedMillionTokens": 100,
-        "assumptions": "20,000 credits = $200 / $2.00/M = 100M tokens on Sonnet 5"
+        "description": "20,000 AI credits/mo (~95M tokens)",
+        "estimatedMillionTokens": 95,
+        "assumptions": "1 credit = $0.01; $200.00 budget / ~$2.10/M blended = ~95M tokens"
       },
-      "notes": "Maximum credit allotment with priority reasoning"
+      "notes": "Highest individual AI-credit allowance ($200 compute value)"
+    },
+    {
+      "name": "Business",
+      "monthlyPrice": 19,
+      "limits": {
+        "aiCredits": "1,900 AI credits/user/mo (org-level billing)",
+        "policy": "Org policy control, no model training on org content"
+      },
+      "models": [
+        "All premium models (per-user allowance)"
+      ],
+      "estimatedTokenBudget": {
+        "description": "1,900 AI credits/user/mo (~9M tokens/user)",
+        "estimatedMillionTokens": 9,
+        "assumptions": "1 credit = $0.01; $19.00/user budget / ~$2.10/M blended = ~9M tokens/user"
+      },
+      "notes": "Centralized management and Copilot policy control"
+    },
+    {
+      "name": "Enterprise",
+      "monthlyPrice": 39,
+      "limits": {
+        "aiCredits": "3,900 AI credits/user/mo (org pool)",
+        "overage": "$0.01 per credit"
+      },
+      "models": [
+        "All premium models (org pool)"
+      ],
+      "estimatedTokenBudget": {
+        "description": "3,900 AI credits/user/mo pooled (~19M tokens/user)",
+        "estimatedMillionTokens": 19,
+        "assumptions": "1 credit = $0.01; $39.00/user budget / ~$2.10/M blended = ~19M tokens/user"
+      },
+      "notes": "Enterprise Cloud features; unlicensed code-review users draw org credits"
     }
   ],
   "gotchas": [
-    "1 AI Credit = $0.01 USD straightforward conversion",
-    "Frontier reasoning models consume credits at higher multipliers",
-    "PR Reviews consume GitHub Actions minutes in addition to AI Credits",
-    "Data training enabled by default on personal Free/Pro plans"
+    "Premium requests were replaced by GitHub AI Credits: 1 credit = $0.01, monthly reset with a variable 'Flex' allotment on top of base credits",
+    "Opus 5, Fable 5/5.1 and GPT-5.4 nano are Pro+/Max only; Free/Student tiers only get auto model selection",
+    "o3-mini, o1 and GPT-4.1 were retired from Copilot in Oct 2025-2026; Opus 4.5/4.6, Sonnet 4.5 and Gemini 3.1 Pro retired Sep 1 2026",
+    "Premium models cost multiple credits per request; task cost varies with model and complexity",
+    "Use of interaction data to train models can be opted out on individual plans; never on Business/Enterprise"
   ],
   "tosHighlights": [
-    "Free/Pro/Pro+ individual: data may be used for training unless opted out",
-    "No IP indemnity on individual plans",
-    "Business & Enterprise tiers never train and include IP indemnity"
+    "Individual plans may use interaction data for model training with opt-out",
+    "Business/Enterprise content is excluded from model training",
+    "Claude Fable models retain data under Anthropic EFS rollout (ZDR exemption runs through end of 2026)"
   ],
-  "dataTraining": "Opt-out required on Free/Pro/Pro+ individual plans",
-  "ipIndemnity": "Business and Enterprise only"
+  "dataTraining": "Opt-out available (individual); excluded on Business/Enterprise",
+  "ipIndemnity": false
 }

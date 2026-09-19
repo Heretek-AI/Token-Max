@@ -2,82 +2,80 @@
   "id": "claude-code",
   "name": "Claude Code",
   "category": "coding-ide",
-  "url": "https://anthropic.com",
+  "url": "https://claude.com/pricing",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Pro",
       "monthlyPrice": 20,
       "limits": {
-        "rollingCap": "Shared 5-hour rolling limit (~45 messages)",
-        "weeklyAllocation": "Weekly sliding window",
-        "concurrency": "1 active CLI session"
+        "rollingCap": "Shared 5-hour rolling session limit (>=5x Free tier)",
+        "weeklyAllocation": "Weekly caps on top of the 5-hour window",
+        "overage": "Opt-in usage credits billed at standard API rates, with optional monthly spend cap"
       },
       "models": [
-        "Claude Sonnet 5",
         "Claude Opus 5",
-        "Claude Fable 5.1",
+        "Claude Sonnet 5",
         "Claude Haiku 4.5"
       ],
       "estimatedTokenBudget": {
         "description": "Shared 5h rolling cap (~12M agentic tokens/mo)",
         "estimatedMillionTokens": 12,
-        "assumptions": "5-hour rolling quota shared with Claude.ai web interface"
+        "assumptions": "Anthropic publishes no numeric quota; research estimate ~= 12M mid-complexity agent tokens/mo within the Pro 5h+weekly window; exact size intentionally unpublished and varies by task complexity"
       },
-      "notes": "Shared quota with Claude.ai web app"
+      "notes": "Annual Pro is $17/mo ($200 billed up front). Claude Code shares one pool with Claude.ai chat"
     },
     {
       "name": "Max5x",
       "monthlyPrice": 100,
       "limits": {
-        "rollingCap": "5x 5-hour rolling limit (~225 messages)",
-        "weeklyAllocation": "5x weekly budget",
-        "concurrency": "3 active CLI sessions"
+        "rollingCap": "5x Pro usage per 5-hour session",
+        "weeklyAllocation": "Weekly sliding window scales with 5x multiplier",
+        "overage": "Usage credits at API rates (Fable draws weekly limits at 50%)"
       },
       "models": [
-        "Claude Sonnet 5",
         "Claude Opus 5",
         "Claude Fable 5.1",
+        "Claude Sonnet 5",
         "Claude Haiku 4.5"
       ],
       "estimatedTokenBudget": {
-        "description": "5x rolling limit (~60M agentic tokens/mo)",
+        "description": "5x Pro rolling limit (~60M agentic tokens/mo)",
         "estimatedMillionTokens": 60,
-        "assumptions": "5x the standard Pro rolling limit"
+        "assumptions": "5x the Pro research estimate; no official token figures published, low confidence"
       },
-      "notes": "5x usage multiplier across CLI and Web"
+      "notes": "Higher output limits and priority access at peak times"
     },
     {
       "name": "Max20x",
       "monthlyPrice": 200,
       "limits": {
-        "rollingCap": "20x 5-hour rolling limit (~900 messages)",
-        "weeklyAllocation": "20x weekly budget",
-        "concurrency": "10 active CLI sessions"
+        "rollingCap": "20x Pro usage per 5-hour session",
+        "weeklyAllocation": "Weekly sliding window scales with 20x multiplier",
+        "overage": "Usage credits at API rates"
       },
       "models": [
-        "Claude Sonnet 5",
         "Claude Opus 5",
         "Claude Fable 5.1",
+        "Claude Sonnet 5",
         "Claude Haiku 4.5"
       ],
       "estimatedTokenBudget": {
-        "description": "20x rolling limit (~240M agentic tokens/mo)",
+        "description": "20x Pro rolling limit (~240M agentic tokens/mo)",
         "estimatedMillionTokens": 240,
-        "assumptions": "20x the standard Pro rolling limit"
+        "assumptions": "20x the Pro research estimate; no official token figures published, low confidence"
       },
-      "notes": "20x usage multiplier for intense agent workflows"
+      "notes": "Maximum plan for full-time agent workflows; billed monthly"
     }
   ],
   "gotchas": [
-    "CLI agent commands share the exact same 5-hour rolling window as Claude.ai web chats",
-    "Heavy multi-file refactoring runs can hit the 5-hour limit in under 30 minutes",
-    "Weekly hard spend caps exist behind the scenes"
+    "Usage is quota-based per rolling 5-hour session plus weekly caps, deliberately NOT token- or message-metered",
+    "After limits, work continues only if you opt into usage credits billed at standard API rates (with optional monthly spend cap)",
+    "Claude Code shares the same usage pool as Claude.ai chat, desktop and mobile",
+    "On Pro, Claude Fable 5.1 runs via usage credits only; on Max it consumes 50% of weekly limits",
+    "Cache TTL is 1 hour on subscriptions but drops to 5 minutes while drawing usage credits"
   ],
-  "tosHighlights": [
-    "No training on commercial customer data",
-    "Console API BYOK keys supported for uncapped usage"
-  ],
-  "dataTraining": "Opt-out by default for paid plans",
+  "tosHighlights": [],
+  "dataTraining": "Model training opt-out available on individual plans",
   "ipIndemnity": false
 }

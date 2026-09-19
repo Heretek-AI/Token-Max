@@ -397,83 +397,81 @@
     "id": "claude-code",
     "name": "Claude Code",
     "category": "coding-ide",
-    "url": "https://anthropic.com",
+    "url": "https://claude.com/pricing",
     "lastVerified": "2026-09-18",
     "tiers": [
       {
         "name": "Pro",
         "monthlyPrice": 20,
         "limits": {
-          "rollingCap": "Shared 5-hour rolling limit (~45 messages)",
-          "weeklyAllocation": "Weekly sliding window",
-          "concurrency": "1 active CLI session"
+          "rollingCap": "Shared 5-hour rolling session limit (>=5x Free tier)",
+          "weeklyAllocation": "Weekly caps on top of the 5-hour window",
+          "overage": "Opt-in usage credits billed at standard API rates, with optional monthly spend cap"
         },
         "models": [
-          "Claude Sonnet 5",
           "Claude Opus 5",
-          "Claude Fable 5.1",
+          "Claude Sonnet 5",
           "Claude Haiku 4.5"
         ],
         "estimatedTokenBudget": {
           "description": "Shared 5h rolling cap (~12M agentic tokens/mo)",
           "estimatedMillionTokens": 12,
-          "assumptions": "5-hour rolling quota shared with Claude.ai web interface"
+          "assumptions": "Anthropic publishes no numeric quota; research estimate ~= 12M mid-complexity agent tokens/mo within the Pro 5h+weekly window; exact size intentionally unpublished and varies by task complexity"
         },
-        "notes": "Shared quota with Claude.ai web app"
+        "notes": "Annual Pro is $17/mo ($200 billed up front). Claude Code shares one pool with Claude.ai chat"
       },
       {
         "name": "Max5x",
         "monthlyPrice": 100,
         "limits": {
-          "rollingCap": "5x 5-hour rolling limit (~225 messages)",
-          "weeklyAllocation": "5x weekly budget",
-          "concurrency": "3 active CLI sessions"
+          "rollingCap": "5x Pro usage per 5-hour session",
+          "weeklyAllocation": "Weekly sliding window scales with 5x multiplier",
+          "overage": "Usage credits at API rates (Fable draws weekly limits at 50%)"
         },
         "models": [
-          "Claude Sonnet 5",
           "Claude Opus 5",
           "Claude Fable 5.1",
+          "Claude Sonnet 5",
           "Claude Haiku 4.5"
         ],
         "estimatedTokenBudget": {
-          "description": "5x rolling limit (~60M agentic tokens/mo)",
+          "description": "5x Pro rolling limit (~60M agentic tokens/mo)",
           "estimatedMillionTokens": 60,
-          "assumptions": "5x the standard Pro rolling limit"
+          "assumptions": "5x the Pro research estimate; no official token figures published, low confidence"
         },
-        "notes": "5x usage multiplier across CLI and Web"
+        "notes": "Higher output limits and priority access at peak times"
       },
       {
         "name": "Max20x",
         "monthlyPrice": 200,
         "limits": {
-          "rollingCap": "20x 5-hour rolling limit (~900 messages)",
-          "weeklyAllocation": "20x weekly budget",
-          "concurrency": "10 active CLI sessions"
+          "rollingCap": "20x Pro usage per 5-hour session",
+          "weeklyAllocation": "Weekly sliding window scales with 20x multiplier",
+          "overage": "Usage credits at API rates"
         },
         "models": [
-          "Claude Sonnet 5",
           "Claude Opus 5",
           "Claude Fable 5.1",
+          "Claude Sonnet 5",
           "Claude Haiku 4.5"
         ],
         "estimatedTokenBudget": {
-          "description": "20x rolling limit (~240M agentic tokens/mo)",
+          "description": "20x Pro rolling limit (~240M agentic tokens/mo)",
           "estimatedMillionTokens": 240,
-          "assumptions": "20x the standard Pro rolling limit"
+          "assumptions": "20x the Pro research estimate; no official token figures published, low confidence"
         },
-        "notes": "20x usage multiplier for intense agent workflows"
+        "notes": "Maximum plan for full-time agent workflows; billed monthly"
       }
     ],
     "gotchas": [
-      "CLI agent commands share the exact same 5-hour rolling window as Claude.ai web chats",
-      "Heavy multi-file refactoring runs can hit the 5-hour limit in under 30 minutes",
-      "Weekly hard spend caps exist behind the scenes"
+      "Usage is quota-based per rolling 5-hour session plus weekly caps, deliberately NOT token- or message-metered",
+      "After limits, work continues only if you opt into usage credits billed at standard API rates (with optional monthly spend cap)",
+      "Claude Code shares the same usage pool as Claude.ai chat, desktop and mobile",
+      "On Pro, Claude Fable 5.1 runs via usage credits only; on Max it consumes 50% of weekly limits",
+      "Cache TTL is 1 hour on subscriptions but drops to 5 minutes while drawing usage credits"
     ],
-    "tosHighlights": [
-      "No training on commercial customer data",
-      "Console API BYOK keys supported for uncapped usage"
-    ],
-    "dataTraining": "Opt-out by default for paid plans",
+    "tosHighlights": [],
+    "dataTraining": "Model training opt-out available on individual plans",
     "ipIndemnity": false
   },
   {
@@ -602,7 +600,7 @@
     "id": "cursor",
     "name": "Cursor",
     "category": "coding-ide",
-    "url": "https://cursor.com/pricing",
+    "url": "https://cursor.com/docs/account/pricing",
     "lastVerified": "2026-09-18",
     "tiers": [
       {
@@ -610,100 +608,106 @@
         "monthlyPrice": 0,
         "annualPrice": null,
         "limits": {
-          "completions": "2,000 completions/mo",
-          "fastRequests": "50 fast requests/mo",
-          "slowRequests": "Unlimited queued slow requests"
+          "agentRequests": "Limited Agent requests",
+          "composer": "Access to Composer"
         },
         "models": [
-          "Cursor Small",
+          "Cursor Grok 4.5",
           "Claude Haiku 4.5"
         ],
         "estimatedTokenBudget": {
-          "description": "50 fast requests + 2K completions (~0.5M tokens)",
+          "description": "Limited Agent requests (~0.5M tokens/mo)",
           "estimatedMillionTokens": 0.5,
-          "assumptions": "50 fast requests @ ~10K tokens context avg"
+          "assumptions": "Limited agent requests at ~10-20K tokens/request with prompt-cache discount; exact quota unpublished"
         },
-        "notes": "Free tier with 50 fast premium requests"
+        "notes": "Free tier; no credit card required"
       },
       {
         "name": "Pro",
         "monthlyPrice": 20,
         "annualPrice": 192,
         "limits": {
-          "completions": "Unlimited tab completions",
-          "fastRequests": "500 fast requests/mo",
-          "slowRequests": "Unlimited queued requests",
-          "thirdPartyPool": "$20 equivalent pool"
+          "agentRequests": "Extended Agent limits",
+          "usagePools": "Cursor Models pool + Other Models pool (third-party at API rate), monthly reset",
+          "onDemand": "Extra usage on-demand at API rates, billed in arrears"
         },
         "models": [
-          "Claude Sonnet 5",
-          "GPT-5.6 Sol",
-          "Grok 4.6",
-          "Gemini 3.8 Flash",
-          "Cursor Fast"
-        ],
-        "estimatedTokenBudget": {
-          "description": "~$20 third-party compute pool + 500 fast requests (~10M tokens)",
-          "estimatedMillionTokens": 10,
-          "assumptions": "500 requests @ ~20K context avg or $20 third-party API spend"
-        },
-        "notes": "Fallback to on-demand billing or slow pool when exhausted"
-      },
-      {
-        "name": "Pro+",
-        "monthlyPrice": 60,
-        "annualPrice": null,
-        "limits": {
-          "completions": "Unlimited tab completions",
-          "fastRequests": "1,500 fast requests/mo",
-          "thirdPartyPool": "$70 equivalent pool"
-        },
-        "models": [
+          "Cursor Grok 4.6",
+          "Composer 2.5",
+          "Claude Fable 5.1",
           "Claude Opus 5",
           "Claude Sonnet 5",
           "GPT-5.6 Sol",
-          "Grok 4.6",
+          "Gemini 3.1 Pro",
+          "Gemini 3.8 Flash",
+          "Muse Spark 1.3"
+        ],
+        "estimatedTokenBudget": {
+          "description": "Pro Cursor-Models + Other-Models pools (~10M tokens/mo)",
+          "estimatedMillionTokens": 10,
+          "assumptions": "Pool sized at ~$20 of equivalent API-rate spend; blended ~$2/M with cache discounts ~= 10M tokens"
+        },
+        "notes": "Pools reset monthly; legacy request-based plans closed to new subs"
+      },
+      {
+        "name": "Pro Plus",
+        "monthlyPrice": 60,
+        "annualPrice": null,
+        "limits": {
+          "agentRequests": "Larger usage pools",
+          "usagePools": "Same two pools as Pro, expanded"
+        },
+        "models": [
+          "Cursor Grok 4.6",
+          "Composer 2.5",
+          "Claude Fable 5.1",
+          "Claude Opus 5",
+          "Claude Sonnet 5",
+          "GPT-5.6 Sol",
           "Gemini 3.8 Flash"
         ],
         "estimatedTokenBudget": {
-          "description": "~$70 compute pool + 1,500 fast requests (~35M tokens)",
+          "description": "Expanded pools (~35M tokens/mo)",
           "estimatedMillionTokens": 35,
-          "assumptions": "1,500 fast requests + expanded frontier model quota"
+          "assumptions": "~$70 equivalent API-rate pool; blended ~$2/M ~= 35M tokens"
         },
-        "notes": "Higher allowance for power developers"
+        "notes": "Recommended for daily agent users"
       },
       {
         "name": "Ultra",
         "monthlyPrice": 200,
         "annualPrice": null,
         "limits": {
-          "completions": "Unlimited tab completions",
-          "fastRequests": "5,000 fast requests/mo",
-          "thirdPartyPool": "$400 equivalent pool",
-          "concurrency": "Priority routing"
+          "agentRequests": "Largest usage pools",
+          "usagePools": "Same two pools, maximum size"
         },
         "models": [
+          "Cursor Grok 4.6",
+          "Composer 2.5",
+          "Claude Fable 5.1",
           "Claude Opus 5",
           "GPT-6 Astra",
-          "Claude Sonnet 5",
-          "Grok 4.6"
+          "Gemini 3.8 Flash"
         ],
         "estimatedTokenBudget": {
-          "description": "~$400 compute pool + 5,000 priority requests (~180M tokens)",
+          "description": "Maximum pools (~180M tokens/mo)",
           "estimatedMillionTokens": 180,
-          "assumptions": "Priority queue with $400 third-party pool value"
+          "assumptions": "~$400 equivalent API-rate pool; blended ~$2/M ~= 180M tokens"
         },
-        "notes": "Uncapped priority agent access"
+        "notes": "For daily-driver agent power users"
       }
     ],
     "gotchas": [
-      "Third-party pool charged at public API rates — frontier models drain it fast",
-      "On-demand billing kicks in after pool exhaustion (billed in arrears)",
-      "Native pool (Grok/Composer) is separate and more generous"
+      "Pricing uses two usage pools (Cursor Models vs Other Models at API rates) resetting monthly - not request counts",
+      "On-demand usage after pool exhaustion is billed in arrears at API rates",
+      "Max Mode and fast-request tiers exist only for grandfathered legacy subscriptions",
+      "Teams adds a Cursor token rate ($0.25/M tokens) on third-party models",
+      "India-only Start plan (Rs 649) limits users to the Cursor Models pool only",
+      "Subscriptions are only sold directly via cursor.com; resellers are unauthorized and may be suspended"
     ],
     "tosHighlights": [
-      "Privacy mode available (no code stored server-side)",
-      "Business plan adds team admin, SSO, centralized billing"
+      "Privacy mode guarantees code is not used for training by Cursor or its model providers",
+      "SOC 2 / ISO 27001 / ISO 42001 certified"
     ],
     "dataTraining": "Opt-out available in Privacy Mode",
     "ipIndemnity": false
@@ -817,97 +821,137 @@
         "monthlyPrice": 0,
         "limits": {
           "completions": "2,000 completions/mo",
-          "chatRequests": "50 messages/mo",
-          "aiCredits": "0 credits"
+          "aiCredits": "Limited allowance (auto model selection only)",
+          "agents": "Limited"
         },
         "models": [
-          "GPT-5 mini",
-          "Claude Haiku 4.5"
+          "Auto model selection only"
         ],
         "estimatedTokenBudget": {
-          "description": "50 chats + 2K completions (~0.4M tokens)",
+          "description": "Limited free allowance (~0.4M tokens/mo)",
           "estimatedMillionTokens": 0.4,
-          "assumptions": "50 chat queries @ ~8K tokens avg"
+          "assumptions": "2,000 completions * ~20 tokens + limited agent credits * $0.01/credit at ~$2/M blended = ~0.4M tokens; low confidence (allowance size not published)"
         },
-        "notes": "Basic code completions and limited chat"
+        "notes": "Basic completions and limited chat; auto model selection only"
       },
       {
         "name": "Pro",
         "monthlyPrice": 10,
         "limits": {
-          "completions": "Unlimited completions",
-          "aiCredits": "1,500 credits ($15 value)",
-          "chatRequests": "Unlimited standard"
+          "completions": "Unlimited completions on paid tiers",
+          "aiCredits": "1,000 base + 500 flex = 1,500 GitHub AI credits/mo"
         },
         "models": [
           "Claude Sonnet 5",
-          "GPT-5 mini",
-          "Gemini 3.8 Flash",
-          "o3-mini"
+          "Claude Haiku 4.5",
+          "GPT-5.4",
+          "GPT-5.3-Codex",
+          "Gemini 3.5 Flash",
+          "Gemini 3.6 Flash",
+          "Gemini 3.7 Flash",
+          "Gemini 3.8 Flash"
         ],
         "estimatedTokenBudget": {
-          "description": "1,500 credits ($15 compute budget, ~7.5M tokens)",
-          "estimatedMillionTokens": 7.5,
-          "assumptions": "1 credit = $0.01; $15 budget / $2.00/M blended on Sonnet 5 = 7.5M tokens"
+          "description": "1,500 AI credits/mo (~7.1M tokens)",
+          "estimatedMillionTokens": 7.1,
+          "assumptions": "1 credit = $0.01; $15.00 budget / ~$2.10/M blended Sonnet 5 rate (with 75-90% cache discount) ~= 7.1M tokens"
         },
-        "notes": "1 AI Credit = $0.01. Unlimited autocomplete"
+        "notes": "Claude Sonnet 4.6 only for annual subscribers; premium models cost multiple credits"
       },
       {
         "name": "Pro+",
         "monthlyPrice": 39,
         "limits": {
           "completions": "Unlimited completions",
-          "aiCredits": "7,000 credits ($70 value)",
-          "agentTasks": "Multi-file edits included"
+          "aiCredits": "3,900 base + 3,100 flex = 7,000 GitHub AI credits/mo",
+          "agents": "Delegate to Claude/Codex agents"
         },
         "models": [
+          "Claude Opus 5",
+          "Claude Fable 5.1",
           "Claude Sonnet 5",
-          "GPT-5.4",
-          "Gemini 3.8 Flash",
-          "Claude Opus 5"
+          "GPT-5.3-Codex",
+          "GPT-5.4 nano",
+          "GPT-6 Astra",
+          "Gemini 3.8 Flash"
         ],
         "estimatedTokenBudget": {
-          "description": "7,000 credits ($70 compute budget, ~35M tokens)",
-          "estimatedMillionTokens": 35,
-          "assumptions": "7,000 credits = $70 / $2.00/M = 35M tokens on Sonnet 5"
+          "description": "7,000 AI credits/mo (~33M tokens)",
+          "estimatedMillionTokens": 33,
+          "assumptions": "1 credit = $0.01; $70.00 budget / ~$2.10/M blended = ~33M tokens; premium models (Opus/Fable) burn credits ~10x faster"
         },
-        "notes": "Designed for agentic coding workflows"
+        "notes": "Priority premium-model access; agent delegation Pro+ only"
       },
       {
         "name": "Max",
         "monthlyPrice": 100,
         "limits": {
           "completions": "Unlimited completions",
-          "aiCredits": "20,000 credits ($200 value)",
-          "prReviews": "Unlimited PR summaries"
+          "aiCredits": "10,000 base + 10,000 flex = 20,000 GitHub AI credits/mo"
         },
         "models": [
           "Claude Opus 5",
+          "Claude Fable 5.1",
           "GPT-6 Astra",
-          "Claude Sonnet 5",
-          "All Frontier Models"
+          "GPT-5.3-Codex",
+          "Gemini 3.8 Flash"
         ],
         "estimatedTokenBudget": {
-          "description": "20,000 credits ($200 compute budget, ~100M tokens)",
-          "estimatedMillionTokens": 100,
-          "assumptions": "20,000 credits = $200 / $2.00/M = 100M tokens on Sonnet 5"
+          "description": "20,000 AI credits/mo (~95M tokens)",
+          "estimatedMillionTokens": 95,
+          "assumptions": "1 credit = $0.01; $200.00 budget / ~$2.10/M blended = ~95M tokens"
         },
-        "notes": "Maximum credit allotment with priority reasoning"
+        "notes": "Highest individual AI-credit allowance ($200 compute value)"
+      },
+      {
+        "name": "Business",
+        "monthlyPrice": 19,
+        "limits": {
+          "aiCredits": "1,900 AI credits/user/mo (org-level billing)",
+          "policy": "Org policy control, no model training on org content"
+        },
+        "models": [
+          "All premium models (per-user allowance)"
+        ],
+        "estimatedTokenBudget": {
+          "description": "1,900 AI credits/user/mo (~9M tokens/user)",
+          "estimatedMillionTokens": 9,
+          "assumptions": "1 credit = $0.01; $19.00/user budget / ~$2.10/M blended = ~9M tokens/user"
+        },
+        "notes": "Centralized management and Copilot policy control"
+      },
+      {
+        "name": "Enterprise",
+        "monthlyPrice": 39,
+        "limits": {
+          "aiCredits": "3,900 AI credits/user/mo (org pool)",
+          "overage": "$0.01 per credit"
+        },
+        "models": [
+          "All premium models (org pool)"
+        ],
+        "estimatedTokenBudget": {
+          "description": "3,900 AI credits/user/mo pooled (~19M tokens/user)",
+          "estimatedMillionTokens": 19,
+          "assumptions": "1 credit = $0.01; $39.00/user budget / ~$2.10/M blended = ~19M tokens/user"
+        },
+        "notes": "Enterprise Cloud features; unlicensed code-review users draw org credits"
       }
     ],
     "gotchas": [
-      "1 AI Credit = $0.01 USD straightforward conversion",
-      "Frontier reasoning models consume credits at higher multipliers",
-      "PR Reviews consume GitHub Actions minutes in addition to AI Credits",
-      "Data training enabled by default on personal Free/Pro plans"
+      "Premium requests were replaced by GitHub AI Credits: 1 credit = $0.01, monthly reset with a variable 'Flex' allotment on top of base credits",
+      "Opus 5, Fable 5/5.1 and GPT-5.4 nano are Pro+/Max only; Free/Student tiers only get auto model selection",
+      "o3-mini, o1 and GPT-4.1 were retired from Copilot in Oct 2025-2026; Opus 4.5/4.6, Sonnet 4.5 and Gemini 3.1 Pro retired Sep 1 2026",
+      "Premium models cost multiple credits per request; task cost varies with model and complexity",
+      "Use of interaction data to train models can be opted out on individual plans; never on Business/Enterprise"
     ],
     "tosHighlights": [
-      "Free/Pro/Pro+ individual: data may be used for training unless opted out",
-      "No IP indemnity on individual plans",
-      "Business & Enterprise tiers never train and include IP indemnity"
+      "Individual plans may use interaction data for model training with opt-out",
+      "Business/Enterprise content is excluded from model training",
+      "Claude Fable models retain data under Anthropic EFS rollout (ZDR exemption runs through end of 2026)"
     ],
-    "dataTraining": "Opt-out required on Free/Pro/Pro+ individual plans",
-    "ipIndemnity": "Business and Enterprise only"
+    "dataTraining": "Opt-out available (individual); excluded on Business/Enterprise",
+    "ipIndemnity": false
   },
   {
     "id": "google-ai-studio",
@@ -2263,77 +2307,74 @@
     "id": "tabnine",
     "name": "Tabnine",
     "category": "coding-ide",
-    "url": "https://tabnine.com/pricing",
+    "url": "https://www.tabnine.com/pricing/",
     "lastVerified": "2026-09-18",
     "tiers": [
       {
-        "name": "Starter",
-        "monthlyPrice": 0,
-        "limits": {
-          "completions": "Short-line basic completions",
-          "chat": "Limited trial",
-          "context": "Local file only"
-        },
-        "models": [
-          "Tabnine Local Model"
-        ],
-        "estimatedTokenBudget": {
-          "description": "Local completion model (~0.2M tokens/mo)",
-          "estimatedMillionTokens": 0.2,
-          "assumptions": "Lightweight local completions"
-        },
-        "notes": "Basic code completions run locally on device"
-      },
-      {
-        "name": "Pro",
-        "monthlyPrice": 15,
-        "limits": {
-          "completions": "Unlimited whole-line & full function completions",
-          "chat": "500 chat queries/day",
-          "context": "Project-wide context"
-        },
-        "models": [
-          "Tabnine Protected",
-          "Claude Sonnet",
-          "GPT-5 mini"
-        ],
-        "estimatedTokenBudget": {
-          "description": "Unlimited completions + 15K chats/mo (~10M tokens)",
-          "estimatedMillionTokens": 10,
-          "assumptions": "500 queries/day * 30 days"
-        },
-        "notes": "Zero Data Retention with permissive model switching"
-      },
-      {
-        "name": "Enterprise",
+        "name": "Code Assistant",
         "monthlyPrice": 39,
         "limits": {
-          "completions": "Unlimited",
-          "chat": "Unlimited",
-          "deployment": "VPC or On-premises air-gapped"
+          "billing": "$39/user/mo (annual subscription)",
+          "usage": "Unlimited when using your own LLM on-prem/VPC; Tabnine-provided LLM access billed at provider list price + 5% handling fee",
+          "deployment": "SaaS, VPC, on-prem, or air-gapped; zero code retention"
         },
         "models": [
-          "Tabnine Protected Enterprise",
-          "Custom fine-tuned"
+          "Tabnine Protected"
         ],
         "estimatedTokenBudget": {
-          "description": "Enterprise uncapped volume (~30M tokens/mo)",
-          "estimatedMillionTokens": 30,
-          "assumptions": "Air-gapped enterprise volume"
+          "description": "Uncapped volumes; token cost = LLM provider list price + 5% service fee",
+          "estimatedMillionTokens": 0,
+          "assumptions": "No fixed monthly token bundle; supply your own LLM for unlimited usage, or reserve token quota at actual provider rates"
         },
-        "notes": "Full enterprise security and compliance governance"
+        "notes": "Completions + grounded chat in IDEs; Jira integration; SOC 2/ISO 27001"
+      },
+      {
+        "name": "Agentic Platform",
+        "monthlyPrice": 59,
+        "limits": {
+          "billing": "$59/user/mo (annual subscription)",
+          "usage": "Same LLM economics as Code Assistant",
+          "included": "Context Engine, Tabnine CLI agents, MCP tool use, headless agents (optional add-on)"
+        },
+        "models": [
+          "Tabnine Protected"
+        ],
+        "estimatedTokenBudget": {
+          "description": "Uncapped; provider list price + 5% handling fee",
+          "estimatedMillionTokens": 0,
+          "assumptions": "No fixed token bundle; value is the platform, agents and context engine rather than quota"
+        },
+        "notes": "Adds autonomous agents, Coaching Guidelines, Jira/Confluence/database MCP access"
+      },
+      {
+        "name": "Enterprise (Custom)",
+        "monthlyPrice": null,
+        "limits": {
+          "volume": "Quote-based; IP indemnification subject to terms",
+          "compliance": "GDPR, SOC 2, ISO 27001"
+        },
+        "models": [
+          "Tabnine Protected"
+        ],
+        "estimatedTokenBudget": {
+          "description": "Custom volume contract",
+          "estimatedMillionTokens": 0,
+          "assumptions": "Negotiated enterprise agreement"
+        },
+        "notes": "Headless agent add-on priced separately at tabnine.com/headless-agent-pricing"
       }
     ],
     "gotchas": [
-      "Very limited free tier compared to modern competitors",
-      "Zero Data Retention guarantee applies strictly to Tabnine Protected models",
-      "Custom connection setup required for enterprise SSO"
+      "Tabnine was acquired by Tricentis (agentic quality engineering) and consumer self-serve tiers (Starter/Pro $15) are discontinued",
+      "Pricing is enterprise-first: annual per-user subscription with quote-based procurement",
+      "Using your own LLM endpoint = unlimited usage; Tabnine-provided LLM access adds a 5% handling fee over provider list prices",
+      "Reserve-token model means monthly token totals are not fixed"
     ],
     "tosHighlights": [
-      "ZDR (Zero Data Retention) policy certified by third-party auditors",
-      "IP indemnification protects against copyright infringement"
+      "Zero code retention; no training on your code on all plans",
+      "License-safe usage with provenance and attribution reporting"
     ],
-    "dataTraining": "ZDR (Zero Data Retention)",
+    "dataTraining": "Training never occurs on customer code",
     "ipIndemnity": true
   },
   {
@@ -2397,103 +2438,110 @@
   },
   {
     "id": "windsurf",
-    "name": "Windsurf",
+    "name": "Windsurf (Cognition)",
     "category": "coding-ide",
-    "url": "https://windsurf.dev",
+    "url": "https://windsurf.com/pricing",
     "lastVerified": "2026-09-18",
     "tiers": [
       {
         "name": "Free",
         "monthlyPrice": 0,
         "limits": {
-          "autocomplete": "Unlimited basic autocomplete",
-          "cascadePrompts": "25 Cascade agent prompts/mo",
-          "concurrency": "1"
+          "quota": "Light auto-refreshing usage allowance (daily + weekly)",
+          "models": "Limited model availability",
+          "concurrency": "Up to 10 concurrent sessions"
         },
         "models": [
-          "SWE-1.5",
-          "Codeium Fast"
+          "SWE-2",
+          "Kimi K2.5",
+          "GPT 5.2 Mini",
+          "Claude Haiku 4.5"
         ],
         "estimatedTokenBudget": {
-          "description": "25 Cascade prompts + autocomplete (~1M tokens)",
-          "estimatedMillionTokens": 1,
-          "assumptions": "25 Cascade prompts + autocomplete"
+          "description": "Light agent quota (~2M tokens/mo)",
+          "estimatedMillionTokens": 2,
+          "assumptions": "Usage allowance refreshes daily+weekly; size not published; research estimate at ~150K tokens/agent task, low confidence"
         },
-        "notes": "Free tier with unlimited standard completions"
+        "notes": "Unlimited inline edits and Tab completions"
       },
       {
         "name": "Pro",
         "monthlyPrice": 20,
         "limits": {
-          "autocomplete": "Unlimited premium autocomplete",
-          "cascadePrompts": "500 fast Cascade prompts/mo",
-          "slowQueue": "Unlimited slow queue"
+          "quota": "Increased auto-refreshing daily + weekly allowance (size not published)",
+          "overage": "Extra usage purchased at API pricing",
+          "concurrency": "Up to 10 concurrent sessions"
         },
         "models": [
-          "SWE-1.5",
-          "Claude Sonnet 4.6",
-          "GPT-5.4",
-          "Claude Sonnet 5"
+          "SWE-2",
+          "Claude Sonnet 5",
+          "Claude Haiku 4.5",
+          "GPT-5.2 Mini",
+          "Kimi K2.5"
         ],
         "estimatedTokenBudget": {
-          "description": "500 fast Cascade prompts (~15M tokens/mo)",
-          "estimatedMillionTokens": 15,
-          "assumptions": "500 fast Cascade agent requests @ ~30K context"
+          "description": "Pro daily+weekly quota (~45M tokens/mo)",
+          "estimatedMillionTokens": 45,
+          "assumptions": "Research estimate: ~150K tokens/agent task * ~300 agent tasks/mo; official quotas unpublished, low confidence"
         },
-        "notes": "Fast Cascade agent flows + priority autocomplete"
+        "notes": "Frontier OpenAI/Claude/Gemini access + open-source models; Devin Cloud included"
       },
       {
         "name": "Max",
         "monthlyPrice": 200,
         "limits": {
-          "autocomplete": "Unlimited priority autocomplete",
-          "cascadePrompts": "5,000 fast Cascade prompts/mo",
-          "concurrency": "5 concurrent agents"
+          "quota": "Significantly higher daily + weekly allowance (size not published)",
+          "overage": "Extra usage at API pricing",
+          "concurrency": "Unlimited concurrent sessions"
         },
         "models": [
-          "SWE-1.5",
-          "Claude Opus 5",
-          "GPT-6 Astra",
-          "Claude Sonnet 5"
+          "SWE-2",
+          "Claude Sonnet 5",
+          "Claude Haiku 4.5",
+          "GPT-5.2 Mini",
+          "Kimi K2.5"
         ],
         "estimatedTokenBudget": {
-          "description": "5,000 fast Cascade prompts (~150M tokens/mo)",
-          "estimatedMillionTokens": 150,
-          "assumptions": "5,000 agent prompts with priority compute allocation"
+          "description": "Max daily+weekly quota (~225M tokens/mo)",
+          "estimatedMillionTokens": 225,
+          "assumptions": "Research estimate scaled from Pro tier (10x presumed headroom), low confidence"
         },
-        "notes": "Uncapped agentic coding for power developers"
+        "notes": "Power tier for daily-driver agent workflows"
       },
       {
         "name": "Teams",
-        "monthlyPrice": 40,
+        "monthlyPrice": 80,
         "limits": {
-          "perSeat": "$40/user/mo",
-          "cascadePrompts": "1,000 fast prompts/user",
-          "teamAnalytics": "Included"
+          "quota": "Pro-level quota per full dev seat",
+          "billing": "$80/mo team base + $40/mo per full user seat",
+          "concurrency": "Unlimited concurrent sessions"
         },
         "models": [
-          "SWE-1.5",
+          "SWE-2",
           "Claude Sonnet 5",
-          "GPT-5.4"
+          "Claude Haiku 4.5",
+          "GPT-5.2 Mini",
+          "Kimi K2.5"
         ],
         "estimatedTokenBudget": {
-          "description": "1,000 fast prompts/user (~30M tokens/mo)",
-          "estimatedMillionTokens": 30,
-          "assumptions": "1,000 fast prompts/user/mo"
+          "description": "Pro-level quota per full user seat (~45M tokens/mo/seat)",
+          "estimatedMillionTokens": 45,
+          "assumptions": "Per-seat quota mirrors Pro tier; additional seats $40/mo each"
         },
-        "notes": "Centralized management and security controls"
+        "notes": "Includes Devin Desktop, sharing, centralized billing, admin analytics"
       }
     ],
     "gotchas": [
-      "Legacy Codeium credits retired in favor of Cascade prompt quotas",
-      "Complex multi-file agent flows consume 3-5 prompt units per action",
-      "Slow queue wait times increase during peak US working hours"
+      "After Cognition's acquisition, windsurf.com/pricing serves the Devin-branded plan sheet; there is no separate Windsurf editor pricing",
+      "Quotas are undisclosed 'usage allowances' that refresh daily and weekly; overage is consumed at API pricing",
+      "SWE-2 is included free in Devin Desktop and CLI only through Oct 10, 2026",
+      "Message cost varies by model, task size and complexity - not a fixed token count",
+      "Old 'Cascade prompts' / 'Fast prompts' terminology is retired from pricing"
     ],
     "tosHighlights": [
-      "Zero data retention for paid Pro/Teams accounts",
-      "SOC2 Type II certified infrastructure"
+      "Concurrent sessions: up to 10 on Free/Pro, unlimited on Max/Teams"
     ],
-    "dataTraining": "No",
+    "dataTraining": "Not published on pricing page",
     "ipIndemnity": false
   },
   {

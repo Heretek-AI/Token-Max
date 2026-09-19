@@ -2,7 +2,7 @@
   "id": "cursor",
   "name": "Cursor",
   "category": "coding-ide",
-  "url": "https://cursor.com/pricing",
+  "url": "https://cursor.com/docs/account/pricing",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
@@ -10,100 +10,106 @@
       "monthlyPrice": 0,
       "annualPrice": null,
       "limits": {
-        "completions": "2,000 completions/mo",
-        "fastRequests": "50 fast requests/mo",
-        "slowRequests": "Unlimited queued slow requests"
+        "agentRequests": "Limited Agent requests",
+        "composer": "Access to Composer"
       },
       "models": [
-        "Cursor Small",
+        "Cursor Grok 4.5",
         "Claude Haiku 4.5"
       ],
       "estimatedTokenBudget": {
-        "description": "50 fast requests + 2K completions (~0.5M tokens)",
+        "description": "Limited Agent requests (~0.5M tokens/mo)",
         "estimatedMillionTokens": 0.5,
-        "assumptions": "50 fast requests @ ~10K tokens context avg"
+        "assumptions": "Limited agent requests at ~10-20K tokens/request with prompt-cache discount; exact quota unpublished"
       },
-      "notes": "Free tier with 50 fast premium requests"
+      "notes": "Free tier; no credit card required"
     },
     {
       "name": "Pro",
       "monthlyPrice": 20,
       "annualPrice": 192,
       "limits": {
-        "completions": "Unlimited tab completions",
-        "fastRequests": "500 fast requests/mo",
-        "slowRequests": "Unlimited queued requests",
-        "thirdPartyPool": "$20 equivalent pool"
+        "agentRequests": "Extended Agent limits",
+        "usagePools": "Cursor Models pool + Other Models pool (third-party at API rate), monthly reset",
+        "onDemand": "Extra usage on-demand at API rates, billed in arrears"
       },
       "models": [
-        "Claude Sonnet 5",
-        "GPT-5.6 Sol",
-        "Grok 4.6",
-        "Gemini 3.8 Flash",
-        "Cursor Fast"
-      ],
-      "estimatedTokenBudget": {
-        "description": "~$20 third-party compute pool + 500 fast requests (~10M tokens)",
-        "estimatedMillionTokens": 10,
-        "assumptions": "500 requests @ ~20K context avg or $20 third-party API spend"
-      },
-      "notes": "Fallback to on-demand billing or slow pool when exhausted"
-    },
-    {
-      "name": "Pro+",
-      "monthlyPrice": 60,
-      "annualPrice": null,
-      "limits": {
-        "completions": "Unlimited tab completions",
-        "fastRequests": "1,500 fast requests/mo",
-        "thirdPartyPool": "$70 equivalent pool"
-      },
-      "models": [
+        "Cursor Grok 4.6",
+        "Composer 2.5",
+        "Claude Fable 5.1",
         "Claude Opus 5",
         "Claude Sonnet 5",
         "GPT-5.6 Sol",
-        "Grok 4.6",
+        "Gemini 3.1 Pro",
+        "Gemini 3.8 Flash",
+        "Muse Spark 1.3"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Pro Cursor-Models + Other-Models pools (~10M tokens/mo)",
+        "estimatedMillionTokens": 10,
+        "assumptions": "Pool sized at ~$20 of equivalent API-rate spend; blended ~$2/M with cache discounts ~= 10M tokens"
+      },
+      "notes": "Pools reset monthly; legacy request-based plans closed to new subs"
+    },
+    {
+      "name": "Pro Plus",
+      "monthlyPrice": 60,
+      "annualPrice": null,
+      "limits": {
+        "agentRequests": "Larger usage pools",
+        "usagePools": "Same two pools as Pro, expanded"
+      },
+      "models": [
+        "Cursor Grok 4.6",
+        "Composer 2.5",
+        "Claude Fable 5.1",
+        "Claude Opus 5",
+        "Claude Sonnet 5",
+        "GPT-5.6 Sol",
         "Gemini 3.8 Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "~$70 compute pool + 1,500 fast requests (~35M tokens)",
+        "description": "Expanded pools (~35M tokens/mo)",
         "estimatedMillionTokens": 35,
-        "assumptions": "1,500 fast requests + expanded frontier model quota"
+        "assumptions": "~$70 equivalent API-rate pool; blended ~$2/M ~= 35M tokens"
       },
-      "notes": "Higher allowance for power developers"
+      "notes": "Recommended for daily agent users"
     },
     {
       "name": "Ultra",
       "monthlyPrice": 200,
       "annualPrice": null,
       "limits": {
-        "completions": "Unlimited tab completions",
-        "fastRequests": "5,000 fast requests/mo",
-        "thirdPartyPool": "$400 equivalent pool",
-        "concurrency": "Priority routing"
+        "agentRequests": "Largest usage pools",
+        "usagePools": "Same two pools, maximum size"
       },
       "models": [
+        "Cursor Grok 4.6",
+        "Composer 2.5",
+        "Claude Fable 5.1",
         "Claude Opus 5",
         "GPT-6 Astra",
-        "Claude Sonnet 5",
-        "Grok 4.6"
+        "Gemini 3.8 Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "~$400 compute pool + 5,000 priority requests (~180M tokens)",
+        "description": "Maximum pools (~180M tokens/mo)",
         "estimatedMillionTokens": 180,
-        "assumptions": "Priority queue with $400 third-party pool value"
+        "assumptions": "~$400 equivalent API-rate pool; blended ~$2/M ~= 180M tokens"
       },
-      "notes": "Uncapped priority agent access"
+      "notes": "For daily-driver agent power users"
     }
   ],
   "gotchas": [
-    "Third-party pool charged at public API rates — frontier models drain it fast",
-    "On-demand billing kicks in after pool exhaustion (billed in arrears)",
-    "Native pool (Grok/Composer) is separate and more generous"
+    "Pricing uses two usage pools (Cursor Models vs Other Models at API rates) resetting monthly - not request counts",
+    "On-demand usage after pool exhaustion is billed in arrears at API rates",
+    "Max Mode and fast-request tiers exist only for grandfathered legacy subscriptions",
+    "Teams adds a Cursor token rate ($0.25/M tokens) on third-party models",
+    "India-only Start plan (Rs 649) limits users to the Cursor Models pool only",
+    "Subscriptions are only sold directly via cursor.com; resellers are unauthorized and may be suspended"
   ],
   "tosHighlights": [
-    "Privacy mode available (no code stored server-side)",
-    "Business plan adds team admin, SSO, centralized billing"
+    "Privacy mode guarantees code is not used for training by Cursor or its model providers",
+    "SOC 2 / ISO 27001 / ISO 42001 certified"
   ],
   "dataTraining": "Opt-out available in Privacy Mode",
   "ipIndemnity": false
