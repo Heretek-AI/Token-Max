@@ -79,6 +79,10 @@ flowchart TD
      $$\text{Cost per Request} = \frac{20,000 \times (1 - H) \times P_{\text{in}} + 20,000 \times H \times P_{\text{cached}} + 1,000 \times P_{\text{out}}}{1,000,000}$$
      $$\text{Agent Blended Cost (\$/M)} = \frac{\text{Cost per Request}}{21,000} \times 1,000,000$$
      Where $H = 0.75$ by default (typical agent session), and $P_{\text{cached}}$ reflects provider-specific cache discount multipliers ($90\%$ off for Anthropic, DeepSeek, and Z.ai; $75\%$ off for Gemini; $50\%$ off for OpenAI).
+     The agentic blend is the default for Budget token yields; the legacy 3:1 blend is
+     reserved for chat-style comparisons. Measured real-world baselines (78K tokens/request,
+     84% cache, 25:1–166:1 input:output) and the full OSINT audit live in
+     [`docs/TOKEN_ESTIMATE_VALIDATION.md`](file:///home/john/Projects/Token-Max/docs/TOKEN_ESTIMATE_VALIDATION.md).
 
 4. **Variant Separation**:
    Models with `:free` or `:batch` suffixes are flagged (`isFree: true`, `isBatch: true`) to avoid skewing standard pay-as-you-go comparisons.
