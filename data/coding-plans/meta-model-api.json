@@ -1,6 +1,6 @@
 {
   "id": "meta-model-api",
-  "name": "Meta Model API",
+  "name": "Meta Llama API",
   "category": "api-provider",
   "url": "https://meta.com",
   "lastVerified": "2026-09-18",
@@ -31,18 +31,17 @@
       "limits": {
         "RPM": "60 requests/min",
         "TPM": "30,000 tokens/min",
-        "price": "$0.10/M input, $0.20/M output (92% discount)"
+        "price": "$0.10-$0.20/M contributor pricing (~95% discount via muse-spark-1.2-contributor)"
       },
       "models": [
-        "Llama 4 Maverick",
-        "Llama 4 Scout"
+        "Muse Spark 1.2 (contributor)"
       ],
       "estimatedTokenBudget": {
         "description": "Contributor PAYG ($20 buys ~150M tokens)",
         "estimatedMillionTokens": 150,
         "assumptions": "$20 spent @ $0.13/M blended rate with data sharing"
       },
-      "notes": "Contributor $0.10/$0.20/M. Contributor 60 RPM."
+      "notes": "Contributor pricing now applies to muse-spark-1.2 family; prompts/ops feed Meta training"
     }
   ],
   "gotchas": [

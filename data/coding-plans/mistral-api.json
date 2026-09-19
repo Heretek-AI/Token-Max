@@ -2,34 +2,54 @@
   "id": "mistral-api",
   "name": "Mistral API",
   "category": "api-provider",
-  "url": "https://console.mistral.ai",
+  "url": "https://mistral.ai/pricing",
   "lastVerified": "2026-09-18",
   "tiers": [
+    {
+      "name": "Free (Le Plan Studio)",
+      "monthlyPrice": 0,
+      "limits": {
+        "credits": "Signup credits + $10/mo included credits"
+      },
+      "models": [
+        "Mistral Medium 3.5",
+        "Codestral"
+      ],
+      "estimatedTokenBudget": {
+        "description": "$10/mo credits (~10M tokens on select models)",
+        "estimatedMillionTokens": 10,
+        "assumptions": "$10.00 / ~$1.00/M blended (Small-tier usage) ~= 10M tokens"
+      },
+      "notes": "Free experiment tier replaced by Studio signup credits"
+    },
     {
       "name": "PAYG",
       "monthlyPrice": null,
       "limits": {
         "batchDiscount": "50% off Batch API",
         "cacheDiscount": "90% off prefix caching",
-        "hardContextCap": "Enforced context limit"
+        "hardContextCap": "Enforced context limit (400 rather than truncation)"
       },
       "models": [
-        "Mistral Large 2",
-        "Codestral 2501",
-        "Mistral Small"
+        "Mistral Medium 3.5",
+        "Mistral Small 4",
+        "Mistral Large 3",
+        "Codestral 25.08",
+        "Codestral Embed",
+        "Voxtral"
       ],
       "estimatedTokenBudget": {
         "description": "Direct PAYG ($20 buys ~20M Codestral tokens)",
         "estimatedMillionTokens": 20,
-        "assumptions": "$20 spent @ $1.00/M blended on Codestral"
+        "assumptions": "$20.00 / ~$1.00/M blended on Codestral"
       },
-      "notes": "50% batch discount. 90% cache discount."
+      "notes": "Magistral models folded into Medium 3.5 by lifecycle policy"
     }
   ],
   "gotchas": [
-    "Exceeding the context window triggers hard 400 Bad Request error rather than truncation",
-    "Batch API queue processing may take up to 24 hours",
-    "Codestral license restricts certain commercial reuse unless via paid API"
+    "Model lifecycle folded Magistral into Mistral Medium 3.5; Small is now 'Mistral Small 4'",
+    "Exceeding the context window triggers hard 400 Bad Request rather than truncation",
+    "Codestral license restricts certain commercial reuse outside paid API"
   ],
   "tosHighlights": [
     "GDPR compliant and European data residency guarantees",

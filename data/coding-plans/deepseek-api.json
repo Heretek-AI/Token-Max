@@ -6,29 +6,44 @@
   "lastVerified": "2026-09-18",
   "tiers": [
     {
-      "name": "PAYG",
+      "name": "PAYG (Flash)",
       "monthlyPrice": null,
       "limits": {
-        "concurrency": "Flash: 2,500 concurrent | Pro: 500 concurrent",
-        "cacheHitDiscount": "98% off cache hits",
-        "offPeakDiscount": "50% off during 16:30-00:30 UTC"
+        "concurrency": "High concurrency serverless",
+        "offPeakDiscount": "50% off off-peak vs peak",
+        "peakHours": "Mon-Fri 01:00-04:00 and 06:00-10:00 UTC"
       },
       "models": [
-        "DeepSeek V4.1 Flash",
+        "DeepSeek V4.1 Flash"
+      ],
+      "estimatedTokenBudget": {
+        "description": "PAYG ($20 buys ~50M Flash tokens off-peak)",
+        "estimatedMillionTokens": 50,
+        "assumptions": "Flash cache-miss ~$0.66/M input (off-peak $0.33) + ~$0.6-1.2/M output ~= $0.40/M blended off-peak; $20 / $0.40 ~= 50M tokens"
+      },
+      "notes": "Cache-hit tokens ~$0.003-$0.022/M (98% off)"
+    },
+    {
+      "name": "PAYG (V4-Pro)",
+      "monthlyPrice": null,
+      "limits": {
+        "offPeakDiscount": "50% off off-peak vs peak"
+      },
+      "models": [
         "DeepSeek V4-Pro"
       ],
       "estimatedTokenBudget": {
-        "description": "Direct API PAYG ($20 buys ~133M Flash or ~25M Pro tokens)",
-        "estimatedMillionTokens": 133,
-        "assumptions": "$20 / $0.15/M blended off-peak on DeepSeek Flash"
+        "description": "PAYG ($20 buys ~8M Pro tokens off-peak)",
+        "estimatedMillionTokens": 8,
+        "assumptions": "V4-Pro ~$1.98/$3.96 peak in/out ~= $2.44 off-peak blended; $20 / $2.44 ~= 8M tokens"
       },
-      "notes": "Time-of-day pricing. Cache hits 98% off"
+      "notes": "Frontier reasoning tier"
     }
   ],
   "gotchas": [
-    "Time-of-day pricing doubles rates during peak Asia hours (00:30-16:30 UTC)",
-    "Cache hits require identical prefix and are ephemeral",
-    "Occasional high latency during peak global demand"
+    "Peak hours are Mon-Fri 01:00-04:00 and 06:00-10:00 UTC (Asiapost-hours); other times 50% off",
+    "Cache-hit tokens are nearly free but require identical prompt prefixes and are ephemeral",
+    "$0.27-1.68/M price brackets quoted in older docs are stale; rely on current api-docs pricing"
   ],
   "tosHighlights": [
     "No training on API traffic",

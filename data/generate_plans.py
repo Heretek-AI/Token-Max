@@ -584,7 +584,7 @@ write_json(
         "id": "meta-muse-code",
         "name": "Meta Muse Code",
         "category": "coding-ide",
-        "url": "https://developer.meta.com/ai/lp/muse-code/",
+        "url": "https://developer.meta.com/ai/products/muse-code",
         "lastVerified": "2026-09-18",
         "tiers": [
             {
@@ -1992,26 +1992,40 @@ write_json(
         "lastVerified": "2026-09-18",
         "tiers": [
             {
-                "name": "PAYG",
+                "name": "PAYG (Flash)",
                 "monthlyPrice": None,
                 "limits": {
-                    "concurrency": "Flash: 2,500 concurrent | Pro: 500 concurrent",
-                    "cacheHitDiscount": "98% off cache hits",
-                    "offPeakDiscount": "50% off during 16:30-00:30 UTC",
+                    "concurrency": "High concurrency serverless",
+                    "offPeakDiscount": "50% off off-peak vs peak",
+                    "peakHours": "Mon-Fri 01:00-04:00 and 06:00-10:00 UTC",
                 },
-                "models": ["DeepSeek V4.1 Flash", "DeepSeek V4-Pro"],
+                "models": ["DeepSeek V4.1 Flash"],
                 "estimatedTokenBudget": {
-                    "description": "Direct API PAYG ($20 buys ~133M Flash or ~25M Pro tokens)",
-                    "estimatedMillionTokens": 133,
-                    "assumptions": "$20 / $0.15/M blended off-peak on DeepSeek Flash",
+                    "description": "PAYG ($20 buys ~50M Flash tokens off-peak)",
+                    "estimatedMillionTokens": 50,
+                    "assumptions": "Flash cache-miss ~$0.66/M input (off-peak $0.33) + ~$0.6-1.2/M output ~= $0.40/M blended off-peak; $20 / $0.40 ~= 50M tokens",
                 },
-                "notes": "Time-of-day pricing. Cache hits 98% off",
+                "notes": "Cache-hit tokens ~$0.003-$0.022/M (98% off)",
+            },
+            {
+                "name": "PAYG (V4-Pro)",
+                "monthlyPrice": None,
+                "limits": {
+                    "offPeakDiscount": "50% off off-peak vs peak",
+                },
+                "models": ["DeepSeek V4-Pro"],
+                "estimatedTokenBudget": {
+                    "description": "PAYG ($20 buys ~8M Pro tokens off-peak)",
+                    "estimatedMillionTokens": 8,
+                    "assumptions": "V4-Pro ~$1.98/$3.96 peak in/out ~= $2.44 off-peak blended; $20 / $2.44 ~= 8M tokens",
+                },
+                "notes": "Frontier reasoning tier",
             }
         ],
         "gotchas": [
-            "Time-of-day pricing doubles rates during peak Asia hours (00:30-16:30 UTC)",
-            "Cache hits require identical prefix and are ephemeral",
-            "Occasional high latency during peak global demand",
+            "Peak hours are Mon-Fri 01:00-04:00 and 06:00-10:00 UTC (Asiapost-hours); other times 50% off",
+            "Cache-hit tokens are nearly free but require identical prompt prefixes and are ephemeral",
+            "$0.27-1.68/M price brackets quoted in older docs are stale; rely on current api-docs pricing"
         ],
         "tosHighlights": [
             "No training on API traffic",
@@ -2036,39 +2050,36 @@ write_json(
                 "name": "Free",
                 "monthlyPrice": 0,
                 "limits": {
-                    "RPM": "30 requests/min",
-                    "TPM": "14,400 tokens/min",
-                    "RPD": "14,400 requests/day",
+                    "limits": "Per-model RPM 10-30, RPD 100-1,000, TPM 1.2K-70K, TPD up to ~500K",
                 },
-                "models": ["Llama 3.3 70B", "GPT-OSS-120B", "Kimi K3"],
+                "models": ["GPT-OSS-120B", "Qwen3.8", "Kimi K3"],
                 "estimatedTokenBudget": {
-                    "description": "Free rate caps (~2M tokens/mo)",
-                    "estimatedMillionTokens": 2,
-                    "assumptions": "Free tier throughput caps",
+                    "description": "Per-model rate caps (~2-10M tokens/mo depending on model)",
+                    "estimatedMillionTokens": 5,
+                    "assumptions": "TPD ~500K tokens/day ceiling on high-capacity models ~= 15M/mo ceiling; conservative 5M used for typical models",
                 },
-                "notes": "Ultra-fast inference on LPUs for testing",
+                "notes": "Free plan for testing on LPUs"
             },
             {
                 "name": "PAYG",
                 "monthlyPrice": None,
                 "limits": {
-                    "RPM": "1,000 requests/min",
-                    "TPM": "300,000 tokens/min",
-                    "batchDiscount": "50% cached/batch discount",
+                    "batchDiscount": "50% batch/caching discount",
+                    "throughput": "400-800 tokens/sec on LPU hardware",
                 },
-                "models": ["Llama 3.3 70B", "Llama 3.1 8B", "Qwen 2.5 Coder"],
+                "models": ["GPT-OSS-120B", "Qwen3.8", "Kimi K3", "Compound models"],
                 "estimatedTokenBudget": {
-                    "description": "Direct PAYG ($20 buys ~40M tokens at 800 tokens/sec)",
+                    "description": "Direct PAYG ($20 buys ~40M tokens)",
                     "estimatedMillionTokens": 40,
-                    "assumptions": "$20 spent @ $0.50/M blended on Llama 3.3 70B",
+                    "assumptions": "$20 spent @ ~$0.50/M blended on open-weight serving",
                 },
-                "notes": "Hardware LPU inference achieving 400-800 tokens/sec",
-            },
+                "notes": "LPUs achieve 400-800 tokens/sec on served models"
+            }
         ],
         "gotchas": [
-            "Users must set manual spend caps to prevent runaway loops with fast agent tools",
-            "Limited frontier reasoning models available (no Claude or OpenAI models)",
-            "Context windows restricted to 32K or 128K on select open weights",
+            "Llama chat/vision models are GONE from Groq's catalog (only Llama Prompt-Guard safety models remain); lineup is now GPT-OSS/Qwen/Whisper/Compound",
+            "Free-plan limits are per-model, not a single global quota",
+            "Set manual spend caps to prevent runaway loops on ultra-fast inference"
         ],
         "tosHighlights": [
             "Zero data retention by default for paid accounts",
@@ -2086,30 +2097,44 @@ write_json(
         "id": "mistral-api",
         "name": "Mistral API",
         "category": "api-provider",
-        "url": "https://console.mistral.ai",
+        "url": "https://mistral.ai/pricing",
         "lastVerified": "2026-09-18",
         "tiers": [
+            {
+                "name": "Free (Le Plan Studio)",
+                "monthlyPrice": 0,
+                "limits": {
+                    "credits": "Signup credits + $10/mo included credits",
+                },
+                "models": ["Mistral Medium 3.5", "Codestral"],
+                "estimatedTokenBudget": {
+                    "description": "$10/mo credits (~10M tokens on select models)",
+                    "estimatedMillionTokens": 10,
+                    "assumptions": "$10.00 / ~$1.00/M blended (Small-tier usage) ~= 10M tokens",
+                },
+                "notes": "Free experiment tier replaced by Studio signup credits",
+            },
             {
                 "name": "PAYG",
                 "monthlyPrice": None,
                 "limits": {
                     "batchDiscount": "50% off Batch API",
                     "cacheDiscount": "90% off prefix caching",
-                    "hardContextCap": "Enforced context limit",
+                    "hardContextCap": "Enforced context limit (400 rather than truncation)",
                 },
-                "models": ["Mistral Large 2", "Codestral 2501", "Mistral Small"],
+                "models": ["Mistral Medium 3.5", "Mistral Small 4", "Mistral Large 3", "Codestral 25.08", "Codestral Embed", "Voxtral"],
                 "estimatedTokenBudget": {
                     "description": "Direct PAYG ($20 buys ~20M Codestral tokens)",
                     "estimatedMillionTokens": 20,
-                    "assumptions": "$20 spent @ $1.00/M blended on Codestral",
+                    "assumptions": "$20.00 / ~$1.00/M blended on Codestral",
                 },
-                "notes": "50% batch discount. 90% cache discount.",
+                "notes": "Magistral models folded into Medium 3.5 by lifecycle policy",
             }
         ],
         "gotchas": [
-            "Exceeding the context window triggers hard 400 Bad Request error rather than truncation",
-            "Batch API queue processing may take up to 24 hours",
-            "Codestral license restricts certain commercial reuse unless via paid API",
+            "Model lifecycle folded Magistral into Mistral Medium 3.5; Small is now 'Mistral Small 4'",
+            "Exceeding the context window triggers hard 400 Bad Request rather than truncation",
+            "Codestral license restricts certain commercial reuse outside paid API",
         ],
         "tosHighlights": [
             "GDPR compliant and European data residency guarantees",
@@ -2119,7 +2144,6 @@ write_json(
         "ipIndemnity": false,
     },
 )
-
 # 29. Together.ai
 write_json(
     "together-ai.json",
@@ -2234,7 +2258,7 @@ write_json(
     "meta-model-api.json",
     {
         "id": "meta-model-api",
-        "name": "Meta Model API",
+        "name": "Meta Llama API",
         "category": "api-provider",
         "url": "https://meta.com",
         "lastVerified": "2026-09-18",
@@ -2261,15 +2285,15 @@ write_json(
                 "limits": {
                     "RPM": "60 requests/min",
                     "TPM": "30,000 tokens/min",
-                    "price": "$0.10/M input, $0.20/M output (92% discount)",
+                    "price": "$0.10-$0.20/M contributor pricing (~95% discount via muse-spark-1.2-contributor)",
                 },
-                "models": ["Llama 4 Maverick", "Llama 4 Scout"],
+                "models": ["Muse Spark 1.2 (contributor)"],
                 "estimatedTokenBudget": {
                     "description": "Contributor PAYG ($20 buys ~150M tokens)",
                     "estimatedMillionTokens": 150,
                     "assumptions": "$20 spent @ $0.13/M blended rate with data sharing",
                 },
-                "notes": "Contributor $0.10/$0.20/M. Contributor 60 RPM.",
+                "notes": "Contributor pricing now applies to muse-spark-1.2 family; prompts/ops feed Meta training",
             },
         ],
         "gotchas": [
