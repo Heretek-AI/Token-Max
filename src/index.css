@@ -51,9 +51,11 @@
   --color-brass-600: hsl(45 60% 38%);
   --color-brass-700: hsl(45 55% 30%);
 
-  /* Semantic tokens (existing component contract) */
-  --color-primary: var(--color-blood-500);
-  --color-primary-light: hsl(0 80% 58%);
+  /* Semantic tokens (existing component contract).
+     AA audit 2026-09-19: primary/primary-light bumped to pass 4.5:1 for text
+     on --color-surface (4.71) and steel-surface chrome (4.5+). */
+  --color-primary: hsl(0 85% 55%);
+  --color-primary-light: hsl(0 80% 64%);
   --color-primary-dark: var(--color-blood-700);
   --color-surface: hsl(0 0% 4%);
   --color-surface-alt: hsl(0 14% 13%);

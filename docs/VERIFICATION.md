@@ -222,3 +222,23 @@ Commands run from the repository root, all green:
 5. Simulation (`six tiers @ $200, minCodingIndex=75`): Z.ai rows = 0; top ranks are
    Gemini 3.8 Flash (CI 76.3), Kimi K3 (76.2), Claude Opus 5 (78). Unfiltered run:
    Z.ai Max resolves to `Z.ai: GLM 5.3` (CI 74.8, native 2,927M, $168).
+
+### 2026-09-19 — UX Phase 0: design-token AA hardening + shared primitives
+
+Contrast audit (WCAG 4.5:1 for text) of semantic tokens on surface/steel chrome
+found two failures: `--color-primary` (was blood-500, 3.67:1) and
+`--color-primary-light` on the header steel gradient (4.19:1).
+
+Fixes:
+1. `src/index.css` — `--color-primary: hsl(0 85% 55%)` (4.71:1 on surface) and
+   `--color-primary-light: hsl(0 80% 64%)` (4.94:1 on header steel). No component
+   changes needed; all chrome reads the semantic tokens.
+2. New shared primitives under `src/components/shared/` (token-only styling):
+   `DataBadge.tsx`, `Card.tsx`, `TableShell.tsx` (incl. `Th`/`Td` with sticky
+   header), `StatBlock.tsx`, `Toolbar.tsx`, `Tooltip.tsx` — Phase 1–3 pages
+   migrate onto these incrementally.
+3. `src/pages/TosAudit.tsx` — migrated hero pill to `DataBadge` and all four
+   metric cards to `StatBlock` as the wired-up reference usage.
+
+Verification: lint 0/0, tests 98/98, production build clean; built CSS confirmed
+to carry the updated primary/primary-light values (`#ee2b2b`, `#ed5a5a`).

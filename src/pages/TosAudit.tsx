@@ -2,6 +2,8 @@ import { usePlans } from '../hooks/usePlans';
 import { TrainingMatrix } from '../components/tos/TrainingMatrix';
 import { GotchaCards } from '../components/tos/GotchaCards';
 import { LoadingSpinner } from '../components/shared/LoadingSpinner';
+import { StatBlock } from '../components/shared/StatBlock';
+import { DataBadge } from '../components/shared/DataBadge';
 import { classifyTraining, getIndemnityInfo } from '../lib/tos';
 import { ShieldCheck, ShieldAlert, AlertTriangle, Scale } from 'lucide-react';
 
@@ -28,10 +30,10 @@ export default function TosAudit() {
     <div className="animate-in fade-in duration-500 space-y-8">
       {/* Header */}
       <div>
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-warning/10 text-warning text-xs font-semibold mb-3 border border-warning/20">
+        <DataBadge tone="warning">
           <Scale className="w-3.5 h-3.5" />
           <span>Vendor Terms, Legal Risk &amp; Data Governance Audit</span>
-        </div>
+        </DataBadge>
         <h1 className="text-3xl font-extrabold mb-2 text-text">Terms of Service &amp; Gotcha Audit</h1>
         <p className="text-text-muted text-sm max-w-3xl">
           We audited the developer agreements, privacy disclosures, and rate-limit documentation across {plans.length} AI coding providers.
@@ -42,41 +44,10 @@ export default function TosAudit() {
 
       {/* Metric Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-surface p-4 rounded-xl border border-border shadow-xs">
-          <div className="flex items-center justify-between text-text-muted mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wider">Services Audited</span>
-            <Scale className="w-4 h-4 text-primary" />
-          </div>
-          <div className="text-2xl font-black text-text">{plans.length}</div>
-          <p className="text-[11px] text-text-muted mt-0.5">IDEs, routers &amp; APIs</p>
-        </div>
-
-        <div className="bg-surface p-4 rounded-xl border border-border shadow-xs">
-          <div className="flex items-center justify-between text-text-muted mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wider">No Training / ZDR</span>
-            <ShieldCheck className="w-4 h-4 text-success" />
-          </div>
-          <div className="text-2xl font-black text-success">{zeroRetentionCount} <span className="text-xs font-normal text-text-muted">/ {plans.length}</span></div>
-          <p className="text-[11px] text-text-muted mt-0.5">Unconditional on the paid individual tier</p>
-        </div>
-
-        <div className="bg-surface p-4 rounded-xl border border-border shadow-xs">
-          <div className="flex items-center justify-between text-text-muted mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wider">IP Indemnity</span>
-            <ShieldAlert className="w-4 h-4 text-warning" />
-          </div>
-          <div className="text-2xl font-black text-warning">{fullIndemnityCount} <span className="text-xs font-normal text-text-muted">full</span></div>
-          <p className="text-[11px] text-text-muted mt-0.5">+{enterpriseIndemnityCount} enterprise-only</p>
-        </div>
-
-        <div className="bg-surface p-4 rounded-xl border border-border shadow-xs">
-          <div className="flex items-center justify-between text-text-muted mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wider">Audited Gotchas</span>
-            <AlertTriangle className="w-4 h-4 text-danger" />
-          </div>
-          <div className="text-2xl font-black text-text">{totalGotchas}</div>
-          <p className="text-[11px] text-text-muted mt-0.5">Limits, fees &amp; restrictions</p>
-        </div>
+        <StatBlock label="Services Audited" icon={<Scale className="w-4 h-4 text-primary" />} value={plans.length} sub="IDEs, routers & APIs" />
+        <StatBlock label="No Training / ZDR" icon={<ShieldCheck className="w-4 h-4 text-success" />} value={<span className="text-success">{zeroRetentionCount} <span className="text-xs font-normal text-text-muted">/ {plans.length}</span></span>} sub="Unconditional on the paid individual tier" />
+        <StatBlock label="IP Indemnity" icon={<ShieldAlert className="w-4 h-4 text-warning" />} value={<span className="text-warning">{fullIndemnityCount} <span className="text-xs font-normal text-text-muted">full</span></span>} sub={`+${enterpriseIndemnityCount} enterprise-only`} />
+        <StatBlock label="Audited Gotchas" icon={<AlertTriangle className="w-4 h-4 text-danger" />} value={totalGotchas} sub="Limits, fees & restrictions" />
       </div>
 
       {/* Section 1: Data Training Matrix */}
