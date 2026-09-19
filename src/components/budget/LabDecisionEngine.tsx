@@ -14,7 +14,9 @@ import {
   Database,
   Combine,
   Flame,
-  Package
+  Package,
+  XCircle,
+  AlertCircle
 } from 'lucide-react';
 
 interface LabDecisionEngineProps {
@@ -616,8 +618,32 @@ export function LabDecisionEngine({
               <span>Dangerous Dave Stacks at ${budget}/month</span>
             </h3>
             <p className="text-xs text-text-muted mt-0.5">
-              Stack <strong>multiple copies of the same subscription</strong> to hit the budget — raw parallel accounts mean multiplied allowance. Check each provider&apos;s TOS on account stacking.
+              Stack <strong>multiple copies of the same subscription</strong> to hit the budget — raw parallel accounts mean multiplied allowance. Provider terms are checked below; stacked accounts can be banned.
             </p>
+            {(daveStacks.some(s => s.stackingPolicy === 'prohibited') || daveStacks.some(s => s.stackingPolicy === 'unknown')) && (
+              <div className="mt-3 flex flex-col gap-1.5 text-[11px]">
+                {daveStacks.filter(s => s.stackingPolicy === 'prohibited').length > 0 && (
+                  <div className="flex items-start gap-2 rounded-lg border border-danger/40 bg-danger/10 px-3 py-2 text-danger">
+                    <XCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                    <span>
+                      <strong>Prohibited by provider terms:</strong>{' '}
+                      {[...new Set(daveStacks.filter(s => s.stackingPolicy === 'prohibited').map(s => s.planName))].join(', ')}.
+                      Buying multiple accounts for these services is a terms violation — do not stack them.
+                    </span>
+                  </div>
+                )}
+                {daveStacks.filter(s => s.stackingPolicy === 'unknown').length > 0 && (
+                  <div className="flex items-start gap-2 rounded-lg border border-warning/40 bg-warning/10 px-3 py-2 text-warning">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                    <span>
+                      Stacking policy not yet verified for:{' '}
+                      {[...new Set(daveStacks.filter(s => s.stackingPolicy === 'unknown').map(s => s.planName))].join(', ')}.
+                      Check each provider&apos;s terms before buying multiple subscriptions.
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
           <div className="p-4">
             {daveStacks.slice(0, 6).map((stack, i) => (
@@ -637,6 +663,16 @@ export function LabDecisionEngine({
                   <div>
                     <div className="font-bold text-sm text-text flex items-center gap-1.5" title={stack.modelName}>
                       {stack.modelName}
+                      {stack.stackingPolicy === 'prohibited' && (
+                        <span className="text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-danger/15 text-danger border border-danger/30" title={stack.stackingPolicyNote}>
+                          Stacking prohibited
+                        </span>
+                      )}
+                      {stack.stackingPolicy === 'unknown' && (
+                        <span className="text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-warning/15 text-warning border border-warning/30">
+                          Terms unverified
+                        </span>
+                      )}
                     </div>
                     <div className="text-[11px] font-semibold text-text-muted">
                       {stack.qty}&times; {stack.planName} ({stack.tierName}) @ ${stack.unitPrice}/mo = ${stack.totalPrice}/mo combined
@@ -697,6 +733,12 @@ export function LabDecisionEngine({
                 <th className="px-3 py-3 font-semibold text-right">Tier Cost</th>
                 <th className="px-4 py-3 font-semibold text-right">
                   {displayUnit === 'requests' ? 'Est. Monthly Requests' : 'Est. Monthly Tokens'}
+                  <span
+                    className="ml-1 text-text-muted font-normal"
+                    title="Subscription yields are normalized to the budget (tokens-per-dollar x budget) and assume capacity scales linearly with spend. Direct API yields are actual spend."
+                  >
+                    *
+                  </span>
                 </th>
                 <th className="px-3 py-3 font-semibold text-right">Coding Index</th>
                 <th className="px-4 py-3 font-semibold">Summary & Notes</th>
@@ -733,8 +775,11 @@ export function LabDecisionEngine({
                     </td>
                     <td className="px-3 py-3">
                       {opt.type === 'subscription' ? (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-success/10 text-success border border-success/20">
-                          Subscription
+                        <span
+                          className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-success/10 text-success border border-success/20"
+                          title="Normalized to budget — assumes plan capacity scales linearly with spend"
+                        >
+                          Subscription*
                         </span>
                       ) : (
                         <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-primary/10 text-primary border border-primary/20">

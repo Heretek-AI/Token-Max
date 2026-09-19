@@ -77,6 +77,7 @@ function candidate(overrides: Partial<StackCandidate> = {}): StackCandidate {
     requests: 100,
     codingIndex: 60,
     lab: 'all',
+    stackingPolicy: 'silent',
     ...overrides,
   };
 }
@@ -240,6 +241,9 @@ describe('computeMixAndMatch', () => {
     ];
     const bundles = computeMixAndMatch(candidates, 30, 3, 3);
     expect(bundles.length).toBeGreaterThan(0);
+    // Knapsack optimum at $30: A ($10, 10M) + C ($20, 15M) = 25M beats the
+    // greedy A + B = 18M and the single D (not a bundle).
+    expect(bundles[0].totalTokens).toBe(25);
     for (const bundle of bundles) {
       expect(bundle.totalPrice).toBeLessThanOrEqual(30);
       expect(bundle.components.length).toBeGreaterThanOrEqual(2);

@@ -25,7 +25,8 @@ type ContextKey = (typeof CONTEXT_OPTIONS)[number]['key'];
 
 const AGENT_REQUESTS_PER_TASK = 40;
 const CHAT_INPUT_TOKENS = 10_000;
-const COMPLETION_TOKENS = 300;
+const COMPLETION_INPUT_TOKENS = 500;
+const COMPLETION_OUTPUT_TOKENS = 100;
 const TURNS_PER_HOUR = 30;
 const MCP_TOOL_TOKENS_PER_TURN = 1000;
 const SESSION_OUTPUT_TOKENS_PER_TURN = 1000;
@@ -128,7 +129,7 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
       const agentMonthlyInput = sessionInputSum * monthlySessions;
       const agentMonthlyOutput = sessionOutput * monthlySessions;
       const chatTokenCost = chatQueries * (CHAT_INPUT_TOKENS + 500) * WORKDAYS_PER_MONTH;
-      const autoTokenCost = completions * COMPLETION_TOKENS * WORKDAYS_PER_MONTH;
+      const autoTokenCost = completions * (COMPLETION_INPUT_TOKENS + COMPLETION_OUTPUT_TOKENS) * WORKDAYS_PER_MONTH;
       return {
         mode: inputMode as InputMode,
         totalTokens: agentMonthlyInput + agentMonthlyOutput + chatTokenCost + autoTokenCost,
@@ -146,7 +147,7 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
     const agentRequests = agentTasks * AGENT_REQUESTS_PER_TASK * WORKDAYS_PER_MONTH;
     const agentTokenCost = agentTasks * AGENT_REQUESTS_PER_TASK * (contextTokens + 1000) * WORKDAYS_PER_MONTH;
     const chatTokenCost = chatQueries * (CHAT_INPUT_TOKENS + 500) * WORKDAYS_PER_MONTH;
-    const autoTokenCost = completions * COMPLETION_TOKENS * WORKDAYS_PER_MONTH;
+    const autoTokenCost = completions * (COMPLETION_INPUT_TOKENS + COMPLETION_OUTPUT_TOKENS) * WORKDAYS_PER_MONTH;
     return {
       mode: inputMode as InputMode,
       totalTokens: agentTokenCost + chatTokenCost + autoTokenCost,
@@ -180,7 +181,7 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
     const markdown = (m: NormalizedModel) => {
       const agentCost = sessionAgentCost(m) + dailyAgentCost(m);
       const chatCost = requestCost(m, 10_000, 500, cacheRate) * usage.chatQueries;
-      const autoCost = requestCost(m, 500, 100, 0) * usage.completions;
+      const autoCost = requestCost(m, COMPLETION_INPUT_TOKENS, COMPLETION_OUTPUT_TOKENS, 0) * usage.completions;
       const monthlyCost = agentCost + chatCost + autoCost;
       return { model: m, monthlyCost, effectivePerM: monthlyCost / (usage.totalTokens / 1e6) };
     };
@@ -196,6 +197,9 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
 
   const tierRecommendations = useMemo(() => {
     const requiredTokens = usage.totalTokens / 1e6;
+    const dailyDemand = inputMode === 'session'
+      ? (sessionInputSum + sessionOutput) * sessionsPerDay
+      : usage.totalTokens / WORKDAYS_PER_MONTH;
     return plans
       .flatMap(plan =>
         (plan.tiers || [])
@@ -212,6 +216,8 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
             const caps = { basis, optimistic, conservative };
             const fits = caps.basis >= requiredTokens;
             const borderline = !fits && caps.optimistic > caps.basis && caps.optimistic >= requiredTokens;
+            const dailyCapacity = (caps.basis * 1e6) / 30;
+            const windowRisk = dailyDemand > dailyCapacity;
             return {
               planId: plan.id,
               planName: plan.name,
@@ -221,12 +227,15 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
               caps,
               fits,
               borderline,
+              dailyDemand,
+              dailyCapacity,
+              windowRisk,
             };
           })
       )
       .filter(r => r.caps.basis > 0)
       .sort((a, b) => a.monthlyPrice - b.monthlyPrice);
-  }, [plans, usage, estimateBasis]);
+  }, [plans, usage, estimateBasis, inputMode, sessionInputSum, sessionOutput, sessionsPerDay]);
 
   const cheapestFit = tierRecommendations.find(r => r.fits) || null;
   const cheapestBorderline = tierRecommendations.find(r => r.borderline && !cheapestFit) || null;
@@ -388,7 +397,7 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
               className="w-full accent-primary"
             />
             <p className="text-[11px] text-text-muted mt-1">
-              Speculative autocomplete (~300 tokens each)
+              Speculative autocomplete (~600 tokens each)
             </p>
           </div>
         </div>
@@ -678,6 +687,11 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
                       <> · saves ${Math.max(0, overageApi - r.monthlyPrice).toFixed(2)} vs API</>
                     )}
                   </div>
+                  {r.windowRisk && (
+                    <div className="text-[10px] text-warning mt-1" title="Monthly capacity averaged over 30 days is lower than your busiest working day, and most plans cap usage in 5-hour/weekly windows">
+                      Peak-window risk: ~{formatTokens(r.dailyDemand / 1e6)}/day demand vs ~{formatTokens(r.dailyCapacity / 1e6)}/day average capacity
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -746,7 +760,7 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
         {inputMode === 'session'
           ? `agent sessions accumulate context linearly to ~${Math.round(finalContextTokens / 1000)}K final context over ~${sessionTurns} turns (~${TURNS_PER_HOUR} turns/h), with ${sessionsPerDay}/day × 22 workdays`
           : `22 workdays/month, agent tasks average ${AGENT_REQUESTS_PER_TASK} requests of ${contextTokens / 1000}K-token context + 1K output`}
-        , chat requests use {CHAT_INPUT_TOKENS / 1000}K input + 500 output, completions use ~300 tokens
+        , chat requests use {CHAT_INPUT_TOKENS / 1000}K input + 500 output, completions use ~{COMPLETION_INPUT_TOKENS + COMPLETION_OUTPUT_TOKENS} tokens (500 in + 100 out)
         {inputMode === 'session' ? `, MCP tools add ${MCP_STACK_LEVEL[mcpStack] * MCP_TOOL_TOKENS_PER_TURN / 1000}K tool-output tokens per turn into later context` : ''}
         , and plan capacity is measured against the {estimateBasis} estimate. Direct API rates here are priced against
         your own workload (cache-heavy, output-light session reads), while the Home leaderboard prices a fixed 20K-in/1K-out

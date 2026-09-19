@@ -21,6 +21,8 @@ export type FrontierLab = 'all' | 'anthropic' | 'openai' | 'google' | 'deepseek'
 export type DisplayUnit = 'tokens' | 'requests';
 export type CacheRate = 0 | 0.75 | 0.90;
 
+export type StackingPolicy = 'allowed' | 'silent' | 'prohibited' | 'unknown';
+
 export interface ApplesToApplesOption {
   id: string;
   name: string;
@@ -31,6 +33,7 @@ export interface ApplesToApplesOption {
   planId?: string;
   planName?: string;
   tierName?: string;
+  modelId?: string;
   monthlyCost: number;
   monthlyTokens: number; // in million tokens
   monthlyRequests: number; // requests per month (using 21K token standard agent request)
@@ -40,6 +43,8 @@ export interface ApplesToApplesOption {
   verdictBadge?: string;
   notes: string;
   url?: string;
+  /** Subscriptions are normalized to the budget (tokens-per-dollar x budget); APIs are actual spend. */
+  yieldBasis?: 'normalized' | 'actual';
 }
 
 export type EngineMode = 'standard' | 'mix' | 'dave';
@@ -57,6 +62,8 @@ export interface StackCandidate {
   requests: number;
   codingIndex: number | null;
   lab: FrontierLab;
+  stackingPolicy: StackingPolicy;
+  stackingPolicyNote?: string;
 }
 
 export interface StackComponent {
@@ -92,6 +99,8 @@ export interface DaveStack {
   totalRequests: number;
   url: string;
   codingIndex: number | null;
+  stackingPolicy: StackingPolicy;
+  stackingPolicyNote?: string;
 }
 
 export interface NormalizedModel {
@@ -143,6 +152,8 @@ export interface CodingPlan {
   tosHighlights: string[];
   dataTraining: string;
   ipIndemnity: string | boolean;
+  stackingPolicy?: StackingPolicy;
+  stackingPolicyNote?: string;
 }
 
 export interface BudgetResult {
