@@ -9,7 +9,7 @@ export function Footer() {
         </div>
         <DataFreshness />
         <a 
-          href="https://github.com/token-max" 
+          href="https://github.com/Heretek-AI/Token-Max" 
           target="_blank" 
           rel="noopener noreferrer"
           className="text-text-muted hover:text-primary transition-colors flex items-center gap-2 text-sm"
