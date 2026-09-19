@@ -3,11 +3,12 @@
   "name": "Replit",
   "category": "coding-ide",
   "url": "https://replit.com/pricing",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Core",
       "monthlyPrice": 20,
+      "annualPrice": 216,
       "limits": {
         "agentHours": "Up to 30 hours of chat in Free Mode",
         "projects": "Up to 60 projects on Free Mode",
@@ -25,7 +26,7 @@
           "sourceUrl": "https://replit.com/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Annual billing drops to $18/mo; unlimited workspaces"
@@ -33,6 +34,7 @@
     {
       "name": "Pro",
       "monthlyPrice": 100,
+      "annualPrice": 1080,
       "limits": {
         "parallelAgents": "10 parallel agents",
         "modelCredits": "$100 toward most powerful models",
@@ -49,7 +51,7 @@
           "sourceUrl": "https://replit.com/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "10 parallel agents; DB rollback 28 days"
@@ -71,7 +73,7 @@
           "sourceUrl": "https://replit.com/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Advanced privacy controls"

@@ -3,7 +3,7 @@
   "name": "Aider",
   "category": "coding-ide",
   "url": "https://aider.chat",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Free / BYOK",
@@ -27,7 +27,7 @@
           "sourceUrl": "https://aider.chat",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Open-source CLI pair programmer. Bring your own API key"

@@ -3,7 +3,7 @@
   "name": "BytePlus ModelArk Coding Plan",
   "category": "api-provider",
   "url": "https://www.byteplus.com/en/activity/arkcodingplan",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Lite",
@@ -31,7 +31,7 @@
           "sourceQuote": "The Lite plan provides a usable total quota equivalent to 3x that of the Claude Pro plan, while the Pro plan offers 5x the quota of the Lite plan",
           "sourceType": "derived",
           "confidence": "medium",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "Claude Pro conservative estimate (12M)"
         }
       },
@@ -61,7 +61,7 @@
           "sourceUrl": "https://www.byteplus.com/en/activity/arkcodingplan",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Model availability varies by country/region"

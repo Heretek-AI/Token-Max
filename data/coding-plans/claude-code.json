@@ -3,11 +3,12 @@
   "name": "Claude Code",
   "category": "coding-ide",
   "url": "https://claude.com/pricing",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Pro",
       "monthlyPrice": 20,
+      "annualPrice": 200,
       "limits": {
         "rollingCap": "Shared 5-hour rolling session limit (>=5x Free tier)",
         "weeklyAllocation": "Weekly caps on top of the 5-hour window",
@@ -26,7 +27,7 @@
           "sourceUrl": "https://claude.com/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Annual Pro is $17/mo ($200 billed up front). Claude Code shares one pool with Claude.ai chat"
@@ -53,7 +54,7 @@
           "sourceUrl": "https://claude.com/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Higher output limits and priority access at peak times"
@@ -80,7 +81,7 @@
           "sourceUrl": "https://claude.com/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Maximum plan for full-time agent workflows; billed monthly"

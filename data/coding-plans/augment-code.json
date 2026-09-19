@@ -3,7 +3,7 @@
   "name": "Augment Code",
   "category": "coding-ide",
   "url": "https://www.augmentcode.com/pricing",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Standard",
@@ -27,7 +27,7 @@
           "sourceQuote": "flat 40% fee on LLM usage; $20 of usage included per month",
           "sourceType": "derived",
           "confidence": "medium",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "frontier API models at ~$2/M blended"
         }
       },
@@ -53,7 +53,7 @@
           "sourceQuote": "$100 of usage included per month with the flat 40% LLM fee",
           "sourceType": "derived",
           "confidence": "medium",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "frontier API models at ~$2/M blended"
         }
       },
@@ -78,7 +78,7 @@
           "sourceUrl": "https://www.augmentcode.com/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Volume-based"

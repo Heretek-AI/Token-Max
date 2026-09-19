@@ -2,8 +2,8 @@
   "id": "fireworks-ai",
   "name": "Fireworks.ai",
   "category": "api-provider",
-  "url": "https://fireworks.ai",
-  "lastVerified": "2026-09-18",
+  "url": "https://fireworks.ai/pricing",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Free",
@@ -21,10 +21,10 @@
         "estimatedMillionTokens": 2,
         "assumptions": "$1.00 / ~$0.50/M blended open-weight rate ~= 2M tokens of trial compute",
         "estimateMeta": {
-          "sourceUrl": "https://fireworks.ai",
+          "sourceUrl": "https://fireworks.ai/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Trial tier for function-calling evaluation"
@@ -47,10 +47,10 @@
         "estimatedMillionTokens": 35,
         "assumptions": "$20 spent @ $0.55/M blended on Llama 70B",
         "estimateMeta": {
-          "sourceUrl": "https://fireworks.ai",
+          "sourceUrl": "https://fireworks.ai/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Serverless PAYG. 6000 RPM with card. Batch 50% off."

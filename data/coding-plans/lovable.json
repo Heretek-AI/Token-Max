@@ -3,7 +3,7 @@
   "name": "Lovable",
   "category": "coding-ide",
   "url": "https://lovable.dev/pricing",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Free",
@@ -23,7 +23,7 @@
           "sourceUrl": "https://lovable.dev/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Daily credits reset at 00:00 UTC; monthly grants on 1st; no rollover"
@@ -47,7 +47,7 @@
           "sourceUrl": "https://lovable.dev/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Unified credit balance covers builds + Cloud hosting + AI gateway on deployed apps"
@@ -70,7 +70,7 @@
           "sourceUrl": "https://lovable.dev/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "SSO/central admin at higher Business tiers; Enterprise custom"

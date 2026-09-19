@@ -3,7 +3,7 @@
   "name": "Amazon Q Developer",
   "category": "coding-ide",
   "url": "https://aws.amazon.com/q/developer/pricing/",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Free Tier",
@@ -24,7 +24,7 @@
           "sourceQuote": "Free tier: 50 agentic requests per month",
           "sourceType": "derived",
           "confidence": "high",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "standard 20K-in/1K-out agent request"
         }
       },
@@ -52,7 +52,7 @@
           "sourceQuote": "Pro: higher agentic request limits (not numerically published)",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "standard 20K-in/1K-out agent request"
         }
       },

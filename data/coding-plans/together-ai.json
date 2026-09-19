@@ -2,8 +2,8 @@
   "id": "together-ai",
   "name": "Together.ai",
   "category": "api-provider",
-  "url": "https://together.ai",
-  "lastVerified": "2026-09-18",
+  "url": "https://www.together.ai/pricing",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Free",
@@ -22,10 +22,10 @@
         "estimatedMillionTokens": 5,
         "assumptions": "$5 trial credits on open source models",
         "estimateMeta": {
-          "sourceUrl": "https://together.ai",
+          "sourceUrl": "https://www.together.ai/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Trial credit package for open source model testing"
@@ -47,10 +47,10 @@
         "estimatedMillionTokens": 30,
         "assumptions": "$20 spent @ $0.65/M blended",
         "estimateMeta": {
-          "sourceUrl": "https://together.ai",
+          "sourceUrl": "https://www.together.ai/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Tiered limits at $25/$50/$100/$250 spend. Batch 50% off."

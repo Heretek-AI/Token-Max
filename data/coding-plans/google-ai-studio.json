@@ -3,7 +3,7 @@
   "name": "Google AI Studio",
   "category": "api-provider",
   "url": "https://aistudio.google.com",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Free",
@@ -25,7 +25,7 @@
           "sourceUrl": "https://aistudio.google.com",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Free tier with generous TPM limits"
@@ -53,7 +53,7 @@
           "sourceQuote": "Gemini 3.8 Flash input $0.75 / output $3.75 per 1M tokens (input price through December 31, 2026)",
           "sourceType": "derived",
           "confidence": "medium",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "Gemini 3.8 Flash",
           "cacheAssumption": "75% cache hit rate at 25% of input price"
         }
@@ -80,7 +80,7 @@
           "sourceUrl": "https://aistudio.google.com",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Higher throughput tier unlocked after spend verification"
@@ -105,7 +105,7 @@
           "sourceUrl": "https://aistudio.google.com",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Enterprise capacity with custom quota allocations"

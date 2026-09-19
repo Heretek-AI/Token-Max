@@ -3,7 +3,7 @@
   "name": "OpenAI API",
   "category": "api-provider",
   "url": "https://platform.openai.com",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "PAYG",
@@ -30,7 +30,7 @@
           "sourceQuote": "gpt-5.6-sol $2.00 input / $10.00 output per 1M tokens; gpt-5.6-luna $0.10 / $0.60",
           "sourceType": "derived",
           "confidence": "medium",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "GPT-5.6 Sol",
           "cacheAssumption": "75% cache hit rate at 50% discount"
         }

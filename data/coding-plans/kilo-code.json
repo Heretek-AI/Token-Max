@@ -3,7 +3,7 @@
   "name": "Kilo Code",
   "category": "coding-router",
   "url": "https://kilo.ai/pricing",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Individual",
@@ -23,7 +23,7 @@
           "sourceUrl": "https://kilo.ai/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Free for individuals; cloud compute billed separately per-hour"
@@ -50,7 +50,7 @@
           "sourceUrl": "https://kilo.ai/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Security/governance features included"
@@ -73,7 +73,7 @@
           "sourceUrl": "https://kilo.ai/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Enterprise support and controls"

@@ -3,7 +3,7 @@
   "name": "MiniMax Token Plan",
   "category": "api-provider",
   "url": "https://platform.minimax.io/docs/guides/pricing-token-plan",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Plus",
@@ -24,7 +24,7 @@
           "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Personal projects and prototyping"
@@ -48,7 +48,7 @@
           "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Daily coding with agents and multimodal work"
@@ -72,7 +72,7 @@
           "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Heavy agent workflows and extended sessions"
@@ -95,7 +95,7 @@
           "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Prepaid overflow packages"

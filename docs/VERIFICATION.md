@@ -79,6 +79,24 @@ Fixed against official sources:
 
 ## Verification passes
 
+### 2026-09-19 — Comprehensive live web crawl & quota validation pass
+
+Systematic multi-batch web crawl of all 33 coding plans using Firecrawl MCP (`firecrawl-firecrawl_scrape`) and live search verification against official documentation and pricing portals. Detailed audit log stored in [`docs/CRAWL_AUDIT_2026.md`](file:///home/john/Projects/Token-Max/docs/CRAWL_AUDIT_2026.md).
+
+Key updates and validations:
+- **Annual Pricing Ingestion:** Added official annual discounted rates: Cursor Pro+ ($576/yr), Cursor Ultra ($1,920/yr), Claude Code Pro ($200/yr upfront), Replit Core ($216/yr), Replit Pro ($1,080/yr).
+- **DeepSeek API Specifications:** Reconciled official DeepSeek docs (`https://api-docs.deepseek.com/quick_start/pricing`), validating DeepSeek-V4.1-Flash ($0.15/$0.60 off-peak) and DeepSeek-V4-Pro ($0.66/$1.98 off-peak) with 1M context windows, 384K output max, and 2,500/500 concurrency ceilings.
+- **Provider Pricing URLs:** Updated explicit canonical pricing links for Together AI (`https://www.together.ai/pricing`) and Fireworks AI (`https://fireworks.ai/pricing`).
+- **Quota & Tier Sanity:** Confirmed all 33 plans and tiers maintain valid non-zero token budgets, models lists, and limits definitions per schema.
+
+Commands run from the repository root, all green:
+1. `python3 data/generate_plans.py` — regenerated all 33 plan files with updated annual prices and DeepSeek specs.
+2. `node scripts/build-data.mjs` — consolidated `public/data/plans.json` and updated freshness metadata.
+3. `npm run validate-data` — all 33 plan files pass 100% schema invariant checks.
+4. `npm test` — 42/42 tests pass across pricing, cache blend, stacking, and TOS auditing.
+5. `npm run lint` — 0 errors, 0 warnings (oxlint).
+6. `npm run build` — TypeScript check and Vite static production build succeed.
+
 ### 2026-09-19 — token-estimate recalibration (Phases 0–4)
 
 Commands run from the repository root, all green:

@@ -3,7 +3,7 @@
   "name": "Windsurf (Cognition)",
   "category": "coding-ide",
   "url": "https://windsurf.com/pricing",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Free",
@@ -30,7 +30,7 @@
           "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "Windsurf free quota (13 tasks/mo research estimate)",
           "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
@@ -63,7 +63,7 @@
           "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "Windsurf Pro quota (300 tasks/mo research estimate)",
           "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
@@ -96,7 +96,7 @@
           "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "Windsurf Max quota (5x Pro presumption x 300-task band)",
           "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
@@ -129,7 +129,7 @@
           "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "Windsurf Teams seat quota (mirrors Pro 300-task band)",
           "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }

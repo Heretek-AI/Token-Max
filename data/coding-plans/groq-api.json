@@ -3,7 +3,7 @@
   "name": "Groq API",
   "category": "api-provider",
   "url": "https://console.groq.com",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Free",
@@ -24,7 +24,7 @@
           "sourceUrl": "https://console.groq.com",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Free plan for testing on LPUs"
@@ -50,7 +50,7 @@
           "sourceUrl": "https://console.groq.com",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "LPUs achieve 400-800 tokens/sec on served models"

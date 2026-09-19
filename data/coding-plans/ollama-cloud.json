@@ -3,7 +3,7 @@
   "name": "Ollama Cloud",
   "category": "api-provider",
   "url": "https://ollama.com",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Free",
@@ -25,7 +25,7 @@
           "sourceUrl": "https://ollama.com",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Free tier for running local and small cloud models"
@@ -53,7 +53,7 @@
           "sourceUrl": "https://ollama.com",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Pro: $60 credits/mo, 3 concurrent. 3x compute value."
@@ -79,7 +79,7 @@
           "sourceUrl": "https://ollama.com",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Max: $300, 10 concurrent. Priority routing."
@@ -103,7 +103,7 @@
           "sourceUrl": "https://ollama.com",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Dedicated private pods for software development teams"

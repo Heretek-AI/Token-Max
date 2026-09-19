@@ -3,7 +3,7 @@
   "name": "OpenRouter",
   "category": "coding-router",
   "url": "https://openrouter.ai",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Free",
@@ -23,7 +23,7 @@
           "sourceUrl": "https://openrouter.ai",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Free community models with rate limiting"
@@ -47,7 +47,7 @@
           "sourceUrl": "https://openrouter.ai",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Universal API aggregator with unified billing and automatic failover"

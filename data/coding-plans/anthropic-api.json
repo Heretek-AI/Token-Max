@@ -3,7 +3,7 @@
   "name": "Anthropic API",
   "category": "api-provider",
   "url": "https://console.anthropic.com",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "PAYG",
@@ -31,7 +31,7 @@
           "sourceQuote": "Claude Sonnet 5 $2 / MTok input, $10 / MTok output; cache reads 0.1x input",
           "sourceType": "derived",
           "confidence": "medium",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "Claude Sonnet 5",
           "cacheAssumption": "75% cache hit rate at 90% discount"
         }

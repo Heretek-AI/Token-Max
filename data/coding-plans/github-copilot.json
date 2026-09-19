@@ -3,7 +3,7 @@
   "name": "GitHub Copilot",
   "category": "coding-ide",
   "url": "https://github.com/features/copilot/plans",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Free",
@@ -24,7 +24,7 @@
           "sourceUrl": "https://github.com/features/copilot/plans",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Basic completions and limited chat; auto model selection only"
@@ -55,7 +55,7 @@
           "sourceUrl": "https://github.com/features/copilot/plans",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Claude Sonnet 4.6 only for annual subscribers; premium models cost multiple credits"
@@ -86,7 +86,7 @@
           "sourceUrl": "https://github.com/features/copilot/plans",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Priority premium-model access; agent delegation Pro+ only"
@@ -114,7 +114,7 @@
           "sourceUrl": "https://github.com/features/copilot/plans",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Highest individual AI-credit allowance ($200 compute value)"
@@ -137,7 +137,7 @@
           "sourceUrl": "https://github.com/features/copilot/plans",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Centralized management and Copilot policy control"
@@ -160,7 +160,7 @@
           "sourceUrl": "https://github.com/features/copilot/plans",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Enterprise Cloud features; unlicensed code-review users draw org credits"

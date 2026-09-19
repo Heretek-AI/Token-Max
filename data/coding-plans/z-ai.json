@@ -3,7 +3,7 @@
   "name": "Z.ai GLM Coding Plan",
   "category": "api-provider",
   "url": "https://z.ai/subscribe",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Lite",
@@ -31,7 +31,7 @@
           "sourceQuote": "Estimated Token Allowance (95% cache): Lite GLM-5.3 48-97M tokens/week; off-peak usage charged at 50% of the standard credit rate",
           "sourceType": "official",
           "confidence": "high",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "GLM-5.3",
           "cacheAssumption": "95% cache hit rate"
         }
@@ -64,7 +64,7 @@
           "sourceQuote": "Estimated Token Allowance (95% cache): Pro GLM-5.3 290-580M tokens/week",
           "sourceType": "official",
           "confidence": "high",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "GLM-5.3",
           "cacheAssumption": "95% cache hit rate"
         }
@@ -97,7 +97,7 @@
           "sourceQuote": "Estimated Token Allowance (95% cache): Max GLM-5.3 676-1,352M tokens/week",
           "sourceType": "official",
           "confidence": "high",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "GLM-5.3",
           "cacheAssumption": "95% cache hit rate"
         }
@@ -131,7 +131,7 @@
           "sourceQuote": "Standard Seat: 15,000 credits / 5h, 66,000 credits / week",
           "sourceType": "derived",
           "confidence": "medium",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "GLM-5.3",
           "cacheAssumption": "95% cache hit rate"
         }

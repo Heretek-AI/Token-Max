@@ -3,7 +3,7 @@
   "name": "Meta Muse Code",
   "category": "coding-ide",
   "url": "https://developer.meta.com/ai/products/muse-code",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Everyday",
@@ -23,7 +23,7 @@
           "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Affordable entry-level coding assistance"
@@ -47,7 +47,7 @@
           "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Standard developer tier with generous limits"
@@ -70,7 +70,7 @@
           "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Maximum rate limits and concurrent workflows"

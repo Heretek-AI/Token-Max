@@ -2,37 +2,40 @@
   "id": "deepseek-api",
   "name": "DeepSeek API",
   "category": "api-provider",
-  "url": "https://platform.deepseek.com",
-  "lastVerified": "2026-09-18",
+  "url": "https://api-docs.deepseek.com/quick_start/pricing",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "PAYG (Flash)",
       "monthlyPrice": null,
       "limits": {
-        "concurrency": "High concurrency serverless",
-        "offPeakDiscount": "50% off off-peak vs peak",
+        "concurrency": "2,500 connections (official limit)",
+        "contextWindow": "1M tokens context window, 384K maximum output",
+        "offPeakDiscount": "50% off (off-peak input $0.15/M, output $0.60/M)",
         "peakHours": "Mon-Fri 01:00-04:00 and 06:00-10:00 UTC"
       },
       "models": [
         "DeepSeek V4.1 Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "PAYG ($20 buys ~50M Flash tokens off-peak)",
-        "estimatedMillionTokens": 50,
-        "assumptions": "Flash cache-miss ~$0.66/M input (off-peak $0.33) + ~$0.6-1.2/M output ~= $0.40/M blended off-peak; $20 / $0.40 ~= 50M tokens",
+        "description": "PAYG ($20 buys ~75M Flash tokens off-peak)",
+        "estimatedMillionTokens": 75,
+        "assumptions": "Flash cache-miss $0.30/M input ($0.15 off-peak) + $1.20/M output ($0.60 off-peak), cache-hit $0.003-$0.006/M. At ~$0.26/M blended off-peak, $20 yields ~75M tokens",
         "estimateMeta": {
-          "sourceUrl": "https://platform.deepseek.com",
+          "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
-      "notes": "Cache-hit tokens ~$0.003-$0.022/M (98% off)"
+      "notes": "Cache-hit tokens ~$0.003-$0.006/M (up to 98% off)"
     },
     {
       "name": "PAYG (V4-Pro)",
       "monthlyPrice": null,
       "limits": {
+        "concurrency": "500 connections (official limit)",
+        "contextWindow": "1M tokens context window, 384K maximum output",
         "offPeakDiscount": "50% off off-peak vs peak"
       },
       "models": [
@@ -49,7 +52,7 @@
           "sourceQuote": "V4-Pro peak: ¥9/M cache-miss input, ¥27/M output; off-peak prices are half the peak price",
           "sourceType": "derived",
           "confidence": "medium",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "DeepSeek V4-Pro",
           "cacheAssumption": "75% cache hit rate at cache-hit pricing"
         }

@@ -3,7 +3,7 @@
   "name": "CommandCode",
   "category": "coding-router",
   "url": "https://commandcode.ai/pricing",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Go",
@@ -26,7 +26,7 @@
           "sourceUrl": "https://commandcode.ai/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Processing fee applies; open models + select premium"
@@ -53,7 +53,7 @@
           "sourceUrl": "https://commandcode.ai/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "29+ models"
@@ -80,7 +80,7 @@
           "sourceUrl": "https://commandcode.ai/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Adds all premium models incl Claude; 1M context"
@@ -103,7 +103,7 @@
           "sourceUrl": "https://commandcode.ai/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Higher rate limits"
@@ -126,7 +126,7 @@
           "sourceUrl": "https://commandcode.ai/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Highest rate limits; every model"

@@ -3,7 +3,7 @@
   "name": "Alibaba Cloud",
   "category": "api-provider",
   "url": "https://www.alibabacloud.com/help/en/model-studio/token-plan-overview",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Personal Lite",
@@ -33,7 +33,7 @@
           "sourceQuote": "Credits are deducted using tiered deduction coefficients by model; the deduction ratio is lower on a cache hit and higher on a miss",
           "sourceType": "derived",
           "confidence": "medium",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "qwen3.6-plus",
           "cacheAssumption": "75% cache hit rate (plan example ran at ~83% cached)"
         }
@@ -68,7 +68,7 @@
           "sourceQuote": "Personal Edition: Essential 5,625 Credits per 7-day quota (limited-time $10/month)",
           "sourceType": "derived",
           "confidence": "medium",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "qwen3.6-plus",
           "cacheAssumption": "75% cache hit rate"
         }
@@ -103,7 +103,7 @@
           "sourceQuote": "Personal Edition: Standard 10,000 Credits per 7-day quota (limited-time $18/month)",
           "sourceType": "derived",
           "confidence": "medium",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "qwen3.6-plus",
           "cacheAssumption": "75% cache hit rate"
         }
@@ -138,7 +138,7 @@
           "sourceQuote": "Personal Edition: Pro 40,000 Credits per 7-day quota (limited-time $68/month)",
           "sourceType": "derived",
           "confidence": "medium",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "qwen3.6-plus",
           "cacheAssumption": "75% cache hit rate"
         }
@@ -171,7 +171,7 @@
           "sourceQuote": "Team Edition: Standard seat 25,000 Credits/seat/month",
           "sourceType": "derived",
           "confidence": "medium",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "qwen3.6-plus",
           "cacheAssumption": "75% cache hit rate"
         }
@@ -204,7 +204,7 @@
           "sourceQuote": "Team Edition: Pro seat 100,000 Credits/seat/month",
           "sourceType": "derived",
           "confidence": "medium",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "qwen3.6-plus",
           "cacheAssumption": "75% cache hit rate"
         }
@@ -237,7 +237,7 @@
           "sourceQuote": "Team Edition: Max seat 250,000 Credits/seat/month",
           "sourceType": "derived",
           "confidence": "medium",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "qwen3.6-plus",
           "cacheAssumption": "75% cache hit rate"
         }

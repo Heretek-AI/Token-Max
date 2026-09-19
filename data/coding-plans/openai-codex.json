@@ -3,7 +3,7 @@
   "name": "OpenAI Codex (ChatGPT)",
   "category": "coding-ide",
   "url": "https://openai.com/chatgpt/pricing/",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Free",
@@ -25,7 +25,7 @@
           "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "OpenAI Codex free quota (3 tasks/mo research estimate)",
           "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
@@ -54,7 +54,7 @@
           "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "OpenAI Codex Go quota (17 tasks/mo research estimate)",
           "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
@@ -84,7 +84,7 @@
           "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "OpenAI Codex Plus quota (80 tasks/mo research estimate)",
           "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
@@ -112,7 +112,7 @@
           "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "OpenAI Codex Pro 5x (official 5x Plus multiplier x 80-task band)",
           "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
@@ -141,7 +141,7 @@
           "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "OpenAI Codex Pro maximum (20x Plus x 80-task band)",
           "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }

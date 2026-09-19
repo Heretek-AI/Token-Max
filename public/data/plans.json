@@ -4,7 +4,7 @@
     "name": "Aider",
     "category": "coding-ide",
     "url": "https://aider.chat",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Free / BYOK",
@@ -28,7 +28,7 @@
             "sourceUrl": "https://aider.chat",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Open-source CLI pair programmer. Bring your own API key"
@@ -52,7 +52,7 @@
     "name": "Alibaba Cloud",
     "category": "api-provider",
     "url": "https://www.alibabacloud.com/help/en/model-studio/token-plan-overview",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Personal Lite",
@@ -82,7 +82,7 @@
             "sourceQuote": "Credits are deducted using tiered deduction coefficients by model; the deduction ratio is lower on a cache hit and higher on a miss",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "qwen3.6-plus",
             "cacheAssumption": "75% cache hit rate (plan example ran at ~83% cached)"
           }
@@ -117,7 +117,7 @@
             "sourceQuote": "Personal Edition: Essential 5,625 Credits per 7-day quota (limited-time $10/month)",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "qwen3.6-plus",
             "cacheAssumption": "75% cache hit rate"
           }
@@ -152,7 +152,7 @@
             "sourceQuote": "Personal Edition: Standard 10,000 Credits per 7-day quota (limited-time $18/month)",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "qwen3.6-plus",
             "cacheAssumption": "75% cache hit rate"
           }
@@ -187,7 +187,7 @@
             "sourceQuote": "Personal Edition: Pro 40,000 Credits per 7-day quota (limited-time $68/month)",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "qwen3.6-plus",
             "cacheAssumption": "75% cache hit rate"
           }
@@ -220,7 +220,7 @@
             "sourceQuote": "Team Edition: Standard seat 25,000 Credits/seat/month",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "qwen3.6-plus",
             "cacheAssumption": "75% cache hit rate"
           }
@@ -253,7 +253,7 @@
             "sourceQuote": "Team Edition: Pro seat 100,000 Credits/seat/month",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "qwen3.6-plus",
             "cacheAssumption": "75% cache hit rate"
           }
@@ -286,7 +286,7 @@
             "sourceQuote": "Team Edition: Max seat 250,000 Credits/seat/month",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "qwen3.6-plus",
             "cacheAssumption": "75% cache hit rate"
           }
@@ -316,7 +316,7 @@
     "name": "Amazon Q Developer",
     "category": "coding-ide",
     "url": "https://aws.amazon.com/q/developer/pricing/",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Free Tier",
@@ -337,7 +337,7 @@
             "sourceQuote": "Free tier: 50 agentic requests per month",
             "sourceType": "derived",
             "confidence": "high",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "standard 20K-in/1K-out agent request"
           }
         },
@@ -365,7 +365,7 @@
             "sourceQuote": "Pro: higher agentic request limits (not numerically published)",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "standard 20K-in/1K-out agent request"
           }
         },
@@ -388,7 +388,7 @@
     "name": "Anthropic API",
     "category": "api-provider",
     "url": "https://console.anthropic.com",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "PAYG",
@@ -416,7 +416,7 @@
             "sourceQuote": "Claude Sonnet 5 $2 / MTok input, $10 / MTok output; cache reads 0.1x input",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "Claude Sonnet 5",
             "cacheAssumption": "75% cache hit rate at 90% discount"
           }
@@ -443,7 +443,7 @@
     "name": "Augment Code",
     "category": "coding-ide",
     "url": "https://www.augmentcode.com/pricing",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Standard",
@@ -467,7 +467,7 @@
             "sourceQuote": "flat 40% fee on LLM usage; $20 of usage included per month",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "frontier API models at ~$2/M blended"
           }
         },
@@ -493,7 +493,7 @@
             "sourceQuote": "$100 of usage included per month with the flat 40% LLM fee",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "frontier API models at ~$2/M blended"
           }
         },
@@ -518,7 +518,7 @@
             "sourceUrl": "https://www.augmentcode.com/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Volume-based"
@@ -542,7 +542,7 @@
     "name": "BytePlus ModelArk Coding Plan",
     "category": "api-provider",
     "url": "https://www.byteplus.com/en/activity/arkcodingplan",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Lite",
@@ -570,7 +570,7 @@
             "sourceQuote": "The Lite plan provides a usable total quota equivalent to 3x that of the Claude Pro plan, while the Pro plan offers 5x the quota of the Lite plan",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "Claude Pro conservative estimate (12M)"
           }
         },
@@ -600,7 +600,7 @@
             "sourceUrl": "https://www.byteplus.com/en/activity/arkcodingplan",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Model availability varies by country/region"
@@ -623,11 +623,12 @@
     "name": "Claude Code",
     "category": "coding-ide",
     "url": "https://claude.com/pricing",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Pro",
         "monthlyPrice": 20,
+        "annualPrice": 200,
         "limits": {
           "rollingCap": "Shared 5-hour rolling session limit (>=5x Free tier)",
           "weeklyAllocation": "Weekly caps on top of the 5-hour window",
@@ -646,7 +647,7 @@
             "sourceUrl": "https://claude.com/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Annual Pro is $17/mo ($200 billed up front). Claude Code shares one pool with Claude.ai chat"
@@ -673,7 +674,7 @@
             "sourceUrl": "https://claude.com/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Higher output limits and priority access at peak times"
@@ -700,7 +701,7 @@
             "sourceUrl": "https://claude.com/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Maximum plan for full-time agent workflows; billed monthly"
@@ -724,7 +725,7 @@
     "name": "CommandCode",
     "category": "coding-router",
     "url": "https://commandcode.ai/pricing",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Go",
@@ -747,7 +748,7 @@
             "sourceUrl": "https://commandcode.ai/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Processing fee applies; open models + select premium"
@@ -774,7 +775,7 @@
             "sourceUrl": "https://commandcode.ai/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "29+ models"
@@ -801,7 +802,7 @@
             "sourceUrl": "https://commandcode.ai/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Adds all premium models incl Claude; 1M context"
@@ -824,7 +825,7 @@
             "sourceUrl": "https://commandcode.ai/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Higher rate limits"
@@ -847,7 +848,7 @@
             "sourceUrl": "https://commandcode.ai/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Highest rate limits; every model"
@@ -872,7 +873,7 @@
     "name": "Cursor",
     "category": "coding-ide",
     "url": "https://cursor.com/docs/account/pricing",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Hobby",
@@ -894,7 +895,7 @@
             "sourceUrl": "https://cursor.com/docs/account/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Free tier; no credit card required"
@@ -927,7 +928,7 @@
             "sourceUrl": "https://cursor.com/docs/account/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Pools reset monthly; legacy request-based plans closed to new subs"
@@ -935,7 +936,7 @@
       {
         "name": "Pro Plus",
         "monthlyPrice": 60,
-        "annualPrice": null,
+        "annualPrice": 576,
         "limits": {
           "agentRequests": "Larger usage pools",
           "usagePools": "Same two pools as Pro, expanded"
@@ -957,7 +958,7 @@
             "sourceUrl": "https://cursor.com/docs/account/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Recommended for daily agent users"
@@ -965,7 +966,7 @@
       {
         "name": "Ultra",
         "monthlyPrice": 200,
-        "annualPrice": null,
+        "annualPrice": 1920,
         "limits": {
           "agentRequests": "Largest usage pools",
           "usagePools": "Same two pools, maximum size"
@@ -986,7 +987,7 @@
             "sourceUrl": "https://cursor.com/docs/account/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "For daily-driver agent power users"
@@ -1014,37 +1015,40 @@
     "id": "deepseek-api",
     "name": "DeepSeek API",
     "category": "api-provider",
-    "url": "https://platform.deepseek.com",
-    "lastVerified": "2026-09-18",
+    "url": "https://api-docs.deepseek.com/quick_start/pricing",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "PAYG (Flash)",
         "monthlyPrice": null,
         "limits": {
-          "concurrency": "High concurrency serverless",
-          "offPeakDiscount": "50% off off-peak vs peak",
+          "concurrency": "2,500 connections (official limit)",
+          "contextWindow": "1M tokens context window, 384K maximum output",
+          "offPeakDiscount": "50% off (off-peak input $0.15/M, output $0.60/M)",
           "peakHours": "Mon-Fri 01:00-04:00 and 06:00-10:00 UTC"
         },
         "models": [
           "DeepSeek V4.1 Flash"
         ],
         "estimatedTokenBudget": {
-          "description": "PAYG ($20 buys ~50M Flash tokens off-peak)",
-          "estimatedMillionTokens": 50,
-          "assumptions": "Flash cache-miss ~$0.66/M input (off-peak $0.33) + ~$0.6-1.2/M output ~= $0.40/M blended off-peak; $20 / $0.40 ~= 50M tokens",
+          "description": "PAYG ($20 buys ~75M Flash tokens off-peak)",
+          "estimatedMillionTokens": 75,
+          "assumptions": "Flash cache-miss $0.30/M input ($0.15 off-peak) + $1.20/M output ($0.60 off-peak), cache-hit $0.003-$0.006/M. At ~$0.26/M blended off-peak, $20 yields ~75M tokens",
           "estimateMeta": {
-            "sourceUrl": "https://platform.deepseek.com",
+            "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
-        "notes": "Cache-hit tokens ~$0.003-$0.022/M (98% off)"
+        "notes": "Cache-hit tokens ~$0.003-$0.006/M (up to 98% off)"
       },
       {
         "name": "PAYG (V4-Pro)",
         "monthlyPrice": null,
         "limits": {
+          "concurrency": "500 connections (official limit)",
+          "contextWindow": "1M tokens context window, 384K maximum output",
           "offPeakDiscount": "50% off off-peak vs peak"
         },
         "models": [
@@ -1061,7 +1065,7 @@
             "sourceQuote": "V4-Pro peak: ¥9/M cache-miss input, ¥27/M output; off-peak prices are half the peak price",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "DeepSeek V4-Pro",
             "cacheAssumption": "75% cache hit rate at cache-hit pricing"
           }
@@ -1086,8 +1090,8 @@
     "id": "fireworks-ai",
     "name": "Fireworks.ai",
     "category": "api-provider",
-    "url": "https://fireworks.ai",
-    "lastVerified": "2026-09-18",
+    "url": "https://fireworks.ai/pricing",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Free",
@@ -1105,10 +1109,10 @@
           "estimatedMillionTokens": 2,
           "assumptions": "$1.00 / ~$0.50/M blended open-weight rate ~= 2M tokens of trial compute",
           "estimateMeta": {
-            "sourceUrl": "https://fireworks.ai",
+            "sourceUrl": "https://fireworks.ai/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Trial tier for function-calling evaluation"
@@ -1131,10 +1135,10 @@
           "estimatedMillionTokens": 35,
           "assumptions": "$20 spent @ $0.55/M blended on Llama 70B",
           "estimateMeta": {
-            "sourceUrl": "https://fireworks.ai",
+            "sourceUrl": "https://fireworks.ai/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Serverless PAYG. 6000 RPM with card. Batch 50% off."
@@ -1158,7 +1162,7 @@
     "name": "GitHub Copilot",
     "category": "coding-ide",
     "url": "https://github.com/features/copilot/plans",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Free",
@@ -1179,7 +1183,7 @@
             "sourceUrl": "https://github.com/features/copilot/plans",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Basic completions and limited chat; auto model selection only"
@@ -1210,7 +1214,7 @@
             "sourceUrl": "https://github.com/features/copilot/plans",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Claude Sonnet 4.6 only for annual subscribers; premium models cost multiple credits"
@@ -1241,7 +1245,7 @@
             "sourceUrl": "https://github.com/features/copilot/plans",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Priority premium-model access; agent delegation Pro+ only"
@@ -1269,7 +1273,7 @@
             "sourceUrl": "https://github.com/features/copilot/plans",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Highest individual AI-credit allowance ($200 compute value)"
@@ -1292,7 +1296,7 @@
             "sourceUrl": "https://github.com/features/copilot/plans",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Centralized management and Copilot policy control"
@@ -1315,7 +1319,7 @@
             "sourceUrl": "https://github.com/features/copilot/plans",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Enterprise Cloud features; unlicensed code-review users draw org credits"
@@ -1343,7 +1347,7 @@
     "name": "Google AI Studio",
     "category": "api-provider",
     "url": "https://aistudio.google.com",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Free",
@@ -1365,7 +1369,7 @@
             "sourceUrl": "https://aistudio.google.com",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Free tier with generous TPM limits"
@@ -1393,7 +1397,7 @@
             "sourceQuote": "Gemini 3.8 Flash input $0.75 / output $3.75 per 1M tokens (input price through December 31, 2026)",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "Gemini 3.8 Flash",
             "cacheAssumption": "75% cache hit rate at 25% of input price"
           }
@@ -1420,7 +1424,7 @@
             "sourceUrl": "https://aistudio.google.com",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Higher throughput tier unlocked after spend verification"
@@ -1445,7 +1449,7 @@
             "sourceUrl": "https://aistudio.google.com",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Enterprise capacity with custom quota allocations"
@@ -1469,7 +1473,7 @@
     "name": "Google Antigravity",
     "category": "coding-ide",
     "url": "https://antigravity.google/pricing",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Individual",
@@ -1501,7 +1505,7 @@
             "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "Google Antigravity free quota (25 tasks/mo research estimate)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
           }
@@ -1537,7 +1541,7 @@
             "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "Google Antigravity Pro quota (300 tasks/mo research estimate)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
           }
@@ -1573,7 +1577,7 @@
             "sourceQuote": "Google AI Ultra 5x: 5x higher usage limits than Google AI Pro",
             "sourceType": "derived",
             "confidence": "low",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "Google AI Pro research estimate (75M floor x 250K-900K task band)"
           }
         },
@@ -1608,7 +1612,7 @@
             "sourceQuote": "Google AI Ultra 20x: 20x higher usage limits than Google AI Pro",
             "sourceType": "derived",
             "confidence": "low",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "Google AI Pro research estimate (75M floor x 250K-900K task band)"
           }
         },
@@ -1636,7 +1640,7 @@
             "sourceUrl": "https://antigravity.google/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Included in select Gemini Enterprise app subscriptions (rolling out)"
@@ -1666,7 +1670,7 @@
     "name": "Groq API",
     "category": "api-provider",
     "url": "https://console.groq.com",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Free",
@@ -1687,7 +1691,7 @@
             "sourceUrl": "https://console.groq.com",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Free plan for testing on LPUs"
@@ -1713,7 +1717,7 @@
             "sourceUrl": "https://console.groq.com",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "LPUs achieve 400-800 tokens/sec on served models"
@@ -1737,7 +1741,7 @@
     "name": "Kilo Code",
     "category": "coding-router",
     "url": "https://kilo.ai/pricing",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Individual",
@@ -1757,7 +1761,7 @@
             "sourceUrl": "https://kilo.ai/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Free for individuals; cloud compute billed separately per-hour"
@@ -1784,7 +1788,7 @@
             "sourceUrl": "https://kilo.ai/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Security/governance features included"
@@ -1807,7 +1811,7 @@
             "sourceUrl": "https://kilo.ai/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Enterprise support and controls"
@@ -1830,7 +1834,7 @@
     "name": "Kimi Code",
     "category": "coding-router",
     "url": "https://www.kimi.com/coding-plan/",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Moderato",
@@ -1852,7 +1856,7 @@
             "sourceUrl": "https://www.kimi.com/coding-plan/",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Tiers named after musical terms; K3 has low/high/max thinking modes"
@@ -1877,7 +1881,7 @@
             "sourceUrl": "https://www.kimi.com/coding-plan/",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Unlocks HighSpeed model and 1M context"
@@ -1902,7 +1906,7 @@
             "sourceUrl": "https://www.kimi.com/coding-plan/",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Heavy daily agentic coding"
@@ -1927,7 +1931,7 @@
             "sourceUrl": "https://www.kimi.com/coding-plan/",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Max tier"
@@ -1950,7 +1954,7 @@
     "name": "Kiro",
     "category": "coding-ide",
     "url": "https://kiro.dev/pricing/",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Free",
@@ -1973,7 +1977,7 @@
             "sourceUrl": "https://kiro.dev/pricing/",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Usage cap renews at start of next billing cycle"
@@ -2001,7 +2005,7 @@
             "sourceUrl": "https://kiro.dev/pricing/",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Premium models + open-weight pool; monthly billing cycle"
@@ -2029,7 +2033,7 @@
             "sourceUrl": "https://kiro.dev/pricing/",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Double Pro capacity"
@@ -2055,7 +2059,7 @@
             "sourceUrl": "https://kiro.dev/pricing/",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Heavier agentic usage"
@@ -2081,7 +2085,7 @@
             "sourceUrl": "https://kiro.dev/pricing/",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Maximum capacity tier added Aug 2026"
@@ -2104,7 +2108,7 @@
     "name": "Lovable",
     "category": "coding-ide",
     "url": "https://lovable.dev/pricing",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Free",
@@ -2124,7 +2128,7 @@
             "sourceUrl": "https://lovable.dev/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Daily credits reset at 00:00 UTC; monthly grants on 1st; no rollover"
@@ -2148,7 +2152,7 @@
             "sourceUrl": "https://lovable.dev/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Unified credit balance covers builds + Cloud hosting + AI gateway on deployed apps"
@@ -2171,7 +2175,7 @@
             "sourceUrl": "https://lovable.dev/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "SSO/central admin at higher Business tiers; Enterprise custom"
@@ -2197,7 +2201,7 @@
     "name": "Meta Llama API",
     "category": "api-provider",
     "url": "https://dev.meta.ai/docs/pricing-rate-limits",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Standard",
@@ -2222,7 +2226,7 @@
             "sourceQuote": "Standard: $1.25 per 1M input tokens, $4.25 per 1M output tokens; prompts and completions are not used to train Meta models",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "Muse Spark 1.3"
           }
         },
@@ -2250,7 +2254,7 @@
             "sourceQuote": "Contributor: $0.10-$0.20 per 1M tokens in exchange for permission to use prompts and completions to train Meta models",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "Muse Spark 1.2 (contributor)"
           }
         },
@@ -2274,7 +2278,7 @@
     "name": "Meta Muse Code",
     "category": "coding-ide",
     "url": "https://developer.meta.com/ai/products/muse-code",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Everyday",
@@ -2294,7 +2298,7 @@
             "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Affordable entry-level coding assistance"
@@ -2318,7 +2322,7 @@
             "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Standard developer tier with generous limits"
@@ -2341,7 +2345,7 @@
             "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Maximum rate limits and concurrent workflows"
@@ -2365,7 +2369,7 @@
     "name": "MiniMax Token Plan",
     "category": "api-provider",
     "url": "https://platform.minimax.io/docs/guides/pricing-token-plan",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Plus",
@@ -2386,7 +2390,7 @@
             "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Personal projects and prototyping"
@@ -2410,7 +2414,7 @@
             "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Daily coding with agents and multimodal work"
@@ -2434,7 +2438,7 @@
             "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Heavy agent workflows and extended sessions"
@@ -2457,7 +2461,7 @@
             "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Prepaid overflow packages"
@@ -2480,7 +2484,7 @@
     "name": "Mistral API",
     "category": "api-provider",
     "url": "https://mistral.ai/pricing",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Free (Le Plan Studio)",
@@ -2500,7 +2504,7 @@
             "sourceUrl": "https://mistral.ai/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Free experiment tier replaced by Studio signup credits"
@@ -2529,7 +2533,7 @@
             "sourceUrl": "https://mistral.ai/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Magistral models folded into Medium 3.5 by lifecycle policy"
@@ -2554,7 +2558,7 @@
     "name": "Ollama Cloud",
     "category": "api-provider",
     "url": "https://ollama.com",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Free",
@@ -2576,7 +2580,7 @@
             "sourceUrl": "https://ollama.com",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Free tier for running local and small cloud models"
@@ -2604,7 +2608,7 @@
             "sourceUrl": "https://ollama.com",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Pro: $60 credits/mo, 3 concurrent. 3x compute value."
@@ -2630,7 +2634,7 @@
             "sourceUrl": "https://ollama.com",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Max: $300, 10 concurrent. Priority routing."
@@ -2654,7 +2658,7 @@
             "sourceUrl": "https://ollama.com",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Dedicated private pods for software development teams"
@@ -2679,7 +2683,7 @@
     "name": "OpenAI API",
     "category": "api-provider",
     "url": "https://platform.openai.com",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "PAYG",
@@ -2706,7 +2710,7 @@
             "sourceQuote": "gpt-5.6-sol $2.00 input / $10.00 output per 1M tokens; gpt-5.6-luna $0.10 / $0.60",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "GPT-5.6 Sol",
             "cacheAssumption": "75% cache hit rate at 50% discount"
           }
@@ -2733,7 +2737,7 @@
     "name": "OpenAI Codex (ChatGPT)",
     "category": "coding-ide",
     "url": "https://openai.com/chatgpt/pricing/",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Free",
@@ -2755,7 +2759,7 @@
             "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "OpenAI Codex free quota (3 tasks/mo research estimate)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
           }
@@ -2784,7 +2788,7 @@
             "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "OpenAI Codex Go quota (17 tasks/mo research estimate)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
           }
@@ -2814,7 +2818,7 @@
             "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "OpenAI Codex Plus quota (80 tasks/mo research estimate)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
           }
@@ -2842,7 +2846,7 @@
             "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "OpenAI Codex Pro 5x (official 5x Plus multiplier x 80-task band)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
           }
@@ -2871,7 +2875,7 @@
             "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "OpenAI Codex Pro maximum (20x Plus x 80-task band)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
           }
@@ -2898,7 +2902,7 @@
     "name": "OpenCode",
     "category": "coding-router",
     "url": "https://opencode.ai/zen",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "OpenSource CLI",
@@ -2917,7 +2921,7 @@
             "sourceUrl": "https://opencode.ai/zen",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "opencode.ai/pricing no longer exists (404)"
@@ -2950,7 +2954,7 @@
             "sourceUrl": "https://opencode.ai/zen",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "US-hosted, zero retention"
@@ -2976,7 +2980,7 @@
             "sourceUrl": "https://opencode.ai/zen",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "New Sept 2026 low-cost subscription tier"
@@ -2999,7 +3003,7 @@
     "name": "OpenRouter",
     "category": "coding-router",
     "url": "https://openrouter.ai",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Free",
@@ -3019,7 +3023,7 @@
             "sourceUrl": "https://openrouter.ai",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Free community models with rate limiting"
@@ -3043,7 +3047,7 @@
             "sourceUrl": "https://openrouter.ai",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Universal API aggregator with unified billing and automatic failover"
@@ -3068,11 +3072,12 @@
     "name": "Replit",
     "category": "coding-ide",
     "url": "https://replit.com/pricing",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Core",
         "monthlyPrice": 20,
+        "annualPrice": 216,
         "limits": {
           "agentHours": "Up to 30 hours of chat in Free Mode",
           "projects": "Up to 60 projects on Free Mode",
@@ -3090,7 +3095,7 @@
             "sourceUrl": "https://replit.com/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Annual billing drops to $18/mo; unlimited workspaces"
@@ -3098,6 +3103,7 @@
       {
         "name": "Pro",
         "monthlyPrice": 100,
+        "annualPrice": 1080,
         "limits": {
           "parallelAgents": "10 parallel agents",
           "modelCredits": "$100 toward most powerful models",
@@ -3114,7 +3120,7 @@
             "sourceUrl": "https://replit.com/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "10 parallel agents; DB rollback 28 days"
@@ -3136,7 +3142,7 @@
             "sourceUrl": "https://replit.com/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Advanced privacy controls"
@@ -3159,7 +3165,7 @@
     "name": "Tabnine",
     "category": "coding-ide",
     "url": "https://www.tabnine.com/pricing/",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Code Assistant",
@@ -3182,7 +3188,7 @@
             "sourceUrl": "https://www.tabnine.com/pricing/",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Completions + grounded chat in IDEs; Jira integration; SOC 2/ISO 27001"
@@ -3208,7 +3214,7 @@
             "sourceUrl": "https://www.tabnine.com/pricing/",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Adds autonomous agents, Coaching Guidelines, Jira/Confluence/database MCP access"
@@ -3231,7 +3237,7 @@
             "sourceUrl": "https://www.tabnine.com/pricing/",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Headless agent add-on priced separately at tabnine.com/headless-agent-pricing"
@@ -3256,8 +3262,8 @@
     "id": "together-ai",
     "name": "Together.ai",
     "category": "api-provider",
-    "url": "https://together.ai",
-    "lastVerified": "2026-09-18",
+    "url": "https://www.together.ai/pricing",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Free",
@@ -3276,10 +3282,10 @@
           "estimatedMillionTokens": 5,
           "assumptions": "$5 trial credits on open source models",
           "estimateMeta": {
-            "sourceUrl": "https://together.ai",
+            "sourceUrl": "https://www.together.ai/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Trial credit package for open source model testing"
@@ -3301,10 +3307,10 @@
           "estimatedMillionTokens": 30,
           "assumptions": "$20 spent @ $0.65/M blended",
           "estimateMeta": {
-            "sourceUrl": "https://together.ai",
+            "sourceUrl": "https://www.together.ai/pricing",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "verifiedAt": "2026-09-19"
           }
         },
         "notes": "Tiered limits at $25/$50/$100/$250 spend. Batch 50% off."
@@ -3329,7 +3335,7 @@
     "name": "Windsurf (Cognition)",
     "category": "coding-ide",
     "url": "https://windsurf.com/pricing",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Free",
@@ -3356,7 +3362,7 @@
             "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "Windsurf free quota (13 tasks/mo research estimate)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
           }
@@ -3389,7 +3395,7 @@
             "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "Windsurf Pro quota (300 tasks/mo research estimate)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
           }
@@ -3422,7 +3428,7 @@
             "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "Windsurf Max quota (5x Pro presumption x 300-task band)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
           }
@@ -3455,7 +3461,7 @@
             "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
             "sourceType": "research",
             "confidence": "low",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "Windsurf Teams seat quota (mirrors Pro 300-task band)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
           }
@@ -3483,7 +3489,7 @@
     "name": "Z.ai GLM Coding Plan",
     "category": "api-provider",
     "url": "https://z.ai/subscribe",
-    "lastVerified": "2026-09-18",
+    "lastVerified": "2026-09-19",
     "tiers": [
       {
         "name": "Lite",
@@ -3511,7 +3517,7 @@
             "sourceQuote": "Estimated Token Allowance (95% cache): Lite GLM-5.3 48-97M tokens/week; off-peak usage charged at 50% of the standard credit rate",
             "sourceType": "official",
             "confidence": "high",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "GLM-5.3",
             "cacheAssumption": "95% cache hit rate"
           }
@@ -3544,7 +3550,7 @@
             "sourceQuote": "Estimated Token Allowance (95% cache): Pro GLM-5.3 290-580M tokens/week",
             "sourceType": "official",
             "confidence": "high",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "GLM-5.3",
             "cacheAssumption": "95% cache hit rate"
           }
@@ -3577,7 +3583,7 @@
             "sourceQuote": "Estimated Token Allowance (95% cache): Max GLM-5.3 676-1,352M tokens/week",
             "sourceType": "official",
             "confidence": "high",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "GLM-5.3",
             "cacheAssumption": "95% cache hit rate"
           }
@@ -3611,7 +3617,7 @@
             "sourceQuote": "Standard Seat: 15,000 credits / 5h, 66,000 credits / week",
             "sourceType": "derived",
             "confidence": "medium",
-            "verifiedAt": "2026-09-18",
+            "verifiedAt": "2026-09-19",
             "basisModel": "GLM-5.3",
             "cacheAssumption": "95% cache hit rate"
           }

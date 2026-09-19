@@ -3,7 +3,7 @@
   "name": "Tabnine",
   "category": "coding-ide",
   "url": "https://www.tabnine.com/pricing/",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Code Assistant",
@@ -26,7 +26,7 @@
           "sourceUrl": "https://www.tabnine.com/pricing/",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Completions + grounded chat in IDEs; Jira integration; SOC 2/ISO 27001"
@@ -52,7 +52,7 @@
           "sourceUrl": "https://www.tabnine.com/pricing/",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Adds autonomous agents, Coaching Guidelines, Jira/Confluence/database MCP access"
@@ -75,7 +75,7 @@
           "sourceUrl": "https://www.tabnine.com/pricing/",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Headless agent add-on priced separately at tabnine.com/headless-agent-pricing"

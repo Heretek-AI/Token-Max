@@ -3,7 +3,7 @@
   "name": "Mistral API",
   "category": "api-provider",
   "url": "https://mistral.ai/pricing",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Free (Le Plan Studio)",
@@ -23,7 +23,7 @@
           "sourceUrl": "https://mistral.ai/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Free experiment tier replaced by Studio signup credits"
@@ -52,7 +52,7 @@
           "sourceUrl": "https://mistral.ai/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Magistral models folded into Medium 3.5 by lifecycle policy"

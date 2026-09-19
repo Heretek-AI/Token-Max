@@ -3,7 +3,7 @@
   "name": "Cursor",
   "category": "coding-ide",
   "url": "https://cursor.com/docs/account/pricing",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Hobby",
@@ -25,7 +25,7 @@
           "sourceUrl": "https://cursor.com/docs/account/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Free tier; no credit card required"
@@ -58,7 +58,7 @@
           "sourceUrl": "https://cursor.com/docs/account/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Pools reset monthly; legacy request-based plans closed to new subs"
@@ -66,7 +66,7 @@
     {
       "name": "Pro Plus",
       "monthlyPrice": 60,
-      "annualPrice": null,
+      "annualPrice": 576,
       "limits": {
         "agentRequests": "Larger usage pools",
         "usagePools": "Same two pools as Pro, expanded"
@@ -88,7 +88,7 @@
           "sourceUrl": "https://cursor.com/docs/account/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Recommended for daily agent users"
@@ -96,7 +96,7 @@
     {
       "name": "Ultra",
       "monthlyPrice": 200,
-      "annualPrice": null,
+      "annualPrice": 1920,
       "limits": {
         "agentRequests": "Largest usage pools",
         "usagePools": "Same two pools, maximum size"
@@ -117,7 +117,7 @@
           "sourceUrl": "https://cursor.com/docs/account/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "For daily-driver agent power users"

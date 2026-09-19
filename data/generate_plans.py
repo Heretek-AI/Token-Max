@@ -5,7 +5,7 @@ null = None
 false = False
 true = True
 
-LAST_VERIFIED = "2026-09-18"
+LAST_VERIFIED = "2026-09-19"
 target_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "coding-plans")
 os.makedirs(target_dir, exist_ok=True)
 
@@ -250,7 +250,7 @@ write_json(
             {
                 "name": "Pro Plus",
                 "monthlyPrice": 60,
-                "annualPrice": null,
+                "annualPrice": 576,
                 "limits": {
                     "agentRequests": "Larger usage pools",
                     "usagePools": "Same two pools as Pro, expanded",
@@ -274,7 +274,7 @@ write_json(
             {
                 "name": "Ultra",
                 "monthlyPrice": 200,
-                "annualPrice": null,
+                "annualPrice": 1920,
                 "limits": {
                     "agentRequests": "Largest usage pools",
                     "usagePools": "Same two pools, maximum size",
@@ -471,6 +471,7 @@ write_json(
             {
                 "name": "Pro",
                 "monthlyPrice": 20,
+                "annualPrice": 200,
                 "limits": {
                     "rollingCap": "Shared 5-hour rolling session limit (>=5x Free tier)",
                     "weeklyAllocation": "Weekly caps on top of the 5-hour window",
@@ -1470,6 +1471,7 @@ write_json(
             {
                 "name": "Core",
                 "monthlyPrice": 20,
+                "annualPrice": 216,
                 "limits": {
                     "agentHours": "Up to 30 hours of chat in Free Mode",
                     "projects": "Up to 60 projects on Free Mode",
@@ -1486,6 +1488,7 @@ write_json(
             {
                 "name": "Pro",
                 "monthlyPrice": 100,
+                "annualPrice": 1080,
                 "limits": {
                     "parallelAgents": "10 parallel agents",
                     "modelCredits": "$100 toward most powerful models",
@@ -2604,29 +2607,32 @@ write_json(
         "id": "deepseek-api",
         "name": "DeepSeek API",
         "category": "api-provider",
-        "url": "https://platform.deepseek.com",
+        "url": "https://api-docs.deepseek.com/quick_start/pricing",
         "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
                 "name": "PAYG (Flash)",
                 "monthlyPrice": None,
                 "limits": {
-                    "concurrency": "High concurrency serverless",
-                    "offPeakDiscount": "50% off off-peak vs peak",
+                    "concurrency": "2,500 connections (official limit)",
+                    "contextWindow": "1M tokens context window, 384K maximum output",
+                    "offPeakDiscount": "50% off (off-peak input $0.15/M, output $0.60/M)",
                     "peakHours": "Mon-Fri 01:00-04:00 and 06:00-10:00 UTC",
                 },
                 "models": ["DeepSeek V4.1 Flash"],
                 "estimatedTokenBudget": {
-                    "description": "PAYG ($20 buys ~50M Flash tokens off-peak)",
-                    "estimatedMillionTokens": 50,
-                    "assumptions": "Flash cache-miss ~$0.66/M input (off-peak $0.33) + ~$0.6-1.2/M output ~= $0.40/M blended off-peak; $20 / $0.40 ~= 50M tokens",
+                    "description": "PAYG ($20 buys ~75M Flash tokens off-peak)",
+                    "estimatedMillionTokens": 75,
+                    "assumptions": "Flash cache-miss $0.30/M input ($0.15 off-peak) + $1.20/M output ($0.60 off-peak), cache-hit $0.003-$0.006/M. At ~$0.26/M blended off-peak, $20 yields ~75M tokens",
                 },
-                "notes": "Cache-hit tokens ~$0.003-$0.022/M (98% off)",
+                "notes": "Cache-hit tokens ~$0.003-$0.006/M (up to 98% off)",
             },
             {
                 "name": "PAYG (V4-Pro)",
                 "monthlyPrice": None,
                 "limits": {
+                    "concurrency": "500 connections (official limit)",
+                    "contextWindow": "1M tokens context window, 384K maximum output",
                     "offPeakDiscount": "50% off off-peak vs peak",
                 },
                 "models": ["DeepSeek V4-Pro"],
@@ -2786,7 +2792,7 @@ write_json(
         "id": "together-ai",
         "name": "Together.ai",
         "category": "api-provider",
-        "url": "https://together.ai",
+        "url": "https://www.together.ai/pricing",
         "lastVerified": LAST_VERIFIED,
         "tiers": [
             {
@@ -2841,7 +2847,7 @@ write_json(
         "id": "fireworks-ai",
         "name": "Fireworks.ai",
         "category": "api-provider",
-        "url": "https://fireworks.ai",
+        "url": "https://fireworks.ai/pricing",
         "lastVerified": LAST_VERIFIED,
         "tiers": [
             {

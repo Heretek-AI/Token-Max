@@ -3,7 +3,7 @@
   "name": "Google Antigravity",
   "category": "coding-ide",
   "url": "https://antigravity.google/pricing",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Individual",
@@ -35,7 +35,7 @@
           "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "Google Antigravity free quota (25 tasks/mo research estimate)",
           "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
@@ -71,7 +71,7 @@
           "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "Google Antigravity Pro quota (300 tasks/mo research estimate)",
           "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
@@ -107,7 +107,7 @@
           "sourceQuote": "Google AI Ultra 5x: 5x higher usage limits than Google AI Pro",
           "sourceType": "derived",
           "confidence": "low",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "Google AI Pro research estimate (75M floor x 250K-900K task band)"
         }
       },
@@ -142,7 +142,7 @@
           "sourceQuote": "Google AI Ultra 20x: 20x higher usage limits than Google AI Pro",
           "sourceType": "derived",
           "confidence": "low",
-          "verifiedAt": "2026-09-18",
+          "verifiedAt": "2026-09-19",
           "basisModel": "Google AI Pro research estimate (75M floor x 250K-900K task band)"
         }
       },
@@ -170,7 +170,7 @@
           "sourceUrl": "https://antigravity.google/pricing",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Included in select Gemini Enterprise app subscriptions (rolling out)"

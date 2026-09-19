@@ -3,7 +3,7 @@
   "name": "Kimi Code",
   "category": "coding-router",
   "url": "https://www.kimi.com/coding-plan/",
-  "lastVerified": "2026-09-18",
+  "lastVerified": "2026-09-19",
   "tiers": [
     {
       "name": "Moderato",
@@ -25,7 +25,7 @@
           "sourceUrl": "https://www.kimi.com/coding-plan/",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Tiers named after musical terms; K3 has low/high/max thinking modes"
@@ -50,7 +50,7 @@
           "sourceUrl": "https://www.kimi.com/coding-plan/",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Unlocks HighSpeed model and 1M context"
@@ -75,7 +75,7 @@
           "sourceUrl": "https://www.kimi.com/coding-plan/",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Heavy daily agentic coding"
@@ -100,7 +100,7 @@
           "sourceUrl": "https://www.kimi.com/coding-plan/",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-19"
         }
       },
       "notes": "Max tier"
