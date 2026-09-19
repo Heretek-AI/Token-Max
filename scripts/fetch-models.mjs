@@ -144,7 +144,11 @@ async function fetchModels() {
 
   // Filter out non-text if we can identify them (modality usually starts with text or multi)
   const textModels = normalized.filter(m => !m.modality.startsWith('image->'));
-  
+
+  if (textModels.length === 0) {
+    throw new Error('No models normalized from OpenRouter. Refusing to overwrite output file with empty dataset.');
+  }
+
   await fs.mkdir(path.dirname(OUTPUT_FILE), { recursive: true });
   await fs.writeFile(OUTPUT_FILE, JSON.stringify(textModels, null, 2));
   console.log(`Wrote ${textModels.length} models to ${OUTPUT_FILE}`);

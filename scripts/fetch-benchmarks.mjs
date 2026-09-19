@@ -23,8 +23,7 @@ async function fetchBenchmarks() {
 
     const res = await fetch(url, { headers });
     if (!res.ok) {
-      console.error(`Failed to fetch AA API page ${page}: ${res.status} ${res.statusText}`);
-      break;
+      throw new Error(`Failed to fetch AA API page ${page}: ${res.status} ${res.statusText}`);
     }
 
     const data = await res.json();
@@ -61,6 +60,10 @@ async function fetchBenchmarks() {
     }
 
     page++;
+  }
+
+  if (allModels.length === 0) {
+    throw new Error('No benchmarks collected from Artificial Analysis. Refusing to overwrite output file with empty dataset.');
   }
 
   await fs.mkdir(path.dirname(OUTPUT_FILE), { recursive: true });

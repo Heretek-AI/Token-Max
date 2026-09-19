@@ -149,7 +149,7 @@ async function buildData() {
   // 3. Load coding plans (safely skipping _schema.json)
   const plans = [];
   try {
-    const files = await fs.readdir(PLANS_DIR);
+    const files = (await fs.readdir(PLANS_DIR)).sort();
     for (const file of files) {
       if (file.endsWith('.json') && !file.startsWith('_')) {
         const p = path.join(PLANS_DIR, file);

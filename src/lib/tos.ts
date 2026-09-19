@@ -29,7 +29,7 @@ const NO_TRAINING_PHRASES = [
   'not used for model training',
 ];
 
-const ZDR_PHRASES = ['zero-retention', 'zero retention', 'zdr', 'commercial api zero retention'];
+const ZDR_PHRASES = ['zero-retention', 'zero retention', 'zero data retention', 'zero-data-retention', 'zdr', 'commercial api zero retention'];
 
 const TRAINS_PHRASES = [
   'used for training',
@@ -101,6 +101,22 @@ const TRAINING_OVERRIDES: Record<string, TrainingClassification> = {
 
 export function classifyTraining(plan: CodingPlan): TrainingClassification {
   if (TRAINING_OVERRIDES[plan.id]) return TRAINING_OVERRIDES[plan.id];
+  const lower = normalize(plan.dataTraining);
+
+  // Check if policy explicitly differentiates between free and paid/enterprise tiers
+  const mentionsFreeTraining = (lower.includes('free') || lower.includes('public')) && hasAny(lower, TRAINS_PHRASES);
+  const mentionsPaidShielded = (lower.includes('paid') || lower.includes('pro') || lower.includes('team') || lower.includes('enterprise') || lower.includes('shielded')) && (hasAny(lower, NO_TRAINING_PHRASES) || hasAny(lower, ZDR_PHRASES));
+
+  if (mentionsFreeTraining && mentionsPaidShielded) {
+    const enterpriseStatus = hasAny(lower, ZDR_PHRASES) ? 'zdr' : 'no-training';
+    const individualStatus = hasAny(lower, OPT_OUT_PHRASES) ? 'opt-out' : (hasAny(lower, NO_TRAINING_PHRASES) ? 'no-training' : 'trains');
+    return {
+      free: 'trains',
+      individual: individualStatus,
+      enterprise: enterpriseStatus,
+    };
+  }
+
   const status = classifyText(plan.dataTraining);
   return { free: status, individual: status, enterprise: status };
 }

@@ -48,6 +48,13 @@ describe('classifyTraining', () => {
     expect(copilot.individual).toBe('opt-out');
     expect(copilot.enterprise).toBe('no-training');
   });
+
+  it('correctly partitions free vs paid tiers when text mentions free training and paid no training', () => {
+    const mixed = classifyTraining(plan({ id: 'custom-unlisted-service', dataTraining: 'Trains on free tier prompts; paid Pro and Enterprise tiers have zero data retention and no training' }));
+    expect(mixed.free).toBe('trains');
+    expect(mixed.individual).toBe('no-training');
+    expect(mixed.enterprise).toBe('zdr');
+  });
 });
 
 describe('getIndemnityInfo', () => {
