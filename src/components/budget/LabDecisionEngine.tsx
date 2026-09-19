@@ -399,8 +399,8 @@ export function LabDecisionEngine({
             </div>
             {bestSubscription ? (
               <>
-                <h3 className="font-extrabold text-base text-text truncate" title={bestSubscription.name}>
-                  {bestSubscription.name}
+                <h3 className="font-extrabold text-base text-text truncate" title={`${bestSubscription.planName} · ${bestSubscription.tierName} · ${bestSubscription.name}`}>
+                  {bestSubscription.planName} ({bestSubscription.tierName}) · {bestSubscription.name}
                 </h3>
                 <div className="text-xs text-text-muted mt-1 flex items-center gap-2">
                   <span>${bestSubscription.monthlyCost}/mo base</span>
@@ -508,7 +508,7 @@ export function LabDecisionEngine({
                 <th className="px-4 py-3 font-semibold w-12 text-center">Rank</th>
                 <th className="px-4 py-3 font-semibold">Service / Model</th>
                 <th className="px-3 py-3 font-semibold">Platform Type</th>
-                <th className="px-3 py-3 font-semibold text-right">Base Cost</th>
+                <th className="px-3 py-3 font-semibold text-right">Tier Cost</th>
                 <th className="px-4 py-3 font-semibold text-right">
                   {displayUnit === 'requests' ? 'Est. Monthly Requests' : 'Est. Monthly Tokens'}
                 </th>
@@ -531,13 +531,19 @@ export function LabDecisionEngine({
                         <span className="text-xs text-text-muted font-mono">{index + 1}</span>
                       )}
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-3 py-3">
                       <div className="font-bold text-text truncate max-w-[220px]" title={opt.name}>
                         {opt.name}
                       </div>
-                      <div className="text-[11px] font-semibold text-text-muted capitalize">
-                        {opt.provider}
-                      </div>
+                      {opt.type === 'subscription' ? (
+                        <div className="text-[11px] font-semibold text-text-muted truncate max-w-[220px]">
+                          {opt.planName} · {opt.tierName}
+                        </div>
+                      ) : (
+                        <div className="text-[11px] font-semibold text-text-muted capitalize">
+                          {opt.provider}
+                        </div>
+                      )}
                     </td>
                     <td className="px-3 py-3">
                       {opt.type === 'subscription' ? (
@@ -574,9 +580,13 @@ export function LabDecisionEngine({
                         }`}>
                           {opt.codingIndex.toFixed(1)}
                         </span>
-                      ) : (
-                        <span className="text-text-muted text-xs" title="Subscription offers model suite">
+                      ) : opt.type === 'subscription' ? (
+                        <span className="text-text-muted text-xs" title="Unmatched model suite — no per-model benchmark data">
                           Multi-Model
+                        </span>
+                      ) : (
+                        <span className="text-text-muted text-xs" title="No benchmark data available for this model">
+                          -
                         </span>
                       )}
                     </td>

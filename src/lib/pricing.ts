@@ -163,6 +163,13 @@ export function getModelCacheDiscountMultiplier(provider: string, id: string): n
   return 0.50;
 }
 
+export function matchesPlanModel(planModelName: string, model: NormalizedModel): boolean {
+  const normPlan = planModelName.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const normName = model.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const normId = model.id.toLowerCase().replace(/[^a-z0-9]/g, '');
+  return normName.includes(normPlan) || normId.includes(normPlan) || normPlan.includes(normName);
+}
+
 export function calculateAgentRequestCost(
   model: NormalizedModel,
   cacheRate: CacheRate = 0.75
@@ -236,13 +243,14 @@ export function computeApplesToApples(
   const subscriptionOptions: ApplesToApplesOption[] = [];
 
   for (const plan of plans) {
+    // Per-tier, per-model breakdown: attach real benchmark scores to subscription rows.
+    // For a given (plan, matched model), surface only the tier whose price is closest
+    // to the site budget so the same model isn't duplicated across a plan's tiers.
+    const matchedByModel = new Map<string, { model: NormalizedModel; tier: PlanTier }>();
+    const unmatchedTiers: { tier: PlanTier; tokensPerDollar: number; rawRequests: number }[] = [];
+
     for (const tier of plan.tiers || []) {
       if (tier.monthlyPrice === null || tier.monthlyPrice <= 0) continue;
-      
-      const planLabs = detectPlanLabs(plan, tier);
-      if (lab !== 'all' && !planLabs.includes(lab)) continue;
-
-      // Plan price should be relevant to budget (between 25% and 250% of budget)
       if (tier.monthlyPrice > budget * 2.5 || tier.monthlyPrice < budget * 0.25) continue;
 
       const baseTokens = tier.estimatedTokenBudget?.estimatedMillionTokens || 0;
@@ -254,16 +262,55 @@ export function computeApplesToApples(
       } else {
         rawRequests = Math.round((baseTokens * 1_000_000) / 21_000);
       }
+      const tokensPerDollar = baseTokens / tier.monthlyPrice;
 
-      // Normalize yield to the user's budget so developer can compare true value per dollar
+      const tierMatches: NormalizedModel[] = [];
+      for (const planModelName of tier.models || []) {
+        const match = cleanModels.find(m => matchesPlanModel(planModelName, m));
+        if (match && !tierMatches.some(tm => tm.id === match.id)) {
+          tierMatches.push(match);
+        }
+      }
+
+      if (tierMatches.length === 0) {
+        unmatchedTiers.push({ tier, tokensPerDollar, rawRequests });
+        continue;
+      }
+
+      for (const model of tierMatches) {
+        const existing = matchedByModel.get(model.id);
+        const closer =
+          !existing ||
+          Math.abs((tier.monthlyPrice as number) - budget) <
+          Math.abs((existing.tier.monthlyPrice as number) - budget);
+        if (closer) matchedByModel.set(model.id, { model, tier });
+      }
+    }
+
+    for (const { model, tier } of matchedByModel.values()) {
+      const planLabs = detectPlanLabs(plan, tier);
+      if (lab !== 'all' && !planLabs.includes(lab)) continue;
+
+      if (tier.monthlyPrice === null || tier.monthlyPrice <= 0) continue;
+      if (tier.monthlyPrice > budget * 2.5 || tier.monthlyPrice < budget * 0.25) continue;
+
+      const baseTokens = tier.estimatedTokenBudget?.estimatedMillionTokens || 0;
+      let rawRequests = 0;
+      if (tier.limits?.fastRequests && typeof tier.limits.fastRequests === 'number') {
+        rawRequests = tier.limits.fastRequests;
+      } else if (tier.limits?.fiveHourCredits && typeof tier.limits.fiveHourCredits === 'number') {
+        rawRequests = tier.limits.fiveHourCredits * 6;
+      } else {
+        rawRequests = Math.round((baseTokens * 1_000_000) / 21_000);
+      }
       const tokensPerDollar = baseTokens / tier.monthlyPrice;
       const requestsPerDollar = rawRequests / tier.monthlyPrice;
       const normalizedTokens = tokensPerDollar * budget;
       const normalizedRequests = Math.round(requestsPerDollar * budget);
 
       subscriptionOptions.push({
-        id: `${plan.id}-${tier.name}`,
-        name: `${plan.name} (${tier.name})`,
+        id: `${plan.id}-${tier.name}-${model.id}`,
+        name: model.name,
         provider: plan.name,
         lab: planLabs[0] || 'all',
         type: 'subscription',
@@ -274,7 +321,50 @@ export function computeApplesToApples(
         monthlyCost: tier.monthlyPrice,
         monthlyTokens: normalizedTokens,
         monthlyRequests: normalizedRequests,
-        codingIndex: null, // Subscriptions offer multiple models
+        codingIndex: model.benchmarks?.codingIndex ?? null,
+        intelligenceIndex: model.benchmarks?.intelligenceIndex ?? null,
+        costPer1kRequests: (tier.monthlyPrice / (rawRequests || 1)) * 1000,
+        notes: tier.estimatedTokenBudget?.description || `Included in ${tier.name} tier`,
+        url: plan.url,
+      });
+    }
+
+    // Fallback rows for tiers whose model strings matched nothing in the catalog
+    for (const { tier } of unmatchedTiers) {
+      const planLabs = detectPlanLabs(plan, tier);
+      if (lab !== 'all' && !planLabs.includes(lab)) continue;
+
+      if (tier.monthlyPrice === null || tier.monthlyPrice <= 0) continue;
+      if (tier.monthlyPrice > budget * 2.5 || tier.monthlyPrice < budget * 0.25) continue;
+
+      const baseTokens = tier.estimatedTokenBudget?.estimatedMillionTokens || 0;
+      let rawRequests = 0;
+      if (tier.limits?.fastRequests && typeof tier.limits.fastRequests === 'number') {
+        rawRequests = tier.limits.fastRequests;
+      } else if (tier.limits?.fiveHourCredits && typeof tier.limits.fiveHourCredits === 'number') {
+        rawRequests = tier.limits.fiveHourCredits * 6;
+      } else {
+        rawRequests = Math.round((baseTokens * 1_000_000) / 21_000);
+      }
+      const tokensPerDollar = baseTokens / tier.monthlyPrice;
+      const requestsPerDollar = rawRequests / tier.monthlyPrice;
+      const normalizedTokens = tokensPerDollar * budget;
+      const normalizedRequests = Math.round(requestsPerDollar * budget);
+
+      subscriptionOptions.push({
+        id: `${plan.id}-${tier.name}`,
+        name: `${tier.models?.[0] || plan.name} +${(tier.models?.length || 1) - 1} suite`,
+        provider: plan.name,
+        lab: planLabs[0] || 'all',
+        type: 'subscription',
+        category: plan.category,
+        planId: plan.id,
+        planName: plan.name,
+        tierName: tier.name,
+        monthlyCost: tier.monthlyPrice,
+        monthlyTokens: normalizedTokens,
+        monthlyRequests: normalizedRequests,
+        codingIndex: null,
         intelligenceIndex: null,
         costPer1kRequests: (tier.monthlyPrice / (rawRequests || 1)) * 1000,
         notes: tier.estimatedTokenBudget?.description || `Includes ${tier.models?.slice(0, 2).join(', ')}`,
@@ -324,7 +414,7 @@ export function computeApplesToApples(
         winnerType: 'subscription',
         multiplier,
         headline: `Coding Subscription Wins for ${labName} (${multiplier}x Compute)`,
-        description: `Subscribing to ${bestSubscription.name} yields ~${formatMillionTokens(subTokens)} tokens (~${bestSubscription.monthlyRequests.toLocaleString()} requests), beating direct ${bestApi.name} API (~${formatMillionTokens(apiTokens)} tokens) for $${budget}/mo.`,
+        description: `${bestSubscription.planName} (${bestSubscription.tierName}) running ${bestSubscription.name} yields ~${formatMillionTokens(subTokens)} tokens (~${bestSubscription.monthlyRequests.toLocaleString()} requests), beating direct ${bestApi.name} API (~${formatMillionTokens(apiTokens)} tokens) for $${budget}/mo.`,
       };
     } else if (apiTokens >= subTokens * 1.25) {
       const multiplier = Number((apiTokens / (subTokens || 1)).toFixed(1));
@@ -339,7 +429,7 @@ export function computeApplesToApples(
         winnerType: 'even',
         multiplier: 1.0,
         headline: `Balanced Value for ${labName}`,
-        description: `Both direct API (${bestApi.name}) and subscriptions (${bestSubscription.name}) offer comparable compute near ${formatMillionTokens(subTokens)} tokens for $${budget}/mo.`,
+        description: `Both direct API (${bestApi.name}) and subscriptions (${bestSubscription.planName} running ${bestSubscription.name}) offer comparable compute near ${formatMillionTokens(subTokens)} tokens for $${budget}/mo.`,
       };
     }
   }

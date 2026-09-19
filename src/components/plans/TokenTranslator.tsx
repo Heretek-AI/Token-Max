@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import type { CodingPlan, NormalizedModel, CacheRate } from '../../lib/types';
-import { formatMillionTokens, getProviderColor, calculateAgentRequestCost } from '../../lib/pricing';
+import { formatMillionTokens, getProviderColor, calculateAgentRequestCost, matchesPlanModel } from '../../lib/pricing';
 import { ArrowRight, Sparkles, AlertCircle, Layers, CheckCircle2, HelpCircle, Info, Database, TrendingUp } from 'lucide-react';
 
 interface TokenTranslatorProps {
@@ -64,12 +64,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
     if (!currentTier?.models || currentTier.models.length === 0) return [];
     
     return cleanModels.filter(m => {
-      return currentTier.models!.some(planModelName => {
-        const normPlan = planModelName.toLowerCase().replace(/[^a-z0-9]/g, '');
-        const normName = m.name.toLowerCase().replace(/[^a-z0-9]/g, '');
-        const normId = m.id.toLowerCase().replace(/[^a-z0-9]/g, '');
-        return normName.includes(normPlan) || normId.includes(normPlan) || normPlan.includes(normName);
-      });
+      return currentTier.models!.some(planModelName => matchesPlanModel(planModelName, m));
     });
   }, [cleanModels, currentTier]);
 
