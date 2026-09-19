@@ -21,7 +21,13 @@
       "estimatedTokenBudget": {
         "description": "Shared 5h rolling cap (~12M agentic tokens/mo)",
         "estimatedMillionTokens": 12,
-        "assumptions": "Anthropic publishes no numeric quota; research estimate ~= 12M mid-complexity agent tokens/mo within the Pro 5h+weekly window; exact size intentionally unpublished and varies by task complexity"
+        "assumptions": "Anthropic publishes no numeric quota; research estimate ~= 12M mid-complexity agent tokens/mo within the Pro 5h+weekly window; exact size intentionally unpublished and varies by task complexity",
+        "estimateMeta": {
+          "sourceUrl": "https://claude.com/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Annual Pro is $17/mo ($200 billed up front). Claude Code shares one pool with Claude.ai chat"
     },
@@ -42,7 +48,13 @@
       "estimatedTokenBudget": {
         "description": "5x Pro rolling limit (~60M agentic tokens/mo)",
         "estimatedMillionTokens": 60,
-        "assumptions": "5x the Pro research estimate; no official token figures published, low confidence"
+        "assumptions": "5x the Pro research estimate; no official token figures published, low confidence",
+        "estimateMeta": {
+          "sourceUrl": "https://claude.com/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Higher output limits and priority access at peak times"
     },
@@ -63,7 +75,13 @@
       "estimatedTokenBudget": {
         "description": "20x Pro rolling limit (~240M agentic tokens/mo)",
         "estimatedMillionTokens": 240,
-        "assumptions": "20x the Pro research estimate; no official token figures published, low confidence"
+        "assumptions": "20x the Pro research estimate; no official token figures published, low confidence",
+        "estimateMeta": {
+          "sourceUrl": "https://claude.com/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Maximum plan for full-time agent workflows; billed monthly"
     }
@@ -77,5 +95,7 @@
   ],
   "tosHighlights": [],
   "dataTraining": "Model training opt-out available on individual plans",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "Consumer terms: \"You may not share your Account login information... or make your Account available to anyone else\"; multiple paid accounts are not addressed."
 }

@@ -19,7 +19,13 @@
       "estimatedTokenBudget": {
         "description": "Personal budget allotment (~10M tokens/mo)",
         "estimatedMillionTokens": 10,
-        "assumptions": "Budget personal allotment"
+        "assumptions": "Budget personal allotment",
+        "estimateMeta": {
+          "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Entry-level coding plan for individual developers"
     },
@@ -38,7 +44,13 @@
       "estimatedTokenBudget": {
         "description": "Mainstream developer quota (~35M tokens/mo)",
         "estimatedMillionTokens": 35,
-        "assumptions": "Standard tier: 10K compute-credit window (1K credits = $1) ~= 10M tokens/mo at GLM-5.2/DeepSeek-V4.1-Flash blended rates"
+        "assumptions": "Standard tier: 10K compute-credit window (1K credits = $1) ~= 10M tokens/mo at GLM-5.2/DeepSeek-V4.1-Flash blended rates",
+        "estimateMeta": {
+          "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Mainstream plan for active coders"
     },
@@ -57,7 +69,13 @@
       "estimatedTokenBudget": {
         "description": "Power developer quota (~140M tokens/mo)",
         "estimatedMillionTokens": 140,
-        "assumptions": "Pro tier: 40K compute credits/mo ~= 40M tokens/mo at open-weight blended rates"
+        "assumptions": "Pro tier: 40K compute credits/mo ~= 40M tokens/mo at open-weight blended rates",
+        "estimateMeta": {
+          "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Power developer tier with high concurrency"
     },
@@ -75,7 +93,13 @@
       "estimatedTokenBudget": {
         "description": "Per-seat team allocation (~40M tokens/seat)",
         "estimatedMillionTokens": 40,
-        "assumptions": "Team Standard: 25K compute credits/seat/mo ~= 25M tokens/seat"
+        "assumptions": "Team Standard: 25K compute credits/seat/mo ~= 25M tokens/seat",
+        "estimateMeta": {
+          "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Team tier with shared workspace controls"
     },
@@ -93,7 +117,13 @@
       "estimatedTokenBudget": {
         "description": "Team Pro high concurrency (~150M tokens/seat)",
         "estimatedMillionTokens": 150,
-        "assumptions": "Team Pro high concurrency"
+        "assumptions": "Team Pro high concurrency",
+        "estimateMeta": {
+          "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Enterprise development teams"
     },
@@ -111,7 +141,13 @@
       "estimatedTokenBudget": {
         "description": "Maximum team throughput (~450M tokens/seat)",
         "estimatedMillionTokens": 450,
-        "assumptions": "Team Max: 250K compute credits/seat/mo ~= 250M tokens/seat"
+        "assumptions": "Team Max: 250K compute credits/seat/mo ~= 250M tokens/seat",
+        "estimateMeta": {
+          "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Dedicated capacity with high SLA"
     }
@@ -126,5 +162,7 @@
     "Personal plans subject to standard cloud terms"
   ],
   "dataTraining": "No guarantee on personal plans; Team plans shielded",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "prohibited",
+  "stackingPolicyNote": "Token Plan FAQ: \"Can multiple people share one account? No... sharing the same account or API Key among multiple people is not allowed\"; Team seats are bound to one member and one API key."
 }

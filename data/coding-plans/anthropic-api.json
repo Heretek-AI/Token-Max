@@ -25,7 +25,13 @@
       "estimatedTokenBudget": {
         "description": "Direct API PAYG ($20 buys ~10M Sonnet or ~4M Opus tokens)",
         "estimatedMillionTokens": 10,
-        "assumptions": "$20 spent on Sonnet 5 @ $2/$10 with 3:1 input:output ratio"
+        "assumptions": "$20 spent on Sonnet 5 @ $2/$10 with 3:1 input:output ratio",
+        "estimateMeta": {
+          "sourceUrl": "https://console.anthropic.com",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Cache reads 90% off. Batch 50% off."
     }
@@ -40,5 +46,7 @@
     "Commercial IP indemnity provided under commercial terms of service"
   ],
   "dataTraining": "No (Commercial API zero retention)",
-  "ipIndemnity": true
+  "ipIndemnity": true,
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "Consumer/commercial terms ban sharing account credentials and API keys but do not address one person holding multiple paid accounts."
 }

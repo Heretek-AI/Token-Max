@@ -17,7 +17,13 @@
       "estimatedTokenBudget": {
         "description": "Limited Codex (~0.5M tokens/mo)",
         "estimatedMillionTokens": 0.5,
-        "assumptions": "Occasional Codex tasks at ~150K tokens/task; exact limit not published"
+        "assumptions": "Occasional Codex tasks at ~150K tokens/task; exact limit not published",
+        "estimateMeta": {
+          "sourceUrl": "https://openai.com/chatgpt/pricing/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Unlimited GPT-5.6 Luna text chats included"
     },
@@ -35,7 +41,13 @@
       "estimatedTokenBudget": {
         "description": "Light coding assistance (~2.5M tokens/mo)",
         "estimatedMillionTokens": 2.5,
-        "assumptions": "Limited tasks at ~150K tokens/task; $8 price commonly cited but the scraped page did not render USD amounts"
+        "assumptions": "Limited tasks at ~150K tokens/task; $8 price commonly cited but the scraped page did not render USD amounts",
+        "estimateMeta": {
+          "sourceUrl": "https://openai.com/chatgpt/pricing/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Entry tier; ads possible"
     },
@@ -54,7 +66,13 @@
       "estimatedTokenBudget": {
         "description": "Expanded Codex (~12M tokens/mo)",
         "estimatedMillionTokens": 12,
-        "assumptions": "Research estimate; no official numeric task limits"
+        "assumptions": "Research estimate; no official numeric task limits",
+        "estimateMeta": {
+          "sourceUrl": "https://openai.com/chatgpt/pricing/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "More uploads/projects"
     },
@@ -71,7 +89,13 @@
       "estimatedTokenBudget": {
         "description": "5x Plus (~60M tokens/mo)",
         "estimatedMillionTokens": 60,
-        "assumptions": "5x the Plus research estimate"
+        "assumptions": "5x the Plus research estimate",
+        "estimateMeta": {
+          "sourceUrl": "https://openai.com/chatgpt/pricing/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Intermediate tier; price unconfirmed (JS-hidden on page)"
     },
@@ -89,7 +113,13 @@
       "estimatedTokenBudget": {
         "description": "Maximum Codex (~250M tokens/mo)",
         "estimatedMillionTokens": 250,
-        "assumptions": "Research estimate at max tier"
+        "assumptions": "Research estimate at max tier",
+        "estimateMeta": {
+          "sourceUrl": "https://openai.com/chatgpt/pricing/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Pro tier per official page; USD not rendered in scrape (commonly cited $200)"
     }
@@ -104,5 +134,7 @@
     "Training opt-out available on all tiers"
   ],
   "dataTraining": "Used for training; opt-out available",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "Terms ban sharing account credentials; multiple paid accounts are not addressed."
 }

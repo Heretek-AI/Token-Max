@@ -23,7 +23,13 @@
       "estimatedTokenBudget": {
         "description": "3x Claude Pro usage (~30M tokens/mo)",
         "estimatedMillionTokens": 30,
-        "assumptions": "Benchmarked as multiplier vs Claude Pro consumer quota; exact credits unpublished"
+        "assumptions": "Benchmarked as multiplier vs Claude Pro consumer quota; exact credits unpublished",
+        "estimateMeta": {
+          "sourceUrl": "https://www.byteplus.com/en/activity/arkcodingplan",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Flexible model selection or Auto mode"
     },
@@ -45,7 +51,13 @@
       "estimatedTokenBudget": {
         "description": "5x Lite (~150M tokens/mo)",
         "estimatedMillionTokens": 150,
-        "assumptions": "5x the Lite research estimate"
+        "assumptions": "5x the Lite research estimate",
+        "estimateMeta": {
+          "sourceUrl": "https://www.byteplus.com/en/activity/arkcodingplan",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Model availability varies by country/region"
     }
@@ -57,5 +69,6 @@
   ],
   "tosHighlights": [],
   "dataTraining": "Not published on pricing page",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "unknown"
 }

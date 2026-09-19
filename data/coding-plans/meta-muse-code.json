@@ -20,7 +20,13 @@
       "estimatedTokenBudget": {
         "description": "Light usage tier (~5M tokens/mo)",
         "estimatedMillionTokens": 5,
-        "assumptions": "10-50 req/5h on lightweight models"
+        "assumptions": "10-50 req/5h on lightweight models",
+        "estimateMeta": {
+          "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Affordable entry-level coding assistance"
     },
@@ -40,7 +46,13 @@
       "estimatedTokenBudget": {
         "description": "Standard developer tier (~20M tokens/mo)",
         "estimatedMillionTokens": 20,
-        "assumptions": "50-250 req/5h across daily workflows"
+        "assumptions": "50-250 req/5h across daily workflows",
+        "estimateMeta": {
+          "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Standard developer tier with generous limits"
     },
@@ -59,7 +71,13 @@
       "estimatedTokenBudget": {
         "description": "High throughput agentic (~80M tokens/mo)",
         "estimatedMillionTokens": 80,
-        "assumptions": "High throughput agentic development"
+        "assumptions": "High throughput agentic development",
+        "estimateMeta": {
+          "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Maximum rate limits and concurrent workflows"
     }
@@ -74,5 +92,6 @@
     "Standard tier guarantees zero data retention and no model training"
   ],
   "dataTraining": "Contributor tier trains on your data; Standard does not",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "unknown"
 }

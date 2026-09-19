@@ -19,7 +19,13 @@
       "estimatedTokenBudget": {
         "description": "5h + weekly windows (~20M tokens/mo est.)",
         "estimatedMillionTokens": 20,
-        "assumptions": "Research estimate; exact credits per window not officially published"
+        "assumptions": "Research estimate; exact credits per window not officially published",
+        "estimateMeta": {
+          "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Personal projects and prototyping"
     },
@@ -37,7 +43,13 @@
       "estimatedTokenBudget": {
         "description": "Higher windows (~65M tokens/mo est.)",
         "estimatedMillionTokens": 65,
-        "assumptions": "Research estimate scaled ~3x over Plus tier (agents + multimodal); not officially published"
+        "assumptions": "Research estimate scaled ~3x over Plus tier (agents + multimodal); not officially published",
+        "estimateMeta": {
+          "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Daily coding with agents and multimodal work"
     },
@@ -55,7 +67,13 @@
       "estimatedTokenBudget": {
         "description": "Highest windows (~160M tokens/mo est.)",
         "estimatedMillionTokens": 160,
-        "assumptions": "Research estimate scaled ~8x over Plus tier tier; not officially published"
+        "assumptions": "Research estimate scaled ~8x over Plus tier tier; not officially published",
+        "estimateMeta": {
+          "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Heavy agent workflows and extended sessions"
     },
@@ -72,7 +90,13 @@
       "estimatedTokenBudget": {
         "description": "$1 per 1,000 credits",
         "estimatedMillionTokens": 0,
-        "assumptions": "Overflow top-up for subscription users"
+        "assumptions": "Overflow top-up for subscription users",
+        "estimateMeta": {
+          "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Prepaid overflow packages"
     }
@@ -85,5 +109,7 @@
   ],
   "tosHighlights": [],
   "dataTraining": "Not published on pricing page",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "App terms: \"your account is personal to you... not to provide any other person with access\"; platform terms: \"the Account should be used solely by you\". Multiple paid accounts are not addressed."
 }

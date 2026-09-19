@@ -18,7 +18,13 @@
       "estimatedTokenBudget": {
         "description": "30 build credits + monthly grants (~3M tokens/mo)",
         "estimatedMillionTokens": 3,
-        "assumptions": "~30 usable credits/mo * ~100K tokens per build+agent mix"
+        "assumptions": "~30 usable credits/mo * ~100K tokens per build+agent mix",
+        "estimateMeta": {
+          "sourceUrl": "https://lovable.dev/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Daily credits reset at 00:00 UTC; monthly grants on 1st; no rollover"
     },
@@ -36,7 +42,13 @@
       "estimatedTokenBudget": {
         "description": "100+ credits/mo (~15M tokens)",
         "estimatedMillionTokens": 15,
-        "assumptions": "~150K tokens per credit across builds, hosting and AI gateway usage; scales to 10,000 credits ($2,250/mo)"
+        "assumptions": "~150K tokens per credit across builds, hosting and AI gateway usage; scales to 10,000 credits ($2,250/mo)",
+        "estimateMeta": {
+          "sourceUrl": "https://lovable.dev/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Unified credit balance covers builds + Cloud hosting + AI gateway on deployed apps"
     },
@@ -53,7 +65,13 @@
       "estimatedTokenBudget": {
         "description": "Business minimum tier (~40M tokens/mo at 200+ cr tiers typical)",
         "estimatedMillionTokens": 40,
-        "assumptions": "Same per-credit token estimate as Pro; minimum $50 tier"
+        "assumptions": "Same per-credit token estimate as Pro; minimum $50 tier",
+        "estimateMeta": {
+          "sourceUrl": "https://lovable.dev/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "SSO/central admin at higher Business tiers; Enterprise custom"
     }
@@ -69,5 +87,7 @@
     "Free/Pro can opt out per account"
   ],
   "dataTraining": "Excluded by default on Business+; opt-out available on Free/Pro",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "Terms ban sharing credentials; workspaces support unlimited members and are priced by credits, not seats - multiple paid subscriptions on one account are not addressed."
 }

@@ -21,7 +21,13 @@
       "estimatedTokenBudget": {
         "description": "$5 trial credits (~5M tokens)",
         "estimatedMillionTokens": 5,
-        "assumptions": "$5 trial credits on open source models"
+        "assumptions": "$5 trial credits on open source models",
+        "estimateMeta": {
+          "sourceUrl": "https://together.ai",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Trial credit package for open source model testing"
     },
@@ -40,7 +46,13 @@
       "estimatedTokenBudget": {
         "description": "PAYG ($20 buys ~30M tokens)",
         "estimatedMillionTokens": 30,
-        "assumptions": "$20 spent @ $0.65/M blended"
+        "assumptions": "$20 spent @ $0.65/M blended",
+        "estimateMeta": {
+          "sourceUrl": "https://together.ai",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Tiered limits at $25/$50/$100/$250 spend. Batch 50% off."
     }
@@ -55,5 +67,7 @@
     "SOC2 Type II certified"
   ],
   "dataTraining": "No",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "Terms of Service reviewed; no multiple-account, sharing or seat clause found."
 }

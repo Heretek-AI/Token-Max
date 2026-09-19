@@ -19,7 +19,13 @@
       "estimatedTokenBudget": {
         "description": "Limited free allowance (~0.4M tokens/mo)",
         "estimatedMillionTokens": 0.4,
-        "assumptions": "2,000 completions * ~20 tokens + limited agent credits * $0.01/credit at ~$2/M blended = ~0.4M tokens; low confidence (allowance size not published)"
+        "assumptions": "2,000 completions * ~20 tokens + limited agent credits * $0.01/credit at ~$2/M blended = ~0.4M tokens; low confidence (allowance size not published)",
+        "estimateMeta": {
+          "sourceUrl": "https://github.com/features/copilot/plans",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Basic completions and limited chat; auto model selection only"
     },
@@ -43,7 +49,13 @@
       "estimatedTokenBudget": {
         "description": "1,500 AI credits/mo (~7.1M tokens)",
         "estimatedMillionTokens": 7.1,
-        "assumptions": "1 credit = $0.01; $15.00 budget / ~$2.10/M blended Sonnet 5 rate (with 75-90% cache discount) ~= 7.1M tokens"
+        "assumptions": "1 credit = $0.01; $15.00 budget / ~$2.10/M blended Sonnet 5 rate (with 75-90% cache discount) ~= 7.1M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://github.com/features/copilot/plans",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Claude Sonnet 4.6 only for annual subscribers; premium models cost multiple credits"
     },
@@ -67,7 +79,13 @@
       "estimatedTokenBudget": {
         "description": "7,000 AI credits/mo (~33M tokens)",
         "estimatedMillionTokens": 33,
-        "assumptions": "1 credit = $0.01; $70.00 budget / ~$2.10/M blended = ~33M tokens; premium models (Opus/Fable) burn credits ~10x faster"
+        "assumptions": "1 credit = $0.01; $70.00 budget / ~$2.10/M blended = ~33M tokens; premium models (Opus/Fable) burn credits ~10x faster",
+        "estimateMeta": {
+          "sourceUrl": "https://github.com/features/copilot/plans",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Priority premium-model access; agent delegation Pro+ only"
     },
@@ -88,7 +106,13 @@
       "estimatedTokenBudget": {
         "description": "20,000 AI credits/mo (~95M tokens)",
         "estimatedMillionTokens": 95,
-        "assumptions": "1 credit = $0.01; $200.00 budget / ~$2.10/M blended = ~95M tokens"
+        "assumptions": "1 credit = $0.01; $200.00 budget / ~$2.10/M blended = ~95M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://github.com/features/copilot/plans",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Highest individual AI-credit allowance ($200 compute value)"
     },
@@ -105,7 +129,13 @@
       "estimatedTokenBudget": {
         "description": "1,900 AI credits/user/mo (~9M tokens/user)",
         "estimatedMillionTokens": 9,
-        "assumptions": "1 credit = $0.01; $19.00/user budget / ~$2.10/M blended = ~9M tokens/user"
+        "assumptions": "1 credit = $0.01; $19.00/user budget / ~$2.10/M blended = ~9M tokens/user",
+        "estimateMeta": {
+          "sourceUrl": "https://github.com/features/copilot/plans",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Centralized management and Copilot policy control"
     },
@@ -122,7 +152,13 @@
       "estimatedTokenBudget": {
         "description": "3,900 AI credits/user/mo pooled (~19M tokens/user)",
         "estimatedMillionTokens": 19,
-        "assumptions": "1 credit = $0.01; $39.00/user budget / ~$2.10/M blended = ~19M tokens/user"
+        "assumptions": "1 credit = $0.01; $39.00/user budget / ~$2.10/M blended = ~19M tokens/user",
+        "estimateMeta": {
+          "sourceUrl": "https://github.com/features/copilot/plans",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Enterprise Cloud features; unlicensed code-review users draw org credits"
     }
@@ -140,5 +176,7 @@
     "Claude Fable models retain data under Anthropic EFS rollout (ZDR exemption runs through end of 2026)"
   ],
   "dataTraining": "Opt-out available (individual); excluded on Business/Enterprise",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "GitHub ToS: \"Your login may only be used by one person - i.e., a single login may not be shared by multiple people\"; multiple paid accounts are not addressed (one free account per person)."
 }

@@ -21,7 +21,13 @@
       "estimatedTokenBudget": {
         "description": "Standard PAYG ($20 buys ~10M tokens)",
         "estimatedMillionTokens": 10,
-        "assumptions": "$20 spent @ $2.00/M blended rate"
+        "assumptions": "$20 spent @ $2.00/M blended rate",
+        "estimateMeta": {
+          "sourceUrl": "https://meta.com",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Standard $1.25/$4.25/M. Standard 3000 RPM."
     },
@@ -39,7 +45,13 @@
       "estimatedTokenBudget": {
         "description": "Contributor PAYG ($20 buys ~150M tokens)",
         "estimatedMillionTokens": 150,
-        "assumptions": "$20 spent @ $0.13/M blended rate with data sharing"
+        "assumptions": "$20 spent @ $0.13/M blended rate with data sharing",
+        "estimateMeta": {
+          "sourceUrl": "https://meta.com",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Contributor pricing now applies to muse-spark-1.2 family; prompts/ops feed Meta training"
     }
@@ -53,5 +65,6 @@
     "Standard tier guarantees zero data retention and strict confidentiality"
   ],
   "dataTraining": "Yes for Contributor tier; No for Standard tier",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "unknown"
 }

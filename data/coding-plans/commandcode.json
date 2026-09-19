@@ -21,7 +21,13 @@
       "estimatedTokenBudget": {
         "description": "$10 compute credits (~15M tokens on open models)",
         "estimatedMillionTokens": 15,
-        "assumptions": "$10.00 / ~$0.65/M blended open-model rate ~= 15M tokens"
+        "assumptions": "$10.00 / ~$0.65/M blended open-model rate ~= 15M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://commandcode.ai/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Processing fee applies; open models + select premium"
     },
@@ -42,7 +48,13 @@
       "estimatedTokenBudget": {
         "description": "$70 compute credits (~70M tokens)",
         "estimatedMillionTokens": 70,
-        "assumptions": "$70.00 / ~$1/M blended ~= 70M tokens; per-model dollar allowances"
+        "assumptions": "$70.00 / ~$1/M blended ~= 70M tokens; per-model dollar allowances",
+        "estimateMeta": {
+          "sourceUrl": "https://commandcode.ai/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "29+ models"
     },
@@ -63,7 +75,13 @@
       "estimatedTokenBudget": {
         "description": "$80 compute credits (~80M tokens)",
         "estimatedMillionTokens": 80,
-        "assumptions": "$80.00 / ~$1/M blended ~= 80M tokens; deals increase effective value"
+        "assumptions": "$80.00 / ~$1/M blended ~= 80M tokens; deals increase effective value",
+        "estimateMeta": {
+          "sourceUrl": "https://commandcode.ai/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Adds all premium models incl Claude; 1M context"
     },
@@ -80,7 +98,13 @@
       "estimatedTokenBudget": {
         "description": "$150 compute credits (~150M tokens)",
         "estimatedMillionTokens": 150,
-        "assumptions": "$150.00 / ~$1/M blended ~= 150M tokens"
+        "assumptions": "$150.00 / ~$1/M blended ~= 150M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://commandcode.ai/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Higher rate limits"
     },
@@ -97,7 +121,13 @@
       "estimatedTokenBudget": {
         "description": "$300 compute credits (~300M tokens)",
         "estimatedMillionTokens": 300,
-        "assumptions": "$300.00 / ~$1/M blended ~= 300M tokens"
+        "assumptions": "$300.00 / ~$1/M blended ~= 300M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://commandcode.ai/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Highest rate limits; every model"
     }
@@ -112,5 +142,7 @@
     "No training on your code; premium models US-hosted (EU on demand)"
   ],
   "dataTraining": "No training on your code",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "prohibited",
+  "stackingPolicyNote": "Terms: \"One account per person. You may not register, operate, or control more than one account... Creating, operating, or controlling multiple accounts is a material breach.\""
 }

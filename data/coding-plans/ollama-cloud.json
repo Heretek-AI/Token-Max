@@ -20,7 +20,13 @@
       "estimatedTokenBudget": {
         "description": "Free cloud tier (~1M tokens/mo)",
         "estimatedMillionTokens": 1,
-        "assumptions": "Free community rate limits"
+        "assumptions": "Free community rate limits",
+        "estimateMeta": {
+          "sourceUrl": "https://ollama.com",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Free tier for running local and small cloud models"
     },
@@ -41,7 +47,13 @@
       "estimatedTokenBudget": {
         "description": "$60 compute credits (~60M tokens/mo)",
         "estimatedMillionTokens": 60,
-        "assumptions": "$60 monthly cloud credit pool"
+        "assumptions": "$60 monthly cloud credit pool",
+        "estimateMeta": {
+          "sourceUrl": "https://ollama.com",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Pro: $60 credits/mo, 3 concurrent. 3x compute value."
     },
@@ -61,7 +73,13 @@
       "estimatedTokenBudget": {
         "description": "$300 compute credits (~300M tokens/mo)",
         "estimatedMillionTokens": 300,
-        "assumptions": "$300 monthly cloud credit pool"
+        "assumptions": "$300 monthly cloud credit pool",
+        "estimateMeta": {
+          "sourceUrl": "https://ollama.com",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Max: $300, 10 concurrent. Priority routing."
     },
@@ -79,7 +97,13 @@
       "estimatedTokenBudget": {
         "description": "$1,600 compute credits (~1.6B tokens/mo)",
         "estimatedMillionTokens": 1600,
-        "assumptions": "$1,600 monthly credit pool"
+        "assumptions": "$1,600 monthly credit pool",
+        "estimateMeta": {
+          "sourceUrl": "https://ollama.com",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Dedicated private pods for software development teams"
     }
@@ -93,5 +117,7 @@
     "Complete open-source local runtime"
   ],
   "dataTraining": "No",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "prohibited",
+  "stackingPolicyNote": "Pricing FAQ: \"Can I have multiple Ollama accounts? No. Ollama is one account per person.\""
 }

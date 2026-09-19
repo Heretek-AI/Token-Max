@@ -19,7 +19,13 @@
       "estimatedTokenBudget": {
         "description": "$1 free trial (~1M tokens)",
         "estimatedMillionTokens": 1,
-        "assumptions": "$1.00 / ~$0.50/M blended open-weight rate ~= 2M tokens of trial compute"
+        "assumptions": "$1.00 / ~$0.50/M blended open-weight rate ~= 2M tokens of trial compute",
+        "estimateMeta": {
+          "sourceUrl": "https://fireworks.ai",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Trial tier for function-calling evaluation"
     },
@@ -39,7 +45,13 @@
       "estimatedTokenBudget": {
         "description": "Serverless PAYG ($20 buys ~35M tokens)",
         "estimatedMillionTokens": 35,
-        "assumptions": "$20 spent @ $0.55/M blended on Llama 70B"
+        "assumptions": "$20 spent @ $0.55/M blended on Llama 70B",
+        "estimateMeta": {
+          "sourceUrl": "https://fireworks.ai",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Serverless PAYG. 6000 RPM with card. Batch 50% off."
     }
@@ -54,5 +66,6 @@
     "HIPAA and SOC2 compliance available on enterprise plans"
   ],
   "dataTraining": "No",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "unknown"
 }

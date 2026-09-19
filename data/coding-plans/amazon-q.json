@@ -18,7 +18,13 @@
       "estimatedTokenBudget": {
         "description": "50 agentic requests/mo (~12M tokens)",
         "estimatedMillionTokens": 12,
-        "assumptions": "50 requests * ~250K tokens per heavy agentic interaction (context + multi-file + verification)"
+        "assumptions": "50 requests * ~250K tokens per heavy agentic interaction (context + multi-file + verification)",
+        "estimateMeta": {
+          "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Agentic request = any Q&A chat or coding interaction"
     },
@@ -36,7 +42,13 @@
       "estimatedTokenBudget": {
         "description": "Higher request pool (~200M tokens/mo research est.)",
         "estimatedMillionTokens": 200,
-        "assumptions": "Exact request cap unpublished; research estimate = high-volume agentic usage"
+        "assumptions": "Exact request cap unpublished; research estimate = high-volume agentic usage",
+        "estimateMeta": {
+          "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Identity Center/IAM; IP indemnity included"
     }
@@ -49,5 +61,6 @@
   ],
   "tosHighlights": [],
   "dataTraining": "Opt-out available (Free); automatic opt-out (Pro)",
-  "ipIndemnity": true
+  "ipIndemnity": true,
+  "stackingPolicy": "unknown"
 }

@@ -27,7 +27,13 @@
         "estimatedMillionTokens": 300,
         "midpointEstimate": 400,
         "optimisticEstimate": 600,
-        "assumptions": "48M–97M tokens/week at 95% cache hit rate * 4 weeks (~200M–600M tokens/mo depending on off-peak usage)"
+        "assumptions": "48M–97M tokens/week at 95% cache hit rate * 4 weeks (~200M–600M tokens/mo depending on off-peak usage)",
+        "estimateMeta": {
+          "sourceUrl": "https://z.ai/subscribe",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Entry tier for individual developers. Up to 92% savings vs pay-as-you-go"
     },
@@ -53,7 +59,13 @@
         "estimatedMillionTokens": 1500,
         "midpointEstimate": 2100,
         "optimisticEstimate": 3000,
-        "assumptions": "290M–580M tokens/week at 95% cache hit rate * 4 weeks (~1.2B–3B tokens/mo)"
+        "assumptions": "290M–580M tokens/week at 95% cache hit rate * 4 weeks (~1.2B–3B tokens/mo)",
+        "estimateMeta": {
+          "sourceUrl": "https://z.ai/subscribe",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "5x Lite usage capacity for full-time engineers and agent loops"
     },
@@ -79,7 +91,13 @@
         "estimatedMillionTokens": 4000,
         "midpointEstimate": 5500,
         "optimisticEstimate": 8000,
-        "assumptions": "676M–1.35B tokens/week at 95% cache hit rate * 4 weeks (~3B–8B tokens/mo)"
+        "assumptions": "676M–1.35B tokens/week at 95% cache hit rate * 4 weeks (~3B–8B tokens/mo)",
+        "estimateMeta": {
+          "sourceUrl": "https://z.ai/subscribe",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "20x Lite usage capacity for power developers and heavy autonomous agents"
     },
@@ -103,7 +121,13 @@
         "estimatedMillionTokens": 1600,
         "midpointEstimate": 1920,
         "optimisticEstimate": 2552,
-        "assumptions": "319M–638M tokens/week * 4 weeks per seat (~1.3B–2.6B tokens/mo/seat)"
+        "assumptions": "319M–638M tokens/week * 4 weeks per seat (~1.3B–2.6B tokens/mo/seat)",
+        "estimateMeta": {
+          "sourceUrl": "https://z.ai/subscribe",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Enterprise team workspace with Zero Data Retention and seat controls"
     }
@@ -120,5 +144,7 @@
     "Team Plan guarantees code and conversations are excluded from model training by default"
   ],
   "dataTraining": "Excluded from model training on Team plans; standard cloud terms for personal plans",
-  "ipIndemnity": "Enterprise Team contracts only"
+  "ipIndemnity": "Enterprise Team contracts only",
+  "stackingPolicy": "prohibited",
+  "stackingPolicyNote": "Subscription terms: benefits are \"exclusive to the subscriber\"; \"Account sharing or multi-user access is prohibited\" and the licence is tied to a single natural person with no aggregation/proxying."
 }

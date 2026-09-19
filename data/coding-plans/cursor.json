@@ -20,7 +20,13 @@
       "estimatedTokenBudget": {
         "description": "Limited Agent requests (~0.5M tokens/mo)",
         "estimatedMillionTokens": 0.5,
-        "assumptions": "Limited agent requests at ~10-20K tokens/request with prompt-cache discount; exact quota unpublished"
+        "assumptions": "Limited agent requests at ~10-20K tokens/request with prompt-cache discount; exact quota unpublished",
+        "estimateMeta": {
+          "sourceUrl": "https://cursor.com/docs/account/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Free tier; no credit card required"
     },
@@ -47,7 +53,13 @@
       "estimatedTokenBudget": {
         "description": "Pro Cursor-Models + Other-Models pools (~10M tokens/mo)",
         "estimatedMillionTokens": 10,
-        "assumptions": "Pool sized at ~$20 of equivalent API-rate spend; blended ~$2/M with cache discounts ~= 10M tokens"
+        "assumptions": "Pool sized at ~$20 of equivalent API-rate spend; blended ~$2/M with cache discounts ~= 10M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://cursor.com/docs/account/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Pools reset monthly; legacy request-based plans closed to new subs"
     },
@@ -71,7 +83,13 @@
       "estimatedTokenBudget": {
         "description": "Expanded pools (~35M tokens/mo)",
         "estimatedMillionTokens": 35,
-        "assumptions": "~$70 equivalent API-rate pool; blended ~$2/M ~= 35M tokens"
+        "assumptions": "~$70 equivalent API-rate pool; blended ~$2/M ~= 35M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://cursor.com/docs/account/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Recommended for daily agent users"
     },
@@ -94,7 +112,13 @@
       "estimatedTokenBudget": {
         "description": "Maximum pools (~180M tokens/mo)",
         "estimatedMillionTokens": 180,
-        "assumptions": "~$400 equivalent API-rate pool; blended ~$2/M ~= 180M tokens"
+        "assumptions": "~$400 equivalent API-rate pool; blended ~$2/M ~= 180M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://cursor.com/docs/account/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "For daily-driver agent power users"
     }
@@ -112,5 +136,7 @@
     "SOC 2 / ISO 27001 / ISO 42001 certified"
   ],
   "dataTraining": "Opt-out available in Privacy Mode",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "Terms of Service contain no account-sharing or multi-account clause; only resale/lease/lending of the Service is prohibited."
 }

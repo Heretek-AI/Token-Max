@@ -35,6 +35,20 @@
       "type": "string",
       "format": "date"
     },
+    "stackingPolicy": {
+      "type": "string",
+      "enum": [
+        "allowed",
+        "silent",
+        "prohibited",
+        "unknown"
+      ],
+      "description": "Whether buying multiple copies of this subscription (multiple accounts) is permitted by the provider's terms"
+    },
+    "stackingPolicyNote": {
+      "type": "string",
+      "description": "Evidence quote or explanation for the stacking policy"
+    },
     "tiers": {
       "type": "array",
       "items": {
@@ -91,6 +105,50 @@
               },
               "assumptions": {
                 "type": "string"
+              },
+              "estimateMeta": {
+                "type": "object",
+                "description": "Provenance for the token estimate",
+                "required": [
+                  "sourceType",
+                  "confidence",
+                  "verifiedAt"
+                ],
+                "properties": {
+                  "sourceUrl": {
+                    "type": "string"
+                  },
+                  "sourceQuote": {
+                    "type": "string"
+                  },
+                  "sourceType": {
+                    "type": "string",
+                    "enum": [
+                      "official",
+                      "derived",
+                      "research",
+                      "community"
+                    ]
+                  },
+                  "confidence": {
+                    "type": "string",
+                    "enum": [
+                      "high",
+                      "medium",
+                      "low"
+                    ]
+                  },
+                  "verifiedAt": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "basisModel": {
+                    "type": "string"
+                  },
+                  "cacheAssumption": {
+                    "type": "string"
+                  }
+                }
               }
             }
           },

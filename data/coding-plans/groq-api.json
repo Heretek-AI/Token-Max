@@ -19,7 +19,13 @@
       "estimatedTokenBudget": {
         "description": "Per-model rate caps (~2-10M tokens/mo depending on model)",
         "estimatedMillionTokens": 5,
-        "assumptions": "TPD ~500K tokens/day ceiling on high-capacity models ~= 15M/mo ceiling; conservative 5M used for typical models"
+        "assumptions": "TPD ~500K tokens/day ceiling on high-capacity models ~= 15M/mo ceiling; conservative 5M used for typical models",
+        "estimateMeta": {
+          "sourceUrl": "https://console.groq.com",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Free plan for testing on LPUs"
     },
@@ -39,7 +45,13 @@
       "estimatedTokenBudget": {
         "description": "Direct PAYG ($20 buys ~40M tokens)",
         "estimatedMillionTokens": 40,
-        "assumptions": "$20 spent @ ~$0.50/M blended on open-weight serving"
+        "assumptions": "$20 spent @ ~$0.50/M blended on open-weight serving",
+        "estimateMeta": {
+          "sourceUrl": "https://console.groq.com",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "LPUs achieve 400-800 tokens/sec on served models"
     }
@@ -54,5 +66,6 @@
     "No customer data used for model training"
   ],
   "dataTraining": "No",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "unknown"
 }

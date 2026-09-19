@@ -18,7 +18,13 @@
       "estimatedTokenBudget": {
         "description": "PAYG at provider list rates + 5% gateway fee",
         "estimatedMillionTokens": 0,
-        "assumptions": "Token cost equals provider list price; no fixed monthly bundle"
+        "assumptions": "Token cost equals provider list price; no fixed monthly bundle",
+        "estimateMeta": {
+          "sourceUrl": "https://kilo.ai/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Free for individuals; cloud compute billed separately per-hour"
     },
@@ -37,7 +43,13 @@
         "estimatedMillionTokens": 15,
         "midpointEstimate": 30,
         "optimisticEstimate": 45,
-        "assumptions": "Platform-fee plan: no token bundle included; inference billed separately at provider rates + 5% gateway fee (BYOK zero fee). Figures are the fee-equivalent value of $15 at ~$1.00/M (conservative) to ~$0.33/M (optimistic open-model gateway rates) for cross-plan comparison only"
+        "assumptions": "Platform-fee plan: no token bundle included; inference billed separately at provider rates + 5% gateway fee (BYOK zero fee). Figures are the fee-equivalent value of $15 at ~$1.00/M (conservative) to ~$0.33/M (optimistic open-model gateway rates) for cross-plan comparison only",
+        "estimateMeta": {
+          "sourceUrl": "https://kilo.ai/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Security/governance features included"
     },
@@ -54,7 +66,13 @@
       "estimatedTokenBudget": {
         "description": "Custom agree - quote-based",
         "estimatedMillionTokens": 0,
-        "assumptions": "No fixed bundle; negotiated enterprise agreement covers negotiated volume"
+        "assumptions": "No fixed bundle; negotiated enterprise agreement covers negotiated volume",
+        "estimateMeta": {
+          "sourceUrl": "https://kilo.ai/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Enterprise support and controls"
     }
@@ -67,5 +85,6 @@
   ],
   "tosHighlights": [],
   "dataTraining": "Not published on pricing page",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "unknown"
 }

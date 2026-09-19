@@ -21,7 +21,13 @@
       "estimatedTokenBudget": {
         "description": "50 credits/mo (~1M tokens)",
         "estimatedMillionTokens": 1,
-        "assumptions": "Credits consumed fractionally per request at ~$0.04/credit equivalent on Sonnet blended rate"
+        "assumptions": "Credits consumed fractionally per request at ~$0.04/credit equivalent on Sonnet blended rate",
+        "estimateMeta": {
+          "sourceUrl": "https://kiro.dev/pricing/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Usage cap renews at start of next billing cycle"
     },
@@ -43,7 +49,13 @@
       "estimatedTokenBudget": {
         "description": "1,000 credits/mo (~20M tokens on Sonnet 5)",
         "estimatedMillionTokens": 20,
-        "assumptions": "1 credit ~= $0.04; $40 equivalent / ~$2/M blended on Sonnet 5 ~= 20M tokens"
+        "assumptions": "1 credit ~= $0.04; $40 equivalent / ~$2/M blended on Sonnet 5 ~= 20M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://kiro.dev/pricing/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Premium models + open-weight pool; monthly billing cycle"
     },
@@ -65,7 +77,13 @@
       "estimatedTokenBudget": {
         "description": "2,000 credits/mo (~40M tokens on Sonnet 5)",
         "estimatedMillionTokens": 40,
-        "assumptions": "2,000 credits ~= $80 equivalent / ~$2/M blended ~= 40M tokens"
+        "assumptions": "2,000 credits ~= $80 equivalent / ~$2/M blended ~= 40M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://kiro.dev/pricing/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Double Pro capacity"
     },
@@ -85,7 +103,13 @@
       "estimatedTokenBudget": {
         "description": "5,000 credits/mo (~100M tokens on Sonnet 5)",
         "estimatedMillionTokens": 100,
-        "assumptions": "5,000 credits ~= $200 equivalent / ~$2/M blended ~= 100M tokens"
+        "assumptions": "5,000 credits ~= $200 equivalent / ~$2/M blended ~= 100M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://kiro.dev/pricing/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Heavier agentic usage"
     },
@@ -105,7 +129,13 @@
       "estimatedTokenBudget": {
         "description": "10,000 credits/mo (~200M tokens on Sonnet 5)",
         "estimatedMillionTokens": 200,
-        "assumptions": "10,000 credits ~= $400 equivalent / ~$2/M blended ~= 200M tokens"
+        "assumptions": "10,000 credits ~= $400 equivalent / ~$2/M blended ~= 200M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://kiro.dev/pricing/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Maximum capacity tier added Aug 2026"
     }
@@ -118,5 +148,7 @@
   ],
   "tosHighlights": [],
   "dataTraining": "Not published on pricing page",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "FAQ: \"subscriptions and usage limits are calculated per individual user\"; sharing is not permitted, multiple paid accounts are not addressed."
 }

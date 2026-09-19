@@ -40,8 +40,11 @@ function validatePlan(plan, filename) {
   }
   if (!Array.isArray(plan.gotchas) || plan.gotchas.length === 0) err(`${where}: gotchas must be a non-empty array`);
   if (!Array.isArray(plan.tosHighlights)) err(`${where}: tosHighlights must be an array`);
-  if (plan.stackingPolicy !== undefined && !STACKING_POLICIES.has(plan.stackingPolicy)) {
-    err(`${where}: stackingPolicy "${plan.stackingPolicy}" must be one of ${[...STACKING_POLICIES].join(', ')}`);
+  if (!STACKING_POLICIES.has(plan.stackingPolicy)) {
+    err(`${where}: stackingPolicy must be one of ${[...STACKING_POLICIES].join(', ')}`);
+  }
+  if (plan.stackingPolicy === 'prohibited' && (typeof plan.stackingPolicyNote !== 'string' || plan.stackingPolicyNote.trim() === '')) {
+    err(`${where}: prohibited stackingPolicy requires a stackingPolicyNote with the evidence`);
   }
 
   if (!Array.isArray(plan.tiers) || plan.tiers.length === 0) {
@@ -83,6 +86,24 @@ function validatePlan(plan, filename) {
     }
     if (typeof tb.description !== 'string' || tb.description.trim() === '') err(`${t}: estimatedTokenBudget.description required`);
     if (typeof tb.assumptions !== 'string' || tb.assumptions.trim() === '') err(`${t}: estimatedTokenBudget.assumptions required`);
+    const meta = tb.estimateMeta;
+    if (!isPlainObject(meta)) {
+      err(`${t}: estimatedTokenBudget.estimateMeta required`);
+    } else {
+      if (!['official', 'derived', 'research', 'community'].includes(meta.sourceType)) {
+        err(`${t}: estimateMeta.sourceType must be official|derived|research|community`);
+      }
+      if (!['high', 'medium', 'low'].includes(meta.confidence)) {
+        err(`${t}: estimateMeta.confidence must be high|medium|low`);
+      }
+      if (!isIsoDate(meta.verifiedAt)) err(`${t}: estimateMeta.verifiedAt must be YYYY-MM-DD`);
+      if (meta.sourceUrl !== undefined && (typeof meta.sourceUrl !== 'string' || !/^https?:\/\//.test(meta.sourceUrl))) {
+        err(`${t}: estimateMeta.sourceUrl must be an http(s) URL`);
+      }
+      if (meta.sourceType === 'official' && (typeof meta.sourceUrl !== 'string' || meta.sourceUrl.trim() === '')) {
+        err(`${t}: estimateMeta.sourceType "official" requires a sourceUrl`);
+      }
+    }
     if (typeof tb.estimatedMillionTokens !== 'number' || !Number.isFinite(tb.estimatedMillionTokens)) {
       err(`${t}: estimatedTokenBudget.estimatedMillionTokens must be a number`);
       continue;

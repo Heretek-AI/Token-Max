@@ -9,8 +9,119 @@ LAST_VERIFIED = "2026-09-18"
 target_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "coding-plans")
 os.makedirs(target_dir, exist_ok=True)
 
+# Multi-subscription ("Dangerous Dave") stacking policy per plan, with evidence.
+# prohibited = terms explicitly ban multiple accounts / account sharing / bulking;
+# silent     = terms ban credential sharing but do not address one person holding
+#              multiple paid accounts (or no relevant clause found);
+# unknown    = policy not yet researched.
+STACKING_POLICY = {
+    "alibaba-cloud": (
+        "prohibited",
+        'Token Plan FAQ: "Can multiple people share one account? No... sharing the same account or API Key among multiple people is not allowed"; Team seats are bound to one member and one API key.',
+    ),
+    "commandcode": (
+        "prohibited",
+        'Terms: "One account per person. You may not register, operate, or control more than one account... Creating, operating, or controlling multiple accounts is a material breach."',
+    ),
+    "kimi-code": (
+        "prohibited",
+        'User agreement: "not register or operate multiple accounts for abusive purposes" and "You may not share your account credentials or make your account available to anyone else."',
+    ),
+    "ollama-cloud": (
+        "prohibited",
+        'Pricing FAQ: "Can I have multiple Ollama accounts? No. Ollama is one account per person."',
+    ),
+    "opencode": (
+        "prohibited",
+        'Terms of Service: prohibits users who "create, maintain, or use multiple accounts to circumvent usage limits, access restrictions, billing obligations... or any other restriction or policy."',
+    ),
+    "openrouter": (
+        "prohibited",
+        'Terms: "create multiple accounts as a single user, for purposes of bypassing or circumventing use limits... or for any other reason" is prohibited.',
+    ),
+    "replit": (
+        "prohibited",
+        'Terms: "Creating accounts with automation or registering multiple accounts" is prohibited.',
+    ),
+    "z-ai": (
+        "prohibited",
+        'Subscription terms: benefits are "exclusive to the subscriber"; "Account sharing or multi-user access is prohibited" and the licence is tied to a single natural person with no aggregation/proxying.',
+    ),
+    "anthropic-api": (
+        "silent",
+        "Consumer/commercial terms ban sharing account credentials and API keys but do not address one person holding multiple paid accounts.",
+    ),
+    "augment-code": (
+        "silent",
+        'Terms ban sharing credentials across users ("unique usernames and passwords cannot be shared or used by more than one individual Authorized User") but do not address multiple paid accounts.',
+    ),
+    "claude-code": (
+        "silent",
+        'Consumer terms: "You may not share your Account login information... or make your Account available to anyone else"; multiple paid accounts are not addressed.',
+    ),
+    "cursor": (
+        "silent",
+        "Terms of Service contain no account-sharing or multi-account clause; only resale/lease/lending of the Service is prohibited.",
+    ),
+    "github-copilot": (
+        "silent",
+        'GitHub ToS: "Your login may only be used by one person - i.e., a single login may not be shared by multiple people"; multiple paid accounts are not addressed (one free account per person).',
+    ),
+    "google-antigravity": (
+        "silent",
+        "Google consumer terms and Generative AI Additional Terms reviewed; no multi-account or account-sharing clause found. Third-party tooling against Antigravity OAuth is banned.",
+    ),
+    "kiro": (
+        "silent",
+        'FAQ: "subscriptions and usage limits are calculated per individual user"; sharing is not permitted, multiple paid accounts are not addressed.',
+    ),
+    "lovable": (
+        "silent",
+        "Terms ban sharing credentials; workspaces support unlimited members and are priced by credits, not seats - multiple paid subscriptions on one account are not addressed.",
+    ),
+    "openai-api": (
+        "silent",
+        "Terms ban sharing account credentials; multiple paid accounts are not addressed.",
+    ),
+    "openai-codex": (
+        "silent",
+        "Terms ban sharing account credentials; multiple paid accounts are not addressed.",
+    ),
+    "minimax": (
+        "silent",
+        'App terms: "your account is personal to you... not to provide any other person with access"; platform terms: "the Account should be used solely by you". Multiple paid accounts are not addressed.',
+    ),
+    "together-ai": (
+        "silent",
+        "Terms of Service reviewed; no multiple-account, sharing or seat clause found.",
+    ),
+    "windsurf": (
+        "silent",
+        'Acceptable Use Policy bans "sharing credentials"; multiple paid accounts are not addressed.',
+    ),
+}
+
 
 def write_json(filename, data):
+    plan_id = filename.replace(".json", "")
+    policy, note = STACKING_POLICY.get(plan_id, ("unknown", None))
+    data.setdefault("stackingPolicy", policy)
+    if note:
+        data.setdefault("stackingPolicyNote", note)
+    # Every token estimate carries provenance. Curated tiers can override this
+    # default with an explicit official/derived estimateMeta.
+    for tier in data.get("tiers", []):
+        budget = tier.get("estimatedTokenBudget")
+        if isinstance(budget, dict):
+            budget.setdefault(
+                "estimateMeta",
+                {
+                    "sourceUrl": data.get("url", ""),
+                    "sourceType": "research",
+                    "confidence": "low",
+                    "verifiedAt": LAST_VERIFIED,
+                },
+            )
     filepath = os.path.join(target_dir, filename)
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)

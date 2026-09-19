@@ -19,7 +19,13 @@
       "estimatedTokenBudget": {
         "description": "PAYG ($20 buys ~50M Flash tokens off-peak)",
         "estimatedMillionTokens": 50,
-        "assumptions": "Flash cache-miss ~$0.66/M input (off-peak $0.33) + ~$0.6-1.2/M output ~= $0.40/M blended off-peak; $20 / $0.40 ~= 50M tokens"
+        "assumptions": "Flash cache-miss ~$0.66/M input (off-peak $0.33) + ~$0.6-1.2/M output ~= $0.40/M blended off-peak; $20 / $0.40 ~= 50M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://platform.deepseek.com",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Cache-hit tokens ~$0.003-$0.022/M (98% off)"
     },
@@ -35,7 +41,13 @@
       "estimatedTokenBudget": {
         "description": "PAYG ($20 buys ~8M Pro tokens off-peak)",
         "estimatedMillionTokens": 8,
-        "assumptions": "V4-Pro ~$1.98/$3.96 peak in/out ~= $2.44 off-peak blended; $20 / $2.44 ~= 8M tokens"
+        "assumptions": "V4-Pro ~$1.98/$3.96 peak in/out ~= $2.44 off-peak blended; $20 / $2.44 ~= 8M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://platform.deepseek.com",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Frontier reasoning tier"
     }
@@ -50,5 +62,6 @@
     "Servers located in PRC and international cloud regions"
   ],
   "dataTraining": "No",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "unknown"
 }

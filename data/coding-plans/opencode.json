@@ -17,7 +17,13 @@
       "estimatedTokenBudget": {
         "description": "Token cost = your provider's rates",
         "estimatedMillionTokens": 0,
-        "assumptions": "No fixed bundle; you pay your API provider directly"
+        "assumptions": "No fixed bundle; you pay your API provider directly",
+        "estimateMeta": {
+          "sourceUrl": "https://opencode.ai/zen",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "opencode.ai/pricing no longer exists (404)"
     },
@@ -44,7 +50,13 @@
         "estimatedMillionTokens": 10,
         "midpointEstimate": 20,
         "optimisticEstimate": 40,
-        "assumptions": "$20 minimum balance at zero markup buys $20 of inference at curated gateway rates; conservative 10M at ~$2.00/M frontier blend, midpoint 20M at ~$1.00/M, optimistic 40M at ~$0.50/M open-model rates; excludes the $1.23 card fee"
+        "assumptions": "$20 minimum balance at zero markup buys $20 of inference at curated gateway rates; conservative 10M at ~$2.00/M frontier blend, midpoint 20M at ~$1.00/M, optimistic 40M at ~$0.50/M open-model rates; excludes the $1.23 card fee",
+        "estimateMeta": {
+          "sourceUrl": "https://opencode.ai/zen",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "US-hosted, zero retention"
     },
@@ -64,7 +76,13 @@
       "estimatedTokenBudget": {
         "description": "Open-model subscription (~30M tokens/mo est.)",
         "estimatedMillionTokens": 30,
-        "assumptions": "$10 / ~$0.3/M blended open-model rate ~= 30M tokens; exact cap not published"
+        "assumptions": "$10 / ~$0.3/M blended open-model rate ~= 30M tokens; exact cap not published",
+        "estimateMeta": {
+          "sourceUrl": "https://opencode.ai/zen",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "New Sept 2026 low-cost subscription tier"
     }
@@ -77,5 +95,7 @@
   ],
   "tosHighlights": [],
   "dataTraining": "Zero-retention; no training on Zen",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "prohibited",
+  "stackingPolicyNote": "Terms of Service: prohibits users who \"create, maintain, or use multiple accounts to circumvent usage limits, access restrictions, billing obligations... or any other restriction or policy.\""
 }

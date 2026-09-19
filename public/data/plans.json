@@ -23,7 +23,13 @@
         "estimatedTokenBudget": {
           "description": "Direct BYOK API billing (0% tool markup)",
           "estimatedMillionTokens": 20,
-          "assumptions": "Depends entirely on connected API key spend ($20 buys ~10M–130M tokens)"
+          "assumptions": "Depends entirely on connected API key spend ($20 buys ~10M–130M tokens)",
+          "estimateMeta": {
+            "sourceUrl": "https://aider.chat",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Open-source CLI pair programmer. Bring your own API key"
       }
@@ -38,7 +44,8 @@
       "TOS and privacy governed solely by your LLM API provider"
     ],
     "dataTraining": "Depends on API provider chosen",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "unknown"
   },
   {
     "id": "alibaba-cloud",
@@ -61,7 +68,13 @@
         "estimatedTokenBudget": {
           "description": "Personal budget allotment (~10M tokens/mo)",
           "estimatedMillionTokens": 10,
-          "assumptions": "Budget personal allotment"
+          "assumptions": "Budget personal allotment",
+          "estimateMeta": {
+            "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Entry-level coding plan for individual developers"
       },
@@ -80,7 +93,13 @@
         "estimatedTokenBudget": {
           "description": "Mainstream developer quota (~35M tokens/mo)",
           "estimatedMillionTokens": 35,
-          "assumptions": "Standard tier: 10K compute-credit window (1K credits = $1) ~= 10M tokens/mo at GLM-5.2/DeepSeek-V4.1-Flash blended rates"
+          "assumptions": "Standard tier: 10K compute-credit window (1K credits = $1) ~= 10M tokens/mo at GLM-5.2/DeepSeek-V4.1-Flash blended rates",
+          "estimateMeta": {
+            "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Mainstream plan for active coders"
       },
@@ -99,7 +118,13 @@
         "estimatedTokenBudget": {
           "description": "Power developer quota (~140M tokens/mo)",
           "estimatedMillionTokens": 140,
-          "assumptions": "Pro tier: 40K compute credits/mo ~= 40M tokens/mo at open-weight blended rates"
+          "assumptions": "Pro tier: 40K compute credits/mo ~= 40M tokens/mo at open-weight blended rates",
+          "estimateMeta": {
+            "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Power developer tier with high concurrency"
       },
@@ -117,7 +142,13 @@
         "estimatedTokenBudget": {
           "description": "Per-seat team allocation (~40M tokens/seat)",
           "estimatedMillionTokens": 40,
-          "assumptions": "Team Standard: 25K compute credits/seat/mo ~= 25M tokens/seat"
+          "assumptions": "Team Standard: 25K compute credits/seat/mo ~= 25M tokens/seat",
+          "estimateMeta": {
+            "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Team tier with shared workspace controls"
       },
@@ -135,7 +166,13 @@
         "estimatedTokenBudget": {
           "description": "Team Pro high concurrency (~150M tokens/seat)",
           "estimatedMillionTokens": 150,
-          "assumptions": "Team Pro high concurrency"
+          "assumptions": "Team Pro high concurrency",
+          "estimateMeta": {
+            "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Enterprise development teams"
       },
@@ -153,7 +190,13 @@
         "estimatedTokenBudget": {
           "description": "Maximum team throughput (~450M tokens/seat)",
           "estimatedMillionTokens": 450,
-          "assumptions": "Team Max: 250K compute credits/seat/mo ~= 250M tokens/seat"
+          "assumptions": "Team Max: 250K compute credits/seat/mo ~= 250M tokens/seat",
+          "estimateMeta": {
+            "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Dedicated capacity with high SLA"
       }
@@ -168,7 +211,9 @@
       "Personal plans subject to standard cloud terms"
     ],
     "dataTraining": "No guarantee on personal plans; Team plans shielded",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "prohibited",
+    "stackingPolicyNote": "Token Plan FAQ: \"Can multiple people share one account? No... sharing the same account or API Key among multiple people is not allowed\"; Team seats are bound to one member and one API key."
   },
   {
     "id": "amazon-q",
@@ -190,7 +235,13 @@
         "estimatedTokenBudget": {
           "description": "50 agentic requests/mo (~12M tokens)",
           "estimatedMillionTokens": 12,
-          "assumptions": "50 requests * ~250K tokens per heavy agentic interaction (context + multi-file + verification)"
+          "assumptions": "50 requests * ~250K tokens per heavy agentic interaction (context + multi-file + verification)",
+          "estimateMeta": {
+            "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Agentic request = any Q&A chat or coding interaction"
       },
@@ -208,7 +259,13 @@
         "estimatedTokenBudget": {
           "description": "Higher request pool (~200M tokens/mo research est.)",
           "estimatedMillionTokens": 200,
-          "assumptions": "Exact request cap unpublished; research estimate = high-volume agentic usage"
+          "assumptions": "Exact request cap unpublished; research estimate = high-volume agentic usage",
+          "estimateMeta": {
+            "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Identity Center/IAM; IP indemnity included"
       }
@@ -221,7 +278,8 @@
     ],
     "tosHighlights": [],
     "dataTraining": "Opt-out available (Free); automatic opt-out (Pro)",
-    "ipIndemnity": true
+    "ipIndemnity": true,
+    "stackingPolicy": "unknown"
   },
   {
     "id": "anthropic-api",
@@ -250,7 +308,13 @@
         "estimatedTokenBudget": {
           "description": "Direct API PAYG ($20 buys ~10M Sonnet or ~4M Opus tokens)",
           "estimatedMillionTokens": 10,
-          "assumptions": "$20 spent on Sonnet 5 @ $2/$10 with 3:1 input:output ratio"
+          "assumptions": "$20 spent on Sonnet 5 @ $2/$10 with 3:1 input:output ratio",
+          "estimateMeta": {
+            "sourceUrl": "https://console.anthropic.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Cache reads 90% off. Batch 50% off."
       }
@@ -265,7 +329,9 @@
       "Commercial IP indemnity provided under commercial terms of service"
     ],
     "dataTraining": "No (Commercial API zero retention)",
-    "ipIndemnity": true
+    "ipIndemnity": true,
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "Consumer/commercial terms ban sharing account credentials and API keys but do not address one person holding multiple paid accounts."
   },
   {
     "id": "augment-code",
@@ -290,7 +356,13 @@
         "estimatedTokenBudget": {
           "description": "$20 usage pool with 40% LLM fee (~8M tokens)",
           "estimatedMillionTokens": 8,
-          "assumptions": "$20.00 / (blended $2/M provider rate * 1.4) ~= 8M tokens on frontier models"
+          "assumptions": "$20.00 / (blended $2/M provider rate * 1.4) ~= 8M tokens on frontier models",
+          "estimateMeta": {
+            "sourceUrl": "https://www.augmentcode.com/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Restructured from per-seat message plans to pooled usage"
       },
@@ -308,7 +380,13 @@
         "estimatedTokenBudget": {
           "description": "$100 usage pool (~50M tokens)",
           "estimatedMillionTokens": 50,
-          "assumptions": "$100.00 / (blended $2/M * 1.4) ~= 50M tokens"
+          "assumptions": "$100.00 / (blended $2/M * 1.4) ~= 50M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://www.augmentcode.com/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Same 40% LLM service fee structure"
       },
@@ -326,7 +404,13 @@
         "estimatedTokenBudget": {
           "description": "Custom usage contract",
           "estimatedMillionTokens": 0,
-          "assumptions": "No fixed bundle; negotiated enterprise agreement covers negotiated volume"
+          "assumptions": "No fixed bundle; negotiated enterprise agreement covers negotiated volume",
+          "estimateMeta": {
+            "sourceUrl": "https://www.augmentcode.com/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Volume-based"
       }
@@ -340,7 +424,9 @@
       "No AI training allowed under Commercial Terms"
     ],
     "dataTraining": "No AI training on any plan",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "Terms ban sharing credentials across users (\"unique usernames and passwords cannot be shared or used by more than one individual Authorized User\") but do not address multiple paid accounts."
   },
   {
     "id": "byteplus",
@@ -367,7 +453,13 @@
         "estimatedTokenBudget": {
           "description": "3x Claude Pro usage (~30M tokens/mo)",
           "estimatedMillionTokens": 30,
-          "assumptions": "Benchmarked as multiplier vs Claude Pro consumer quota; exact credits unpublished"
+          "assumptions": "Benchmarked as multiplier vs Claude Pro consumer quota; exact credits unpublished",
+          "estimateMeta": {
+            "sourceUrl": "https://www.byteplus.com/en/activity/arkcodingplan",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Flexible model selection or Auto mode"
       },
@@ -389,7 +481,13 @@
         "estimatedTokenBudget": {
           "description": "5x Lite (~150M tokens/mo)",
           "estimatedMillionTokens": 150,
-          "assumptions": "5x the Lite research estimate"
+          "assumptions": "5x the Lite research estimate",
+          "estimateMeta": {
+            "sourceUrl": "https://www.byteplus.com/en/activity/arkcodingplan",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Model availability varies by country/region"
       }
@@ -401,7 +499,8 @@
     ],
     "tosHighlights": [],
     "dataTraining": "Not published on pricing page",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "unknown"
   },
   {
     "id": "claude-code",
@@ -426,7 +525,13 @@
         "estimatedTokenBudget": {
           "description": "Shared 5h rolling cap (~12M agentic tokens/mo)",
           "estimatedMillionTokens": 12,
-          "assumptions": "Anthropic publishes no numeric quota; research estimate ~= 12M mid-complexity agent tokens/mo within the Pro 5h+weekly window; exact size intentionally unpublished and varies by task complexity"
+          "assumptions": "Anthropic publishes no numeric quota; research estimate ~= 12M mid-complexity agent tokens/mo within the Pro 5h+weekly window; exact size intentionally unpublished and varies by task complexity",
+          "estimateMeta": {
+            "sourceUrl": "https://claude.com/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Annual Pro is $17/mo ($200 billed up front). Claude Code shares one pool with Claude.ai chat"
       },
@@ -447,7 +552,13 @@
         "estimatedTokenBudget": {
           "description": "5x Pro rolling limit (~60M agentic tokens/mo)",
           "estimatedMillionTokens": 60,
-          "assumptions": "5x the Pro research estimate; no official token figures published, low confidence"
+          "assumptions": "5x the Pro research estimate; no official token figures published, low confidence",
+          "estimateMeta": {
+            "sourceUrl": "https://claude.com/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Higher output limits and priority access at peak times"
       },
@@ -468,7 +579,13 @@
         "estimatedTokenBudget": {
           "description": "20x Pro rolling limit (~240M agentic tokens/mo)",
           "estimatedMillionTokens": 240,
-          "assumptions": "20x the Pro research estimate; no official token figures published, low confidence"
+          "assumptions": "20x the Pro research estimate; no official token figures published, low confidence",
+          "estimateMeta": {
+            "sourceUrl": "https://claude.com/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Maximum plan for full-time agent workflows; billed monthly"
       }
@@ -482,7 +599,9 @@
     ],
     "tosHighlights": [],
     "dataTraining": "Model training opt-out available on individual plans",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "Consumer terms: \"You may not share your Account login information... or make your Account available to anyone else\"; multiple paid accounts are not addressed."
   },
   {
     "id": "commandcode",
@@ -507,7 +626,13 @@
         "estimatedTokenBudget": {
           "description": "$10 compute credits (~15M tokens on open models)",
           "estimatedMillionTokens": 15,
-          "assumptions": "$10.00 / ~$0.65/M blended open-model rate ~= 15M tokens"
+          "assumptions": "$10.00 / ~$0.65/M blended open-model rate ~= 15M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://commandcode.ai/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Processing fee applies; open models + select premium"
       },
@@ -528,7 +653,13 @@
         "estimatedTokenBudget": {
           "description": "$70 compute credits (~70M tokens)",
           "estimatedMillionTokens": 70,
-          "assumptions": "$70.00 / ~$1/M blended ~= 70M tokens; per-model dollar allowances"
+          "assumptions": "$70.00 / ~$1/M blended ~= 70M tokens; per-model dollar allowances",
+          "estimateMeta": {
+            "sourceUrl": "https://commandcode.ai/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "29+ models"
       },
@@ -549,7 +680,13 @@
         "estimatedTokenBudget": {
           "description": "$80 compute credits (~80M tokens)",
           "estimatedMillionTokens": 80,
-          "assumptions": "$80.00 / ~$1/M blended ~= 80M tokens; deals increase effective value"
+          "assumptions": "$80.00 / ~$1/M blended ~= 80M tokens; deals increase effective value",
+          "estimateMeta": {
+            "sourceUrl": "https://commandcode.ai/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Adds all premium models incl Claude; 1M context"
       },
@@ -566,7 +703,13 @@
         "estimatedTokenBudget": {
           "description": "$150 compute credits (~150M tokens)",
           "estimatedMillionTokens": 150,
-          "assumptions": "$150.00 / ~$1/M blended ~= 150M tokens"
+          "assumptions": "$150.00 / ~$1/M blended ~= 150M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://commandcode.ai/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Higher rate limits"
       },
@@ -583,7 +726,13 @@
         "estimatedTokenBudget": {
           "description": "$300 compute credits (~300M tokens)",
           "estimatedMillionTokens": 300,
-          "assumptions": "$300.00 / ~$1/M blended ~= 300M tokens"
+          "assumptions": "$300.00 / ~$1/M blended ~= 300M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://commandcode.ai/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Highest rate limits; every model"
       }
@@ -598,7 +747,9 @@
       "No training on your code; premium models US-hosted (EU on demand)"
     ],
     "dataTraining": "No training on your code",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "prohibited",
+    "stackingPolicyNote": "Terms: \"One account per person. You may not register, operate, or control more than one account... Creating, operating, or controlling multiple accounts is a material breach.\""
   },
   {
     "id": "cursor",
@@ -622,7 +773,13 @@
         "estimatedTokenBudget": {
           "description": "Limited Agent requests (~0.5M tokens/mo)",
           "estimatedMillionTokens": 0.5,
-          "assumptions": "Limited agent requests at ~10-20K tokens/request with prompt-cache discount; exact quota unpublished"
+          "assumptions": "Limited agent requests at ~10-20K tokens/request with prompt-cache discount; exact quota unpublished",
+          "estimateMeta": {
+            "sourceUrl": "https://cursor.com/docs/account/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Free tier; no credit card required"
       },
@@ -649,7 +806,13 @@
         "estimatedTokenBudget": {
           "description": "Pro Cursor-Models + Other-Models pools (~10M tokens/mo)",
           "estimatedMillionTokens": 10,
-          "assumptions": "Pool sized at ~$20 of equivalent API-rate spend; blended ~$2/M with cache discounts ~= 10M tokens"
+          "assumptions": "Pool sized at ~$20 of equivalent API-rate spend; blended ~$2/M with cache discounts ~= 10M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://cursor.com/docs/account/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Pools reset monthly; legacy request-based plans closed to new subs"
       },
@@ -673,7 +836,13 @@
         "estimatedTokenBudget": {
           "description": "Expanded pools (~35M tokens/mo)",
           "estimatedMillionTokens": 35,
-          "assumptions": "~$70 equivalent API-rate pool; blended ~$2/M ~= 35M tokens"
+          "assumptions": "~$70 equivalent API-rate pool; blended ~$2/M ~= 35M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://cursor.com/docs/account/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Recommended for daily agent users"
       },
@@ -696,7 +865,13 @@
         "estimatedTokenBudget": {
           "description": "Maximum pools (~180M tokens/mo)",
           "estimatedMillionTokens": 180,
-          "assumptions": "~$400 equivalent API-rate pool; blended ~$2/M ~= 180M tokens"
+          "assumptions": "~$400 equivalent API-rate pool; blended ~$2/M ~= 180M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://cursor.com/docs/account/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "For daily-driver agent power users"
       }
@@ -714,7 +889,9 @@
       "SOC 2 / ISO 27001 / ISO 42001 certified"
     ],
     "dataTraining": "Opt-out available in Privacy Mode",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "Terms of Service contain no account-sharing or multi-account clause; only resale/lease/lending of the Service is prohibited."
   },
   {
     "id": "deepseek-api",
@@ -737,7 +914,13 @@
         "estimatedTokenBudget": {
           "description": "PAYG ($20 buys ~50M Flash tokens off-peak)",
           "estimatedMillionTokens": 50,
-          "assumptions": "Flash cache-miss ~$0.66/M input (off-peak $0.33) + ~$0.6-1.2/M output ~= $0.40/M blended off-peak; $20 / $0.40 ~= 50M tokens"
+          "assumptions": "Flash cache-miss ~$0.66/M input (off-peak $0.33) + ~$0.6-1.2/M output ~= $0.40/M blended off-peak; $20 / $0.40 ~= 50M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://platform.deepseek.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Cache-hit tokens ~$0.003-$0.022/M (98% off)"
       },
@@ -753,7 +936,13 @@
         "estimatedTokenBudget": {
           "description": "PAYG ($20 buys ~8M Pro tokens off-peak)",
           "estimatedMillionTokens": 8,
-          "assumptions": "V4-Pro ~$1.98/$3.96 peak in/out ~= $2.44 off-peak blended; $20 / $2.44 ~= 8M tokens"
+          "assumptions": "V4-Pro ~$1.98/$3.96 peak in/out ~= $2.44 off-peak blended; $20 / $2.44 ~= 8M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://platform.deepseek.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Frontier reasoning tier"
       }
@@ -768,7 +957,8 @@
       "Servers located in PRC and international cloud regions"
     ],
     "dataTraining": "No",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "unknown"
   },
   {
     "id": "fireworks-ai",
@@ -791,7 +981,13 @@
         "estimatedTokenBudget": {
           "description": "$1 free trial (~1M tokens)",
           "estimatedMillionTokens": 1,
-          "assumptions": "$1.00 / ~$0.50/M blended open-weight rate ~= 2M tokens of trial compute"
+          "assumptions": "$1.00 / ~$0.50/M blended open-weight rate ~= 2M tokens of trial compute",
+          "estimateMeta": {
+            "sourceUrl": "https://fireworks.ai",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Trial tier for function-calling evaluation"
       },
@@ -811,7 +1007,13 @@
         "estimatedTokenBudget": {
           "description": "Serverless PAYG ($20 buys ~35M tokens)",
           "estimatedMillionTokens": 35,
-          "assumptions": "$20 spent @ $0.55/M blended on Llama 70B"
+          "assumptions": "$20 spent @ $0.55/M blended on Llama 70B",
+          "estimateMeta": {
+            "sourceUrl": "https://fireworks.ai",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Serverless PAYG. 6000 RPM with card. Batch 50% off."
       }
@@ -826,7 +1028,8 @@
       "HIPAA and SOC2 compliance available on enterprise plans"
     ],
     "dataTraining": "No",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "unknown"
   },
   {
     "id": "github-copilot",
@@ -849,7 +1052,13 @@
         "estimatedTokenBudget": {
           "description": "Limited free allowance (~0.4M tokens/mo)",
           "estimatedMillionTokens": 0.4,
-          "assumptions": "2,000 completions * ~20 tokens + limited agent credits * $0.01/credit at ~$2/M blended = ~0.4M tokens; low confidence (allowance size not published)"
+          "assumptions": "2,000 completions * ~20 tokens + limited agent credits * $0.01/credit at ~$2/M blended = ~0.4M tokens; low confidence (allowance size not published)",
+          "estimateMeta": {
+            "sourceUrl": "https://github.com/features/copilot/plans",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Basic completions and limited chat; auto model selection only"
       },
@@ -873,7 +1082,13 @@
         "estimatedTokenBudget": {
           "description": "1,500 AI credits/mo (~7.1M tokens)",
           "estimatedMillionTokens": 7.1,
-          "assumptions": "1 credit = $0.01; $15.00 budget / ~$2.10/M blended Sonnet 5 rate (with 75-90% cache discount) ~= 7.1M tokens"
+          "assumptions": "1 credit = $0.01; $15.00 budget / ~$2.10/M blended Sonnet 5 rate (with 75-90% cache discount) ~= 7.1M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://github.com/features/copilot/plans",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Claude Sonnet 4.6 only for annual subscribers; premium models cost multiple credits"
       },
@@ -897,7 +1112,13 @@
         "estimatedTokenBudget": {
           "description": "7,000 AI credits/mo (~33M tokens)",
           "estimatedMillionTokens": 33,
-          "assumptions": "1 credit = $0.01; $70.00 budget / ~$2.10/M blended = ~33M tokens; premium models (Opus/Fable) burn credits ~10x faster"
+          "assumptions": "1 credit = $0.01; $70.00 budget / ~$2.10/M blended = ~33M tokens; premium models (Opus/Fable) burn credits ~10x faster",
+          "estimateMeta": {
+            "sourceUrl": "https://github.com/features/copilot/plans",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Priority premium-model access; agent delegation Pro+ only"
       },
@@ -918,7 +1139,13 @@
         "estimatedTokenBudget": {
           "description": "20,000 AI credits/mo (~95M tokens)",
           "estimatedMillionTokens": 95,
-          "assumptions": "1 credit = $0.01; $200.00 budget / ~$2.10/M blended = ~95M tokens"
+          "assumptions": "1 credit = $0.01; $200.00 budget / ~$2.10/M blended = ~95M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://github.com/features/copilot/plans",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Highest individual AI-credit allowance ($200 compute value)"
       },
@@ -935,7 +1162,13 @@
         "estimatedTokenBudget": {
           "description": "1,900 AI credits/user/mo (~9M tokens/user)",
           "estimatedMillionTokens": 9,
-          "assumptions": "1 credit = $0.01; $19.00/user budget / ~$2.10/M blended = ~9M tokens/user"
+          "assumptions": "1 credit = $0.01; $19.00/user budget / ~$2.10/M blended = ~9M tokens/user",
+          "estimateMeta": {
+            "sourceUrl": "https://github.com/features/copilot/plans",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Centralized management and Copilot policy control"
       },
@@ -952,7 +1185,13 @@
         "estimatedTokenBudget": {
           "description": "3,900 AI credits/user/mo pooled (~19M tokens/user)",
           "estimatedMillionTokens": 19,
-          "assumptions": "1 credit = $0.01; $39.00/user budget / ~$2.10/M blended = ~19M tokens/user"
+          "assumptions": "1 credit = $0.01; $39.00/user budget / ~$2.10/M blended = ~19M tokens/user",
+          "estimateMeta": {
+            "sourceUrl": "https://github.com/features/copilot/plans",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Enterprise Cloud features; unlicensed code-review users draw org credits"
       }
@@ -970,7 +1209,9 @@
       "Claude Fable models retain data under Anthropic EFS rollout (ZDR exemption runs through end of 2026)"
     ],
     "dataTraining": "Opt-out available (individual); excluded on Business/Enterprise",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "GitHub ToS: \"Your login may only be used by one person - i.e., a single login may not be shared by multiple people\"; multiple paid accounts are not addressed (one free account per person)."
   },
   {
     "id": "google-ai-studio",
@@ -994,7 +1235,13 @@
         "estimatedTokenBudget": {
           "description": "1,500 requests/day (~15M tokens/mo)",
           "estimatedMillionTokens": 15,
-          "assumptions": "1,500 requests/day on free rate limits"
+          "assumptions": "1,500 requests/day on free rate limits",
+          "estimateMeta": {
+            "sourceUrl": "https://aistudio.google.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Free tier with generous TPM limits"
       },
@@ -1013,7 +1260,13 @@
         "estimatedTokenBudget": {
           "description": "PAYG up to $250/mo limit (~100M tokens @ $100)",
           "estimatedMillionTokens": 100,
-          "assumptions": "$100 spent on Gemini 3.8 Flash @ $0.75/$3.75"
+          "assumptions": "$100 spent on Gemini 3.8 Flash @ $0.75/$3.75",
+          "estimateMeta": {
+            "sourceUrl": "https://aistudio.google.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Pay-as-you-go billing with $250 credit threshold"
       },
@@ -1032,7 +1285,13 @@
         "estimatedTokenBudget": {
           "description": "PAYG up to $2,000/mo limit (~500M tokens)",
           "estimatedMillionTokens": 500,
-          "assumptions": "High volume developer spend"
+          "assumptions": "High volume developer spend",
+          "estimateMeta": {
+            "sourceUrl": "https://aistudio.google.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Higher throughput tier unlocked after spend verification"
       },
@@ -1051,7 +1310,13 @@
         "estimatedTokenBudget": {
           "description": "Enterprise scale PAYG (~2B tokens)",
           "estimatedMillionTokens": 2000,
-          "assumptions": "Tier3: dedicated capacity negotiations; well beyond 2,000 RPM PAYG tier ceilings"
+          "assumptions": "Tier3: dedicated capacity negotiations; well beyond 2,000 RPM PAYG tier ceilings",
+          "estimateMeta": {
+            "sourceUrl": "https://aistudio.google.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Enterprise capacity with custom quota allocations"
       }
@@ -1066,7 +1331,8 @@
       "Paid tiers do not train and offer Google Cloud enterprise compliance"
     ],
     "dataTraining": "Yes on Free tier; No on Paid tiers",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "unknown"
   },
   {
     "id": "google-antigravity",
@@ -1097,7 +1363,13 @@
         "estimatedTokenBudget": {
           "description": "Weekly-refresh baseline quota (~4M tokens/mo",
           "estimatedMillionTokens": 4,
-          "assumptions": "Research-based estimate: ~150K tokens/agent task * ~25 agent tasks/mo. Official quotas are undocumented and 'correlated with the amount of work done by the agent', so treat as low confidence"
+          "assumptions": "Research-based estimate: ~150K tokens/agent task * ~25 agent tasks/mo. Official quotas are undocumented and 'correlated with the amount of work done by the agent', so treat as low confidence",
+          "estimateMeta": {
+            "sourceUrl": "https://antigravity.google/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Free tier; no purchased AI-credit overage"
       },
@@ -1122,7 +1394,13 @@
         "estimatedTokenBudget": {
           "description": "5-hour refresh quota with weekly caps (~45M tokens/mo)",
           "estimatedMillionTokens": 45,
-          "assumptions": "Research-based estimate: ~150K tokens/agent task * ~300 agent tasks/mo. No official task counts published; low confidence"
+          "assumptions": "Research-based estimate: ~150K tokens/agent task * ~300 agent tasks/mo. No official task counts published; low confidence",
+          "estimateMeta": {
+            "sourceUrl": "https://antigravity.google/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Includes purchased AI-credit overage above baseline quota"
       },
@@ -1147,7 +1425,13 @@
         "estimatedTokenBudget": {
           "description": "Most generous 5-hour + weekly quota (~180M tokens/mo)",
           "estimatedMillionTokens": 180,
-          "assumptions": "Research-based estimate: ~150K tokens/agent task * ~1,200 agent tasks/mo. No official task counts published; low confidence"
+          "assumptions": "Research-based estimate: ~150K tokens/agent task * ~1,200 agent tasks/mo. No official task counts published; low confidence",
+          "estimateMeta": {
+            "sourceUrl": "https://antigravity.google/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Daily-driver tier; docs note access to third-party models (also available on non-Enterprise tiers)"
       },
@@ -1168,7 +1452,13 @@
         "estimatedTokenBudget": {
           "description": "Pay-per-use at actual GEAP consumption rates - no fixed monthly token bundle",
           "estimatedMillionTokens": 0,
-          "assumptions": "Token cost equals actual API consumption; included for tier completeness, not comparable to fixed-quota tiers"
+          "assumptions": "Token cost equals actual API consumption; included for tier completeness, not comparable to fixed-quota tiers",
+          "estimateMeta": {
+            "sourceUrl": "https://antigravity.google/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Included in select Gemini Enterprise app subscriptions (rolling out)"
       }
@@ -1188,7 +1478,9 @@
       "You are solely responsible for AI Agent actions, access grants, and production supervision"
     ],
     "dataTraining": "Interactions used for ML improvement with in-settings opt-out; deletion on request via antigravity-support@google.com",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "Google consumer terms and Generative AI Additional Terms reviewed; no multi-account or account-sharing clause found. Third-party tooling against Antigravity OAuth is banned."
   },
   {
     "id": "groq-api",
@@ -1211,7 +1503,13 @@
         "estimatedTokenBudget": {
           "description": "Per-model rate caps (~2-10M tokens/mo depending on model)",
           "estimatedMillionTokens": 5,
-          "assumptions": "TPD ~500K tokens/day ceiling on high-capacity models ~= 15M/mo ceiling; conservative 5M used for typical models"
+          "assumptions": "TPD ~500K tokens/day ceiling on high-capacity models ~= 15M/mo ceiling; conservative 5M used for typical models",
+          "estimateMeta": {
+            "sourceUrl": "https://console.groq.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Free plan for testing on LPUs"
       },
@@ -1231,7 +1529,13 @@
         "estimatedTokenBudget": {
           "description": "Direct PAYG ($20 buys ~40M tokens)",
           "estimatedMillionTokens": 40,
-          "assumptions": "$20 spent @ ~$0.50/M blended on open-weight serving"
+          "assumptions": "$20 spent @ ~$0.50/M blended on open-weight serving",
+          "estimateMeta": {
+            "sourceUrl": "https://console.groq.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "LPUs achieve 400-800 tokens/sec on served models"
       }
@@ -1246,7 +1550,8 @@
       "No customer data used for model training"
     ],
     "dataTraining": "No",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "unknown"
   },
   {
     "id": "kilo-code",
@@ -1268,7 +1573,13 @@
         "estimatedTokenBudget": {
           "description": "PAYG at provider list rates + 5% gateway fee",
           "estimatedMillionTokens": 0,
-          "assumptions": "Token cost equals provider list price; no fixed monthly bundle"
+          "assumptions": "Token cost equals provider list price; no fixed monthly bundle",
+          "estimateMeta": {
+            "sourceUrl": "https://kilo.ai/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Free for individuals; cloud compute billed separately per-hour"
       },
@@ -1287,7 +1598,13 @@
           "estimatedMillionTokens": 15,
           "midpointEstimate": 30,
           "optimisticEstimate": 45,
-          "assumptions": "Platform-fee plan: no token bundle included; inference billed separately at provider rates + 5% gateway fee (BYOK zero fee). Figures are the fee-equivalent value of $15 at ~$1.00/M (conservative) to ~$0.33/M (optimistic open-model gateway rates) for cross-plan comparison only"
+          "assumptions": "Platform-fee plan: no token bundle included; inference billed separately at provider rates + 5% gateway fee (BYOK zero fee). Figures are the fee-equivalent value of $15 at ~$1.00/M (conservative) to ~$0.33/M (optimistic open-model gateway rates) for cross-plan comparison only",
+          "estimateMeta": {
+            "sourceUrl": "https://kilo.ai/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Security/governance features included"
       },
@@ -1304,7 +1621,13 @@
         "estimatedTokenBudget": {
           "description": "Custom agree - quote-based",
           "estimatedMillionTokens": 0,
-          "assumptions": "No fixed bundle; negotiated enterprise agreement covers negotiated volume"
+          "assumptions": "No fixed bundle; negotiated enterprise agreement covers negotiated volume",
+          "estimateMeta": {
+            "sourceUrl": "https://kilo.ai/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Enterprise support and controls"
       }
@@ -1317,7 +1640,8 @@
     ],
     "tosHighlights": [],
     "dataTraining": "Not published on pricing page",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "unknown"
   },
   {
     "id": "kimi-code",
@@ -1340,7 +1664,13 @@
         "estimatedTokenBudget": {
           "description": "Weekly-refreshed quota (~60M tokens/mo)",
           "estimatedMillionTokens": 60,
-          "assumptions": "~300 req/window at kimi-k2.7-code rates ($0.19 cache/$0.95 input/$4.00 output; ~95% cache hit ~= $0.37/M blended) ~= 60M tokens/mo"
+          "assumptions": "~300 req/window at kimi-k2.7-code rates ($0.19 cache/$0.95 input/$4.00 output; ~95% cache hit ~= $0.37/M blended) ~= 60M tokens/mo",
+          "estimateMeta": {
+            "sourceUrl": "https://www.kimi.com/coding-plan/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Tiers named after musical terms; K3 has low/high/max thinking modes"
       },
@@ -1358,7 +1688,13 @@
         "estimatedTokenBudget": {
           "description": "Higher weekly quota (~150M tokens/mo)",
           "estimatedMillionTokens": 150,
-          "assumptions": "Research estimate scaled above Moderato; HighSpeed triples burn rate"
+          "assumptions": "Research estimate scaled above Moderato; HighSpeed triples burn rate",
+          "estimateMeta": {
+            "sourceUrl": "https://www.kimi.com/coding-plan/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Unlocks HighSpeed model and 1M context"
       },
@@ -1376,7 +1712,13 @@
         "estimatedTokenBudget": {
           "description": "Expansive quota (~400M tokens/mo)",
           "estimatedMillionTokens": 400,
-          "assumptions": "Research estimate; exact credit counts not officially published"
+          "assumptions": "Research estimate; exact credit counts not officially published",
+          "estimateMeta": {
+            "sourceUrl": "https://www.kimi.com/coding-plan/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Heavy daily agentic coding"
       },
@@ -1394,7 +1736,13 @@
         "estimatedTokenBudget": {
           "description": "Highest quota (~800M tokens/mo)",
           "estimatedMillionTokens": 800,
-          "assumptions": "Research estimate; not officially published"
+          "assumptions": "Research estimate; not officially published",
+          "estimateMeta": {
+            "sourceUrl": "https://www.kimi.com/coding-plan/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Max tier"
       }
@@ -1407,7 +1755,9 @@
     ],
     "tosHighlights": [],
     "dataTraining": "Not published on pricing page",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "prohibited",
+    "stackingPolicyNote": "User agreement: \"not register or operate multiple accounts for abusive purposes\" and \"You may not share your account credentials or make your account available to anyone else.\""
   },
   {
     "id": "kiro",
@@ -1432,7 +1782,13 @@
         "estimatedTokenBudget": {
           "description": "50 credits/mo (~1M tokens)",
           "estimatedMillionTokens": 1,
-          "assumptions": "Credits consumed fractionally per request at ~$0.04/credit equivalent on Sonnet blended rate"
+          "assumptions": "Credits consumed fractionally per request at ~$0.04/credit equivalent on Sonnet blended rate",
+          "estimateMeta": {
+            "sourceUrl": "https://kiro.dev/pricing/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Usage cap renews at start of next billing cycle"
       },
@@ -1454,7 +1810,13 @@
         "estimatedTokenBudget": {
           "description": "1,000 credits/mo (~20M tokens on Sonnet 5)",
           "estimatedMillionTokens": 20,
-          "assumptions": "1 credit ~= $0.04; $40 equivalent / ~$2/M blended on Sonnet 5 ~= 20M tokens"
+          "assumptions": "1 credit ~= $0.04; $40 equivalent / ~$2/M blended on Sonnet 5 ~= 20M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://kiro.dev/pricing/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Premium models + open-weight pool; monthly billing cycle"
       },
@@ -1476,7 +1838,13 @@
         "estimatedTokenBudget": {
           "description": "2,000 credits/mo (~40M tokens on Sonnet 5)",
           "estimatedMillionTokens": 40,
-          "assumptions": "2,000 credits ~= $80 equivalent / ~$2/M blended ~= 40M tokens"
+          "assumptions": "2,000 credits ~= $80 equivalent / ~$2/M blended ~= 40M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://kiro.dev/pricing/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Double Pro capacity"
       },
@@ -1496,7 +1864,13 @@
         "estimatedTokenBudget": {
           "description": "5,000 credits/mo (~100M tokens on Sonnet 5)",
           "estimatedMillionTokens": 100,
-          "assumptions": "5,000 credits ~= $200 equivalent / ~$2/M blended ~= 100M tokens"
+          "assumptions": "5,000 credits ~= $200 equivalent / ~$2/M blended ~= 100M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://kiro.dev/pricing/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Heavier agentic usage"
       },
@@ -1516,7 +1890,13 @@
         "estimatedTokenBudget": {
           "description": "10,000 credits/mo (~200M tokens on Sonnet 5)",
           "estimatedMillionTokens": 200,
-          "assumptions": "10,000 credits ~= $400 equivalent / ~$2/M blended ~= 200M tokens"
+          "assumptions": "10,000 credits ~= $400 equivalent / ~$2/M blended ~= 200M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://kiro.dev/pricing/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Maximum capacity tier added Aug 2026"
       }
@@ -1529,7 +1909,9 @@
     ],
     "tosHighlights": [],
     "dataTraining": "Not published on pricing page",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "FAQ: \"subscriptions and usage limits are calculated per individual user\"; sharing is not permitted, multiple paid accounts are not addressed."
   },
   {
     "id": "lovable",
@@ -1551,7 +1933,13 @@
         "estimatedTokenBudget": {
           "description": "30 build credits + monthly grants (~3M tokens/mo)",
           "estimatedMillionTokens": 3,
-          "assumptions": "~30 usable credits/mo * ~100K tokens per build+agent mix"
+          "assumptions": "~30 usable credits/mo * ~100K tokens per build+agent mix",
+          "estimateMeta": {
+            "sourceUrl": "https://lovable.dev/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Daily credits reset at 00:00 UTC; monthly grants on 1st; no rollover"
       },
@@ -1569,7 +1957,13 @@
         "estimatedTokenBudget": {
           "description": "100+ credits/mo (~15M tokens)",
           "estimatedMillionTokens": 15,
-          "assumptions": "~150K tokens per credit across builds, hosting and AI gateway usage; scales to 10,000 credits ($2,250/mo)"
+          "assumptions": "~150K tokens per credit across builds, hosting and AI gateway usage; scales to 10,000 credits ($2,250/mo)",
+          "estimateMeta": {
+            "sourceUrl": "https://lovable.dev/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Unified credit balance covers builds + Cloud hosting + AI gateway on deployed apps"
       },
@@ -1586,7 +1980,13 @@
         "estimatedTokenBudget": {
           "description": "Business minimum tier (~40M tokens/mo at 200+ cr tiers typical)",
           "estimatedMillionTokens": 40,
-          "assumptions": "Same per-credit token estimate as Pro; minimum $50 tier"
+          "assumptions": "Same per-credit token estimate as Pro; minimum $50 tier",
+          "estimateMeta": {
+            "sourceUrl": "https://lovable.dev/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "SSO/central admin at higher Business tiers; Enterprise custom"
       }
@@ -1602,7 +2002,9 @@
       "Free/Pro can opt out per account"
     ],
     "dataTraining": "Excluded by default on Business+; opt-out available on Free/Pro",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "Terms ban sharing credentials; workspaces support unlimited members and are priced by credits, not seats - multiple paid subscriptions on one account are not addressed."
   },
   {
     "id": "meta-model-api",
@@ -1627,7 +2029,13 @@
         "estimatedTokenBudget": {
           "description": "Standard PAYG ($20 buys ~10M tokens)",
           "estimatedMillionTokens": 10,
-          "assumptions": "$20 spent @ $2.00/M blended rate"
+          "assumptions": "$20 spent @ $2.00/M blended rate",
+          "estimateMeta": {
+            "sourceUrl": "https://meta.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Standard $1.25/$4.25/M. Standard 3000 RPM."
       },
@@ -1645,7 +2053,13 @@
         "estimatedTokenBudget": {
           "description": "Contributor PAYG ($20 buys ~150M tokens)",
           "estimatedMillionTokens": 150,
-          "assumptions": "$20 spent @ $0.13/M blended rate with data sharing"
+          "assumptions": "$20 spent @ $0.13/M blended rate with data sharing",
+          "estimateMeta": {
+            "sourceUrl": "https://meta.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Contributor pricing now applies to muse-spark-1.2 family; prompts/ops feed Meta training"
       }
@@ -1659,7 +2073,8 @@
       "Standard tier guarantees zero data retention and strict confidentiality"
     ],
     "dataTraining": "Yes for Contributor tier; No for Standard tier",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "unknown"
   },
   {
     "id": "meta-muse-code",
@@ -1683,7 +2098,13 @@
         "estimatedTokenBudget": {
           "description": "Light usage tier (~5M tokens/mo)",
           "estimatedMillionTokens": 5,
-          "assumptions": "10-50 req/5h on lightweight models"
+          "assumptions": "10-50 req/5h on lightweight models",
+          "estimateMeta": {
+            "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Affordable entry-level coding assistance"
       },
@@ -1703,7 +2124,13 @@
         "estimatedTokenBudget": {
           "description": "Standard developer tier (~20M tokens/mo)",
           "estimatedMillionTokens": 20,
-          "assumptions": "50-250 req/5h across daily workflows"
+          "assumptions": "50-250 req/5h across daily workflows",
+          "estimateMeta": {
+            "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Standard developer tier with generous limits"
       },
@@ -1722,7 +2149,13 @@
         "estimatedTokenBudget": {
           "description": "High throughput agentic (~80M tokens/mo)",
           "estimatedMillionTokens": 80,
-          "assumptions": "High throughput agentic development"
+          "assumptions": "High throughput agentic development",
+          "estimateMeta": {
+            "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Maximum rate limits and concurrent workflows"
       }
@@ -1737,7 +2170,8 @@
       "Standard tier guarantees zero data retention and no model training"
     ],
     "dataTraining": "Contributor tier trains on your data; Standard does not",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "unknown"
   },
   {
     "id": "minimax",
@@ -1760,7 +2194,13 @@
         "estimatedTokenBudget": {
           "description": "5h + weekly windows (~20M tokens/mo est.)",
           "estimatedMillionTokens": 20,
-          "assumptions": "Research estimate; exact credits per window not officially published"
+          "assumptions": "Research estimate; exact credits per window not officially published",
+          "estimateMeta": {
+            "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Personal projects and prototyping"
       },
@@ -1778,7 +2218,13 @@
         "estimatedTokenBudget": {
           "description": "Higher windows (~65M tokens/mo est.)",
           "estimatedMillionTokens": 65,
-          "assumptions": "Research estimate scaled ~3x over Plus tier (agents + multimodal); not officially published"
+          "assumptions": "Research estimate scaled ~3x over Plus tier (agents + multimodal); not officially published",
+          "estimateMeta": {
+            "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Daily coding with agents and multimodal work"
       },
@@ -1796,7 +2242,13 @@
         "estimatedTokenBudget": {
           "description": "Highest windows (~160M tokens/mo est.)",
           "estimatedMillionTokens": 160,
-          "assumptions": "Research estimate scaled ~8x over Plus tier tier; not officially published"
+          "assumptions": "Research estimate scaled ~8x over Plus tier tier; not officially published",
+          "estimateMeta": {
+            "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Heavy agent workflows and extended sessions"
       },
@@ -1813,7 +2265,13 @@
         "estimatedTokenBudget": {
           "description": "$1 per 1,000 credits",
           "estimatedMillionTokens": 0,
-          "assumptions": "Overflow top-up for subscription users"
+          "assumptions": "Overflow top-up for subscription users",
+          "estimateMeta": {
+            "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-token-plan",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Prepaid overflow packages"
       }
@@ -1826,7 +2284,9 @@
     ],
     "tosHighlights": [],
     "dataTraining": "Not published on pricing page",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "App terms: \"your account is personal to you... not to provide any other person with access\"; platform terms: \"the Account should be used solely by you\". Multiple paid accounts are not addressed."
   },
   {
     "id": "mistral-api",
@@ -1848,7 +2308,13 @@
         "estimatedTokenBudget": {
           "description": "$10/mo credits (~10M tokens on select models)",
           "estimatedMillionTokens": 10,
-          "assumptions": "$10.00 / ~$1.00/M blended (Small-tier usage) ~= 10M tokens"
+          "assumptions": "$10.00 / ~$1.00/M blended (Small-tier usage) ~= 10M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://mistral.ai/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Free experiment tier replaced by Studio signup credits"
       },
@@ -1871,7 +2337,13 @@
         "estimatedTokenBudget": {
           "description": "Direct PAYG ($20 buys ~20M Codestral tokens)",
           "estimatedMillionTokens": 20,
-          "assumptions": "$20.00 / ~$1.00/M blended on Codestral"
+          "assumptions": "$20.00 / ~$1.00/M blended on Codestral",
+          "estimateMeta": {
+            "sourceUrl": "https://mistral.ai/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Magistral models folded into Medium 3.5 by lifecycle policy"
       }
@@ -1886,7 +2358,8 @@
       "Zero training on API inputs/outputs"
     ],
     "dataTraining": "No",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "unknown"
   },
   {
     "id": "ollama-cloud",
@@ -1910,7 +2383,13 @@
         "estimatedTokenBudget": {
           "description": "Free cloud tier (~1M tokens/mo)",
           "estimatedMillionTokens": 1,
-          "assumptions": "Free community rate limits"
+          "assumptions": "Free community rate limits",
+          "estimateMeta": {
+            "sourceUrl": "https://ollama.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Free tier for running local and small cloud models"
       },
@@ -1931,7 +2410,13 @@
         "estimatedTokenBudget": {
           "description": "$60 compute credits (~60M tokens/mo)",
           "estimatedMillionTokens": 60,
-          "assumptions": "$60 monthly cloud credit pool"
+          "assumptions": "$60 monthly cloud credit pool",
+          "estimateMeta": {
+            "sourceUrl": "https://ollama.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Pro: $60 credits/mo, 3 concurrent. 3x compute value."
       },
@@ -1951,7 +2436,13 @@
         "estimatedTokenBudget": {
           "description": "$300 compute credits (~300M tokens/mo)",
           "estimatedMillionTokens": 300,
-          "assumptions": "$300 monthly cloud credit pool"
+          "assumptions": "$300 monthly cloud credit pool",
+          "estimateMeta": {
+            "sourceUrl": "https://ollama.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Max: $300, 10 concurrent. Priority routing."
       },
@@ -1969,7 +2460,13 @@
         "estimatedTokenBudget": {
           "description": "$1,600 compute credits (~1.6B tokens/mo)",
           "estimatedMillionTokens": 1600,
-          "assumptions": "$1,600 monthly credit pool"
+          "assumptions": "$1,600 monthly credit pool",
+          "estimateMeta": {
+            "sourceUrl": "https://ollama.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Dedicated private pods for software development teams"
       }
@@ -1983,7 +2480,9 @@
       "Complete open-source local runtime"
     ],
     "dataTraining": "No",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "prohibited",
+    "stackingPolicyNote": "Pricing FAQ: \"Can I have multiple Ollama accounts? No. Ollama is one account per person.\""
   },
   {
     "id": "openai-api",
@@ -2012,7 +2511,13 @@
         "estimatedTokenBudget": {
           "description": "Direct API PAYG ($20 buys ~2M Astra or ~100M Luna)",
           "estimatedMillionTokens": 10,
-          "assumptions": "Blended rate across Sol ($2/M in, $10/M out)"
+          "assumptions": "Blended rate across Sol ($2/M in, $10/M out)",
+          "estimateMeta": {
+            "sourceUrl": "https://platform.openai.com",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Batch 50% off. Pay-as-you-go direct API with tiered rate limits"
       }
@@ -2027,7 +2532,9 @@
       "Enterprise IP indemnity included for standard outputs"
     ],
     "dataTraining": "No (Zero Data Retention for API)",
-    "ipIndemnity": true
+    "ipIndemnity": true,
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "Terms ban sharing account credentials; multiple paid accounts are not addressed."
   },
   {
     "id": "openai-codex",
@@ -2048,7 +2555,13 @@
         "estimatedTokenBudget": {
           "description": "Limited Codex (~0.5M tokens/mo)",
           "estimatedMillionTokens": 0.5,
-          "assumptions": "Occasional Codex tasks at ~150K tokens/task; exact limit not published"
+          "assumptions": "Occasional Codex tasks at ~150K tokens/task; exact limit not published",
+          "estimateMeta": {
+            "sourceUrl": "https://openai.com/chatgpt/pricing/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Unlimited GPT-5.6 Luna text chats included"
       },
@@ -2066,7 +2579,13 @@
         "estimatedTokenBudget": {
           "description": "Light coding assistance (~2.5M tokens/mo)",
           "estimatedMillionTokens": 2.5,
-          "assumptions": "Limited tasks at ~150K tokens/task; $8 price commonly cited but the scraped page did not render USD amounts"
+          "assumptions": "Limited tasks at ~150K tokens/task; $8 price commonly cited but the scraped page did not render USD amounts",
+          "estimateMeta": {
+            "sourceUrl": "https://openai.com/chatgpt/pricing/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Entry tier; ads possible"
       },
@@ -2085,7 +2604,13 @@
         "estimatedTokenBudget": {
           "description": "Expanded Codex (~12M tokens/mo)",
           "estimatedMillionTokens": 12,
-          "assumptions": "Research estimate; no official numeric task limits"
+          "assumptions": "Research estimate; no official numeric task limits",
+          "estimateMeta": {
+            "sourceUrl": "https://openai.com/chatgpt/pricing/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "More uploads/projects"
       },
@@ -2102,7 +2627,13 @@
         "estimatedTokenBudget": {
           "description": "5x Plus (~60M tokens/mo)",
           "estimatedMillionTokens": 60,
-          "assumptions": "5x the Plus research estimate"
+          "assumptions": "5x the Plus research estimate",
+          "estimateMeta": {
+            "sourceUrl": "https://openai.com/chatgpt/pricing/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Intermediate tier; price unconfirmed (JS-hidden on page)"
       },
@@ -2120,7 +2651,13 @@
         "estimatedTokenBudget": {
           "description": "Maximum Codex (~250M tokens/mo)",
           "estimatedMillionTokens": 250,
-          "assumptions": "Research estimate at max tier"
+          "assumptions": "Research estimate at max tier",
+          "estimateMeta": {
+            "sourceUrl": "https://openai.com/chatgpt/pricing/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Pro tier per official page; USD not rendered in scrape (commonly cited $200)"
       }
@@ -2135,7 +2672,9 @@
       "Training opt-out available on all tiers"
     ],
     "dataTraining": "Used for training; opt-out available",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "Terms ban sharing account credentials; multiple paid accounts are not addressed."
   },
   {
     "id": "opencode",
@@ -2156,7 +2695,13 @@
         "estimatedTokenBudget": {
           "description": "Token cost = your provider's rates",
           "estimatedMillionTokens": 0,
-          "assumptions": "No fixed bundle; you pay your API provider directly"
+          "assumptions": "No fixed bundle; you pay your API provider directly",
+          "estimateMeta": {
+            "sourceUrl": "https://opencode.ai/zen",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "opencode.ai/pricing no longer exists (404)"
       },
@@ -2183,7 +2728,13 @@
           "estimatedMillionTokens": 10,
           "midpointEstimate": 20,
           "optimisticEstimate": 40,
-          "assumptions": "$20 minimum balance at zero markup buys $20 of inference at curated gateway rates; conservative 10M at ~$2.00/M frontier blend, midpoint 20M at ~$1.00/M, optimistic 40M at ~$0.50/M open-model rates; excludes the $1.23 card fee"
+          "assumptions": "$20 minimum balance at zero markup buys $20 of inference at curated gateway rates; conservative 10M at ~$2.00/M frontier blend, midpoint 20M at ~$1.00/M, optimistic 40M at ~$0.50/M open-model rates; excludes the $1.23 card fee",
+          "estimateMeta": {
+            "sourceUrl": "https://opencode.ai/zen",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "US-hosted, zero retention"
       },
@@ -2203,7 +2754,13 @@
         "estimatedTokenBudget": {
           "description": "Open-model subscription (~30M tokens/mo est.)",
           "estimatedMillionTokens": 30,
-          "assumptions": "$10 / ~$0.3/M blended open-model rate ~= 30M tokens; exact cap not published"
+          "assumptions": "$10 / ~$0.3/M blended open-model rate ~= 30M tokens; exact cap not published",
+          "estimateMeta": {
+            "sourceUrl": "https://opencode.ai/zen",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "New Sept 2026 low-cost subscription tier"
       }
@@ -2216,7 +2773,9 @@
     ],
     "tosHighlights": [],
     "dataTraining": "Zero-retention; no training on Zen",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "prohibited",
+    "stackingPolicyNote": "Terms of Service: prohibits users who \"create, maintain, or use multiple accounts to circumvent usage limits, access restrictions, billing obligations... or any other restriction or policy.\""
   },
   {
     "id": "openrouter",
@@ -2238,7 +2797,13 @@
         "estimatedTokenBudget": {
           "description": "50-1,000 requests/day on free models (~2M tokens/mo)",
           "estimatedMillionTokens": 2,
-          "assumptions": "Free models with rate caps"
+          "assumptions": "Free models with rate caps",
+          "estimateMeta": {
+            "sourceUrl": "https://openrouter.ai",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Free community models with rate limiting"
       },
@@ -2256,7 +2821,13 @@
         "estimatedTokenBudget": {
           "description": "Wholesale PAYG ($10 buys ~5M–66M tokens depending on model)",
           "estimatedMillionTokens": 20,
-          "assumptions": "Average blended cost of $1.00/M tokens"
+          "assumptions": "Average blended cost of $1.00/M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://openrouter.ai",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Universal API aggregator with unified billing and automatic failover"
       }
@@ -2271,7 +2842,9 @@
       "Zero data retention options filterable in catalog"
     ],
     "dataTraining": "No (OpenRouter does not train; providers vary)",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "prohibited",
+    "stackingPolicyNote": "Terms: \"create multiple accounts as a single user, for purposes of bypassing or circumventing use limits... or for any other reason\" is prohibited."
   },
   {
     "id": "replit",
@@ -2295,7 +2868,13 @@
         "estimatedTokenBudget": {
           "description": "$20 model-credit pool + 30 agent-hours (~24M tokens)",
           "estimatedMillionTokens": 24,
-          "assumptions": "$20.00 / ~$0.83/M blended on mixed frontier models ~= 24M tokens"
+          "assumptions": "$20.00 / ~$0.83/M blended on mixed frontier models ~= 24M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://replit.com/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Annual billing drops to $18/mo; unlimited workspaces"
       },
@@ -2313,7 +2892,13 @@
         "estimatedTokenBudget": {
           "description": "$100 model-credit pool (~120M tokens)",
           "estimatedMillionTokens": 120,
-          "assumptions": "$100.00 / ~$0.83/M blended ~= 120M tokens"
+          "assumptions": "$100.00 / ~$0.83/M blended ~= 120M tokens",
+          "estimateMeta": {
+            "sourceUrl": "https://replit.com/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "10 parallel agents; DB rollback 28 days"
       },
@@ -2329,7 +2914,13 @@
         "estimatedTokenBudget": {
           "description": "Custom contract",
           "estimatedMillionTokens": 0,
-          "assumptions": "No fixed bundle; negotiated enterprise agreement covers negotiated volume"
+          "assumptions": "No fixed bundle; negotiated enterprise agreement covers negotiated volume",
+          "estimateMeta": {
+            "sourceUrl": "https://replit.com/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Advanced privacy controls"
       }
@@ -2342,7 +2933,9 @@
     ],
     "tosHighlights": [],
     "dataTraining": "Not published on pricing page",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "prohibited",
+    "stackingPolicyNote": "Terms: \"Creating accounts with automation or registering multiple accounts\" is prohibited."
   },
   {
     "id": "tabnine",
@@ -2367,7 +2960,13 @@
           "estimatedMillionTokens": 19.5,
           "midpointEstimate": 39,
           "optimisticEstimate": 78,
-          "assumptions": "Platform-fee plan: no token bundle included; Tabnine-provided LLM access is billed at provider list price + 5% handling fee, BYO LLM endpoint is unlimited. Figures are fee-equivalent at ~$2.00/M (conservative), ~$1.00/M (midpoint) and ~$0.50/M (optimistic) for cross-plan comparison only"
+          "assumptions": "Platform-fee plan: no token bundle included; Tabnine-provided LLM access is billed at provider list price + 5% handling fee, BYO LLM endpoint is unlimited. Figures are fee-equivalent at ~$2.00/M (conservative), ~$1.00/M (midpoint) and ~$0.50/M (optimistic) for cross-plan comparison only",
+          "estimateMeta": {
+            "sourceUrl": "https://www.tabnine.com/pricing/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Completions + grounded chat in IDEs; Jira integration; SOC 2/ISO 27001"
       },
@@ -2387,7 +2986,13 @@
           "estimatedMillionTokens": 29.5,
           "midpointEstimate": 59,
           "optimisticEstimate": 118,
-          "assumptions": "Platform-fee plan: no token bundle included; same LLM economics as Code Assistant. Figures are fee-equivalent at ~$2.00/M / ~$1.00/M / ~$0.50/M for cross-plan comparison only"
+          "assumptions": "Platform-fee plan: no token bundle included; same LLM economics as Code Assistant. Figures are fee-equivalent at ~$2.00/M / ~$1.00/M / ~$0.50/M for cross-plan comparison only",
+          "estimateMeta": {
+            "sourceUrl": "https://www.tabnine.com/pricing/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Adds autonomous agents, Coaching Guidelines, Jira/Confluence/database MCP access"
       },
@@ -2404,7 +3009,13 @@
         "estimatedTokenBudget": {
           "description": "Custom volume contract",
           "estimatedMillionTokens": 0,
-          "assumptions": "Negotiated enterprise agreement"
+          "assumptions": "Negotiated enterprise agreement",
+          "estimateMeta": {
+            "sourceUrl": "https://www.tabnine.com/pricing/",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Headless agent add-on priced separately at tabnine.com/headless-agent-pricing"
       }
@@ -2420,7 +3031,8 @@
       "License-safe usage with provenance and attribution reporting"
     ],
     "dataTraining": "Training never occurs on customer code",
-    "ipIndemnity": true
+    "ipIndemnity": true,
+    "stackingPolicy": "unknown"
   },
   {
     "id": "together-ai",
@@ -2445,7 +3057,13 @@
         "estimatedTokenBudget": {
           "description": "$5 trial credits (~5M tokens)",
           "estimatedMillionTokens": 5,
-          "assumptions": "$5 trial credits on open source models"
+          "assumptions": "$5 trial credits on open source models",
+          "estimateMeta": {
+            "sourceUrl": "https://together.ai",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Trial credit package for open source model testing"
       },
@@ -2464,7 +3082,13 @@
         "estimatedTokenBudget": {
           "description": "PAYG ($20 buys ~30M tokens)",
           "estimatedMillionTokens": 30,
-          "assumptions": "$20 spent @ $0.65/M blended"
+          "assumptions": "$20 spent @ $0.65/M blended",
+          "estimateMeta": {
+            "sourceUrl": "https://together.ai",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Tiered limits at $25/$50/$100/$250 spend. Batch 50% off."
       }
@@ -2479,7 +3103,9 @@
       "SOC2 Type II certified"
     ],
     "dataTraining": "No",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "Terms of Service reviewed; no multiple-account, sharing or seat clause found."
   },
   {
     "id": "windsurf",
@@ -2505,7 +3131,13 @@
         "estimatedTokenBudget": {
           "description": "Light agent quota (~2M tokens/mo)",
           "estimatedMillionTokens": 2,
-          "assumptions": "Usage allowance refreshes daily+weekly; size not published; research estimate at ~150K tokens/agent task, low confidence"
+          "assumptions": "Usage allowance refreshes daily+weekly; size not published; research estimate at ~150K tokens/agent task, low confidence",
+          "estimateMeta": {
+            "sourceUrl": "https://windsurf.com/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Unlimited inline edits and Tab completions"
       },
@@ -2527,7 +3159,13 @@
         "estimatedTokenBudget": {
           "description": "Pro daily+weekly quota (~45M tokens/mo)",
           "estimatedMillionTokens": 45,
-          "assumptions": "Research estimate: ~150K tokens/agent task * ~300 agent tasks/mo; official quotas unpublished, low confidence"
+          "assumptions": "Research estimate: ~150K tokens/agent task * ~300 agent tasks/mo; official quotas unpublished, low confidence",
+          "estimateMeta": {
+            "sourceUrl": "https://windsurf.com/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Frontier OpenAI/Claude/Gemini access + open-source models; Devin Cloud included"
       },
@@ -2549,7 +3187,13 @@
         "estimatedTokenBudget": {
           "description": "Max daily+weekly quota (~225M tokens/mo)",
           "estimatedMillionTokens": 225,
-          "assumptions": "Research estimate scaled from Pro tier (10x presumed headroom), low confidence"
+          "assumptions": "Research estimate scaled from Pro tier (10x presumed headroom), low confidence",
+          "estimateMeta": {
+            "sourceUrl": "https://windsurf.com/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Power tier for daily-driver agent workflows"
       },
@@ -2571,7 +3215,13 @@
         "estimatedTokenBudget": {
           "description": "Pro-level quota per full user seat (~45M tokens/mo/seat)",
           "estimatedMillionTokens": 45,
-          "assumptions": "Per-seat quota mirrors Pro tier; additional seats $40/mo each"
+          "assumptions": "Per-seat quota mirrors Pro tier; additional seats $40/mo each",
+          "estimateMeta": {
+            "sourceUrl": "https://windsurf.com/pricing",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Includes Devin Desktop, sharing, centralized billing, admin analytics"
       }
@@ -2587,7 +3237,9 @@
       "Concurrent sessions: up to 10 on Free/Pro, unlimited on Max/Teams"
     ],
     "dataTraining": "Not published on pricing page",
-    "ipIndemnity": false
+    "ipIndemnity": false,
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "Acceptable Use Policy bans \"sharing credentials\"; multiple paid accounts are not addressed."
   },
   {
     "id": "z-ai",
@@ -2618,7 +3270,13 @@
           "estimatedMillionTokens": 300,
           "midpointEstimate": 400,
           "optimisticEstimate": 600,
-          "assumptions": "48M–97M tokens/week at 95% cache hit rate * 4 weeks (~200M–600M tokens/mo depending on off-peak usage)"
+          "assumptions": "48M–97M tokens/week at 95% cache hit rate * 4 weeks (~200M–600M tokens/mo depending on off-peak usage)",
+          "estimateMeta": {
+            "sourceUrl": "https://z.ai/subscribe",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Entry tier for individual developers. Up to 92% savings vs pay-as-you-go"
       },
@@ -2644,7 +3302,13 @@
           "estimatedMillionTokens": 1500,
           "midpointEstimate": 2100,
           "optimisticEstimate": 3000,
-          "assumptions": "290M–580M tokens/week at 95% cache hit rate * 4 weeks (~1.2B–3B tokens/mo)"
+          "assumptions": "290M–580M tokens/week at 95% cache hit rate * 4 weeks (~1.2B–3B tokens/mo)",
+          "estimateMeta": {
+            "sourceUrl": "https://z.ai/subscribe",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "5x Lite usage capacity for full-time engineers and agent loops"
       },
@@ -2670,7 +3334,13 @@
           "estimatedMillionTokens": 4000,
           "midpointEstimate": 5500,
           "optimisticEstimate": 8000,
-          "assumptions": "676M–1.35B tokens/week at 95% cache hit rate * 4 weeks (~3B–8B tokens/mo)"
+          "assumptions": "676M–1.35B tokens/week at 95% cache hit rate * 4 weeks (~3B–8B tokens/mo)",
+          "estimateMeta": {
+            "sourceUrl": "https://z.ai/subscribe",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "20x Lite usage capacity for power developers and heavy autonomous agents"
       },
@@ -2694,7 +3364,13 @@
           "estimatedMillionTokens": 1600,
           "midpointEstimate": 1920,
           "optimisticEstimate": 2552,
-          "assumptions": "319M–638M tokens/week * 4 weeks per seat (~1.3B–2.6B tokens/mo/seat)"
+          "assumptions": "319M–638M tokens/week * 4 weeks per seat (~1.3B–2.6B tokens/mo/seat)",
+          "estimateMeta": {
+            "sourceUrl": "https://z.ai/subscribe",
+            "sourceType": "research",
+            "confidence": "low",
+            "verifiedAt": "2026-09-18"
+          }
         },
         "notes": "Enterprise team workspace with Zero Data Retention and seat controls"
       }
@@ -2711,6 +3387,8 @@
       "Team Plan guarantees code and conversations are excluded from model training by default"
     ],
     "dataTraining": "Excluded from model training on Team plans; standard cloud terms for personal plans",
-    "ipIndemnity": "Enterprise Team contracts only"
+    "ipIndemnity": "Enterprise Team contracts only",
+    "stackingPolicy": "prohibited",
+    "stackingPolicyNote": "Subscription terms: benefits are \"exclusive to the subscriber\"; \"Account sharing or multi-user access is prohibited\" and the licence is tied to a single natural person with no aggregation/proxying."
   }
 ]

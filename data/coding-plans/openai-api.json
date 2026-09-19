@@ -25,7 +25,13 @@
       "estimatedTokenBudget": {
         "description": "Direct API PAYG ($20 buys ~2M Astra or ~100M Luna)",
         "estimatedMillionTokens": 10,
-        "assumptions": "Blended rate across Sol ($2/M in, $10/M out)"
+        "assumptions": "Blended rate across Sol ($2/M in, $10/M out)",
+        "estimateMeta": {
+          "sourceUrl": "https://platform.openai.com",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Batch 50% off. Pay-as-you-go direct API with tiered rate limits"
     }
@@ -40,5 +46,7 @@
     "Enterprise IP indemnity included for standard outputs"
   ],
   "dataTraining": "No (Zero Data Retention for API)",
-  "ipIndemnity": true
+  "ipIndemnity": true,
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "Terms ban sharing account credentials; multiple paid accounts are not addressed."
 }

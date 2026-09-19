@@ -22,7 +22,13 @@
       "estimatedTokenBudget": {
         "description": "Direct BYOK API billing (0% tool markup)",
         "estimatedMillionTokens": 20,
-        "assumptions": "Depends entirely on connected API key spend ($20 buys ~10M–130M tokens)"
+        "assumptions": "Depends entirely on connected API key spend ($20 buys ~10M–130M tokens)",
+        "estimateMeta": {
+          "sourceUrl": "https://aider.chat",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Open-source CLI pair programmer. Bring your own API key"
     }
@@ -37,5 +43,6 @@
     "TOS and privacy governed solely by your LLM API provider"
   ],
   "dataTraining": "Depends on API provider chosen",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "unknown"
 }

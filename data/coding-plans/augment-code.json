@@ -21,7 +21,13 @@
       "estimatedTokenBudget": {
         "description": "$20 usage pool with 40% LLM fee (~8M tokens)",
         "estimatedMillionTokens": 8,
-        "assumptions": "$20.00 / (blended $2/M provider rate * 1.4) ~= 8M tokens on frontier models"
+        "assumptions": "$20.00 / (blended $2/M provider rate * 1.4) ~= 8M tokens on frontier models",
+        "estimateMeta": {
+          "sourceUrl": "https://www.augmentcode.com/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Restructured from per-seat message plans to pooled usage"
     },
@@ -39,7 +45,13 @@
       "estimatedTokenBudget": {
         "description": "$100 usage pool (~50M tokens)",
         "estimatedMillionTokens": 50,
-        "assumptions": "$100.00 / (blended $2/M * 1.4) ~= 50M tokens"
+        "assumptions": "$100.00 / (blended $2/M * 1.4) ~= 50M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://www.augmentcode.com/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Same 40% LLM service fee structure"
     },
@@ -57,7 +69,13 @@
       "estimatedTokenBudget": {
         "description": "Custom usage contract",
         "estimatedMillionTokens": 0,
-        "assumptions": "No fixed bundle; negotiated enterprise agreement covers negotiated volume"
+        "assumptions": "No fixed bundle; negotiated enterprise agreement covers negotiated volume",
+        "estimateMeta": {
+          "sourceUrl": "https://www.augmentcode.com/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Volume-based"
     }
@@ -71,5 +89,7 @@
     "No AI training allowed under Commercial Terms"
   ],
   "dataTraining": "No AI training on any plan",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "Terms ban sharing credentials across users (\"unique usernames and passwords cannot be shared or used by more than one individual Authorized User\") but do not address multiple paid accounts."
 }

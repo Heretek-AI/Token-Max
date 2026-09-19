@@ -22,7 +22,13 @@
       "estimatedTokenBudget": {
         "description": "Light agent quota (~2M tokens/mo)",
         "estimatedMillionTokens": 2,
-        "assumptions": "Usage allowance refreshes daily+weekly; size not published; research estimate at ~150K tokens/agent task, low confidence"
+        "assumptions": "Usage allowance refreshes daily+weekly; size not published; research estimate at ~150K tokens/agent task, low confidence",
+        "estimateMeta": {
+          "sourceUrl": "https://windsurf.com/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Unlimited inline edits and Tab completions"
     },
@@ -44,7 +50,13 @@
       "estimatedTokenBudget": {
         "description": "Pro daily+weekly quota (~45M tokens/mo)",
         "estimatedMillionTokens": 45,
-        "assumptions": "Research estimate: ~150K tokens/agent task * ~300 agent tasks/mo; official quotas unpublished, low confidence"
+        "assumptions": "Research estimate: ~150K tokens/agent task * ~300 agent tasks/mo; official quotas unpublished, low confidence",
+        "estimateMeta": {
+          "sourceUrl": "https://windsurf.com/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Frontier OpenAI/Claude/Gemini access + open-source models; Devin Cloud included"
     },
@@ -66,7 +78,13 @@
       "estimatedTokenBudget": {
         "description": "Max daily+weekly quota (~225M tokens/mo)",
         "estimatedMillionTokens": 225,
-        "assumptions": "Research estimate scaled from Pro tier (10x presumed headroom), low confidence"
+        "assumptions": "Research estimate scaled from Pro tier (10x presumed headroom), low confidence",
+        "estimateMeta": {
+          "sourceUrl": "https://windsurf.com/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Power tier for daily-driver agent workflows"
     },
@@ -88,7 +106,13 @@
       "estimatedTokenBudget": {
         "description": "Pro-level quota per full user seat (~45M tokens/mo/seat)",
         "estimatedMillionTokens": 45,
-        "assumptions": "Per-seat quota mirrors Pro tier; additional seats $40/mo each"
+        "assumptions": "Per-seat quota mirrors Pro tier; additional seats $40/mo each",
+        "estimateMeta": {
+          "sourceUrl": "https://windsurf.com/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Includes Devin Desktop, sharing, centralized billing, admin analytics"
     }
@@ -104,5 +128,7 @@
     "Concurrent sessions: up to 10 on Free/Pro, unlimited on Max/Teams"
   ],
   "dataTraining": "Not published on pricing page",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "Acceptable Use Policy bans \"sharing credentials\"; multiple paid accounts are not addressed."
 }

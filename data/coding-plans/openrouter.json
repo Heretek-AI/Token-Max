@@ -18,7 +18,13 @@
       "estimatedTokenBudget": {
         "description": "50-1,000 requests/day on free models (~2M tokens/mo)",
         "estimatedMillionTokens": 2,
-        "assumptions": "Free models with rate caps"
+        "assumptions": "Free models with rate caps",
+        "estimateMeta": {
+          "sourceUrl": "https://openrouter.ai",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Free community models with rate limiting"
     },
@@ -36,7 +42,13 @@
       "estimatedTokenBudget": {
         "description": "Wholesale PAYG ($10 buys ~5M–66M tokens depending on model)",
         "estimatedMillionTokens": 20,
-        "assumptions": "Average blended cost of $1.00/M tokens"
+        "assumptions": "Average blended cost of $1.00/M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://openrouter.ai",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Universal API aggregator with unified billing and automatic failover"
     }
@@ -51,5 +63,7 @@
     "Zero data retention options filterable in catalog"
   ],
   "dataTraining": "No (OpenRouter does not train; providers vary)",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "prohibited",
+  "stackingPolicyNote": "Terms: \"create multiple accounts as a single user, for purposes of bypassing or circumventing use limits... or for any other reason\" is prohibited."
 }

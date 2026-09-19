@@ -18,7 +18,13 @@
       "estimatedTokenBudget": {
         "description": "$10/mo credits (~10M tokens on select models)",
         "estimatedMillionTokens": 10,
-        "assumptions": "$10.00 / ~$1.00/M blended (Small-tier usage) ~= 10M tokens"
+        "assumptions": "$10.00 / ~$1.00/M blended (Small-tier usage) ~= 10M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://mistral.ai/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Free experiment tier replaced by Studio signup credits"
     },
@@ -41,7 +47,13 @@
       "estimatedTokenBudget": {
         "description": "Direct PAYG ($20 buys ~20M Codestral tokens)",
         "estimatedMillionTokens": 20,
-        "assumptions": "$20.00 / ~$1.00/M blended on Codestral"
+        "assumptions": "$20.00 / ~$1.00/M blended on Codestral",
+        "estimateMeta": {
+          "sourceUrl": "https://mistral.ai/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Magistral models folded into Medium 3.5 by lifecycle policy"
     }
@@ -56,5 +68,6 @@
     "Zero training on API inputs/outputs"
   ],
   "dataTraining": "No",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "unknown"
 }

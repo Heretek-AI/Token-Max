@@ -27,7 +27,13 @@
       "estimatedTokenBudget": {
         "description": "Weekly-refresh baseline quota (~4M tokens/mo",
         "estimatedMillionTokens": 4,
-        "assumptions": "Research-based estimate: ~150K tokens/agent task * ~25 agent tasks/mo. Official quotas are undocumented and 'correlated with the amount of work done by the agent', so treat as low confidence"
+        "assumptions": "Research-based estimate: ~150K tokens/agent task * ~25 agent tasks/mo. Official quotas are undocumented and 'correlated with the amount of work done by the agent', so treat as low confidence",
+        "estimateMeta": {
+          "sourceUrl": "https://antigravity.google/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Free tier; no purchased AI-credit overage"
     },
@@ -52,7 +58,13 @@
       "estimatedTokenBudget": {
         "description": "5-hour refresh quota with weekly caps (~45M tokens/mo)",
         "estimatedMillionTokens": 45,
-        "assumptions": "Research-based estimate: ~150K tokens/agent task * ~300 agent tasks/mo. No official task counts published; low confidence"
+        "assumptions": "Research-based estimate: ~150K tokens/agent task * ~300 agent tasks/mo. No official task counts published; low confidence",
+        "estimateMeta": {
+          "sourceUrl": "https://antigravity.google/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Includes purchased AI-credit overage above baseline quota"
     },
@@ -77,7 +89,13 @@
       "estimatedTokenBudget": {
         "description": "Most generous 5-hour + weekly quota (~180M tokens/mo)",
         "estimatedMillionTokens": 180,
-        "assumptions": "Research-based estimate: ~150K tokens/agent task * ~1,200 agent tasks/mo. No official task counts published; low confidence"
+        "assumptions": "Research-based estimate: ~150K tokens/agent task * ~1,200 agent tasks/mo. No official task counts published; low confidence",
+        "estimateMeta": {
+          "sourceUrl": "https://antigravity.google/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Daily-driver tier; docs note access to third-party models (also available on non-Enterprise tiers)"
     },
@@ -98,7 +116,13 @@
       "estimatedTokenBudget": {
         "description": "Pay-per-use at actual GEAP consumption rates - no fixed monthly token bundle",
         "estimatedMillionTokens": 0,
-        "assumptions": "Token cost equals actual API consumption; included for tier completeness, not comparable to fixed-quota tiers"
+        "assumptions": "Token cost equals actual API consumption; included for tier completeness, not comparable to fixed-quota tiers",
+        "estimateMeta": {
+          "sourceUrl": "https://antigravity.google/pricing",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Included in select Gemini Enterprise app subscriptions (rolling out)"
     }
@@ -118,5 +142,7 @@
     "You are solely responsible for AI Agent actions, access grants, and production supervision"
   ],
   "dataTraining": "Interactions used for ML improvement with in-settings opt-out; deletion on request via antigravity-support@google.com",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "Google consumer terms and Generative AI Additional Terms reviewed; no multi-account or account-sharing clause found. Third-party tooling against Antigravity OAuth is banned."
 }

@@ -19,7 +19,13 @@
       "estimatedTokenBudget": {
         "description": "Weekly-refreshed quota (~60M tokens/mo)",
         "estimatedMillionTokens": 60,
-        "assumptions": "~300 req/window at kimi-k2.7-code rates ($0.19 cache/$0.95 input/$4.00 output; ~95% cache hit ~= $0.37/M blended) ~= 60M tokens/mo"
+        "assumptions": "~300 req/window at kimi-k2.7-code rates ($0.19 cache/$0.95 input/$4.00 output; ~95% cache hit ~= $0.37/M blended) ~= 60M tokens/mo",
+        "estimateMeta": {
+          "sourceUrl": "https://www.kimi.com/coding-plan/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Tiers named after musical terms; K3 has low/high/max thinking modes"
     },
@@ -37,7 +43,13 @@
       "estimatedTokenBudget": {
         "description": "Higher weekly quota (~150M tokens/mo)",
         "estimatedMillionTokens": 150,
-        "assumptions": "Research estimate scaled above Moderato; HighSpeed triples burn rate"
+        "assumptions": "Research estimate scaled above Moderato; HighSpeed triples burn rate",
+        "estimateMeta": {
+          "sourceUrl": "https://www.kimi.com/coding-plan/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Unlocks HighSpeed model and 1M context"
     },
@@ -55,7 +67,13 @@
       "estimatedTokenBudget": {
         "description": "Expansive quota (~400M tokens/mo)",
         "estimatedMillionTokens": 400,
-        "assumptions": "Research estimate; exact credit counts not officially published"
+        "assumptions": "Research estimate; exact credit counts not officially published",
+        "estimateMeta": {
+          "sourceUrl": "https://www.kimi.com/coding-plan/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Heavy daily agentic coding"
     },
@@ -73,7 +91,13 @@
       "estimatedTokenBudget": {
         "description": "Highest quota (~800M tokens/mo)",
         "estimatedMillionTokens": 800,
-        "assumptions": "Research estimate; not officially published"
+        "assumptions": "Research estimate; not officially published",
+        "estimateMeta": {
+          "sourceUrl": "https://www.kimi.com/coding-plan/",
+          "sourceType": "research",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18"
+        }
       },
       "notes": "Max tier"
     }
@@ -86,5 +110,7 @@
   ],
   "tosHighlights": [],
   "dataTraining": "Not published on pricing page",
-  "ipIndemnity": false
+  "ipIndemnity": false,
+  "stackingPolicy": "prohibited",
+  "stackingPolicyNote": "User agreement: \"not register or operate multiple accounts for abusive purposes\" and \"You may not share your account credentials or make your account available to anyone else.\""
 }
