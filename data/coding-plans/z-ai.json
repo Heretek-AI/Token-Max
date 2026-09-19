@@ -1,0 +1,116 @@
+{
+  "id": "z-ai",
+  "name": "Z.ai GLM Coding Plan",
+  "category": "api-provider",
+  "url": "https://z.ai/subscribe",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Lite",
+      "monthlyPrice": 18,
+      "annualPrice": 151,
+      "limits": {
+        "fiveHourCredits": "2,000 credits",
+        "weeklyCredits": "10,000 credits",
+        "offPeakDiscount": "50% credit rate during off-peak",
+        "peakHours": "Mon-Fri 14:00-18:00 UTC+8",
+        "toolRestrictions": "Strictly limited to supported coding tools (Claude Code, Cline, OpenCode, Goose)"
+      },
+      "models": [
+        "GLM-5.3",
+        "GLM-5.3-Flash",
+        "GLM-5.2",
+        "GLM-5-Turbo"
+      ],
+      "estimatedTokenBudget": {
+        "description": "10K weekly credits (~48M–97M GLM-5.3 or ~146M–292M Flash/wk)",
+        "estimatedMillionTokens": 300,
+        "assumptions": "48M–97M tokens/week at 95% cache hit rate * 4 weeks (~200M–600M tokens/mo depending on off-peak usage)"
+      },
+      "notes": "Entry tier for individual developers. Up to 92% savings vs pay-as-you-go"
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 72,
+      "annualPrice": 605,
+      "limits": {
+        "fiveHourCredits": "12,000 credits",
+        "weeklyCredits": "60,000 credits",
+        "offPeakDiscount": "50% credit rate during off-peak",
+        "concurrency": "Dynamic scaling with off-peak boosts",
+        "includedMcps": "Vision, Web Search, Web Reader, Zread"
+      },
+      "models": [
+        "GLM-5.3",
+        "GLM-5.3-Flash",
+        "GLM-5.2",
+        "GLM-5-Turbo"
+      ],
+      "estimatedTokenBudget": {
+        "description": "60K weekly credits (~290M–580M GLM-5.3 or ~877M–1.7B Flash/wk)",
+        "estimatedMillionTokens": 1500,
+        "assumptions": "290M–580M tokens/week at 95% cache hit rate * 4 weeks (~1.2B–3B tokens/mo)"
+      },
+      "notes": "5x Lite usage capacity for full-time engineers and agent loops"
+    },
+    {
+      "name": "Max",
+      "monthlyPrice": 160,
+      "annualPrice": 1344,
+      "limits": {
+        "fiveHourCredits": "28,000 credits",
+        "weeklyCredits": "140,000 credits",
+        "offPeakDiscount": "50% credit rate during off-peak",
+        "priority": "Priority resource allocation during peak hours",
+        "concurrency": "Highest concurrent task allocation"
+      },
+      "models": [
+        "GLM-5.3",
+        "GLM-5.3-Flash",
+        "GLM-5.2",
+        "GLM-5-Turbo"
+      ],
+      "estimatedTokenBudget": {
+        "description": "140K weekly credits (~676M–1.35B GLM-5.3 or ~2B–4B Flash/wk)",
+        "estimatedMillionTokens": 4000,
+        "assumptions": "676M–1.35B tokens/week at 95% cache hit rate * 4 weeks (~3B–8B tokens/mo)"
+      },
+      "notes": "20x Lite usage capacity for power developers and heavy autonomous agents"
+    },
+    {
+      "name": "Team Standard",
+      "monthlyPrice": 80,
+      "limits": {
+        "fiveHourCredits": "15,000 credits / seat",
+        "weeklyCredits": "66,000 credits / seat",
+        "minSeats": "2 seats minimum",
+        "concurrency": "1-2 concurrent projects per seat",
+        "dataPrivacy": "Excluded from model training by default",
+        "billing": "Centralized billing, seat management & VAT invoicing"
+      },
+      "models": [
+        "GLM-5.3",
+        "GLM-5.3-Flash"
+      ],
+      "estimatedTokenBudget": {
+        "description": "66K weekly credits/seat (~319M–638M GLM-5.3 tokens/wk/seat)",
+        "estimatedMillionTokens": 1600,
+        "assumptions": "319M–638M tokens/week * 4 weeks per seat"
+      },
+      "notes": "Enterprise team workspace with Zero Data Retention and seat controls"
+    }
+  ],
+  "gotchas": [
+    "Strictly tool-only: direct generic API scraping or unauthorized tools trigger error 1113 or risk control suspension",
+    "Dual 5-hour rolling limits and 7-day weekly reset cycles — exhaustion requires waiting for 5-hour refresh",
+    "Peak hours (Mon-Fri 14:00-18:00 UTC+8) consume credits at 2x the off-peak rate",
+    "Subscriptions are non-refundable once purchased; downgrading team seats mid-cycle is not supported"
+  ],
+  "tosHighlights": [
+    "Includes Web Search MCP, Web Reader MCP, Zread MCP, and Vision Understanding with 0 separate tool fees",
+    "Drop-in endpoint https://api.z.ai/api/anthropic allows using Claude Code directly with GLM-5.3",
+    "Team Plan guarantees code and conversations are excluded from model training by default"
+  ],
+  "dataTraining": "Excluded from model training on Team plans; standard cloud terms for personal plans",
+  "ipIndemnity": "Enterprise Team contracts only"
+}

@@ -100,6 +100,8 @@ export function getProviderColor(provider: string): string {
     fireworks: '#ef4444',
     inception: '#8b5cf6',
     sakana: '#06b6d4',
+    'z-ai': '#0256FF',
+    '~z-ai': '#0256FF',
   };
   return colors[provider] || '#94a3b8';
 }
