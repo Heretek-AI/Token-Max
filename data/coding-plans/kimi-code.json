@@ -8,6 +8,7 @@
     {
       "name": "Moderato",
       "monthlyPrice": 19,
+      "annualPrice": 180,
       "limits": {
         "quota": "Weekly-refreshed usage quota (~300 requests / 5h windows)",
         "models": "Kimi K3 incl. K3-256k"
@@ -32,6 +33,7 @@
     {
       "name": "Allegretto",
       "monthlyPrice": 39,
+      "annualPrice": 372,
       "limits": {
         "quota": "Higher weekly limits + higher concurrency",
         "speed": "K3 HighSpeed (5-6x speed, ~3x credit burn); 1M-context K3"
@@ -56,6 +58,7 @@
     {
       "name": "Allegro",
       "monthlyPrice": 99,
+      "annualPrice": 948,
       "limits": {
         "quota": "Expansive quota (~600-800 req/5h)",
         "concurrency": "Higher caps"
@@ -80,6 +83,7 @@
     {
       "name": "Vivace",
       "monthlyPrice": 199,
+      "annualPrice": 1908,
       "limits": {
         "quota": "Highest weekly quotas (~1,200 req/5h)",
         "concurrency": "Max caps"

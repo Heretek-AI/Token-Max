@@ -51,9 +51,9 @@
         "Muse Spark 1.3"
       ],
       "estimatedTokenBudget": {
-        "description": "Pro Cursor-Models + Other-Models pools (~10M tokens/mo)",
+        "description": "Pro Cursor-Models + Other-Models pools (~10M tokens/mo modeled)",
         "estimatedMillionTokens": 10,
-        "assumptions": "Pool sized at ~$20 of equivalent API-rate spend; blended ~$2/M with cache discounts ~= 10M tokens",
+        "assumptions": "Cursor does not publish pool sizes; modeled at ~$20 of equivalent API-rate spend at a blended ~$2/M with cache discounts ~= 10M tokens. Pro+ and Ultra are officially 3x and 20x this pool",
         "estimateMeta": {
           "sourceUrl": "https://cursor.com/docs/account/pricing",
           "sourceType": "research",
@@ -81,9 +81,9 @@
         "Gemini 3.8 Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "Expanded pools (~35M tokens/mo)",
-        "estimatedMillionTokens": 35,
-        "assumptions": "~$70 equivalent API-rate pool; blended ~$2/M ~= 35M tokens",
+        "description": "Official 3x Pro limits (~30M tokens/mo)",
+        "estimatedMillionTokens": 30,
+        "assumptions": "Cursor lists Pro+ as 3x Pro limits; 3 x our 10M Pro model = 30M tokens/mo",
         "estimateMeta": {
           "sourceUrl": "https://cursor.com/docs/account/pricing",
           "sourceType": "research",
@@ -110,9 +110,9 @@
         "Gemini 3.8 Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "Maximum pools (~180M tokens/mo)",
-        "estimatedMillionTokens": 180,
-        "assumptions": "~$400 equivalent API-rate pool; blended ~$2/M ~= 180M tokens",
+        "description": "Official 20x Pro limits (~200M tokens/mo)",
+        "estimatedMillionTokens": 200,
+        "assumptions": "Cursor lists Ultra as 20x Pro limits; 20 x our 10M Pro model = 200M tokens/mo",
         "estimateMeta": {
           "sourceUrl": "https://cursor.com/docs/account/pricing",
           "sourceType": "research",
@@ -129,6 +129,7 @@
     "Max Mode and fast-request tiers exist only for grandfathered legacy subscriptions",
     "Teams adds a Cursor token rate ($0.25/M tokens) on third-party models",
     "India-only Start plan (Rs 649) limits users to the Cursor Models pool only",
+    "Teams Standard ($40/user) and Premium ($120/user) plans are sold separately and are not modeled as tiers here",
     "Subscriptions are only sold directly via cursor.com; resellers are unauthorized and may be suspended"
   ],
   "tosHighlights": [

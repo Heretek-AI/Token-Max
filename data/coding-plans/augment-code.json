@@ -19,14 +19,16 @@
         "API models via provider list"
       ],
       "estimatedTokenBudget": {
-        "description": "$20 usage pool with 40% LLM fee (~8M tokens)",
-        "estimatedMillionTokens": 8,
-        "assumptions": "$20.00 / (blended $2/M provider rate * 1.4) ~= 8M tokens on frontier models",
+        "description": "$20 usage pool with 40% LLM fee (~7.1M tokens)",
+        "estimatedMillionTokens": 7.1,
+        "assumptions": "$20.00 / (blended $2/M provider rate * 1.4) ~= 7.1M tokens on frontier models",
         "estimateMeta": {
           "sourceUrl": "https://www.augmentcode.com/pricing",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceQuote": "flat 40% fee on LLM usage; $20 of usage included per month",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "frontier API models at ~$2/M blended"
         }
       },
       "notes": "Restructured from per-seat message plans to pooled usage"
@@ -43,14 +45,16 @@
         "API models"
       ],
       "estimatedTokenBudget": {
-        "description": "$100 usage pool (~50M tokens)",
-        "estimatedMillionTokens": 50,
-        "assumptions": "$100.00 / (blended $2/M * 1.4) ~= 50M tokens",
+        "description": "$100 usage pool (~35.7M tokens)",
+        "estimatedMillionTokens": 35.7,
+        "assumptions": "$100.00 / (blended $2/M * 1.4) ~= 35.7M tokens",
         "estimateMeta": {
           "sourceUrl": "https://www.augmentcode.com/pricing",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceQuote": "$100 of usage included per month with the flat 40% LLM fee",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "frontier API models at ~$2/M blended"
         }
       },
       "notes": "Same 40% LLM service fee structure"

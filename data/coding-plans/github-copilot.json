@@ -47,9 +47,10 @@
         "Gemini 3.8 Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "1,500 AI credits/mo (~7.1M tokens)",
-        "estimatedMillionTokens": 7.1,
-        "assumptions": "1 credit = $0.01; $15.00 budget / ~$2.10/M blended Sonnet 5 rate (with 75-90% cache discount) ~= 7.1M tokens",
+        "description": "1,000 base AI credits/mo (~4.8M tokens; up to 1,500 with Flex)",
+        "estimatedMillionTokens": 4.8,
+        "midpointEstimate": 7.1,
+        "assumptions": "1 credit = $0.01; conservative counts only the $10 base credits (~4.8M at ~$2.10/M blended); midpoint includes the full $5 variable Flex allotment (~7.1M from $15). Copilot may reduce Flex, so base-only is the floor",
         "estimateMeta": {
           "sourceUrl": "https://github.com/features/copilot/plans",
           "sourceType": "research",
@@ -77,9 +78,10 @@
         "Gemini 3.8 Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "7,000 AI credits/mo (~33M tokens)",
-        "estimatedMillionTokens": 33,
-        "assumptions": "1 credit = $0.01; $70.00 budget / ~$2.10/M blended = ~33M tokens; premium models (Opus/Fable) burn credits ~10x faster",
+        "description": "3,900 base AI credits/mo (~18.6M tokens; up to 7,000 with Flex)",
+        "estimatedMillionTokens": 18.6,
+        "midpointEstimate": 33,
+        "assumptions": "1 credit = $0.01; conservative counts only the $39 base credits (~18.6M at ~$2.10/M); midpoint adds the $31 variable Flex allotment (~33M from $70); premium models (Opus/Fable) burn credits faster",
         "estimateMeta": {
           "sourceUrl": "https://github.com/features/copilot/plans",
           "sourceType": "research",
@@ -104,9 +106,10 @@
         "Gemini 3.8 Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "20,000 AI credits/mo (~95M tokens)",
-        "estimatedMillionTokens": 95,
-        "assumptions": "1 credit = $0.01; $200.00 budget / ~$2.10/M blended = ~95M tokens",
+        "description": "10,000 base AI credits/mo (~47.6M tokens; up to 20,000 with Flex)",
+        "estimatedMillionTokens": 47.6,
+        "midpointEstimate": 95,
+        "assumptions": "1 credit = $0.01; conservative counts only the $100 base credits (~47.6M at ~$2.10/M); midpoint adds the $100 variable Flex allotment (~95M from $200)",
         "estimateMeta": {
           "sourceUrl": "https://github.com/features/copilot/plans",
           "sourceType": "research",

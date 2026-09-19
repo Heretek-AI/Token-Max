@@ -21,9 +21,9 @@
         "gpt-oss"
       ],
       "estimatedTokenBudget": {
-        "description": "3x Claude Pro usage (~30M tokens/mo)",
-        "estimatedMillionTokens": 30,
-        "assumptions": "Benchmarked as multiplier vs Claude Pro consumer quota; exact credits unpublished",
+        "description": "3x Claude Pro usage (~36M tokens/mo, anchored to our Claude Pro estimate)",
+        "estimatedMillionTokens": 36,
+        "assumptions": "BytePlus markets Lite as 3x the Claude Pro quota; anchored to our own Claude Code Pro conservative estimate (12M) = 36M tokens. Exact credits unpublished",
         "estimateMeta": {
           "sourceUrl": "https://www.byteplus.com/en/activity/arkcodingplan",
           "sourceType": "research",
@@ -49,9 +49,9 @@
         "gpt-oss"
       ],
       "estimatedTokenBudget": {
-        "description": "5x Lite (~150M tokens/mo)",
-        "estimatedMillionTokens": 150,
-        "assumptions": "5x the Lite research estimate",
+        "description": "5x Lite (~180M tokens/mo)",
+        "estimatedMillionTokens": 180,
+        "assumptions": "5x the Lite estimate (36M), consistent with the marketed 5x tier multiplier; exact credits unpublished",
         "estimateMeta": {
           "sourceUrl": "https://www.byteplus.com/en/activity/arkcodingplan",
           "sourceType": "research",

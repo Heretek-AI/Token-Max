@@ -25,7 +25,7 @@
         "gpt-oss-120b"
       ],
       "estimatedTokenBudget": {
-        "description": "Weekly-refresh baseline quota (~4M tokens/mo",
+        "description": "Weekly-refresh baseline quota (~4M tokens/mo)",
         "estimatedMillionTokens": 4,
         "assumptions": "Research-based estimate: ~150K tokens/agent task * ~25 agent tasks/mo. Official quotas are undocumented and 'correlated with the amount of work done by the agent', so treat as low confidence",
         "estimateMeta": {
@@ -69,8 +69,8 @@
       "notes": "Includes purchased AI-credit overage above baseline quota"
     },
     {
-      "name": "Google AI Ultra",
-      "monthlyPrice": 249.99,
+      "name": "Google AI Ultra 5x",
+      "monthlyPrice": 99.99,
       "limits": {
         "quota": "Highest quota, refreshed every 5 hours until weekly limit reached",
         "rateLimit": "Highest weekly rate limit per model",
@@ -87,17 +87,52 @@
         "gpt-oss-120b"
       ],
       "estimatedTokenBudget": {
-        "description": "Most generous 5-hour + weekly quota (~180M tokens/mo)",
-        "estimatedMillionTokens": 180,
-        "assumptions": "Research-based estimate: ~150K tokens/agent task * ~1,200 agent tasks/mo. No official task counts published; low confidence",
+        "description": "Official 5x Google AI Pro limits (~225M tokens/mo)",
+        "estimatedMillionTokens": 225,
+        "assumptions": "Google AI Ultra is officially 5x the Google AI Pro plan; 5 x our 45M Pro research estimate = 225M tokens/mo (low confidence, same basis as Pro)",
         "estimateMeta": {
-          "sourceUrl": "https://antigravity.google/pricing",
-          "sourceType": "research",
+          "sourceUrl": "https://one.google.com/about/google-ai-plans/",
+          "sourceQuote": "Google AI Ultra 5x: 5x higher usage limits than Google AI Pro",
+          "sourceType": "derived",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-18",
+          "basisModel": "Google AI Pro research estimate (45M)"
         }
       },
       "notes": "Daily-driver tier; docs note access to third-party models (also available on non-Enterprise tiers)"
+    },
+    {
+      "name": "Google AI Ultra 20x",
+      "monthlyPrice": 199.99,
+      "limits": {
+        "quota": "Highest quota, refreshed every 5 hours until weekly limit reached",
+        "rateLimit": "Highest weekly rate limit per model",
+        "tabCompletions": "Unlimited",
+        "creditOverage": "AI credits consumed at standard GEAP consumption pricing"
+      },
+      "models": [
+        "Gemini 3.8 Flash",
+        "Gemini 3.7 Flash",
+        "Gemini 3.6 Flash",
+        "Gemini 3.1 Pro",
+        "Claude Sonnet 4.6",
+        "Claude Opus 4.6",
+        "gpt-oss-120b"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Official 20x Google AI Pro limits (~900M tokens/mo)",
+        "estimatedMillionTokens": 900,
+        "assumptions": "Google AI Ultra 20x is officially 20x the Google AI Pro plan; 20 x our 45M Pro research estimate = 900M tokens/mo (low confidence, same basis as Pro)",
+        "estimateMeta": {
+          "sourceUrl": "https://one.google.com/about/google-ai-plans/",
+          "sourceQuote": "Google AI Ultra 20x: 20x higher usage limits than Google AI Pro",
+          "sourceType": "derived",
+          "confidence": "low",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "Google AI Pro research estimate (45M)"
+        }
+      },
+      "notes": "Highest individual tier; supersedes the former $249.99 Ultra listing"
     },
     {
       "name": "Organization (Google Cloud)",

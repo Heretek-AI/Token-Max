@@ -41,12 +41,17 @@
       "estimatedTokenBudget": {
         "description": "PAYG ($20 buys ~8M Pro tokens off-peak)",
         "estimatedMillionTokens": 8,
-        "assumptions": "V4-Pro ~$1.98/$3.96 peak in/out ~= $2.44 off-peak blended; $20 / $2.44 ~= 8M tokens",
+        "midpointEstimate": 20,
+        "optimisticEstimate": 40,
+        "assumptions": "Official V4-Pro CNY rates: ¥9/M cache-miss input, ¥27/M output, cache-hit ¥0.15-0.30/M, off-peak half (≈$1.27/$3.80 peak at ¥7.1/$). $20 / ~$2.44 list blend ≈ 8M tokens; the 75%-cached agent workload costs ~$0.51/M off-peak ≈ 40M tokens",
         "estimateMeta": {
-          "sourceUrl": "https://platform.deepseek.com",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing",
+          "sourceQuote": "V4-Pro peak: ¥9/M cache-miss input, ¥27/M output; off-peak prices are half the peak price",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "DeepSeek V4-Pro",
+          "cacheAssumption": "75% cache hit rate at cache-hit pricing"
         }
       },
       "notes": "Frontier reasoning tier"

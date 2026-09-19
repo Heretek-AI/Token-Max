@@ -60,14 +60,15 @@
   ],
   "gotchas": [
     "Model lifecycle folded Magistral into Mistral Medium 3.5; Small is now 'Mistral Small 4'",
+    "Training is opt-out rather than off by default; verify your workspace privacy settings",
     "Exceeding the context window triggers hard 400 Bad Request rather than truncation",
     "Codestral license restricts certain commercial reuse outside paid API"
   ],
   "tosHighlights": [
     "GDPR compliant and European data residency guarantees",
-    "Zero training on API inputs/outputs"
+    "Training opt-out available; zero-retention options on paid plans"
   ],
-  "dataTraining": "No",
+  "dataTraining": "Opt-out available",
   "ipIndemnity": false,
   "stackingPolicy": "unknown"
 }

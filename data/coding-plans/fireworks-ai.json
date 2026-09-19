@@ -9,16 +9,16 @@
       "name": "Free",
       "monthlyPrice": 0,
       "limits": {
-        "RPM": "10 requests/min",
-        "trial": "$1 free credits"
+        "trial": "$1 free credits (official)",
+        "freeRpm": "Exact free-tier RPM unpublished; account-wide 6,000 RPM ceiling applies once a card is on file"
       },
       "models": [
         "Llama 3.3 70B",
         "DeepSeek V3"
       ],
       "estimatedTokenBudget": {
-        "description": "$1 free trial (~1M tokens)",
-        "estimatedMillionTokens": 1,
+        "description": "$1 free trial (~2M tokens)",
+        "estimatedMillionTokens": 2,
         "assumptions": "$1.00 / ~$0.50/M blended open-weight rate ~= 2M tokens of trial compute",
         "estimateMeta": {
           "sourceUrl": "https://fireworks.ai",

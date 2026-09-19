@@ -37,12 +37,13 @@
       "limits": {
         "credits": "$60 cloud compute credits/mo",
         "concurrency": "3 concurrent streams",
-        "peakSurcharge": "12:00-18:00 UTC peak rates"
+        "peakSurcharge": "12:00-18:00 UTC peak rates, Mon-Fri"
       },
       "models": [
         "DeepSeek V4.1 Flash",
-        "Llama 4 Maverick",
-        "Qwen 3.8 Max"
+        "Kimi K2.7",
+        "MiniMax M3",
+        "GLM-5"
       ],
       "estimatedTokenBudget": {
         "description": "$60 compute credits (~60M tokens/mo)",
@@ -87,17 +88,17 @@
       "name": "Team",
       "monthlyPrice": 500,
       "limits": {
-        "credits": "$1,600 cloud compute credits/mo",
-        "concurrency": "50 concurrent streams",
+        "credits": "$1,000 cloud compute credits/mo",
+        "concurrency": "10 concurrent streams",
         "privateEndpoints": "Dedicated pods"
       },
       "models": [
         "All Open Weights & Custom Fine-tunes"
       ],
       "estimatedTokenBudget": {
-        "description": "$1,600 compute credits (~1.6B tokens/mo)",
-        "estimatedMillionTokens": 1600,
-        "assumptions": "$1,600 monthly credit pool",
+        "description": "$1,000 compute credits (~1B tokens/mo)",
+        "estimatedMillionTokens": 1000,
+        "assumptions": "$1,000 monthly credit pool (official Team plan)",
         "estimateMeta": {
           "sourceUrl": "https://ollama.com",
           "sourceType": "research",
@@ -109,8 +110,9 @@
     }
   ],
   "gotchas": [
-    "credits don't roll over",
-    "peak pricing 12-18 UTC"
+    "Unused included usage does not roll over",
+    "Peak pricing applies 12:00-18:00 UTC Monday-Friday",
+    "One account per person: multiple Ollama accounts are not permitted"
   ],
   "tosHighlights": [
     "No training on cloud inference data",

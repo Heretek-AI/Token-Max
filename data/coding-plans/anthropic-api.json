@@ -9,11 +9,9 @@
       "name": "PAYG",
       "monthlyPrice": null,
       "limits": {
-        "tier1": "$100/mo limit",
-        "tier2": "$500/mo limit",
-        "tier3": "$1,000/mo limit",
-        "tier4": "$5,000+/mo limit",
+        "spendTiers": "Start $500/mo, Build $1,000/mo, Scale $200,000/mo (official 2026 tiers)",
         "cacheReadDiscount": "90% off cached input",
+        "cacheWritePremium": "25% premium on cache writes",
         "batchDiscount": "50% off"
       },
       "models": [
@@ -23,21 +21,26 @@
         "Claude Haiku 4.5"
       ],
       "estimatedTokenBudget": {
-        "description": "Direct API PAYG ($20 buys ~10M Sonnet or ~4M Opus tokens)",
+        "description": "Direct API PAYG ($20 buys ~10M conservative / ~18M cached-agent Sonnet 5 tokens)",
         "estimatedMillionTokens": 10,
-        "assumptions": "$20 spent on Sonnet 5 @ $2/$10 with 3:1 input:output ratio",
+        "midpointEstimate": 18,
+        "optimisticEstimate": 25,
+        "assumptions": "$20 at Sonnet 5 ($2/M in, $10/M out): 5M on a 3:1 input:output list blend; ~18M on the standard 20K-in/1K-out agent request with 75% cache at 90% off; the 10M floor allows mixed Opus-class use and lower cache rates",
         "estimateMeta": {
-          "sourceUrl": "https://console.anthropic.com",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://docs.claude.com/en/docs/about-claude/pricing",
+          "sourceQuote": "Claude Sonnet 5 $2 / MTok input, $10 / MTok output; cache reads 0.1x input",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "Claude Sonnet 5",
+          "cacheAssumption": "75% cache hit rate at 90% discount"
         }
       },
       "notes": "Cache reads 90% off. Batch 50% off."
     }
   ],
   "gotchas": [
-    "Strict tiered rate limits: Tier 1 accounts hit 429 rate limit errors easily on large codebases",
+    "Rate limits and spend caps are tiered by cumulative spend (Start $500, Build $1,000, Scale $200,000+/mo); new accounts hit 429s on large codebases",
     "Thinking/reasoning tokens are billed at standard output token rates",
     "Cache write operations cost 25% more than base input tokens"
   ],

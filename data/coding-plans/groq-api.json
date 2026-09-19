@@ -9,7 +9,7 @@
       "name": "Free",
       "monthlyPrice": 0,
       "limits": {
-        "limits": "Per-model RPM 10-30, RPD 100-1,000, TPM 1.2K-70K, TPD up to ~500K"
+        "limits": "Developer-plan base limits (Free is lower): per-model RPM 10-30, RPD 100-1,000, TPM 1.2K-70K, TPD up to ~500K"
       },
       "models": [
         "GPT-OSS-120B",
@@ -58,7 +58,7 @@
   ],
   "gotchas": [
     "Llama chat/vision models are GONE from Groq's catalog (only Llama Prompt-Guard safety models remain); lineup is now GPT-OSS/Qwen/Whisper/Compound",
-    "Free-plan limits are per-model, not a single global quota",
+    "Free-plan limits are per-model, not a single global quota; console tables show Developer-plan base limits unless stated otherwise",
     "Set manual spend caps to prevent runaway loops on ultra-fast inference"
   ],
   "tosHighlights": [

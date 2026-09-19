@@ -9,8 +9,7 @@
       "name": "Free",
       "monthlyPrice": 0,
       "limits": {
-        "RPM": "60 requests/min",
-        "TPM": "60,000 tokens/min",
+        "rateLimits": "Dynamic rate limits - no fixed per-model RPM/TPM published; scales with account history",
         "creditTrial": "$5 free credits"
       },
       "models": [
@@ -19,7 +18,7 @@
         "Qwen 2.5 Coder"
       ],
       "estimatedTokenBudget": {
-        "description": "$5 trial credits (~5M tokens)",
+        "description": "Signup credit (~5M tokens; amount not listed on the official pricing page)",
         "estimatedMillionTokens": 5,
         "assumptions": "$5 trial credits on open source models",
         "estimateMeta": {
@@ -35,7 +34,7 @@
       "name": "PAYG",
       "monthlyPrice": null,
       "limits": {
-        "tierLimits": "Limits scale at $25, $50, $100, $250 spend",
+        "tierLimits": "Dynamic limits scale with spend history ($25/$50/$100/$250 milestones historically)",
         "batchDiscount": "50% off Batch inference"
       },
       "models": [

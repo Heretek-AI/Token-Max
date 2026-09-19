@@ -43,14 +43,19 @@
         "Gemini 3.1 Pro"
       ],
       "estimatedTokenBudget": {
-        "description": "PAYG up to $250/mo limit (~100M tokens @ $100)",
-        "estimatedMillionTokens": 100,
-        "assumptions": "$100 spent on Gemini 3.8 Flash @ $0.75/$3.75",
+        "description": "PAYG up to $250/mo spend cap (~67M conservative / ~130M cached-agent tokens @ $100)",
+        "estimatedMillionTokens": 67,
+        "midpointEstimate": 100,
+        "optimisticEstimate": 130,
+        "assumptions": "Official Gemini 3.8 Flash pricing $0.75/M in, $3.75/M out ($0.75 promotional through 2026-12-31): $100 buys ~67M on a 3:1 list blend and ~130M on the standard 75%-cached agent request; 100M midpoint used for the tier figure. Tier cap is a $250/mo spend limit",
         "estimateMeta": {
-          "sourceUrl": "https://aistudio.google.com",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+          "sourceQuote": "Gemini 3.8 Flash input $0.75 / output $3.75 per 1M tokens (input price through December 31, 2026)",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "Gemini 3.8 Flash",
+          "cacheAssumption": "75% cache hit rate at 25% of input price"
         }
       },
       "notes": "Pay-as-you-go billing with $250 credit threshold"

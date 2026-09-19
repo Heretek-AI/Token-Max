@@ -9,28 +9,30 @@
       "name": "PAYG",
       "monthlyPrice": null,
       "limits": {
-        "tier1": "$100/mo spend cap",
-        "tier2": "$500/mo spend cap",
-        "tier3": "$1,000/mo spend cap",
-        "tier4": "$5,000/mo spend cap",
+        "spendTiers": "$100 / $500 / $1,000 / $5,000 / $200,000 mo spend caps (official)",
+        "retention": "30-day default retention; ZDR available on request for eligible endpoints",
         "batchDiscount": "50% off Batch API"
       },
       "models": [
         "GPT-6 Astra",
         "GPT-5.6 Sol",
         "GPT-5.6 Terra",
-        "GPT-5.6 Luna",
-        "o3-mini"
+        "GPT-5.6 Luna"
       ],
       "estimatedTokenBudget": {
-        "description": "Direct API PAYG ($20 buys ~2M Astra or ~100M Luna)",
+        "description": "Direct API PAYG ($20 buys ~10M mixed-frontier / ~18M Sol-class cached-agent / ~100M Luna-class)",
         "estimatedMillionTokens": 10,
-        "assumptions": "Blended rate across Sol ($2/M in, $10/M out)",
+        "midpointEstimate": 18,
+        "optimisticEstimate": 100,
+        "assumptions": "$20 at Sol ($2/M in, $10/M out): 5M on a 3:1 list blend, ~18M on the standard 20K-in/1K-out agent request at 75% cache; Luna ($0.10/$0.60) yields ~100M+ on the same workload; 10M conservative floor for mixed frontier use",
         "estimateMeta": {
-          "sourceUrl": "https://platform.openai.com",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://platform.openai.com/docs/pricing",
+          "sourceQuote": "gpt-5.6-sol $2.00 input / $10.00 output per 1M tokens; gpt-5.6-luna $0.10 / $0.60",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "GPT-5.6 Sol",
+          "cacheAssumption": "75% cache hit rate at 50% discount"
         }
       },
       "notes": "Batch 50% off. Pay-as-you-go direct API with tiered rate limits"
@@ -42,10 +44,10 @@
     "Reasoning tokens count towards output token billing"
   ],
   "tosHighlights": [
-    "Zero data retention by default for paid API customers",
+    "API data is not used for training by default; 30-day retention default with ZDR on request for eligible endpoints",
     "Enterprise IP indemnity included for standard outputs"
   ],
-  "dataTraining": "No (Zero Data Retention for API)",
+  "dataTraining": "No (API data not used for training by default; 30-day default retention, ZDR on request)",
   "ipIndemnity": true,
   "stackingPolicy": "silent",
   "stackingPolicyNote": "Terms ban sharing account credentials; multiple paid accounts are not addressed."

@@ -16,14 +16,16 @@
         "Latest Claude models via AWS"
       ],
       "estimatedTokenBudget": {
-        "description": "50 agentic requests/mo (~12M tokens)",
-        "estimatedMillionTokens": 12,
-        "assumptions": "50 requests * ~250K tokens per heavy agentic interaction (context + multi-file + verification)",
+        "description": "50 agentic requests/mo (~1.1M tokens on the standard request basis)",
+        "estimatedMillionTokens": 1.05,
+        "assumptions": "Official 50 agentic requests/mo x the site-standard 20K-in/1K-out request (21K) = 1.05M tokens. AWS agentic requests may carry more context, so treat this as the floor",
         "estimateMeta": {
           "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceQuote": "Free tier: 50 agentic requests per month",
+          "sourceType": "derived",
+          "confidence": "high",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "standard 20K-in/1K-out agent request"
         }
       },
       "notes": "Agentic request = any Q&A chat or coding interaction"
@@ -40,14 +42,18 @@
         "Latest Claude models via AWS"
       ],
       "estimatedTokenBudget": {
-        "description": "Higher request pool (~200M tokens/mo research est.)",
-        "estimatedMillionTokens": 200,
-        "assumptions": "Exact request cap unpublished; research estimate = high-volume agentic usage",
+        "description": "Higher request pool (~21M floor / ~105M midpoint / ~210M ceiling scenarios)",
+        "estimatedMillionTokens": 21,
+        "midpointEstimate": 105,
+        "optimisticEstimate": 210,
+        "assumptions": "AWS publishes no numeric Pro request cap (only 'higher limits'). Scenario band on the standard 21K request: 1,000 requests/mo = 21M (floor), 5,000 = 105M, 10,000 = 210M. Low confidence - use only as a planning scenario",
         "estimateMeta": {
           "sourceUrl": "https://aws.amazon.com/q/developer/pricing/",
+          "sourceQuote": "Pro: higher agentic request limits (not numerically published)",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-18",
+          "basisModel": "standard 20K-in/1K-out agent request"
         }
       },
       "notes": "Identity Center/IAM; IP indemnity included"
