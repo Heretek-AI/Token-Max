@@ -1,33 +1,23 @@
 import { NavLink } from 'react-router-dom';
-import { Coins, LayoutDashboard, Database, CreditCard, BarChart2, ShieldAlert, Moon, Sun } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { Coins, LayoutDashboard, Database, CreditCard, BarChart2, ShieldAlert, Skull } from 'lucide-react';
 
 export function Header() {
-  const [darkMode, setDarkMode] = useState(
-    () => window.matchMedia('(prefers-color-scheme: dark)').matches
-  );
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
-
-  const navClass = ({ isActive }: { isActive: boolean }) => 
-    `flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-      isActive ? 'bg-primary/10 text-primary' : 'text-text hover:bg-surface-alt hover:text-primary'
+  const navClass = ({ isActive }: { isActive: boolean }) =>
+    `flex items-center gap-2 px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wide font-display transition-colors ${
+      isActive
+        ? 'bg-primary/15 text-primary-light shadow-[0_0_12px_hsl(0_70%_40%_/0.25)]'
+        : 'text-text-muted hover:bg-surface-alt hover:text-blood-300'
     }`;
 
   return (
-    <header className="border-b border-border bg-surface">
+    <header className="relative border-b border-steel-700/60 steel-surface">
+      <div className="absolute inset-x-0 bottom-0 h-[3px] blood-gradient" aria-hidden="true" />
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2 text-primary font-bold text-xl">
-          <Coins className="w-6 h-6" />
+        <div className="flex items-center gap-2 text-primary font-display font-bold text-xl tracking-widest uppercase animate-glitch-text">
+          <Coins className="w-6 h-6 text-blood-400 animate-heretic-glow" />
           <span>Token-Max</span>
         </div>
-        
+
         <nav className="hidden md:flex items-center gap-1">
           <NavLink to="/" className={navClass}>
             <LayoutDashboard className="w-4 h-4" />
@@ -51,13 +41,15 @@ export function Header() {
           </NavLink>
         </nav>
 
-        <button 
-          onClick={() => setDarkMode(!darkMode)}
-          className="p-2 rounded-md text-text-muted hover:bg-surface-alt transition-colors"
-          aria-label="Toggle dark mode"
+        <div
+          className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-md border border-steel-700/60 bg-void-950/60"
+          title="No warp sorcery detected — data verified"
         >
-          {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-        </button>
+          <Skull className="w-4 h-4 text-blood-500 animate-flicker" />
+          <span className="text-[11px] font-display uppercase tracking-widest text-steel-300">
+            Machine Spirit Stable
+          </span>
+        </div>
       </div>
     </header>
   );

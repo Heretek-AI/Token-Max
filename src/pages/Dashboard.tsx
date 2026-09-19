@@ -19,16 +19,20 @@ export default function Dashboard() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       {/* Hero Section */}
-      <section className="text-center py-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3 border border-primary/20">
-          <span>⚡ Unobfuscating AI Credits into True Compute</span>
+      <section className="relative text-center py-10">
+        <div className="pointer-events-none absolute inset-0 mx-auto max-w-3xl bg-circuit-dark opacity-40 blur-[1px]" aria-hidden="true" />
+        <div className="relative">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blood-900/60 text-blood-300 text-[11px] font-display font-semibold uppercase tracking-widest mb-4 border border-blood-700/50 animate-binary-flicker">
+            <span>⚡ Unobfuscating AI Credits into True Compute</span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-extrabold mb-3 text-text text-grim-title animate-glitch-text drop-shadow-[0_0_18px_hsl(0_75%_35%_/0.35)]">
+            Direct APIs vs.{' '}
+            <span className="text-blood-400">Coding Subscriptions</span>
+          </h1>
+          <p className="text-base text-text-muted max-w-2xl mx-auto">
+            Compare real compute yields for Anthropic, OpenAI, Google, DeepSeek, and Z.ai to find where your dollar gets the most intelligence.
+          </p>
         </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-3 text-text">
-          Direct APIs vs. Coding Subscriptions
-        </h1>
-        <p className="text-lg text-text-muted max-w-2xl mx-auto">
-          Compare real compute yields for Anthropic, OpenAI, Google, DeepSeek, and Z.ai to find where your dollar gets the most intelligence.
-        </p>
       </section>
 
       {/* Primary Feature: Frontier Intelligence Decision Engine */}
@@ -48,7 +52,7 @@ export default function Dashboard() {
 
       {/* Quick Stats Grid */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-        <div className="bg-surface p-6 rounded-xl border border-border flex items-start gap-4">
+        <div className="grim-card grim-card-glow p-6 rounded-xl flex items-start gap-4 hover:border-blood-600/60 hover:shadow-[0_0_18px_hsl(0_70%_35%_/0.25)]">
           <div className="p-3 bg-primary/10 text-primary rounded-lg">
             <Database className="w-6 h-6" />
           </div>
@@ -61,7 +65,7 @@ export default function Dashboard() {
           </div>
         </div>
         
-        <div className="bg-surface p-6 rounded-xl border border-border flex items-start gap-4">
+        <div className="grim-card grim-card-glow p-6 rounded-xl flex items-start gap-4 hover:border-blood-600/60 hover:shadow-[0_0_18px_hsl(0_70%_35%_/0.25)]">
           <div className="p-3 bg-success/10 text-success rounded-lg">
             <CreditCard className="w-6 h-6" />
           </div>
@@ -74,7 +78,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-surface p-6 rounded-xl border border-border flex items-start gap-4">
+        <div className="grim-card grim-card-glow p-6 rounded-xl flex items-start gap-4 hover:border-blood-600/60 hover:shadow-[0_0_18px_hsl(0_70%_35%_/0.25)]">
           <div className="p-3 bg-warning/10 text-warning rounded-lg">
             <Zap className="w-6 h-6" />
           </div>
