@@ -110,8 +110,8 @@ export function calculateSessionReceipt(
     const targetModel = modelMap.get(targetId);
     if (!targetModel) continue;
 
-    const tInPrice = targetModel.pricing.input || targetModel.blendedCost * 0.75;
-    const tOutPrice = targetModel.pricing.output || targetModel.blendedCost * 1.75;
+    const tInPrice = targetModel.pricing.input ?? targetModel.blendedCost * 0.75;
+    const tOutPrice = targetModel.pricing.output ?? targetModel.blendedCost * 1.75;
     const tCacheMult = getEffectiveCacheMultiplier(targetModel);
 
     const tFreshCost = (freshInputTokens * tInPrice) / 1e6;

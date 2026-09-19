@@ -173,8 +173,8 @@ export interface TeamEconomicsResult {
 
 function computePersonaApiCost(p: DeveloperPersona, model?: NormalizedModel): number {
   if (!model) return p.estimatedDirectApiCost;
-  const inPrice = model.pricing.input || model.blendedCost * 0.75;
-  const outPrice = model.pricing.output || model.blendedCost * 1.75;
+  const inPrice = model.pricing.input ?? model.blendedCost * 0.75;
+  const outPrice = model.pricing.output ?? model.blendedCost * 1.75;
   const cachedPrice = model.pricing.cachedInput ?? inPrice * 0.1;
   const { costPerRequest } = calculateAgentRequestCost(model, 0.75);
 
@@ -205,12 +205,33 @@ export function calculateTeamEconomics(params: TeamEconomicsParams): TeamEconomi
 
   const provider = SEAT_PROVIDERS.find((p) => p.id === selectedProviderId) || SEAT_PROVIDERS[0];
 
-  // Calculate actual headcounts
+  // Calculate actual headcounts using Largest Remainder (Hamilton-Hare) Method
+  // to ensure sum of headcounts strictly equals teamSize without rounding distortion
   const totalPercent = casualPercent + standardPercent + powerPercent || 100;
-  const casualCount = Math.round(teamSize * (casualPercent / totalPercent));
-  const standardCount = Math.round(teamSize * (standardPercent / totalPercent));
-  // Guarantee headcounts sum to teamSize
-  const powerCount = Math.max(0, teamSize - casualCount - standardCount);
+  const rawCasual = (teamSize * casualPercent) / totalPercent;
+  const rawStandard = (teamSize * standardPercent) / totalPercent;
+  const rawPower = (teamSize * powerPercent) / totalPercent;
+
+  let floorCasual = Math.floor(rawCasual);
+  let floorStandard = Math.floor(rawStandard);
+  let floorPower = Math.floor(rawPower);
+
+  let remainder = teamSize - (floorCasual + floorStandard + floorPower);
+  const diffs = [
+    { type: 'casual', rem: rawCasual - floorCasual },
+    { type: 'standard', rem: rawStandard - floorStandard },
+    { type: 'power', rem: rawPower - floorPower },
+  ].sort((a, b) => b.rem - a.rem);
+
+  for (let i = 0; i < remainder; i++) {
+    if (diffs[i].type === 'casual') floorCasual++;
+    else if (diffs[i].type === 'standard') floorStandard++;
+    else if (diffs[i].type === 'power') floorPower++;
+  }
+
+  const casualCount = floorCasual;
+  const standardCount = floorStandard;
+  const powerCount = floorPower;
 
   const personas = [
     { p: DEVELOPER_PERSONAS.casual, count: casualCount },

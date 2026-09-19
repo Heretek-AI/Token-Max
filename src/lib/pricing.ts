@@ -74,6 +74,7 @@ export function calculateBudgetResults(
   sortMode: BudgetSortMode = 'best-value',
   blendMode: BlendMode = 'agentic'
 ): BudgetResult[] {
+  if (!Number.isFinite(budget) || budget <= 0) return [];
   const eligible = models
     .filter(m => !m.isFree && !m.isBatch && getEffectiveBlendCost(m, blendMode) > 0)
     .map(m => {
@@ -219,7 +220,7 @@ export interface ApplesToApplesResult {
 export function getEffectiveCacheMultiplier(model: NormalizedModel): number {
   const input = model.pricing.input;
   const cached = model.pricing.cachedInput;
-  if (input > 0 && cached != null && cached > 0) {
+  if (input > 0 && cached != null && cached >= 0) {
     return Math.min(1, cached / input);
   }
   return 1;
@@ -227,9 +228,11 @@ export function getEffectiveCacheMultiplier(model: NormalizedModel): number {
 
 export function matchesPlanModel(planModelName: string, model: NormalizedModel): boolean {
   const normPlan = planModelName.toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (normPlan.length < 3) return false;
   const normName = model.name.toLowerCase().replace(/[^a-z0-9]/g, '');
   const normId = model.id.toLowerCase().replace(/[^a-z0-9]/g, '');
-  return normName.includes(normPlan) || normId.includes(normPlan) || normPlan.includes(normName);
+  if (normName.length < 3 && normId.length < 3) return false;
+  return normName.includes(normPlan) || normId.includes(normPlan) || (normName.length >= 4 && normPlan.includes(normName));
 }
 
 export function calculateAgentRequestCost(
@@ -237,8 +240,8 @@ export function calculateAgentRequestCost(
   cacheRate: CacheRate = DEFAULT_CACHE_RATE,
   cacheWriteShare: number = 0
 ): { costPerRequest: number; effectiveBlendedCost: number } {
-  const inPrice = model.pricing.input || model.blendedCost * 0.75;
-  const outPrice = model.pricing.output || model.blendedCost * 1.75;
+  const inPrice = model.pricing.input ?? model.blendedCost * 0.75;
+  const outPrice = model.pricing.output ?? model.blendedCost * 1.75;
   const cacheMult = getEffectiveCacheMultiplier(model);
 
   // Standard Agent Request (see docs/TOKEN_ESTIMATE_VALIDATION.md).
@@ -625,10 +628,12 @@ export function buildStackCandidates(
 }
 
 export function computeDaveStacks(candidates: StackCandidate[], budget: number): DaveStack[] {
+  if (!Number.isFinite(budget) || budget <= 0) return [];
   const stacks: DaveStack[] = [];
   for (const c of candidates) {
+    if (!c.price || c.price <= 0) continue;
     const qty = Math.floor(budget / c.price);
-    if (qty < 2) continue;
+    if (!Number.isFinite(qty) || qty < 2) continue;
     stacks.push({
       id: `dave-${c.planId}-${c.tierName}`.replace(/\s+/g, '-'),
       planName: c.planName,
@@ -655,13 +660,14 @@ export function computeMixAndMatch(
   maxSubs: number = 3,
   topBundles: number = 3
 ): MixBundle[] {
-  if (candidates.length === 0) return [];
+  if (!Number.isFinite(budget) || budget <= 0 || candidates.length === 0) return [];
 
   // Bounded knapsack over whole-dollar cents: maximize total tokens using at
   // most maxSubs distinct plans within the budget. States are keyed by
   // (subs used, spend) so a high-token single plan cannot shadow a multi-plan
   // bundle at the same spend. One tier per plan (candidates are already deduped).
   const cap = Math.round(budget * 100);
+  if (!Number.isFinite(cap) || cap <= 0) return [];
   type State = { tokens: number; picks: number[] };
   let states = new Map<string, State>();
   states.set('0|0', { tokens: 0, picks: [] });

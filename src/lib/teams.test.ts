@@ -120,4 +120,18 @@ describe('Multi-Seat Team & Gateway Economics Engine', () => {
     expect(result.gatewayMonthly).toBeLessThan(result.flatSeatsMonthly);
     expect(result.recommendedStrategy).toBe('gateway-all');
   });
+
+  it('strictly allocates headcount using Hamilton-Hare largest remainder without rounding leaks', () => {
+    // 3 devs with 50% casual, 50% standard, 0% power
+    const result = calculateTeamEconomics({
+      teamSize: 3,
+      casualPercent: 50,
+      standardPercent: 50,
+      powerPercent: 0,
+      selectedProviderId: 'cursor-business',
+    });
+
+    const sumHeadcount = result.personaBreakdowns.reduce((sum, r) => sum + r.count, 0);
+    expect(sumHeadcount).toBe(3);
+  });
 });

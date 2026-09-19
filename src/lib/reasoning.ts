@@ -196,8 +196,8 @@ export function calculateReasoningCost(
   const effortSpec = REASONING_EFFORT_SPECS[effort];
   const reasoningTokens = effortSpec.tokens;
 
-  const inPrice = model.pricing.input || model.blendedCost * 0.75;
-  const outPrice = model.pricing.output || model.blendedCost * 1.75;
+  const inPrice = model.pricing.input ?? model.blendedCost * 0.75;
+  const outPrice = model.pricing.output ?? model.blendedCost * 1.75;
   const cacheMult = getEffectiveCacheMultiplier(model);
 
   // Fresh vs cached input tokens

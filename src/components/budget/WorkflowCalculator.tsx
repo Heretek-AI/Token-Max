@@ -76,8 +76,8 @@ function requestCost(
   outputTokens: number,
   cacheRate: CacheRate
 ): number {
-  const inPrice = model.pricing.input || model.blendedCost * 0.75;
-  const outPrice = model.pricing.output || model.blendedCost * 1.75;
+  const inPrice = model.pricing.input ?? model.blendedCost * 0.75;
+  const outPrice = model.pricing.output ?? model.blendedCost * 1.75;
   const cacheMult = getEffectiveCacheMultiplier(model);
   const freshInput = inputTokens * (1 - cacheRate);
   const cachedInput = inputTokens * cacheRate;
@@ -95,8 +95,8 @@ function sessionCost(
   outputTokens: number,
   cacheRate: CacheRate
 ): number {
-  const inPrice = model.pricing.input || model.blendedCost * 0.75;
-  const outPrice = model.pricing.output || model.blendedCost * 1.75;
+  const inPrice = model.pricing.input ?? model.blendedCost * 0.75;
+  const outPrice = model.pricing.output ?? model.blendedCost * 1.75;
   const cacheMult = getEffectiveCacheMultiplier(model);
 
   if (cacheRate === 0) {
@@ -154,7 +154,7 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
     Number(searchParams.get('comps')) || 200
   );
   const [contextKey, setContextKey] = useState<ContextKey>(
-    (searchParams.get('ctx') as ContextKey) || 'medium'
+    CONTEXT_OPTIONS.some(c => c.key === searchParams.get('ctx')) ? (searchParams.get('ctx') as ContextKey) : 'medium'
   );
   const [cacheRate, setCacheRate] = useState<CacheRate>(
     searchParams.get('cache') !== null ? (Number(searchParams.get('cache')) as CacheRate) : DEFAULT_CACHE_RATE
@@ -169,13 +169,13 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
     Number(searchParams.get('peak')) || 200
   );
   const [mcpStack, setMcpStack] = useState<McpStackKey>(
-    (searchParams.get('mcp') as McpStackKey) || 'light'
+    Object.prototype.hasOwnProperty.call(MCP_STACK_LEVEL, searchParams.get('mcp') || '') ? (searchParams.get('mcp') as McpStackKey) : 'light'
   );
   const [estimateBasis, setEstimateBasis] = useState<EstimateBasis>(
-    (searchParams.get('basis') as EstimateBasis) || 'conservative'
+    ESTIMATE_BASES.some(b => b.key === searchParams.get('basis')) ? (searchParams.get('basis') as EstimateBasis) : 'conservative'
   );
   const [qualityKey, setQualityKey] = useState<QualityKey>(
-    (searchParams.get('quality') as QualityKey) || 'balanced'
+    QUALITY_PRESETS.some(q => q.key === searchParams.get('quality')) ? (searchParams.get('quality') as QualityKey) : 'balanced'
   );
   const [pipelineMode, setPipelineMode] = useState<'single' | 'hybrid'>(
     searchParams.get('pipe') === 'hybrid' ? 'hybrid' : 'single'
@@ -208,13 +208,16 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
     });
   };
 
-  const contextTokens = CONTEXT_OPTIONS.find(c => c.key === contextKey)!.tokens;
-  const minCodingIndex = QUALITY_PRESETS.find(q => q.key === qualityKey)!.min;
-  const sessionTurns = Math.max(1, Math.round(sessionHours * TURNS_PER_HOUR));
-  const finalContextTokens = peakContextK * 1000 + MCP_STACK_LEVEL[mcpStack] * MCP_TOOL_TOKENS_PER_TURN * sessionTurns;
-  const sessionInputSum = finalContextTokens * (sessionTurns + 1) / 2;
+  const contextTokens = CONTEXT_OPTIONS.find(c => c.key === contextKey)?.tokens ?? 40_000;
+  const minCodingIndex = QUALITY_PRESETS.find(q => q.key === qualityKey)?.min ?? QUALITY.workhorse;
+  const sessionTurns = Math.max(1, Math.round((Number.isFinite(sessionHours) && sessionHours > 0 ? sessionHours : 5) * TURNS_PER_HOUR));
+  const safePeakContextK = Number.isFinite(peakContextK) && peakContextK > 0 ? peakContextK : 200;
+  const mcpLevel = MCP_STACK_LEVEL[mcpStack] ?? 1;
+  const finalContextTokens = safePeakContextK * 1000 + mcpLevel * MCP_TOOL_TOKENS_PER_TURN * sessionTurns;
+  const sessionInputSum = (finalContextTokens * (sessionTurns + 1)) / 2;
   const sessionOutput = sessionTurns * SESSION_OUTPUT_TOKENS_PER_TURN;
-  const monthlySessions = sessionsPerDay * WORKDAYS_PER_MONTH;
+  const safeSessionsPerDay = Number.isFinite(sessionsPerDay) && sessionsPerDay > 0 ? sessionsPerDay : 1;
+  const monthlySessions = safeSessionsPerDay * WORKDAYS_PER_MONTH;
 
   const usage = useMemo(() => {
     if (inputMode === 'session') {

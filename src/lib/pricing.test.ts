@@ -12,6 +12,7 @@ import {
   formatMillionTokens,
   calculateTimeBlendedCost,
   calculatePoolDrain,
+  getEffectiveCacheMultiplier,
 } from './pricing';
 import type { CodingPlan, NormalizedModel, PlanTier, StackCandidate } from './types';
 
@@ -395,6 +396,64 @@ describe('calculatePoolDrain', () => {
     expect(result.supportedModelsCount).toBe(1);
     expect(result.totalModelsCount).toBe(2);
     expect(result.overageCost).toBeGreaterThanOrEqual(10); // At least DeepSeek's $10 goes to overage
+  });
+});
+
+describe('Adversarial Edge Cases & Guardrails', () => {
+  it('correctly grants 0.0 multiplier when cachedInput is 0 (100% free cache reads)', () => {
+    const freeCacheModel = model({
+      pricing: { input: 3, output: 15, cachedInput: 0, cachedInputWrite: null, reasoning: null, webSearch: null },
+    });
+    expect(getEffectiveCacheMultiplier(freeCacheModel)).toBe(0);
+  });
+
+  it('respects real zero input price without falling back to blended cost', () => {
+    const freePromptModel = model({
+      blendedCost: 5,
+      pricing: { input: 0, output: 10, cachedInput: null, cachedInputWrite: null, reasoning: null, webSearch: null },
+    });
+    const { costPerRequest } = calculateAgentRequestCost(freePromptModel, 0);
+    // 20k fresh input * $0 + 1k output * $10/M = 1k * 10 / 1e6 = $0.01
+    expect(costPerRequest).toBeCloseTo(0.01, 4);
+  });
+
+  it('matchesPlanModel rejects empty strings, whitespace, and short junk', () => {
+    const testModel = model();
+    expect(matchesPlanModel('', testModel)).toBe(false);
+    expect(matchesPlanModel('   ', testModel)).toBe(false);
+    expect(matchesPlanModel('--', testModel)).toBe(false);
+    expect(matchesPlanModel('Claude Sonnet 5', testModel)).toBe(true);
+  });
+
+  it('safely handles NaN and non-positive budget in knapsack and Dave stacks', () => {
+    const candidates: StackCandidate[] = [
+      {
+        planId: 'p1',
+        planName: 'Plan 1',
+        planCategory: 'coding-ide',
+        planUrl: 'https://example.com',
+        tierName: 'Pro',
+        modelName: 'Model 1',
+        modelId: 'm1',
+        price: 20,
+        tokens: 10,
+        requests: 500,
+        codingIndex: 75,
+        lab: 'all',
+        stackingPolicy: 'allowed',
+      },
+    ];
+
+    expect(computeMixAndMatch(candidates, NaN)).toEqual([]);
+    expect(computeMixAndMatch(candidates, -50)).toEqual([]);
+    expect(computeMixAndMatch(candidates, 0)).toEqual([]);
+
+    expect(computeDaveStacks(candidates, NaN)).toEqual([]);
+    expect(computeDaveStacks(candidates, -50)).toEqual([]);
+    expect(computeDaveStacks(candidates, 0)).toEqual([]);
+
+    expect(calculateBudgetResults([model()], NaN)).toEqual([]);
+    expect(calculateBudgetResults([model()], -10)).toEqual([]);
   });
 });
 
