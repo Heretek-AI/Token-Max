@@ -53,10 +53,10 @@ export function PlanGrid({ plans, onSelectPlan, selectedPlanId }: PlanGridProps)
           
           <div className="mt-4 pt-4 border-t border-border flex justify-between items-center">
             <span className="text-sm font-medium text-text-muted">
-              {plan.tiers.length} Tier{plan.tiers.length !== 1 ? 's' : ''}
+              {plan.tiers?.length || 0} Tier{(plan.tiers?.length || 0) === 1 ? '' : 's'}
             </span>
             <span className="text-sm font-bold text-text">
-              {plan.tiers[0].monthlyPrice === 0 ? 'Free' : `$${plan.tiers[0].monthlyPrice}`}+
+              {plan.tiers?.[0]?.monthlyPrice === 0 ? 'Free' : `$${plan.tiers?.[0]?.monthlyPrice || 0}`}+
             </span>
           </div>
         </div>

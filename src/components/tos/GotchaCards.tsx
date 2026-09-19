@@ -39,7 +39,7 @@ function CardSection({ title, icon, items, colorClass, bgClass, borderClass }: C
 export function GotchaCards({ plans }: GotchaCardsProps) {
   // Extract all gotchas from all plans and categorize them
   const gotchas = plans.flatMap(plan => 
-    plan.gotchas.map(gotcha => {
+    (plan?.gotchas || []).map(gotcha => {
       let severity: 'danger' | 'warning' | 'info' = 'info';
       if (gotcha.toLowerCase().includes('train') || gotcha.toLowerCase().includes('data')) severity = 'danger';
       else if (gotcha.toLowerCase().includes('ip') || gotcha.toLowerCase().includes('indemnity')) severity = 'warning';

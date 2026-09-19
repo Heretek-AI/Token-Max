@@ -90,14 +90,17 @@ async function buildData() {
   try {
     const files = await fs.readdir(PLANS_DIR);
     for (const file of files) {
-      if (file.endsWith('.json')) {
+      if (file.endsWith('.json') && !file.startsWith('_')) {
         const p = path.join(PLANS_DIR, file);
         const data = await fs.readFile(p, 'utf-8');
-        plans.push(JSON.parse(data));
+        const parsed = JSON.parse(data);
+        if (parsed.id && Array.isArray(parsed.tiers)) {
+          plans.push(parsed);
+        }
       }
     }
   } catch (e) {
-    console.log(`No coding plans found in ${PLANS_DIR} or directory doesn't exist.`);
+    console.log(`No coding plans found in ${PLANS_DIR} or directory doesn't exist.`, e);
   }
 
   await fs.writeFile(path.join(PUBLIC_DATA_DIR, 'plans.json'), JSON.stringify(plans, null, 2));

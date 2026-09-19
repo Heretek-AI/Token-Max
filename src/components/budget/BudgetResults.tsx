@@ -13,7 +13,7 @@ export function BudgetResults({ results, plans, budget }: BudgetResultsProps) {
   
   // Find plans that fit the budget or are slightly above (up to 20% more)
   const relevantPlans = plans.flatMap(plan => 
-    plan.tiers
+    (plan?.tiers || [])
       .filter(tier => tier.monthlyPrice !== null && tier.monthlyPrice <= budget * 1.2 && tier.monthlyPrice >= budget * 0.5)
       .map(tier => ({ plan, tier }))
   ).sort((a, b) => (a.tier.monthlyPrice || 0) - (b.tier.monthlyPrice || 0));

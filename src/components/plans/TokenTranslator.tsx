@@ -12,7 +12,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
   const [selectedTierName, setSelectedTierName] = useState<string>('');
 
   const allTiers = useMemo(() => {
-    return plans.flatMap(p => p.tiers.map(t => ({ plan: p, tier: t })))
+    return plans.flatMap(p => (p?.tiers || []).map(t => ({ plan: p, tier: t })))
       .filter(x => x.tier.estimatedTokenBudget !== null && x.tier.monthlyPrice !== null);
   }, [plans]);
 
