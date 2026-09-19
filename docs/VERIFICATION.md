@@ -272,3 +272,45 @@ build` clean with per-route chunks (core 90 KB gz, pages 5–16 KB gz, shared
 chart chunk 99 KB gz); `dist/sw.js` emitted. Known limits: Quiet theme is
 best-effort on third-party-styled surfaces; deeper per-page component
 migrations (card tables < md, wizard splits) scheduled for the next pass.
+
+## Per-Model Subscription Token Yields (2026-09-19)
+
+### Mechanism
+- `PlanTier.perModelTokenBudgets`: per-model yields assuming the entire quota
+  drains exclusively on that model; keys are lowercase substrings of real
+  `tier.models` entries; optional `basis` (`official-table`,
+  `official-multiplier`, `list-price-credit`, `equal-rate`) and `confidence`.
+- `scripts/validate-data.mjs` enforces keys ⊆ tier.models, positive finite
+  token values, monotonic mid/optimistic values, and the basis/confidence enums.
+- `computeApplesToApples` renders one subscription row per (tier, matched
+  model), resolving per-model budgets via `resolveTierModelBudget`
+  (longest-key-first) and falling back to the tier pool otherwise. Stacking
+  (Mix & Match / Dangerous Dave) stays tier-pool-based; no double-counting.
+- Tier matching fixed to forward matching + per-tier per-model claims so
+  "GLM-5.3-Flash" can no longer be stolen by the shorter "GLM-5.3".
+
+### Included plans (verified official sources via Firecrawl OSINT)
+| Plan | Basis | Source |
+|---|---|---|
+| z-ai | official-table: GLM-5.3-Flash = exact 3.03x GLM-5.3 (Lite 146-292, Max 2,047-4,095 M tok/wk) | docs.z.ai/devpack/overview |
+| kiro | official-multiplier table (Auto 1.0x; Opus 2.2x, Sonnet 1.3x, Haiku 0.4x, Qwen3 Coder Next 0.05x, DeepSeek 0.25x, MiniMax 0.15/0.25x) | kiro.dev/docs/models |
+| commandcode | list-price-credit via officially published at-cost token rates; GOAT/Pro per-model allowances (MiniMax M3 $47/$57, MiMo deals, DeepSeek V4.1 Flash $60/$70) | commandcode.ai/docs/resources/pricing-limits |
+| cursor | list-price-credit on officially published per-model rates for both usage pools ($20/$60/$200 modeled pools) | cursor.com/docs/account/pricing |
+| claude-code | list-price-credit with Fable drawn at official 50%-of-weekly-limits cap | claude.com/pricing |
+| github-copilot | AI credits (1 credit = $0.01) drained at official per-token tables; 300/3,900/10,000 base credits | docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing |
+| kimi-code | list-price-credit (K3 3/15/0.30 vs K2.7 Code 0.95/4.00/0.19) | kimi.com/code/docs + CommandCode at-cost mirror |
+| openai-codex | list-price-credit at OpenAI GPT-5.6/6 rates | OpenAI published pricing (mirrors) |
+| meta-model-api | equal-rate: Muse Spark 1.1/1.2/1.3 share identical Standard pricing | dev.meta.ai/docs/pricing-rate-limits |
+
+### Fallback plans (tier-pool yield, no official per-model differential retrievable)
+alibaba-cloud, augment-code, byteplus, google-ai-studio, google-antigravity,
+groq-api, kimi-code: (covered), meta-muse-code, minimax, ollama-cloud,
+opencode Go (already had modelAllowances $ semantics), replit, together-ai,
+windsurf (Devin quota mechanism unpublished), plus any pseudo-model slot
+("Auto mode", "API models", "frontier pool", "SWE-2", hetero pools).
+
+### Verification
+`npm run lint` 0/0; `npm run validate-data` OK (33 plans);
+`npm test` 100/100 (added per-model + fallback cases);
+`npm run build` clean; data regenerated via `python3 data/generate_plans.py`
+and `node scripts/build-data.mjs`.
