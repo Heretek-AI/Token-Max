@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://heretek-ai.github.io/Token-Max/sitemap.xml
