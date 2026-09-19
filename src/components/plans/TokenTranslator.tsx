@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
-import type { CodingPlan, NormalizedModel } from '../../lib/types';
-import { formatMillionTokens, getProviderColor } from '../../lib/pricing';
-import { ArrowRight, Sparkles, AlertCircle, Layers, CheckCircle2, HelpCircle, Info } from 'lucide-react';
+import type { CodingPlan, NormalizedModel, CacheRate } from '../../lib/types';
+import { formatMillionTokens, getProviderColor, calculateAgentRequestCost } from '../../lib/pricing';
+import { ArrowRight, Sparkles, AlertCircle, Layers, CheckCircle2, HelpCircle, Info, Database, TrendingUp } from 'lucide-react';
 
 interface TokenTranslatorProps {
   plans: CodingPlan[];
@@ -12,6 +12,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
   const [selectedPlanId, setSelectedPlanId] = useState<string>('cursor');
   const [selectedTierName, setSelectedTierName] = useState<string>('Pro');
   const [modelCategory, setModelCategory] = useState<'plan-models' | 'frontier' | 'value'>('plan-models');
+  const [cacheRate, setCacheRate] = useState<CacheRate>(0.75);
 
   // Gather all tiers across ALL coding plans with a non-zero monthly price
   const allTiers = useMemo(() => {
@@ -72,7 +73,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
     });
   }, [cleanModels, currentTier]);
 
-  // Calculate token yields across models for this plan's exact price
+  // Calculate token yields across models for this plan's exact price and selected cache rate
   const displayModels = useMemo(() => {
     if (!budget) return [];
 
@@ -93,10 +94,14 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
 
     return filtered
       .map(m => {
-        const affordableTokens = budget / m.blendedCost;
-        const approximateRequests = (budget / (m.costPer1kRequests || 1)) * 1000;
+        const { costPerRequest, effectiveBlendedCost } = calculateAgentRequestCost(m, cacheRate);
+        const approximateRequests = Math.round(budget / costPerRequest);
+        const affordableTokens = (approximateRequests * 21000) / 1e6;
+
         return {
           ...m,
+          costPerRequest,
+          effectiveBlendedCost,
           affordableTokens,
           approximateRequests
         };
@@ -111,7 +116,36 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
         return b.affordableTokens - a.affordableTokens;
       })
       .slice(0, 12);
-  }, [cleanModels, budget, modelCategory, matchingPlanModels]);
+  }, [cleanModels, budget, modelCategory, matchingPlanModels, cacheRate]);
+
+  // Compute Arbitrage summary
+  const arbitrageInsight = useMemo(() => {
+    if (!currentTier?.estimatedTokenBudget || displayModels.length === 0) return null;
+    const planTokens = currentTier.estimatedTokenBudget.estimatedMillionTokens;
+    const topModel = displayModels[0];
+    const topApiTokens = topModel.affordableTokens;
+
+    if (topApiTokens > planTokens * 1.25) {
+      const ratio = (topApiTokens / planTokens).toFixed(1);
+      return {
+        type: 'api-advantage',
+        ratio: `${ratio}x`,
+        message: `Direct ${topModel.name} delivers ${ratio}x more compute than this subscription.`
+      };
+    } else if (planTokens > topApiTokens * 1.25) {
+      const ratio = (planTokens / topApiTokens).toFixed(1);
+      return {
+        type: 'plan-advantage',
+        ratio: `${ratio}x`,
+        message: `This plan bundles ${ratio}x more native allowance than direct API spend for ${topModel.name}.`
+      };
+    }
+    return {
+      type: 'parity',
+      ratio: '1.0x',
+      message: `Plan allowance and direct API compute are roughly comparable at this price point.`
+    };
+  }, [currentTier, displayModels]);
 
   if (allTiers.length === 0) return null;
 
@@ -124,7 +158,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
   return (
     <div className="bg-surface rounded-2xl border border-border p-6 shadow-sm mb-12">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="p-1.5 bg-primary/10 text-primary rounded-lg">
@@ -137,15 +171,58 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
           </p>
         </div>
 
-        <div className="bg-surface-alt border border-border px-4 py-2.5 rounded-xl flex items-center gap-3 shrink-0">
-          <span className="text-xs text-text-muted font-semibold uppercase tracking-wider">Plan Spend:</span>
-          <span className="text-2xl font-black text-primary">${budget}</span>
-          <span className="text-xs text-text-muted font-medium">/mo</span>
+        {/* Cache & Spend Badges */}
+        <div className="flex items-center gap-3 flex-wrap">
+          {/* Prompt Cache Selector */}
+          <div className="flex items-center gap-1 bg-surface-alt p-1 rounded-xl border border-border text-xs">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-text-muted px-2 flex items-center gap-1">
+              <Database className="w-3 h-3 text-primary" /> Cache:
+            </span>
+            <button
+              onClick={() => setCacheRate(0)}
+              className={`px-2 py-1 rounded-md font-semibold transition-colors ${
+                cacheRate === 0
+                  ? 'bg-surface text-text shadow-xs border border-border'
+                  : 'text-text-muted hover:text-text'
+              }`}
+              title="Cold fresh context on every request (0% cache hit)"
+            >
+              0%
+            </button>
+            <button
+              onClick={() => setCacheRate(0.75)}
+              className={`px-2 py-1 rounded-md font-semibold transition-colors ${
+                cacheRate === 0.75
+                  ? 'bg-surface text-primary shadow-xs border border-border font-bold'
+                  : 'text-text-muted hover:text-text'
+              }`}
+              title="Standard multi-turn agent session (75% cache hit)"
+            >
+              75%
+            </button>
+            <button
+              onClick={() => setCacheRate(0.90)}
+              className={`px-2 py-1 rounded-md font-semibold transition-colors ${
+                cacheRate === 0.90
+                  ? 'bg-surface text-success shadow-xs border border-border font-bold'
+                  : 'text-text-muted hover:text-text'
+              }`}
+              title="Deep project agent session (90% cache hit)"
+            >
+              90%
+            </button>
+          </div>
+
+          <div className="bg-surface-alt border border-border px-4 py-2 rounded-xl flex items-center gap-2 shrink-0">
+            <span className="text-xs text-text-muted font-semibold uppercase tracking-wider">Plan Spend:</span>
+            <span className="text-2xl font-black text-primary">${budget}</span>
+            <span className="text-xs text-text-muted font-medium">/mo</span>
+          </div>
         </div>
       </div>
 
       {/* Explanatory banner */}
-      <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 mb-6 text-xs text-text-muted flex items-start gap-3">
+      <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 mb-4 text-xs text-text-muted flex items-start gap-3">
         <Info className="w-4 h-4 text-primary shrink-0 mt-0.5" />
         <div>
           <strong className="text-text font-semibold">How this comparison works: </strong>
@@ -153,6 +230,29 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
           Below, we show <strong>(1) what your subscription actually includes</strong>, and <strong>(2) what your ${budget}/mo buys if you spent it directly on modern frontier API tokens</strong>.
         </div>
       </div>
+
+      {/* Arbitrage Insight Callout */}
+      {arbitrageInsight && (
+        <div className={`p-4 rounded-xl mb-6 flex items-start gap-3 border ${
+          arbitrageInsight.type === 'api-advantage'
+            ? 'bg-success/5 border-success/30 text-success'
+            : arbitrageInsight.type === 'plan-advantage'
+            ? 'bg-primary/5 border-primary/30 text-primary'
+            : 'bg-surface-alt border-border text-text-muted'
+        }`}>
+          <div className="p-1.5 rounded-lg bg-surface border border-border shrink-0 mt-0.5">
+            <TrendingUp className="w-4 h-4 text-primary" />
+          </div>
+          <div>
+            <div className="text-xs font-bold uppercase tracking-wider mb-0.5 text-text">
+              Compute Arbitrage Analysis ({arbitrageInsight.ratio})
+            </div>
+            <p className="text-xs font-medium text-text-muted">
+              {arbitrageInsight.message}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Plan Selector */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -328,7 +428,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
             </span>
           </div>
           <span className="text-xs text-text-muted font-medium">
-            Assuming 3:1 input:output token ratio
+            Standard agent request (20k in + 1k out) with {Math.round(cacheRate * 100)}% prompt cache
           </span>
         </div>
 
@@ -355,8 +455,9 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
                 <div className="text-xs font-bold text-text truncate mb-1" title={m.name}>
                   {m.name}
                 </div>
-                <div className="text-[10px] text-text-muted font-mono mb-2">
-                  ${m.blendedCost.toFixed(2)}/M blended
+                <div className="text-[10px] text-text-muted font-mono mb-2 flex items-center justify-between">
+                  <span>${m.effectiveBlendedCost.toFixed(2)}/M eff.</span>
+                  <span>{(m.costPerRequest * 100).toFixed(1)}¢/req</span>
                 </div>
               </div>
 
