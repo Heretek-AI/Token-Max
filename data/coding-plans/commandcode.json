@@ -1,0 +1,56 @@
+{
+  "id": "commandcode",
+  "name": "CommandCode",
+  "category": "coding-router",
+  "url": "https://commandcode.dev",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Go",
+      "monthlyPrice": 1,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Dollar-value credits: $10"
+    },
+    {
+      "name": "GOAT",
+      "monthlyPrice": 10,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Dollar-value credits: $70"
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 20,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Dollar-value credits: $80"
+    },
+    {
+      "name": "Max10x",
+      "monthlyPrice": 100,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Dollar-value credits: $150"
+    },
+    {
+      "name": "Max20x",
+      "monthlyPrice": 200,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Dollar-value credits: $300"
+    }
+  ],
+  "gotchas": [
+    "5-hour rolling windows",
+    "Extra credits never expire"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "No",
+  "ipIndemnity": false
+}

@@ -1,0 +1,35 @@
+{
+  "id": "fireworks-ai",
+  "name": "Fireworks.ai",
+  "category": "api-provider",
+  "url": "https://fireworks.ai",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "limits": {
+        "RPM": 10
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "PAYG",
+      "monthlyPrice": null,
+      "limits": {
+        "RPM": 6000
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Batch 50% off."
+    }
+  ],
+  "gotchas": [
+    "503 load shedding on saturated fleet"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "No",
+  "ipIndemnity": false
+}

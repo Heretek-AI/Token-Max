@@ -1,0 +1,67 @@
+{
+  "id": "openai-codex",
+  "name": "OpenAI Codex",
+  "category": "coding-ide",
+  "url": "https://openai.com",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Go",
+      "monthlyPrice": 8,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Plus",
+      "monthlyPrice": 20,
+      "limits": {
+        "messages": "5-45 msgs/5h"
+      },
+      "models": [
+        "GPT-6 Astra"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Pro5x",
+      "monthlyPrice": 100,
+      "limits": {
+        "messages": "25-225 msgs/5h"
+      },
+      "models": [
+        "GPT-6 Astra"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Pro20x",
+      "monthlyPrice": 200,
+      "limits": {
+        "messages": "100-900 msgs/5h"
+      },
+      "models": [
+        "GPT-6 Astra"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    }
+  ],
+  "gotchas": [
+    "Work and Codex share same pool"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "Opt-out available",
+  "ipIndemnity": false
+}

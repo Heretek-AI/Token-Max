@@ -1,0 +1,23 @@
+{
+  "id": "openrouter",
+  "name": "OpenRouter",
+  "category": "coding-router",
+  "url": "https://openrouter.ai",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "PAYG",
+      "monthlyPrice": null,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "5.5% platform fee"
+    }
+  ],
+  "gotchas": [
+    "free tier limited to 50 RPD without credit purchase history"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "No",
+  "ipIndemnity": false
+}

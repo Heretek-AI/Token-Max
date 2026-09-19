@@ -1,0 +1,28 @@
+{
+  "id": "anthropic-api",
+  "name": "Anthropic API",
+  "category": "api-provider",
+  "url": "https://console.anthropic.com",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "PAYG",
+      "monthlyPrice": null,
+      "limits": {},
+      "models": [
+        "Fable 5.1",
+        "Opus 5",
+        "Sonnet 5",
+        "Haiku 4.5"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": "Cache reads 90% off. Batch 50% off."
+    }
+  ],
+  "gotchas": [
+    "Tiered rate limits based on spend"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "No",
+  "ipIndemnity": true
+}

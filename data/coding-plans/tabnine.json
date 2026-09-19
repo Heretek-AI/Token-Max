@@ -1,0 +1,42 @@
+{
+  "id": "tabnine",
+  "name": "Tabnine",
+  "category": "coding-ide",
+  "url": "https://tabnine.com",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Starter",
+      "monthlyPrice": 0,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 15,
+      "limits": {
+        "chat": 500
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "unlimited completions"
+    },
+    {
+      "name": "Enterprise",
+      "monthlyPrice": 39,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "$39/user"
+    }
+  ],
+  "gotchas": [
+    "very limited free tier",
+    "ZDR focus"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "ZDR",
+  "ipIndemnity": true
+}

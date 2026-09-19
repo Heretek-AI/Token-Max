@@ -1,0 +1,31 @@
+{
+  "id": "opencode",
+  "name": "OpenCode",
+  "category": "coding-router",
+  "url": "https://opencode.com",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Go",
+      "monthlyPrice": 10,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Per-model monthly dollar limits"
+    },
+    {
+      "name": "Zen",
+      "monthlyPrice": null,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "PAYG"
+    }
+  ],
+  "gotchas": [
+    "ZDR varies by model"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "Varies by model",
+  "ipIndemnity": false
+}

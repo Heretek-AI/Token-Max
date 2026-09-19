@@ -1,0 +1,67 @@
+{
+  "id": "kiro",
+  "name": "Kiro",
+  "category": "coding-ide",
+  "url": "https://aws.amazon.com/kiro",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "limits": {
+        "credits": 50
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "50 credits"
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 20,
+      "limits": {
+        "credits": 1000
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "1000 credits"
+    },
+    {
+      "name": "Pro+",
+      "monthlyPrice": 40,
+      "limits": {
+        "credits": 2000
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "2000 credits"
+    },
+    {
+      "name": "ProMax",
+      "monthlyPrice": 100,
+      "limits": {
+        "credits": 5000
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "5000 credits"
+    },
+    {
+      "name": "Power",
+      "monthlyPrice": 200,
+      "limits": {
+        "credits": 10000
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "10000 credits"
+    }
+  ],
+  "gotchas": [
+    "Credits don't roll over",
+    "Add-on $0.04/credit",
+    "Model multipliers vary"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "No",
+  "ipIndemnity": false
+}

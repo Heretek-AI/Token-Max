@@ -1,0 +1,42 @@
+{
+  "id": "kimi-code",
+  "name": "Kimi Code",
+  "category": "coding-ide",
+  "url": "https://moonshot.cn",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Plus",
+      "monthlyPrice": 19,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "\u00a579"
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 39,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "\u00a5159"
+    },
+    {
+      "name": "Max",
+      "monthlyPrice": 199,
+      "limits": {},
+      "models": [
+        "K3 2.8T"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": "\u00a5559"
+    }
+  ],
+  "gotchas": [
+    "shared quota with consumer chat",
+    "User-Agent tampering = suspension"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "Yes",
+  "ipIndemnity": false
+}

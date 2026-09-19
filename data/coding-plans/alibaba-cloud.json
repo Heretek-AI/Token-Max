@@ -1,0 +1,63 @@
+{
+  "id": "alibaba-cloud",
+  "name": "Alibaba Cloud",
+  "category": "api-provider",
+  "url": "https://alibabacloud.com",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Personal Lite",
+      "monthlyPrice": 6,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Standard",
+      "monthlyPrice": 18,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 68,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Team Standard",
+      "monthlyPrice": 20,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "/seat"
+    },
+    {
+      "name": "Team Pro",
+      "monthlyPrice": 75,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Team Max",
+      "monthlyPrice": 200,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    }
+  ],
+  "gotchas": [
+    "no training guarantee on personal plans"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "No guarantee on personal plans",
+  "ipIndemnity": false
+}

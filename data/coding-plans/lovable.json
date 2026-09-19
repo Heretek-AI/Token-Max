@@ -1,0 +1,42 @@
+{
+  "id": "lovable",
+  "name": "Lovable",
+  "category": "coding-ide",
+  "url": "https://lovable.dev",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "limits": {
+        "build_credits": 5
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Daily 5 build credits"
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 25,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Top-up $0.30/cr"
+    },
+    {
+      "name": "Business",
+      "monthlyPrice": 50,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Top-up $0.60/cr"
+    }
+  ],
+  "gotchas": [
+    "perpetual license for training on Free/Pro",
+    "Credits expire 2 months"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "Perpetual license on Free/Pro",
+  "ipIndemnity": false
+}

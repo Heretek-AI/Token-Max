@@ -1,0 +1,40 @@
+{
+  "id": "minimax",
+  "name": "MiniMax",
+  "category": "api-provider",
+  "url": "https://minimax.ai",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Plus",
+      "monthlyPrice": 22,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Max",
+      "monthlyPrice": 55,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Ultra",
+      "monthlyPrice": 132,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    }
+  ],
+  "gotchas": [
+    "Agent limits: 3-7 depending on tier",
+    "Credits valid 365 days"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "Yes",
+  "ipIndemnity": false
+}

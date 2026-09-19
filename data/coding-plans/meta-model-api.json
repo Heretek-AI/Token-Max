@@ -1,0 +1,35 @@
+{
+  "id": "meta-model-api",
+  "name": "Meta Model API",
+  "category": "api-provider",
+  "url": "https://meta.com",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Standard",
+      "monthlyPrice": null,
+      "limits": {
+        "RPM": 3000
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "$1.25/$4.25/M"
+    },
+    {
+      "name": "Contributor",
+      "monthlyPrice": null,
+      "limits": {
+        "RPM": 60
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "$0.10/$0.20/M"
+    }
+  ],
+  "gotchas": [
+    "Contributor allows training on your data"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "Yes for Contributor tier",
+  "ipIndemnity": false
+}

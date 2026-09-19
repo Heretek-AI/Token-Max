@@ -1,0 +1,54 @@
+{
+  "id": "claude-code",
+  "name": "Claude Code",
+  "category": "coding-ide",
+  "url": "https://anthropic.com",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Pro",
+      "monthlyPrice": 20,
+      "limits": {},
+      "models": [
+        "Fable 5.1",
+        "Opus 5",
+        "Sonnet 5",
+        "Haiku 4.5"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": "Shared 5-hour rolling + weekly cap"
+    },
+    {
+      "name": "Max5x",
+      "monthlyPrice": 100,
+      "limits": {},
+      "models": [
+        "Fable 5.1",
+        "Opus 5",
+        "Sonnet 5",
+        "Haiku 4.5"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Max20x",
+      "monthlyPrice": 200,
+      "limits": {},
+      "models": [
+        "Fable 5.1",
+        "Opus 5",
+        "Sonnet 5",
+        "Haiku 4.5"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    }
+  ],
+  "gotchas": [
+    "shared quota with Claude web app"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "None specified",
+  "ipIndemnity": false
+}

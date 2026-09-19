@@ -1,0 +1,52 @@
+{
+  "id": "ollama-cloud",
+  "name": "Ollama Cloud",
+  "category": "api-provider",
+  "url": "https://ollama.com",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 20,
+      "limits": {
+        "concurrent": 3
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "$60 credits/mo"
+    },
+    {
+      "name": "Max",
+      "monthlyPrice": 100,
+      "limits": {
+        "concurrent": 10
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "$300 credits/mo"
+    },
+    {
+      "name": "Team",
+      "monthlyPrice": 500,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    }
+  ],
+  "gotchas": [
+    "credits don't roll over",
+    "peak pricing 12-18 UTC"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "No",
+  "ipIndemnity": false
+}

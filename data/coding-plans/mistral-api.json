@@ -1,0 +1,23 @@
+{
+  "id": "mistral-api",
+  "name": "Mistral API",
+  "category": "api-provider",
+  "url": "https://console.mistral.ai",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "PAYG",
+      "monthlyPrice": null,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "50% batch discount. 90% cache discount."
+    }
+  ],
+  "gotchas": [
+    "exceeding context = 400 error"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "No",
+  "ipIndemnity": false
+}

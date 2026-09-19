@@ -1,0 +1,31 @@
+{
+  "id": "deepseek-api",
+  "name": "DeepSeek API",
+  "category": "api-provider",
+  "url": "https://platform.deepseek.com",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "PAYG",
+      "monthlyPrice": null,
+      "limits": {
+        "concurrency": {
+          "Flash": 2500,
+          "Pro": 500
+        }
+      },
+      "models": [
+        "Flash",
+        "V4-Pro"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": "time-of-day pricing. Cache hits 98% off."
+    }
+  ],
+  "gotchas": [
+    "time-of-day pricing differences"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "No",
+  "ipIndemnity": false
+}

@@ -1,0 +1,48 @@
+{
+  "id": "kilo-code",
+  "name": "Kilo AI",
+  "category": "coding-router",
+  "url": "https://kilo.ai",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Starter",
+      "monthlyPrice": 19,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Kilo Pass"
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 49,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Kilo Pass"
+    },
+    {
+      "name": "Expert",
+      "monthlyPrice": 199,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Kilo Pass"
+    },
+    {
+      "name": "Teams",
+      "monthlyPrice": 15,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "$15/user/mo"
+    }
+  ],
+  "gotchas": [
+    "bonus credits expire monthly",
+    "5% processing fee"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "No",
+  "ipIndemnity": false
+}

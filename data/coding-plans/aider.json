@@ -1,0 +1,23 @@
+{
+  "id": "aider",
+  "name": "Aider",
+  "category": "coding-ide",
+  "url": "https://aider.chat",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "BYOK only"
+    }
+  ],
+  "gotchas": [
+    "No limits beyond API provider limits"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "Depends on API provider",
+  "ipIndemnity": false
+}

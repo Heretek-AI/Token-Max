@@ -1,0 +1,75 @@
+{
+  "id": "cursor",
+  "name": "Cursor",
+  "category": "coding-ide",
+  "url": "https://cursor.sh",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Hobby",
+      "monthlyPrice": 0,
+      "limits": {},
+      "models": [
+        "grok-4.6",
+        "claude-sonnet-5",
+        "gpt-5.6-sol"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 20,
+      "limits": {},
+      "models": [
+        "grok-4.6",
+        "claude-sonnet-5",
+        "gpt-5.6-sol"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Pool estimated",
+        "estimatedMillionTokens": 20,
+        "assumptions": "Third-party pool estimation"
+      },
+      "notes": "Pro ~$20 third-party pool"
+    },
+    {
+      "name": "Pro+",
+      "monthlyPrice": 60,
+      "limits": {},
+      "models": [
+        "grok-4.6",
+        "claude-sonnet-5",
+        "gpt-5.6-sol"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Pool estimated",
+        "estimatedMillionTokens": 70,
+        "assumptions": "Third-party pool estimation"
+      },
+      "notes": "Pro+ ~$70"
+    },
+    {
+      "name": "Ultra",
+      "monthlyPrice": 200,
+      "limits": {},
+      "models": [
+        "grok-4.6",
+        "claude-sonnet-5",
+        "gpt-5.6-sol"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Pool estimated",
+        "estimatedMillionTokens": 400,
+        "assumptions": "Third-party pool estimation"
+      },
+      "notes": "Ultra ~$400"
+    }
+  ],
+  "gotchas": [
+    "on-demand billing after pool"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "opt-out in privacy mode",
+  "ipIndemnity": false
+}

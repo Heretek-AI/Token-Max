@@ -1,0 +1,38 @@
+{
+  "id": "amazon-q",
+  "name": "Amazon Q Developer",
+  "category": "coding-ide",
+  "url": "https://aws.amazon.com/q",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "limits": {
+        "lines": 1000,
+        "requests": 50
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 19,
+      "limits": {
+        "lines": 4000,
+        "requests": 1000,
+        "agent": 30
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "$19/user"
+    }
+  ],
+  "gotchas": [
+    "Overages: $0.003/line"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "Opt-out available",
+  "ipIndemnity": true
+}

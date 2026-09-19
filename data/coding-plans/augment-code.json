@@ -1,0 +1,32 @@
+{
+  "id": "augment-code",
+  "name": "Augment Code",
+  "category": "coding-ide",
+  "url": "https://augment.co",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Business",
+      "monthlyPrice": 100,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Effort/credit metered"
+    },
+    {
+      "name": "Enterprise",
+      "monthlyPrice": null,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Custom"
+    }
+  ],
+  "gotchas": [
+    "no permanent free tier",
+    "Auto-top-up $15 blocks"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "No",
+  "ipIndemnity": true
+}

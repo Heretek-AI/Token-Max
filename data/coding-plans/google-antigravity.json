@@ -1,0 +1,63 @@
+{
+  "id": "google-antigravity",
+  "name": "Google Antigravity",
+  "category": "coding-ide",
+  "url": "https://google.com/ai",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Individual",
+      "monthlyPrice": 0,
+      "limits": {
+        "tasks": 15
+      },
+      "models": [
+        "Jules"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": "15 daily tasks"
+    },
+    {
+      "name": "AI Pro",
+      "monthlyPrice": 19.99,
+      "limits": {
+        "tasks": 75
+      },
+      "models": [
+        "Jules"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": "75 daily tasks"
+    },
+    {
+      "name": "Ultra5x",
+      "monthlyPrice": 99.99,
+      "limits": {
+        "tasks": 300
+      },
+      "models": [
+        "Jules"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": "300 daily tasks"
+    },
+    {
+      "name": "Ultra20x",
+      "monthlyPrice": 199.99,
+      "limits": {
+        "tasks": 1200
+      },
+      "models": [
+        "Jules"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": "5-hour refresh cycles"
+    }
+  ],
+  "gotchas": [
+    "task-based limits, not token-based"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "Opt-out available",
+  "ipIndemnity": false
+}

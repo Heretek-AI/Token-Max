@@ -1,0 +1,65 @@
+{
+  "id": "google-ai-studio",
+  "name": "Google AI Studio",
+  "category": "api-provider",
+  "url": "https://aistudio.google.com",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "limits": {
+        "RPM": 15,
+        "TPM": 1000000
+      },
+      "models": [
+        "Gemini 3.8 Flash"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Tier1",
+      "monthlyPrice": null,
+      "limits": {
+        "spendCap": 250
+      },
+      "models": [
+        "Gemini 3.8 Flash"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": "Based on spend"
+    },
+    {
+      "name": "Tier2",
+      "monthlyPrice": null,
+      "limits": {
+        "spendCap": 2000
+      },
+      "models": [
+        "Gemini 3.8 Flash"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": "Based on spend"
+    },
+    {
+      "name": "Tier3",
+      "monthlyPrice": null,
+      "limits": {
+        "spendCap": 100000
+      },
+      "models": [
+        "Gemini 3.8 Flash"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": "Based on spend"
+    }
+  ],
+  "gotchas": [
+    "credits expire 1 year",
+    "non-refundable"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "Yes on free tier",
+  "ipIndemnity": false
+}

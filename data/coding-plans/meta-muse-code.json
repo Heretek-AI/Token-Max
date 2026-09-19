@@ -1,0 +1,40 @@
+{
+  "id": "meta-muse-code",
+  "name": "Meta Muse Code",
+  "category": "coding-ide",
+  "url": "https://meta.com",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Everyday",
+      "monthlyPrice": 5,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "High",
+      "monthlyPrice": 15,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Power",
+      "monthlyPrice": 50,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    }
+  ],
+  "gotchas": [
+    "Contributor tier allows training on your code",
+    "Standard 3000 RPM, Contributor 60 RPM"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "Contributor tier trains on your data",
+  "ipIndemnity": false
+}

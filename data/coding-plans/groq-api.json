@@ -1,0 +1,31 @@
+{
+  "id": "groq-api",
+  "name": "Groq API",
+  "category": "api-provider",
+  "url": "https://console.groq.com",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "PAYG",
+      "monthlyPrice": null,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "50% cached/batch discount"
+    }
+  ],
+  "gotchas": [
+    "must set spend caps manually"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "No",
+  "ipIndemnity": false
+}

@@ -1,0 +1,67 @@
+{
+  "id": "github-copilot",
+  "name": "GitHub Copilot",
+  "category": "coding-ide",
+  "url": "https://github.com/features/copilot",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "limits": {
+        "credits": 0
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 10,
+      "limits": {
+        "credits": 1500
+      },
+      "models": [],
+      "estimatedTokenBudget": {
+        "description": "Based on credits",
+        "estimatedMillionTokens": 15,
+        "assumptions": "1 credit = $0.01"
+      },
+      "notes": "1500 credits ($15)"
+    },
+    {
+      "name": "Pro+",
+      "monthlyPrice": 39,
+      "limits": {
+        "credits": 7000
+      },
+      "models": [],
+      "estimatedTokenBudget": {
+        "description": "Based on credits",
+        "estimatedMillionTokens": 70,
+        "assumptions": "1 credit = $0.01"
+      },
+      "notes": "7000 credits ($70)"
+    },
+    {
+      "name": "Max",
+      "monthlyPrice": 100,
+      "limits": {
+        "credits": 20000
+      },
+      "models": [],
+      "estimatedTokenBudget": {
+        "description": "Based on credits",
+        "estimatedMillionTokens": 200,
+        "assumptions": "1 credit = $0.01"
+      },
+      "notes": "20000 credits ($200)"
+    }
+  ],
+  "gotchas": [
+    "data training unless opted out on individual plans"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "opt-out required for individual plans",
+  "ipIndemnity": "Business/Enterprise only"
+}

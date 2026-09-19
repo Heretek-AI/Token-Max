@@ -1,0 +1,28 @@
+{
+  "id": "openai-api",
+  "name": "OpenAI API",
+  "category": "api-provider",
+  "url": "https://platform.openai.com",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "PAYG",
+      "monthlyPrice": null,
+      "limits": {},
+      "models": [
+        "GPT-6 Astra",
+        "Sol",
+        "Terra",
+        "Luna"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": "Batch 50% off"
+    }
+  ],
+  "gotchas": [
+    "long-context pricing doubles above 272K tokens"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "Opt-out available",
+  "ipIndemnity": true
+}

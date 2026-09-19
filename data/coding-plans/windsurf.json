@@ -1,0 +1,63 @@
+{
+  "id": "windsurf",
+  "name": "Windsurf",
+  "category": "coding-ide",
+  "url": "https://windsurf.dev",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "limits": {},
+      "models": [
+        "SWE-1.5",
+        "Claude Sonnet 4.6",
+        "GPT-5.4"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 20,
+      "limits": {},
+      "models": [
+        "SWE-1.5",
+        "Claude Sonnet 4.6",
+        "GPT-5.4"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Max",
+      "monthlyPrice": 200,
+      "limits": {},
+      "models": [
+        "SWE-1.5",
+        "Claude Sonnet 4.6",
+        "GPT-5.4"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "Teams",
+      "monthlyPrice": 40,
+      "limits": {},
+      "models": [
+        "SWE-1.5",
+        "Claude Sonnet 4.6",
+        "GPT-5.4"
+      ],
+      "estimatedTokenBudget": null,
+      "notes": "$40/user"
+    }
+  ],
+  "gotchas": [
+    "legacy Codeium credits retired"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "No",
+  "ipIndemnity": false
+}

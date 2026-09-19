@@ -1,0 +1,34 @@
+{
+  "id": "together-ai",
+  "name": "Together.ai",
+  "category": "api-provider",
+  "url": "https://together.ai",
+  "lastVerified": "2026-09-18",
+  "tiers": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "limits": {
+        "RPM": 60,
+        "TPM": 60000
+      },
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": ""
+    },
+    {
+      "name": "PAYG",
+      "monthlyPrice": null,
+      "limits": {},
+      "models": [],
+      "estimatedTokenBudget": null,
+      "notes": "Tiered limits at $25/$50/$100/$250 spend. Batch 50% off."
+    }
+  ],
+  "gotchas": [
+    "sudden traffic spikes hit 429s"
+  ],
+  "tosHighlights": [],
+  "dataTraining": "No",
+  "ipIndemnity": false
+}
