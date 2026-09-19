@@ -1,79 +1,89 @@
 {
   "id": "minimax",
-  "name": "MiniMax",
+  "name": "MiniMax Token Plan",
   "category": "api-provider",
-  "url": "https://minimax.ai",
+  "url": "https://platform.minimax.io/docs/guides/pricing-token-plan",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Plus",
       "monthlyPrice": 22,
       "limits": {
-        "credits": "22,000 credits (1,000cr = $1)",
-        "concurrentAgents": "3 concurrent agent threads",
-        "creditValidity": "365 days"
+        "quota": "5-hour rolling + weekly windows",
+        "agents": "3-4 concurrent agents"
       },
       "models": [
-        "MiniMax-01",
-        "MiniMax Text-02"
+        "MiniMax M3",
+        "M2.7"
       ],
       "estimatedTokenBudget": {
-        "description": "22,000 credits (~25M tokens/mo)",
-        "estimatedMillionTokens": 25,
-        "assumptions": "$22 credit pool @ wholesale model rates"
+        "description": "5h + weekly windows (~20M tokens/mo est.)",
+        "estimatedMillionTokens": 20,
+        "assumptions": "Research estimate; exact credits per window not officially published"
       },
-      "notes": "Prepaid credit package with 1-year expiration"
+      "notes": "Personal projects and prototyping"
     },
     {
       "name": "Max",
       "monthlyPrice": 55,
       "limits": {
-        "credits": "55,000 credits",
-        "concurrentAgents": "5 concurrent agent threads",
-        "creditValidity": "365 days"
+        "quota": "5-hour rolling + weekly windows",
+        "agents": "4-5 concurrent agents"
       },
       "models": [
-        "MiniMax-01",
-        "MiniMax Text-02",
-        "MiniMax Code Specialist"
+        "MiniMax M3",
+        "M2.7"
       ],
       "estimatedTokenBudget": {
-        "description": "55,000 credits (~65M tokens/mo)",
+        "description": "Higher windows (~65M tokens/mo est.)",
         "estimatedMillionTokens": 65,
-        "assumptions": "$55 credit pool"
+        "assumptions": "Research estimate"
       },
-      "notes": "Enhanced concurrency for background agent workflows"
+      "notes": "Daily coding with agents and multimodal work"
     },
     {
       "name": "Ultra",
       "monthlyPrice": 132,
       "limits": {
-        "credits": "132,000 credits",
-        "concurrentAgents": "7 concurrent agent threads",
-        "creditValidity": "365 days"
+        "quota": "5-hour rolling + weekly windows, extended sessions",
+        "agents": "6-7 concurrent agents"
       },
       "models": [
-        "MiniMax-01",
-        "MiniMax Text-02",
-        "MiniMax Code Specialist"
+        "MiniMax M3",
+        "M2.7"
       ],
       "estimatedTokenBudget": {
-        "description": "132,000 credits (~160M tokens/mo)",
+        "description": "Highest windows (~160M tokens/mo est.)",
         "estimatedMillionTokens": 160,
-        "assumptions": "$132 credit pool"
+        "assumptions": "Research estimate"
       },
-      "notes": "High concurrency package for continuous code analysis"
+      "notes": "Heavy agent workflows and extended sessions"
+    },
+    {
+      "name": "Prepaid Credits",
+      "monthlyPrice": null,
+      "limits": {
+        "credits": "$5 = 5,000 / $25 = 25,000 / $100 = 100,000 credits (1,000 credits = $1)",
+        "validity": "365 days"
+      },
+      "models": [
+        "All MiniMax models"
+      ],
+      "estimatedTokenBudget": {
+        "description": "$1 per 1,000 credits",
+        "estimatedMillionTokens": 0,
+        "assumptions": "Overflow top-up for subscription users"
+      },
+      "notes": "Prepaid overflow packages"
     }
   ],
   "gotchas": [
-    "Agent limits hard-capped at 3, 5, or 7 concurrent streams based on purchased tier",
-    "Unused credits expire after exactly 365 days from purchase",
-    "Data may be used for training on standard consumer tiers"
+    "Sold as 'Token Plan' subscription rather than a separate coding plan",
+    "Exact credits inside 5h/weekly windows are not officially published - token estimates are research-derived",
+    "MiniMax H3, voice design and rapid voice cloning not included",
+    "Prepaid credits: 1,000 credits = $1, valid 365 days"
   ],
-  "tosHighlights": [
-    "Chinese & English bilingual optimization",
-    "Enterprise contracts offer on-prem and private cloud hosting"
-  ],
-  "dataTraining": "Yes (unless enterprise SLA)",
+  "tosHighlights": [],
+  "dataTraining": "Not published on pricing page",
   "ipIndemnity": false
 }

@@ -1,104 +1,69 @@
 {
   "id": "kilo-code",
-  "name": "Kilo AI",
+  "name": "Kilo Code",
   "category": "coding-router",
-  "url": "https://kilo.ai/pricing/kilo-pass",
+  "url": "https://kilo.ai/pricing",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
-      "name": "Starter",
-      "monthlyPrice": 19,
+      "name": "Individual",
+      "monthlyPrice": 0,
       "limits": {
-        "creditPool": "$19 + 40% bonus ($26.60 value)",
-        "markup": "0% API markup",
-        "processingFee": "5%"
+        "models": "Access to 500+ models via Kilo Gateway or BYOK",
+        "gatewayFee": "5% on all plans (no markup vs list price)"
       },
       "models": [
-        "DeepSeek V4.1 Flash",
-        "Claude Sonnet 5",
-        "GPT-6 Astra",
-        "Gemini 3.8 Flash"
+        "Kilo Gateway (500+ models)"
       ],
       "estimatedTokenBudget": {
-        "description": "$26.60 API credit pool (~26M tokens)",
-        "estimatedMillionTokens": 26,
-        "assumptions": "$26.60 blended across DeepSeek and Sonnet at zero markup"
+        "description": "PAYG at provider list rates + 5% gateway fee",
+        "estimatedMillionTokens": 0,
+        "assumptions": "Token cost equals provider list price; no fixed monthly bundle"
       },
-      "notes": "Kilo Pass Starter tier with 40% bonus credits"
-    },
-    {
-      "name": "Pro",
-      "monthlyPrice": 49,
-      "limits": {
-        "creditPool": "$49 + 45% bonus ($71.05 value)",
-        "markup": "0% API markup",
-        "processingFee": "5%"
-      },
-      "models": [
-        "DeepSeek V4.1 Flash",
-        "Claude Sonnet 5",
-        "GPT-6 Astra",
-        "Gemini 3.8 Flash"
-      ],
-      "estimatedTokenBudget": {
-        "description": "$71.05 API credit pool (~71M tokens)",
-        "estimatedMillionTokens": 71,
-        "assumptions": "$71.05 blended across frontier models at zero markup"
-      },
-      "notes": "Kilo Pass Pro with 45% bonus credits"
-    },
-    {
-      "name": "Expert",
-      "monthlyPrice": 199,
-      "limits": {
-        "creditPool": "$199 + 50% bonus ($298.50 value)",
-        "markup": "0% API markup",
-        "processingFee": "5%"
-      },
-      "models": [
-        "DeepSeek V4.1 Flash",
-        "Claude Sonnet 5",
-        "GPT-6 Astra",
-        "Claude Opus 5"
-      ],
-      "estimatedTokenBudget": {
-        "description": "$298.50 API credit pool (~298M tokens)",
-        "estimatedMillionTokens": 298,
-        "assumptions": "$298.50 blended across frontier models at zero markup"
-      },
-      "notes": "Kilo Pass Expert with 50% bonus credits"
+      "notes": "Free for individuals; cloud compute billed separately per-hour"
     },
     {
       "name": "Teams",
       "monthlyPrice": 15,
       "limits": {
-        "perSeat": "$15/user base",
-        "markup": "0% API markup",
-        "centralizedBilling": "Yes"
+        "seats": "$15/user/mo collaboration platform",
+        "inference": "Billed at provider rates; EU inference available"
       },
       "models": [
-        "DeepSeek V4.1 Flash",
-        "Claude Sonnet 5",
-        "GPT-6 Astra",
-        "All OpenRouter models"
+        "Kilo Gateway (500+ models)"
       ],
       "estimatedTokenBudget": {
-        "description": "Metered per seat + shared pool (~15M tokens/seat)",
-        "estimatedMillionTokens": 15,
-        "assumptions": "$15 seat credit at raw API rates"
+        "description": "Platform fee only; inference at provider list rates",
+        "estimatedMillionTokens": 0,
+        "assumptions": "Token cost = provider rates + 5% gateway fee (or BYOK, zero fee)"
       },
-      "notes": "Team workspace with shared billing and role controls"
+      "notes": "Security/governance features included"
+    },
+    {
+      "name": "Enterprise",
+      "monthlyPrice": null,
+      "limits": {
+        "volume": "Quote-based",
+        "support": "Dedicated"
+      },
+      "models": [
+        "Kilo Gateway (500+ models)"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Custom agree - quote-based",
+        "estimatedMillionTokens": 0,
+        "assumptions": "Negotiated agreement"
+      },
+      "notes": "Enterprise support and controls"
     }
   ],
   "gotchas": [
-    "Bonus credits expire at the end of each billing cycle",
-    "5% credit card processing fee applied to top-up reloads",
-    "Raw API errors from underlying providers are passed directly through"
+    "Rebranded kilocode.ai -> kilo.ai; pricing restructured to platform fee + inference + cloud compute",
+    "Kilo Pass converts dollars 1:1 into paid credits, then adds bonus credits (50% month one; streak bonuses on monthly, 50% every month on annual)",
+    "Bonus credits expire monthly; paid credits apply across IDE/CLI/Cloud Agents/Gateway",
+    "Cloud agents billed per second (Gas Town $1.20/hr, Code Review $0.33/hr, Cloud Agent $0.60-1.20/hr)"
   ],
-  "tosHighlights": [
-    "Open source client extension with transparent routing",
-    "No data retention or model training on customer code"
-  ],
-  "dataTraining": "No",
+  "tosHighlights": [],
+  "dataTraining": "Not published on pricing page",
   "ipIndemnity": false
 }

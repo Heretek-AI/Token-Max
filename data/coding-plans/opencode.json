@@ -2,58 +2,78 @@
   "id": "opencode",
   "name": "OpenCode",
   "category": "coding-router",
-  "url": "https://opencode.ai",
+  "url": "https://opencode.ai/zen",
   "lastVerified": "2026-09-18",
   "tiers": [
+    {
+      "name": "OpenSource CLI",
+      "monthlyPrice": 0,
+      "limits": {
+        "usage": "Free open-source agent; BYOK to any provider"
+      },
+      "models": [
+        "BYOK any provider"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Token cost = your provider's rates",
+        "estimatedMillionTokens": 0,
+        "assumptions": "No fixed bundle; you pay your API provider directly"
+      },
+      "notes": "opencode.ai/pricing no longer exists (404)"
+    },
+    {
+      "name": "Zen (PAYG)",
+      "monthlyPrice": 20,
+      "limits": {
+        "billing": "Pay-as-you-go dollar balance, min $20 top-up (+$1.23 card fee)",
+        "markup": "Zero markup per request",
+        "autoTopUp": "$20 when balance < $5"
+      },
+      "models": [
+        "GPT-5.6 Luna",
+        "GPT-5.6 Sol",
+        "Claude Fable 5.1",
+        "Claude Opus 5",
+        "GLM-5.3",
+        "DeepSeek V4",
+        "Gemini 3.8 Flash",
+        "Free stealth models"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Per-token billing at curated gateway rates; min $20",
+        "estimatedMillionTokens": 0,
+        "assumptions": "Balance-based; cost equals published per-model rates"
+      },
+      "notes": "US-hosted, zero retention"
+    },
     {
       "name": "Go",
       "monthlyPrice": 10,
       "limits": {
-        "monthlySpendCap": "$10/mo model quota",
-        "fiveHourRolling": "Max 20% of monthly cap ($2.00/5h)",
-        "weeklyCap": "Max 50% of monthly cap ($5.00/wk)"
+        "usage": "Open-model subscription ($10/mo) for stable global access"
       },
       "models": [
+        "MiniMax M3",
+        "Qwen3.8",
         "DeepSeek V4.1 Flash",
-        "Claude Sonnet 5",
-        "Qwen 3.8 Max"
+        "LongCat-2.0",
+        "Grok 4.6"
       ],
       "estimatedTokenBudget": {
-        "description": "$10 API budget (~12M tokens/mo)",
-        "estimatedMillionTokens": 12,
-        "assumptions": "$10 spent on blended DeepSeek and Sonnet models"
+        "description": "Open-model subscription (~30M tokens/mo est.)",
+        "estimatedMillionTokens": 30,
+        "assumptions": "$10 / ~$0.3/M blended open-model rate ~= 30M tokens; exact cap not published"
       },
-      "notes": "Capped subscription with automated router optimizations"
-    },
-    {
-      "name": "Zen",
-      "monthlyPrice": null,
-      "limits": {
-        "billing": "Pay-as-you-go with 0% platform markup",
-        "concurrency": "10 concurrent streams"
-      },
-      "models": [
-        "All Supported Routing Models",
-        "Claude Sonnet 5",
-        "GPT-6 Astra"
-      ],
-      "estimatedTokenBudget": {
-        "description": "Uncapped PAYG at wholesale cost (~50M tokens @ $50)",
-        "estimatedMillionTokens": 50,
-        "assumptions": "Calculated on $50 typical monthly consumption"
-      },
-      "notes": "Direct wholesale rates with intelligent latency failover"
+      "notes": "New Sept 2026 low-cost subscription tier"
     }
   ],
   "gotchas": [
-    "Zero Data Retention policies vary strictly by the underlying model provider selected",
-    "DeepSeek models have dynamic peak vs off-peak rates passed through",
-    "5-hour limit resets dynamically"
+    "The CLI itself is free/open-source; opencode.ai/pricing is retired (404) - offerings are Zen (PAYG) and Go ($10/mo)",
+    "Zen charges $1.23 card processing fee on top-ups; auto top-up at $20 below $5 balance",
+    "GPT-5.6 Sol carries 50% discount through Sept 18, 2026",
+    "Zen models hosted in US with zero-retention provider policy"
   ],
-  "tosHighlights": [
-    "Client-side proxy routing keeps API keys private",
-    "Open-source core architecture"
-  ],
-  "dataTraining": "Varies by model selected",
+  "tosHighlights": [],
+  "dataTraining": "Zero-retention; no training on Zen",
   "ipIndemnity": false
 }

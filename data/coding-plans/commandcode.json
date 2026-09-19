@@ -2,121 +2,115 @@
   "id": "commandcode",
   "name": "CommandCode",
   "category": "coding-router",
-  "url": "https://commandcode.dev",
+  "url": "https://commandcode.ai/pricing",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Go",
       "monthlyPrice": 1,
       "limits": {
-        "credits": "$10 compute credits",
-        "rollingWindow": "$3 / 5h limit",
-        "weeklyCap": "$6 / week"
+        "credits": "$10/mo compute credits (up to ~$20 with deals)",
+        "requests": "~15K"
       },
       "models": [
-        "DeepSeek V4.1 Flash",
-        "Claude Sonnet 5",
-        "Qwen 3.8 Max"
+        "GPT-5.6 Luna",
+        "Grok 4.5",
+        "Qwen Max",
+        "MiniMax M3"
       ],
       "estimatedTokenBudget": {
-        "description": "$10 compute credits (~15M tokens/mo)",
+        "description": "$10 compute credits (~15M tokens on open models)",
         "estimatedMillionTokens": 15,
-        "assumptions": "$10 credit pool spent at zero markup API rates"
+        "assumptions": "$10.00 / ~$0.65/M blended open-model rate ~= 15M tokens"
       },
-      "notes": "$1 entry tier gives $10 in compute credits"
+      "notes": "Processing fee applies; open models + select premium"
     },
     {
       "name": "GOAT",
       "monthlyPrice": 10,
       "limits": {
-        "credits": "$70 compute credits",
-        "rollingWindow": "$15 / 5h limit",
-        "weeklyCap": "$35 / week"
+        "credits": "$70/mo credits (up to ~$100 with deals)",
+        "requests": "~75K"
       },
       "models": [
-        "DeepSeek V4.1 Flash",
-        "Claude Sonnet 5",
-        "GPT-6 Astra"
+        "GPT-5.6 Sol",
+        "GLM-5.2",
+        "Tencent Hy3",
+        "Qwen 3.8 27B",
+        "DeepSeek V4 Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "$70 compute credits (~70M tokens/mo)",
+        "description": "$70 compute credits (~70M tokens)",
         "estimatedMillionTokens": 70,
-        "assumptions": "$70 compute pool spent across frontier models"
+        "assumptions": "$70.00 / ~$1/M blended ~= 70M tokens; per-model dollar allowances"
       },
-      "notes": "7x credit bonus for $10 monthly commitment"
+      "notes": "29+ models"
     },
     {
       "name": "Pro",
       "monthlyPrice": 20,
       "limits": {
-        "credits": "$80 compute credits",
-        "rollingWindow": "$20 / 5h limit",
-        "weeklyCap": "$50 / week"
+        "credits": "$80/mo credits",
+        "requests": "~100K"
       },
       "models": [
-        "DeepSeek V4.1 Flash",
-        "Claude Sonnet 5",
-        "GPT-6 Astra",
-        "Claude Opus 5"
+        "Claude Opus 4.8",
+        "GPT-5.6 Sol",
+        "Gemini",
+        "GLM-5.2",
+        "MiniMax M3"
       ],
       "estimatedTokenBudget": {
-        "description": "$80 compute credits (~80M tokens/mo)",
+        "description": "$80 compute credits (~80M tokens)",
         "estimatedMillionTokens": 80,
-        "assumptions": "$80 compute pool spent across frontier models"
+        "assumptions": "$80.00 / ~$1/M blended ~= 80M tokens; deals increase effective value"
       },
-      "notes": "4x credit multiplier with expanded 5-hour window"
+      "notes": "Adds all premium models incl Claude; 1M context"
     },
     {
-      "name": "Max10x",
+      "name": "Max 10x",
       "monthlyPrice": 100,
       "limits": {
-        "credits": "$150 compute credits",
-        "rollingWindow": "$40 / 5h limit",
-        "weeklyCap": "$100 / week"
+        "credits": "$150/mo credits (up to ~$300)",
+        "requests": "~219K"
       },
       "models": [
-        "Claude Sonnet 5",
-        "Claude Opus 5",
-        "GPT-6 Astra",
-        "DeepSeek V4.1 Flash"
+        "All 30+ models"
       ],
       "estimatedTokenBudget": {
-        "description": "$150 compute credits (~150M tokens/mo)",
+        "description": "$150 compute credits (~150M tokens)",
         "estimatedMillionTokens": 150,
-        "assumptions": "$150 compute pool across all frontier models"
+        "assumptions": "$150.00 / ~$1/M blended ~= 150M tokens"
       },
-      "notes": "High burst capacity for multi-agent workflows"
+      "notes": "Higher rate limits"
     },
     {
-      "name": "Max20x",
+      "name": "Max 20x",
       "monthlyPrice": 200,
       "limits": {
-        "credits": "$300 compute credits",
-        "rollingWindow": "$75 / 5h limit",
-        "weeklyCap": "$200 / week"
+        "credits": "$300/mo credits (up to ~$600)",
+        "requests": "~437K"
       },
       "models": [
-        "All Frontier Models",
-        "Claude Opus 5",
-        "GPT-6 Astra"
+        "All 30+ models"
       ],
       "estimatedTokenBudget": {
-        "description": "$300 compute credits (~300M tokens/mo)",
+        "description": "$300 compute credits (~300M tokens)",
         "estimatedMillionTokens": 300,
-        "assumptions": "$300 compute pool"
+        "assumptions": "$300.00 / ~$1/M blended ~= 300M tokens"
       },
-      "notes": "Maximum developer throughput with $300 compute"
+      "notes": "Highest rate limits; every model"
     }
   ],
   "gotchas": [
-    "5-hour rolling windows and weekly caps prevent sudden exhaustion of large credit allocations",
-    "Unused base credits roll over, but extra bonus promotions expire after 90 days",
-    "Throttled rate limits when approaching 5-hour limit"
+    "Domain moved from commandcode.dev to commandcode.ai",
+    "Every plan adds a small processing fee on top of the sticker price",
+    "Credits roll over forever; auto top-up billed at API cost",
+    "Free tier retired - now paid; taste-1 learning data stored locally only"
   ],
   "tosHighlights": [
-    "No training on user prompts or code",
-    "SOC2 compliance in progress"
+    "No training on your code; premium models US-hosted (EU on demand)"
   ],
-  "dataTraining": "No",
+  "dataTraining": "No training on your code",
   "ipIndemnity": false
 }

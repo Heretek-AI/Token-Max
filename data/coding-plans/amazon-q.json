@@ -6,54 +6,48 @@
   "lastVerified": "2026-09-18",
   "tiers": [
     {
-      "name": "Free",
+      "name": "Free Tier",
       "monthlyPrice": 0,
       "limits": {
-        "completions": "1,000 lines/mo",
-        "chatRequests": "50 requests/mo",
-        "agentTasks": "5 dev tasks/mo"
+        "agenticRequests": "50 agentic requests/mo (chat + agentic coding)",
+        "transformation": "Java/.NET transformation 1,000 LOC/mo per user"
       },
       "models": [
-        "Amazon Titan Code",
-        "Claude 3.5 Sonnet (AWS)"
+        "Latest Claude models via AWS"
       ],
       "estimatedTokenBudget": {
-        "description": "1K lines + 50 requests (~0.5M tokens/mo)",
-        "estimatedMillionTokens": 0.5,
-        "assumptions": "50 chat queries + 1,000 lines generated"
+        "description": "50 agentic requests/mo (~12M tokens)",
+        "estimatedMillionTokens": 12,
+        "assumptions": "50 requests * ~250K tokens per heavy agentic interaction (context + multi-file + verification)"
       },
-      "notes": "Free AWS builder tier"
+      "notes": "Agentic request = any Q&A chat or coding interaction"
     },
     {
       "name": "Pro",
       "monthlyPrice": 19,
       "limits": {
-        "completions": "4,000 lines/mo",
-        "chatRequests": "1,000 requests/mo",
-        "agentTasks": "30 dev agent tasks/mo",
-        "overages": "$0.003/line overage"
+        "billing": "$19/user/mo, activates on first agentic usage (pro-rata)",
+        "requests": "Higher agentic request limits (not numerically published)",
+        "transformation": "4,000 LOC/mo pooled with $0.003/LOC overage"
       },
       "models": [
-        "Amazon Titan Code",
-        "Claude Sonnet 5 via Bedrock"
+        "Latest Claude models via AWS"
       ],
       "estimatedTokenBudget": {
-        "description": "1,000 chat reqs + 30 agent tasks (~8M tokens/mo)",
-        "estimatedMillionTokens": 8,
-        "assumptions": "1,000 chat requests + 30 complex agent tasks"
+        "description": "Higher request pool (~200M tokens/mo research est.)",
+        "estimatedMillionTokens": 200,
+        "assumptions": "Exact request cap unpublished; research estimate = high-volume agentic usage"
       },
-      "notes": "AWS IAM integrated developer assistant"
+      "notes": "Identity Center/IAM; IP indemnity included"
     }
   ],
   "gotchas": [
-    "Overages billed at $0.003/line once 4,000 lines exceeded",
-    "Agent tasks consume heavy background compute that may incur Bedrock charges",
-    "AWS Console session timeouts can disconnect the IDE plugin"
+    "Pro request cap is not numerically published - token estimate is research-derived",
+    "Subscription activates only on first agentic action or code completion",
+    "Transformation overage billed at $0.003/LOC at payer-account level",
+    "Data collection: opt-out available on Free; automatically opted out on Pro"
   ],
-  "tosHighlights": [
-    "Full AWS IP indemnity included on paid tier",
-    "Opt-out available for data retention and telemetry"
-  ],
-  "dataTraining": "Opt-out available",
+  "tosHighlights": [],
+  "dataTraining": "Opt-out available (Free); automatic opt-out (Pro)",
   "ipIndemnity": true
 }

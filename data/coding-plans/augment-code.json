@@ -2,58 +2,74 @@
   "id": "augment-code",
   "name": "Augment Code",
   "category": "coding-ide",
-  "url": "https://augmentcode.com",
+  "url": "https://www.augmentcode.com/pricing",
   "lastVerified": "2026-09-18",
   "tiers": [
+    {
+      "name": "Standard",
+      "monthlyPrice": 20,
+      "limits": {
+        "billing": "$20/mo flat per team (no per-seat charge), up to 50 seats",
+        "usage": "$20 of usage included/mo (LLM + Context Engine + compute)",
+        "llmFee": "Provider list price + flat 40% service fee on LLM usage",
+        "topUps": "PAYG top-ups valid 12 months"
+      },
+      "models": [
+        "Cosmos",
+        "API models via provider list"
+      ],
+      "estimatedTokenBudget": {
+        "description": "$20 usage pool with 40% LLM fee (~8M tokens)",
+        "estimatedMillionTokens": 8,
+        "assumptions": "$20.00 / (blended $2/M provider rate * 1.4) ~= 8M tokens on frontier models"
+      },
+      "notes": "Restructured from per-seat message plans to pooled usage"
+    },
     {
       "name": "Business",
       "monthlyPrice": 100,
       "limits": {
-        "agentEffortUnits": "Metered by codebase task complexity",
-        "autoTopUp": "$15 blocks",
-        "contextIndexing": "Full repo indexing"
+        "billing": "$100/mo flat per team, up to 50 seats",
+        "usage": "$100 of usage included/mo"
       },
       "models": [
-        "Augment Deep Context",
-        "Claude Sonnet 5"
+        "Cosmos",
+        "API models"
       ],
       "estimatedTokenBudget": {
-        "description": "Task-complexity effort metering (~30M tokens/mo)",
-        "estimatedMillionTokens": 30,
-        "assumptions": "Task-complexity effort metering across indexed code"
+        "description": "$100 usage pool (~50M tokens)",
+        "estimatedMillionTokens": 50,
+        "assumptions": "$100.00 / (blended $2/M * 1.4) ~= 50M tokens"
       },
-      "notes": "Deep contextual codebase understanding for enterprise repos"
+      "notes": "Same 40% LLM service fee structure"
     },
     {
       "name": "Enterprise",
       "monthlyPrice": null,
       "limits": {
-        "agentEffortUnits": "Custom pool",
-        "deployment": "VPC / On-prem option",
-        "sla": "99.9% uptime SLA"
+        "billing": "Custom usage + top-ups; unlimited seats",
+        "security": "SSO/OIDC/SCIM"
       },
       "models": [
-        "Augment Deep Context",
-        "Claude Opus 5",
-        "Custom fine-tuned"
+        "Cosmos",
+        "API models"
       ],
       "estimatedTokenBudget": {
-        "description": "Custom enterprise pool (~100M tokens/mo)",
-        "estimatedMillionTokens": 100,
-        "assumptions": "Custom enterprise negotiated pool"
+        "description": "Custom usage contract",
+        "estimatedMillionTokens": 0,
+        "assumptions": "Negotiated agreement"
       },
-      "notes": "Dedicated tenant with custom compliance guarantees"
+      "notes": "Volume-based"
     }
   ],
   "gotchas": [
-    "No permanent free tier — strictly commercial/enterprise",
-    "Auto-top-ups trigger in $15 blocks if effort quota is exceeded",
-    "Heavy repo re-indexing events consume significant credit quotas"
+    "Restructured from seat-based message plans to flat team pricing with dollar usage pools",
+    "LLM usage billed at provider list price + 40% service fee; compute at cost (no fee)",
+    "Top-up tokens valid 12 months"
   ],
   "tosHighlights": [
-    "Enterprise IP indemnity explicitly included",
-    "Full SOC2 compliance and zero code retention"
+    "No AI training allowed under Commercial Terms"
   ],
-  "dataTraining": "No",
-  "ipIndemnity": true
+  "dataTraining": "No AI training on any plan",
+  "ipIndemnity": false
 }

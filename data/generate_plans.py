@@ -366,102 +366,88 @@ write_json(
     "openai-codex.json",
     {
         "id": "openai-codex",
-        "name": "OpenAI Codex",
+        "name": "OpenAI Codex (ChatGPT)",
         "category": "coding-ide",
-        "url": "https://openai.com",
+        "url": "https://openai.com/chatgpt/pricing/",
         "lastVerified": "2026-09-18",
         "tiers": [
             {
                 "name": "Free",
                 "monthlyPrice": 0,
-                "limits": {
-                    "messages": "10 msgs / 5h",
-                    "modelAccess": "Mini models only",
-                },
-                "models": ["GPT-5.6 Luna", "GPT-5 mini"],
+                "limits": {"codex": "Limited Codex access"},
+                "models": ["GPT-5.6 Luna"],
                 "estimatedTokenBudget": {
-                    "description": "Basic chat & completions (~0.5M tokens/mo)",
+                    "description": "Limited Codex (~0.5M tokens/mo)",
                     "estimatedMillionTokens": 0.5,
-                    "assumptions": "10 msgs per 5-hour cycle",
+                    "assumptions": "Occasional Codex tasks at ~150K tokens/task; exact limit not published",
                 },
-                "notes": "Free tier with strict rate limits",
+                "notes": "Unlimited GPT-5.6 Luna text chats included"
             },
             {
                 "name": "Go",
                 "monthlyPrice": 8,
                 "limits": {
-                    "messages": "20 msgs / 5h",
-                    "context": "128K context window",
+                    "codex": "Limited Codex access; limited GPT-5.6 Terra",
+                    "bonus": "More uploads/voice/deep research, longer memory; may include ads",
                 },
                 "models": ["GPT-5.6 Luna", "GPT-5.6 Terra"],
                 "estimatedTokenBudget": {
                     "description": "Light coding assistance (~2.5M tokens/mo)",
                     "estimatedMillionTokens": 2.5,
-                    "assumptions": "Budget tier for everyday coding",
+                    "assumptions": "Limited tasks at ~150K tokens/task; $8 price commonly cited but the scraped page did not render USD amounts",
                 },
-                "notes": "Lightweight tier for everyday coding",
+                "notes": "Entry tier; ads possible"
             },
             {
                 "name": "Plus",
                 "monthlyPrice": 20,
-                "limits": {
-                    "messages": "5-45 msgs / 5h rolling",
-                    "canvas": "Canvas included",
-                    "poolSharing": "Codex & ChatGPT share quota",
-                },
-                "models": ["GPT-6 Astra", "GPT-5.6 Sol", "GPT-5.6 Luna"],
+                "limits": {"codex": "Expanded Codex usage", "context": "GPT Reasoning 256K"},
+                "models": ["GPT-6 Astra", "GPT-5.6 Sol", "GPT-5.6 Terra"],
                 "estimatedTokenBudget": {
-                    "description": "Dynamic 5-hour quota (~12M tokens/mo)",
+                    "description": "Expanded Codex (~12M tokens/mo)",
                     "estimatedMillionTokens": 12,
-                    "assumptions": "Dynamic 5-hour message quota (5-45 msgs depending on peak demand)",
+                    "assumptions": "Research estimate; no official numeric task limits",
                 },
-                "notes": "Codex and Work/ChatGPT share the same 5-hour quota",
+                "notes": "More uploads/projects"
             },
             {
-                "name": "Pro5x",
+                "name": "Pro (5x)",
                 "monthlyPrice": 100,
-                "limits": {
-                    "messages": "25-225 msgs / 5h rolling",
-                    "priority": "Dedicated compute priority",
-                    "concurrency": "Multi-session enabled",
-                },
-                "models": ["GPT-6 Astra", "GPT-5.6 Sol", "o3-pro", "GPT-5.6 Luna"],
+                "limits": {"codex": "5x Plus usage; high-volume Codex"},
+                "models": ["GPT-6 Astra", "GPT-5.6 Sol"],
                 "estimatedTokenBudget": {
-                    "description": "5x Plus quota (~60M tokens/mo)",
+                    "description": "5x Plus (~60M tokens/mo)",
                     "estimatedMillionTokens": 60,
-                    "assumptions": "5x Plus quota with dedicated capacity",
+                    "assumptions": "5x the Plus research estimate",
                 },
-                "notes": "5x multiplier on message rate limits",
+                "notes": "Intermediate tier; price unconfirmed (JS-hidden on page)"
             },
             {
-                "name": "Pro20x",
+                "name": "Pro (maximum)",
                 "monthlyPrice": 200,
                 "limits": {
-                    "messages": "100-900 msgs / 5h rolling",
-                    "priority": "Maximum priority",
-                    "concurrency": "Uncapped concurrent tasks",
+                    "codex": "Maximum Codex tasks",
+                    "context": "GPT Reasoning 400K context",
                 },
-                "models": ["GPT-6 Astra", "GPT-5.6 Sol", "o3-pro", "All OpenAI Models"],
+                "models": ["GPT-6 Astra", "GPT-5.6 Sol Pro"],
                 "estimatedTokenBudget": {
-                    "description": "20x Plus quota (~250M tokens/mo)",
+                    "description": "Maximum Codex (~250M tokens/mo)",
                     "estimatedMillionTokens": 250,
-                    "assumptions": "20x Plus quota with near-zero queue wait times",
+                    "assumptions": "Research estimate at max tier",
                 },
-                "notes": "Full uncapped power tier for software teams",
-            },
+                "notes": "Pro tier per official page; USD not rendered in scrape (commonly cited $200)"
+            }
         ],
         "gotchas": [
-            "Codex, ChatGPT Canvas, and Web chats all share one unified message pool",
-            "Complex coding prompts with massive context eat the 5-hour allowance faster",
-            "Dynamic rate limiting throttles message caps during peak hours",
+            "Codex ships inside ChatGPT plans, not a separate product",
+            "Codex access is Limited on Free/Go, Expanded on Plus, Maximum on Pro",
+            "GPT-5.3-Codex appears in other registries (GitHub Copilot) but is not marketed on ChatGPT pricing",
+            "Content is used to train OpenAI models; opt-out available on all tiers"
         ],
-        "tosHighlights": [
-            "Opt-out available in settings to prevent data training",
-            "Enterprise plans include business data privacy and SOC2",
-        ],
-        "dataTraining": "Opt-out available in settings",
-        "ipIndemnity": false,
-    },
+        "tosHighlights": ["Training opt-out available on all tiers"],
+        "dataTraining": "Used for training; opt-out available",
+        "ipIndemnity": false
+    }
 )
 
 # 5. Google Antigravity
@@ -679,114 +665,75 @@ write_json(
                 "monthlyPrice": 0,
                 "limits": {
                     "credits": "50 credits/mo",
-                    "concurrency": "1",
-                    "addOnPrice": "N/A",
+                    "models": "Rate-limited Sonnet-class + open-weight models",
                 },
-                "models": ["Claude Haiku 4.5", "Claude Sonnet 5"],
+                "models": ["Claude Sonnet 4.5", "Qwen3 Coder Next", "DeepSeek V3.2", "MiniMax M2.1"],
                 "estimatedTokenBudget": {
-                    "description": "50 credits (~1M tokens)",
+                    "description": "50 credits/mo (~1M tokens)",
                     "estimatedMillionTokens": 1,
-                    "assumptions": "50 credits * $0.02 base = $1 value",
+                    "assumptions": "Credits consumed fractionally per request at ~$0.04/credit equivalent on Sonnet blended rate",
                 },
-                "notes": "Evaluation tier with 50 monthly credits",
+                "notes": "Usage cap renews at start of next billing cycle",
             },
             {
                 "name": "Pro",
                 "monthlyPrice": 20,
-                "limits": {
-                    "credits": "1,000 credits/mo",
-                    "addOnPrice": "$0.04/credit",
-                    "multipliers": "Sonnet 1.3x, Opus 2.2x, Haiku 0.4x",
-                },
-                "models": [
-                    "Claude Sonnet 5",
-                    "Claude Opus 5",
-                    "Claude Haiku 4.5",
-                    "GPT-5.6 Sol",
-                ],
+                "limits": {"credits": "1,000 credits/mo", "overage": "Add-on credit packs available"},
+                "models": ["Claude Sonnet 5", "Claude Opus 5", "Auto mode", "Qwen3 Coder Next", "DeepSeek V3.2", "MiniMax M2.1"],
                 "estimatedTokenBudget": {
-                    "description": "1,000 credits (~20M tokens on Sonnet)",
+                    "description": "1,000 credits/mo (~20M tokens on Sonnet 5)",
                     "estimatedMillionTokens": 20,
-                    "assumptions": "1,000 credits @ $0.04 value = $40 equivalent",
+                    "assumptions": "1 credit ~= $0.04; $40 equivalent / ~$2/M blended on Sonnet 5 ~= 20M tokens",
                 },
-                "notes": "Model multipliers: Opus 2.2x, Sonnet 1.3x, Haiku 0.4x",
+                "notes": "Premium models + open-weight pool; monthly billing cycle",
             },
             {
                 "name": "Pro+",
                 "monthlyPrice": 40,
-                "limits": {
-                    "credits": "2,000 credits/mo",
-                    "addOnPrice": "$0.04/credit",
-                    "concurrency": "3 concurrent tasks",
-                },
-                "models": [
-                    "Claude Sonnet 5",
-                    "Claude Opus 5",
-                    "GPT-5.6 Sol",
-                    "Claude Fable 5.1",
-                ],
+                "limits": {"credits": "2,000 credits/mo", "overage": "Add-on credit packs available"},
+                "models": ["Claude Sonnet 5", "Claude Opus 5", "Auto mode", "Qwen3 Coder Next", "DeepSeek V3.2", "MiniMax M2.1"],
                 "estimatedTokenBudget": {
-                    "description": "2,000 credits (~40M tokens on Sonnet)",
+                    "description": "2,000 credits/mo (~40M tokens on Sonnet 5)",
                     "estimatedMillionTokens": 40,
-                    "assumptions": "2,000 credits @ $0.04 value = $80 equivalent",
+                    "assumptions": "2,000 credits ~= $80 equivalent / ~$2/M blended ~= 40M tokens",
                 },
-                "notes": "Double credits for active full-stack developers",
+                "notes": "Double Pro capacity",
             },
             {
-                "name": "ProMax",
+                "name": "Pro Max",
                 "monthlyPrice": 100,
-                "limits": {
-                    "credits": "5,000 credits/mo",
-                    "addOnPrice": "$0.035/credit",
-                    "concurrency": "6 concurrent tasks",
-                },
-                "models": [
-                    "Claude Sonnet 5",
-                    "Claude Opus 5",
-                    "GPT-5.6 Sol",
-                    "Claude Fable 5.1",
-                ],
+                "limits": {"credits": "5,000 credits/mo", "overage": "Add-on credit packs available"},
+                "models": ["Claude Sonnet 5", "Claude Opus 5", "Auto mode", "Open-weight models"],
                 "estimatedTokenBudget": {
-                    "description": "5,000 credits (~100M tokens on Sonnet)",
+                    "description": "5,000 credits/mo (~100M tokens on Sonnet 5)",
                     "estimatedMillionTokens": 100,
-                    "assumptions": "5,000 credits @ $0.035 value = $175 equivalent",
+                    "assumptions": "5,000 credits ~= $200 equivalent / ~$2/M blended ~= 100M tokens",
                 },
-                "notes": "Power user tier with discounted add-on credit pricing",
+                "notes": "Heavier agentic usage",
             },
             {
                 "name": "Power",
                 "monthlyPrice": 200,
-                "limits": {
-                    "credits": "10,000 credits/mo",
-                    "addOnPrice": "$0.03/credit",
-                    "concurrency": "12 concurrent tasks",
-                },
-                "models": [
-                    "Claude Opus 5",
-                    "Claude Sonnet 5",
-                    "Claude Fable 5.1",
-                    "GPT-6 Astra",
-                ],
+                "limits": {"credits": "10,000 credits/mo", "overage": "Add-on credit packs available"},
+                "models": ["Claude Sonnet 5", "Claude Opus 5", "Auto mode", "Open-weight models"],
                 "estimatedTokenBudget": {
-                    "description": "10,000 credits (~200M tokens on Sonnet)",
+                    "description": "10,000 credits/mo (~200M tokens on Sonnet 5)",
                     "estimatedMillionTokens": 200,
-                    "assumptions": "10,000 credits @ $0.03 value = $300 equivalent",
+                    "assumptions": "10,000 credits ~= $400 equivalent / ~$2/M blended ~= 200M tokens",
                 },
-                "notes": "Maximum enterprise compute tier",
-            },
+                "notes": "Maximum capacity tier added Aug 2026",
+            }
         ],
         "gotchas": [
-            "Monthly credits DO NOT roll over to the next month — use them or lose them",
-            "Model multipliers vary wildly: Fable is 6.0x, Sol is 4.4x, Sonnet is 1.3x",
-            "Add-on credit top-ups cost $0.04 per credit",
+            "Credits reset monthly at billing-cycle start, not rolling 5-hour windows",
+            "Credits are consumed fractionally per request; complex spec-driven tasks burn many credits",
+            "Not all premium models are available in every country/region",
+            "AWS owns Kiro - usage governed under AWS terms"
         ],
-        "tosHighlights": [
-            "AWS Bedrock enterprise security foundation",
-            "Zero data retention and no model training on customer repositories",
-        ],
-        "dataTraining": "No (Enterprise ZDR)",
-        "ipIndemnity": false,
-    },
+        "tosHighlights": [],
+        "dataTraining": "Not published on pricing page",
+        "ipIndemnity": false
+    }
 )
 
 # 8. Kilo AI
@@ -794,108 +741,64 @@ write_json(
     "kilo-code.json",
     {
         "id": "kilo-code",
-        "name": "Kilo AI",
+        "name": "Kilo Code",
         "category": "coding-router",
-        "url": "https://kilo.ai/pricing/kilo-pass",
+        "url": "https://kilo.ai/pricing",
         "lastVerified": "2026-09-18",
         "tiers": [
             {
-                "name": "Starter",
-                "monthlyPrice": 19,
+                "name": "Individual",
+                "monthlyPrice": 0,
                 "limits": {
-                    "creditPool": "$19 + 40% bonus ($26.60 value)",
-                    "markup": "0% API markup",
-                    "processingFee": "5%",
+                    "models": "Access to 500+ models via Kilo Gateway or BYOK",
+                    "gatewayFee": "5% on all plans (no markup vs list price)",
                 },
-                "models": [
-                    "DeepSeek V4.1 Flash",
-                    "Claude Sonnet 5",
-                    "GPT-6 Astra",
-                    "Gemini 3.8 Flash",
-                ],
+                "models": ["Kilo Gateway (500+ models)"],
                 "estimatedTokenBudget": {
-                    "description": "$26.60 API credit pool (~26M tokens)",
-                    "estimatedMillionTokens": 26,
-                    "assumptions": "$26.60 blended across DeepSeek and Sonnet at zero markup",
+                    "description": "PAYG at provider list rates + 5% gateway fee",
+                    "estimatedMillionTokens": 0,
+                    "assumptions": "Token cost equals provider list price; no fixed monthly bundle",
                 },
-                "notes": "Kilo Pass Starter tier with 40% bonus credits",
-            },
-            {
-                "name": "Pro",
-                "monthlyPrice": 49,
-                "limits": {
-                    "creditPool": "$49 + 45% bonus ($71.05 value)",
-                    "markup": "0% API markup",
-                    "processingFee": "5%",
-                },
-                "models": [
-                    "DeepSeek V4.1 Flash",
-                    "Claude Sonnet 5",
-                    "GPT-6 Astra",
-                    "Gemini 3.8 Flash",
-                ],
-                "estimatedTokenBudget": {
-                    "description": "$71.05 API credit pool (~71M tokens)",
-                    "estimatedMillionTokens": 71,
-                    "assumptions": "$71.05 blended across frontier models at zero markup",
-                },
-                "notes": "Kilo Pass Pro with 45% bonus credits",
-            },
-            {
-                "name": "Expert",
-                "monthlyPrice": 199,
-                "limits": {
-                    "creditPool": "$199 + 50% bonus ($298.50 value)",
-                    "markup": "0% API markup",
-                    "processingFee": "5%",
-                },
-                "models": [
-                    "DeepSeek V4.1 Flash",
-                    "Claude Sonnet 5",
-                    "GPT-6 Astra",
-                    "Claude Opus 5",
-                ],
-                "estimatedTokenBudget": {
-                    "description": "$298.50 API credit pool (~298M tokens)",
-                    "estimatedMillionTokens": 298,
-                    "assumptions": "$298.50 blended across frontier models at zero markup",
-                },
-                "notes": "Kilo Pass Expert with 50% bonus credits",
+                "notes": "Free for individuals; cloud compute billed separately per-hour",
             },
             {
                 "name": "Teams",
                 "monthlyPrice": 15,
                 "limits": {
-                    "perSeat": "$15/user base",
-                    "markup": "0% API markup",
-                    "centralizedBilling": "Yes",
+                    "seats": "$15/user/mo collaboration platform",
+                    "inference": "Billed at provider rates; EU inference available",
                 },
-                "models": [
-                    "DeepSeek V4.1 Flash",
-                    "Claude Sonnet 5",
-                    "GPT-6 Astra",
-                    "All OpenRouter models",
-                ],
+                "models": ["Kilo Gateway (500+ models)"],
                 "estimatedTokenBudget": {
-                    "description": "Metered per seat + shared pool (~15M tokens/seat)",
-                    "estimatedMillionTokens": 15,
-                    "assumptions": "$15 seat credit at raw API rates",
+                    "description": "Platform fee only; inference at provider list rates",
+                    "estimatedMillionTokens": 0,
+                    "assumptions": "Token cost = provider rates + 5% gateway fee (or BYOK, zero fee)",
                 },
-                "notes": "Team workspace with shared billing and role controls",
+                "notes": "Security/governance features included",
             },
+            {
+                "name": "Enterprise",
+                "monthlyPrice": null,
+                "limits": {"volume": "Quote-based", "support": "Dedicated"},
+                "models": ["Kilo Gateway (500+ models)"],
+                "estimatedTokenBudget": {
+                    "description": "Custom agree - quote-based",
+                    "estimatedMillionTokens": 0,
+                    "assumptions": "Negotiated agreement",
+                },
+                "notes": "Enterprise support and controls",
+            }
         ],
         "gotchas": [
-            "Bonus credits expire at the end of each billing cycle",
-            "5% credit card processing fee applied to top-up reloads",
-            "Raw API errors from underlying providers are passed directly through",
+            "Rebranded kilocode.ai -> kilo.ai; pricing restructured to platform fee + inference + cloud compute",
+            "Kilo Pass converts dollars 1:1 into paid credits, then adds bonus credits (50% month one; streak bonuses on monthly, 50% every month on annual)",
+            "Bonus credits expire monthly; paid credits apply across IDE/CLI/Cloud Agents/Gateway",
+            "Cloud agents billed per second (Gas Town $1.20/hr, Code Review $0.33/hr, Cloud Agent $0.60-1.20/hr)"
         ],
-        "tosHighlights": [
-            "Open source client extension with transparent routing",
-            "No data retention or model training on customer code",
-        ],
-        "dataTraining": "No",
-        "ipIndemnity": false,
-    },
+        "tosHighlights": [],
+        "dataTraining": "Not published on pricing page",
+        "ipIndemnity": false
+    }
 )
 
 # 9. Lovable
@@ -912,68 +815,62 @@ write_json(
                 "name": "Free",
                 "monthlyPrice": 0,
                 "limits": {
-                    "dailyCredits": "5 build credits/day",
-                    "export": "GitHub sync only",
-                    "concurrency": "1 build",
+                    "buildCredits": "5 daily build credits (cap 30/mo)",
+                    "grants": "20 credits/mo Cloud grant + 4 credits/mo AI grant",
                 },
-                "models": ["Lovable Agent v2", "Claude Sonnet 5"],
+                "models": ["Lovable Agent"],
                 "estimatedTokenBudget": {
-                    "description": "150 build credits/mo (~3M tokens)",
+                    "description": "30 build credits + monthly grants (~3M tokens/mo)",
                     "estimatedMillionTokens": 3,
-                    "assumptions": "5 credits/day * 30 days",
+                    "assumptions": "~30 usable credits/mo * ~100K tokens per build+agent mix",
                 },
-                "notes": "Free tier for experimenting and small apps",
+                "notes": "Daily credits reset at 00:00 UTC; monthly grants on 1st; no rollover",
             },
             {
-                "name": "Pro",
+                "name": "Pro 100",
                 "monthlyPrice": 25,
                 "limits": {
-                    "monthlyCredits": "100 build credits/mo",
-                    "topUpPrice": "$0.30/credit",
-                    "customDomains": "Unlimited",
+                    "buildCredits": "100 credits/mo (annual $21/mo)",
+                    "dailyFloor": "5 daily build credits + 20 Cloud + 4 AI grants stack on top",
+                    "rollover": "Monthly credits roll over (expire 2 months later on monthly billing)",
                 },
-                "models": ["Lovable Agent v2", "Claude Sonnet 5", "GPT-5"],
+                "models": ["Lovable Agent"],
                 "estimatedTokenBudget": {
-                    "description": "100 build credits/mo (~15M tokens)",
+                    "description": "100+ credits/mo (~15M tokens)",
                     "estimatedMillionTokens": 15,
-                    "assumptions": "100 build tasks @ ~150K tokens/build",
+                    "assumptions": "~150K tokens per credit across builds, hosting and AI gateway usage; scales to 10,000 credits ($2,250/mo)",
                 },
-                "notes": "Full fullstack code generation and live deployment",
+                "notes": "Unified credit balance covers builds + Cloud hosting + AI gateway on deployed apps",
             },
             {
                 "name": "Business",
                 "monthlyPrice": 50,
                 "limits": {
-                    "monthlyCredits": "250 build credits/mo",
-                    "topUpPrice": "$0.60/credit",
-                    "teamMembers": "Up to 5 seats",
+                    "buildCredits": "100 credits tier at $50/mo (annual $42) - scales with tier",
+                    "privacy": "Workspace data excluded from AI model training by default",
                 },
-                "models": [
-                    "Lovable Agent v2",
-                    "Claude Sonnet 5",
-                    "GPT-5",
-                    "Claude Opus 5",
-                ],
+                "models": ["Lovable Agent"],
                 "estimatedTokenBudget": {
-                    "description": "250 build credits/mo (~40M tokens)",
+                    "description": "Business minimum tier (~40M tokens/mo at 200+ cr tiers typical)",
                     "estimatedMillionTokens": 40,
-                    "assumptions": "250 high-effort build tasks @ ~160K tokens/build",
+                    "assumptions": "Same per-credit token estimate as Pro; minimum $50 tier",
                 },
-                "notes": "Multi-seat collaborative app generation",
-            },
+                "notes": "SSO/central admin at higher Business tiers; Enterprise custom",
+            }
         ],
         "gotchas": [
-            "TOS grants Lovable a perpetual license to use and train on generated code on Free and Pro tiers",
-            "Credits expire after 2 months if unused",
-            "High-complexity prompt iterations consume 2-4 credits per build",
+            "Credits are a unified balance covering app builds, hosting (Cloud) and AI gateway usage of deployed apps",
+            "Free-tier credits do NOT roll over; Pro credits expire 2 months after issue on monthly plans",
+            "Daily 5 build credits are a floor, not a bonus: monthly credits also include daily research",
+            "Higher credit tiers scale steeply: 200 cr $50, 400 cr $100, 800 cr $200 ... 10,000 cr $2,250",
         ],
         "tosHighlights": [
-            "Perpetual training license on Free/Pro tiers — Enterprise required for full IP protection",
-            "Live Supabase backend provisioning included",
+            "Business and Enterprise exclude workspace data from AI model training by default",
+            "Free/Pro can opt out per account",
         ],
-        "dataTraining": "Perpetual license on Free/Pro; Enterprise opt-out",
-        "ipIndemnity": false,
-    },
+        "dataTraining": "Excluded by default on Business+; opt-out available on Free/Pro",
+        "ipIndemnity": false
+    }
 )
 
 # 10. Kimi Code
@@ -982,71 +879,75 @@ write_json(
     {
         "id": "kimi-code",
         "name": "Kimi Code",
-        "category": "coding-ide",
-        "url": "https://www.kimi.com/code/docs/en/",
+        "category": "coding-router",
+        "url": "https://www.kimi.com/coding-plan/",
         "lastVerified": "2026-09-18",
         "tiers": [
             {
-                "name": "Plus",
+                "name": "Moderato",
                 "monthlyPrice": 19,
                 "limits": {
-                    "monthlyPriceRMB": "¥79/mo",
-                    "quota": "Standard HighSpeed quota",
-                    "contextWindow": "256K",
+                    "quota": "Weekly-refreshed usage quota (~300 requests / 5h windows)",
+                    "models": "Kimi K3 incl. K3-256k",
                 },
-                "models": ["Kimi K3 2.8T", "Kimi K2.5"],
+                "models": ["Kimi K3", "K3-256k", "K2.7 Code"],
                 "estimatedTokenBudget": {
-                    "description": "Standard HighSpeed quota (~20M tokens/mo)",
-                    "estimatedMillionTokens": 20,
-                    "assumptions": "Standard daily quota allocations",
+                    "description": "Weekly-refreshed quota (~60M tokens/mo)",
+                    "estimatedMillionTokens": 60,
+                    "assumptions": "~300 req/window at kimi-k2.7-code rates ($0.19 cache/$0.95 input/$4.00 output; ~95% cache hit ~= $0.37/M blended) ~= 60M tokens/mo",
                 },
-                "notes": "Entry tier for Chinese & multilingual development",
+                "notes": "Tiers named after musical terms; K3 has low/high/max thinking modes",
             },
             {
-                "name": "Pro",
+                "name": "Allegretto",
                 "monthlyPrice": 39,
                 "limits": {
-                    "monthlyPriceRMB": "¥159/mo",
-                    "quota": "3x HighSpeed quota",
-                    "contextWindow": "1M context",
+                    "quota": "Higher weekly limits + higher concurrency",
+                    "speed": "K3 HighSpeed (5-6x speed, ~3x credit burn); 1M-context K3",
                 },
-                "models": ["Kimi K3 2.8T (1M Context)", "Kimi K2.5"],
+                "models": ["Kimi K3", "K3 HighSpeed", "K2.7 Code"],
                 "estimatedTokenBudget": {
-                    "description": "3x HighSpeed quota (~60M tokens/mo)",
-                    "estimatedMillionTokens": 60,
-                    "assumptions": "3x HighSpeed priority burst capacity",
+                    "description": "Higher weekly quota (~150M tokens/mo)",
+                    "estimatedMillionTokens": 150,
+                    "assumptions": "Research estimate scaled above Moderato; HighSpeed triples burn rate",
                 },
-                "notes": "Includes 1 Million token context window",
+                "notes": "Unlocks HighSpeed model and 1M context",
             },
             {
-                "name": "Max",
-                "monthlyPrice": 199,
-                "limits": {
-                    "monthlyPriceRMB": "¥559/mo",
-                    "quota": "15x HighSpeed quota",
-                    "contextWindow": "2M context",
-                    "concurrency": "5 concurrent tasks",
-                },
-                "models": ["Kimi K3 2.8T", "Kimi Math", "Kimi Coding Specialist"],
+                "name": "Allegro",
+                "monthlyPrice": 99,
+                "limits": {"quota": "Expansive quota (~600-800 req/5h)", "concurrency": "Higher caps"},
+                "models": ["Kimi K3", "K3 HighSpeed", "K2.7 Code"],
                 "estimatedTokenBudget": {
-                    "description": "15x HighSpeed quota (~250M tokens/mo)",
-                    "estimatedMillionTokens": 250,
-                    "assumptions": "Massive context agentic processing",
+                    "description": "Expansive quota (~400M tokens/mo)",
+                    "estimatedMillionTokens": 400,
+                    "assumptions": "Research estimate; exact credit counts not officially published",
                 },
-                "notes": "Massive context reasoning for enterprise codebases",
+                "notes": "Heavy daily agentic coding",
             },
+            {
+                "name": "Vivace",
+                "monthlyPrice": 199,
+                "limits": {"quota": "Highest weekly quotas (~1,200 req/5h)", "concurrency": "Max caps"},
+                "models": ["Kimi K3", "K3 HighSpeed", "K2.7 Code"],
+                "estimatedTokenBudget": {
+                    "description": "Highest quota (~800M tokens/mo)",
+                    "estimatedMillionTokens": 800,
+                    "assumptions": "Research estimate; not officially published",
+                },
+                "notes": "Max tier"
+            }
         ],
         "gotchas": [
-            "Shared quota pool with consumer Kimi chat app",
-            "Strict ban policy for User-Agent spoofing or headless automation",
-            "Server latency outside APAC can be variable",
+            "Quotas refresh weekly with ~5-hour rolling request windows (roughly 300-1,200 req/window by tier)",
+            "K3 HighSpeed runs 5-6x faster but burns ~3x credits",
+            "Exact credit counts per window are not officially published - estimates are research-derived",
+            "K2.7 Code is the coding-optimized workhorse; K3 is the general flagship"
         ],
-        "tosHighlights": [
-            "Data may be retained for reinforcement learning unless enterprise contract signed"
-        ],
-        "dataTraining": "Yes (unless enterprise SLA)",
-        "ipIndemnity": false,
-    },
+        "tosHighlights": [],
+        "dataTraining": "Not published on pricing page",
+        "ipIndemnity": false
+    }
 )
 
 # 11. Windsurf
@@ -1145,58 +1046,63 @@ write_json(
         "id": "augment-code",
         "name": "Augment Code",
         "category": "coding-ide",
-        "url": "https://augmentcode.com",
+        "url": "https://www.augmentcode.com/pricing",
         "lastVerified": "2026-09-18",
         "tiers": [
+            {
+                "name": "Standard",
+                "monthlyPrice": 20,
+                "limits": {
+                    "billing": "$20/mo flat per team (no per-seat charge), up to 50 seats",
+                    "usage": "$20 of usage included/mo (LLM + Context Engine + compute)",
+                    "llmFee": "Provider list price + flat 40% service fee on LLM usage",
+                    "topUps": "PAYG top-ups valid 12 months",
+                },
+                "models": ["Cosmos", "API models via provider list"],
+                "estimatedTokenBudget": {
+                    "description": "$20 usage pool with 40% LLM fee (~8M tokens)",
+                    "estimatedMillionTokens": 8,
+                    "assumptions": "$20.00 / (blended $2/M provider rate * 1.4) ~= 8M tokens on frontier models",
+                },
+                "notes": "Restructured from per-seat message plans to pooled usage",
+            },
             {
                 "name": "Business",
                 "monthlyPrice": 100,
                 "limits": {
-                    "agentEffortUnits": "Metered by codebase task complexity",
-                    "autoTopUp": "$15 blocks",
-                    "contextIndexing": "Full repo indexing",
+                    "billing": "$100/mo flat per team, up to 50 seats",
+                    "usage": "$100 of usage included/mo",
                 },
-                "models": ["Augment Deep Context", "Claude Sonnet 5"],
+                "models": ["Cosmos", "API models"],
                 "estimatedTokenBudget": {
-                    "description": "Task-complexity effort metering (~30M tokens/mo)",
-                    "estimatedMillionTokens": 30,
-                    "assumptions": "Task-complexity effort metering across indexed code",
+                    "description": "$100 usage pool (~50M tokens)",
+                    "estimatedMillionTokens": 50,
+                    "assumptions": "$100.00 / (blended $2/M * 1.4) ~= 50M tokens",
                 },
-                "notes": "Deep contextual codebase understanding for enterprise repos",
+                "notes": "Same 40% LLM service fee structure"
             },
             {
                 "name": "Enterprise",
-                "monthlyPrice": None,
-                "limits": {
-                    "agentEffortUnits": "Custom pool",
-                    "deployment": "VPC / On-prem option",
-                    "sla": "99.9% uptime SLA",
-                },
-                "models": [
-                    "Augment Deep Context",
-                    "Claude Opus 5",
-                    "Custom fine-tuned",
-                ],
+                "monthlyPrice": null,
+                "limits": {"billing": "Custom usage + top-ups; unlimited seats", "security": "SSO/OIDC/SCIM"},
+                "models": ["Cosmos", "API models"],
                 "estimatedTokenBudget": {
-                    "description": "Custom enterprise pool (~100M tokens/mo)",
-                    "estimatedMillionTokens": 100,
-                    "assumptions": "Custom enterprise negotiated pool",
+                    "description": "Custom usage contract",
+                    "estimatedMillionTokens": 0,
+                    "assumptions": "Negotiated agreement"
                 },
-                "notes": "Dedicated tenant with custom compliance guarantees",
-            },
+                "notes": "Volume-based"
+            }
         ],
         "gotchas": [
-            "No permanent free tier — strictly commercial/enterprise",
-            "Auto-top-ups trigger in $15 blocks if effort quota is exceeded",
-            "Heavy repo re-indexing events consume significant credit quotas",
+            "Restructured from seat-based message plans to flat team pricing with dollar usage pools",
+            "LLM usage billed at provider list price + 40% service fee; compute at cost (no fee)",
+            "Top-up tokens valid 12 months"
         ],
-        "tosHighlights": [
-            "Enterprise IP indemnity explicitly included",
-            "Full SOC2 compliance and zero code retention",
-        ],
-        "dataTraining": "No",
-        "ipIndemnity": true,
-    },
+        "tosHighlights": ["No AI training allowed under Commercial Terms"],
+        "dataTraining": "No AI training on any plan",
+        "ipIndemnity": false
+    }
 )
 
 # 13. Replit
@@ -1213,47 +1119,57 @@ write_json(
                 "name": "Core",
                 "monthlyPrice": 20,
                 "limits": {
-                    "agentCheckpoints": "50 Agent checkpoints/mo",
-                    "cloudCompute": "Basic cloud VM",
-                    "dailyChats": "Capped daily chats",
+                    "agentHours": "Up to 30 hours of chat in Free Mode",
+                    "projects": "Up to 60 projects on Free Mode",
+                    "modelCredits": "$20 toward most powerful models",
                 },
-                "models": ["Replit Agent v2", "Claude Sonnet 4.6"],
+                "models": ["Replit Agent", "Frontier model pool"],
                 "estimatedTokenBudget": {
-                    "description": "50 Agent checkpoints (~15M tokens/mo)",
-                    "estimatedMillionTokens": 15,
-                    "assumptions": "50 checkpoints * ~300K tokens/checkpoint",
+                    "description": "$20 model-credit pool + 30 agent-hours (~24M tokens)",
+                    "estimatedMillionTokens": 24,
+                    "assumptions": "$20.00 / ~$0.83/M blended on mixed frontier models ~= 24M tokens",
                 },
-                "notes": "Cloud development environment with Replit Agent",
+                "notes": "Annual billing drops to $18/mo; unlimited workspaces"
             },
             {
                 "name": "Pro",
                 "monthlyPrice": 100,
                 "limits": {
-                    "agentCheckpoints": "300 Agent checkpoints/mo",
-                    "cloudCompute": "4 vCPU / 16GB RAM VM",
-                    "priorityQueue": "High priority",
+                    "parallelAgents": "10 parallel agents",
+                    "modelCredits": "$100 toward most powerful models",
+                    "collaboration": "15 collaborators, 50 viewers",
                 },
-                "models": ["Replit Agent v2", "Claude Sonnet 5", "GPT-5"],
+                "models": ["Multi-agent frontier models"],
                 "estimatedTokenBudget": {
-                    "description": "300 Agent checkpoints (~80M tokens/mo)",
-                    "estimatedMillionTokens": 80,
-                    "assumptions": "300 checkpoints with expanded VM resources",
+                    "description": "$100 model-credit pool (~120M tokens)",
+                    "estimatedMillionTokens": 120,
+                    "assumptions": "$100.00 / ~$0.83/M blended ~= 120M tokens",
                 },
-                "notes": "High performance cloud VMs + advanced agent autonomy",
+                "notes": "10 parallel agents; DB rollback 28 days"
             },
+            {
+                "name": "Enterprise",
+                "monthlyPrice": null,
+                "limits": {"billing": "Custom seats; SSO/SAML, single-tenant, static IPs"},
+                "models": ["Custom fleet"],
+                "estimatedTokenBudget": {
+                    "description": "Custom contract",
+                    "estimatedMillionTokens": 0,
+                    "assumptions": "Negotiated agreement"
+                },
+                "notes": "Advanced privacy controls"
+            }
         ],
         "gotchas": [
-            "Effort-based checkpoint system can lead to unpredictable credit burn",
-            "Free daily chat caps severely restrict debugging in editor",
-            "VM compute charges apply if machines stay running",
+            "$20/$100 'toward most powerful models' is a dollar credit pool, not free tokens",
+            "Beyond included Free-Mode hours, effort-based pricing applies (agent-hours billed as usage)",
+            "Optional Prepacks: $90/$215/$425/$825/$2,000 per month",
+            "Exact checkpoint consumption per tier not officially published"
         ],
-        "tosHighlights": [
-            "Public repls are openly visible and trained upon",
-            "Private repls on paid plans are shielded from public display",
-        ],
-        "dataTraining": "Yes on public Repls; opt-out on private paid",
-        "ipIndemnity": false,
-    },
+        "tosHighlights": [],
+        "dataTraining": "Not published on pricing page",
+        "ipIndemnity": false
+    }
 )
 
 # 14. Amazon Q
@@ -1267,51 +1183,47 @@ write_json(
         "lastVerified": "2026-09-18",
         "tiers": [
             {
-                "name": "Free",
+                "name": "Free Tier",
                 "monthlyPrice": 0,
                 "limits": {
-                    "completions": "1,000 lines/mo",
-                    "chatRequests": "50 requests/mo",
-                    "agentTasks": "5 dev tasks/mo",
+                    "agenticRequests": "50 agentic requests/mo (chat + agentic coding)",
+                    "transformation": "Java/.NET transformation 1,000 LOC/mo per user",
                 },
-                "models": ["Amazon Titan Code", "Claude 3.5 Sonnet (AWS)"],
+                "models": ["Latest Claude models via AWS"],
                 "estimatedTokenBudget": {
-                    "description": "1K lines + 50 requests (~0.5M tokens/mo)",
-                    "estimatedMillionTokens": 0.5,
-                    "assumptions": "50 chat queries + 1,000 lines generated",
+                    "description": "50 agentic requests/mo (~12M tokens)",
+                    "estimatedMillionTokens": 12,
+                    "assumptions": "50 requests * ~250K tokens per heavy agentic interaction (context + multi-file + verification)",
                 },
-                "notes": "Free AWS builder tier",
+                "notes": "Agentic request = any Q&A chat or coding interaction"
             },
             {
                 "name": "Pro",
                 "monthlyPrice": 19,
                 "limits": {
-                    "completions": "4,000 lines/mo",
-                    "chatRequests": "1,000 requests/mo",
-                    "agentTasks": "30 dev agent tasks/mo",
-                    "overages": "$0.003/line overage",
+                    "billing": "$19/user/mo, activates on first agentic usage (pro-rata)",
+                    "requests": "Higher agentic request limits (not numerically published)",
+                    "transformation": "4,000 LOC/mo pooled with $0.003/LOC overage",
                 },
-                "models": ["Amazon Titan Code", "Claude Sonnet 5 via Bedrock"],
+                "models": ["Latest Claude models via AWS"],
                 "estimatedTokenBudget": {
-                    "description": "1,000 chat reqs + 30 agent tasks (~8M tokens/mo)",
-                    "estimatedMillionTokens": 8,
-                    "assumptions": "1,000 chat requests + 30 complex agent tasks",
+                    "description": "Higher request pool (~200M tokens/mo research est.)",
+                    "estimatedMillionTokens": 200,
+                    "assumptions": "Exact request cap unpublished; research estimate = high-volume agentic usage",
                 },
-                "notes": "AWS IAM integrated developer assistant",
-            },
+                "notes": "Identity Center/IAM; IP indemnity included"
+            }
         ],
         "gotchas": [
-            "Overages billed at $0.003/line once 4,000 lines exceeded",
-            "Agent tasks consume heavy background compute that may incur Bedrock charges",
-            "AWS Console session timeouts can disconnect the IDE plugin",
+            "Pro request cap is not numerically published - token estimate is research-derived",
+            "Subscription activates only on first agentic action or code completion",
+            "Transformation overage billed at $0.003/LOC at payer-account level",
+            "Data collection: opt-out available on Free; automatically opted out on Pro"
         ],
-        "tosHighlights": [
-            "Full AWS IP indemnity included on paid tier",
-            "Opt-out available for data retention and telemetry",
-        ],
-        "dataTraining": "Opt-out available",
-        "ipIndemnity": true,
-    },
+        "tosHighlights": [],
+        "dataTraining": "Opt-out available (Free); automatic opt-out (Pro)",
+        "ipIndemnity": true
+    }
 )
 
 # 15. Tabnine
@@ -1439,112 +1351,80 @@ write_json(
         "id": "commandcode",
         "name": "CommandCode",
         "category": "coding-router",
-        "url": "https://commandcode.dev",
+        "url": "https://commandcode.ai/pricing",
         "lastVerified": "2026-09-18",
         "tiers": [
             {
                 "name": "Go",
                 "monthlyPrice": 1,
-                "limits": {
-                    "credits": "$10 compute credits",
-                    "rollingWindow": "$3 / 5h limit",
-                    "weeklyCap": "$6 / week",
-                },
-                "models": ["DeepSeek V4.1 Flash", "Claude Sonnet 5", "Qwen 3.8 Max"],
+                "limits": {"credits": "$10/mo compute credits (up to ~$20 with deals)", "requests": "~15K"},
+                "models": ["GPT-5.6 Luna", "Grok 4.5", "Qwen Max", "MiniMax M3"],
                 "estimatedTokenBudget": {
-                    "description": "$10 compute credits (~15M tokens/mo)",
+                    "description": "$10 compute credits (~15M tokens on open models)",
                     "estimatedMillionTokens": 15,
-                    "assumptions": "$10 credit pool spent at zero markup API rates",
+                    "assumptions": "$10.00 / ~$0.65/M blended open-model rate ~= 15M tokens",
                 },
-                "notes": "$1 entry tier gives $10 in compute credits",
+                "notes": "Processing fee applies; open models + select premium"
             },
             {
                 "name": "GOAT",
                 "monthlyPrice": 10,
-                "limits": {
-                    "credits": "$70 compute credits",
-                    "rollingWindow": "$15 / 5h limit",
-                    "weeklyCap": "$35 / week",
-                },
-                "models": ["DeepSeek V4.1 Flash", "Claude Sonnet 5", "GPT-6 Astra"],
+                "limits": {"credits": "$70/mo credits (up to ~$100 with deals)", "requests": "~75K"},
+                "models": ["GPT-5.6 Sol", "GLM-5.2", "Tencent Hy3", "Qwen 3.8 27B", "DeepSeek V4 Flash"],
                 "estimatedTokenBudget": {
-                    "description": "$70 compute credits (~70M tokens/mo)",
+                    "description": "$70 compute credits (~70M tokens)",
                     "estimatedMillionTokens": 70,
-                    "assumptions": "$70 compute pool spent across frontier models",
+                    "assumptions": "$70.00 / ~$1/M blended ~= 70M tokens; per-model dollar allowances",
                 },
-                "notes": "7x credit bonus for $10 monthly commitment",
+                "notes": "29+ models"
             },
             {
                 "name": "Pro",
                 "monthlyPrice": 20,
-                "limits": {
-                    "credits": "$80 compute credits",
-                    "rollingWindow": "$20 / 5h limit",
-                    "weeklyCap": "$50 / week",
-                },
-                "models": [
-                    "DeepSeek V4.1 Flash",
-                    "Claude Sonnet 5",
-                    "GPT-6 Astra",
-                    "Claude Opus 5",
-                ],
+                "limits": {"credits": "$80/mo credits", "requests": "~100K"},
+                "models": ["Claude Opus 4.8", "GPT-5.6 Sol", "Gemini", "GLM-5.2", "MiniMax M3"],
                 "estimatedTokenBudget": {
-                    "description": "$80 compute credits (~80M tokens/mo)",
+                    "description": "$80 compute credits (~80M tokens)",
                     "estimatedMillionTokens": 80,
-                    "assumptions": "$80 compute pool spent across frontier models",
+                    "assumptions": "$80.00 / ~$1/M blended ~= 80M tokens; deals increase effective value",
                 },
-                "notes": "4x credit multiplier with expanded 5-hour window",
+                "notes": "Adds all premium models incl Claude; 1M context"
             },
             {
-                "name": "Max10x",
+                "name": "Max 10x",
                 "monthlyPrice": 100,
-                "limits": {
-                    "credits": "$150 compute credits",
-                    "rollingWindow": "$40 / 5h limit",
-                    "weeklyCap": "$100 / week",
-                },
-                "models": [
-                    "Claude Sonnet 5",
-                    "Claude Opus 5",
-                    "GPT-6 Astra",
-                    "DeepSeek V4.1 Flash",
-                ],
+                "limits": {"credits": "$150/mo credits (up to ~$300)", "requests": "~219K"},
+                "models": ["All 30+ models"],
                 "estimatedTokenBudget": {
-                    "description": "$150 compute credits (~150M tokens/mo)",
+                    "description": "$150 compute credits (~150M tokens)",
                     "estimatedMillionTokens": 150,
-                    "assumptions": "$150 compute pool across all frontier models",
+                    "assumptions": "$150.00 / ~$1/M blended ~= 150M tokens",
                 },
-                "notes": "High burst capacity for multi-agent workflows",
+                "notes": "Higher rate limits"
             },
             {
-                "name": "Max20x",
+                "name": "Max 20x",
                 "monthlyPrice": 200,
-                "limits": {
-                    "credits": "$300 compute credits",
-                    "rollingWindow": "$75 / 5h limit",
-                    "weeklyCap": "$200 / week",
-                },
-                "models": ["All Frontier Models", "Claude Opus 5", "GPT-6 Astra"],
+                "limits": {"credits": "$300/mo credits (up to ~$600)", "requests": "~437K"},
+                "models": ["All 30+ models"],
                 "estimatedTokenBudget": {
-                    "description": "$300 compute credits (~300M tokens/mo)",
+                    "description": "$300 compute credits (~300M tokens)",
                     "estimatedMillionTokens": 300,
-                    "assumptions": "$300 compute pool",
+                    "assumptions": "$300.00 / ~$1/M blended ~= 300M tokens",
                 },
-                "notes": "Maximum developer throughput with $300 compute",
-            },
+                "notes": "Highest rate limits; every model"
+            }
         ],
         "gotchas": [
-            "5-hour rolling windows and weekly caps prevent sudden exhaustion of large credit allocations",
-            "Unused base credits roll over, but extra bonus promotions expire after 90 days",
-            "Throttled rate limits when approaching 5-hour limit",
+            "Domain moved from commandcode.dev to commandcode.ai",
+            "Every plan adds a small processing fee on top of the sticker price",
+            "Credits roll over forever; auto top-up billed at API cost",
+            "Free tier retired - now paid; taste-1 learning data stored locally only"
         ],
-        "tosHighlights": [
-            "No training on user prompts or code",
-            "SOC2 compliance in progress",
-        ],
-        "dataTraining": "No",
-        "ipIndemnity": false,
-    },
+        "tosHighlights": ["No training on your code; premium models US-hosted (EU on demand)"],
+        "dataTraining": "No training on your code",
+        "ipIndemnity": false
+    }
 )
 
 # 18. OpenCode
@@ -1554,57 +1434,67 @@ write_json(
         "id": "opencode",
         "name": "OpenCode",
         "category": "coding-router",
-        "url": "https://opencode.ai",
+        "url": "https://opencode.ai/zen",
         "lastVerified": "2026-09-18",
         "tiers": [
+            {
+                "name": "OpenSource CLI",
+                "monthlyPrice": 0,
+                "limits": {
+                    "usage": "Free open-source agent; BYOK to any provider",
+                },
+                "models": ["BYOK any provider"],
+                "estimatedTokenBudget": {
+                    "description": "Token cost = your provider's rates",
+                    "estimatedMillionTokens": 0,
+                    "assumptions": "No fixed bundle; you pay your API provider directly",
+                },
+                "notes": "opencode.ai/pricing no longer exists (404)"
+            },
+            {
+                "name": "Zen (PAYG)",
+                "monthlyPrice": 20,
+                "limits": {
+                    "billing": "Pay-as-you-go dollar balance, min $20 top-up (+$1.23 card fee)",
+                    "markup": "Zero markup per request",
+                    "autoTopUp": "$20 when balance < $5",
+                },
+                "models": [
+                    "GPT-5.6 Luna", "GPT-5.6 Sol", "Claude Fable 5.1", "Claude Opus 5",
+                    "GLM-5.3", "DeepSeek V4", "Gemini 3.8 Flash", "Free stealth models"
+                ],
+                "estimatedTokenBudget": {
+                    "description": "Per-token billing at curated gateway rates; min $20",
+                    "estimatedMillionTokens": 0,
+                    "assumptions": "Balance-based; cost equals published per-model rates",
+                },
+                "notes": "US-hosted, zero retention"
+            },
             {
                 "name": "Go",
                 "monthlyPrice": 10,
                 "limits": {
-                    "monthlySpendCap": "$10/mo model quota",
-                    "fiveHourRolling": "Max 20% of monthly cap ($2.00/5h)",
-                    "weeklyCap": "Max 50% of monthly cap ($5.00/wk)",
+                    "usage": "Open-model subscription ($10/mo) for stable global access",
                 },
-                "models": ["DeepSeek V4.1 Flash", "Claude Sonnet 5", "Qwen 3.8 Max"],
+                "models": ["MiniMax M3", "Qwen3.8", "DeepSeek V4.1 Flash", "LongCat-2.0", "Grok 4.6"],
                 "estimatedTokenBudget": {
-                    "description": "$10 API budget (~12M tokens/mo)",
-                    "estimatedMillionTokens": 12,
-                    "assumptions": "$10 spent on blended DeepSeek and Sonnet models",
+                    "description": "Open-model subscription (~30M tokens/mo est.)",
+                    "estimatedMillionTokens": 30,
+                    "assumptions": "$10 / ~$0.3/M blended open-model rate ~= 30M tokens; exact cap not published",
                 },
-                "notes": "Capped subscription with automated router optimizations",
-            },
-            {
-                "name": "Zen",
-                "monthlyPrice": None,
-                "limits": {
-                    "billing": "Pay-as-you-go with 0% platform markup",
-                    "concurrency": "10 concurrent streams",
-                },
-                "models": [
-                    "All Supported Routing Models",
-                    "Claude Sonnet 5",
-                    "GPT-6 Astra",
-                ],
-                "estimatedTokenBudget": {
-                    "description": "Uncapped PAYG at wholesale cost (~50M tokens @ $50)",
-                    "estimatedMillionTokens": 50,
-                    "assumptions": "Calculated on $50 typical monthly consumption",
-                },
-                "notes": "Direct wholesale rates with intelligent latency failover",
-            },
+                "notes": "New Sept 2026 low-cost subscription tier"
+            }
         ],
         "gotchas": [
-            "Zero Data Retention policies vary strictly by the underlying model provider selected",
-            "DeepSeek models have dynamic peak vs off-peak rates passed through",
-            "5-hour limit resets dynamically",
+            "The CLI itself is free/open-source; opencode.ai/pricing is retired (404) - offerings are Zen (PAYG) and Go ($10/mo)",
+            "Zen charges $1.23 card processing fee on top-ups; auto top-up at $20 below $5 balance",
+            "GPT-5.6 Sol carries 50% discount through Sept 18, 2026",
+            "Zen models hosted in US with zero-retention provider policy"
         ],
-        "tosHighlights": [
-            "Client-side proxy routing keeps API keys private",
-            "Open-source core architecture",
-        ],
-        "dataTraining": "Varies by model selected",
-        "ipIndemnity": false,
-    },
+        "tosHighlights": [],
+        "dataTraining": "Zero-retention; no training on Zen",
+        "ipIndemnity": false
+    }
 )
 
 # 19. OpenRouter
@@ -1668,61 +1558,51 @@ write_json(
     "byteplus.json",
     {
         "id": "byteplus",
-        "name": "BytePlus ModelArk",
+        "name": "BytePlus ModelArk Coding Plan",
         "category": "api-provider",
-        "url": "https://www.byteplus.com/en/activity/codingplan",
+        "url": "https://www.byteplus.com/en/activity/arkcodingplan",
         "lastVerified": "2026-09-18",
         "tiers": [
             {
                 "name": "Lite",
                 "monthlyPrice": 10,
                 "limits": {
-                    "requests": "24,000 requests/mo (~800/day)",
-                    "windowCaps": "5-hour and weekly burst caps",
-                    "concurrency": "3 concurrent streams",
+                    "usage": "3x the usage of the Claude Pro plan",
+                    "tools": "Claude Code, Cursor, Cline, Kilo Code, Roo Code, OpenCode",
                 },
-                "models": ["Doubao Coding", "GLM 5", "DeepSeek V4.1 Flash"],
+                "models": ["Dola-Seed-2.0-pro", "Dola-Seed-2.0-lite", "GLM-5.2", "DeepSeek-V4", "Kimi K2.5", "gpt-oss"],
                 "estimatedTokenBudget": {
-                    "description": "24,000 requests (~35M tokens/mo)",
-                    "estimatedMillionTokens": 35,
-                    "assumptions": "24,000 requests * ~1.5K tokens avg",
+                    "description": "3x Claude Pro usage (~30M tokens/mo)",
+                    "estimatedMillionTokens": 30,
+                    "assumptions": "Benchmarked as multiplier vs Claude Pro consumer quota; exact credits unpublished",
                 },
-                "notes": "Cost-effective API plan for developer tooling",
+                "notes": "Flexible model selection or Auto mode",
             },
             {
                 "name": "Pro",
                 "monthlyPrice": 50,
                 "limits": {
-                    "requests": "120,000 requests/mo (~4,000/day)",
-                    "windowCaps": "Expanded 5-hour window",
-                    "concurrency": "10 concurrent streams",
+                    "usage": "5x Lite usage (also marketed as 3x Claude Max usage)",
+                    "bonus": "ArkClaw included during subscription",
                 },
-                "models": [
-                    "Doubao Coding",
-                    "GLM 5",
-                    "DeepSeek V4.1 Flash",
-                    "Qwen 3.8 Max",
-                ],
+                "models": ["Dola-Seed-2.0-pro", "Dola-Seed-2.0-lite", "GLM-5.2", "DeepSeek-V4 Series", "Kimi K2.5", "gpt-oss"],
                 "estimatedTokenBudget": {
-                    "description": "120,000 requests (~180M tokens/mo)",
-                    "estimatedMillionTokens": 180,
-                    "assumptions": "120,000 requests * ~1.5K tokens avg",
+                    "description": "5x Lite (~150M tokens/mo)",
+                    "estimatedMillionTokens": 150,
+                    "assumptions": "5x the Lite research estimate",
                 },
-                "notes": "High volume request quota for engineering teams",
-            },
+                "notes": "Model availability varies by country/region"
+            }
         ],
         "gotchas": [
-            "STRICTLY tool-only: direct automated API scraping or script misuse results in permanent ban",
-            "No overage fallback — requests hard-fail with 429 when monthly quota is reached",
-            "5-hour and weekly sub-windows can throttle usage during heavy dev sprints",
+            "2026 refresh renamed models from Bytedance-Seed naming to Dola-Seed-2.0 pro/lite",
+            "Quota is marketed as a multiplier of Claude Pro/Max plans, not absolute credits",
+            "Model availability varies by region"
         ],
-        "tosHighlights": [
-            "Data may be retained for security monitoring and model quality verification",
-            "Service availability SLA guaranteed on Pro tier",
-        ],
-        "dataTraining": "Yes (unless enterprise private deployment)",
-        "ipIndemnity": false,
-    },
+        "tosHighlights": [],
+        "dataTraining": "Not published on pricing page",
+        "ipIndemnity": false
+    }
 )
 
 # 21. Alibaba Cloud
@@ -1845,72 +1725,73 @@ write_json(
     "minimax.json",
     {
         "id": "minimax",
-        "name": "MiniMax",
+        "name": "MiniMax Token Plan",
         "category": "api-provider",
-        "url": "https://minimax.ai",
+        "url": "https://platform.minimax.io/docs/guides/pricing-token-plan",
         "lastVerified": "2026-09-18",
         "tiers": [
             {
                 "name": "Plus",
                 "monthlyPrice": 22,
-                "limits": {
-                    "credits": "22,000 credits (1,000cr = $1)",
-                    "concurrentAgents": "3 concurrent agent threads",
-                    "creditValidity": "365 days",
-                },
-                "models": ["MiniMax-01", "MiniMax Text-02"],
+                "limits": {"quota": "5-hour rolling + weekly windows", "agents": "3-4 concurrent agents"},
+                "models": ["MiniMax M3", "M2.7"],
                 "estimatedTokenBudget": {
-                    "description": "22,000 credits (~25M tokens/mo)",
-                    "estimatedMillionTokens": 25,
-                    "assumptions": "$22 credit pool @ wholesale model rates",
+                    "description": "5h + weekly windows (~20M tokens/mo est.)",
+                    "estimatedMillionTokens": 20,
+                    "assumptions": "Research estimate; exact credits per window not officially published",
                 },
-                "notes": "Prepaid credit package with 1-year expiration",
+                "notes": "Personal projects and prototyping"
             },
             {
                 "name": "Max",
                 "monthlyPrice": 55,
-                "limits": {
-                    "credits": "55,000 credits",
-                    "concurrentAgents": "5 concurrent agent threads",
-                    "creditValidity": "365 days",
-                },
-                "models": ["MiniMax-01", "MiniMax Text-02", "MiniMax Code Specialist"],
+                "limits": {"quota": "5-hour rolling + weekly windows", "agents": "4-5 concurrent agents"},
+                "models": ["MiniMax M3", "M2.7"],
                 "estimatedTokenBudget": {
-                    "description": "55,000 credits (~65M tokens/mo)",
+                    "description": "Higher windows (~65M tokens/mo est.)",
                     "estimatedMillionTokens": 65,
-                    "assumptions": "$55 credit pool",
+                    "assumptions": "Research estimate",
                 },
-                "notes": "Enhanced concurrency for background agent workflows",
+                "notes": "Daily coding with agents and multimodal work"
             },
             {
                 "name": "Ultra",
                 "monthlyPrice": 132,
-                "limits": {
-                    "credits": "132,000 credits",
-                    "concurrentAgents": "7 concurrent agent threads",
-                    "creditValidity": "365 days",
-                },
-                "models": ["MiniMax-01", "MiniMax Text-02", "MiniMax Code Specialist"],
+                "limits": {"quota": "5-hour rolling + weekly windows, extended sessions", "agents": "6-7 concurrent agents"},
+                "models": ["MiniMax M3", "M2.7"],
                 "estimatedTokenBudget": {
-                    "description": "132,000 credits (~160M tokens/mo)",
+                    "description": "Highest windows (~160M tokens/mo est.)",
                     "estimatedMillionTokens": 160,
-                    "assumptions": "$132 credit pool",
+                    "assumptions": "Research estimate",
                 },
-                "notes": "High concurrency package for continuous code analysis",
+                "notes": "Heavy agent workflows and extended sessions"
             },
+            {
+                "name": "Prepaid Credits",
+                "monthlyPrice": null,
+                "limits": {
+                    "credits": "$5 = 5,000 / $25 = 25,000 / $100 = 100,000 credits (1,000 credits = $1)",
+                    "validity": "365 days",
+                },
+                "models": ["All MiniMax models"],
+                "estimatedTokenBudget": {
+                    "description": "$1 per 1,000 credits",
+                    "estimatedMillionTokens": 0,
+                    "assumptions": "Overflow top-up for subscription users",
+                },
+                "notes": "Prepaid overflow packages"
+            }
         ],
         "gotchas": [
-            "Agent limits hard-capped at 3, 5, or 7 concurrent streams based on purchased tier",
-            "Unused credits expire after exactly 365 days from purchase",
-            "Data may be used for training on standard consumer tiers",
+            "Sold as 'Token Plan' subscription rather than a separate coding plan",
+            "Exact credits inside 5h/weekly windows are not officially published - token estimates are research-derived",
+            "MiniMax H3, voice design and rapid voice cloning not included",
+            "Prepaid credits: 1,000 credits = $1, valid 365 days"
         ],
-        "tosHighlights": [
-            "Chinese & English bilingual optimization",
-            "Enterprise contracts offer on-prem and private cloud hosting",
-        ],
-        "dataTraining": "Yes (unless enterprise SLA)",
-        "ipIndemnity": false,
-    },
+        "tosHighlights": [],
+        "dataTraining": "Not published on pricing page",
+        "ipIndemnity": false
+    }
 )
 
 # 23. OpenAI API

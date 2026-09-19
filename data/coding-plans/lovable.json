@@ -9,72 +9,65 @@
       "name": "Free",
       "monthlyPrice": 0,
       "limits": {
-        "dailyCredits": "5 build credits/day",
-        "export": "GitHub sync only",
-        "concurrency": "1 build"
+        "buildCredits": "5 daily build credits (cap 30/mo)",
+        "grants": "20 credits/mo Cloud grant + 4 credits/mo AI grant"
       },
       "models": [
-        "Lovable Agent v2",
-        "Claude Sonnet 5"
+        "Lovable Agent"
       ],
       "estimatedTokenBudget": {
-        "description": "150 build credits/mo (~3M tokens)",
+        "description": "30 build credits + monthly grants (~3M tokens/mo)",
         "estimatedMillionTokens": 3,
-        "assumptions": "5 credits/day * 30 days"
+        "assumptions": "~30 usable credits/mo * ~100K tokens per build+agent mix"
       },
-      "notes": "Free tier for experimenting and small apps"
+      "notes": "Daily credits reset at 00:00 UTC; monthly grants on 1st; no rollover"
     },
     {
-      "name": "Pro",
+      "name": "Pro 100",
       "monthlyPrice": 25,
       "limits": {
-        "monthlyCredits": "100 build credits/mo",
-        "topUpPrice": "$0.30/credit",
-        "customDomains": "Unlimited"
+        "buildCredits": "100 credits/mo (annual $21/mo)",
+        "dailyFloor": "5 daily build credits + 20 Cloud + 4 AI grants stack on top",
+        "rollover": "Monthly credits roll over (expire 2 months later on monthly billing)"
       },
       "models": [
-        "Lovable Agent v2",
-        "Claude Sonnet 5",
-        "GPT-5"
+        "Lovable Agent"
       ],
       "estimatedTokenBudget": {
-        "description": "100 build credits/mo (~15M tokens)",
+        "description": "100+ credits/mo (~15M tokens)",
         "estimatedMillionTokens": 15,
-        "assumptions": "100 build tasks @ ~150K tokens/build"
+        "assumptions": "~150K tokens per credit across builds, hosting and AI gateway usage; scales to 10,000 credits ($2,250/mo)"
       },
-      "notes": "Full fullstack code generation and live deployment"
+      "notes": "Unified credit balance covers builds + Cloud hosting + AI gateway on deployed apps"
     },
     {
       "name": "Business",
       "monthlyPrice": 50,
       "limits": {
-        "monthlyCredits": "250 build credits/mo",
-        "topUpPrice": "$0.60/credit",
-        "teamMembers": "Up to 5 seats"
+        "buildCredits": "100 credits tier at $50/mo (annual $42) - scales with tier",
+        "privacy": "Workspace data excluded from AI model training by default"
       },
       "models": [
-        "Lovable Agent v2",
-        "Claude Sonnet 5",
-        "GPT-5",
-        "Claude Opus 5"
+        "Lovable Agent"
       ],
       "estimatedTokenBudget": {
-        "description": "250 build credits/mo (~40M tokens)",
+        "description": "Business minimum tier (~40M tokens/mo at 200+ cr tiers typical)",
         "estimatedMillionTokens": 40,
-        "assumptions": "250 high-effort build tasks @ ~160K tokens/build"
+        "assumptions": "Same per-credit token estimate as Pro; minimum $50 tier"
       },
-      "notes": "Multi-seat collaborative app generation"
+      "notes": "SSO/central admin at higher Business tiers; Enterprise custom"
     }
   ],
   "gotchas": [
-    "TOS grants Lovable a perpetual license to use and train on generated code on Free and Pro tiers",
-    "Credits expire after 2 months if unused",
-    "High-complexity prompt iterations consume 2-4 credits per build"
+    "Credits are a unified balance covering app builds, hosting (Cloud) and AI gateway usage of deployed apps",
+    "Free-tier credits do NOT roll over; Pro credits expire 2 months after issue on monthly plans",
+    "Daily 5 build credits are a floor, not a bonus: monthly credits also include daily research",
+    "Higher credit tiers scale steeply: 200 cr $50, 400 cr $100, 800 cr $200 ... 10,000 cr $2,250"
   ],
   "tosHighlights": [
-    "Perpetual training license on Free/Pro tiers — Enterprise required for full IP protection",
-    "Live Supabase backend provisioning included"
+    "Business and Enterprise exclude workspace data from AI model training by default",
+    "Free/Pro can opt out per account"
   ],
-  "dataTraining": "Perpetual license on Free/Pro; Enterprise opt-out",
+  "dataTraining": "Excluded by default on Business+; opt-out available on Free/Pro",
   "ipIndemnity": false
 }

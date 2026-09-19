@@ -1,61 +1,61 @@
 {
   "id": "byteplus",
-  "name": "BytePlus ModelArk",
+  "name": "BytePlus ModelArk Coding Plan",
   "category": "api-provider",
-  "url": "https://www.byteplus.com/en/activity/codingplan",
+  "url": "https://www.byteplus.com/en/activity/arkcodingplan",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Lite",
       "monthlyPrice": 10,
       "limits": {
-        "requests": "24,000 requests/mo (~800/day)",
-        "windowCaps": "5-hour and weekly burst caps",
-        "concurrency": "3 concurrent streams"
+        "usage": "3x the usage of the Claude Pro plan",
+        "tools": "Claude Code, Cursor, Cline, Kilo Code, Roo Code, OpenCode"
       },
       "models": [
-        "Doubao Coding",
-        "GLM 5",
-        "DeepSeek V4.1 Flash"
+        "Dola-Seed-2.0-pro",
+        "Dola-Seed-2.0-lite",
+        "GLM-5.2",
+        "DeepSeek-V4",
+        "Kimi K2.5",
+        "gpt-oss"
       ],
       "estimatedTokenBudget": {
-        "description": "24,000 requests (~35M tokens/mo)",
-        "estimatedMillionTokens": 35,
-        "assumptions": "24,000 requests * ~1.5K tokens avg"
+        "description": "3x Claude Pro usage (~30M tokens/mo)",
+        "estimatedMillionTokens": 30,
+        "assumptions": "Benchmarked as multiplier vs Claude Pro consumer quota; exact credits unpublished"
       },
-      "notes": "Cost-effective API plan for developer tooling"
+      "notes": "Flexible model selection or Auto mode"
     },
     {
       "name": "Pro",
       "monthlyPrice": 50,
       "limits": {
-        "requests": "120,000 requests/mo (~4,000/day)",
-        "windowCaps": "Expanded 5-hour window",
-        "concurrency": "10 concurrent streams"
+        "usage": "5x Lite usage (also marketed as 3x Claude Max usage)",
+        "bonus": "ArkClaw included during subscription"
       },
       "models": [
-        "Doubao Coding",
-        "GLM 5",
-        "DeepSeek V4.1 Flash",
-        "Qwen 3.8 Max"
+        "Dola-Seed-2.0-pro",
+        "Dola-Seed-2.0-lite",
+        "GLM-5.2",
+        "DeepSeek-V4 Series",
+        "Kimi K2.5",
+        "gpt-oss"
       ],
       "estimatedTokenBudget": {
-        "description": "120,000 requests (~180M tokens/mo)",
-        "estimatedMillionTokens": 180,
-        "assumptions": "120,000 requests * ~1.5K tokens avg"
+        "description": "5x Lite (~150M tokens/mo)",
+        "estimatedMillionTokens": 150,
+        "assumptions": "5x the Lite research estimate"
       },
-      "notes": "High volume request quota for engineering teams"
+      "notes": "Model availability varies by country/region"
     }
   ],
   "gotchas": [
-    "STRICTLY tool-only: direct automated API scraping or script misuse results in permanent ban",
-    "No overage fallback — requests hard-fail with 429 when monthly quota is reached",
-    "5-hour and weekly sub-windows can throttle usage during heavy dev sprints"
+    "2026 refresh renamed models from Bytedance-Seed naming to Dola-Seed-2.0 pro/lite",
+    "Quota is marketed as a multiplier of Claude Pro/Max plans, not absolute credits",
+    "Model availability varies by region"
   ],
-  "tosHighlights": [
-    "Data may be retained for security monitoring and model quality verification",
-    "Service availability SLA guaranteed on Pro tier"
-  ],
-  "dataTraining": "Yes (unless enterprise private deployment)",
+  "tosHighlights": [],
+  "dataTraining": "Not published on pricing page",
   "ipIndemnity": false
 }

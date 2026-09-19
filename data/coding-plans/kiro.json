@@ -10,114 +10,113 @@
       "monthlyPrice": 0,
       "limits": {
         "credits": "50 credits/mo",
-        "concurrency": "1",
-        "addOnPrice": "N/A"
+        "models": "Rate-limited Sonnet-class + open-weight models"
       },
       "models": [
-        "Claude Haiku 4.5",
-        "Claude Sonnet 5"
+        "Claude Sonnet 4.5",
+        "Qwen3 Coder Next",
+        "DeepSeek V3.2",
+        "MiniMax M2.1"
       ],
       "estimatedTokenBudget": {
-        "description": "50 credits (~1M tokens)",
+        "description": "50 credits/mo (~1M tokens)",
         "estimatedMillionTokens": 1,
-        "assumptions": "50 credits * $0.02 base = $1 value"
+        "assumptions": "Credits consumed fractionally per request at ~$0.04/credit equivalent on Sonnet blended rate"
       },
-      "notes": "Evaluation tier with 50 monthly credits"
+      "notes": "Usage cap renews at start of next billing cycle"
     },
     {
       "name": "Pro",
       "monthlyPrice": 20,
       "limits": {
         "credits": "1,000 credits/mo",
-        "addOnPrice": "$0.04/credit",
-        "multipliers": "Sonnet 1.3x, Opus 2.2x, Haiku 0.4x"
+        "overage": "Add-on credit packs available"
       },
       "models": [
         "Claude Sonnet 5",
         "Claude Opus 5",
-        "Claude Haiku 4.5",
-        "GPT-5.6 Sol"
+        "Auto mode",
+        "Qwen3 Coder Next",
+        "DeepSeek V3.2",
+        "MiniMax M2.1"
       ],
       "estimatedTokenBudget": {
-        "description": "1,000 credits (~20M tokens on Sonnet)",
+        "description": "1,000 credits/mo (~20M tokens on Sonnet 5)",
         "estimatedMillionTokens": 20,
-        "assumptions": "1,000 credits @ $0.04 value = $40 equivalent"
+        "assumptions": "1 credit ~= $0.04; $40 equivalent / ~$2/M blended on Sonnet 5 ~= 20M tokens"
       },
-      "notes": "Model multipliers: Opus 2.2x, Sonnet 1.3x, Haiku 0.4x"
+      "notes": "Premium models + open-weight pool; monthly billing cycle"
     },
     {
       "name": "Pro+",
       "monthlyPrice": 40,
       "limits": {
         "credits": "2,000 credits/mo",
-        "addOnPrice": "$0.04/credit",
-        "concurrency": "3 concurrent tasks"
+        "overage": "Add-on credit packs available"
       },
       "models": [
         "Claude Sonnet 5",
         "Claude Opus 5",
-        "GPT-5.6 Sol",
-        "Claude Fable 5.1"
+        "Auto mode",
+        "Qwen3 Coder Next",
+        "DeepSeek V3.2",
+        "MiniMax M2.1"
       ],
       "estimatedTokenBudget": {
-        "description": "2,000 credits (~40M tokens on Sonnet)",
+        "description": "2,000 credits/mo (~40M tokens on Sonnet 5)",
         "estimatedMillionTokens": 40,
-        "assumptions": "2,000 credits @ $0.04 value = $80 equivalent"
+        "assumptions": "2,000 credits ~= $80 equivalent / ~$2/M blended ~= 40M tokens"
       },
-      "notes": "Double credits for active full-stack developers"
+      "notes": "Double Pro capacity"
     },
     {
-      "name": "ProMax",
+      "name": "Pro Max",
       "monthlyPrice": 100,
       "limits": {
         "credits": "5,000 credits/mo",
-        "addOnPrice": "$0.035/credit",
-        "concurrency": "6 concurrent tasks"
+        "overage": "Add-on credit packs available"
       },
       "models": [
         "Claude Sonnet 5",
         "Claude Opus 5",
-        "GPT-5.6 Sol",
-        "Claude Fable 5.1"
+        "Auto mode",
+        "Open-weight models"
       ],
       "estimatedTokenBudget": {
-        "description": "5,000 credits (~100M tokens on Sonnet)",
+        "description": "5,000 credits/mo (~100M tokens on Sonnet 5)",
         "estimatedMillionTokens": 100,
-        "assumptions": "5,000 credits @ $0.035 value = $175 equivalent"
+        "assumptions": "5,000 credits ~= $200 equivalent / ~$2/M blended ~= 100M tokens"
       },
-      "notes": "Power user tier with discounted add-on credit pricing"
+      "notes": "Heavier agentic usage"
     },
     {
       "name": "Power",
       "monthlyPrice": 200,
       "limits": {
         "credits": "10,000 credits/mo",
-        "addOnPrice": "$0.03/credit",
-        "concurrency": "12 concurrent tasks"
+        "overage": "Add-on credit packs available"
       },
       "models": [
-        "Claude Opus 5",
         "Claude Sonnet 5",
-        "Claude Fable 5.1",
-        "GPT-6 Astra"
+        "Claude Opus 5",
+        "Auto mode",
+        "Open-weight models"
       ],
       "estimatedTokenBudget": {
-        "description": "10,000 credits (~200M tokens on Sonnet)",
+        "description": "10,000 credits/mo (~200M tokens on Sonnet 5)",
         "estimatedMillionTokens": 200,
-        "assumptions": "10,000 credits @ $0.03 value = $300 equivalent"
+        "assumptions": "10,000 credits ~= $400 equivalent / ~$2/M blended ~= 200M tokens"
       },
-      "notes": "Maximum enterprise compute tier"
+      "notes": "Maximum capacity tier added Aug 2026"
     }
   ],
   "gotchas": [
-    "Monthly credits DO NOT roll over to the next month — use them or lose them",
-    "Model multipliers vary wildly: Fable is 6.0x, Sol is 4.4x, Sonnet is 1.3x",
-    "Add-on credit top-ups cost $0.04 per credit"
+    "Credits reset monthly at billing-cycle start, not rolling 5-hour windows",
+    "Credits are consumed fractionally per request; complex spec-driven tasks burn many credits",
+    "Not all premium models are available in every country/region",
+    "AWS owns Kiro - usage governed under AWS terms"
   ],
-  "tosHighlights": [
-    "AWS Bedrock enterprise security foundation",
-    "Zero data retention and no model training on customer repositories"
-  ],
-  "dataTraining": "No (Enterprise ZDR)",
+  "tosHighlights": [],
+  "dataTraining": "Not published on pricing page",
   "ipIndemnity": false
 }

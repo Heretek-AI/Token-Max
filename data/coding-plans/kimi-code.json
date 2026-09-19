@@ -1,78 +1,94 @@
 {
   "id": "kimi-code",
   "name": "Kimi Code",
-  "category": "coding-ide",
-  "url": "https://www.kimi.com/code/docs/en/",
+  "category": "coding-router",
+  "url": "https://www.kimi.com/coding-plan/",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
-      "name": "Plus",
+      "name": "Moderato",
       "monthlyPrice": 19,
       "limits": {
-        "monthlyPriceRMB": "¥79/mo",
-        "quota": "Standard HighSpeed quota",
-        "contextWindow": "256K"
+        "quota": "Weekly-refreshed usage quota (~300 requests / 5h windows)",
+        "models": "Kimi K3 incl. K3-256k"
       },
       "models": [
-        "Kimi K3 2.8T",
-        "Kimi K2.5"
+        "Kimi K3",
+        "K3-256k",
+        "K2.7 Code"
       ],
       "estimatedTokenBudget": {
-        "description": "Standard HighSpeed quota (~20M tokens/mo)",
-        "estimatedMillionTokens": 20,
-        "assumptions": "Standard daily quota allocations"
+        "description": "Weekly-refreshed quota (~60M tokens/mo)",
+        "estimatedMillionTokens": 60,
+        "assumptions": "~300 req/window at kimi-k2.7-code rates ($0.19 cache/$0.95 input/$4.00 output; ~95% cache hit ~= $0.37/M blended) ~= 60M tokens/mo"
       },
-      "notes": "Entry tier for Chinese & multilingual development"
+      "notes": "Tiers named after musical terms; K3 has low/high/max thinking modes"
     },
     {
-      "name": "Pro",
+      "name": "Allegretto",
       "monthlyPrice": 39,
       "limits": {
-        "monthlyPriceRMB": "¥159/mo",
-        "quota": "3x HighSpeed quota",
-        "contextWindow": "1M context"
+        "quota": "Higher weekly limits + higher concurrency",
+        "speed": "K3 HighSpeed (5-6x speed, ~3x credit burn); 1M-context K3"
       },
       "models": [
-        "Kimi K3 2.8T (1M Context)",
-        "Kimi K2.5"
+        "Kimi K3",
+        "K3 HighSpeed",
+        "K2.7 Code"
       ],
       "estimatedTokenBudget": {
-        "description": "3x HighSpeed quota (~60M tokens/mo)",
-        "estimatedMillionTokens": 60,
-        "assumptions": "3x HighSpeed priority burst capacity"
+        "description": "Higher weekly quota (~150M tokens/mo)",
+        "estimatedMillionTokens": 150,
+        "assumptions": "Research estimate scaled above Moderato; HighSpeed triples burn rate"
       },
-      "notes": "Includes 1 Million token context window"
+      "notes": "Unlocks HighSpeed model and 1M context"
     },
     {
-      "name": "Max",
-      "monthlyPrice": 199,
+      "name": "Allegro",
+      "monthlyPrice": 99,
       "limits": {
-        "monthlyPriceRMB": "¥559/mo",
-        "quota": "15x HighSpeed quota",
-        "contextWindow": "2M context",
-        "concurrency": "5 concurrent tasks"
+        "quota": "Expansive quota (~600-800 req/5h)",
+        "concurrency": "Higher caps"
       },
       "models": [
-        "Kimi K3 2.8T",
-        "Kimi Math",
-        "Kimi Coding Specialist"
+        "Kimi K3",
+        "K3 HighSpeed",
+        "K2.7 Code"
       ],
       "estimatedTokenBudget": {
-        "description": "15x HighSpeed quota (~250M tokens/mo)",
-        "estimatedMillionTokens": 250,
-        "assumptions": "Massive context agentic processing"
+        "description": "Expansive quota (~400M tokens/mo)",
+        "estimatedMillionTokens": 400,
+        "assumptions": "Research estimate; exact credit counts not officially published"
       },
-      "notes": "Massive context reasoning for enterprise codebases"
+      "notes": "Heavy daily agentic coding"
+    },
+    {
+      "name": "Vivace",
+      "monthlyPrice": 199,
+      "limits": {
+        "quota": "Highest weekly quotas (~1,200 req/5h)",
+        "concurrency": "Max caps"
+      },
+      "models": [
+        "Kimi K3",
+        "K3 HighSpeed",
+        "K2.7 Code"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Highest quota (~800M tokens/mo)",
+        "estimatedMillionTokens": 800,
+        "assumptions": "Research estimate; not officially published"
+      },
+      "notes": "Max tier"
     }
   ],
   "gotchas": [
-    "Shared quota pool with consumer Kimi chat app",
-    "Strict ban policy for User-Agent spoofing or headless automation",
-    "Server latency outside APAC can be variable"
+    "Quotas refresh weekly with ~5-hour rolling request windows (roughly 300-1,200 req/window by tier)",
+    "K3 HighSpeed runs 5-6x faster but burns ~3x credits",
+    "Exact credit counts per window are not officially published - estimates are research-derived",
+    "K2.7 Code is the coding-optimized workhorse; K3 is the general flagship"
   ],
-  "tosHighlights": [
-    "Data may be retained for reinforcement learning unless enterprise contract signed"
-  ],
-  "dataTraining": "Yes (unless enterprise SLA)",
+  "tosHighlights": [],
+  "dataTraining": "Not published on pricing page",
   "ipIndemnity": false
 }

@@ -9,51 +9,63 @@
       "name": "Core",
       "monthlyPrice": 20,
       "limits": {
-        "agentCheckpoints": "50 Agent checkpoints/mo",
-        "cloudCompute": "Basic cloud VM",
-        "dailyChats": "Capped daily chats"
+        "agentHours": "Up to 30 hours of chat in Free Mode",
+        "projects": "Up to 60 projects on Free Mode",
+        "modelCredits": "$20 toward most powerful models"
       },
       "models": [
-        "Replit Agent v2",
-        "Claude Sonnet 4.6"
+        "Replit Agent",
+        "Frontier model pool"
       ],
       "estimatedTokenBudget": {
-        "description": "50 Agent checkpoints (~15M tokens/mo)",
-        "estimatedMillionTokens": 15,
-        "assumptions": "50 checkpoints * ~300K tokens/checkpoint"
+        "description": "$20 model-credit pool + 30 agent-hours (~24M tokens)",
+        "estimatedMillionTokens": 24,
+        "assumptions": "$20.00 / ~$0.83/M blended on mixed frontier models ~= 24M tokens"
       },
-      "notes": "Cloud development environment with Replit Agent"
+      "notes": "Annual billing drops to $18/mo; unlimited workspaces"
     },
     {
       "name": "Pro",
       "monthlyPrice": 100,
       "limits": {
-        "agentCheckpoints": "300 Agent checkpoints/mo",
-        "cloudCompute": "4 vCPU / 16GB RAM VM",
-        "priorityQueue": "High priority"
+        "parallelAgents": "10 parallel agents",
+        "modelCredits": "$100 toward most powerful models",
+        "collaboration": "15 collaborators, 50 viewers"
       },
       "models": [
-        "Replit Agent v2",
-        "Claude Sonnet 5",
-        "GPT-5"
+        "Multi-agent frontier models"
       ],
       "estimatedTokenBudget": {
-        "description": "300 Agent checkpoints (~80M tokens/mo)",
-        "estimatedMillionTokens": 80,
-        "assumptions": "300 checkpoints with expanded VM resources"
+        "description": "$100 model-credit pool (~120M tokens)",
+        "estimatedMillionTokens": 120,
+        "assumptions": "$100.00 / ~$0.83/M blended ~= 120M tokens"
       },
-      "notes": "High performance cloud VMs + advanced agent autonomy"
+      "notes": "10 parallel agents; DB rollback 28 days"
+    },
+    {
+      "name": "Enterprise",
+      "monthlyPrice": null,
+      "limits": {
+        "billing": "Custom seats; SSO/SAML, single-tenant, static IPs"
+      },
+      "models": [
+        "Custom fleet"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Custom contract",
+        "estimatedMillionTokens": 0,
+        "assumptions": "Negotiated agreement"
+      },
+      "notes": "Advanced privacy controls"
     }
   ],
   "gotchas": [
-    "Effort-based checkpoint system can lead to unpredictable credit burn",
-    "Free daily chat caps severely restrict debugging in editor",
-    "VM compute charges apply if machines stay running"
+    "$20/$100 'toward most powerful models' is a dollar credit pool, not free tokens",
+    "Beyond included Free-Mode hours, effort-based pricing applies (agent-hours billed as usage)",
+    "Optional Prepacks: $90/$215/$425/$825/$2,000 per month",
+    "Exact checkpoint consumption per tier not officially published"
   ],
-  "tosHighlights": [
-    "Public repls are openly visible and trained upon",
-    "Private repls on paid plans are shielded from public display"
-  ],
-  "dataTraining": "Yes on public Repls; opt-out on private paid",
+  "tosHighlights": [],
+  "dataTraining": "Not published on pricing page",
   "ipIndemnity": false
 }
