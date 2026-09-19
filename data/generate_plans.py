@@ -317,6 +317,101 @@ _CMD_PRO_POOL = per_model_pool(
     },
 )
 
+# Cursor publishes per-token rates for both usage pools
+# (https://cursor.com/docs/account/pricing). Included pools are modeled on
+# ~$20/$60/$200 of equivalent API-rate spend (see tier assumptions).
+_CURSOR_PRICES = {
+    "cursor grok 4.6": {
+        "input": 2.00,
+        "output": 6.00,
+        "cacheRead": 0.50,
+        "cacheWrite": None,
+    },
+    "composer 2.5": {
+        "input": 0.50,
+        "output": 2.50,
+        "cacheRead": 0.20,
+        "cacheWrite": None,
+    },
+    "claude fable 5.1": {
+        "input": 10.00,
+        "output": 50.00,
+        "cacheRead": 0.25,
+        "cacheWrite": 12.50,
+    },
+    "claude opus 5": {
+        "input": 5.00,
+        "output": 25.00,
+        "cacheRead": 0.50,
+        "cacheWrite": 6.25,
+    },
+    "claude sonnet 5": {
+        "input": 2.00,
+        "output": 10.00,
+        "cacheRead": 0.20,
+        "cacheWrite": 2.50,
+    },
+    "gpt-5.6 sol": {
+        "input": 4.00,
+        "output": 20.00,
+        "cacheRead": 0.40,
+        "cacheWrite": 5.00,
+    },
+    "gemini 3.1 pro": {
+        "input": 2.00,
+        "output": 12.00,
+        "cacheRead": 0.20,
+        "cacheWrite": None,
+    },
+    "gemini 3.8 flash": {
+        "input": 0.75,
+        "output": 3.50,
+        "cacheRead": 0.075,
+        "cacheWrite": None,
+    },
+    "muse spark 1.3": {
+        "input": 1.25,
+        "output": 4.25,
+        "cacheRead": 0.15,
+        "cacheWrite": None,
+    },
+}
+_CURSOR_PRO_POOL = per_model_pool(
+    20.0,
+    _CURSOR_PRICES,
+)
+_CURSORPROPLUS_POOL = per_model_pool(
+    60.0,
+    {
+        k: v
+        for k, v in _CURSOR_PRICES.items()
+        if k != "gemini 3.1 pro" and k != "muse spark 1.3"
+    },
+)
+_CURSOR_ULTRA_POOL = per_model_pool(
+    200.0,
+    {
+        k: v
+        for k, v in _CURSOR_PRICES.items()
+        if k
+        in (
+            "cursor grok 4.6",
+            "composer 2.5",
+            "claude fable 5.1",
+            "claude opus 5",
+            "gemini 3.8 flash",
+        )
+    }
+    | {
+        "gpt-6 astra": {
+            "input": 10.00,
+            "output": 50.00,
+            "cacheRead": 1.00,
+            "cacheWrite": 12.50,
+        },
+    },
+)
+
 
 def osint_meta(basis, source_url):
     """Provenance block for OSINT-derived task estimates."""
@@ -380,6 +475,7 @@ write_json(
                     "Gemini 3.8 Flash",
                     "Muse Spark 1.3",
                 ],
+                "perModelTokenBudgets": dict(_CURSOR_PRO_POOL),
                 "estimatedTokenBudget": {
                     "description": "Pro Cursor-Models + Other-Models pools (~10M tokens/mo modeled)",
                     "estimatedMillionTokens": 10,
@@ -404,6 +500,7 @@ write_json(
                     "GPT-5.6 Sol",
                     "Gemini 3.8 Flash",
                 ],
+                "perModelTokenBudgets": dict(_CURSORPROPLUS_POOL),
                 "estimatedTokenBudget": {
                     "description": "Official 3x Pro limits (~30M tokens/mo)",
                     "estimatedMillionTokens": 30,
@@ -427,6 +524,7 @@ write_json(
                     "GPT-6 Astra",
                     "Gemini 3.8 Flash",
                 ],
+                "perModelTokenBudgets": dict(_CURSOR_ULTRA_POOL),
                 "estimatedTokenBudget": {
                     "description": "Official 20x Pro limits (~200M tokens/mo)",
                     "estimatedMillionTokens": 200,
