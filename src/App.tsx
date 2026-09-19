@@ -7,6 +7,7 @@ import PlansCompare from './pages/PlansCompare';
 import BenchmarksPage from './pages/BenchmarksPage';
 import TosAudit from './pages/TosAudit';
 import MixOptimizer from './pages/MixOptimizer';
+import BurstSimulator from './pages/BurstSimulator';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/optimizer" element={<MixOptimizer />} />
+              <Route path="/simulator" element={<BurstSimulator />} />
               <Route path="/models" element={<ModelsExplorer />} />
               <Route path="/plans" element={<PlansCompare />} />
               <Route path="/benchmarks" element={<BenchmarksPage />} />
