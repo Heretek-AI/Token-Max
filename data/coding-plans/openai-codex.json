@@ -48,6 +48,28 @@
         "estimatedMillionTokens": 4.25,
         "midpointEstimate": 9.35,
         "optimisticEstimate": 15.3,
+        "perModelTokenBudgets": {
+          "gpt-5.6 luna": {
+            "estimatedMillionTokens": 4.25,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-5.6 terra": {
+            "estimatedMillionTokens": 0.42,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-5.6 sol": {
+            "estimatedMillionTokens": 0.23,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-6 astra": {
+            "estimatedMillionTokens": 0.09,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "assumptions": "Limited tasks: ~17 tasks/mo x the 250K-900K OSINT agent-task band (4.25M floor / 9.35M / 15.3M); $8 price commonly cited but the scraped page did not render USD amounts",
         "estimateMeta": {
           "sourceUrl": "https://openai.com/chatgpt/pricing/",
@@ -78,6 +100,28 @@
         "estimatedMillionTokens": 20.0,
         "midpointEstimate": 44.0,
         "optimisticEstimate": 72.0,
+        "perModelTokenBudgets": {
+          "gpt-5.6 luna": {
+            "estimatedMillionTokens": 911.31,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-5.6 terra": {
+            "estimatedMillionTokens": 91.13,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-5.6 sol": {
+            "estimatedMillionTokens": 50.0,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-6 astra": {
+            "estimatedMillionTokens": 20.0,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "assumptions": "Research estimate: ~80 tasks/mo x the 250K-900K OSINT agent-task band (20M floor / 44M / 72M); no official numeric task limits",
         "estimateMeta": {
           "sourceUrl": "https://openai.com/chatgpt/pricing/",
@@ -106,6 +150,28 @@
         "estimatedMillionTokens": 100.0,
         "midpointEstimate": 220.0,
         "optimisticEstimate": 360.0,
+        "perModelTokenBudgets": {
+          "gpt-5.6 luna": {
+            "estimatedMillionTokens": 4556.54,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-5.6 terra": {
+            "estimatedMillionTokens": 455.65,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-5.6 sol": {
+            "estimatedMillionTokens": 250.0,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-6 astra": {
+            "estimatedMillionTokens": 100.0,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "assumptions": "5x the Plus research estimate (100M floor / 220M / 360M)",
         "estimateMeta": {
           "sourceUrl": "https://openai.com/chatgpt/pricing/",

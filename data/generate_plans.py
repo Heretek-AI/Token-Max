@@ -413,6 +413,133 @@ _CURSOR_ULTRA_POOL = per_model_pool(
 )
 
 
+# Claude usage credits drain at each model's official API rate
+# (https://claude.com/pricing); Fable officially draws weekly limits at 50%.
+_CLAUDE_PRICES = {
+    "claude opus 5": {
+        "input": 5.00,
+        "output": 25.00,
+        "cacheRead": 0.50,
+        "cacheWrite": 6.25,
+    },
+    "claude sonnet 5": {
+        "input": 2.00,
+        "output": 10.00,
+        "cacheRead": 0.20,
+        "cacheWrite": 2.50,
+    },
+    "claude haiku 4.5": {
+        "input": 1.00,
+        "output": 5.00,
+        "cacheRead": 0.10,
+        "cacheWrite": 1.25,
+    },
+    "claude fable 5.1": {
+        "input": 10.00,
+        "output": 50.00,
+        "cacheRead": 0.25,
+        "cacheWrite": 12.50,
+    },
+}
+_CLAUDE_SONNET_BLENDED = agent_blend_cost(_CLAUDE_PRICES["claude sonnet 5"])
+
+
+def _claude_pool(pool_million_tokens, include_fable=False):
+    """Per-model yields for a usage-credit pool whose drain scales with each
+    model's blended API rate; Sonnet 5 is the reference basis. Fable draws
+    weekly limits at 50% (official)."""
+    usd = pool_million_tokens * _CLAUDE_SONNET_BLENDED
+    out = per_model_pool(
+        usd,
+        {k: v for k, v in _CLAUDE_PRICES.items() if k != "claude fable 5.1"},
+        basis="list-price-credit",
+        confidence="low",
+    )
+    fable_entry = dict(
+        per_model_pool(
+            usd,
+            {"claude fable 5.1": _CLAUDE_PRICES["claude fable 5.1"]},
+            basis="list-price-credit",
+            confidence="low",
+        )["claude fable 5.1"]
+    )
+    fable_entry["estimatedMillionTokens"] = round(
+        fable_entry["estimatedMillionTokens"] * 0.5, 2
+    )
+    return out
+
+
+
+# GitHub Copilot drains included GitHub AI Credits (1 credit = $0.01) at each
+# model's per-token price (https://docs.github.com/en/copilot/reference/
+# copilot-billing/models-and-pricing). Included pools: Pro ~= 300 credits
+# ($3), Pro+ 3x Pro, Max 10x Pro (modeled%; see tier assumptions).
+_COPILOT_PRICES = {
+    "claude sonnet 5": {"input": 2.00, "output": 10.00, "cacheRead": 0.20, "cacheWrite": 2.50},
+    "claude haiku 4.5": {"input": 1.00, "output": 5.00, "cacheRead": 0.10, "cacheWrite": 1.25},
+    "gpt-5.4": {"input": 2.50, "output": 15.00, "cacheRead": 0.25, "cacheWrite": None},
+    "gpt-5.3-codex": {"input": 1.75, "output": 14.00, "cacheRead": 0.175, "cacheWrite": None},
+    "gemini 3.5 flash": {"input": 1.50, "output": 9.00, "cacheRead": 0.15, "cacheWrite": None},
+    "gemini 3.6 flash": {"input": 0.75, "output": 3.75, "cacheRead": 0.075, "cacheWrite": None},
+    "gemini 3.7 flash": {"input": 0.75, "output": 3.75, "cacheRead": 0.075, "cacheWrite": None},
+    "gemini 3.8 flash": {"input": 0.75, "output": 3.75, "cacheRead": 0.075, "cacheWrite": None},
+    "claude opus 5": {"input": 5.00, "output": 25.00, "cacheRead": 0.50, "cacheWrite": 6.25},
+    "claude fable 5.1": {"input": 10.00, "output": 50.00, "cacheRead": 0.25, "cacheWrite": 12.50},
+    "gpt-5.4 nano": {"input": 0.20, "output": 1.25, "cacheRead": 0.02, "cacheWrite": None},
+    "gpt-6 astra": {"input": 10.00, "output": 50.00, "cacheRead": 1.00, "cacheWrite": 12.50},
+}
+def _copilot_pool(usd, keys):
+    return per_model_pool(
+        usd,
+        {k: v for k, v in _COPILOT_PRICES.items() if k in keys},
+        basis="list-price-credit",
+        confidence="medium",
+    )
+
+_POOL_PRO_KEYS = ("claude sonnet 5", "claude haiku 4.5", "gpt-5.4", "gpt-5.3-codex",
+                  "gemini 3.5 flash", "gemini 3.6 flash", "gemini 3.7 flash", "gemini 3.8 flash")
+_POOL_PPLUS_KEYS = ("claude opus 5", "claude fable 5.1", "claude sonnet 5", "gpt-5.3-codex", "gpt-5.4 nano", "gpt-6 astra", "gemini 3.8 flash")
+_POOL_MAX_KEYS = ("claude opus 5", "claude fable 5.1", "gpt-5.3-codex", "gpt-6 astra", "gemini 3.8 flash")
+_COPILOT_PRO = _copilot_pool(3.0, _POOL_PRO_KEYS)
+_COPILOTPPLUS = _copilot_pool(9.0, _POOL_PPLUS_KEYS)
+_SS_SS = _copilot_pool(30.0, _POOL_MAX_KEYS)
+
+# Kimi Code shares one membership quota billed by actual usage ~= the Kimi
+# Open Platform API rates (official docs). K2.7 Code drains at half the K3
+# rate pattern (0.95/4.00/0.19 vs K3 3.00/15.00/0.30).
+_KIMI_PRICES = {
+    "kimi k3": {"input": 3.00, "output": 15.00, "cacheRead": 0.30, "cacheWrite": None},
+    "k2.7 code": {"input": 0.95, "output": 4.00, "cacheRead": 0.19, "cacheWrite": None},
+}
+_KIMI_K3_BLENDED = agent_blend_cost(_KIMI_PRICES["kimi k3"])
+
+
+def _kimi_pool(pool_million_tokens):
+    usd = pool_million_tokens * _KIMI_K3_BLENDED
+    return per_model_pool(usd, _KIMI_PRICES, basis="list-price-credit", confidence="low")
+
+# OpenAI Codex drains ChatGPT-plan usage at each GPT model's API rate
+# (illustrated via OpenAI's published pricing mirrors: https://platform.openai.com/docs/pricing).
+_GPT_PRICES = {
+    "gpt-5.6 luna": {"input": 0.20, "output": 1.20, "cacheRead": 0.02, "cacheWrite": 0.25},
+    "gpt-5.6 terra": {"input": 2.00, "output": 12.00, "cacheRead": 0.20, "cacheWrite": 2.50},
+    "gpt-5.6 sol": {"input": 4.00, "output": 20.00, "cacheRead": 0.40, "cacheWrite": 5.00},
+    "gpt-6 astra": {"input": 10.00, "output": 50.00, "cacheRead": 1.00, "cacheWrite": 12.50},
+}
+_LUNA_BLENDED = agent_blend_cost(_GPT_PRICES["gpt-5.6 luna"])
+
+
+def _gpt_pool(pool_million_tokens, basis_model="gpt-5.6 luna"):
+    usd = pool_million_tokens * agent_blend_cost(_GPT_PRICES[basis_model])
+    return per_model_pool(usd, _GPT_PRICES, basis="list-price-credit", confidence="medium")
+
+# Meta Model API: Muse Spark 1.1/1.2/1.3 share identical Standard pricing
+# (https://dev.meta.ai/docs/pricing-rate-limits) -> true equal-rate models.
+_META_PRICES = {
+    "muse spark 1.3": {"input": 1.25, "output": 4.25, "cacheRead": 0.15, "cacheWrite": None},
+    "muse spark 1.2": {"input": 1.25, "output": 4.25, "cacheRead": 0.15, "cacheWrite": None},
+}
+
 def osint_meta(basis, source_url):
     """Provenance block for OSINT-derived task estimates."""
     return {
@@ -594,6 +721,7 @@ write_json(
                     "Gemini 3.7 Flash",
                     "Gemini 3.8 Flash",
                 ],
+                "perModelTokenBudgets": dict(_COPILOT_PRO),
                 "estimatedTokenBudget": {
                     "description": "1,000 base AI credits/mo (~4.8M tokens; up to 1,500 with Flex)",
                     "estimatedMillionTokens": 4.8,
@@ -619,6 +747,7 @@ write_json(
                     "GPT-6 Astra",
                     "Gemini 3.8 Flash",
                 ],
+                "perModelTokenBudgets": dict(_COPILOTPPLUS),
                 "estimatedTokenBudget": {
                     "description": "3,900 base AI credits/mo (~18.6M tokens; up to 7,000 with Flex)",
                     "estimatedMillionTokens": 18.6,
@@ -641,6 +770,7 @@ write_json(
                     "GPT-5.3-Codex",
                     "Gemini 3.8 Flash",
                 ],
+                "perModelTokenBudgets": dict(_SS_SS),
                 "estimatedTokenBudget": {
                     "description": "10,000 base AI credits/mo (~47.6M tokens; up to 20,000 with Flex)",
                     "estimatedMillionTokens": 47.6,
@@ -721,6 +851,7 @@ write_json(
                     "estimatedMillionTokens": 12,
                     "assumptions": "Anthropic publishes no numeric quota; research estimate ~= 12M mid-complexity agent tokens/mo within the Pro 5h+weekly window; exact size intentionally unpublished and varies by task complexity",
                 },
+                "perModelTokenBudgets": _claude_pool(12),
                 "notes": "Annual Pro is $17/mo ($200 billed up front). Claude Code shares one pool with Claude.ai chat",
             },
             {
@@ -742,6 +873,7 @@ write_json(
                     "estimatedMillionTokens": 60,
                     "assumptions": "5x the Pro research estimate; no official token figures published, low confidence",
                 },
+                "perModelTokenBudgets": _claude_pool(60, include_fable=True),
                 "notes": "Higher output limits and priority access at peak times",
             },
             {
@@ -763,6 +895,7 @@ write_json(
                     "estimatedMillionTokens": 240,
                     "assumptions": "20x the Pro research estimate; no official token figures published, low confidence",
                 },
+                "perModelTokenBudgets": _claude_pool(240, include_fable=True),
                 "notes": "Maximum plan for full-time agent workflows; billed monthly",
             },
         ],
@@ -815,6 +948,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Light coding assistance (~4.3M tokens/mo)",
                     **task_estimate(17),
+                "perModelTokenBudgets": _gpt_pool(4.25),
                     "assumptions": "Limited tasks: ~17 tasks/mo x the 250K-900K OSINT agent-task band (4.25M floor / 9.35M / 15.3M); $8 price commonly cited but the scraped page did not render USD amounts",
                     "estimateMeta": osint_meta(
                         "OpenAI Codex Go quota (17 tasks/mo research estimate)",
@@ -834,6 +968,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Expanded Codex (~20M tokens/mo)",
                     **task_estimate(80),
+                "perModelTokenBudgets": _gpt_pool(20, basis_model="gpt-6 astra"),
                     "assumptions": "Research estimate: ~80 tasks/mo x the 250K-900K OSINT agent-task band (20M floor / 44M / 72M); no official numeric task limits",
                     "estimateMeta": osint_meta(
                         "OpenAI Codex Plus quota (80 tasks/mo research estimate)",
@@ -850,6 +985,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "5x Plus (~100M tokens/mo)",
                     **scale_estimate(task_estimate(80), 5),
+                "perModelTokenBudgets": _gpt_pool(100, basis_model="gpt-6 astra"),
                     "assumptions": "5x the Plus research estimate (100M floor / 220M / 360M)",
                     "estimateMeta": osint_meta(
                         "OpenAI Codex Pro 5x (official 5x Plus multiplier x 80-task band)",
@@ -1523,6 +1659,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Weekly-refreshed quota (~60M tokens/mo)",
                     "estimatedMillionTokens": 60,
+                    "perModelTokenBudgets": _kimi_pool(60),
                     "assumptions": "~300 req/window at kimi-k2.7-code rates ($0.19 cache/$0.95 input/$4.00 output; ~95% cache hit ~= $0.37/M blended) ~= 60M tokens/mo",
                 },
                 "notes": "Tiers named after musical terms; K3 has low/high/max thinking modes",
@@ -1539,6 +1676,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Higher weekly quota (~150M tokens/mo)",
                     "estimatedMillionTokens": 150,
+                    "perModelTokenBudgets": _kimi_pool(150),
                     "assumptions": "Research estimate scaled above Moderato; HighSpeed triples burn rate",
                 },
                 "notes": "Unlocks HighSpeed model and 1M context",
@@ -1555,6 +1693,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Expansive quota (~400M tokens/mo)",
                     "estimatedMillionTokens": 400,
+                    "perModelTokenBudgets": _kimi_pool(400),
                     "assumptions": "Research estimate; exact credit counts not officially published",
                 },
                 "notes": "Heavy daily agentic coding",
@@ -1571,6 +1710,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Highest quota (~800M tokens/mo)",
                     "estimatedMillionTokens": 800,
+                    "perModelTokenBudgets": _kimi_pool(800),
                     "assumptions": "Research estimate; not officially published",
                 },
                 "notes": "Max tier",
@@ -3291,6 +3431,10 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Standard PAYG ($20 buys ~10M list-blend / ~14M cached-agent tokens)",
                     "estimatedMillionTokens": 10,
+                "perModelTokenBudgets": {
+                    "muse spark 1.3": {"estimatedMillionTokens": 10, "basis": "equal-rate", "confidence": "high"},
+                    "muse spark 1.2": {"estimatedMillionTokens": 10, "basis": "equal-rate", "confidence": "high"},
+                },
                     "midpointEstimate": 12,
                     "optimisticEstimate": 14,
                     "assumptions": "$20 at official Standard pricing $1.25/M input, $4.25/M output: 10M on a 3:1 list blend, ~14M on the standard 20K-in/1K-out agent request (no cache price published)",

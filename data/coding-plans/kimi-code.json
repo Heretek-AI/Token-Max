@@ -20,6 +20,18 @@
       "estimatedTokenBudget": {
         "description": "Weekly-refreshed quota (~60M tokens/mo)",
         "estimatedMillionTokens": 60,
+        "perModelTokenBudgets": {
+          "kimi k3": {
+            "estimatedMillionTokens": 60.0,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          },
+          "k2.7 code": {
+            "estimatedMillionTokens": 170.99,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          }
+        },
         "assumptions": "~300 req/window at kimi-k2.7-code rates ($0.19 cache/$0.95 input/$4.00 output; ~95% cache hit ~= $0.37/M blended) ~= 60M tokens/mo",
         "estimateMeta": {
           "sourceUrl": "https://www.kimi.com/coding-plan/",
@@ -45,6 +57,18 @@
       "estimatedTokenBudget": {
         "description": "Higher weekly quota (~150M tokens/mo)",
         "estimatedMillionTokens": 150,
+        "perModelTokenBudgets": {
+          "kimi k3": {
+            "estimatedMillionTokens": 150.0,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          },
+          "k2.7 code": {
+            "estimatedMillionTokens": 427.48,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          }
+        },
         "assumptions": "Research estimate scaled above Moderato; HighSpeed triples burn rate",
         "estimateMeta": {
           "sourceUrl": "https://www.kimi.com/coding-plan/",
@@ -70,6 +94,18 @@
       "estimatedTokenBudget": {
         "description": "Expansive quota (~400M tokens/mo)",
         "estimatedMillionTokens": 400,
+        "perModelTokenBudgets": {
+          "kimi k3": {
+            "estimatedMillionTokens": 400.0,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          },
+          "k2.7 code": {
+            "estimatedMillionTokens": 1139.95,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          }
+        },
         "assumptions": "Research estimate; exact credit counts not officially published",
         "estimateMeta": {
           "sourceUrl": "https://www.kimi.com/coding-plan/",
@@ -95,6 +131,18 @@
       "estimatedTokenBudget": {
         "description": "Highest quota (~800M tokens/mo)",
         "estimatedMillionTokens": 800,
+        "perModelTokenBudgets": {
+          "kimi k3": {
+            "estimatedMillionTokens": 800.0,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          },
+          "k2.7 code": {
+            "estimatedMillionTokens": 2279.9,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          }
+        },
         "assumptions": "Research estimate; not officially published",
         "estimateMeta": {
           "sourceUrl": "https://www.kimi.com/coding-plan/",
