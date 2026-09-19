@@ -61,6 +61,12 @@ Whenever modifying or adding plans in `data/coding-plans/`, update `data/generat
 ### D. Zero Linter Warnings
 The repository uses `oxlint`. Every PR/commit must pass `npm run lint` with **0 errors and 0 warnings**.
 
+### E. Decision Engine Stacking Modes Depend on Raw Tier Budgets
+The Decision Engine (`src/components/budget/LabDecisionEngine.tsx`) offers Mix & Match (combined distinct lesser subscriptions) and Dangerous Dave Mode (stacked copies of one subscription). Both read the **raw** `tier.estimatedTokenBudget.estimatedMillionTokens` and `tier.monthlyPrice` via `buildStackCandidates` / `computeMixAndMatch` / `computeDaveStacks` in `src/lib/pricing.ts`. Do not:
+- Set `estimatedTokenBudget` to `null`, `0`, or an empty object on any tier — the stacking modes silently drop such plans.
+- Feed the standard leaderboard's budget-normalized yields into stacking math (it double-counts the budget).
+Increase the Mix & Match bundle cap above 4 without adding dedupe/combination guards.
+
 ---
 
 ## 4. Directory Layout

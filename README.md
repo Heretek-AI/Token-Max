@@ -22,6 +22,9 @@
 - Set any monthly budget ($1 to $500).
 - Instantly see which models maximize your token output (e.g. at $20/month, get **130M+ tokens** with DeepSeek V4.1 Flash vs. **2M–10M tokens** with flagship frontier models).
 - Directly compare pay-per-token API yields against all subscription plans in that price tier.
+- **Lab Decision Engine modes**: beyond the standard single-option comparison, two stacking modes reshape the recommendation:
+  - **Mix & Match**: combines *distinct lesser subscriptions* whose summed price fits the budget via a greedy knapsack (2–4 subs) — e.g. a $10 plan + a $10 plan offered as a combined $20 package with the summed token yield.
+  - **Dangerous Dave Mode**: stacks multiple copies of the *same* subscription to hit the budget — e.g. a $160 budget showing the 16×-stacked yield of each $10 plan (same model, multiplied allowance). Check each provider's TOS on account stacking.
 
 ### 2. 🔍 Models Catalog & Pricing Explorer
 - Live data ingested daily from **OpenRouter**.

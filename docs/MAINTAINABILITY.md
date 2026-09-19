@@ -55,6 +55,17 @@ flowchart TD
 3. **Decoupled Data and Code**: New plans or model price updates require updating JSON files, not React component code (except for optional provider color themes).
 4. **Resilient Degradation**: If an external API is unavailable (e.g. Artificial Analysis API key rate limit), the build pipeline falls back to existing cached datasets without crashing the frontend.
 
+### Decision Engine Stacking Modes (Mix & Match + Dangerous Dave)
+
+The Frontier Intelligence Decision Engine (`src/components/budget/LabDecisionEngine.tsx`) supports three mutually exclusive modes delivered by header pills: `standard` (default), `mix`, and `dave`. All stacking math lives in `src/lib/pricing.ts` so plans and UI stay decoupled:
+
+1. **Candidate extraction** — `buildStackCandidates(models, plans, lab)` derives exactly **one best candidate per plan** (the tier with the best tokens-per-dollar, preferring tiers whose model strings match benchmarked models). Tiers whose `$estimatedTokenBudget.estimatedMillionTokens` is 0/absent, or whose model list only contains obsolete/legacy models (`gpt-3.5`, `claude-2`, etc.), are excluded. This relies on schema requirement **B/`estimatedTokenBudget`-never-null** — do not loosen it.
+2. **Mix & Match** — `computeMixAndMatch(candidates, budget, maxSubs=3)`: greedy knapsack over candidates sorted by tokens-per-dollar; items that would overflow the budget are *skipped, not dropped* (so a $15 plan can be bypassed by two $8 plans). Duplicate greedy passes are deduped; max 3 bundles returned. Cap is 2–4 subs, default 3 — keep the cap to avoid combinatorial blow-up at high budgets.
+3. **Dangerous Dave** — `computeDaveStacks(candidates, budget)`: for each unique plan+tier, `qty = floor(budget / tierPrice)`; stacks with `qty >= 2` are ranked by total tokens (e.g. budget $160 vs a $10 plan → 16× stack). Returns top 8.
+4. **Raw vs. normalized values**: stacking uses the *raw* tier `estimatedMillionTokens` and `monthlyPrice`. This is deliberately different from the standard mode's leaderboard, which *normalizes* tier yields to the site budget (`tokensPerDollar × budget`). Do not feed normalized values back into the stack math — it would double-count the budget.
+5. **UI surface**: when a stacking mode is active, a dedicated panel renders below the three standout cards, and labeled `Mixed Bundle` / `Stacked ×N` rows are appended to the ranked leaderboard. The standard verdict callout and cards remain visible in all modes as the single-option baseline. Extreme stack quantities (e.g. 160× a $1 plan) are intentional in Dave mode; the TOS caveat about account stacking is displayed in the panel header.
+
+
 ---
 
 ## 2. Automated Daily Pipeline (`.github/workflows/update-data.yml`)
