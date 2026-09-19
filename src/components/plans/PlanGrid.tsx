@@ -92,7 +92,16 @@ export function PlanGrid({
                 {plan.tiers?.length || 0} Tier{(plan.tiers?.length || 0) === 1 ? '' : 's'}
               </span>
               <span className="text-sm font-bold text-text">
-                {plan.tiers?.[0]?.monthlyPrice === 0 ? 'Free' : `$${plan.tiers?.[0]?.monthlyPrice || 0}`}+
+                {(() => {
+                  const prices = (plan.tiers || []).map(t => t.monthlyPrice).filter((p): p is number => p !== null);
+                  if (prices.length === 0) return 'Enterprise / Custom';
+                  const minPrice = Math.min(...prices);
+                  if (minPrice === 0) {
+                    const hasPaid = prices.some(p => p > 0);
+                    return hasPaid ? 'Free tier available' : 'Free';
+                  }
+                  return `$${minPrice}/mo+`;
+                })()}
               </span>
             </div>
           </div>

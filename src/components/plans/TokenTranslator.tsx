@@ -42,7 +42,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
   const activeTierName = selectedTierName || (allTiers.length > 0 ? allTiers[0].tier.name : '');
 
   const selectedData = allTiers.find(x => x.plan.id === activePlanId && x.tier.name === activeTierName) || allTiers[0];
-  const budget = selectedData?.tier.monthlyPrice || 20;
+  const budget = selectedData?.tier.monthlyPrice ?? null;
   const currentPlan = selectedData?.plan;
   const currentTier = selectedData?.tier;
 
@@ -71,7 +71,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
 
   // Calculate token yields across models for this plan's exact price and selected cache rate
   const displayModels = useMemo(() => {
-    if (!budget) return [];
+    if (budget === null || budget <= 0) return [];
 
     let filtered = cleanModels;
 
@@ -294,7 +294,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
                 <optgroup key={catKey} label={categoryLabels[catKey] || catKey}>
                   {items.map(x => (
                     <option key={`${x.plan.id}|${x.tier.name}`} value={`${x.plan.id}|${x.tier.name}`}>
-                      {x.plan.name} — {x.tier.name} (${x.tier.monthlyPrice}/mo)
+                      {x.plan.name} — {x.tier.name} ({x.tier.monthlyPrice !== null ? (x.tier.monthlyPrice === 0 ? 'Free' : `$${x.tier.monthlyPrice}/mo`) : 'Custom'})
                     </option>
                   ))}
                 </optgroup>
@@ -361,7 +361,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
                 <div className="font-bold text-text text-base flex items-center gap-2">
                   <span>Part 1: What {currentPlan.name} ({currentTier.name}) Actually Delivers</span>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-surface border border-border text-text-muted font-normal">
-                    ${budget}/mo
+                    {currentTier.monthlyPrice !== null ? (currentTier.monthlyPrice === 0 ? 'Free tier' : `$${currentTier.monthlyPrice}/mo`) : 'Enterprise / Custom'}
                   </span>
                 </div>
                 <p className="text-xs text-text-muted mt-0.5">
@@ -437,7 +437,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-text uppercase tracking-wider flex items-center gap-1.5">
-              <span>Part 2: Direct API Equivalent Yield for ${budget}/mo</span>
+              <span>Part 2: Direct API Equivalent Yield {currentTier.monthlyPrice !== null ? (currentTier.monthlyPrice === 0 ? '($0/mo Free Tier)' : `for $${currentTier.monthlyPrice}/mo`) : '(Enterprise / Custom)'}</span>
               <ArrowRight className="w-3.5 h-3.5 text-primary" />
             </span>
             <span className="text-[11px] text-text-muted">
@@ -449,47 +449,55 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
           </span>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          {displayModels.map(m => (
-            <div 
-              key={m.id} 
-              className="bg-surface p-3.5 rounded-xl border border-border hover:border-primary/40 transition-all flex flex-col justify-between shadow-sm"
-            >
-              <div>
-                <div className="flex items-center justify-between gap-1 mb-1.5">
-                  <span 
-                    className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
-                    style={{ backgroundColor: `${getProviderColor(m.provider)}15`, color: getProviderColor(m.provider) }}
-                  >
-                    {m.provider}
-                  </span>
-                  {m.benchmarks?.codingIndex && (
-                    <span className="text-[10px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded">
-                      Code {m.benchmarks.codingIndex.toFixed(0)}
+        {budget === null || budget <= 0 ? (
+          <div className="p-8 text-center border border-border rounded-xl bg-surface-alt/40 text-text-muted text-sm">
+            {budget === 0
+              ? 'This is a free tier ($0/mo). Direct API pricing comparisons apply to paid budgets.'
+              : 'This tier uses custom enterprise pricing. Contact the provider for custom token rates.'}
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {displayModels.map(m => (
+              <div 
+                key={m.id} 
+                className="bg-surface p-3.5 rounded-xl border border-border hover:border-primary/40 transition-all flex flex-col justify-between shadow-sm"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-1 mb-1.5">
+                    <span 
+                      className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
+                      style={{ backgroundColor: `${getProviderColor(m.provider)}15`, color: getProviderColor(m.provider) }}
+                    >
+                      {m.provider}
                     </span>
-                  )}
+                    {m.benchmarks?.codingIndex && (
+                      <span className="text-[10px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded">
+                        Code {m.benchmarks.codingIndex.toFixed(0)}
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-xs font-bold text-text truncate mb-1" title={m.name}>
+                    {m.name}
+                  </div>
+                  <div className="text-[10px] text-text-muted font-mono mb-2 flex items-center justify-between">
+                    <span>${m.effectiveBlendedCost.toFixed(2)}/M eff.</span>
+                    <span>{(m.costPerRequest * 100).toFixed(1)}¢/req</span>
+                  </div>
                 </div>
-                <div className="text-xs font-bold text-text truncate mb-1" title={m.name}>
-                  {m.name}
-                </div>
-                <div className="text-[10px] text-text-muted font-mono mb-2 flex items-center justify-between">
-                  <span>${m.effectiveBlendedCost.toFixed(2)}/M eff.</span>
-                  <span>{(m.costPerRequest * 100).toFixed(1)}¢/req</span>
-                </div>
-              </div>
 
-              <div className="pt-2 border-t border-border">
-                <div className="text-xl font-black text-primary">
-                  {formatMillionTokens(m.affordableTokens)}
-                </div>
-                <div className="text-[11px] text-text-muted flex justify-between mt-0.5 font-medium">
-                  <span>~{Math.round(m.approximateRequests).toLocaleString()} reqs</span>
-                  <span>tokens/mo</span>
+                <div className="pt-2 border-t border-border">
+                  <div className="text-xl font-black text-primary">
+                    {formatMillionTokens(m.affordableTokens)}
+                  </div>
+                  <div className="text-[11px] text-text-muted flex justify-between mt-0.5 font-medium">
+                    <span>~{Math.round(m.approximateRequests).toLocaleString()} reqs</span>
+                    <span>tokens/mo</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
