@@ -1,5 +1,14 @@
 import fs from 'fs/promises';
 import path from 'path';
+import {
+  resolveSeries,
+  applyTopPerSeries,
+  isUnbenchmarked,
+  isHubRouter,
+  passesAgeWindow,
+  ageCutoffUnix,
+  KNOWN_SERIES,
+} from './series-taxonomy.mjs';
 
 const PUBLIC_DATA_DIR = path.join(process.cwd(), 'public/data');
 const PLANS_DIR = path.join(process.cwd(), 'data/coding-plans');
@@ -143,6 +152,34 @@ async function buildData() {
   }
 
   console.log(`Matched ${matchedCount} models with Artificial Analysis benchmarks.`);
+
+  // Authoritative series re-derive + unbenchmarked flag + age/hub re-assertion.
+  // models.json may be stale from an older run; re-enforce the invariants here.
+  const cutoff = ageCutoffUnix();
+  let staleDropped = 0;
+  const preSlice = [];
+  for (const model of models) {
+    if (isHubRouter(model.id) || !passesAgeWindow(model.createdUnix, cutoff)) {
+      staleDropped++;
+      continue;
+    }
+    model.series = resolveSeries(model.id, model.provider, model.name);
+    if (!KNOWN_SERIES.includes(model.series)) model.series = 'other';
+    model.unbenchmarked = isUnbenchmarked(model);
+    preSlice.push(model);
+  }
+
+  // Idempotent top-3-per-series safety pass (in case models.json is stale).
+  const { kept, summary: familySummary } = applyTopPerSeries(preSlice, 3, m => m.series);
+  for (const s of familySummary) {
+    console.log(`  ${s.series.padEnd(10)} kept ${s.kept}/${s.total}${s.dropped > 0 ? ` (dropped ${s.dropped})` : ''}`);
+  }
+  console.log(`Post-merge slice kept ${kept.length} models${staleDropped > 0 ? `; stale/age violations dropped: ${staleDropped}` : ''}.`);
+
+  // Rewrite the merged list so downstream consumers get the sliced catalog.
+  models.length = 0;
+  models.push(...kept);
+
   await fs.writeFile(path.join(PUBLIC_DATA_DIR, 'models.json'), JSON.stringify(models, null, 2));
   console.log('Updated models.json with benchmark data and tier classifications.');
 

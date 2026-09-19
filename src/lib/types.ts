@@ -113,6 +113,18 @@ export interface NormalizedModel {
   id: string;
   name: string;
   provider: string;
+  /**
+   * Canonical model family (GPT, Claude, Gemini, Grok, Qwen, DeepSeek,
+   * Llama, GLM, Kimi, Mistral, or "other"). Catalog is capped at the
+   * top-3 ranked models per series within the last 365 days.
+   */
+  series: string;
+  /** ISO release date (YYYY-MM-DD) when known, else null. */
+  releasedAt?: string | null;
+  /** Release timestamp in unix seconds when reported by OpenRouter. */
+  createdUnix?: number | null;
+  /** True when no intelligence/coding/agentic benchmark coverage exists yet. */
+  unbenchmarked?: boolean;
   modality: string;
   contextWindow: number;
   maxOutput: number;

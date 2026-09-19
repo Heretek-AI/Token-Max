@@ -1,5 +1,11 @@
 import fs from 'fs/promises';
 import path from 'path';
+import {
+  ageCutoffUnix,
+  resolveSeries,
+  applyTopPerSeries,
+  isUnbenchmarked,
+} from './series-taxonomy.mjs';
 
 const OUTPUT_FILE = path.join(process.cwd(), 'public/data/benchmarks.json');
 
@@ -30,18 +36,32 @@ async function fetchBenchmarks() {
     totalPages = data.pagination?.total_pages || 1;
     const items = data.data || [];
 
+    const cutoff = ageCutoffUnix();
+    console.log(`Age window: keeping benchmarks released >= ${new Date(cutoff * 1000).toISOString().slice(0, 10)} (last 365 days).`);
+
     for (const item of items) {
+      const releaseUnix =
+        item.release_date && !Number.isNaN(Date.parse(item.release_date))
+          ? Math.floor(Date.parse(item.release_date) / 1000)
+          : null;
+      if (releaseUnix !== null && releaseUnix < cutoff) continue;
+
+      const evaluations = {
+        intelligenceIndex: item.evaluations?.artificial_analysis_intelligence_index ?? null,
+        codingIndex: item.evaluations?.artificial_analysis_coding_index ?? null,
+        agenticIndex: item.evaluations?.artificial_analysis_agentic_index ?? null,
+      };
+
       allModels.push({
         id: item.id,
         slug: item.slug,
         name: item.name,
+        series: resolveSeries(item.slug || item.id || '', item.model_creator?.name || '', item.name),
+        releasedAt: item.release_date || null,
+        createdUnix: releaseUnix,
+        unbenchmarked: isUnbenchmarked({ benchmarks: evaluations }),
         creator: item.model_creator?.name || 'Unknown',
-        releaseDate: item.release_date,
-        evaluations: {
-          intelligenceIndex: item.evaluations?.artificial_analysis_intelligence_index ?? null,
-          codingIndex: item.evaluations?.artificial_analysis_coding_index ?? null,
-          agenticIndex: item.evaluations?.artificial_analysis_agentic_index ?? null,
-        },
+        evaluations,
         pricing: {
           input: item.pricing?.price_1m_input_tokens ?? null,
           output: item.pricing?.price_1m_output_tokens ?? null,
@@ -66,9 +86,16 @@ async function fetchBenchmarks() {
     throw new Error('No benchmarks collected from Artificial Analysis. Refusing to overwrite output file with empty dataset.');
   }
 
+  // Top-3 per series so the standalone benchmark artifact cannot reintroduce
+  // legacy flagships during the merge step in build-data.mjs.
+  const { kept, summary } = applyTopPerSeries(allModels, 3, m => m.series);
+  for (const s of summary) {
+    console.log(`  ${s.series.padEnd(10)} kept ${s.kept}/${s.total}${s.dropped > 0 ? ` (dropped ${s.dropped})` : ''}`);
+  }
+
   await fs.mkdir(path.dirname(OUTPUT_FILE), { recursive: true });
-  await fs.writeFile(OUTPUT_FILE, JSON.stringify(allModels, null, 2));
-  console.log(`Wrote ${allModels.length} benchmarks to ${OUTPUT_FILE}`);
+  await fs.writeFile(OUTPUT_FILE, JSON.stringify(kept, null, 2));
+  console.log(`Wrote ${kept.length} benchmarks to ${OUTPUT_FILE}`);
 }
 
 fetchBenchmarks().catch(err => {

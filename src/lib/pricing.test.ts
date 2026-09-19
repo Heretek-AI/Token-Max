@@ -21,6 +21,7 @@ function model(overrides: Partial<NormalizedModel> = {}): NormalizedModel {
     id: 'anthropic/claude-sonnet-5',
     name: 'Claude Sonnet 5',
     provider: 'anthropic',
+    series: 'Claude',
     modality: 'text->text',
     contextWindow: 200_000,
     maxOutput: 64_000,

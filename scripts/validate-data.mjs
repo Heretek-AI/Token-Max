@@ -3,6 +3,7 @@ import path from 'path';
 
 const PLANS_DIR = path.join(process.cwd(), 'data/coding-plans');
 const PUBLIC_PLANS = path.join(process.cwd(), 'public/data/plans.json');
+const PUBLIC_MODELS = path.join(process.cwd(), 'public/data/models.json');
 
 const CATEGORIES = new Set(['coding-ide', 'coding-router', 'api-provider']);
 const STACKING_POLICIES = new Set(['allowed', 'silent', 'prohibited', 'unknown']);
@@ -127,6 +128,65 @@ function validatePlan(plan, filename) {
   }
 }
 
+async function validateModels(models) {
+  if (!Array.isArray(models)) {
+    err('public/data/models.json: must be a JSON array');
+    return;
+  }
+  if (models.length === 0) {
+    err('public/data/models.json: must not be empty');
+    return;
+  }
+
+  // Series membership whitelist (mirrors scripts/series-taxonomy.mjs).
+  const KNOWN_SERIES = new Set([
+    'GPT', 'Claude', 'Gemini', 'Grok', 'Qwen', 'DeepSeek', 'Llama',
+    'GLM', 'Kimi', 'Mistral', 'other',
+  ]);
+
+  const SERIES_CAP = 3;
+  const AGE_WINDOW_DAYS = 365;
+  const cutoffUnix = Math.floor(Date.now() / 1000) - AGE_WINDOW_DAYS * 86400;
+
+  const groups = new Map();
+  for (const m of models) {
+    const where = `public/data/models.json [${m?.id ?? '?'}]`;
+    if (!m || typeof m !== 'object') {
+      err(`${where}: not an object`);
+      continue;
+    }
+
+    if (typeof m.series !== 'string' || m.series.length === 0) {
+      err(`${where}: missing canonical "series" field`);
+    } else if (!KNOWN_SERIES.has(m.series)) {
+      err(`${where}: series "${m.series}" is not in the known taxonomy`);
+    }
+
+    const createdUnix = Number(m.createdUnix);
+    if (!Number.isFinite(createdUnix)) {
+      if (!m.releasedAt || Number.isNaN(Date.parse(m.releasedAt))) {
+        err(`${where}: neither createdUnix nor releasedAt provide a verifiable release date`);
+      }
+    } else if (createdUnix < cutoffUnix) {
+      const ageDays = Math.floor((Date.now() / 1000 - createdUnix) / 86400);
+      err(`${where}: model is ${ageDays} days old, exceeding the ${AGE_WINDOW_DAYS}-day age window`);
+    }
+
+    const s = m.series || 'other';
+    if (!groups.has(s)) groups.set(s, 0);
+    groups.set(s, groups.get(s) + 1);
+  }
+
+  // No series may exceed the top-3 slice cap.
+  for (const [series, count] of groups.entries()) {
+    if (count > SERIES_CAP) {
+      err(`public/data/models.json: series "${series}" contains ${count} models, exceeding the top-${SERIES_CAP} cap`);
+    }
+  }
+
+  console.log(`Checked ${models.length} models across ${groups.size} series for cap/age invariants.`);
+}
+
 async function main() {
   let files = [];
   try {
@@ -176,6 +236,21 @@ async function main() {
       if (JSON.stringify(source) !== JSON.stringify(p)) {
         err(`public/data/plans.json: "${p.id}" differs from data/coding-plans/${p.id}.json — run npm run build-data`);
       }
+    }
+  }
+
+  // Model catalog regression checks: series cap + 365-day age window.
+  try {
+    const rawModels = await fs.readFile(PUBLIC_MODELS, 'utf-8');
+    const models = JSON.parse(rawModels);
+    await validateModels(models);
+  } catch (e) {
+    if (e.code === 'ENOENT') {
+      console.warn('Warning: public/data/models.json missing; skipping model catalog checks.');
+    } else if (e instanceof SyntaxError) {
+      err(`public/data/models.json: invalid JSON: ${e.message}`);
+    } else {
+      err(`public/data/models.json: cannot read: ${e.message}`);
     }
   }
 

@@ -1,5 +1,14 @@
 import fs from 'fs/promises';
 import path from 'path';
+import {
+  isHubRouter,
+  ageCutoffUnix,
+  passesAgeWindow,
+  resolveSeries,
+  applyTopPerSeries,
+  isUnbenchmarked,
+  KNOWN_SERIES,
+} from './series-taxonomy.mjs';
 
 const OUTPUT_FILE = path.join(process.cwd(), 'public/data/models.json');
 
@@ -30,16 +39,24 @@ async function fetchModels() {
   
   console.log(`Fetched ${models.length} raw models.`);
 
+  const cutoff = ageCutoffUnix();
+  console.log(`Age window: keeping models created >= ${new Date(cutoff * 1000).toISOString().slice(0, 10)} (last 365 days).`);
+
   const normalized = [];
+  let droppedHubs = 0;
+  let droppedOld = 0;
 
   for (const model of models) {
-    // Filter non-text output models if needed, though most are text. 
-    // OpenRouter doesn't have a strict output modality field but architecture usually has it.
-    // We'll keep it simple: if architecture implies it's text.
-    if (model.architecture && model.architecture.modality && !model.architecture.modality.includes('text')) {
-      if (model.architecture.modality.includes('image')) { // keep text->text or image+text->text
-         // actually modality often describes input->output, let's just proceed.
-      }
+    const rawId = model.id;
+    if (isHubRouter(rawId)) {
+      droppedHubs++;
+      continue;
+    }
+
+    // Age filter BEFORE ranking: legacy flagships must not consume top-3 slots.
+    if (!passesAgeWindow(model.created, cutoff)) {
+      droppedOld++;
+      continue;
     }
 
     const id = model.id;
@@ -64,17 +81,18 @@ async function fetchModels() {
 
     const provider = id.split('/')[0] || 'unknown';
 
-    let benchmarks = {
+    const benchmarks = {
       intelligenceIndex: null,
       codingIndex: null,
       agenticIndex: null,
       valueScore: null
     };
 
-    if (model.benchmarks && model.benchmarks.artificial_analysis) {
-      benchmarks.intelligenceIndex = model.benchmarks.artificial_analysis.intelligence_index || null;
-      benchmarks.codingIndex = model.benchmarks.artificial_analysis.coding_index || null;
-      benchmarks.agenticIndex = model.benchmarks.artificial_analysis.agentic_index || null;
+    const aa = model.benchmarks?.artificial_analysis;
+    if (aa) {
+      benchmarks.intelligenceIndex = Number.isFinite(aa.intelligence_index) ? aa.intelligence_index : null;
+      benchmarks.codingIndex = Number.isFinite(aa.coding_index) ? aa.coding_index : null;
+      benchmarks.agenticIndex = Number.isFinite(aa.agentic_index) ? aa.agentic_index : null;
     }
 
     let cachedInput = null;
@@ -116,10 +134,17 @@ async function fetchModels() {
     const agentReqCost = (freshIn * inputPrice / 1e6) + (cachedIn * cachePrice / 1e6) + (agentOut * outputPrice / 1e6);
     const agentBlendedCost = (agentReqCost / agentRequestTokens) * 1e6;
 
+    const createdUnix = Number.isFinite(model.created) ? model.created : null;
+    const unbenchmarked = isUnbenchmarked({ benchmarks });
+
     normalized.push({
       id: model.id,
       name: model.name,
       provider: provider,
+      series: resolveSeries(id, provider, model.name),
+      releasedAt: createdUnix !== null ? new Date(createdUnix * 1000).toISOString().slice(0, 10) : null,
+      createdUnix,
+      unbenchmarked,
       modality: model.architecture?.modality || 'text->text',
       contextWindow: model.context_length || 0,
       maxOutput: model.top_provider?.max_completion_tokens || 0,
@@ -149,9 +174,33 @@ async function fetchModels() {
     throw new Error('No models normalized from OpenRouter. Refusing to overwrite output file with empty dataset.');
   }
 
+  // Top-3 per series: sort by intelligence -> coding -> agentic -> created ->
+  // context and retain the cap per canonical family.
+  const { kept, summary } = applyTopPerSeries(textModels, 3, m => m.series);
+  const droppedSiblings = textModels.length - kept.length;
+  const droppedAnywhere = kept.length === 0;
+
+  console.log(`\nHub routers excluded: ${droppedHubs}, older-than-365d excluded: ${droppedOld}`);
+  console.log(`Series slice summary (kept/dropped of sibling variants within past-365d):`);
+  for (const s of summary) {
+    console.log(`  ${s.series.padEnd(10)} kept ${s.kept}/${s.total}${s.dropped > 0 ? ` (dropped ${s.dropped})` : ''}`);
+  }
+  console.log(`Total kept: ${kept.length} of ${textModels.length} recent text models (dropped ${droppedSiblings} older/ranked-out siblings).`);
+
+  if (droppedAnywhere || kept.length === 0) {
+    throw new Error('Top-3-per-series slice produced an empty dataset. Refusing to overwrite output file.');
+  }
+
+  // Ensure every retained model has a resolvable canonical series.
+  for (const m of kept) {
+    if (!KNOWN_SERIES.includes(m.series)) {
+      m.series = 'other';
+    }
+  }
+
   await fs.mkdir(path.dirname(OUTPUT_FILE), { recursive: true });
-  await fs.writeFile(OUTPUT_FILE, JSON.stringify(textModels, null, 2));
-  console.log(`Wrote ${textModels.length} models to ${OUTPUT_FILE}`);
+  await fs.writeFile(OUTPUT_FILE, JSON.stringify(kept, null, 2));
+  console.log(`Wrote ${kept.length} models to ${OUTPUT_FILE}`);
 }
 
 fetchModels().catch(err => {

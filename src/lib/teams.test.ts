@@ -95,6 +95,7 @@ describe('Multi-Seat Team & Gateway Economics Engine', () => {
       id: 'deepseek/deepseek-v4.1-flash',
       name: 'DeepSeek Flash',
       provider: 'deepseek',
+      series: 'DeepSeek',
       modality: 'text->text',
       contextWindow: 128000,
       maxOutput: 8192,
