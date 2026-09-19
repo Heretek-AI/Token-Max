@@ -77,6 +77,24 @@ Fixed against official sources:
 - **Kimi / Kiro / Replit / Meta Model API** rate-limit details are not fully published.
 - **Windsurf, Kiro, Replit, Kimi, MiniMax, BytePlus** training policies are unpublished → TOS matrix shows Unknown.
 
+## Verification passes
+
+### 2026-09-19 — token-estimate recalibration (Phases 0–4)
+
+Commands run from the repository root, all green:
+
+1. `python3 data/generate_plans.py` — regenerated all 33 plan files; re-running produced
+   no diff (idempotent).
+2. `node scripts/build-data.mjs` — consolidated `public/data/plans.json`; the refactored
+   `models.json` agent blend was byte-identical to the pre-refactor artifact.
+3. `npm run validate-data` — all 33 plan files pass schema invariants
+   (midpoint ≥ conservative, optimistic ≥ midpoint on every rebased tier).
+4. `npm test` — 42 tests pass (pricing blend modes, cache-write pricing, stacking, TOS).
+5. `npm run lint` — 0 errors, 0 warnings.
+6. `npm run build` — TypeScript + Vite production build succeeds.
+
+Evidence and OSINT sources: `docs/TOKEN_ESTIMATE_VALIDATION.md`.
+
 ## Re-verification checklist
 
 1. Visit each `url` in `data/coding-plans/*.json`; confirm prices, tier names and quota units.
