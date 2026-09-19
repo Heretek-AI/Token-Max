@@ -392,7 +392,7 @@ export function LabDecisionEngine({
       {/* 3. Three Head-to-Head Standout Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Card 1: Best Direct API */}
-        <div className="bg-surface rounded-xl border border-border p-4 shadow-xs flex flex-col justify-between">
+        <div className="grim-card grim-card-glow rounded-xl p-4 shadow-xs flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-[11px] font-bold uppercase tracking-wider text-primary flex items-center gap-1.5">
@@ -442,7 +442,7 @@ export function LabDecisionEngine({
         </div>
 
         {/* Card 2: Best Coding Subscription */}
-        <div className="bg-surface rounded-xl border border-border p-4 shadow-xs flex flex-col justify-between">
+        <div className="grim-card grim-card-glow rounded-xl p-4 shadow-xs flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-[11px] font-bold uppercase tracking-wider text-success flex items-center gap-1.5">
@@ -493,7 +493,7 @@ export function LabDecisionEngine({
         </div>
 
         {/* Card 3: Best Value Workhorse */}
-        <div className="bg-surface rounded-xl border border-border p-4 shadow-xs flex flex-col justify-between">
+        <div className="grim-card grim-card-glow rounded-xl p-4 shadow-xs flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-[11px] font-bold uppercase tracking-wider text-warning flex items-center gap-1.5">

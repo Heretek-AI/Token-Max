@@ -90,7 +90,7 @@ export function BudgetResults({ results, plans, budget, sortMode }: BudgetResult
             </span>
           </div>
           
-          <div className="bg-surface rounded-xl border border-border overflow-hidden shadow-sm">
+          <div className="grim-card grim-card-glow rounded-xl overflow-hidden shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
                 <thead className="bg-surface-alt border-b border-border text-text-muted">
@@ -156,7 +156,7 @@ export function BudgetResults({ results, plans, budget, sortMode }: BudgetResult
           {relevantPlans.length > 0 ? (
             <div className="grid gap-3 max-h-[620px] overflow-y-auto pr-1">
               {relevantPlans.map(({ plan, tier }, i) => (
-                <div key={`${plan.id}-${tier.name}-${i}`} className="bg-surface rounded-xl border border-border p-4 hover:shadow-md transition-shadow">
+                <div key={`${plan.id}-${tier.name}-${i}`} className="grim-card grim-card-glow rounded-xl p-4 hover:shadow-md transition-shadow">
                   <div className="flex justify-between items-start mb-2">
                     <div>
                       <h4 className="font-bold text-text">{plan.name}</h4>

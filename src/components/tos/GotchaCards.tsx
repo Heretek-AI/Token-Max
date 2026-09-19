@@ -109,7 +109,7 @@ export function GotchaCards({ plans }: GotchaCardsProps) {
             placeholder="Search gotchas by keyword or provider name..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 bg-surface border border-border rounded-xl text-sm text-text placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full pl-9 pr-4 py-2 grim-card grim-card-glow rounded-xl text-sm text-text placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
 
@@ -139,7 +139,7 @@ export function GotchaCards({ plans }: GotchaCardsProps) {
 
       {/* Gotchas Grid */}
       {filteredGotchas.length === 0 ? (
-        <div className="bg-surface rounded-xl border border-border p-12 text-center text-text-muted">
+        <div className="grim-card grim-card-glow rounded-xl p-12 text-center text-text-muted">
           <Info className="w-8 h-8 mx-auto mb-2 opacity-50" />
           <p className="text-sm font-medium">No gotchas found matching your filters.</p>
         </div>

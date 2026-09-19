@@ -90,7 +90,7 @@ export function LeaderboardTable({ models }: LeaderboardTableProps) {
   };
 
   return (
-    <div className="bg-surface rounded-xl border border-border shadow-sm overflow-hidden">
+    <div className="grim-card grim-card-glow rounded-xl shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
           <thead className="bg-surface-alt border-b border-border text-text-muted">

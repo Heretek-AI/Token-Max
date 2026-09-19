@@ -39,7 +39,7 @@ export function ValueScatter({ models }: ValueScatterProps) {
     .filter(d => d.score > 0);
 
   return (
-    <div className="bg-surface rounded-xl border border-border p-6 shadow-sm mb-8 h-[500px]">
+    <div className="grim-card grim-card-glow rounded-xl p-6 shadow-sm mb-8 h-[500px]">
       <h3 className="text-lg font-bold mb-1">Quality vs. Cost</h3>
       <p className="text-sm text-text-muted mb-6">Log scale. Higher and further left is better value.</p>
       
@@ -66,7 +66,7 @@ export function ValueScatter({ models }: ValueScatterProps) {
           />
           <ZAxis type="category" dataKey="name" name="Model" />
           <Tooltip cursor={{ strokeDasharray: '3 3' }} content={<CustomTooltip />} />
-          <Scatter name="Models" data={data} fill="#8884d8" />
+          <Scatter name="Models" data={data} fill="hsl(0 85% 45%)" fillOpacity={0.75} stroke="hsl(0 80% 60%)" />
         </ScatterChart>
       </ResponsiveContainer>
     </div>

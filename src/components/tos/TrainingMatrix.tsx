@@ -147,7 +147,7 @@ export function TrainingMatrix({ plans }: TrainingMatrixProps) {
             placeholder="Search provider privacy policies..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 bg-surface border border-border rounded-xl text-xs text-text placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full pl-9 pr-4 py-2 grim-card grim-card-glow rounded-xl text-xs text-text placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
 
@@ -180,7 +180,7 @@ export function TrainingMatrix({ plans }: TrainingMatrixProps) {
       </div>
 
       {/* Main Table */}
-      <div className="bg-surface rounded-xl border border-border shadow-sm overflow-hidden">
+      <div className="grim-card grim-card-glow rounded-xl shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm border-collapse">
             <thead className="bg-surface-alt border-b border-border text-text-muted text-xs font-semibold uppercase tracking-wider">

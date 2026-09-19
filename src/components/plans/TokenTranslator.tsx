@@ -256,7 +256,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
             Select Subscription Plan to Translate:
           </label>
           <select 
-            className="w-full px-4 py-2.5 bg-surface border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-text font-medium text-sm"
+            className="w-full px-4 py-2.5 grim-card grim-card-glow rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-text font-medium text-sm"
             value={`${activePlanId}|${activeTierName}`}
             onChange={(e) => {
               const [pId, tName] = e.target.value.split('|');

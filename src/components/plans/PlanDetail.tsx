@@ -8,7 +8,7 @@ interface PlanDetailProps {
 
 export function PlanDetail({ plan }: PlanDetailProps) {
   return (
-    <div className="bg-surface rounded-2xl border border-border shadow-sm p-6 mt-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
+    <div className="grim-card grim-card-glow rounded-2xl shadow-sm p-6 mt-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-border">
         <div>
