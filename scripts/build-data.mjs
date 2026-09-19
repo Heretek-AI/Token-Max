@@ -79,54 +79,54 @@ async function buildData() {
 
     if (match && match.evaluations) {
       matchedCount++;
+      let applied = false;
       if (match.evaluations.codingIndex != null) {
         model.benchmarks.codingIndex = match.evaluations.codingIndex;
+        applied = true;
       }
       if (match.evaluations.intelligenceIndex != null) {
         model.benchmarks.intelligenceIndex = match.evaluations.intelligenceIndex;
+        applied = true;
       }
       if (match.evaluations.agenticIndex != null) {
         model.benchmarks.agenticIndex = match.evaluations.agenticIndex;
+        applied = true;
       }
+      if (applied) model.benchmarkSource = 'artificial-analysis';
+    } else if (model.benchmarks?.codingIndex != null) {
+      model.benchmarkSource = 'openrouter';
     }
 
-    // Cache rate calculation heuristics
+    // Cache pricing: never fabricate a discount. Use the real cachedInput from
+    // the upstream fetch; unknown cache prices are treated as no caching.
     const inputPrice = model.pricing?.input || 0;
     const outputPrice = model.pricing?.output || 0;
-    const provLower = (model.provider || '').toLowerCase();
-    const idLower = (model.id || '').toLowerCase();
-
-    let cachedInput = model.pricing?.cachedInput;
-    if (cachedInput === null || cachedInput === undefined) {
-      if (provLower.includes('anthropic') || idLower.includes('claude')) {
-        cachedInput = inputPrice * 0.10;
-      } else if (provLower.includes('deepseek') || idLower.includes('deepseek')) {
-        cachedInput = inputPrice * 0.10;
-      } else if (provLower.includes('z-ai') || idLower.includes('glm')) {
-        cachedInput = inputPrice * 0.10;
-      } else if (provLower.includes('google') || idLower.includes('gemini')) {
-        cachedInput = inputPrice * 0.25;
-      } else if (provLower.includes('openai') || idLower.includes('gpt') || idLower.includes('codex')) {
-        cachedInput = inputPrice * 0.50;
-      }
-      if (model.pricing && cachedInput !== null && cachedInput !== undefined) {
-        model.pricing.cachedInput = parseFloat(cachedInput.toFixed(4));
-      }
-    }
+    const cachedInput = model.pricing?.cachedInput;
 
     // Standard Agent Request: 20k input (75% cached) + 1k output = 21k context
     const freshIn = 20000 * 0.25;
     const cachedIn = 20000 * 0.75;
-    const cachePrice = cachedInput !== null && cachedInput !== undefined ? cachedInput : (inputPrice * 0.50);
+    const cachePrice = cachedInput !== null && cachedInput !== undefined ? cachedInput : inputPrice;
     const agentReqCost = (freshIn * inputPrice / 1e6) + (cachedIn * cachePrice / 1e6) + (1000 * outputPrice / 1e6);
     model.agentBlendedCost = parseFloat(((agentReqCost / 21000) * 1e6).toFixed(4));
 
     // Assign tier
     model.tierClass = classifyModelTier(model);
 
-    // Compute value score: (Coding Index / Blended Cost) * 10
-    if (model.benchmarks.codingIndex != null && model.blendedCost > 0) {
-      model.benchmarks.valueScore = parseFloat(((model.benchmarks.codingIndex / model.blendedCost) * 10).toFixed(1));
+    // Single weighted value score (50% coding, 30% agentic, 20% intelligence),
+    // with a confidence penalty for missing dimensions. Requires a coding index.
+    const coding = model.benchmarks.codingIndex;
+    if (coding != null && model.blendedCost > 0) {
+      let score = coding * 0.5;
+      let weight = 0.5;
+      let dims = 1;
+      const agentic = model.benchmarks.agenticIndex;
+      const intelligence = model.benchmarks.intelligenceIndex;
+      if (agentic != null) { score += agentic * 0.3; weight += 0.3; dims++; }
+      if (intelligence != null) { score += intelligence * 0.2; weight += 0.2; dims++; }
+      const penalty = dims === 3 ? 1 : dims === 2 ? 0.9 : 0.75;
+      const quality = (score / weight) * penalty;
+      model.benchmarks.valueScore = parseFloat(((quality / model.blendedCost) * 100).toFixed(1));
     } else {
       model.benchmarks.valueScore = null;
     }

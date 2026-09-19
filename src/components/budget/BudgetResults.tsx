@@ -1,5 +1,5 @@
 import type { BudgetResult, CodingPlan, BudgetSortMode } from '../../lib/types';
-import { formatMillionTokens, getProviderColor } from '../../lib/pricing';
+import { formatMillionTokens, getProviderColor, QUALITY } from '../../lib/pricing';
 import { Sparkles, CheckCircle2 } from 'lucide-react';
 
 interface BudgetResultsProps {
@@ -123,7 +123,7 @@ export function BudgetResults({ results, plans, budget, sortMode }: BudgetResult
                       <td className="px-3 py-3 text-right">
                         {result.codingIndex ? (
                           <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-xs font-semibold ${
-                            result.codingIndex >= 70 ? 'bg-primary/10 text-primary' : 'bg-surface-alt text-text'
+                            result.codingIndex >= QUALITY.frontier ? 'bg-primary/10 text-primary' : 'bg-surface-alt text-text'
                           }`}>
                             {result.codingIndex.toFixed(1)}
                           </span>

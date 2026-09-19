@@ -97,10 +97,18 @@ describe('calculateAgentRequestCost', () => {
     expect(effectiveBlendedCost).toBeCloseTo((0.05 / 21000) * 1e6, 6);
   });
 
-  it('applies the documented provider cache discount when no cached price is stored', () => {
-    const { costPerRequest } = calculateAgentRequestCost(model(), 0.75);
+  it('uses the real cached input price when available', () => {
+    const cached = model({
+      pricing: { input: 2, output: 10, cachedInput: 0.2, cachedInputWrite: null, reasoning: null, webSearch: null },
+    });
+    const { costPerRequest } = calculateAgentRequestCost(cached, 0.75);
     // 5k fresh * $2/M + 15k cached * $0.2/M + 1k * $10/M = 0.01 + 0.003 + 0.01
     expect(costPerRequest).toBeCloseTo(0.023, 10);
+  });
+
+  it('assumes no caching (full input price) when cache price is unknown', () => {
+    const { costPerRequest } = calculateAgentRequestCost(model(), 0.75);
+    expect(costPerRequest).toBeCloseTo(0.05, 10);
   });
 
   it('never returns a zero cost for a free request', () => {
@@ -113,6 +121,14 @@ describe('calculateAgentRequestCost', () => {
 describe('computeWeightedScore / computeValueScore', () => {
   it('weights coding 50%, agentic 30%, intelligence 20% when all present', () => {
     expect(computeWeightedScore(model())).toBeCloseTo(62, 6);
+  });
+
+  it('penalizes missing dimensions instead of renormalizing them away', () => {
+    const partial = model({
+      benchmarks: { intelligenceIndex: 60, codingIndex: 70, agenticIndex: null, valueScore: null },
+    });
+    // (0.5*70 + 0.2*60) / 0.7 * 0.9 = 60.43 < 62 (fully measured equivalent)
+    expect(computeWeightedScore(partial)).toBeCloseTo(60.4286, 3);
   });
 
   it('computes value as quality per blended dollar', () => {

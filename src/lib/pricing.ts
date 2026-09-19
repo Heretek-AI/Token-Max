@@ -26,6 +26,20 @@ export function formatMillionTokens(mt: number): string {
   return `${(mt * 1000).toFixed(0)}K`;
 }
 
+/**
+ * Single source of truth for coding-quality thresholds used across the app.
+ * - economy:   minimum for value ranking (capable budget models)
+ * - value:     "best value" workhorse tab
+ * - workhorse: production-grade agent models
+ * - frontier:  top-tier frontier models
+ */
+export const QUALITY = {
+  economy: 40,
+  value: 50,
+  workhorse: 65,
+  frontier: 75,
+} as const;
+
 export function calculateBudgetResults(
   models: NormalizedModel[],
   budget: number,
@@ -36,8 +50,8 @@ export function calculateBudgetResults(
     .map(m => {
       const codingIndex = m.benchmarks?.codingIndex ?? null;
       const intelligenceIndex = m.benchmarks?.intelligenceIndex ?? null;
-      const valueScore = codingIndex != null && m.blendedCost > 0 
-        ? (codingIndex / m.blendedCost) * 10 
+      const valueScore = m.blendedCost > 0 && codingIndex != null
+        ? computeValueScore(m)
         : null;
 
       return {
@@ -57,7 +71,7 @@ export function calculateBudgetResults(
   if (sortMode === 'frontier') {
     // Rank pure coding capability (Coding Index first, then Intelligence Index)
     return eligible
-      .filter(m => m.tierClass === 'frontier' || (m.codingIndex && m.codingIndex >= 70))
+      .filter(m => m.tierClass === 'frontier' || (m.codingIndex && m.codingIndex >= QUALITY.frontier))
       .sort((a, b) => {
         const scoreA = a.codingIndex ?? a.intelligenceIndex ?? 0;
         const scoreB = b.codingIndex ?? b.intelligenceIndex ?? 0;
@@ -69,7 +83,7 @@ export function calculateBudgetResults(
   if (sortMode === 'best-value') {
     // Rank quality per dollar, prioritizing models with strong verified coding scores
     return eligible
-      .filter(m => m.codingIndex != null && m.codingIndex >= 40)
+      .filter(m => m.codingIndex != null && m.codingIndex >= QUALITY.economy)
       .sort((a, b) => (b.valueScore || 0) - (a.valueScore || 0));
   }
 
@@ -77,19 +91,22 @@ export function calculateBudgetResults(
   return eligible.sort((a, b) => b.millionTokens - a.millionTokens);
 }
 
+/**
+ * Weighted quality score: 50% coding, 30% agentic, 20% intelligence.
+ * Requires a coding index; missing dimensions are penalized rather than
+ * renormalized so models with partial benchmark coverage cannot leapfrog
+ * fully-measured models.
+ */
 export function computeWeightedScore(model: NormalizedModel): number {
-  const weights = {
-    codingIndex: 0.50,
-    agenticIndex: 0.30,
-    intelligenceIndex: 0.20,
-  };
   const b = model.benchmarks;
-  let score = 0;
-  let totalWeight = 0;
-  if (b.codingIndex != null) { score += b.codingIndex * weights.codingIndex; totalWeight += weights.codingIndex; }
-  if (b.agenticIndex != null) { score += b.agenticIndex * weights.agenticIndex; totalWeight += weights.agenticIndex; }
-  if (b.intelligenceIndex != null) { score += b.intelligenceIndex * weights.intelligenceIndex; totalWeight += weights.intelligenceIndex; }
-  return totalWeight > 0 ? score / totalWeight : 0;
+  if (b.codingIndex == null) return 0;
+  let score = b.codingIndex * 0.5;
+  let weight = 0.5;
+  let dims = 1;
+  if (b.agenticIndex != null) { score += b.agenticIndex * 0.3; weight += 0.3; dims++; }
+  if (b.intelligenceIndex != null) { score += b.intelligenceIndex * 0.2; weight += 0.2; dims++; }
+  const penalty = dims === 3 ? 1 : dims === 2 ? 0.9 : 0.75;
+  return (score / weight) * penalty;
 }
 
 export function computeValueScore(model: NormalizedModel): number {
@@ -156,15 +173,18 @@ export interface ApplesToApplesResult {
   } | null;
 }
 
-export function getModelCacheDiscountMultiplier(provider: string, id: string): number {
-  const p = provider.toLowerCase();
-  const mid = id.toLowerCase();
-  if (p.includes('anthropic') || mid.includes('claude')) return 0.10; // 90% discount on cache read
-  if (p.includes('deepseek') || mid.includes('deepseek')) return 0.10; // 90% discount
-  if (p.includes('z-ai') || mid.includes('glm')) return 0.10; // 90% discount
-  if (p.includes('google') || mid.includes('gemini')) return 0.25; // 75% discount
-  if (p.includes('openai') || mid.includes('gpt') || mid.includes('codex')) return 0.50; // 50% discount
-  return 0.50;
+/**
+ * Effective cache-read multiplier for a model, derived from the real upstream
+ * cached-input price when available. When no cache price is known we assume no
+ * caching (1.0) instead of fabricating a discount.
+ */
+export function getEffectiveCacheMultiplier(model: NormalizedModel): number {
+  const input = model.pricing.input;
+  const cached = model.pricing.cachedInput;
+  if (input > 0 && cached != null && cached > 0) {
+    return Math.min(1, cached / input);
+  }
+  return 1;
 }
 
 export function matchesPlanModel(planModelName: string, model: NormalizedModel): boolean {
@@ -180,7 +200,7 @@ export function calculateAgentRequestCost(
 ): { costPerRequest: number; effectiveBlendedCost: number } {
   const inPrice = model.pricing.input || model.blendedCost * 0.75;
   const outPrice = model.pricing.output || model.blendedCost * 1.75;
-  const cacheMult = getModelCacheDiscountMultiplier(model.provider, model.id);
+  const cacheMult = getEffectiveCacheMultiplier(model);
 
   // Standard Agent Request: 20k input context + 1k output completion (21k total)
   const freshInputTokens = 20000 * (1 - cacheRate);
@@ -393,9 +413,9 @@ export function computeApplesToApples(
   const sortedSubs = [...subscriptionOptions].sort((a, b) => b.monthlyTokens - a.monthlyTokens);
   const bestSubscription = sortedSubs.length > 0 ? sortedSubs[0] : null;
 
-  // Best workhorse: model with coding index >= 68 and high token output
+  // Best workhorse: model with a production-grade coding index and high token output
   const workhorseCandidates = apiOptions
-    .filter(o => o.codingIndex !== null && o.codingIndex >= 68)
+    .filter(o => o.codingIndex !== null && o.codingIndex >= QUALITY.workhorse)
     .sort((a, b) => b.monthlyTokens - a.monthlyTokens);
   const bestWorkhorse = workhorseCandidates.length > 0 ? workhorseCandidates[0] : null;
 

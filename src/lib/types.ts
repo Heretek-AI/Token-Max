@@ -12,6 +12,7 @@ export interface ModelBenchmarks {
   codingIndex: number | null;
   agenticIndex: number | null;
   valueScore: number | null;
+  benchmarkSource?: 'artificial-analysis' | 'openrouter' | null;
 }
 
 export type ModelTierClass = 'frontier' | 'balanced' | 'economy';
@@ -102,6 +103,7 @@ export interface NormalizedModel {
   maxOutput: number;
   pricing: ModelPricing;
   blendedCost: number;
+  agentBlendedCost?: number;
   costPer1kRequests: number;
   benchmarks: ModelBenchmarks;
   tierClass?: ModelTierClass;

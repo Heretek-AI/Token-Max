@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import type { NormalizedModel, CodingPlan, FrontierLab, DisplayUnit, CacheRate, EngineMode, MixBundle, DaveStack, StackCandidate } from '../../lib/types';
-import { computeApplesToApples, computeMixAndMatch, computeDaveStacks, buildStackCandidates, formatMillionTokens, getProviderColor } from '../../lib/pricing';
+import { computeApplesToApples, computeMixAndMatch, computeDaveStacks, buildStackCandidates, formatMillionTokens, getProviderColor, QUALITY } from '../../lib/pricing';
 import { 
   Sparkles, 
   Layers, 
@@ -304,24 +304,24 @@ export function LabDecisionEngine({
               All Tiers
             </button>
             <button
-              onClick={() => { setMinCodingScore(68); setShowThresholdSlider(false); }}
+              onClick={() => { setMinCodingScore(QUALITY.workhorse); setShowThresholdSlider(false); }}
               className={`px-2.5 py-1 text-xs font-semibold rounded-lg border transition-all ${
-                minCodingScore === 68
+                minCodingScore === QUALITY.workhorse
                   ? 'bg-primary/20 text-primary border-primary font-bold'
                   : 'text-text-muted border-border/50 hover:bg-surface-alt'
               }`}
             >
-              Workhorse (≥68)
+              Workhorse (≥{QUALITY.workhorse})
             </button>
             <button
-              onClick={() => { setMinCodingScore(75); setShowThresholdSlider(false); }}
+              onClick={() => { setMinCodingScore(QUALITY.frontier); setShowThresholdSlider(false); }}
               className={`px-2.5 py-1 text-xs font-semibold rounded-lg border transition-all ${
-                minCodingScore === 75
+                minCodingScore === QUALITY.frontier
                   ? 'bg-primary/20 text-primary border-primary font-bold'
                   : 'text-text-muted border-border/50 hover:bg-surface-alt'
               }`}
             >
-              Top Frontier (≥75)
+              Top Frontier (≥{QUALITY.frontier})
             </button>
             <button
               onClick={() => setShowThresholdSlider(!showThresholdSlider)}
@@ -758,9 +758,9 @@ export function LabDecisionEngine({
                     <td className="px-3 py-3 text-right">
                       {opt.codingIndex !== null ? (
                         <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold ${
-                          opt.codingIndex >= 75
+                          opt.codingIndex >= QUALITY.frontier
                             ? 'bg-primary/15 text-primary font-bold'
-                            : opt.codingIndex >= 68
+                            : opt.codingIndex >= QUALITY.workhorse
                             ? 'bg-surface-alt text-text'
                             : 'text-text-muted'
                         }`}>

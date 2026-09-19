@@ -25,6 +25,32 @@
       "thousandRequests": 307.6923076923077
     }
   },
+  "z-ai/glm-5.3-flashx": {
+    "budget_5": {
+      "millionsOfTokens": 8.474576271186441,
+      "thousandRequests": 2.512562814070352
+    },
+    "budget_10": {
+      "millionsOfTokens": 16.949152542372882,
+      "thousandRequests": 5.025125628140704
+    },
+    "budget_20": {
+      "millionsOfTokens": 33.898305084745765,
+      "thousandRequests": 10.050251256281408
+    },
+    "budget_50": {
+      "millionsOfTokens": 84.74576271186442,
+      "thousandRequests": 25.12562814070352
+    },
+    "budget_100": {
+      "millionsOfTokens": 169.49152542372883,
+      "thousandRequests": 50.25125628140704
+    },
+    "budget_200": {
+      "millionsOfTokens": 338.98305084745766,
+      "thousandRequests": 100.50251256281408
+    }
+  },
   "unbiased/pareto": {
     "budget_5": {
       "millionsOfTokens": 1.3333333333333333,
@@ -1743,54 +1769,54 @@
   },
   "~deepseek/deepseek-v4-flash-latest": {
     "budget_5": {
-      "millionsOfTokens": 64.75006475006474,
-      "thousandRequests": 19.42501942501943
+      "millionsOfTokens": 68.87052341597796,
+      "thousandRequests": 20.661157024793386
     },
     "budget_10": {
-      "millionsOfTokens": 129.50012950012947,
-      "thousandRequests": 38.85003885003886
+      "millionsOfTokens": 137.7410468319559,
+      "thousandRequests": 41.32231404958677
     },
     "budget_20": {
-      "millionsOfTokens": 259.00025900025895,
-      "thousandRequests": 77.70007770007771
+      "millionsOfTokens": 275.4820936639118,
+      "thousandRequests": 82.64462809917354
     },
     "budget_50": {
-      "millionsOfTokens": 647.5006475006475,
-      "thousandRequests": 194.25019425019428
+      "millionsOfTokens": 688.7052341597796,
+      "thousandRequests": 206.61157024793386
     },
     "budget_100": {
-      "millionsOfTokens": 1295.001295001295,
-      "thousandRequests": 388.50038850038857
+      "millionsOfTokens": 1377.4104683195592,
+      "thousandRequests": 413.2231404958677
     },
     "budget_200": {
-      "millionsOfTokens": 2590.00259000259,
-      "thousandRequests": 777.0007770007771
+      "millionsOfTokens": 2754.8209366391184,
+      "thousandRequests": 826.4462809917354
     }
   },
   "deepseek/deepseek-v4-flash-0731": {
     "budget_5": {
-      "millionsOfTokens": 66.66666666666667,
-      "thousandRequests": 20.833333333333336
+      "millionsOfTokens": 53.333333333333336,
+      "thousandRequests": 16.12903225806452
     },
     "budget_10": {
-      "millionsOfTokens": 133.33333333333334,
-      "thousandRequests": 41.66666666666667
+      "millionsOfTokens": 106.66666666666667,
+      "thousandRequests": 32.25806451612904
     },
     "budget_20": {
-      "millionsOfTokens": 266.6666666666667,
-      "thousandRequests": 83.33333333333334
+      "millionsOfTokens": 213.33333333333334,
+      "thousandRequests": 64.51612903225808
     },
     "budget_50": {
-      "millionsOfTokens": 666.6666666666667,
-      "thousandRequests": 208.33333333333334
+      "millionsOfTokens": 533.3333333333334,
+      "thousandRequests": 161.29032258064518
     },
     "budget_100": {
-      "millionsOfTokens": 1333.3333333333335,
-      "thousandRequests": 416.6666666666667
+      "millionsOfTokens": 1066.6666666666667,
+      "thousandRequests": 322.58064516129036
     },
     "budget_200": {
-      "millionsOfTokens": 2666.666666666667,
-      "thousandRequests": 833.3333333333334
+      "millionsOfTokens": 2133.3333333333335,
+      "thousandRequests": 645.1612903225807
     }
   },
   "deepseek/deepseek-v4-flash-0731:batch": {
@@ -2261,56 +2287,30 @@
       "thousandRequests": null
     }
   },
-  "openrouter/auto-beta": {
-    "budget_5": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_10": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_20": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_50": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_100": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_200": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    }
-  },
   "moonshotai/kimi-k3": {
     "budget_5": {
-      "millionsOfTokens": 1.1926058437686344,
-      "thousandRequests": 0.33738191632928477
+      "millionsOfTokens": 1.1237407080690203,
+      "thousandRequests": 0.3179003318879465
     },
     "budget_10": {
-      "millionsOfTokens": 2.385211687537269,
-      "thousandRequests": 0.6747638326585695
+      "millionsOfTokens": 2.2474814161380405,
+      "thousandRequests": 0.635800663775893
     },
     "budget_20": {
-      "millionsOfTokens": 4.770423375074538,
-      "thousandRequests": 1.349527665317139
+      "millionsOfTokens": 4.494962832276081,
+      "thousandRequests": 1.271601327551786
     },
     "budget_50": {
-      "millionsOfTokens": 11.926058437686345,
-      "thousandRequests": 3.3738191632928474
+      "millionsOfTokens": 11.237407080690202,
+      "thousandRequests": 3.179003318879465
     },
     "budget_100": {
-      "millionsOfTokens": 23.85211687537269,
-      "thousandRequests": 6.747638326585695
+      "millionsOfTokens": 22.474814161380404,
+      "thousandRequests": 6.35800663775893
     },
     "budget_200": {
-      "millionsOfTokens": 47.70423375074538,
-      "thousandRequests": 13.49527665317139
+      "millionsOfTokens": 44.94962832276081,
+      "thousandRequests": 12.71601327551786
     }
   },
   "moonshotai/kimi-k3:batch": {
@@ -3145,32 +3145,6 @@
       "thousandRequests": null
     }
   },
-  "openrouter/fusion": {
-    "budget_5": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_10": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_20": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_50": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_100": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_200": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    }
-  },
   "moonshotai/kimi-k2.7-code": {
     "budget_5": {
       "millionsOfTokens": 3.7533310813346845,
@@ -3953,28 +3927,28 @@
   },
   "~moonshotai/kimi-latest": {
     "budget_5": {
-      "millionsOfTokens": 1.1926058437686344,
-      "thousandRequests": 0.33738191632928477
+      "millionsOfTokens": 1.1237407080690203,
+      "thousandRequests": 0.3179003318879465
     },
     "budget_10": {
-      "millionsOfTokens": 2.385211687537269,
-      "thousandRequests": 0.6747638326585695
+      "millionsOfTokens": 2.2474814161380405,
+      "thousandRequests": 0.635800663775893
     },
     "budget_20": {
-      "millionsOfTokens": 4.770423375074538,
-      "thousandRequests": 1.349527665317139
+      "millionsOfTokens": 4.494962832276081,
+      "thousandRequests": 1.271601327551786
     },
     "budget_50": {
-      "millionsOfTokens": 11.926058437686345,
-      "thousandRequests": 3.3738191632928474
+      "millionsOfTokens": 11.237407080690202,
+      "thousandRequests": 3.179003318879465
     },
     "budget_100": {
-      "millionsOfTokens": 23.85211687537269,
-      "thousandRequests": 6.747638326585695
+      "millionsOfTokens": 22.474814161380404,
+      "thousandRequests": 6.35800663775893
     },
     "budget_200": {
-      "millionsOfTokens": 47.70423375074538,
-      "thousandRequests": 13.49527665317139
+      "millionsOfTokens": 44.94962832276081,
+      "thousandRequests": 12.71601327551786
     }
   },
   "~google/gemini-flash-latest": {
@@ -4265,54 +4239,54 @@
   },
   "deepseek/deepseek-v4-pro": {
     "budget_5": {
-      "millionsOfTokens": 5.9187707896824,
-      "thousandRequests": 1.8496158717757496
+      "millionsOfTokens": 6.727686785814,
+      "thousandRequests": 2.102402120566875
     },
     "budget_10": {
-      "millionsOfTokens": 11.8375415793648,
-      "thousandRequests": 3.699231743551499
+      "millionsOfTokens": 13.455373571628,
+      "thousandRequests": 4.20480424113375
     },
     "budget_20": {
-      "millionsOfTokens": 23.6750831587296,
-      "thousandRequests": 7.398463487102998
+      "millionsOfTokens": 26.910747143256,
+      "thousandRequests": 8.4096084822675
     },
     "budget_50": {
-      "millionsOfTokens": 59.187707896823994,
-      "thousandRequests": 18.496158717757496
+      "millionsOfTokens": 67.27686785814,
+      "thousandRequests": 21.02402120566875
     },
     "budget_100": {
-      "millionsOfTokens": 118.37541579364799,
-      "thousandRequests": 36.99231743551499
+      "millionsOfTokens": 134.55373571628,
+      "thousandRequests": 42.0480424113375
     },
     "budget_200": {
-      "millionsOfTokens": 236.75083158729598,
-      "thousandRequests": 73.98463487102998
+      "millionsOfTokens": 269.10747143256,
+      "thousandRequests": 84.096084822675
     }
   },
   "deepseek/deepseek-v4-flash": {
     "budget_5": {
-      "millionsOfTokens": 82.57638315441783,
-      "thousandRequests": 25.80511973575557
+      "millionsOfTokens": 83.54218880534668,
+      "thousandRequests": 26.106934001670844
     },
     "budget_10": {
-      "millionsOfTokens": 165.15276630883565,
-      "thousandRequests": 51.61023947151114
+      "millionsOfTokens": 167.08437761069337,
+      "thousandRequests": 52.21386800334169
     },
     "budget_20": {
-      "millionsOfTokens": 330.3055326176713,
-      "thousandRequests": 103.22047894302229
+      "millionsOfTokens": 334.16875522138673,
+      "thousandRequests": 104.42773600668338
     },
     "budget_50": {
-      "millionsOfTokens": 825.7638315441783,
-      "thousandRequests": 258.05119735755574
+      "millionsOfTokens": 835.4218880534669,
+      "thousandRequests": 261.06934001670845
     },
     "budget_100": {
-      "millionsOfTokens": 1651.5276630883566,
-      "thousandRequests": 516.1023947151115
+      "millionsOfTokens": 1670.8437761069338,
+      "thousandRequests": 522.1386800334169
     },
     "budget_200": {
-      "millionsOfTokens": 3303.055326176713,
-      "thousandRequests": 1032.204789430223
+      "millionsOfTokens": 3341.6875522138675,
+      "thousandRequests": 1044.2773600668338
     }
   },
   "tencent/hy3-preview": {
@@ -4443,32 +4417,6 @@
     "budget_200": {
       "millionsOfTokens": 20,
       "thousandRequests": 5.714285714285714
-    }
-  },
-  "openrouter/pareto-code": {
-    "budget_5": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_10": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_20": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_50": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_100": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_200": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
     }
   },
   "moonshotai/kimi-k2.6": {
@@ -4811,54 +4759,54 @@
   },
   "google/lyria-3-pro-preview": {
     "budget_5": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     },
     "budget_10": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     },
     "budget_20": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     },
     "budget_50": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     },
     "budget_100": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     },
     "budget_200": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     }
   },
   "google/lyria-3-clip-preview": {
     "budget_5": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     },
     "budget_10": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     },
     "budget_20": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     },
     "budget_50": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     },
     "budget_100": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     },
     "budget_200": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     }
   },
   "kwaipilot/kat-coder-pro-v2": {
@@ -5955,28 +5903,28 @@
   },
   "openrouter/free": {
     "budget_5": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     },
     "budget_10": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     },
     "budget_20": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     },
     "budget_50": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     },
     "budget_100": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     },
     "budget_200": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
+      "millionsOfTokens": null,
+      "thousandRequests": null
     }
   },
   "stepfun/step-3.5-flash": {
@@ -6601,32 +6549,6 @@
     "budget_200": {
       "millionsOfTokens": 444.4444444444445,
       "thousandRequests": 133.33333333333334
-    }
-  },
-  "openrouter/bodybuilder": {
-    "budget_5": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_10": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_20": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_50": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_100": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_200": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
     }
   },
   "openai/gpt-5.1-codex-max": {
@@ -11359,32 +11281,6 @@
     "budget_200": {
       "millionsOfTokens": 160,
       "thousandRequests": 50
-    }
-  },
-  "openrouter/auto": {
-    "budget_5": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_10": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_20": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_50": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_100": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
-    },
-    "budget_200": {
-      "millionsOfTokens": 0,
-      "thousandRequests": 0
     }
   },
   "openai/gpt-3.5-turbo-instruct": {

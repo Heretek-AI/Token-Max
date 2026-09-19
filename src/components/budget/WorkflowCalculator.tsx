@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import type { CodingPlan, NormalizedModel, CacheRate } from '../../lib/types';
-import { getModelCacheDiscountMultiplier } from '../../lib/pricing';
+import { getEffectiveCacheMultiplier, QUALITY } from '../../lib/pricing';
 import {
   Workflow,
   Sparkles,
@@ -42,9 +42,9 @@ const MCP_STACK_OPTIONS = [
 ];
 
 const QUALITY_PRESETS = [
-  { key: 'any', label: 'Any ≥57 CI', min: 57, hint: 'Open to capable economy/flash models (DeepSeek-class and up)' },
-  { key: 'balanced', label: 'Balanced ≥65 CI', min: 65, hint: 'Production-grade workhorses' },
-  { key: 'frontier', label: 'Frontier ≥68 CI', min: 68, hint: 'Only the best coding models (Claude Opus-class and up)' },
+  { key: 'any', label: `Any ≥${QUALITY.economy} CI`, min: QUALITY.economy, hint: 'Open to capable economy/flash models (DeepSeek-class and up)' },
+  { key: 'balanced', label: `Balanced ≥${QUALITY.workhorse} CI`, min: QUALITY.workhorse, hint: 'Production-grade workhorses' },
+  { key: 'frontier', label: `Frontier ≥${QUALITY.frontier} CI`, min: QUALITY.frontier, hint: 'Only the best coding models (Claude Opus-class and up)' },
 ] as const;
 type QualityKey = (typeof QUALITY_PRESETS)[number]['key'];
 
@@ -73,7 +73,7 @@ function requestCost(
 ): number {
   const inPrice = model.pricing.input || model.blendedCost * 0.75;
   const outPrice = model.pricing.output || model.blendedCost * 1.75;
-  const cacheMult = getModelCacheDiscountMultiplier(model.provider, model.id);
+  const cacheMult = getEffectiveCacheMultiplier(model);
   const freshInput = inputTokens * (1 - cacheRate);
   const cachedInput = inputTokens * cacheRate;
   return (

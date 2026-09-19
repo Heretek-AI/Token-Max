@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import type { CodingPlan, NormalizedModel, CacheRate } from '../../lib/types';
-import { formatMillionTokens, getProviderColor, calculateAgentRequestCost, matchesPlanModel } from '../../lib/pricing';
+import { formatMillionTokens, getProviderColor, calculateAgentRequestCost, matchesPlanModel, QUALITY } from '../../lib/pricing';
 import { ArrowRight, Sparkles, AlertCircle, Layers, CheckCircle2, HelpCircle, Info, Database, TrendingUp } from 'lucide-react';
 
 interface TokenTranslatorProps {
@@ -79,12 +79,12 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
         filtered = matchingPlanModels;
       } else {
         // Fallback to top frontier models if no exact match found
-        filtered = cleanModels.filter(m => (m.benchmarks.codingIndex || 0) >= 65 || m.tierClass === 'frontier');
+        filtered = cleanModels.filter(m => (m.benchmarks.codingIndex || 0) >= QUALITY.workhorse || m.tierClass === 'frontier');
       }
     } else if (modelCategory === 'frontier') {
-      filtered = cleanModels.filter(m => (m.benchmarks.codingIndex || 0) >= 65 || m.tierClass === 'frontier');
+      filtered = cleanModels.filter(m => (m.benchmarks.codingIndex || 0) >= QUALITY.workhorse || m.tierClass === 'frontier');
     } else if (modelCategory === 'value') {
-      filtered = cleanModels.filter(m => (m.benchmarks.codingIndex || 0) >= 50 && m.blendedCost <= 6.0);
+      filtered = cleanModels.filter(m => (m.benchmarks.codingIndex || 0) >= QUALITY.value && m.blendedCost <= 6.0);
     }
 
     return filtered

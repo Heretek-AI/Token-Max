@@ -33,13 +33,18 @@ async function fetchModels() {
     }
 
     const id = model.id;
-    const isFree = id.endsWith(':free');
-    const isBatch = id.endsWith(':nitro') || id.includes('batch'); // Approximate for batch
-
-    // Prices are strings per 1 token, convert to number per 1M
     const pricing = model.pricing || {};
     const inputPrice = parseFloat(pricing.prompt || '0') * 1_000_000;
     const outputPrice = parseFloat(pricing.completion || '0') * 1_000_000;
+
+    // Dynamic-priced routers report negative sentinel prices; they cannot be
+    // compared on a per-token basis, so skip them entirely.
+    if (inputPrice < 0 || outputPrice < 0) {
+      continue;
+    }
+
+    const isFree = id.endsWith(':free') || (inputPrice === 0 && outputPrice === 0);
+    const isBatch = id.includes(':batch');
     // blendedCost: (input*3 + output*1) / 4
     const blendedCost = (inputPrice * 3 + outputPrice * 1) / 4;
     
@@ -62,30 +67,43 @@ async function fetchModels() {
       benchmarks.intelligenceIndex = model.benchmarks.artificial_analysis.intelligence_index || null;
       benchmarks.codingIndex = model.benchmarks.artificial_analysis.coding_index || null;
       benchmarks.agenticIndex = model.benchmarks.artificial_analysis.agentic_index || null;
-      if (benchmarks.codingIndex && blendedCost > 0) {
-        benchmarks.valueScore = (benchmarks.codingIndex / blendedCost) * 100;
-      }
     }
 
     let cachedInput = null;
-    const provLower = provider.toLowerCase();
-    const idLower = id.toLowerCase();
-    if (provLower.includes('anthropic') || idLower.includes('claude')) {
-      cachedInput = inputPrice * 0.10; // 90% off
-    } else if (provLower.includes('deepseek') || idLower.includes('deepseek')) {
-      cachedInput = inputPrice * 0.10; // 90% off
-    } else if (provLower.includes('z-ai') || idLower.includes('glm')) {
-      cachedInput = inputPrice * 0.10; // 90% off
-    } else if (provLower.includes('google') || idLower.includes('gemini')) {
-      cachedInput = inputPrice * 0.25; // 75% off
-    } else if (provLower.includes('openai') || idLower.includes('gpt') || idLower.includes('codex')) {
-      cachedInput = inputPrice * 0.50; // 50% off
+    let cachedInputWrite = null;
+    // Prefer the real cache prices published by the upstream provider. Only
+    // fall back to documented provider ratios when the API omits them.
+    const upstreamCacheRead = parseFloat(pricing.input_cache_read || '');
+    const upstreamCacheWrite = parseFloat(pricing.input_cache_write || '');
+    if (Number.isFinite(upstreamCacheRead) && upstreamCacheRead >= 0 && inputPrice > 0) {
+      cachedInput = upstreamCacheRead * 1_000_000;
+    }
+    if (Number.isFinite(upstreamCacheWrite) && upstreamCacheWrite >= 0 && inputPrice > 0) {
+      cachedInputWrite = upstreamCacheWrite * 1_000_000;
+    }
+    if (cachedInput === null) {
+      const provLower = provider.toLowerCase();
+      const idLower = id.toLowerCase();
+      if (inputPrice > 0) {
+        if (provLower.includes('anthropic') || idLower.includes('claude')) {
+          cachedInput = inputPrice * 0.10;
+        } else if (provLower.includes('deepseek') || idLower.includes('deepseek')) {
+          cachedInput = inputPrice * 0.10;
+        } else if (provLower.includes('z-ai') || idLower.includes('glm')) {
+          cachedInput = inputPrice * 0.10;
+        } else if (provLower.includes('google') || idLower.includes('gemini')) {
+          cachedInput = inputPrice * 0.25;
+        } else if (provLower.includes('openai') || idLower.includes('gpt') || idLower.includes('codex')) {
+          cachedInput = inputPrice * 0.50;
+        }
+      }
     }
 
-    // Agentic coding calculation: 20k input context (75% cached) + 1k output completion = 21k context
+    // Agentic coding calculation: 20k input context (75% cached) + 1k output completion = 21k context.
+    // When no cache price is known, charge full input price for cached tokens (conservative).
     const freshIn = 20000 * 0.25;
     const cachedIn = 20000 * 0.75;
-    const cachePrice = cachedInput !== null ? cachedInput : (inputPrice * 0.50);
+    const cachePrice = cachedInput !== null ? cachedInput : inputPrice;
     const agentReqCost = (freshIn * inputPrice / 1e6) + (cachedIn * cachePrice / 1e6) + (1000 * outputPrice / 1e6);
     const agentBlendedCost = (agentReqCost / 21000) * 1e6;
 
@@ -99,8 +117,8 @@ async function fetchModels() {
       pricing: {
         input: inputPrice,
         output: outputPrice,
-        cachedInput: cachedInput ? parseFloat(cachedInput.toFixed(4)) : null,
-        cachedInputWrite: null,
+        cachedInput: cachedInput !== null ? parseFloat(cachedInput.toFixed(4)) : null,
+        cachedInputWrite: cachedInputWrite !== null ? parseFloat(cachedInputWrite.toFixed(4)) : null,
         reasoning: null,
         webSearch: null,
       },
@@ -108,6 +126,7 @@ async function fetchModels() {
       agentBlendedCost: parseFloat(agentBlendedCost.toFixed(4)),
       costPer1kRequests,
       benchmarks,
+      benchmarkSource: null,
       reasoning: null,
       isFree,
       isBatch
