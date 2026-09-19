@@ -9,6 +9,7 @@ import TosAudit from './pages/TosAudit';
 import MixOptimizer from './pages/MixOptimizer';
 import BurstSimulator from './pages/BurstSimulator';
 import ConfigExporter from './pages/ConfigExporter';
+import ReasoningExploder from './pages/ReasoningExploder';
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
               <Route path="/optimizer" element={<MixOptimizer />} />
               <Route path="/simulator" element={<BurstSimulator />} />
               <Route path="/exporter" element={<ConfigExporter />} />
+              <Route path="/reasoning" element={<ReasoningExploder />} />
               <Route path="/models" element={<ModelsExplorer />} />
               <Route path="/plans" element={<PlansCompare />} />
               <Route path="/benchmarks" element={<BenchmarksPage />} />

@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Sliders, Zap, FileCode, Database, CreditCard, BarChart2, ShieldAlert, Skull } from 'lucide-react';
+import { LayoutDashboard, Sliders, Zap, FileCode, Brain, Database, CreditCard, BarChart2, ShieldAlert, Skull } from 'lucide-react';
 
 export function Header() {
   const navClass = ({ isActive }: { isActive: boolean }) =>
@@ -40,6 +40,10 @@ export function Header() {
           <NavLink to="/exporter" className={navClass}>
             <FileCode className="w-4 h-4" />
             Exporter
+          </NavLink>
+          <NavLink to="/reasoning" className={navClass}>
+            <Brain className="w-4 h-4" />
+            Reasoning
           </NavLink>
           <NavLink to="/models" className={navClass}>
             <Database className="w-4 h-4" />
