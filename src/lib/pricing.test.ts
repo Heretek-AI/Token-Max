@@ -168,6 +168,45 @@ describe('calculateBudgetResults', () => {
   });
 });
 
+describe('calculateBudgetResults blend modes', () => {
+  const agenticModel = model({
+    id: 'agentic',
+    blendedCost: 4,
+    agentBlendedCost: 2,
+  });
+
+  it('defaults to the agentic blend and uses agentBlendedCost for yields', () => {
+    const [result] = calculateBudgetResults([agenticModel], 20, 'max-tokens');
+    expect(result.costBasis).toBe('agentic');
+    expect(result.effectiveCost).toBe(2);
+    expect(result.millionTokens).toBeCloseTo(10, 6);
+    expect(result.requests1k).toBeCloseTo((10 * 1_000_000) / 21000, 6);
+  });
+
+  it('chat blend uses the legacy 3:1 cost and request math', () => {
+    const [result] = calculateBudgetResults([agenticModel], 20, 'max-tokens', 'chat');
+    expect(result.costBasis).toBe('chat');
+    expect(result.effectiveCost).toBe(4);
+    expect(result.millionTokens).toBeCloseTo(5, 6);
+    expect(result.requests1k).toBeCloseTo((20 / 14) * 1000, 6);
+  });
+
+  it('falls back to the list blend when agentBlendedCost is missing or zero', () => {
+    const missing = model({ id: 'missing', blendedCost: 1, agentBlendedCost: undefined });
+    const zeroAgent = model({ id: 'zero-agent', blendedCost: 1, agentBlendedCost: 0 });
+    const results = calculateBudgetResults([missing, zeroAgent], 20, 'max-tokens');
+    expect(results).toHaveLength(2);
+    expect(results.every(r => r.effectiveCost === 1)).toBe(true);
+    expect(results[0].millionTokens).toBeCloseTo(20, 6);
+  });
+
+  it('yields more tokens under the agentic blend than the chat blend', () => {
+    const agentic = calculateBudgetResults([agenticModel], 20, 'max-tokens')[0];
+    const chat = calculateBudgetResults([agenticModel], 20, 'max-tokens', 'chat')[0];
+    expect(agentic.millionTokens).toBeGreaterThan(chat.millionTokens);
+  });
+});
+
 describe('matchesPlanModel', () => {
   it('matches exact model ids and names', () => {
     expect(matchesPlanModel('Claude Sonnet 5', model())).toBe(true);

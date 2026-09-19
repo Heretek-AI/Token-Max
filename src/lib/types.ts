@@ -17,6 +17,8 @@ export interface ModelBenchmarks {
 
 export type ModelTierClass = 'frontier' | 'balanced' | 'economy';
 export type BudgetSortMode = 'best-value' | 'frontier' | 'max-tokens';
+/** Cost basis for Budget yields: agentic (20:1 + prompt cache) or legacy chat (3:1). */
+export type BlendMode = 'agentic' | 'chat';
 export type FrontierLab = 'all' | 'anthropic' | 'openai' | 'google' | 'deepseek' | 'glm';
 export type DisplayUnit = 'tokens' | 'requests';
 export type CacheRate = 0 | 0.75 | 0.90;
@@ -166,6 +168,9 @@ export interface BudgetResult {
   intelligenceIndex: number | null;
   valueScore: number | null;
   blendedCost: number;
+  /** Cost used for the yield: agentBlendedCost (agentic) or blendedCost (chat). */
+  effectiveCost: number;
+  costBasis: BlendMode;
   tierClass?: ModelTierClass;
 }
 

@@ -1,7 +1,8 @@
 import type { 
   NormalizedModel, 
-  BudgetResult, 
+  BudgetResult,
   BudgetSortMode,
+  BlendMode,
   FrontierLab,
   CodingPlan,
   PlanTier,
@@ -12,6 +13,12 @@ import type {
   MixBundle,
   DaveStack
 } from './types';
+import {
+  AGENT_REQUEST_INPUT_TOKENS,
+  AGENT_REQUEST_OUTPUT_TOKENS,
+  STANDARD_AGENT_REQUEST_TOKENS,
+  DEFAULT_CACHE_RATE,
+} from './estimate-constants';
 
 export function formatPrice(price: number): string {
   if (price === 0) return 'Free';
@@ -40,30 +47,56 @@ export const QUALITY = {
   frontier: 75,
 } as const;
 
+/**
+ * Agentic effective cost: the persisted `agentBlendedCost` (20K-in/1K-out at
+ * 75% cache) with a safe fallback to the legacy 3:1 list blend when a model
+ * was ingested before agentBlendedCost existed.
+ */
+export function getAgentBlendedCost(model: NormalizedModel): number {
+  const agent = model.agentBlendedCost;
+  if (agent != null && agent > 0) return agent;
+  return model.blendedCost;
+}
+
+/** Cost basis for token yields: agentic by default, legacy chat (3:1) on request. */
+export function getEffectiveBlendCost(model: NormalizedModel, blendMode: BlendMode = 'agentic'): number {
+  return blendMode === 'agentic' ? getAgentBlendedCost(model) : model.blendedCost;
+}
+
 export function calculateBudgetResults(
   models: NormalizedModel[],
   budget: number,
-  sortMode: BudgetSortMode = 'best-value'
+  sortMode: BudgetSortMode = 'best-value',
+  blendMode: BlendMode = 'agentic'
 ): BudgetResult[] {
   const eligible = models
-    .filter(m => !m.isFree && !m.isBatch && m.blendedCost > 0)
+    .filter(m => !m.isFree && !m.isBatch && getEffectiveBlendCost(m, blendMode) > 0)
     .map(m => {
       const codingIndex = m.benchmarks?.codingIndex ?? null;
       const intelligenceIndex = m.benchmarks?.intelligenceIndex ?? null;
       const valueScore = m.blendedCost > 0 && codingIndex != null
         ? computeValueScore(m)
         : null;
+      const effectiveCost = getEffectiveBlendCost(m, blendMode);
+      const millionTokens = budget / effectiveCost;
+      // Agentic yields are expressed in normalized 21K agent requests; chat
+      // yields keep the legacy 3K (2K-in/1K-out) request definition.
+      const requests1k = blendMode === 'agentic'
+        ? (millionTokens * 1_000_000) / STANDARD_AGENT_REQUEST_TOKENS
+        : (budget / (m.costPer1kRequests || 1)) * 1000;
 
       return {
         modelId: m.id,
         modelName: m.name,
         provider: m.provider,
-        millionTokens: budget / m.blendedCost,
-        requests1k: (budget / (m.costPer1kRequests || 1)) * 1000,
+        millionTokens,
+        requests1k,
         codingIndex,
         intelligenceIndex,
         valueScore,
         blendedCost: m.blendedCost,
+        effectiveCost,
+        costBasis: blendMode,
         tierClass: m.tierClass || 'balanced',
       };
     });
@@ -76,7 +109,7 @@ export function calculateBudgetResults(
         const scoreA = a.codingIndex ?? a.intelligenceIndex ?? 0;
         const scoreB = b.codingIndex ?? b.intelligenceIndex ?? 0;
         if (scoreB !== scoreA) return scoreB - scoreA;
-        return a.blendedCost - b.blendedCost;
+        return a.effectiveCost - b.effectiveCost;
       });
   }
 
@@ -196,23 +229,23 @@ export function matchesPlanModel(planModelName: string, model: NormalizedModel):
 
 export function calculateAgentRequestCost(
   model: NormalizedModel,
-  cacheRate: CacheRate = 0.75
+  cacheRate: CacheRate = DEFAULT_CACHE_RATE
 ): { costPerRequest: number; effectiveBlendedCost: number } {
   const inPrice = model.pricing.input || model.blendedCost * 0.75;
   const outPrice = model.pricing.output || model.blendedCost * 1.75;
   const cacheMult = getEffectiveCacheMultiplier(model);
 
-  // Standard Agent Request: 20k input context + 1k output completion (21k total)
-  const freshInputTokens = 20000 * (1 - cacheRate);
-  const cachedInputTokens = 20000 * cacheRate;
-  const outputTokens = 1000;
+  // Standard Agent Request (see docs/TOKEN_ESTIMATE_VALIDATION.md)
+  const freshInputTokens = AGENT_REQUEST_INPUT_TOKENS * (1 - cacheRate);
+  const cachedInputTokens = AGENT_REQUEST_INPUT_TOKENS * cacheRate;
+  const outputTokens = AGENT_REQUEST_OUTPUT_TOKENS;
 
   const cost = (freshInputTokens * inPrice / 1e6) +
                (cachedInputTokens * inPrice * cacheMult / 1e6) +
                (outputTokens * outPrice / 1e6);
 
   const safeCost = cost > 0 ? cost : 0.0001;
-  const effectiveBlendedCost = (safeCost / 21000) * 1e6;
+  const effectiveBlendedCost = (safeCost / STANDARD_AGENT_REQUEST_TOKENS) * 1e6;
 
   return { costPerRequest: safeCost, effectiveBlendedCost };
 }
@@ -499,7 +532,7 @@ function tierRawRequests(tier: PlanTier): number {
   if (typeof fastRequests === 'number') {
     return fastRequests;
   }
-  return Math.round(((tier.estimatedTokenBudget?.estimatedMillionTokens || 0) * 1_000_000) / 21_000);
+  return Math.round(((tier.estimatedTokenBudget?.estimatedMillionTokens || 0) * 1_000_000) / STANDARD_AGENT_REQUEST_TOKENS);
 }
 
 export function buildStackCandidates(

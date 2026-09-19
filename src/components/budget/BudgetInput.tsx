@@ -1,14 +1,16 @@
-import type { BudgetSortMode } from '../../lib/types';
-import { Award, BrainCircuit, Zap } from 'lucide-react';
+import type { BlendMode, BudgetSortMode } from '../../lib/types';
+import { Award, BrainCircuit, Zap, Gauge } from 'lucide-react';
 
 interface BudgetInputProps {
   budget: number;
   onChange: (val: number) => void;
   sortMode: BudgetSortMode;
   onSortModeChange: (mode: BudgetSortMode) => void;
+  blendMode: BlendMode;
+  onBlendModeChange: (mode: BlendMode) => void;
 }
 
-export function BudgetInput({ budget, onChange, sortMode, onSortModeChange }: BudgetInputProps) {
+export function BudgetInput({ budget, onChange, sortMode, onSortModeChange, blendMode, onBlendModeChange }: BudgetInputProps) {
   const presets = [5, 10, 20, 50, 100, 200];
 
   return (
@@ -125,6 +127,50 @@ export function BudgetInput({ budget, onChange, sortMode, onSortModeChange }: Bu
               <div>
                 <div className="font-bold text-sm">Max Raw Volume (Tokens)</div>
                 <div className="text-xs opacity-80 mt-0.5">Maximum token volume for high-throughput batching, scraping, or summarization.</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        {/* Cost Basis Selector */}
+        <div className="pt-4 border-t border-border">
+          <div className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
+            Yield Cost Basis:
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => onBlendModeChange('agentic')}
+              className={`flex items-start gap-3 p-3 rounded-lg border text-left transition-all ${
+                blendMode === 'agentic'
+                  ? 'bg-primary/10 border-primary text-primary ring-1 ring-primary/50'
+                  : 'bg-surface border-border text-text hover:border-primary/40'
+              }`}
+            >
+              <Gauge className="w-5 h-5 mt-0.5 shrink-0" />
+              <div>
+                <div className="font-bold text-sm">Agentic (20:1 + prompt cache)</div>
+                <div className="text-xs opacity-80 mt-0.5">
+                  Coding-agent workload: 20K context (75% cache) + 1K output per request. Matches measured production sessions.
+                </div>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => onBlendModeChange('chat')}
+              className={`flex items-start gap-3 p-3 rounded-lg border text-left transition-all ${
+                blendMode === 'chat'
+                  ? 'bg-primary/10 border-primary text-primary ring-1 ring-primary/50'
+                  : 'bg-surface border-border text-text hover:border-primary/40'
+              }`}
+            >
+              <BrainCircuit className="w-5 h-5 mt-0.5 shrink-0" />
+              <div>
+                <div className="font-bold text-sm">Chat (3:1 list blend)</div>
+                <div className="text-xs opacity-80 mt-0.5">
+                  Legacy chatbot heuristic: 3 input tokens per output token at raw list prices, no cache discount.
+                </div>
               </div>
             </button>
           </div>

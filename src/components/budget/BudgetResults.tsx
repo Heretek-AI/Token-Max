@@ -1,4 +1,4 @@
-import type { BudgetResult, CodingPlan, BudgetSortMode } from '../../lib/types';
+import type { BudgetResult, CodingPlan, BudgetSortMode, BlendMode } from '../../lib/types';
 import { formatMillionTokens, getProviderColor, QUALITY } from '../../lib/pricing';
 import { Sparkles, CheckCircle2 } from 'lucide-react';
 
@@ -7,11 +7,18 @@ interface BudgetResultsProps {
   plans: CodingPlan[];
   budget: number;
   sortMode: BudgetSortMode;
+  blendMode: BlendMode;
 }
 
-export function BudgetResults({ results, plans, budget, sortMode }: BudgetResultsProps) {
+const BASIS_LABEL: Record<BlendMode, string> = {
+  agentic: 'Agentic $/M (20:1 + cache)',
+  chat: 'Chat $/M (3:1 list)',
+};
+
+export function BudgetResults({ results, plans, budget, sortMode, blendMode }: BudgetResultsProps) {
   const topModels = results.slice(0, 20);
   const featuredPick = topModels.length > 0 ? topModels[0] : null;
+  const basisLabel = BASIS_LABEL[blendMode];
   
   // Find plans that fit the budget or are nearby
   const relevantPlans = plans.flatMap(plan => 
@@ -49,7 +56,9 @@ export function BudgetResults({ results, plans, budget, sortMode }: BudgetResult
                     {featuredPick.provider}
                   </span>
                   <span>•</span>
-                  <span>Blended Cost: ${featuredPick.blendedCost.toFixed(3)}/M tokens</span>
+                  <span title="Effective cost under the selected yield basis">{basisLabel}: ${featuredPick.effectiveCost.toFixed(3)}/M tokens</span>
+                  <span>•</span>
+                  <span className="text-text-muted">List blend: ${featuredPick.blendedCost.toFixed(3)}/M</span>
                   {featuredPick.codingIndex && (
                     <>
                       <span>•</span>
@@ -65,7 +74,7 @@ export function BudgetResults({ results, plans, budget, sortMode }: BudgetResult
                 ~{formatMillionTokens(featuredPick.millionTokens)}
               </div>
               <div className="text-xs text-text-muted font-medium">
-                tokens / mo (~{Math.round(featuredPick.requests1k).toLocaleString()} reqs)
+                tokens / mo (~{Math.round(featuredPick.requests1k).toLocaleString()} {blendMode === 'agentic' ? 'normalized 21K agent reqs' : 'reqs'})
               </div>
             </div>
           </div>
@@ -99,7 +108,7 @@ export function BudgetResults({ results, plans, budget, sortMode }: BudgetResult
                     <th className="px-4 py-3 font-medium">Model</th>
                     <th className="px-3 py-3 font-medium text-right">Tokens</th>
                     <th className="px-3 py-3 font-medium text-right">Coding</th>
-                    <th className="px-3 py-3 font-medium text-right">Cost/M</th>
+                    <th className="px-3 py-3 font-medium text-right" title={basisLabel}>Cost/M</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
@@ -131,8 +140,8 @@ export function BudgetResults({ results, plans, budget, sortMode }: BudgetResult
                           <span className="text-text-muted text-xs">-</span>
                         )}
                       </td>
-                      <td className="px-3 py-3 text-right text-xs text-text-muted font-mono whitespace-nowrap">
-                        ${result.blendedCost.toFixed(2)}
+                      <td className="px-3 py-3 text-right text-xs text-text-muted font-mono whitespace-nowrap" title={`${basisLabel}; list blend $${result.blendedCost.toFixed(2)}`}>
+                        ${result.effectiveCost.toFixed(2)}
                       </td>
                     </tr>
                   ))}

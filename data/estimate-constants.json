@@ -1,0 +1,12 @@
+{
+  "_comment": "Single source of truth for token-estimate assumptions shared by the frontend, data scripts and plan generator. Rationale and OSINT evidence: docs/TOKEN_ESTIMATE_VALIDATION.md.",
+  "agentRequest": {
+    "inputTokens": 20000,
+    "outputTokens": 1000
+  },
+  "chatRequest": {
+    "inputTokens": 2000,
+    "outputTokens": 1000
+  },
+  "defaultCacheRate": 0.75
+}
