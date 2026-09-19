@@ -242,3 +242,33 @@ Fixes:
 
 Verification: lint 0/0, tests 98/98, production build clean; built CSS confirmed
 to carry the updated primary/primary-light values (`#ee2b2b`, `#ed5a5a`).
+
+### 2026-09-19 — UX Phases 1–5 (grouped IA, shareable state, power-tool pass, Quiet theme, perf/PWA)
+
+1. **Phase 1 — Navigation & mobile**: Header rebuilt with grouped IA
+   (Calculate / Forecast / Data / Tools) as keyboard-navigable hover dropdowns;
+   full-screen hamburger drawer below `lg`; footer quick-route chips; no
+   setState-in-effect (links close menus on click; Escape closes).
+2. **Phase 2 — First-touch & state**: `useQueryState` hook (shareable hash
+   query + localStorage restore) wired into budget (`?b=`), quality baseline
+   (`?q=`), lab (`?lab=`), unit (`?unit=`), cache (`?cache=`), engine mode
+   (`?mode=`); "Copy Link" button reproduces the exact ranking; leaderboard
+   shows top 3 with "See full ranking" expander; hero CTA smooth-scrolls to
+   the Decision Engine.
+3. **Phase 3 — Power-tool pass**: sticky table headers via new
+   `thead-sticky` utility applied to ModelTable, LeaderboardTable,
+   TrainingMatrix and the Decision Engine leaderboard; "Copy CSV" exports the
+   visible ranking.
+4. **Phase 4 — Quiet theme**: `[data-theme='quiet']` token overrides
+   (semantic tokens + chrome gradients) with `ThemeToggle` (persisted,
+   respects `prefers-color-scheme`); Blood & Steel remains the default.
+5. **Phase 5 — Perf/PWA**: all 12 routes lazy-loaded with Suspense
+   fallback; header data-freshness pill (replaces the "Machine Spirit" place
+   holder); production-only service worker (`public/sw.js`: cache-first
+   hashed assets, network-first data JSON + index).
+
+Verification: `npm run lint` 0 errors/0 warnings; `npm test` 98/98; `npm run
+build` clean with per-route chunks (core 90 KB gz, pages 5–16 KB gz, shared
+chart chunk 99 KB gz); `dist/sw.js` emitted. Known limits: Quiet theme is
+best-effort on third-party-styled surfaces; deeper per-page component
+migrations (card tables < md, wizard splits) scheduled for the next pass.
