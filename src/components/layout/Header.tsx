@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Coins, LayoutDashboard, Database, CreditCard, BarChart2, ShieldAlert, Skull } from 'lucide-react';
+import { LayoutDashboard, Database, CreditCard, BarChart2, ShieldAlert, Skull } from 'lucide-react';
 
 export function Header() {
   const navClass = ({ isActive }: { isActive: boolean }) =>
@@ -14,7 +14,13 @@ export function Header() {
       <div className="absolute inset-x-0 bottom-0 h-[3px] blood-gradient" aria-hidden="true" />
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2 text-primary font-display font-bold text-xl tracking-widest uppercase animate-glitch-text">
-          <Coins className="w-6 h-6 text-blood-400 animate-heretic-glow" />
+          <img
+            src="icon-sm.png"
+            alt="Heretek-AI icon"
+            width={24}
+            height={24}
+            className="w-6 h-6 animate-heretic-glow"
+          />
           <span>Token-Max</span>
         </div>
 

@@ -22,6 +22,11 @@ export default function Dashboard() {
       <section className="relative text-center py-10">
         <div className="pointer-events-none absolute inset-0 mx-auto max-w-3xl bg-circuit-dark opacity-40 blur-[1px]" aria-hidden="true" />
         <div className="relative">
+          <img
+            src="logo-web.png"
+            alt="Token-Max by Heretek-AI"
+            className="h-36 sm:h-44 mx-auto mb-4 animate-heretic-glow drop-shadow-[0_0_24px_hsl(0_75%_35%_/0.35)]"
+          />
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blood-900/60 text-blood-300 text-[11px] font-display font-semibold uppercase tracking-widest mb-4 border border-blood-700/50 animate-binary-flicker">
             <span>⚡ Unobfuscating AI Credits into True Compute</span>
           </div>
