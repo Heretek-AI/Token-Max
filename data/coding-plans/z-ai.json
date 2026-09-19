@@ -18,21 +18,22 @@
       },
       "models": [
         "GLM-5.3",
-        "GLM-5.3-Flash",
-        "GLM-5.2",
-        "GLM-5-Turbo"
+        "GLM-5.3-Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "10K weekly credits (~48M–97M GLM-5.3 or ~146M–292M Flash/wk)",
-        "estimatedMillionTokens": 300,
-        "midpointEstimate": 400,
-        "optimisticEstimate": 600,
-        "assumptions": "48M–97M tokens/week at 95% cache hit rate * 4 weeks (~200M–600M tokens/mo depending on off-peak usage)",
+        "description": "10K weekly credits; GLM-5.3 48-97M tokens/wk at 95% cache (official)",
+        "estimatedMillionTokens": 208,
+        "midpointEstimate": 314,
+        "optimisticEstimate": 420,
+        "assumptions": "Official Z.ai table (95% cache): 10,000 weekly credits = 48-97M GLM-5.3 tokens/week (146-292M GLM-5.3-Flash). Floor = all-peak (1x credit rate) 48M/wk x 4.33 wk = 208M/mo; ceiling = all off-peak (0.5x) 97M/wk x 4.33 = 420M/mo; midpoint 314M. Excludes the temporary GLM-5.3-Flash campaign bonus",
         "estimateMeta": {
-          "sourceUrl": "https://z.ai/subscribe",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://docs.z.ai/devpack/overview",
+          "sourceQuote": "Estimated Token Allowance (95% cache): Lite GLM-5.3 48-97M tokens/week; off-peak usage charged at 50% of the standard credit rate",
+          "sourceType": "official",
+          "confidence": "high",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "GLM-5.3",
+          "cacheAssumption": "95% cache hit rate"
         }
       },
       "notes": "Entry tier for individual developers. Up to 92% savings vs pay-as-you-go"
@@ -50,21 +51,22 @@
       },
       "models": [
         "GLM-5.3",
-        "GLM-5.3-Flash",
-        "GLM-5.2",
-        "GLM-5-Turbo"
+        "GLM-5.3-Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "60K weekly credits (~290M–580M GLM-5.3 or ~877M–1.7B Flash/wk)",
-        "estimatedMillionTokens": 1500,
-        "midpointEstimate": 2100,
-        "optimisticEstimate": 3000,
-        "assumptions": "290M–580M tokens/week at 95% cache hit rate * 4 weeks (~1.2B–3B tokens/mo)",
+        "description": "60K weekly credits; GLM-5.3 290-580M tokens/wk at 95% cache (official)",
+        "estimatedMillionTokens": 1256,
+        "midpointEstimate": 1884,
+        "optimisticEstimate": 2511,
+        "assumptions": "Official Z.ai table (95% cache): 60,000 weekly credits = 290-580M GLM-5.3 tokens/week (877M-1.76B GLM-5.3-Flash). Floor = all-peak 290M/wk x 4.33 = 1,256M/mo; ceiling = all off-peak 580M/wk x 4.33 = 2,511M/mo; midpoint 1,884M",
         "estimateMeta": {
-          "sourceUrl": "https://z.ai/subscribe",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://docs.z.ai/devpack/overview",
+          "sourceQuote": "Estimated Token Allowance (95% cache): Pro GLM-5.3 290-580M tokens/week",
+          "sourceType": "official",
+          "confidence": "high",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "GLM-5.3",
+          "cacheAssumption": "95% cache hit rate"
         }
       },
       "notes": "5x Lite usage capacity for full-time engineers and agent loops"
@@ -82,21 +84,22 @@
       },
       "models": [
         "GLM-5.3",
-        "GLM-5.3-Flash",
-        "GLM-5.2",
-        "GLM-5-Turbo"
+        "GLM-5.3-Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "140K weekly credits (~676M–1.35B GLM-5.3 or ~2B–4B Flash/wk)",
-        "estimatedMillionTokens": 4000,
-        "midpointEstimate": 5500,
-        "optimisticEstimate": 8000,
-        "assumptions": "676M–1.35B tokens/week at 95% cache hit rate * 4 weeks (~3B–8B tokens/mo)",
+        "description": "140K weekly credits; GLM-5.3 676M-1.35B tokens/wk at 95% cache (official)",
+        "estimatedMillionTokens": 2927,
+        "midpointEstimate": 4391,
+        "optimisticEstimate": 5854,
+        "assumptions": "Official Z.ai table (95% cache): 140,000 weekly credits = 676M-1,352M GLM-5.3 tokens/week (2.05B-4.1B GLM-5.3-Flash). Floor = all-peak 676M/wk x 4.33 = 2,927M/mo; ceiling = all off-peak 1,352M/wk x 4.33 = 5,854M/mo; midpoint 4,391M",
         "estimateMeta": {
-          "sourceUrl": "https://z.ai/subscribe",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://docs.z.ai/devpack/overview",
+          "sourceQuote": "Estimated Token Allowance (95% cache): Max GLM-5.3 676-1,352M tokens/week",
+          "sourceType": "official",
+          "confidence": "high",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "GLM-5.3",
+          "cacheAssumption": "95% cache hit rate"
         }
       },
       "notes": "20x Lite usage capacity for power developers and heavy autonomous agents"
@@ -110,6 +113,7 @@
         "minSeats": "2 seats minimum",
         "concurrency": "1-2 concurrent projects per seat",
         "dataPrivacy": "Excluded from model training by default",
+        "overage": "On-demand overage billed at a 10% discount from model API list price",
         "billing": "Centralized billing, seat management & VAT invoicing"
       },
       "models": [
@@ -117,25 +121,31 @@
         "GLM-5.3-Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "66K weekly credits/seat (~319M–638M GLM-5.3 tokens/wk/seat)",
-        "estimatedMillionTokens": 1600,
-        "midpointEstimate": 1920,
-        "optimisticEstimate": 2552,
-        "assumptions": "319M–638M tokens/week * 4 weeks per seat (~1.3B–2.6B tokens/mo/seat)",
+        "description": "66K weekly credits/seat; GLM-5.3 319-638M tokens/wk/seat (derived from official table)",
+        "estimatedMillionTokens": 1381,
+        "midpointEstimate": 2072,
+        "optimisticEstimate": 2763,
+        "assumptions": "Team credits (66,000/week/seat, official) scaled from the official Pro row (60,000 credits = 290-580M GLM-5.3 tokens/week): 319-638M/wk/seat x 4.33 wk = 1,381-2,763M/mo; midpoint 2,072M. Team seat price $80/seat is not published on the team docs page",
         "estimateMeta": {
-          "sourceUrl": "https://z.ai/subscribe",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://docs.z.ai/devpack/teamplan",
+          "sourceQuote": "Standard Seat: 15,000 credits / 5h, 66,000 credits / week",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "GLM-5.3",
+          "cacheAssumption": "95% cache hit rate"
         }
       },
-      "notes": "Enterprise team workspace with Zero Data Retention and seat controls"
+      "notes": "Enterprise team workspace with seat controls and no-training commitment"
     }
   ],
   "gotchas": [
     "Strictly tool-only: direct generic API scraping or unauthorized tools trigger error 1113 or risk control suspension",
-    "Dual 5-hour rolling limits and 7-day weekly reset cycles — exhaustion requires waiting for 5-hour refresh",
+    "Dual 5-hour rolling limits and 7-day weekly reset cycles - exhaustion requires waiting for the 5-hour refresh",
     "Peak hours (Mon-Fri 14:00-18:00 UTC+8) consume credits at 2x the off-peak rate",
+    "All plans serve GLM-5.3 and GLM-5.3-Flash only; GLM-5.2/GLM-5.1 requests are auto-routed to GLM-5.3 and GLM-4.7 to GLM-5.3-Flash",
+    "GLM-5.3-Flash campaign (Sep 3-20, 2026): unlimited usage via ZCode 23:00-09:00 SGT and doubled quota on other agents - temporary bonus on top of the published allowance",
+    "Account sharing and multi-user access are prohibited; subscription benefits are exclusive to the subscriber",
     "Subscriptions are non-refundable once purchased; downgrading team seats mid-cycle is not supported"
   ],
   "tosHighlights": [
@@ -143,8 +153,8 @@
     "Drop-in endpoint https://api.z.ai/api/anthropic allows using Claude Code directly with GLM-5.3",
     "Team Plan guarantees code and conversations are excluded from model training by default"
   ],
-  "dataTraining": "Excluded from model training on Team plans; standard cloud terms for personal plans",
-  "ipIndemnity": "Enterprise Team contracts only",
+  "dataTraining": "Team plans: conversation data not used for model training (official). Personal plans: standard subscription terms, no public no-training commitment",
+  "ipIndemnity": false,
   "stackingPolicy": "prohibited",
   "stackingPolicyNote": "Subscription terms: benefits are \"exclusive to the subscriber\"; \"Account sharing or multi-user access is prohibited\" and the licence is tied to a single natural person with no aggregation/proxying."
 }

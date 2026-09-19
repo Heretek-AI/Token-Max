@@ -2,166 +2,262 @@
   "id": "alibaba-cloud",
   "name": "Alibaba Cloud",
   "category": "api-provider",
-  "url": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
+  "url": "https://www.alibabacloud.com/help/en/model-studio/token-plan-overview",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Personal Lite",
       "monthlyPrice": 6,
       "limits": {
-        "concurrency": "2 concurrent queries",
-        "monthlyTokens": "~10M tokens quota"
+        "quota": "2,500 credits per 7-day window (official; original price $8/mo)",
+        "window": "7-day timer starts at first call; unused quota expires, service pauses when exhausted",
+        "concurrency": "1-2 concurrent agents",
+        "extraBundle": "$15 = 20,000 credits, requires active subscription (max 5), not subject to the 7-day window",
+        "region": "Singapore region only"
       },
       "models": [
-        "Qwen 3.8 Flash",
-        "Qwen 2.5 Coder"
+        "Qwen 3.7 Plus",
+        "Qwen 3.6 Plus",
+        "Kimi K2.5",
+        "GLM-5",
+        "MiniMax M2.5"
       ],
       "estimatedTokenBudget": {
-        "description": "Personal budget allotment (~10M tokens/mo)",
-        "estimatedMillionTokens": 10,
-        "assumptions": "Budget personal allotment",
+        "description": "2,500 credits/7d; ~45M conservative (qwen3.6-plus basis, derived)",
+        "estimatedMillionTokens": 45,
+        "midpointEstimate": 90,
+        "optimisticEstimate": 126,
+        "assumptions": "Official worked example (qwen3.6-plus): 8,349 input tokens = 1.67 credits, 40,794 cached = 0.82, 573 output = 0.69 (~200 credits/M input, 20/M cached, 1,204/M output). Standard 20K-in/1K-out request at 75% cache = 2.504 credits. 2,500 credits/7d x 30/7 = 10,714 credits/mo = 89.9M tokens. Conservative = 50% of that (2x deduction for pricier models), optimistic +40%; Alibaba does not publish per-model coefficients",
         "estimateMeta": {
-          "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/token-plan-personal-overview",
+          "sourceQuote": "Credits are deducted using tiered deduction coefficients by model; the deduction ratio is lower on a cache hit and higher on a miss",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "qwen3.6-plus",
+          "cacheAssumption": "75% cache hit rate (plan example ran at ~83% cached)"
         }
       },
-      "notes": "Entry-level coding plan for individual developers"
+      "notes": "Entry-level individual plan; credits reset every 7 days from first use"
+    },
+    {
+      "name": "Essential",
+      "monthlyPrice": 10,
+      "limits": {
+        "quota": "5,625 credits per 7-day window (official; original price $16/mo)",
+        "window": "7-day timer starts at first call; unused quota expires",
+        "concurrency": "2-3 concurrent agents",
+        "extraBundle": "$15 = 20,000 credits, requires active subscription (max 5)",
+        "region": "Singapore region only"
+      },
+      "models": [
+        "Qwen 3.7 Plus",
+        "Qwen 3.6 Plus",
+        "Kimi K2.5",
+        "GLM-5",
+        "MiniMax M2.5"
+      ],
+      "estimatedTokenBudget": {
+        "description": "5,625 credits/7d; ~101M conservative (qwen3.6-plus basis, derived)",
+        "estimatedMillionTokens": 101,
+        "midpointEstimate": 202,
+        "optimisticEstimate": 283,
+        "assumptions": "Official worked example (qwen3.6-plus): ~8,387 tokens/credit on the standard 20K-in/1K-out request at 75% cache. 5,625 credits/7d x 30/7 = 24,107 credits/mo = 202.2M tokens; conservative = 50% (2x deduction for pricier models), optimistic +40%",
+        "estimateMeta": {
+          "sourceUrl": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/token-plan-overview",
+          "sourceQuote": "Personal Edition: Essential 5,625 Credits per 7-day quota (limited-time $10/month)",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "qwen3.6-plus",
+          "cacheAssumption": "75% cache hit rate"
+        }
+      },
+      "notes": "Mid-entry individual tier added in the 2026 Token Plan refresh"
     },
     {
       "name": "Standard",
       "monthlyPrice": 18,
       "limits": {
-        "concurrency": "5 concurrent queries",
-        "monthlyTokens": "~35M tokens quota"
+        "quota": "10,000 credits per 7-day window (official; original price $25/mo)",
+        "window": "7-day timer starts at first call; unused quota expires",
+        "concurrency": "3-4 concurrent agents",
+        "extraBundle": "$15 = 20,000 credits, requires active subscription (max 5)",
+        "region": "Singapore region only"
       },
       "models": [
-        "Qwen 3.8 Max",
-        "Qwen 3.8 Flash",
-        "Qwen 2.5 Coder 32B"
+        "Qwen 3.7 Plus",
+        "Qwen 3.6 Plus",
+        "Kimi K2.5",
+        "GLM-5",
+        "MiniMax M2.5"
       ],
       "estimatedTokenBudget": {
-        "description": "Mainstream developer quota (~35M tokens/mo)",
-        "estimatedMillionTokens": 35,
-        "assumptions": "Standard tier: 10K compute-credit window (1K credits = $1) ~= 10M tokens/mo at GLM-5.2/DeepSeek-V4.1-Flash blended rates",
+        "description": "10,000 credits/7d; ~180M conservative (qwen3.6-plus basis, derived)",
+        "estimatedMillionTokens": 180,
+        "midpointEstimate": 359,
+        "optimisticEstimate": 503,
+        "assumptions": "Official worked example (qwen3.6-plus): ~8,387 tokens/credit on the standard 20K-in/1K-out request at 75% cache. 10,000 credits/7d x 30/7 = 42,857 credits/mo = 359.4M tokens; conservative = 50% (2x deduction for pricier models), optimistic +40%",
         "estimateMeta": {
-          "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/token-plan-overview",
+          "sourceQuote": "Personal Edition: Standard 10,000 Credits per 7-day quota (limited-time $18/month)",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "qwen3.6-plus",
+          "cacheAssumption": "75% cache hit rate"
         }
       },
-      "notes": "Mainstream plan for active coders"
+      "notes": "Mainstream plan for active coders; no pay-as-you-go overage (calls block)"
     },
     {
       "name": "Pro",
       "monthlyPrice": 68,
       "limits": {
-        "concurrency": "15 concurrent queries",
-        "monthlyTokens": "~140M tokens quota"
+        "quota": "40,000 credits per 7-day window (official; original price $80/mo)",
+        "window": "7-day timer starts at first call; unused quota expires",
+        "concurrency": "6-8 concurrent agents",
+        "extraBundle": "$15 = 20,000 credits, requires active subscription (max 5)",
+        "region": "Singapore region only"
       },
       "models": [
-        "Qwen 3.8 Max",
-        "Qwen 3.8 Flash",
-        "Qwen 2.5 Coder 32B"
+        "Qwen 3.7 Plus",
+        "Qwen 3.6 Plus",
+        "Kimi K2.5",
+        "GLM-5",
+        "MiniMax M2.5"
       ],
       "estimatedTokenBudget": {
-        "description": "Power developer quota (~140M tokens/mo)",
-        "estimatedMillionTokens": 140,
-        "assumptions": "Pro tier: 40K compute credits/mo ~= 40M tokens/mo at open-weight blended rates",
+        "description": "40,000 credits/7d; ~719M conservative (qwen3.6-plus basis, derived)",
+        "estimatedMillionTokens": 719,
+        "midpointEstimate": 1438,
+        "optimisticEstimate": 2013,
+        "assumptions": "Official worked example (qwen3.6-plus): ~8,387 tokens/credit on the standard 20K-in/1K-out request at 75% cache. 40,000 credits/7d x 30/7 = 171,429 credits/mo = 1,437.7M tokens; conservative = 50% (2x deduction for pricier models), optimistic +40%",
         "estimateMeta": {
-          "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/token-plan-overview",
+          "sourceQuote": "Personal Edition: Pro 40,000 Credits per 7-day quota (limited-time $68/month)",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "qwen3.6-plus",
+          "cacheAssumption": "75% cache hit rate"
         }
       },
-      "notes": "Power developer tier with high concurrency"
+      "notes": "Power developer tier with highest concurrency"
     },
     {
       "name": "Team Standard",
       "monthlyPrice": 20,
       "limits": {
-        "concurrency": "10 concurrent/seat",
-        "billing": "Per seat billing"
+        "quota": "25,000 credits/seat/month (official; original price $30/seat)",
+        "window": "Monthly batch granted at subscription start; no 7-day window; unused expires",
+        "concurrency": "Shared workspace; each seat bound to one member and one API key",
+        "extraPack": "$700 = 625,000 shared credits (soonest-expiring first)"
       },
       "models": [
-        "Qwen 3.8 Max",
-        "Qwen 3.8 Flash"
+        "Qwen 3.7 Plus",
+        "Qwen 3.6 Plus",
+        "Kimi K2.5",
+        "GLM-5"
       ],
       "estimatedTokenBudget": {
-        "description": "Per-seat team allocation (~40M tokens/seat)",
-        "estimatedMillionTokens": 40,
-        "assumptions": "Team Standard: 25K compute credits/seat/mo ~= 25M tokens/seat",
+        "description": "25,000 credits/seat/mo; ~105M conservative/seat (derived)",
+        "estimatedMillionTokens": 105,
+        "midpointEstimate": 210,
+        "optimisticEstimate": 294,
+        "assumptions": "Official worked example (qwen3.6-plus): ~8,387 tokens/credit. 25,000 credits/seat/month = 209.7M tokens; conservative = 50% (2x deduction for pricier models), optimistic +40%. Monthly quota, no 7-day recurrence",
         "estimateMeta": {
-          "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/token-plan-overview",
+          "sourceQuote": "Team Edition: Standard seat 25,000 Credits/seat/month",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "qwen3.6-plus",
+          "cacheAssumption": "75% cache hit rate"
         }
       },
-      "notes": "Team tier with shared workspace controls"
+      "notes": "Team plan guarantees conversation data is not used for training"
     },
     {
       "name": "Team Pro",
       "monthlyPrice": 75,
       "limits": {
-        "concurrency": "25 concurrent/seat",
-        "billing": "Per seat billing"
+        "quota": "100,000 credits/seat/month (official; original price $100/seat)",
+        "window": "Monthly batch; unused expires",
+        "concurrency": "Shared workspace; one API key per seat",
+        "extraPack": "$700 = 625,000 shared credits"
       },
       "models": [
-        "Qwen 3.8 Max",
-        "Qwen 3.8 Flash"
+        "Qwen 3.7 Plus",
+        "Qwen 3.6 Plus",
+        "Kimi K2.5",
+        "GLM-5"
       ],
       "estimatedTokenBudget": {
-        "description": "Team Pro high concurrency (~150M tokens/seat)",
-        "estimatedMillionTokens": 150,
-        "assumptions": "Team Pro high concurrency",
+        "description": "100,000 credits/seat/mo; ~419M conservative/seat (derived)",
+        "estimatedMillionTokens": 419,
+        "midpointEstimate": 839,
+        "optimisticEstimate": 1174,
+        "assumptions": "Official worked example (qwen3.6-plus): ~8,387 tokens/credit. 100,000 credits/seat/month = 838.7M tokens; conservative = 50%, optimistic +40%",
         "estimateMeta": {
-          "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/token-plan-overview",
+          "sourceQuote": "Team Edition: Pro seat 100,000 Credits/seat/month",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "qwen3.6-plus",
+          "cacheAssumption": "75% cache hit rate"
         }
       },
-      "notes": "Enterprise development teams"
+      "notes": "Higher team seat allowance"
     },
     {
       "name": "Team Max",
       "monthlyPrice": 200,
       "limits": {
-        "concurrency": "60 concurrent/seat",
-        "billing": "Per seat billing"
+        "quota": "250,000 credits/seat/month (official)",
+        "window": "Monthly batch; unused expires",
+        "concurrency": "Shared workspace; one API key per seat",
+        "extraPack": "$700 = 625,000 shared credits"
       },
       "models": [
-        "Qwen 3.8 Max",
-        "All Qwen Series"
+        "Qwen 3.7 Plus",
+        "Qwen 3.6 Plus",
+        "Kimi K2.5",
+        "GLM-5"
       ],
       "estimatedTokenBudget": {
-        "description": "Maximum team throughput (~450M tokens/seat)",
-        "estimatedMillionTokens": 450,
-        "assumptions": "Team Max: 250K compute credits/seat/mo ~= 250M tokens/seat",
+        "description": "250,000 credits/seat/mo; ~1.05B conservative/seat (derived)",
+        "estimatedMillionTokens": 1048,
+        "midpointEstimate": 2097,
+        "optimisticEstimate": 2935,
+        "assumptions": "Official worked example (qwen3.6-plus): ~8,387 tokens/credit. 250,000 credits/seat/month = 2,096.7M tokens; conservative = 50%, optimistic +40%",
         "estimateMeta": {
-          "sourceUrl": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/token-plan-overview",
+          "sourceQuote": "Team Edition: Max seat 250,000 Credits/seat/month",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "qwen3.6-plus",
+          "cacheAssumption": "75% cache hit rate"
         }
       },
-      "notes": "Dedicated capacity with high SLA"
+      "notes": "Maximum team seat with dedicated capacity options"
     }
   ],
   "gotchas": [
-    "Personal plans offer NO guarantee against data training — code may be used for model improvement",
-    "Team and Enterprise tiers require formal business verification for ZDR",
-    "Currency exchange fluctuations apply if billed in USD"
+    "Token Plan and Coding Plan are separate products: Coding Plan (request-metered, Pro $50, 6,000 req/5h + 45,000/week + 90,000/month) is being phased out and is no longer available once sold out",
+    "Credits are deducted with per-model coefficients that Alibaba does not publish; estimates are derived from the official qwen3.6-plus worked example",
+    "Personal tier quotas run on a fixed 7-day window from first use and unused quota expires; calls block when exhausted (no pay-as-you-go)",
+    "Personal plans offer no guarantee against data training and use cross-border (Singapore) processing; Team plans commit to no training on conversation data",
+    "Team seats are bound to one member and one API key and cannot be shared",
+    "Personal Edition is only available in the Singapore region"
   ],
   "tosHighlights": [
-    "Team plans include commercial IP protections and SOC2 compliance",
-    "Personal plans subject to standard cloud terms"
+    "Team plans: conversation data is not used for model training (official commitment)",
+    "Team plans include multi-seat management and usage analytics"
   ],
-  "dataTraining": "No guarantee on personal plans; Team plans shielded",
+  "dataTraining": "Personal: governed by the service agreement with cross-border transfer, no no-training commitment; Team: conversation data not used for model training",
   "ipIndemnity": false,
   "stackingPolicy": "prohibited",
   "stackingPolicyNote": "Token Plan FAQ: \"Can multiple people share one account? No... sharing the same account or API Key among multiple people is not allowed\"; Team seats are bound to one member and one API key."
