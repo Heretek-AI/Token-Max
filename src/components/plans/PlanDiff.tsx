@@ -1,4 +1,5 @@
 import type { CodingPlan } from '../../lib/types';
+import { classifyTraining, trainingBadge, getIndemnityInfo } from '../../lib/tos';
 import { 
   X, 
   Check, 
@@ -6,7 +7,6 @@ import {
   ExternalLink, 
   Layers, 
   ShieldCheck, 
-  ShieldAlert,
   Sparkles,
   Zap
 } from 'lucide-react';
@@ -190,20 +190,16 @@ export function PlanDiff({ plans, comparePlanIds, onRemovePlan, onClearAll }: Pl
             Data Training Policy
           </div>
           {selectedPlans.map(plan => {
-            const lower = plan.dataTraining.toLowerCase();
-            const isSafe = lower.includes('no') || lower.includes('zero') || lower.includes('zdr');
+            const trainingInfo = trainingBadge(classifyTraining(plan).individual);
+            const isSafe = trainingInfo.tone === 'success';
+            const isDanger = trainingInfo.tone === 'danger';
             return (
               <div key={plan.id} className="p-3 border-t border-border m-1">
                 <div className="flex items-center gap-1.5 mb-1">
-                  {isSafe ? (
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-success">
-                      <Check className="w-3.5 h-3.5" /> Excluded from Training
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-warning">
-                      <AlertTriangle className="w-3.5 h-3.5" /> Check Policy / Opt-out
-                    </span>
-                  )}
+                  <span className={`inline-flex items-center gap-1 text-xs font-semibold ${isSafe ? 'text-success' : isDanger ? 'text-danger' : 'text-warning'}`} title={trainingInfo.title}>
+                    {isSafe ? <Check className="w-3.5 h-3.5" /> : <AlertTriangle className="w-3.5 h-3.5" />}
+                    {isSafe ? 'Excluded from Training' : trainingInfo.label}
+                  </span>
                 </div>
                 <p className="text-[11px] text-text-muted leading-relaxed">
                   {plan.dataTraining}
@@ -216,28 +212,21 @@ export function PlanDiff({ plans, comparePlanIds, onRemovePlan, onClearAll }: Pl
           <div className="p-3 font-semibold text-xs text-text border-t border-border flex items-center">
             IP Indemnification
           </div>
-          {selectedPlans.map(plan => (
-            <div key={plan.id} className="p-3 border-t border-border m-1">
-              <div className="flex items-center gap-1.5 mb-1">
-                {plan.ipIndemnity === true ? (
-                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-success">
-                    <ShieldCheck className="w-3.5 h-3.5" /> Full Indemnity
+          {selectedPlans.map(plan => {
+            const indemnity = getIndemnityInfo(plan);
+            return (
+              <div key={plan.id} className="p-3 border-t border-border m-1">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <span className={`inline-flex items-center gap-1 text-xs font-semibold ${indemnity.tone === 'success' ? 'text-success' : indemnity.tone === 'warning' ? 'text-warning' : 'text-text-muted'}`} title={indemnity.description}>
+                    <ShieldCheck className="w-3.5 h-3.5" /> {indemnity.label}
                   </span>
-                ) : typeof plan.ipIndemnity === 'string' && plan.ipIndemnity.toLowerCase().includes('enterprise') ? (
-                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-warning">
-                    <ShieldCheck className="w-3.5 h-3.5" /> Enterprise Only
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center gap-1 text-xs font-medium text-text-muted">
-                    <ShieldAlert className="w-3.5 h-3.5 opacity-60" /> None on Standard
-                  </span>
-                )}
+                </div>
+                <p className="text-[11px] text-text-muted leading-relaxed">
+                  {indemnity.description}
+                </p>
               </div>
-              <p className="text-[11px] text-text-muted leading-relaxed">
-                {typeof plan.ipIndemnity === 'string' ? plan.ipIndemnity : plan.ipIndemnity ? 'Guaranteed legal indemnity against copyright claims.' : 'Developer assumes copyright risk on individual tier.'}
-              </p>
-            </div>
-          ))}
+            );
+          })}
 
           {/* Row: Gotchas */}
           <div className="p-3 font-semibold text-xs text-text border-t border-border flex items-center">

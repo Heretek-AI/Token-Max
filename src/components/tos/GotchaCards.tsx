@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import type { CodingPlan } from '../../lib/types';
+import { classifyGotcha } from '../../lib/tos';
 import { 
   AlertTriangle, 
   Info, 
@@ -34,35 +35,15 @@ export function GotchaCards({ plans }: GotchaCardsProps) {
   const allGotchas: ParsedGotcha[] = useMemo(() => {
     return plans.flatMap(plan => 
       (plan?.gotchas || []).map(gotcha => {
-        const lower = gotcha.toLowerCase();
-        let cat: GotchaCategory = 'limits';
-        let sev: 'critical' | 'warning' | 'advisory' = 'advisory';
-
-        if (lower.includes('train') || lower.includes('data') || lower.includes('privacy') || lower.includes('telemetry') || lower.includes('human review')) {
-          cat = 'data-privacy';
-          sev = 'critical';
-        } else if (lower.includes('ip') || lower.includes('indemnity') || lower.includes('legal') || lower.includes('copyright') || lower.includes('liability')) {
-          cat = 'ip-legal';
-          sev = 'warning';
-        } else if (lower.includes('bill') || lower.includes('fee') || lower.includes('charge') || lower.includes('overage') || lower.includes('refund') || lower.includes('cost') || lower.includes('expire') || lower.includes('rate') || lower.includes('$')) {
-          cat = 'billing';
-          sev = lower.includes('in-arrears') || lower.includes('fee') || lower.includes('expire') ? 'warning' : 'advisory';
-        } else if (lower.includes('ban') || lower.includes('suspend') || lower.includes('tool-only') || lower.includes('unauthorized') || lower.includes('error 1113') || lower.includes('lock-in')) {
-          cat = 'restrictions';
-          sev = 'critical';
-        } else {
-          cat = 'limits';
-          sev = lower.includes('cooldown') || lower.includes('hard limit') || lower.includes('throttle') ? 'warning' : 'advisory';
-        }
-
+        const { category, severity } = classifyGotcha(gotcha);
         return {
           planId: plan.id,
           planName: plan.name,
           planUrl: plan.url,
           planCategory: plan.category,
           text: gotcha,
-          category: cat,
-          severity: sev
+          category,
+          severity
         };
       })
     );

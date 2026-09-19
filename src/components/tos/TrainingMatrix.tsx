@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import type { CodingPlan } from '../../lib/types';
+import { classifyTraining, trainingBadge, getIndemnityInfo, type TrainingStatus, type BadgeInfo } from '../../lib/tos';
 import { 
   CheckCircle2, 
   XCircle, 
@@ -10,11 +11,49 @@ import {
   ChevronDown, 
   ChevronUp, 
   ExternalLink,
-  Shield
+  Shield,
+  Minus
 } from 'lucide-react';
 
 interface TrainingMatrixProps {
   plans: CodingPlan[];
+}
+
+function toneClasses(tone: BadgeInfo['tone']): string {
+  switch (tone) {
+    case 'success': return 'text-success bg-success/10';
+    case 'warning': return 'text-warning bg-warning/10';
+    case 'danger': return 'text-danger bg-danger/10';
+    default: return 'text-text-muted bg-surface-alt';
+  }
+}
+
+function toneIcon(tone: BadgeInfo['tone']) {
+  switch (tone) {
+    case 'success': return <CheckCircle2 className="w-3 h-3" />;
+    case 'warning': return <AlertCircle className="w-3 h-3" />;
+    case 'danger': return <XCircle className="w-3 h-3" />;
+    default: return <Minus className="w-3 h-3" />;
+  }
+}
+
+function StatusBadge({ status }: { status: TrainingStatus }) {
+  const badge = trainingBadge(status);
+  return (
+    <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded ${toneClasses(badge.tone)}`} title={badge.title}>
+      {toneIcon(badge.tone)} {badge.label}
+    </span>
+  );
+}
+
+function IndemnityBadge({ plan }: { plan: CodingPlan }) {
+  const info = getIndemnityInfo(plan);
+  const icon = info.tone === 'success' ? <ShieldCheck className="w-3.5 h-3.5" /> : info.tone === 'warning' ? <Shield className="w-3.5 h-3.5" /> : <ShieldAlert className="w-3.5 h-3.5 opacity-50" />;
+  return (
+    <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-md ${toneClasses(info.tone)}`} title={info.description}>
+      {icon} {info.label}
+    </span>
+  );
 }
 
 export function TrainingMatrix({ plans }: TrainingMatrixProps) {
@@ -31,110 +70,6 @@ export function TrainingMatrix({ plans }: TrainingMatrixProps) {
       return matchesSearch && matchesCategory;
     });
   }, [plans, search, category]);
-
-  // Determine IP indemnity badge
-  const getIpIndemnityBadge = (ip: string | boolean) => {
-    if (ip === true) {
-      return (
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-success bg-success/10 px-2 py-1 rounded-md">
-          <ShieldCheck className="w-3.5 h-3.5" /> Full Indemnity
-        </span>
-      );
-    }
-    if (typeof ip === 'string' && (ip.toLowerCase().includes('enterprise') || ip.toLowerCase().includes('team') || ip.toLowerCase().includes('business'))) {
-      return (
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-warning bg-warning/10 px-2 py-1 rounded-md" title={ip}>
-          <Shield className="w-3.5 h-3.5" /> Enterprise Only
-        </span>
-      );
-    }
-    return (
-      <span className="inline-flex items-center gap-1 text-xs font-medium text-text-muted bg-surface-alt px-2 py-1 rounded-md">
-        <ShieldAlert className="w-3.5 h-3.5 opacity-50" /> None
-      </span>
-    );
-  };
-
-  // Determine Free tier training status
-  const getFreeTierStatus = (plan: CodingPlan) => {
-    const hasFreeTier = plan.tiers.some(t => t.monthlyPrice === 0 || t.name.toLowerCase().includes('free'));
-    if (!hasFreeTier) return <span className="text-text-muted text-xs font-mono">—</span>;
-
-    const lower = plan.dataTraining.toLowerCase();
-    if (lower.includes('zero data retention') || lower.includes('zdr')) {
-      return (
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-success bg-success/10 px-2 py-0.5 rounded">
-          <CheckCircle2 className="w-3 h-3" /> ZDR Safe
-        </span>
-      );
-    }
-    if (lower.includes('yes on free') || lower.includes('public repl') || lower.includes('opt-out required') || lower.includes('standard cloud terms')) {
-      return (
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-danger bg-danger/10 px-2 py-0.5 rounded" title="Free tier inputs used for model training or human review">
-          <XCircle className="w-3 h-3" /> Trains Code
-        </span>
-      );
-    }
-    if (lower.includes('no') || lower.includes('does not train')) {
-      return (
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-success bg-success/10 px-2 py-0.5 rounded">
-          <CheckCircle2 className="w-3 h-3" /> No Training
-        </span>
-      );
-    }
-    return (
-      <span className="inline-flex items-center gap-1 text-xs font-semibold text-warning bg-warning/10 px-2 py-0.5 rounded">
-        <AlertCircle className="w-3 h-3" /> Opt-Out Req.
-      </span>
-    );
-  };
-
-  // Determine Paid Individual tier training status
-  const getIndividualPaidStatus = (plan: CodingPlan) => {
-    const lower = plan.dataTraining.toLowerCase();
-    if (lower.includes('zero data retention') || lower.includes('zdr')) {
-      return (
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-success bg-success/10 px-2 py-0.5 rounded">
-          <CheckCircle2 className="w-3 h-3" /> ZDR Safe
-        </span>
-      );
-    }
-    if (lower.includes('opt-out') || lower.includes('privacy mode') || lower.includes('opt out')) {
-      return (
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-warning bg-warning/10 px-2 py-0.5 rounded" title="Must enable Privacy Mode or uncheck training in settings">
-          <AlertCircle className="w-3 h-3" /> Opt-Out Setting
-        </span>
-      );
-    }
-    if (lower.includes('no') || lower.includes('excluded') || lower.includes('does not train')) {
-      return (
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-success bg-success/10 px-2 py-0.5 rounded">
-          <CheckCircle2 className="w-3 h-3" /> No Training
-        </span>
-      );
-    }
-    if (lower.includes('yes')) {
-      return (
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-danger bg-danger/10 px-2 py-0.5 rounded">
-          <XCircle className="w-3 h-3" /> Trains Code
-        </span>
-      );
-    }
-    return (
-      <span className="inline-flex items-center gap-1 text-xs font-semibold text-success bg-success/10 px-2 py-0.5 rounded">
-        <CheckCircle2 className="w-3 h-3" /> Shielded
-      </span>
-    );
-  };
-
-  // Determine Business / Enterprise tier status
-  const getEnterpriseStatus = () => {
-    return (
-      <span className="inline-flex items-center gap-1 text-xs font-semibold text-success bg-success/10 px-2 py-0.5 rounded">
-        <CheckCircle2 className="w-3 h-3" /> Zero Training
-      </span>
-    );
-  };
 
   return (
     <div className="space-y-4 mb-12">
@@ -212,19 +147,21 @@ export function TrainingMatrix({ plans }: TrainingMatrixProps) {
                     </td>
 
                     <td className="px-4 py-4 text-center">
-                      {getFreeTierStatus(plan)}
+                      {plan.tiers.some(t => t.monthlyPrice === 0 || t.name.toLowerCase().includes('free'))
+                        ? <StatusBadge status={classifyTraining(plan).free} />
+                        : <span className="text-text-muted text-xs font-mono">—</span>}
                     </td>
 
                     <td className="px-4 py-4 text-center">
-                      {getIndividualPaidStatus(plan)}
+                      {<StatusBadge status={classifyTraining(plan).individual} />}
                     </td>
 
                     <td className="px-4 py-4 text-center">
-                      {getEnterpriseStatus()}
+                      {<StatusBadge status={classifyTraining(plan).enterprise} />}
                     </td>
 
                     <td className="px-4 py-4 text-center">
-                      {getIpIndemnityBadge(plan.ipIndemnity)}
+                      {<IndemnityBadge plan={plan} />}
                     </td>
 
                     <td className="px-3 py-4 text-right">
@@ -287,9 +224,27 @@ export function TrainingMatrix({ plans }: TrainingMatrixProps) {
               <div className="bg-surface p-3 rounded-lg border border-border">
                 <span className="font-semibold text-text block mb-1">IP Indemnification Terms:</span>
                 <p className="text-text-muted leading-relaxed">
-                  {typeof p.ipIndemnity === 'string' ? p.ipIndemnity : (p.ipIndemnity ? 'Full legal IP indemnification covered for copyright infringement on generated code.' : 'No intellectual property indemnification provided on standard or individual subscription tiers.')}
+                  {getIndemnityInfo(p).description}
                 </p>
               </div>
+            </div>
+            {p.tosHighlights && p.tosHighlights.length > 0 && (
+              <div className="mt-3 bg-surface p-3 rounded-lg border border-border text-xs">
+                <span className="font-semibold text-text block mb-1">TOS highlights:</span>
+                <ul className="list-disc pl-4 space-y-1 text-text-muted leading-relaxed">
+                  {p.tosHighlights.map((h, i) => <li key={i}>{h}</li>)}
+                </ul>
+              </div>
+            )}
+            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-text-muted">
+              <span>Last verified: <strong className="text-text">{p.lastVerified}</strong></span>
+              <span>
+                Multi-account stacking:{' '}
+                <strong className={p.stackingPolicy === 'prohibited' ? 'text-danger' : p.stackingPolicy === 'unknown' ? 'text-warning' : 'text-text'}>
+                  {p.stackingPolicy ?? 'unknown'}
+                </strong>
+              </span>
+              {p.stackingPolicyNote && <span className="basis-full">{p.stackingPolicyNote}</span>}
             </div>
           </div>
         );

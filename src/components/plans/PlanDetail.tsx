@@ -1,12 +1,18 @@
 import type { CodingPlan } from '../../lib/types';
 import { formatMillionTokens } from '../../lib/pricing';
-import { AlertTriangle, Check, X, ExternalLink, ShieldCheck, Sparkles } from 'lucide-react';
+import { classifyTraining, trainingBadge, getIndemnityInfo } from '../../lib/tos';
+import { AlertTriangle, Check, X, ExternalLink, ShieldCheck, ShieldAlert, Sparkles } from 'lucide-react';
 
 interface PlanDetailProps {
   plan: CodingPlan;
 }
 
 export function PlanDetail({ plan }: PlanDetailProps) {
+  const trainingInfo = trainingBadge(classifyTraining(plan).individual);
+  const indemnityInfo = getIndemnityInfo(plan);
+  const trainingTone = trainingInfo.tone === 'success' ? 'text-success' : trainingInfo.tone === 'danger' ? 'text-danger' : trainingInfo.tone === 'warning' ? 'text-warning' : 'text-text-muted';
+  const indemnityTone = indemnityInfo.tone === 'success' ? 'text-success' : indemnityInfo.tone === 'warning' ? 'text-warning' : 'text-text-muted';
+
   return (
     <div className="grim-card grim-card-glow rounded-2xl shadow-sm p-6 mt-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
       {/* Header */}
@@ -57,15 +63,10 @@ export function PlanDetail({ plan }: PlanDetailProps) {
           <div className="bg-surface-alt/50 p-3.5 rounded-xl border border-border">
             <div className="text-xs font-bold text-text mb-1 flex items-center justify-between">
               <span>Data Training Policy</span>
-              {plan.dataTraining.toLowerCase().includes('no') || plan.dataTraining.toLowerCase().includes('opt-out') ? (
-                <span className="flex items-center gap-1 text-success text-[11px] font-semibold">
-                  <Check className="w-3.5 h-3.5" /> Shielded / Opt-out
-                </span>
-              ) : (
-                <span className="flex items-center gap-1 text-danger text-[11px] font-semibold">
-                  <X className="w-3.5 h-3.5" /> Trains on code
-                </span>
-              )}
+              <span className={`flex items-center gap-1 text-[11px] font-semibold ${trainingTone}`} title={trainingInfo.title}>
+                {trainingInfo.tone === 'danger' ? <X className="w-3.5 h-3.5" /> : trainingInfo.tone === 'muted' ? <ShieldAlert className="w-3.5 h-3.5" /> : <Check className="w-3.5 h-3.5" />}
+                {trainingInfo.label}
+              </span>
             </div>
             <p className="text-xs text-text-muted leading-relaxed">
               {plan.dataTraining}
@@ -75,18 +76,12 @@ export function PlanDetail({ plan }: PlanDetailProps) {
           <div className="bg-surface-alt/50 p-3.5 rounded-xl border border-border">
             <div className="text-xs font-bold text-text mb-1 flex items-center justify-between">
               <span>Intellectual Property Indemnity</span>
-              {plan.ipIndemnity ? (
-                <span className="flex items-center gap-1 text-success text-[11px] font-semibold">
-                  <ShieldCheck className="w-3.5 h-3.5" /> Protected
-                </span>
-              ) : (
-                <span className="flex items-center gap-1 text-text-muted text-[11px] font-medium">
-                  None on standard
-                </span>
-              )}
+              <span className={`flex items-center gap-1 text-[11px] font-semibold ${indemnityTone}`} title={indemnityInfo.description}>
+                <ShieldCheck className="w-3.5 h-3.5" /> {indemnityInfo.label}
+              </span>
             </div>
             <p className="text-xs text-text-muted leading-relaxed">
-              {typeof plan.ipIndemnity === 'string' ? plan.ipIndemnity : (plan.ipIndemnity ? 'IP Indemnity guaranteed by provider.' : 'No standard IP indemnification on individual plans.')}
+              {indemnityInfo.description}
             </p>
           </div>
         </div>
