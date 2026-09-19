@@ -80,7 +80,6 @@ function classifyText(text: string): TrainingStatus {
  * dataTraining/gotchas/tosHighlights text and upstream sources.
  */
 const TRAINING_OVERRIDES: Record<string, TrainingClassification> = {
-  alibaba: { free: 'unknown', individual: 'unknown', enterprise: 'no-training' },
   'alibaba-cloud': { free: 'unknown', individual: 'unknown', enterprise: 'no-training' },
   'meta-model-api': { free: 'unknown', individual: 'trains', enterprise: 'no-training' },
   'meta-muse-code': { free: 'unknown', individual: 'trains', enterprise: 'no-training' },
