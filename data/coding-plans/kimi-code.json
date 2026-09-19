@@ -14,7 +14,6 @@
       },
       "models": [
         "Kimi K3",
-        "K3-256k",
         "K2.7 Code"
       ],
       "estimatedTokenBudget": {
@@ -33,7 +32,6 @@
       },
       "models": [
         "Kimi K3",
-        "K3 HighSpeed",
         "K2.7 Code"
       ],
       "estimatedTokenBudget": {
@@ -52,7 +50,6 @@
       },
       "models": [
         "Kimi K3",
-        "K3 HighSpeed",
         "K2.7 Code"
       ],
       "estimatedTokenBudget": {
@@ -71,7 +68,6 @@
       },
       "models": [
         "Kimi K3",
-        "K3 HighSpeed",
         "K2.7 Code"
       ],
       "estimatedTokenBudget": {

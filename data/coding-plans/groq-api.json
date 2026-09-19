@@ -15,7 +15,8 @@
       },
       "models": [
         "Llama 3.3 70B",
-        "Mixtral 8x7B"
+        "GPT-OSS-120B",
+        "Kimi K3"
       ],
       "estimatedTokenBudget": {
         "description": "Free rate caps (~2M tokens/mo)",

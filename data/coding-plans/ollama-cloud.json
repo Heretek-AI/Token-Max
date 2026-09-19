@@ -35,7 +35,7 @@
       },
       "models": [
         "DeepSeek V4.1 Flash",
-        "Llama 4 Code 70B",
+        "Llama 4 Maverick",
         "Qwen 3.8 Max"
       ],
       "estimatedTokenBudget": {

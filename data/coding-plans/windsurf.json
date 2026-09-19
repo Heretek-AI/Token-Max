@@ -38,7 +38,7 @@
         "SWE-2",
         "Claude Sonnet 5",
         "Claude Haiku 4.5",
-        "GPT-5.2 Mini",
+        "GPT-5.2",
         "Kimi K2.5"
       ],
       "estimatedTokenBudget": {
@@ -60,7 +60,7 @@
         "SWE-2",
         "Claude Sonnet 5",
         "Claude Haiku 4.5",
-        "GPT-5.2 Mini",
+        "GPT-5.2",
         "Kimi K2.5"
       ],
       "estimatedTokenBudget": {
@@ -82,7 +82,7 @@
         "SWE-2",
         "Claude Sonnet 5",
         "Claude Haiku 4.5",
-        "GPT-5.2 Mini",
+        "GPT-5.2",
         "Kimi K2.5"
       ],
       "estimatedTokenBudget": {

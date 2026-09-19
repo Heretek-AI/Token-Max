@@ -14,7 +14,7 @@
         "price": "$1.25/M input, $4.25/M output"
       },
       "models": [
-        "Llama 4 Code 70B",
+        "Llama 4 Maverick",
         "Llama 4 Scout",
         "Muse Spark 1.3"
       ],
@@ -34,7 +34,7 @@
         "price": "$0.10/M input, $0.20/M output (92% discount)"
       },
       "models": [
-        "Llama 4 Code 70B",
+        "Llama 4 Maverick",
         "Llama 4 Scout"
       ],
       "estimatedTokenBudget": {

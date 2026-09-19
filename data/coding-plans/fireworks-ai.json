@@ -32,9 +32,9 @@
         "latency": "Sub-100ms TTFT"
       },
       "models": [
-        "Llama 3.3 70B",
-        "DeepSeek V3",
-        "FireFunction v2"
+        "Llama 4 Maverick",
+        "DeepSeek V4",
+        "Kimi K3"
       ],
       "estimatedTokenBudget": {
         "description": "Serverless PAYG ($20 buys ~35M tokens)",

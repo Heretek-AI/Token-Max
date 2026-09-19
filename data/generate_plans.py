@@ -611,7 +611,7 @@ write_json(
                     "concurrency": "3 sessions",
                     "rateLimit": "300 RPM",
                 },
-                "models": ["Muse Spark 1.3", "Llama 4 Scout", "Llama 4 Code 70B"],
+                "models": ["Muse Spark 1.3", "Llama 4 Scout", "Llama 4 Maverick"],
                 "estimatedTokenBudget": {
                     "description": "Standard developer tier (~20M tokens/mo)",
                     "estimatedMillionTokens": 20,
@@ -627,7 +627,7 @@ write_json(
                     "concurrency": "10 sessions",
                     "rateLimit": "3,000 RPM",
                 },
-                "models": ["Muse Spark 1.3", "Llama 4 Code 70B", "Llama 4 Maverick"],
+                "models": ["Muse Spark 1.3", "Llama 4 Maverick"],
                 "estimatedTokenBudget": {
                     "description": "High throughput agentic (~80M tokens/mo)",
                     "estimatedMillionTokens": 80,
@@ -890,7 +890,7 @@ write_json(
                     "quota": "Weekly-refreshed usage quota (~300 requests / 5h windows)",
                     "models": "Kimi K3 incl. K3-256k",
                 },
-                "models": ["Kimi K3", "K3-256k", "K2.7 Code"],
+                "models": ["Kimi K3", "K2.7 Code"],
                 "estimatedTokenBudget": {
                     "description": "Weekly-refreshed quota (~60M tokens/mo)",
                     "estimatedMillionTokens": 60,
@@ -905,7 +905,7 @@ write_json(
                     "quota": "Higher weekly limits + higher concurrency",
                     "speed": "K3 HighSpeed (5-6x speed, ~3x credit burn); 1M-context K3",
                 },
-                "models": ["Kimi K3", "K3 HighSpeed", "K2.7 Code"],
+                "models": ["Kimi K3", "K2.7 Code"],
                 "estimatedTokenBudget": {
                     "description": "Higher weekly quota (~150M tokens/mo)",
                     "estimatedMillionTokens": 150,
@@ -917,7 +917,7 @@ write_json(
                 "name": "Allegro",
                 "monthlyPrice": 99,
                 "limits": {"quota": "Expansive quota (~600-800 req/5h)", "concurrency": "Higher caps"},
-                "models": ["Kimi K3", "K3 HighSpeed", "K2.7 Code"],
+                "models": ["Kimi K3", "K2.7 Code"],
                 "estimatedTokenBudget": {
                     "description": "Expansive quota (~400M tokens/mo)",
                     "estimatedMillionTokens": 400,
@@ -929,7 +929,7 @@ write_json(
                 "name": "Vivace",
                 "monthlyPrice": 199,
                 "limits": {"quota": "Highest weekly quotas (~1,200 req/5h)", "concurrency": "Max caps"},
-                "models": ["Kimi K3", "K3 HighSpeed", "K2.7 Code"],
+                "models": ["Kimi K3", "K2.7 Code"],
                 "estimatedTokenBudget": {
                     "description": "Highest quota (~800M tokens/mo)",
                     "estimatedMillionTokens": 800,
@@ -984,7 +984,7 @@ write_json(
                     "overage": "Extra usage purchased at API pricing",
                     "concurrency": "Up to 10 concurrent sessions",
                 },
-                "models": ["SWE-2", "Claude Sonnet 5", "Claude Haiku 4.5", "GPT-5.2 Mini", "Kimi K2.5"],
+                "models": ["SWE-2", "Claude Sonnet 5", "Claude Haiku 4.5", "GPT-5.2", "Kimi K2.5"],
                 "estimatedTokenBudget": {
                     "description": "Pro daily+weekly quota (~45M tokens/mo)",
                     "estimatedMillionTokens": 45,
@@ -1000,7 +1000,7 @@ write_json(
                     "overage": "Extra usage at API pricing",
                     "concurrency": "Unlimited concurrent sessions",
                 },
-                "models": ["SWE-2", "Claude Sonnet 5", "Claude Haiku 4.5", "GPT-5.2 Mini", "Kimi K2.5"],
+                "models": ["SWE-2", "Claude Sonnet 5", "Claude Haiku 4.5", "GPT-5.2", "Kimi K2.5"],
                 "estimatedTokenBudget": {
                     "description": "Max daily+weekly quota (~225M tokens/mo)",
                     "estimatedMillionTokens": 225,
@@ -1016,7 +1016,7 @@ write_json(
                     "billing": "$80/mo team base + $40/mo per full user seat",
                     "concurrency": "Unlimited concurrent sessions",
                 },
-                "models": ["SWE-2", "Claude Sonnet 5", "Claude Haiku 4.5", "GPT-5.2 Mini", "Kimi K2.5"],
+                "models": ["SWE-2", "Claude Sonnet 5", "Claude Haiku 4.5", "GPT-5.2", "Kimi K2.5"],
                 "estimatedTokenBudget": {
                     "description": "Pro-level quota per full user seat (~45M tokens/mo/seat)",
                     "estimatedMillionTokens": 45,
@@ -1910,7 +1910,7 @@ write_json(
                     "TPM": "1,000,000 tokens/min",
                     "RPD": "1,500 requests/day",
                 },
-                "models": ["Gemini 3.8 Flash", "Gemini 3.8 Pro"],
+                "models": ["Gemini 3.8 Flash", "Gemini 3.1 Pro"],
                 "estimatedTokenBudget": {
                     "description": "1,500 requests/day (~15M tokens/mo)",
                     "estimatedMillionTokens": 15,
@@ -1926,7 +1926,7 @@ write_json(
                     "RPM": "1,000 requests/min",
                     "TPM": "4,000,000 tokens/min",
                 },
-                "models": ["Gemini 3.8 Flash", "Gemini 3.8 Pro"],
+                "models": ["Gemini 3.8 Flash", "Gemini 3.1 Pro"],
                 "estimatedTokenBudget": {
                     "description": "PAYG up to $250/mo limit (~100M tokens @ $100)",
                     "estimatedMillionTokens": 100,
@@ -1942,7 +1942,7 @@ write_json(
                     "RPM": "2,000 requests/min",
                     "TPM": "8,000,000 tokens/min",
                 },
-                "models": ["Gemini 3.8 Flash", "Gemini 3.8 Pro"],
+                "models": ["Gemini 3.8 Flash", "Gemini 3.1 Pro"],
                 "estimatedTokenBudget": {
                     "description": "PAYG up to $2,000/mo limit (~500M tokens)",
                     "estimatedMillionTokens": 500,
@@ -1958,7 +1958,7 @@ write_json(
                     "RPM": "5,000+ requests/min",
                     "TPM": "20,000,000+ tokens/min",
                 },
-                "models": ["Gemini 3.8 Flash", "Gemini 3.8 Pro"],
+                "models": ["Gemini 3.8 Flash", "Gemini 3.1 Pro"],
                 "estimatedTokenBudget": {
                     "description": "Enterprise scale PAYG (~2B tokens)",
                     "estimatedMillionTokens": 2000,
@@ -2040,7 +2040,7 @@ write_json(
                     "TPM": "14,400 tokens/min",
                     "RPD": "14,400 requests/day",
                 },
-                "models": ["Llama 3.3 70B", "Mixtral 8x7B"],
+                "models": ["Llama 3.3 70B", "GPT-OSS-120B", "Kimi K3"],
                 "estimatedTokenBudget": {
                     "description": "Free rate caps (~2M tokens/mo)",
                     "estimatedMillionTokens": 2,
@@ -2206,7 +2206,7 @@ write_json(
                     "batchDiscount": "50% off Batch API",
                     "latency": "Sub-100ms TTFT",
                 },
-                "models": ["Llama 3.3 70B", "DeepSeek V3", "FireFunction v2"],
+                "models": ["Llama 4 Maverick", "DeepSeek V4", "Kimi K3"],
                 "estimatedTokenBudget": {
                     "description": "Serverless PAYG ($20 buys ~35M tokens)",
                     "estimatedMillionTokens": 35,
@@ -2247,7 +2247,7 @@ write_json(
                     "TPM": "500,000 tokens/min",
                     "price": "$1.25/M input, $4.25/M output",
                 },
-                "models": ["Llama 4 Code 70B", "Llama 4 Scout", "Muse Spark 1.3"],
+                "models": ["Llama 4 Maverick", "Llama 4 Scout", "Muse Spark 1.3"],
                 "estimatedTokenBudget": {
                     "description": "Standard PAYG ($20 buys ~10M tokens)",
                     "estimatedMillionTokens": 10,
@@ -2263,7 +2263,7 @@ write_json(
                     "TPM": "30,000 tokens/min",
                     "price": "$0.10/M input, $0.20/M output (92% discount)",
                 },
-                "models": ["Llama 4 Code 70B", "Llama 4 Scout"],
+                "models": ["Llama 4 Maverick", "Llama 4 Scout"],
                 "estimatedTokenBudget": {
                     "description": "Contributor PAYG ($20 buys ~150M tokens)",
                     "estimatedMillionTokens": 150,
@@ -2320,7 +2320,7 @@ write_json(
                     "concurrency": "3 concurrent streams",
                     "peakSurcharge": "12:00-18:00 UTC peak rates",
                 },
-                "models": ["DeepSeek V4.1 Flash", "Llama 4 Code 70B", "Qwen 3.8 Max"],
+                "models": ["DeepSeek V4.1 Flash", "Llama 4 Maverick", "Qwen 3.8 Max"],
                 "estimatedTokenBudget": {
                     "description": "$60 compute credits (~60M tokens/mo)",
                     "estimatedMillionTokens": 60,

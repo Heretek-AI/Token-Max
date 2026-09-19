@@ -789,9 +789,9 @@
           "latency": "Sub-100ms TTFT"
         },
         "models": [
-          "Llama 3.3 70B",
-          "DeepSeek V3",
-          "FireFunction v2"
+          "Llama 4 Maverick",
+          "DeepSeek V4",
+          "Kimi K3"
         ],
         "estimatedTokenBudget": {
           "description": "Serverless PAYG ($20 buys ~35M tokens)",
@@ -974,7 +974,7 @@
         },
         "models": [
           "Gemini 3.8 Flash",
-          "Gemini 3.8 Pro"
+          "Gemini 3.1 Pro"
         ],
         "estimatedTokenBudget": {
           "description": "1,500 requests/day (~15M tokens/mo)",
@@ -993,7 +993,7 @@
         },
         "models": [
           "Gemini 3.8 Flash",
-          "Gemini 3.8 Pro"
+          "Gemini 3.1 Pro"
         ],
         "estimatedTokenBudget": {
           "description": "PAYG up to $250/mo limit (~100M tokens @ $100)",
@@ -1012,7 +1012,7 @@
         },
         "models": [
           "Gemini 3.8 Flash",
-          "Gemini 3.8 Pro"
+          "Gemini 3.1 Pro"
         ],
         "estimatedTokenBudget": {
           "description": "PAYG up to $2,000/mo limit (~500M tokens)",
@@ -1031,7 +1031,7 @@
         },
         "models": [
           "Gemini 3.8 Flash",
-          "Gemini 3.8 Pro"
+          "Gemini 3.1 Pro"
         ],
         "estimatedTokenBudget": {
           "description": "Enterprise scale PAYG (~2B tokens)",
@@ -1192,7 +1192,8 @@
         },
         "models": [
           "Llama 3.3 70B",
-          "Mixtral 8x7B"
+          "GPT-OSS-120B",
+          "Kimi K3"
         ],
         "estimatedTokenBudget": {
           "description": "Free rate caps (~2M tokens/mo)",
@@ -1319,7 +1320,6 @@
         },
         "models": [
           "Kimi K3",
-          "K3-256k",
           "K2.7 Code"
         ],
         "estimatedTokenBudget": {
@@ -1338,7 +1338,6 @@
         },
         "models": [
           "Kimi K3",
-          "K3 HighSpeed",
           "K2.7 Code"
         ],
         "estimatedTokenBudget": {
@@ -1357,7 +1356,6 @@
         },
         "models": [
           "Kimi K3",
-          "K3 HighSpeed",
           "K2.7 Code"
         ],
         "estimatedTokenBudget": {
@@ -1376,7 +1374,6 @@
         },
         "models": [
           "Kimi K3",
-          "K3 HighSpeed",
           "K2.7 Code"
         ],
         "estimatedTokenBudget": {
@@ -1608,7 +1605,7 @@
           "price": "$1.25/M input, $4.25/M output"
         },
         "models": [
-          "Llama 4 Code 70B",
+          "Llama 4 Maverick",
           "Llama 4 Scout",
           "Muse Spark 1.3"
         ],
@@ -1628,7 +1625,7 @@
           "price": "$0.10/M input, $0.20/M output (92% discount)"
         },
         "models": [
-          "Llama 4 Code 70B",
+          "Llama 4 Maverick",
           "Llama 4 Scout"
         ],
         "estimatedTokenBudget": {
@@ -1687,7 +1684,7 @@
         "models": [
           "Muse Spark 1.3",
           "Llama 4 Scout",
-          "Llama 4 Code 70B"
+          "Llama 4 Maverick"
         ],
         "estimatedTokenBudget": {
           "description": "Standard developer tier (~20M tokens/mo)",
@@ -1706,7 +1703,6 @@
         },
         "models": [
           "Muse Spark 1.3",
-          "Llama 4 Code 70B",
           "Llama 4 Maverick"
         ],
         "estimatedTokenBudget": {
@@ -1895,7 +1891,7 @@
         },
         "models": [
           "DeepSeek V4.1 Flash",
-          "Llama 4 Code 70B",
+          "Llama 4 Maverick",
           "Qwen 3.8 Max"
         ],
         "estimatedTokenBudget": {
@@ -2485,7 +2481,7 @@
           "SWE-2",
           "Claude Sonnet 5",
           "Claude Haiku 4.5",
-          "GPT-5.2 Mini",
+          "GPT-5.2",
           "Kimi K2.5"
         ],
         "estimatedTokenBudget": {
@@ -2507,7 +2503,7 @@
           "SWE-2",
           "Claude Sonnet 5",
           "Claude Haiku 4.5",
-          "GPT-5.2 Mini",
+          "GPT-5.2",
           "Kimi K2.5"
         ],
         "estimatedTokenBudget": {
@@ -2529,7 +2525,7 @@
           "SWE-2",
           "Claude Sonnet 5",
           "Claude Haiku 4.5",
-          "GPT-5.2 Mini",
+          "GPT-5.2",
           "Kimi K2.5"
         ],
         "estimatedTokenBudget": {
