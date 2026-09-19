@@ -11,6 +11,7 @@ import BurstSimulator from './pages/BurstSimulator';
 import ConfigExporter from './pages/ConfigExporter';
 import ReasoningExploder from './pages/ReasoningExploder';
 import TeamEconomics from './pages/TeamEconomics';
+import SessionReceipt from './pages/SessionReceipt';
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
               <Route path="/exporter" element={<ConfigExporter />} />
               <Route path="/reasoning" element={<ReasoningExploder />} />
               <Route path="/teams" element={<TeamEconomics />} />
+              <Route path="/receipt" element={<SessionReceipt />} />
               <Route path="/models" element={<ModelsExplorer />} />
               <Route path="/plans" element={<PlansCompare />} />
               <Route path="/benchmarks" element={<BenchmarksPage />} />
