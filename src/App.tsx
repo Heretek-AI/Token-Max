@@ -1,18 +1,22 @@
+import { lazy, Suspense } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
-import Dashboard from './pages/Dashboard';
-import ModelsExplorer from './pages/ModelsExplorer';
-import PlansCompare from './pages/PlansCompare';
-import BenchmarksPage from './pages/BenchmarksPage';
-import TosAudit from './pages/TosAudit';
-import MixOptimizer from './pages/MixOptimizer';
-import BurstSimulator from './pages/BurstSimulator';
-import ConfigExporter from './pages/ConfigExporter';
-import ReasoningExploder from './pages/ReasoningExploder';
-import TeamEconomics from './pages/TeamEconomics';
-import SessionReceipt from './pages/SessionReceipt';
-import HardwareBreakeven from './pages/HardwareBreakeven';
+import { LoadingSpinner } from './components/shared/LoadingSpinner';
+
+/* Route-level code splitting: each page is its own chunk (Phase 5). */
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const ModelsExplorer = lazy(() => import('./pages/ModelsExplorer'));
+const PlansCompare = lazy(() => import('./pages/PlansCompare'));
+const BenchmarksPage = lazy(() => import('./pages/BenchmarksPage'));
+const TosAudit = lazy(() => import('./pages/TosAudit'));
+const MixOptimizer = lazy(() => import('./pages/MixOptimizer'));
+const BurstSimulator = lazy(() => import('./pages/BurstSimulator'));
+const ConfigExporter = lazy(() => import('./pages/ConfigExporter'));
+const ReasoningExploder = lazy(() => import('./pages/ReasoningExploder'));
+const TeamEconomics = lazy(() => import('./pages/TeamEconomics'));
+const SessionReceipt = lazy(() => import('./pages/SessionReceipt'));
+const HardwareBreakeven = lazy(() => import('./pages/HardwareBreakeven'));
 
 export default function App() {
   return (
@@ -26,24 +30,30 @@ export default function App() {
         <div className="relative z-10 flex flex-col min-h-screen flex-1">
           <Header />
           <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-6">
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/optimizer" element={<MixOptimizer />} />
-              <Route path="/simulator" element={<BurstSimulator />} />
-              <Route path="/exporter" element={<ConfigExporter />} />
-              <Route path="/reasoning" element={<ReasoningExploder />} />
-              <Route path="/teams" element={<TeamEconomics />} />
-              <Route path="/receipt" element={<SessionReceipt />} />
-              <Route path="/hardware" element={<HardwareBreakeven />} />
-              <Route path="/models" element={<ModelsExplorer />} />
-              <Route path="/plans" element={<PlansCompare />} />
-              <Route path="/benchmarks" element={<BenchmarksPage />} />
-              <Route path="/tos" element={<TosAudit />} />
-            </Routes>
+            <Suspense fallback={<SuspenseFallback />}>
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/optimizer" element={<MixOptimizer />} />
+                <Route path="/simulator" element={<BurstSimulator />} />
+                <Route path="/exporter" element={<ConfigExporter />} />
+                <Route path="/reasoning" element={<ReasoningExploder />} />
+                <Route path="/teams" element={<TeamEconomics />} />
+                <Route path="/receipt" element={<SessionReceipt />} />
+                <Route path="/hardware" element={<HardwareBreakeven />} />
+                <Route path="/models" element={<ModelsExplorer />} />
+                <Route path="/plans" element={<PlansCompare />} />
+                <Route path="/benchmarks" element={<BenchmarksPage />} />
+                <Route path="/tos" element={<TosAudit />} />
+              </Routes>
+            </Suspense>
           </main>
           <Footer />
         </div>
       </div>
     </HashRouter>
   );
+}
+
+export function SuspenseFallback() {
+  return <LoadingSpinner />;
 }

@@ -93,7 +93,7 @@ export function LeaderboardTable({ models }: LeaderboardTableProps) {
     <div className="grim-card grim-card-glow rounded-xl shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
-          <thead className="bg-surface-alt border-b border-border text-text-muted">
+          <thead className="thead-sticky bg-surface-alt border-b border-border text-text-muted">
             <tr>
               <th className="px-4 py-3 font-medium w-12">Rank</th>
               <th className="px-4 py-3 font-medium">Model</th>

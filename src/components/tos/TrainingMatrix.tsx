@@ -118,7 +118,7 @@ export function TrainingMatrix({ plans }: TrainingMatrixProps) {
       <div className="grim-card grim-card-glow rounded-xl shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm border-collapse">
-            <thead className="bg-surface-alt border-b border-border text-text-muted text-xs font-semibold uppercase tracking-wider">
+            <thead className="thead-sticky bg-surface-alt border-b border-border text-text-muted text-xs font-semibold uppercase tracking-wider">
               <tr>
                 <th className="px-5 py-3.5">Provider &amp; Plan</th>
                 <th className="px-4 py-3.5 text-center">Free Tier</th>

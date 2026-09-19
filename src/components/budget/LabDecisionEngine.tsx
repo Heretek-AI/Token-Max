@@ -20,7 +20,8 @@ import {
   XCircle,
   AlertCircle,
   Link2,
-  Check
+  Check,
+  ClipboardCopy
 } from 'lucide-react';
 
 interface LabDecisionEngineProps {
@@ -44,6 +45,7 @@ export function LabDecisionEngine({
   const [showThresholdSlider, setShowThresholdSlider] = useState<boolean>(false);
   const [mode, setMode] = useQueryState<EngineMode>('mode', 'standard');
   const [copied, setCopied] = useState<boolean>(false);
+  const [copiedCsv, setCopiedCsv] = useState<boolean>(false);
   const [showAllOptions, setShowAllOptions] = useState<boolean>(false);
 
   const budgetPresets = [10, 20, 50, 100, 200];
@@ -93,6 +95,26 @@ export function LabDecisionEngine({
     }
   }
 
+  function leaderboardCsv(): string {
+    const cols = ['Service/Model', 'Provider', 'Type', 'Tier (USD/mo)', 'Monthly Tokens (M)', 'Monthly Requests', 'Coding Index', 'Notes'];
+    const rows = options.slice(0, showAllOptions ? 25 : 3).map(o => [
+      o.name, o.provider, o.type === 'subscription' ? 'Subscription' : 'Direct API',
+      String(o.monthlyCost), String(Math.round(o.monthlyTokens)), String(o.monthlyRequests),
+      o.codingIndex === null ? '' : o.codingIndex.toFixed(1), (o.notes ?? '').replace(/"/g, "'"),
+    ]);
+    return [cols, ...rows].map(r => r.map(c => (c.includes(',') ? `"${c}"` : c)).join(',')).join('\n');
+  }
+
+  async function copyCsv() {
+    try {
+      await navigator.clipboard.writeText(leaderboardCsv());
+      setCopiedCsv(true);
+      window.setTimeout(() => setCopiedCsv(false), 2000);
+    } catch {
+      /* clipboard unavailable */
+    }
+  }
+
   return (
     <div className="space-y-6">
       {/* 1. Header Controls: Lab Tabs */}
@@ -120,6 +142,16 @@ export function LabDecisionEngine({
             >
               {copied ? <Check className="w-3.5 h-3.5" /> : <Link2 className="w-3.5 h-3.5" />}
               {copied ? 'Link Copied' : 'Copy Link'}
+            </button>
+            <button
+              onClick={copyCsv}
+              title="Copy the visible ranking as CSV rows"
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-semibold border transition-colors ${
+                copiedCsv ? 'bg-success/15 text-success border-success/30' : 'bg-surface-alt text-text-muted border-border hover:text-primary hover:border-primary/40'
+              }`}
+            >
+              {copiedCsv ? <Check className="w-3.5 h-3.5" /> : <ClipboardCopy className="w-3.5 h-3.5" />}
+              {copiedCsv ? 'CSV Copied' : 'Copy CSV'}
             </button>
             {/* Prompt Cache Toggle */}
             <div className="flex items-center gap-1 bg-surface-alt p-1 rounded-xl border border-border text-xs">
@@ -752,7 +784,7 @@ export function LabDecisionEngine({
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="bg-surface-alt/75 border-b border-border text-text-muted text-xs">
+            <thead className="thead-sticky bg-surface-alt/75 border-b border-border text-text-muted text-xs">
               <tr>
                 <th className="px-4 py-3 font-semibold w-12 text-center">Rank</th>
                 <th className="px-4 py-3 font-semibold">Service / Model</th>

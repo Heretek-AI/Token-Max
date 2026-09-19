@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Sliders, Zap, FileCode, Brain, Building2, ReceiptText,
-  Cpu, Database, CreditCard, BarChart2, ShieldAlert, Skull,
+  Cpu, Database, CreditCard, BarChart2, ShieldAlert,
   Menu, X, Calculator, Radar, Wrench,
 } from 'lucide-react';
+import { ThemeToggle } from '../shared/ThemeToggle';
+import { DataFreshness } from '../shared/DataFreshness';
 
 /** Navigation groups — the IA contract. Keep labels short; icons from lucide. */
 const NAV_GROUPS: {
@@ -140,14 +142,11 @@ export function Header() {
           ))}
         </nav>
 
-        <div
-          className="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-md border border-steel-700/60 bg-void-950/60 shrink-0"
-          title="No warp sorcery detected — data verified"
-        >
-          <Skull className="w-4 h-4 text-blood-500 animate-flicker" />
-          <span className="text-[11px] font-display uppercase tracking-widest text-steel-300">
-            Machine Spirit Stable
-          </span>
+        <div className="flex items-center gap-2 shrink-0">
+          <div className="hidden lg:flex items-center">
+            <DataFreshness />
+          </div>
+          <ThemeToggle />
         </div>
 
         {/* Mobile: hamburger */}

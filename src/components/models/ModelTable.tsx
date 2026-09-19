@@ -93,7 +93,7 @@ export function ModelTable({ models }: ModelTableProps) {
     <div className="grim-card grim-card-glow rounded-xl shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
-          <thead className="bg-surface-alt border-b border-border text-text-muted">
+          <thead className="thead-sticky bg-surface-alt border-b border-border text-text-muted">
             <tr>
               <TableHeader label="Name" sortKey="name" sortConfig={sortConfig} onSort={requestSort} />
               <TableHeader label="Provider" sortKey="provider" sortConfig={sortConfig} onSort={requestSort} />
