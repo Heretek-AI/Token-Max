@@ -64,9 +64,9 @@ The UI is themed around the **Heretek Blood & Steel** design system — grimdark
 
 | Category | Platforms Included |
 | :--- | :--- |
-| **Coding IDEs & Agents** | Cursor • GitHub Copilot • Claude Code • OpenAI Codex • Google Antigravity/Jules • Meta Muse Code • Kiro (AWS) • Kilo AI • Lovable • Kimi Code • Windsurf (Devin) • Augment Code • Replit • Amazon Q Developer • Tabnine • Aider |
-| **Routers & Coding Plans** | CommandCode • OpenCode • OpenRouter • BytePlus ModelArk • Alibaba Cloud AI Token Plan • MiniMax • Z.ai (GLM DevPack) |
-| **Direct APIs (Pay-Per-Token)** | OpenAI API • Anthropic Claude API • Google AI Studio • DeepSeek API • Groq • Mistral API • Together.ai • Fireworks.ai • Meta Model API • Ollama Cloud |
+| **Coding IDEs & Agents (14)** | Cursor • GitHub Copilot • Claude Code • OpenAI Codex • Google Antigravity • Meta Muse Code • Kiro (AWS) • Lovable • Windsurf • Augment Code • Replit • Amazon Q Developer • Tabnine • Aider |
+| **Routers & Coding Plans (5)** | CommandCode • Kilo Code • OpenCode • OpenRouter • Kimi Code |
+| **Direct APIs & Cloud Token Plans (14)** | Z.ai GLM Coding Plan • BytePlus ModelArk • Alibaba Cloud Token Plan • MiniMax • OpenAI API • Anthropic API • Google AI Studio • DeepSeek API • Groq • Mistral API • Together.ai • Fireworks.ai • Meta Model API • Ollama Cloud |
 
 ---
 

@@ -33,7 +33,9 @@
       "monthlyPrice": 15,
       "limits": {
         "seats": "$15/user/mo collaboration platform",
-        "inference": "Billed at provider rates; EU inference available"
+        "inference": "Billed at provider rates; EU inference available",
+        "markup": "Inference passed through at provider rates with no markup; credit top-ups carry a 5% fee",
+        "kiloPass": "Kilo Pass Starter $19 / Pro $49 / Expert $199; up to 50% bonus credits (annual: 50% every month)"
       },
       "models": [
         "Kilo Gateway (500+ models)"
@@ -84,7 +86,8 @@
     "Cloud agents billed per second (Gas Town $1.20/hr, Code Review $0.33/hr, Cloud Agent $0.60-1.20/hr)"
   ],
   "tosHighlights": [],
-  "dataTraining": "Not published on pricing page",
+  "dataTraining": "No training on your code (official)",
   "ipIndemnity": false,
-  "stackingPolicy": "unknown"
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "Per-seat Teams licensing; terms ban credential sharing but no multiple-account clause was found."
 }

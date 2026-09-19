@@ -10,25 +10,29 @@
       "monthlyPrice": 10,
       "limits": {
         "usage": "3x the usage of the Claude Pro plan",
+        "requests": "≈1,900 requests/5h, 12,000/week, 24,000/month (official docs; older FAQ quoted 1,200/9,000/18,000)",
         "tools": "Claude Code, Cursor, Cline, Kilo Code, Roo Code, OpenCode"
       },
       "models": [
-        "Dola-Seed-2.0-pro",
-        "Dola-Seed-2.0-lite",
-        "GLM-5.2",
-        "DeepSeek-V4",
+        "Dola-Seed-2.0-Pro",
+        "Dola-Seed-2.0-Lite",
+        "GLM-5.3-Flash",
+        "Dola-Seed-2.0-Code",
+        "DeepSeek-V4-Flash",
         "Kimi K2.5",
-        "gpt-oss"
+        "GPT-OSS-120b"
       ],
       "estimatedTokenBudget": {
         "description": "3x Claude Pro usage (~36M tokens/mo, anchored to our Claude Pro estimate)",
         "estimatedMillionTokens": 36,
-        "assumptions": "BytePlus markets Lite as 3x the Claude Pro quota; anchored to our own Claude Code Pro conservative estimate (12M) = 36M tokens. Exact credits unpublished",
+        "assumptions": "BytePlus markets Lite as 3x the Claude Pro quota; anchored to our own Claude Code Pro conservative estimate (12M) = 36M tokens. Official docs publish request quotas (≈1,900/5h, 12,000/week, 24,000/month) but no token conversion",
         "estimateMeta": {
-          "sourceUrl": "https://www.byteplus.com/en/activity/arkcodingplan",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://docs.byteplus.com/en/docs/ModelArk/1925114",
+          "sourceQuote": "The Lite plan provides a usable total quota equivalent to 3x that of the Claude Pro plan, while the Pro plan offers 5x the quota of the Lite plan",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "Claude Pro conservative estimate (12M)"
         }
       },
       "notes": "Flexible model selection or Auto mode"
@@ -38,15 +42,16 @@
       "monthlyPrice": 50,
       "limits": {
         "usage": "5x Lite usage (also marketed as 3x Claude Max usage)",
+        "requests": "5x Lite quotas (≈9,500/5h, 60,000/week, 120,000/month)",
         "bonus": "ArkClaw included during subscription"
       },
       "models": [
-        "Dola-Seed-2.0-pro",
-        "Dola-Seed-2.0-lite",
-        "GLM-5.2",
-        "DeepSeek-V4 Series",
+        "Dola-Seed-2.0-Pro",
+        "Dola-Seed-2.0-Lite",
+        "GLM-5.3-Flash",
+        "DeepSeek-V4-Pro",
         "Kimi K2.5",
-        "gpt-oss"
+        "GPT-OSS-120b"
       ],
       "estimatedTokenBudget": {
         "description": "5x Lite (~180M tokens/mo)",
@@ -65,10 +70,12 @@
   "gotchas": [
     "2026 refresh renamed models from Bytedance-Seed naming to Dola-Seed-2.0 pro/lite",
     "Quota is marketed as a multiplier of Claude Pro/Max plans, not absolute credits",
+    "Non-coding use of the plan may be treated as abuse and can lead to subscription deactivation or account suspension",
     "Model availability varies by region"
   ],
   "tosHighlights": [],
-  "dataTraining": "Not published on pricing page",
+  "dataTraining": "No training on Customer Data under BytePlus AI Services terms (except volunteered feedback)",
   "ipIndemnity": false,
-  "stackingPolicy": "unknown"
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "BytePlus AI terms cover data training but contain no multi-account clause; plans are \"primarily intended for individual developers\" and non-coding use may be treated as abuse."
 }

@@ -549,25 +549,29 @@
         "monthlyPrice": 10,
         "limits": {
           "usage": "3x the usage of the Claude Pro plan",
+          "requests": "≈1,900 requests/5h, 12,000/week, 24,000/month (official docs; older FAQ quoted 1,200/9,000/18,000)",
           "tools": "Claude Code, Cursor, Cline, Kilo Code, Roo Code, OpenCode"
         },
         "models": [
-          "Dola-Seed-2.0-pro",
-          "Dola-Seed-2.0-lite",
-          "GLM-5.2",
-          "DeepSeek-V4",
+          "Dola-Seed-2.0-Pro",
+          "Dola-Seed-2.0-Lite",
+          "GLM-5.3-Flash",
+          "Dola-Seed-2.0-Code",
+          "DeepSeek-V4-Flash",
           "Kimi K2.5",
-          "gpt-oss"
+          "GPT-OSS-120b"
         ],
         "estimatedTokenBudget": {
           "description": "3x Claude Pro usage (~36M tokens/mo, anchored to our Claude Pro estimate)",
           "estimatedMillionTokens": 36,
-          "assumptions": "BytePlus markets Lite as 3x the Claude Pro quota; anchored to our own Claude Code Pro conservative estimate (12M) = 36M tokens. Exact credits unpublished",
+          "assumptions": "BytePlus markets Lite as 3x the Claude Pro quota; anchored to our own Claude Code Pro conservative estimate (12M) = 36M tokens. Official docs publish request quotas (≈1,900/5h, 12,000/week, 24,000/month) but no token conversion",
           "estimateMeta": {
-            "sourceUrl": "https://www.byteplus.com/en/activity/arkcodingplan",
-            "sourceType": "research",
-            "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "sourceUrl": "https://docs.byteplus.com/en/docs/ModelArk/1925114",
+            "sourceQuote": "The Lite plan provides a usable total quota equivalent to 3x that of the Claude Pro plan, while the Pro plan offers 5x the quota of the Lite plan",
+            "sourceType": "derived",
+            "confidence": "medium",
+            "verifiedAt": "2026-09-18",
+            "basisModel": "Claude Pro conservative estimate (12M)"
           }
         },
         "notes": "Flexible model selection or Auto mode"
@@ -577,15 +581,16 @@
         "monthlyPrice": 50,
         "limits": {
           "usage": "5x Lite usage (also marketed as 3x Claude Max usage)",
+          "requests": "5x Lite quotas (≈9,500/5h, 60,000/week, 120,000/month)",
           "bonus": "ArkClaw included during subscription"
         },
         "models": [
-          "Dola-Seed-2.0-pro",
-          "Dola-Seed-2.0-lite",
-          "GLM-5.2",
-          "DeepSeek-V4 Series",
+          "Dola-Seed-2.0-Pro",
+          "Dola-Seed-2.0-Lite",
+          "GLM-5.3-Flash",
+          "DeepSeek-V4-Pro",
           "Kimi K2.5",
-          "gpt-oss"
+          "GPT-OSS-120b"
         ],
         "estimatedTokenBudget": {
           "description": "5x Lite (~180M tokens/mo)",
@@ -604,12 +609,14 @@
     "gotchas": [
       "2026 refresh renamed models from Bytedance-Seed naming to Dola-Seed-2.0 pro/lite",
       "Quota is marketed as a multiplier of Claude Pro/Max plans, not absolute credits",
+      "Non-coding use of the plan may be treated as abuse and can lead to subscription deactivation or account suspension",
       "Model availability varies by region"
     ],
     "tosHighlights": [],
-    "dataTraining": "Not published on pricing page",
+    "dataTraining": "No training on Customer Data under BytePlus AI Services terms (except volunteered feedback)",
     "ipIndemnity": false,
-    "stackingPolicy": "unknown"
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "BytePlus AI terms cover data training but contain no multi-account clause; plans are \"primarily intended for individual developers\" and non-coding use may be treated as abuse."
   },
   {
     "id": "claude-code",
@@ -1746,7 +1753,9 @@
         "monthlyPrice": 15,
         "limits": {
           "seats": "$15/user/mo collaboration platform",
-          "inference": "Billed at provider rates; EU inference available"
+          "inference": "Billed at provider rates; EU inference available",
+          "markup": "Inference passed through at provider rates with no markup; credit top-ups carry a 5% fee",
+          "kiloPass": "Kilo Pass Starter $19 / Pro $49 / Expert $199; up to 50% bonus credits (annual: 50% every month)"
         },
         "models": [
           "Kilo Gateway (500+ models)"
@@ -1797,9 +1806,10 @@
       "Cloud agents billed per second (Gas Town $1.20/hr, Code Review $0.33/hr, Cloud Agent $0.60-1.20/hr)"
     ],
     "tosHighlights": [],
-    "dataTraining": "Not published on pricing page",
+    "dataTraining": "No training on your code (official)",
     "ipIndemnity": false,
-    "stackingPolicy": "unknown"
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "Per-seat Teams licensing; terms ban credential sharing but no multiple-account clause was found."
   },
   {
     "id": "kimi-code",
@@ -2172,7 +2182,7 @@
     "id": "meta-model-api",
     "name": "Meta Llama API",
     "category": "api-provider",
-    "url": "https://meta.com",
+    "url": "https://dev.meta.ai/docs/pricing-rate-limits",
     "lastVerified": "2026-09-18",
     "tiers": [
       {
@@ -2181,25 +2191,28 @@
         "limits": {
           "RPM": "3,000 requests/min",
           "TPM": "500,000 tokens/min",
-          "price": "$1.25/M input, $4.25/M output"
+          "price": "$1.25/M input, $4.25/M output (official)"
         },
         "models": [
-          "Llama 4 Maverick",
-          "Llama 4 Scout",
-          "Muse Spark 1.3"
+          "Muse Spark 1.3",
+          "Muse Spark 1.2"
         ],
         "estimatedTokenBudget": {
-          "description": "Standard PAYG ($20 buys ~10M tokens)",
+          "description": "Standard PAYG ($20 buys ~10M list-blend / ~14M cached-agent tokens)",
           "estimatedMillionTokens": 10,
-          "assumptions": "$20 spent @ $2.00/M blended rate",
+          "midpointEstimate": 12,
+          "optimisticEstimate": 14,
+          "assumptions": "$20 at official Standard pricing $1.25/M input, $4.25/M output: 10M on a 3:1 list blend, ~14M on the standard 20K-in/1K-out agent request (no cache price published)",
           "estimateMeta": {
-            "sourceUrl": "https://meta.com",
-            "sourceType": "research",
-            "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "sourceUrl": "https://dev.meta.ai/docs/pricing-rate-limits",
+            "sourceQuote": "Standard: $1.25 per 1M input tokens, $4.25 per 1M output tokens; prompts and completions are not used to train Meta models",
+            "sourceType": "derived",
+            "confidence": "medium",
+            "verifiedAt": "2026-09-18",
+            "basisModel": "Muse Spark 1.3"
           }
         },
-        "notes": "Standard $1.25/$4.25/M. Standard 3000 RPM."
+        "notes": "Standard $1.25/$4.25/M. Hosted Llama tiers were superseded by Muse Spark models."
       },
       {
         "name": "Contributor",
@@ -2213,17 +2226,21 @@
           "Muse Spark 1.2 (contributor)"
         ],
         "estimatedTokenBudget": {
-          "description": "Contributor PAYG ($20 buys ~150M tokens)",
-          "estimatedMillionTokens": 150,
-          "assumptions": "$20 spent @ $0.13/M blended rate with data sharing",
+          "description": "Contributor PAYG ($20 buys ~100M conservative / ~200M optimistic tokens)",
+          "estimatedMillionTokens": 100,
+          "midpointEstimate": 133,
+          "optimisticEstimate": 200,
+          "assumptions": "$20 at official Contributor pricing $0.10-$0.20/M in exchange for training rights: 100M at $0.20, 133M at $0.15, 200M at $0.10",
           "estimateMeta": {
-            "sourceUrl": "https://meta.com",
-            "sourceType": "research",
-            "confidence": "low",
-            "verifiedAt": "2026-09-18"
+            "sourceUrl": "https://dev.meta.ai/docs/pricing-rate-limits",
+            "sourceQuote": "Contributor: $0.10-$0.20 per 1M tokens in exchange for permission to use prompts and completions to train Meta models",
+            "sourceType": "derived",
+            "confidence": "medium",
+            "verifiedAt": "2026-09-18",
+            "basisModel": "Muse Spark 1.2 (contributor)"
           }
         },
-        "notes": "Contributor pricing now applies to muse-spark-1.2 family; prompts/ops feed Meta training"
+        "notes": "Contributor pricing applies to the muse-spark-1.2 family; prompts/outputs feed Meta training"
       }
     ],
     "gotchas": [
@@ -2249,9 +2266,7 @@
         "name": "Everyday",
         "monthlyPrice": 5,
         "limits": {
-          "requests": "10-50 req / 5h",
-          "concurrency": "1 session",
-          "rateLimit": "60 RPM"
+          "prompts": "10-50 prompts / 5h (official)"
         },
         "models": [
           "Muse Spark 1.3",
@@ -2274,9 +2289,7 @@
         "name": "High",
         "monthlyPrice": 15,
         "limits": {
-          "requests": "50-250 req / 5h",
-          "concurrency": "3 sessions",
-          "rateLimit": "300 RPM"
+          "prompts": "5x Everyday usage (official)"
         },
         "models": [
           "Muse Spark 1.3",
@@ -2284,9 +2297,9 @@
           "Llama 4 Maverick"
         ],
         "estimatedTokenBudget": {
-          "description": "Standard developer tier (~20M tokens/mo)",
-          "estimatedMillionTokens": 20,
-          "assumptions": "50-250 req/5h across daily workflows",
+          "description": "5x Everyday usage (~25M tokens/mo, official multiplier)",
+          "estimatedMillionTokens": 25,
+          "assumptions": "Official multiplier: 5x the Everyday usage plan; applied to our 5M Everyday estimate",
           "estimateMeta": {
             "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
             "sourceType": "research",
@@ -2300,18 +2313,16 @@
         "name": "Power",
         "monthlyPrice": 50,
         "limits": {
-          "requests": "Unlimited priority reqs",
-          "concurrency": "10 sessions",
-          "rateLimit": "3,000 RPM"
+          "prompts": "20x Everyday usage (official)"
         },
         "models": [
           "Muse Spark 1.3",
           "Llama 4 Maverick"
         ],
         "estimatedTokenBudget": {
-          "description": "High throughput agentic (~80M tokens/mo)",
-          "estimatedMillionTokens": 80,
-          "assumptions": "High throughput agentic development",
+          "description": "20x Everyday usage (~100M tokens/mo, official multiplier)",
+          "estimatedMillionTokens": 100,
+          "assumptions": "Official multiplier: 20x the Everyday usage plan; applied to our 5M Everyday estimate",
           "estimateMeta": {
             "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
             "sourceType": "research",
@@ -2323,15 +2334,15 @@
       }
     ],
     "gotchas": [
-      "Contributor tier allows Meta to train on your code in exchange for 90% cost reduction",
-      "Standard API is 3,000 RPM while Contributor API is throttled to 60 RPM",
+      "Muse Code subscription keys work only with Muse Code, not the general Model API",
+      "Training terms depend on which models you select; the Contributor/Standard choice changes them",
       "Regional availability restrictions apply"
     ],
     "tosHighlights": [
       "Contributor tier grants Meta royalty-free training rights on inputs/outputs",
       "Standard tier guarantees zero data retention and no model training"
     ],
-    "dataTraining": "Contributor tier trains on your data; Standard does not",
+    "dataTraining": "Depends on the selected models and API tier; Muse Code keys are limited to Muse Code and training terms are not uniform across models",
     "ipIndemnity": false,
     "stackingPolicy": "unknown"
   },
@@ -3199,7 +3210,8 @@
     ],
     "dataTraining": "Training never occurs on customer code",
     "ipIndemnity": true,
-    "stackingPolicy": "unknown"
+    "stackingPolicy": "silent",
+    "stackingPolicyNote": "Terms ban sharing an Account/Login and sell seats per registered user; multiple paid accounts are not addressed."
   },
   {
     "id": "together-ai",

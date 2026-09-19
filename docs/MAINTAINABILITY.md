@@ -27,7 +27,6 @@ flowchart TD
         MJSON["models.json"]
         BJSON["benchmarks.json"]
         PJSON["plans.json"]
-        BPJSON["budget-precomputed.json"]
         LUJSON["last-updated.json"]
     end
 

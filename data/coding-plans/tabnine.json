@@ -93,5 +93,6 @@
   ],
   "dataTraining": "Training never occurs on customer code",
   "ipIndemnity": true,
-  "stackingPolicy": "unknown"
+  "stackingPolicy": "silent",
+  "stackingPolicyNote": "Terms ban sharing an Account/Login and sell seats per registered user; multiple paid accounts are not addressed."
 }

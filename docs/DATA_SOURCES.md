@@ -33,13 +33,12 @@ flowchart TD
     subgraph Pipeline["Ingestion & Normalization Pipeline"]
         FM["scripts/fetch-models.mjs<br/>• Convert per-token to $/M<br/>• Calculate blended cost (3:1)<br/>• Calculate cost per 1k reqs"]
         FA["scripts/fetch-benchmarks.mjs<br/>• Paginate 650+ models<br/>• Extract Coding & Agentic indices<br/>• Match slugs to OpenRouter"]
-        BD["scripts/build-data.mjs<br/>• Merge benchmarks & models<br/>• Precompute budget tables<br/>• Validate & compile plans.json"]
+        BD["scripts/build-data.mjs<br/>• Merge benchmarks & models<br/>• Validate & compile plans.json"]
     end
 
     subgraph Outputs["Public Static Data (public/data/)"]
         M["models.json (440+ models)"]
         P["plans.json (33 plans)"]
-        B["budget-precomputed.json"]
         L["last-updated.json"]
     end
 
@@ -105,12 +104,13 @@ The script paginates through all available models (page size ~200, tracking `has
 | **Latency (TTFT)** | `performance.median_time_to_first_token_seconds` | Time To First Token. Determines editor responsiveness when triggering completions. |
 
 ### Quality Scoring & Intelligence Weights
-To provide a developer-centric evaluation, Token-Max weights benchmark components with heavy emphasis on software engineering utility:
-$$\text{Weighted Score} = 0.50 \times \text{Coding Index} + 0.30 \times \text{Agentic Index} + 0.20 \times \text{Intelligence Index}$$
+To provide a developer-centric evaluation, Token-Max uses **one** weighted quality score everywhere (Models, Benchmarks, Budget and the planning tabs):
+$$\text{Weighted Score} = \frac{0.50 \times \text{Coding} + 0.30 \times \text{Agentic} + 0.20 \times \text{Intelligence}}{\text{present weights}} \times \text{coverage penalty}$$
+A coding index is required (models without one score 0 and are excluded from value rankings). Missing dimensions are penalized (×0.9 for one missing, ×0.75 for two) rather than renormalized away, so partially-measured models cannot leapfrog fully-measured ones.
 
 ### Quality-Per-Dollar ("Value Score") Formula
-$$\text{Value Score} = \frac{\text{Coding Index}}{\text{Blended Cost (\$/M)}} \times 10$$
-Models with high coding intelligence and low per-token cost score highest on the Value Score (e.g. DeepSeek V4.1 Flash, Gemini 3.8 Flash, GLM-5.3-Flash, Qwen 3.8 Max).
+$$\text{Value Score} = \frac{\text{Weighted Score}}{\text{Blended Cost (\$/M)}} \times 100$$
+The same score is persisted by `scripts/build-data.mjs`, recomputed in `src/lib/pricing.ts` (`computeValueScore`) and used by every page. Coding-quality thresholds come from a single `QUALITY` constant (`economy 40`, `value 50`, `workhorse 65`, `frontier 75`).
 
 ---
 
@@ -128,124 +128,102 @@ Every file must strictly validate against `data/coding-plans/_schema.json`:
 - `category`: `"coding-ide"` | `"coding-router"` | `"api-provider"`.
 - `url`: Official subscription or pricing URL.
 - `lastVerified`: Date of last verification (`YYYY-MM-DD`).
-- `tiers`: Array of tier objects with `limits`, `models`, `estimatedTokenBudget`, and `monthlyPrice`.
+- `tiers`: Array of tier objects with:
+  - `limits`: non-empty human-readable quota/limit map (never `{}`).
+  - `models`: non-empty supported-model list (never `[]`).
+  - `estimatedTokenBudget`: `{ description, estimatedMillionTokens, midpointEstimate?, optimisticEstimate?, assumptions, estimateMeta }`. `estimatedMillionTokens` is a conservative floor and must be > 0 on every paid tier (the stacking modes drop zero budgets).
+  - `estimateMeta`: `{ sourceUrl, sourceQuote?, sourceType: official|derived|research|community, confidence: high|medium|low, verifiedAt, basisModel?, cacheAssumption? }`.
 - `gotchas`: Array of caveats, gotchas, and hidden fees.
-- `dataTraining`: Data privacy and retention policy.
-- `ipIndemnity`: Indemnification status.
+- `dataTraining`: Data privacy and retention policy (classified per audience by `src/lib/tos.ts`).
+- `ipIndemnity`: Indemnification status (boolean or descriptive string).
+- `stackingPolicy`: `allowed` | `silent` | `prohibited` | `unknown` — whether buying multiple accounts of the service is permitted; `prohibited` requires a `stackingPolicyNote` with the evidence quote and gates the Dangerous Dave mode.
+- `stackingPolicyNote`: Evidence quote/explanation for the stacking policy.
+
+`npm run validate-data` enforces all of the above in CI (`scripts/validate-data.mjs`).
 
 ### Complete Directory of Tracked Services
 
-#### A. Coding IDEs & Agentic Environments (16 Services)
-1. **Cursor** (`cursor.json`): [https://cursor.com/pricing](https://cursor.com/pricing)
-   - *Tiers:* Hobby ($0), Pro ($20), Pro+ ($60), Ultra ($200).
-   - *Unit Math:* Pro provides a ~$20 third-party API compute pool + 500 fast requests (~10M tokens), with on-demand fallback billing.
-2. **GitHub Copilot** (`github-copilot.json`): [https://github.com/features/copilot/plans](https://github.com/features/copilot/plans)
-   - *Tiers:* Free ($0), Pro ($10), Pro+ ($39), Max ($100).
-   - *Unit Math:* 1 AI Credit = $0.01 USD. Pro includes 1,500 credits ($15 value, ~7.5M Sonnet 5 tokens). Pro+ includes 7,000 credits ($70 value). Max includes 20,000 credits ($200 value).
-3. **Claude Code** (`claude-code.json`): [https://anthropic.com](https://anthropic.com)
-   - *Tiers:* Pro ($20), Max5x ($100), Max20x ($200).
-   - *Unit Math:* Shared 5-hour rolling limit (~45 msgs on Pro) shared with the Claude.ai web app. ~12M / ~60M / ~240M tokens/mo.
-4. **OpenAI Codex** (`openai-codex.json`): [https://openai.com](https://openai.com)
-   - *Tiers:* Free ($0), Go ($8), Plus ($20), Pro5x ($100), Pro20x ($200).
-   - *Unit Math:* Plus provides 5–45 messages / 5h rolling (~12M tokens/mo) with shared quota between ChatGPT Canvas and Codex CLI.
-5. **Google Antigravity / Jules** (`google-antigravity.json`): [https://google.com/ai](https://google.com/ai)
-   - *Tiers:* Individual ($0), AI Pro ($19.99), Ultra5x ($99.99), Ultra20x ($199.99).
-   - *Unit Math:* Jules tasks (15 / 75 / 300 / 1,200 daily background agent tasks) + 5-hour Gemini refresh cycles.
-6. **Meta Muse Code** (`meta-muse-code.json`): [https://developer.meta.com/ai/lp/muse-code/](https://developer.meta.com/ai/lp/muse-code/)
-   - *Tiers:* Everyday ($5), High ($15), Power ($50).
-   - *Unit Math:* 10–50 req/5h (Everyday) up to unlimited priority reqs (Power) with Muse Spark 1.3 and Llama 4 Code.
-7. **Kiro (AWS)** (`kiro.json`): [https://kiro.dev/pricing/](https://kiro.dev/pricing/)
-   - *Tiers:* Free ($0), Pro ($20), Pro+ ($40), ProMax ($100), Power ($200).
-   - *Unit Math:* 1,000 / 2,000 / 5,000 / 10,000 monthly credits. Add-on credits cost $0.04/credit. Multipliers: Sonnet 1.3x, Opus 2.2x, Haiku 0.4x, Fable 6.0x, Sol 4.4x. Credits do not roll over.
-8. **Lovable** (`lovable.json`): [https://lovable.dev/pricing](https://lovable.dev/pricing)
-   - *Tiers:* Free ($0), Pro ($25), Business ($50).
-   - *Unit Math:* Build credits (5 daily free, 100/mo Pro, 250/mo Business). Top-ups: Pro $0.30/credit, Business $0.60/credit.
-9. **Kimi Code (Moonshot)** (`kimi-code.json`): [https://www.kimi.com/code/docs/en/](https://www.kimi.com/code/docs/en/)
-   - *Tiers:* Plus (¥79/~$19), Pro (¥159/~$39), Max (¥559/~$199).
-   - *Unit Math:* HighSpeed quota tiers with 1M–2M context window on K3 2.8T model.
-10. **Windsurf (Codeium)** (`windsurf.json`): [https://windsurf.dev](https://windsurf.dev)
-    - *Tiers:* Free ($0), Pro ($20), Max ($200), Teams ($40/seat).
-    - *Unit Math:* Unlimited autocomplete + 500 fast Cascade prompts/mo (~15M tokens on Pro).
-11. **Augment Code** (`augment-code.json`): [https://augmentcode.com](https://augmentcode.com)
-    - *Tiers:* Business ($100), Enterprise (Custom).
-    - *Unit Math:* Effort/credit metered by codebase task complexity with $15 auto-top-up blocks.
-12. **Replit** (`replit.json`): [https://replit.com/pricing](https://replit.com/pricing)
-    - *Tiers:* Core ($20), Pro ($100).
-    - *Unit Math:* 50 Agent checkpoints/mo (Core) vs 300 checkpoints/mo (Pro) + dedicated cloud VM specs.
-13. **Amazon Q Developer** (`amazon-q.json`): [https://aws.amazon.com/q/developer/pricing/](https://aws.amazon.com/q/developer/pricing/)
-    - *Tiers:* Free ($0), Pro ($19/seat).
-    - *Unit Math:* 1,000 chat requests/mo, 4,000 completion lines/mo, 30 dev agent tasks/mo. Overages at $0.003/line.
-14. **Tabnine** (`tabnine.json`): [https://tabnine.com/pricing](https://tabnine.com/pricing)
-    - *Tiers:* Starter ($0), Pro ($15), Enterprise ($39).
-    - *Unit Math:* Unlimited whole-line completions + 500 chats/day (~10M tokens/mo) with Zero Data Retention.
-15. **Aider** (`aider.json`): [https://aider.chat](https://aider.chat)
-    - *Tiers:* Free / BYOK ($0).
-    - *Unit Math:* 100% free open-source software; users pay raw API provider rates with 0% markup.
+All figures below were re-verified against official pages during the September 2026 audit; see [`docs/VERIFICATION.md`](VERIFICATION.md) for the per-provider source table, evidence and open items.
 
-#### B. Routers & Coding Token Packages (8 Services)
-16. **Z.ai GLM Coding Plan** (`z-ai.json`): [https://z.ai/subscribe](https://z.ai/subscribe)
-    - *Tiers:* Lite ($18), Pro ($72), Max ($160), Team Standard ($80/seat).
-    - *Unit Math:* Dual limit system (2K/10K credits on Lite, 12K/60K on Pro, 28K/140K on Max). Off-peak hours enjoy a 50% credit rate discount. Drop-in Claude Code and OpenAI endpoints.
-17. **Kilo AI** (`kilo-code.json`): [https://kilo.ai/pricing/kilo-pass](https://kilo.ai/pricing/kilo-pass)
-    - *Tiers:* Starter ($19), Pro ($49), Expert ($199), Teams ($15/seat).
-    - *Unit Math:* Kilo Pass provides 40–50% bonus credit pools spent at 0% API markup.
-18. **CommandCode** (`commandcode.json`): [https://commandcode.dev](https://commandcode.dev)
-    - *Tiers:* Go ($1), GOAT ($10), Pro ($20), Max10x ($100), Max20x ($200).
-    - *Unit Math:* $10 / $70 / $80 / $150 / $300 in compute credits with 5-hour rolling limits ($3–$75) and weekly caps ($6–$200).
-19. **OpenCode** (`opencode.json`): [https://opencode.ai](https://opencode.ai)
-    - *Tiers:* Go ($10), Zen (PAYG).
-    - *Unit Math:* Monthly spend cap ($10 on Go) with max 20% in any 5-hour window and 50% weekly cap.
-20. **OpenRouter** (`openrouter.json`): [https://openrouter.ai](https://openrouter.ai)
-    - *Tiers:* Free ($0), PAYG.
-    - *Unit Math:* Wholesale API pass-through with a 5.5% top-up fee.
-21. **BytePlus ModelArk** (`byteplus.json`): [https://www.byteplus.com/en/activity/codingplan](https://www.byteplus.com/en/activity/codingplan)
-    - *Tiers:* Lite ($10), Pro ($50).
-    - *Unit Math:* 24,000 requests/mo (Lite) and 120,000 requests/mo (Pro) strictly restricted to developer tooling.
-22. **Alibaba Cloud** (`alibaba-cloud.json`): [https://www.alibabacloud.com/en/campaign/ai-landing-page-token](https://www.alibabacloud.com/en/campaign/ai-landing-page-token)
-    - *Tiers:* Personal Lite ($6), Standard ($18), Pro ($68), Team Standard ($20/seat), Team Pro ($75/seat), Team Max ($200/seat).
-    - *Unit Math:* Dedicated monthly token quotas (~10M to ~450M tokens/seat) on the Qwen series.
-23. **MiniMax** (`minimax.json`): [https://minimax.ai](https://minimax.ai)
-    - *Tiers:* Plus ($22), Max ($55), Ultra ($132).
-    - *Unit Math:* Prepaid credits (1,000 credits = $1 USD) valid for 365 days, with 3–7 concurrent agent threads.
+#### A. Coding IDEs & Agentic Environments (14 Services)
+1. **Cursor** (`cursor.json`): [cursor.com/pricing](https://cursor.com/pricing) — Hobby ($0), Pro ($20), Pro Plus ($60), Ultra ($200). Pro+ and Ultra are officially **3x and 20x** Pro agent limits; pool sizes are unpublished and modelled at ~10M tokens (Pro) → 30M / 200M.
+2. **GitHub Copilot** (`github-copilot.json`): [github.com/features/copilot/plans](https://github.com/features/copilot/plans) — Free ($0), Pro ($10), Pro+ ($39), Max ($100), Business ($19), Enterprise ($39). 1 AI credit = $0.01; Pro = $10 base + $5 variable Flex (1,500 credits), Pro+ = $39+$31, Max = $100+$100. Conservative estimates count base credits only; completions are unlimited on paid plans.
+3. **Claude Code** (`claude-code.json`): [claude.com/pricing](https://claude.com/pricing) — Pro ($20), Max 5x ($100), Max 20x ($200). 5-hour rolling + weekly caps on a pool shared with Claude.ai; Anthropic publishes no token figures — estimates ~12M/60M/240M are research-derived with low confidence.
+4. **OpenAI Codex** (`openai-codex.json`): [developers.openai.com/codex/pricing](https://developers.openai.com/codex/pricing) — Free ($0), Go ($8), Plus ($20), Pro 5x ($100), Pro 20x ($200). Codex usage is bundled inside ChatGPT plans; no numeric token quotas published.
+5. **Google Antigravity** (`google-antigravity.json`): [antigravity.google/pricing](https://antigravity.google/pricing) — Individual ($0), Google AI Pro ($19.99), Google AI Ultra 5x ($99.99), Google AI Ultra 20x ($199.99). Overage via AI credits at GEAP pricing; third-party tooling against Antigravity OAuth is banned.
+6. **Meta Muse Code** (`meta-muse-code.json`): [developer.meta.com/ai/products/muse-code](https://developer.meta.com/ai/products/muse-code) — Everyday ($5, 10–50 prompts/5h), High ($15, 5x Everyday), Power ($50, 20x Everyday). Subscription keys work only with Muse Code.
+7. **Kiro (AWS)** (`kiro.json`): [kiro.dev/pricing](https://kiro.dev/pricing) — Free ($0), Pro ($20), Pro+ ($40), Pro Max ($100), Power ($200) with 50/1,000/2,000/5,000/10,000 monthly credits; add-on credits $0.04; no rollover. Third-party automation harnesses are not permitted.
+8. **Lovable** (`lovable.json`): [lovable.dev/pricing](https://lovable.dev/pricing) — Free ($0), Pro 100 ($25), Business ($50); annual $21/$42. Build credits expire after 2 months; workspaces allow unlimited members (priced by credits, not seats).
+9. **Kimi Code** (`kimi-code.json`): [kimi.ai/help/membership/membership-pricing](https://www.kimi.ai/help/membership/membership-pricing) — Moderato ($19), Allegretto ($39), Allegro ($99), Vivace ($199); annual $15/$31/$79/$159. Shared credit pool plus a separate Kimi Code 5-hour/weekly limit; credit counts unpublished.
+10. **Windsurf (Cognition)** (`windsurf.json`): [windsurf.com/pricing](https://windsurf.com/pricing) — Free ($0), Pro ($20), Max ($200), Teams ($80 + $40/user). Credential sharing is banned by the AUP.
+11. **Augment Code** (`augment-code.json`): [augmentcode.com/pricing](https://www.augmentcode.com/pricing) — Standard ($20, $20 usage pool), Business ($100, $100 pool), Enterprise (custom); up to 50 seats; LLM usage billed at provider list price + a flat 40% fee; top-ups valid 12 months.
+12. **Replit** (`replit.json`): [replit.com/pricing](https://replit.com/pricing) — Core ($20, $18 annual), Pro ($100, $90 annual), Enterprise (custom). Core includes $20 of frontier model usage; Pro includes $100 credits and 10 parallel agents.
+13. **Amazon Q Developer** (`amazon-q.json`): [aws.amazon.com/q/developer/pricing](https://aws.amazon.com/q/developer/pricing/) — Free ($0, 50 agentic requests/mo, 1,000 LOC transformation), Pro ($19/user/mo, 4,000 LOC pooled, $0.003/LOC overage, IP indemnity). AWS publishes no numeric Pro request cap.
+14. **Tabnine** (`tabnine.json`): [tabnine.com/pricing](https://www.tabnine.com/pricing/) — Code Assistant ($39/user/mo), Agentic Platform ($59/user/mo), Enterprise (custom), all annual subscriptions. BYO LLM endpoint = unlimited; Tabnine-provided LLM access = provider list price + 5% handling fee.
 
-#### C. Direct Pay-As-You-Go Model APIs (10 Services)
-24. **OpenAI API** (`openai-api.json`): [https://platform.openai.com](https://platform.openai.com)
-    - GPT-6 Astra ($10 in / $50 out), Sol ($2 in / $10 out), Terra ($2 in / $12 out), Luna ($0.20 in / $1.20 out).
-25. **Anthropic API** (`anthropic-api.json`): [https://console.anthropic.com](https://console.anthropic.com)
-    - Claude Fable 5.1 ($10/$50), Claude Opus 5 ($5/$25), Claude Sonnet 5 ($2/$10), Claude Haiku 4.5 ($1/$5). 90% discount on cache reads.
-26. **Google AI Studio** (`google-ai-studio.json`): [https://aistudio.google.com](https://aistudio.google.com)
-    - Free tier (15 RPM, 1M TPM) + tiered spend caps ($250, $2,000, $100,000) for Gemini 3.8 Flash ($0.75/$3.75) and Pro.
-27. **DeepSeek API** (`deepseek-api.json`): [https://platform.deepseek.com](https://platform.deepseek.com)
-    - Time-of-day pricing: Flash off-peak ($0.15/$0.60) vs peak ($0.30/$1.20). 98% discount on cache hits.
-28. **Groq API** (`groq-api.json`): [https://console.groq.com](https://console.groq.com)
-    - LPU ultra-fast hardware inference (400–800 tokens/sec) on open weights.
-29. **Mistral API** (`mistral-api.json`): [https://console.mistral.ai](https://console.mistral.ai)
-    - Codestral 2501, Mistral Large 2. 50% batch discount, 90% prefix cache discount.
-30. **Together.ai** (`together-ai.json`): [https://together.ai](https://together.ai)
-    - Serverless and dedicated hosting for 100+ open-source models with spend tier progressions ($25/$50/$100/$250).
-31. **Fireworks.ai** (`fireworks-ai.json`): [https://fireworks.ai](https://fireworks.ai)
-    - 6,000 RPM serverless inference with sub-100ms time-to-first-token.
-32. **Meta Model API** (`meta-model-api.json`): [https://meta.com](https://meta.com)
-    - Standard ($1.25/$4.25/M, 3,000 RPM) vs. Contributor ($0.10/$0.20/M, 60 RPM with model training rights).
-33. **Ollama Cloud** (`ollama-cloud.json`): [https://ollama.com](https://ollama.com)
-    - Free ($0), Pro ($20 for $60 credits), Max ($100 for $300 credits), Team ($500 for $1,600 credits).
+#### B. Routers & Coding Token Packages (5 Services)
+15. **Z.ai GLM Coding Plan** (`z-ai.json`): [z.ai/subscribe](https://z.ai/subscribe) — Lite ($18), Pro ($72), Max ($160), Team Standard ($80/seat). Official 95%-cache allowance table: GLM-5.3 48–97M / 290–580M / 676–1,352M tokens per week (Lite/Pro/Max); off-peak (outside Mon–Fri 14:00–18:00 UTC+8) bills at 50% credits. Conservative/midpoint/optimistic tier figures are derived from those published floors/ceilings.
+16. **Kilo Code** (`kilo-code.json`): [kilo.ai/pricing](https://kilo.ai/pricing) — Individual ($0), Teams ($15/user/mo), Enterprise (custom). The $15 is a platform fee; inference passes through at provider rates with no markup (5% on credit top-ups). Kilo Pass: Starter $19 / Pro $49 / Expert $199 with up to 50% bonus credits.
+17. **CommandCode** (`commandcode.json`): [commandcode.ai/pricing](https://commandcode.ai/pricing) — Go ($1, $10 credits), GOAT ($10, $70), Pro ($20, $80), Max 10x ($100, $150), Max 20x ($200, $300). Token estimates convert credit dollars at the plan's documented open-model blend; terms allow one account per person.
+18. **OpenCode** (`opencode.json`): [opencode.ai/zen](https://opencode.ai/zen) — CLI (free/BYOK), Zen ($20 minimum prepaid balance + $1.23 card fee, zero markup), Go ($10/mo open-model subscription). Terms prohibit multiple accounts to circumvent limits.
+19. **OpenRouter** (`openrouter.json`): [openrouter.ai/pricing](https://openrouter.ai/pricing) — Free ($0) and PAYG with a 5.5% platform fee; free-model limits are 20 RPM / 50 RPD (<10 credits) or 1,000 RPD. Multiple accounts to bypass limits are prohibited.
+
+#### C. Direct API & Cloud Token Plans (14 Services)
+20. **Alibaba Cloud Model Studio** (`alibaba-cloud.json`): [Token Plan docs](https://www.alibabacloud.com/help/en/model-studio/token-plan-overview) — Personal Lite ($6, 2,500 credits/7d), Essential ($10, 5,625), Standard ($18, 10,000), Pro ($68, 40,000); Team Standard ($20/seat, 25,000 credits/mo), Team Pro ($75, 100,000), Team Max ($200, 250,000); Extra Bundle $15 = 20,000 credits. Alibaba does not publish credit→token coefficients; estimates derive from the official qwen3.6-plus worked example (~200 credits/M input, 20/M cached, 1,204/M output) and are marked medium confidence.
+21. **MiniMax Token Plan** (`minimax.json`): [platform.minimax.io](https://platform.minimax.io/docs/guides/pricing-token-plan) — Plus ($22), Max ($55), Ultra ($132); credits packages 1,000 credits = $1 (5,000/$5, 25,000/$25, 100,000/$100, valid 365 days). Token quotas are not published; figures are research estimates.
+22. **BytePlus ModelArk Coding Plan** (`byteplus.json`): [byteplus.com/activity/arkcodingplan](https://www.byteplus.com/en/activity/arkcodingplan) — Lite ($10), Pro ($50). Marketing: Lite = 3x Claude Pro, Pro = 5x Lite; official docs list ≈1,900 req/5h, 12,000/week, 24,000/month (Lite). BytePlus AI terms state Customer Data is not used to train foundation models.
+23. **OpenAI API** (`openai-api.json`): [platform.openai.com/docs/pricing](https://platform.openai.com/docs/pricing) — PAYG; Sol $2/$10, Luna $0.10/$0.60, spend caps $100/$500/$1,000/$5,000/$200,000. API data is not used for training by default; default retention is 30 days with ZDR available on request for eligible endpoints.
+24. **Anthropic API** (`anthropic-api.json`): [docs.claude.com](https://docs.claude.com/en/docs/about-claude/pricing) — PAYG; Sonnet 5 $2/$10, cache reads at 0.1x, cache writes +25%, batch −50%; spend tiers Start $500 / Build $1,000 / Scale $200,000. Commercial terms prohibit training on Customer Content.
+25. **Google AI Studio** (`google-ai-studio.json`): [ai.google.dev/pricing](https://ai.google.dev/gemini-api/docs/pricing) — Free tier; Tier1/2/3 spend caps ($250/$2,000/$20,000+). Gemini 3.8 Flash input $0.75 / output $3.75 (promotional through 2026-12-31). Free tier content is used to improve products; paid content is not.
+26. **DeepSeek API** (`deepseek-api.json`): [api-docs.deepseek.com](https://api-docs.deepseek.com/quick_start/pricing) — PAYG in CNY: V4-Pro ¥9/M cache-miss input, ¥27/M output, cache-hit ¥0.15–0.30/M; off-peak is half price (peak = Beijing Mon–Fri 09–12 & 14–18).
+27. **Groq API** (`groq-api.json`): [console.groq.com](https://console.groq.com) — Free and PAYG; the console publishes Developer-plan base limits (per-model RPM 10–30, RPD 100–1,000, TPM 1.2K–70K); Free-tier limits are lower and per-model.
+28. **Mistral API** (`mistral-api.json`): [mistral.ai/pricing](https://mistral.ai/pricing) — Studio plan includes $10/mo API credits; PAYG with 50% batch and up to 90% prefix-cache discounts. Model training is **opt-out**, not off by default.
+29. **Together.ai** (`together-ai.json`): [together.ai](https://together.ai) — Free and PAYG; Together uses dynamic rate limits (no fixed public RPM/TPM) that scale with account history.
+30. **Fireworks.ai** (`fireworks-ai.json`): [fireworks.ai](https://fireworks.ai) — $1 free credits; account-wide 6,000 RPM ceiling once a card is on file; batch −50%.
+31. **Meta Model API** (`meta-model-api.json`): [dev.meta.ai/docs/pricing-rate-limits](https://dev.meta.ai/docs/pricing-rate-limits) — now serves Muse Spark models (hosted Llama tiers superseded). Standard $1.25/$4.25 with no training; Contributor $0.10–$0.20 in exchange for training rights.
+32. **Ollama Cloud** (`ollama-cloud.json`): [ollama.com/pricing](https://ollama.com/pricing) — Free ($0, 1 stream), Pro ($20, $60 credits, 3 streams), Max ($100, $300 credits, 10 streams), Team ($500, **$1,000 credits**, 10 streams). One account per person; peak pricing 12:00–18:00 UTC Mon–Fri.
+33. **Aider** (`aider.json`): [aider.chat](https://aider.chat) — free open-source BYOK agent; no vendor pricing to track.
 
 ---
 
 ## 5. Source 4: Terms of Service & Privacy Matrices
 
-Data policies and legal clauses are tracked per provider in the plan JSON files and rendered in [`src/pages/TosAudit.tsx`](file:///home/john/Projects/Token-Max/src/pages/TosAudit.tsx):
+Data policies and legal clauses are tracked per provider in the plan JSON files and classified by [`src/lib/tos.ts`](file:///home/john/Projects/Token-Max/src/lib/tos.ts) (shared by the TOS page, plan detail and compare views). "Unknown" means the provider publishes no explicit statement — it is not a safe verdict.
 
-| Service | Free Tier Data Training | Individual Paid Training | Team/Enterprise Training | IP Indemnity Protection |
+| Service | Free Tier | Individual Paid | Team/Enterprise | IP Indemnity |
 | :--- | :---: | :---: | :---: | :---: |
-| **GitHub Copilot** | ⚠️ Trains unless opted out | ⚠️ Trains unless opted out | ✅ Zero training | Enterprise only |
-| **Claude Code (Anthropic)** | N/A | ✅ Opt-out by default | ✅ Zero training | Commercial terms only |
-| **Cursor** | ⚠️ Opted-in by default | ✅ Privacy Mode (Zero retention) | ✅ Privacy Mode | ❌ Not provided |
-| **OpenAI API** | N/A | ✅ Zero Data Retention | ✅ Zero Data Retention | ✅ Standard outputs |
-| **Z.ai GLM Coding Plan** | N/A | ⚠️ Standard Cloud Terms | ✅ Zero training by default | Enterprise Team contracts |
-| **Lovable** | ❌ Perpetual training license | ❌ Perpetual training license | ✅ Enterprise only | ❌ Not provided |
-| **Replit** | ❌ Public repls trained on | ⚠️ Private repls shielded | ✅ Shielded | ❌ Not provided |
-| **Tabnine** | ⚠️ Limited local | ✅ ZDR on Protected models | ✅ Air-gapped / VPC | ✅ Yes |
-| **Augment Code** | N/A | ✅ Zero code retention | ✅ Zero code retention | ✅ Full legal indemnity |
-| **Meta Muse (Contributor)**| ❌ Trains (90% discount) | ❌ Trains (90% discount) | N/A | ❌ Not provided |
-| **Meta Muse (Standard)**   | ✅ Zero training | ✅ Zero training | ✅ Zero training | ❌ Not provided |
+| **GitHub Copilot** | ❌ Trains (opt-out) | ⚠️ Opt-out setting | ✅ No training | ❌ None |
+| **Claude Code (Anthropic)** | — | ⚠️ Opt-out | ⚠️ Opt-out | ❌ None |
+| **Cursor** | ⚠️ Privacy Mode opt-out | ⚠️ Privacy Mode opt-out | ⚠️ Privacy Mode opt-out | ❌ None |
+| **OpenAI API** | — | ✅ No training (30-day retention, ZDR on request) | ✅ No training | ✅ Full |
+| **Anthropic API** | — | ✅ No training (commercial terms) | ✅ No training | ✅ Full |
+| **Z.ai GLM Coding Plan** | — | ❓ Unknown (standard terms) | ✅ Team no training | ❌ None |
+| **Lovable** | ⚠️ Opt-out | ⚠️ Opt-out | ✅ No training | ❌ None |
+| **Replit** | ❓ Unknown | ❓ Unknown | ❓ Unknown | ❌ None |
+| **Tabnine** | — | ✅ No training | ✅ No training | ✅ Full |
+| **Augment Code** | — | ✅ No training | ✅ No training | ❌ None |
+| **Meta Model API** | — | Contributor ❌ trains / Standard ✅ no training | — | ❌ None |
+| **Meta Muse Code** | — | ⚠️ Depends on selected models | — | ❌ None |
+| **Google AI Studio** | ❌ Trains | ✅ No training (paid) | ✅ No training | ❌ None |
+| **Google Antigravity** | ⚠️ Opt-out | ⚠️ Opt-out | ⚠️ Opt-out | ❌ None |
+| **OpenAI Codex** | — | ⚠️ Opt-out | ✅ No training | ❌ None |
+| **Amazon Q Developer** | ⚠️ Opt-out | ✅ No training | ✅ No training | ✅ Full (Pro) |
+| **BytePlus** | — | ✅ No training (AI terms) | ✅ No training | ❌ None |
+| **Alibaba Cloud Token Plan** | — | ❓ Unknown (personal) | ✅ Team no training | ❌ None |
+| **MiniMax** | — | ❓ Unknown | ❓ Unknown | ❌ None |
+| **Mistral API** | — | ⚠️ Opt-out | ⚠️ Opt-out | ❌ None |
+| **Groq API** | — | ✅ No training | ✅ No training | ❌ None |
+| **Together.ai** | — | ✅ No training | ✅ No training | ❌ None |
+| **Fireworks.ai** | — | ✅ No training | ✅ No training | ❌ None |
+| **DeepSeek API** | — | ✅ No training | ✅ No training | ❌ None |
+| **Ollama Cloud** | — | ✅ No training | ✅ No training | ❌ None |
+| **OpenCode** | — | ✅ ZDR | ✅ ZDR | ❌ None |
+| **OpenRouter** | ✅ No training (provider-dependent) | ✅ No training (provider-dependent) | ❓ Unknown | ❌ None |
+| **CommandCode** | ✅ No training | ✅ No training | ✅ No training | ❌ None |
+| **Kimi Code** | — | ❓ Unknown | ❓ Unknown | ❌ None |
+| **Kilo Code** | — | ✅ No training | ✅ No training | ❌ None |
+| **Kiro** | — | ❓ Unknown | ❓ Unknown | ❌ None |
+| **Windsurf** | — | ❓ Unknown | ❓ Unknown | ❌ None |
+| **Aider** | — | ❓ Unknown (depends on API provider) | — | ❌ None |
+
+The TOS page (`#/tos`) renders this matrix live from the JSON data, including per-plan `tosHighlights`, the `lastVerified` date and the multi-account `stackingPolicy` with its evidence.

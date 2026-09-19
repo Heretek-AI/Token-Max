@@ -2,7 +2,7 @@
   "id": "meta-model-api",
   "name": "Meta Llama API",
   "category": "api-provider",
-  "url": "https://meta.com",
+  "url": "https://dev.meta.ai/docs/pricing-rate-limits",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
@@ -11,25 +11,28 @@
       "limits": {
         "RPM": "3,000 requests/min",
         "TPM": "500,000 tokens/min",
-        "price": "$1.25/M input, $4.25/M output"
+        "price": "$1.25/M input, $4.25/M output (official)"
       },
       "models": [
-        "Llama 4 Maverick",
-        "Llama 4 Scout",
-        "Muse Spark 1.3"
+        "Muse Spark 1.3",
+        "Muse Spark 1.2"
       ],
       "estimatedTokenBudget": {
-        "description": "Standard PAYG ($20 buys ~10M tokens)",
+        "description": "Standard PAYG ($20 buys ~10M list-blend / ~14M cached-agent tokens)",
         "estimatedMillionTokens": 10,
-        "assumptions": "$20 spent @ $2.00/M blended rate",
+        "midpointEstimate": 12,
+        "optimisticEstimate": 14,
+        "assumptions": "$20 at official Standard pricing $1.25/M input, $4.25/M output: 10M on a 3:1 list blend, ~14M on the standard 20K-in/1K-out agent request (no cache price published)",
         "estimateMeta": {
-          "sourceUrl": "https://meta.com",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://dev.meta.ai/docs/pricing-rate-limits",
+          "sourceQuote": "Standard: $1.25 per 1M input tokens, $4.25 per 1M output tokens; prompts and completions are not used to train Meta models",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "Muse Spark 1.3"
         }
       },
-      "notes": "Standard $1.25/$4.25/M. Standard 3000 RPM."
+      "notes": "Standard $1.25/$4.25/M. Hosted Llama tiers were superseded by Muse Spark models."
     },
     {
       "name": "Contributor",
@@ -43,17 +46,21 @@
         "Muse Spark 1.2 (contributor)"
       ],
       "estimatedTokenBudget": {
-        "description": "Contributor PAYG ($20 buys ~150M tokens)",
-        "estimatedMillionTokens": 150,
-        "assumptions": "$20 spent @ $0.13/M blended rate with data sharing",
+        "description": "Contributor PAYG ($20 buys ~100M conservative / ~200M optimistic tokens)",
+        "estimatedMillionTokens": 100,
+        "midpointEstimate": 133,
+        "optimisticEstimate": 200,
+        "assumptions": "$20 at official Contributor pricing $0.10-$0.20/M in exchange for training rights: 100M at $0.20, 133M at $0.15, 200M at $0.10",
         "estimateMeta": {
-          "sourceUrl": "https://meta.com",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "sourceUrl": "https://dev.meta.ai/docs/pricing-rate-limits",
+          "sourceQuote": "Contributor: $0.10-$0.20 per 1M tokens in exchange for permission to use prompts and completions to train Meta models",
+          "sourceType": "derived",
+          "confidence": "medium",
+          "verifiedAt": "2026-09-18",
+          "basisModel": "Muse Spark 1.2 (contributor)"
         }
       },
-      "notes": "Contributor pricing now applies to muse-spark-1.2 family; prompts/ops feed Meta training"
+      "notes": "Contributor pricing applies to the muse-spark-1.2 family; prompts/outputs feed Meta training"
     }
   ],
   "gotchas": [

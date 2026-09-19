@@ -23,7 +23,6 @@ It solves a fundamental developer problem:
 - **Data Layer:** Pre-computed static JSON files generated during build and stored in `public/data/`:
   - `public/data/models.json`: ~440+ normalized models with OpenRouter pricing and Artificial Analysis benchmarks.
   - `public/data/plans.json`: Consolidated array of all 33 curated coding subscription plans.
-  - `public/data/budget-precomputed.json`: Fast lookups for common budgets ($5, $10, $20, $50, $100, $200).
   - `public/data/last-updated.json`: Timestamp metadata.
 
 ---
@@ -44,16 +43,20 @@ Every plan file in `data/coding-plans/*.json` must include:
 - `name`: official display name.
 - `category`: strictly one of `"coding-ide"`, `"coding-router"`, or `"api-provider"`.
 - `url`: official pricing/documentation URL.
-- `lastVerified`: ISO date (`YYYY-MM-DD`).
+- `lastVerified`: ISO date (`YYYY-MM-DD`), sourced from the single `LAST_VERIFIED` constant in `data/generate_plans.py`.
 - `tiers`: array of tier objects, each with:
   - `name`: string.
   - `monthlyPrice`: number or `null` (for custom/enterprise).
   - `limits`: key-value object of human-readable limits (e.g. `fastRequests`, `fiveHourCredits`, `concurrency`). **Never leave as empty `{}`**.
   - `models`: string array of models supported. **Never leave as empty `[]`**.
-  - `estimatedTokenBudget`: object with `description`, conservative (floor) `estimatedMillionTokens`, optional `midpointEstimate` / `optimisticEstimate`, and `assumptions`. **Never leave as `null`**.
+  - `estimatedTokenBudget`: object with `description`, conservative (floor) `estimatedMillionTokens`, optional `midpointEstimate` / `optimisticEstimate`, `assumptions`, and `estimateMeta` (`sourceUrl`, `sourceQuote`, `sourceType: official|derived|research|community`, `confidence: high|medium|low`, `verifiedAt`, `basisModel`, `cacheAssumption`). **Never leave as `null`** and never set `estimatedMillionTokens` to `0` on a paid tier.
 - `gotchas`: array of gotcha strings.
-- `dataTraining`: data privacy / training policy string.
+- `dataTraining`: data privacy / training policy string, classified per audience by `src/lib/tos.ts`.
 - `ipIndemnity`: boolean or descriptive string.
+- `stackingPolicy`: one of `allowed`, `silent`, `prohibited`, `unknown`. `prohibited` requires `stackingPolicyNote` with the evidence quote and gates Dangerous Dave mode.
+- `stackingPolicyNote`: evidence quote/explanation for the stacking policy.
+
+`scripts/validate-data.mjs` (run via `npm run validate-data`) enforces all of the above in CI.
 
 ### C. Reproducible Generation
 Whenever modifying or adding plans in `data/coding-plans/`, update `data/generate_plans.py` to ensure that running `python3 data/generate_plans.py` regenerates all plan JSON files consistently.
@@ -98,7 +101,6 @@ Token-Max/
 │   ├── models.json
 │   ├── plans.json
 │   ├── benchmarks.json
-│   ├── budget-precomputed.json
 │   └── last-updated.json
 ├── scripts/
 │   ├── fetch-models.mjs       # Fetches ~440+ models from OpenRouter API
@@ -114,7 +116,7 @@ Token-Max/
 │   │   ├── tos/               # GotchaCards, TrainingMatrix
 │   │   ├── shared/            # SearchFilter, LoadingSpinner, DataFreshness
 │   ├── index.css              # Heretek Blood & Steel design tokens (@theme block)
-│   ├── hooks/                 # useModels, usePlans, useBenchmarks, useBudget
+│   ├── hooks/                 # useModels, usePlans
 │   ├── lib/                   # types.ts, pricing.ts
 │   ├── pages/                 # Dashboard, ModelsExplorer, PlansCompare, BenchmarksPage, TosAudit
 │   ├── App.tsx                # HashRouter setup
@@ -133,6 +135,12 @@ npm run dev
 
 # Run oxlint (must be 0 warnings, 0 errors)
 npm run lint
+
+# Validate plan data invariants + consolidated artifact freshness
+npm run validate-data
+
+# Run pricing/TOS unit tests
+npm test
 
 # TypeScript check + Vite production build
 npm run build
@@ -165,5 +173,6 @@ python3 data/generate_plans.py
 3. Add the plan generation definition into `data/generate_plans.py`.
 4. If the provider is a model creator, add their brand color to `getProviderColor` in `src/lib/pricing.ts`.
 5. Run `node scripts/build-data.mjs` to re-generate `public/data/plans.json`.
-6. Run `npm run lint && npm run build` to confirm zero errors.
-7. Test the changes in `#/plans` and the Token Budget Translator.
+6. Run `npm run lint && npm run validate-data && npm test && npm run build` to confirm zero errors.
+7. Test the changes in `#/plans`, the Token Budget Translator and the TOS audit page.
+8. Record the verification pass in `docs/VERIFICATION.md`.

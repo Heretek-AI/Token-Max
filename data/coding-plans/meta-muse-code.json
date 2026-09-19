@@ -9,9 +9,7 @@
       "name": "Everyday",
       "monthlyPrice": 5,
       "limits": {
-        "requests": "10-50 req / 5h",
-        "concurrency": "1 session",
-        "rateLimit": "60 RPM"
+        "prompts": "10-50 prompts / 5h (official)"
       },
       "models": [
         "Muse Spark 1.3",
@@ -34,9 +32,7 @@
       "name": "High",
       "monthlyPrice": 15,
       "limits": {
-        "requests": "50-250 req / 5h",
-        "concurrency": "3 sessions",
-        "rateLimit": "300 RPM"
+        "prompts": "5x Everyday usage (official)"
       },
       "models": [
         "Muse Spark 1.3",
@@ -44,9 +40,9 @@
         "Llama 4 Maverick"
       ],
       "estimatedTokenBudget": {
-        "description": "Standard developer tier (~20M tokens/mo)",
-        "estimatedMillionTokens": 20,
-        "assumptions": "50-250 req/5h across daily workflows",
+        "description": "5x Everyday usage (~25M tokens/mo, official multiplier)",
+        "estimatedMillionTokens": 25,
+        "assumptions": "Official multiplier: 5x the Everyday usage plan; applied to our 5M Everyday estimate",
         "estimateMeta": {
           "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
           "sourceType": "research",
@@ -60,18 +56,16 @@
       "name": "Power",
       "monthlyPrice": 50,
       "limits": {
-        "requests": "Unlimited priority reqs",
-        "concurrency": "10 sessions",
-        "rateLimit": "3,000 RPM"
+        "prompts": "20x Everyday usage (official)"
       },
       "models": [
         "Muse Spark 1.3",
         "Llama 4 Maverick"
       ],
       "estimatedTokenBudget": {
-        "description": "High throughput agentic (~80M tokens/mo)",
-        "estimatedMillionTokens": 80,
-        "assumptions": "High throughput agentic development",
+        "description": "20x Everyday usage (~100M tokens/mo, official multiplier)",
+        "estimatedMillionTokens": 100,
+        "assumptions": "Official multiplier: 20x the Everyday usage plan; applied to our 5M Everyday estimate",
         "estimateMeta": {
           "sourceUrl": "https://developer.meta.com/ai/products/muse-code",
           "sourceType": "research",
@@ -83,15 +77,15 @@
     }
   ],
   "gotchas": [
-    "Contributor tier allows Meta to train on your code in exchange for 90% cost reduction",
-    "Standard API is 3,000 RPM while Contributor API is throttled to 60 RPM",
+    "Muse Code subscription keys work only with Muse Code, not the general Model API",
+    "Training terms depend on which models you select; the Contributor/Standard choice changes them",
     "Regional availability restrictions apply"
   ],
   "tosHighlights": [
     "Contributor tier grants Meta royalty-free training rights on inputs/outputs",
     "Standard tier guarantees zero data retention and no model training"
   ],
-  "dataTraining": "Contributor tier trains on your data; Standard does not",
+  "dataTraining": "Depends on the selected models and API tier; Muse Code keys are limited to Muse Code and training terms are not uniform across models",
   "ipIndemnity": false,
   "stackingPolicy": "unknown"
 }

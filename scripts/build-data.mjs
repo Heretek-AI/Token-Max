@@ -136,39 +136,7 @@ async function buildData() {
   await fs.writeFile(path.join(PUBLIC_DATA_DIR, 'models.json'), JSON.stringify(models, null, 2));
   console.log('Updated models.json with benchmark data and tier classifications.');
 
-  // 3. Compute Budgets
-  const budgets = [5, 10, 20, 50, 100, 200];
-  const budgetPrecomputed = {};
-
-  for (const model of models) {
-    budgetPrecomputed[model.id] = {};
-    for (const budget of budgets) {
-      let millionsOfTokens = 0;
-      let thousandRequests = 0;
-
-      if (model.blendedCost > 0) {
-        millionsOfTokens = budget / model.blendedCost;
-      } else if (model.blendedCost === 0 && model.isFree) {
-        millionsOfTokens = null;
-      }
-
-      if (model.costPer1kRequests > 0) {
-        thousandRequests = budget / model.costPer1kRequests;
-      } else if (model.costPer1kRequests === 0 && model.isFree) {
-        thousandRequests = null;
-      }
-
-      budgetPrecomputed[model.id][`budget_${budget}`] = {
-        millionsOfTokens,
-        thousandRequests
-      };
-    }
-  }
-
-  await fs.writeFile(path.join(PUBLIC_DATA_DIR, 'budget-precomputed.json'), JSON.stringify(budgetPrecomputed, null, 2));
-  console.log('Wrote budget-precomputed.json');
-
-  // 4. Load coding plans (safely skipping _schema.json)
+  // 3. Load coding plans (safely skipping _schema.json)
   const plans = [];
   try {
     const files = await fs.readdir(PLANS_DIR);
