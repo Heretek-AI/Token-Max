@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import type { CodingPlan, NormalizedModel, CacheRate } from '../../lib/types';
 import { formatMillionTokens, getProviderColor, calculateAgentRequestCost, matchesPlanModel, QUALITY } from '../../lib/pricing';
 import { DEFAULT_CACHE_RATE, STANDARD_AGENT_REQUEST_TOKENS } from '../../lib/estimate-constants';
-import { ArrowRight, Sparkles, AlertCircle, Layers, CheckCircle2, HelpCircle, Info, Database, TrendingUp } from 'lucide-react';
+import { ArrowRight, Sparkles, AlertCircle, Layers, CheckCircle2, HelpCircle, Info, Database, TrendingUp, ExternalLink } from 'lucide-react';
 
 interface TokenTranslatorProps {
   plans: CodingPlan[];
@@ -123,7 +123,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
     // 1. Check if basisModel is documented in estimateMeta
     // 2. Otherwise use the primary matching model from matchingPlanModels
     // 3. Fallback to the model closest to the tier's capability or top workhorse
-    const basisName = (currentTier.estimatedTokenBudget as any).estimateMeta?.basisModel;
+    const basisName = currentTier.estimatedTokenBudget.estimateMeta?.basisModel;
     let comparisonModel = basisName
       ? displayModels.find(m => matchesPlanModel(basisName, m))
       : undefined;
@@ -429,6 +429,54 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
               )}
             </div>
           </div>
+
+          {/* Methodology & Basis Breakdown */}
+          {currentTier.estimatedTokenBudget && (
+            <div className="mt-4 pt-3.5 border-t border-border/70 text-xs">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <div className="flex items-center gap-1.5 font-bold text-text">
+                  <Database className="w-3.5 h-3.5 text-primary" />
+                  <span>Token Budget Methodology &amp; Basis:</span>
+                </div>
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  {currentTier.estimatedTokenBudget.estimateMeta?.basisModel && (
+                    <span className="px-2 py-0.5 rounded-md bg-surface border border-border text-[11px] font-semibold text-primary">
+                      Basis: {currentTier.estimatedTokenBudget.estimateMeta.basisModel}
+                    </span>
+                  )}
+                  {currentTier.estimatedTokenBudget.estimateMeta?.cacheAssumption && (
+                    <span className="px-2 py-0.5 rounded-md bg-surface border border-border text-[11px] font-medium text-text-muted">
+                      {currentTier.estimatedTokenBudget.estimateMeta.cacheAssumption}
+                    </span>
+                  )}
+                  {currentTier.estimatedTokenBudget.midpointEstimate && (
+                    <span className="px-2 py-0.5 rounded-md bg-surface border border-border text-[11px] font-medium text-text-muted">
+                      Range: {formatMillionTokens(currentTier.estimatedTokenBudget.estimatedMillionTokens)} – {formatMillionTokens(currentTier.estimatedTokenBudget.optimisticEstimate ?? currentTier.estimatedTokenBudget.estimatedMillionTokens)} (Mid: {formatMillionTokens(currentTier.estimatedTokenBudget.midpointEstimate)})
+                    </span>
+                  )}
+                </div>
+              </div>
+              {currentTier.estimatedTokenBudget.assumptions && (
+                <p className="text-[11px] text-text-muted leading-relaxed bg-surface p-2.5 rounded-lg border border-border">
+                  <strong className="text-text font-semibold">Assumptions: </strong>
+                  {currentTier.estimatedTokenBudget.assumptions}
+                </p>
+              )}
+              {currentTier.estimatedTokenBudget.estimateMeta?.sourceUrl && (
+                <div className="mt-1.5 text-right">
+                  <a
+                    href={currentTier.estimatedTokenBudget.estimateMeta.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[10px] text-primary hover:underline font-medium"
+                  >
+                    <span>Official Source Documentation</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
 

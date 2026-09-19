@@ -15,7 +15,7 @@
       "models": [
         "GPT-5.6 Luna",
         "Grok 4.5",
-        "Qwen Max",
+        "Qwen 3.8 Max",
         "MiniMax M3"
       ],
       "modelAllowances": {

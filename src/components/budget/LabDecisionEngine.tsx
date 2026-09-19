@@ -736,7 +736,7 @@ export function LabDecisionEngine({
                   {displayUnit === 'requests' ? 'Est. Monthly Requests' : 'Est. Monthly Tokens'}
                   <span
                     className="ml-1 text-text-muted font-normal"
-                    title="Subscription yields are normalized to the budget (tokens-per-dollar x budget) and assume capacity scales linearly with spend. Direct API yields are actual spend."
+                    title="Subscription yields are normalized to the budget (tokens-per-dollar x budget) and assume capacity scales linearly with spend. Direct API yields are actual spend. Subscriptions also show their Native allowance included at the tier's real price."
                   >
                     *
                   </span>
@@ -790,6 +790,9 @@ export function LabDecisionEngine({
                     </td>
                     <td className="px-3 py-3 text-right font-mono text-xs text-text">
                       ${opt.monthlyCost}/mo
+                      {opt.type === 'subscription' && budget > opt.monthlyCost && (
+                        <div className="text-[10px] text-text-muted">+${Math.round(budget - opt.monthlyCost)} unspent</div>
+                      )}
                     </td>
                     <td className="px-4 py-3 text-right">
                       <div className="font-bold text-sm text-primary">
@@ -800,6 +803,14 @@ export function LabDecisionEngine({
                           ? `~${formatMillionTokens(opt.monthlyTokens)} tokens`
                           : `~${opt.monthlyRequests.toLocaleString()} reqs`}
                       </div>
+                      {opt.type === 'subscription' && typeof opt.rawMonthlyTokens === 'number' && Number.isFinite(opt.rawMonthlyTokens) && opt.rawMonthlyTokens > 0 && (
+                        <div
+                          className="text-[10px] text-text-muted font-mono"
+                          title="Native allowance actually included by this tier at its real monthly price (95%-cache agent blend), before any budget normalization"
+                        >
+                          Native: {formatMillionTokens(opt.rawMonthlyTokens)} tok
+                        </div>
+                      )}
                     </td>
                     <td className="px-3 py-3 text-right">
                       {opt.codingIndex !== null ? (

@@ -227,11 +227,33 @@ export function getEffectiveCacheMultiplier(model: NormalizedModel): number {
 }
 
 export function matchesPlanModel(planModelName: string, model: NormalizedModel): boolean {
-  const normPlan = planModelName.toLowerCase().replace(/[^a-z0-9]/g, '');
+  // Strip common tool-specific prefixes or parenthetical aliases
+  const cleanPlan = planModelName
+    .replace(/^cursor\s+/i, '')
+    .replace(/^dola-/i, '')
+    .replace(/\s*\(.*?\)\s*/g, '')
+    .trim();
+
+  const normPlan = cleanPlan.toLowerCase().replace(/[^a-z0-9]/g, '');
   if (normPlan.length < 3) return false;
   const normName = model.name.toLowerCase().replace(/[^a-z0-9]/g, '');
   const normId = model.id.toLowerCase().replace(/[^a-z0-9]/g, '');
   if (normName.length < 3 && normId.length < 3) return false;
+
+  // Exact model match takes top priority
+  const modelShortId = model.id.includes('/')
+    ? model.id.split('/')[1].toLowerCase().replace(/[^a-z0-9]/g, '')
+    : normId;
+  if (normName === normPlan || normId === normPlan || modelShortId === normPlan) return true;
+
+  // Prevent base models like "glm-5.3" from matching variant "flash", "flashx", "mini", etc. when the plan does not specify the variant
+  const variants = ['flash', 'mini', 'nano', 'micro', 'lite', 'small'];
+  for (const v of variants) {
+    if (!normPlan.includes(v) && (normName.includes(v) || normId.includes(v))) {
+      return false;
+    }
+  }
+
   return normName.includes(normPlan) || normId.includes(normPlan) || (normName.length >= 4 && normPlan.includes(normName));
 }
 
@@ -384,6 +406,8 @@ export function computeApplesToApples(
         monthlyCost: tier.monthlyPrice,
         monthlyTokens: normalizedTokens,
         monthlyRequests: normalizedRequests,
+        rawMonthlyTokens: baseTokens,
+        rawMonthlyRequests: rawRequests,
         codingIndex: model.benchmarks?.codingIndex ?? null,
         intelligenceIndex: model.benchmarks?.intelligenceIndex ?? null,
         costPer1kRequests: (tier.monthlyPrice / (rawRequests || 1)) * 1000,
@@ -393,41 +417,46 @@ export function computeApplesToApples(
       });
     }
 
-    // Fallback rows for tiers whose model strings matched nothing in the catalog
-    for (const { tier } of unmatchedTiers) {
-      const planLabs = detectPlanLabs(plan, tier);
-      if (lab !== 'all' && !planLabs.includes(lab)) continue;
+    // Fallback rows for tiers whose model strings matched nothing in the catalog.
+    // When minCodingIndex > 0, do NOT leak unbenchmarked / unmatched tiers into quality-filtered leaderboards.
+    if (minCodingIndex === 0) {
+      for (const { tier } of unmatchedTiers) {
+        const planLabs = detectPlanLabs(plan, tier);
+        if (lab !== 'all' && !planLabs.includes(lab)) continue;
 
-      if (tier.monthlyPrice === null || tier.monthlyPrice <= 0) continue;
-      if (tier.monthlyPrice > budget * 2.5 || tier.monthlyPrice < budget * 0.25) continue;
+        if (tier.monthlyPrice === null || tier.monthlyPrice <= 0) continue;
+        if (tier.monthlyPrice > budget * 2.5 || tier.monthlyPrice < budget * 0.25) continue;
 
-      const baseTokens = tier.estimatedTokenBudget?.estimatedMillionTokens || 0;
-      const rawRequests = tierRawRequests(tier);
-      const tokensPerDollar = baseTokens / tier.monthlyPrice;
-      const requestsPerDollar = rawRequests / tier.monthlyPrice;
-      const normalizedTokens = tokensPerDollar * budget;
-      const normalizedRequests = Math.round(requestsPerDollar * budget);
+        const baseTokens = tier.estimatedTokenBudget?.estimatedMillionTokens || 0;
+        const rawRequests = tierRawRequests(tier);
+        const tokensPerDollar = baseTokens / tier.monthlyPrice;
+        const requestsPerDollar = rawRequests / tier.monthlyPrice;
+        const normalizedTokens = tokensPerDollar * budget;
+        const normalizedRequests = Math.round(requestsPerDollar * budget);
 
-      subscriptionOptions.push({
-        id: `${plan.id}-${tier.name}`,
-        name: `${tier.models?.[0] || plan.name} +${(tier.models?.length || 1) - 1} suite`,
-        provider: plan.name,
-        lab: planLabs[0] || 'all',
-        type: 'subscription',
-        category: plan.category,
-        planId: plan.id,
-        planName: plan.name,
-        tierName: tier.name,
-        monthlyCost: tier.monthlyPrice,
-        monthlyTokens: normalizedTokens,
-        monthlyRequests: normalizedRequests,
-        codingIndex: null,
-        intelligenceIndex: null,
-        costPer1kRequests: (tier.monthlyPrice / (rawRequests || 1)) * 1000,
-        notes: tier.estimatedTokenBudget?.description || `Includes ${tier.models?.slice(0, 2).join(', ')}`,
-        url: plan.url,
-        yieldBasis: 'normalized',
-      });
+        subscriptionOptions.push({
+          id: `${plan.id}-${tier.name}`,
+          name: `${tier.models?.[0] || plan.name} +${(tier.models?.length || 1) - 1} suite`,
+          provider: plan.name,
+          lab: planLabs[0] || 'all',
+          type: 'subscription',
+          category: plan.category,
+          planId: plan.id,
+          planName: plan.name,
+          tierName: tier.name,
+          monthlyCost: tier.monthlyPrice,
+          monthlyTokens: normalizedTokens,
+          monthlyRequests: normalizedRequests,
+          rawMonthlyTokens: baseTokens,
+          rawMonthlyRequests: rawRequests,
+          codingIndex: null,
+          intelligenceIndex: null,
+          costPer1kRequests: (tier.monthlyPrice / (rawRequests || 1)) * 1000,
+          notes: tier.estimatedTokenBudget?.description || `Includes ${tier.models?.slice(0, 2).join(', ')}`,
+          url: plan.url,
+          yieldBasis: 'normalized',
+        });
+      }
     }
   }
 

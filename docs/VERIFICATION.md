@@ -187,3 +187,38 @@ Evidence and OSINT sources: `docs/TOKEN_ESTIMATE_VALIDATION.md`.
    stacking claim that is `prohibited` requires a quote.
 4. Run `npm run validate-data && npm test && npm run lint && npm run build`.
 5. Record the pass here and bump `LAST_VERIFIED` in `data/generate_plans.py`.
+
+### 2026-09-19 — Leaderboard quality-filter leak fix + Z.ai V3 price/ceiling update
+
+Findings: with Quality Baseline = Top Frontier (≥75), Z.ai GLM tiers surfaced as
+"Multi-Model" rows because (a) `matchesPlanModel` matched "GLM-5.3-FlashX" via greedy
+substring before the base `z-ai/glm-5.3` (AI-index 74.8), and (b) the `unmatchedTiers`
+fallback path skipped the quality gate entirely. Normalized-at-budget columns were
+additionally displayed without the tier's actual native allowance, misleading on tier
+cost vs yield.
+
+Fixes:
+1. `src/lib/pricing.ts` — exact-match priority + variant guard in `matchesPlanModel`
+   (base names no longer match flash/mini/nano/micro/lite/small variants); added
+   `rawMonthlyTokens`/`rawMonthlyRequests` to subscription rows; unmatched-tier
+   fallback rows are now gated to `minCodingIndex === 0` so unbenchmarked suites
+   cannot leak into quality-filtered leaderboards.
+2. `src/lib/types.ts` — `ApplesToApplesOption.rawMonthlyTokens/.rawMonthlyRequests`
+   plus tier `estimateMeta` typing (matches `_schema.json`).
+3. `src/components/budget/LabDecisionEngine.tsx` — leaderboard shows subscriptions'
+   native token allowance under the normalized yield and "+$X unspent" under tier cost;
+   explanatory tooltips updated.
+4. `data/coding-plans/z-ai.json` + `data/generate_plans.py` + rebuilding
+   `public/data/plans.json` — Pro $72 → $80, Max $160 → $168 (official V3), official
+   weekly-ceiling limits added as limits + `estimateMeta.sourceQuote` evidence
+   (up to 97M/582M/1,358M GLM-5.3 tokens per week on Lite/Pro/Max).
+
+Commands run from the repository root, all green:
+
+1. `npm run validate-data` — 33/33 plan files pass schema invariants.
+2. `npm test` — 98/98 tests pass (8 suites), incl. new `matchesPlanModel` variant tests.
+3. `npm run lint` — 0 errors, 0 warnings.
+4. `npm run build` — TypeScript + Vite production build succeeds.
+5. Simulation (`six tiers @ $200, minCodingIndex=75`): Z.ai rows = 0; top ranks are
+   Gemini 3.8 Flash (CI 76.3), Kimi K3 (76.2), Claude Opus 5 (78). Unfiltered run:
+   Z.ai Max resolves to `Z.ai: GLM 5.3` (CI 74.8, native 2,927M, $168).

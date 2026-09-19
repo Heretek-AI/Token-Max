@@ -47,6 +47,10 @@ export interface ApplesToApplesOption {
   url?: string;
   /** Subscriptions are normalized to the budget (tokens-per-dollar x budget); APIs are actual spend. */
   yieldBasis?: 'normalized' | 'actual';
+  /** Native plan monthly token allowance (unnormalized) for subscriptions. */
+  rawMonthlyTokens?: number;
+  /** Native plan monthly agent request allowance (unnormalized) for subscriptions. */
+  rawMonthlyRequests?: number;
 }
 
 export type EngineMode = 'standard' | 'mix' | 'dave';
@@ -140,6 +144,15 @@ export interface PlanTier {
     midpointEstimate?: number;
     optimisticEstimate?: number;
     assumptions: string;
+    estimateMeta?: {
+      sourceUrl?: string;
+      sourceQuote?: string;
+      sourceType: 'official' | 'derived' | 'research' | 'community';
+      confidence: 'high' | 'medium' | 'low';
+      verifiedAt: string;
+      basisModel?: string;
+      cacheAssumption?: string;
+    };
   } | null;
   notes?: string;
 }

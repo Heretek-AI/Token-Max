@@ -241,6 +241,17 @@ describe('matchesPlanModel', () => {
     expect(matchesPlanModel('claude-sonnet-5', model())).toBe(true);
   });
 
+  it('matches models with vendor branding prefixes and parenthetical notes', () => {
+    const grok = model({ id: 'x-ai/grok-4.5', name: 'xAI: Grok 4.5' });
+    expect(matchesPlanModel('Cursor Grok 4.5', grok)).toBe(true);
+
+    const seedLite = model({ id: 'bytedance-seed/seed-2.0-lite', name: 'ByteDance: Seed 2.0 Lite' });
+    expect(matchesPlanModel('Dola-Seed-2.0-Lite', seedLite)).toBe(true);
+
+    const glm = model({ id: 'z-ai/glm-5.3', name: 'Z.ai: GLM 5.3' });
+    expect(matchesPlanModel('GLM-5.3 (Reasoning)', glm)).toBe(true);
+  });
+
   it('does not match unrelated models', () => {
     const gemini = model({ id: 'google/gemini-3.8-flash', name: 'Gemini 3.8 Flash' });
     expect(matchesPlanModel('Claude Opus 5', gemini)).toBe(false);
