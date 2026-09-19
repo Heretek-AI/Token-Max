@@ -47,6 +47,17 @@
 - **Data Training Matrix**: Highlights whether your code is used to train AI models on Free, Individual, or Enterprise tiers.
 - **Hidden Gotchas & Restrictions**: Documents 5-hour rolling limits, tool-only API keys (with ban risks), quota freezes, lack of IP indemnity, and peak/off-peak pricing traps.
 
+### 6. 🧰 Developer Workflow Breakeven Calculator
+- Models a real agent workload — daily vs. session mode, peak context, MCP tool stack, and output tokens per turn — instead of raw credit math.
+- Measures modeled demand against each plan's token capacity using a selectable **estimate basis** (conservative 🔒, midpoint ⚖️, or optimistic 🔓) from the tier token budgets.
+- Surfaces the true per-subscription breakeven point against pay-per-token API pricing.
+
+---
+
+## 🩸 Visual Identity
+
+The UI is themed around the **Heretek Blood & Steel** design system — grimdark void surfaces, blood-red accents, and brass/rust rails — defined entirely in the `@theme` block of `src/index.css`. Brand assets (favicon, logotype included in Header/Footer via `public/icon-sm.png` / `public/logo-web.png`) ship in-tree.
+
 ---
 
 ## 🗂️ Tracked Services & Platforms (33+)

@@ -65,6 +65,14 @@ The Frontier Intelligence Decision Engine (`src/components/budget/LabDecisionEng
 4. **Raw vs. normalized values**: stacking uses the *raw* tier `estimatedMillionTokens` and `monthlyPrice`. This is deliberately different from the standard mode's leaderboard, which *normalizes* tier yields to the site budget (`tokensPerDollar × budget`). Do not feed normalized values back into the stack math — it would double-count the budget.
 5. **UI surface**: when a stacking mode is active, a dedicated panel renders below the three standout cards, and labeled `Mixed Bundle` / `Stacked ×N` rows are appended to the ranked leaderboard. The standard verdict callout and cards remain visible in all modes as the single-option baseline. Extreme stack quantities (e.g. 160× a $1 plan) are intentional in Dave mode; the TOS caveat about account stacking is displayed in the panel header.
 
+### Workflow Breakeven Calculator
+
+The Developer Workflow Breakeven Calculator (`src/components/budget/WorkflowCalculator.tsx`) sits as a secondary feature on the Dashboard below the Decision Engine. It models a realistic agent workload rather than credit math:
+
+- **Usage modes**: `daily` (requests/day) or `session` (hours/session, sessions/day, with per-session context growth and fixed 1K output tokens/turn).
+- **Modifiers**: peak context, MCP tool-stack level, and Coding Index presets that adjust token sizing.
+- **Estimate basis**: plan capacity per subscription is read from the tier's token budget via a selectable basis — `conservative` (`estimatedMillionTokens`), `midpoint` (`midpointEstimate`), `optimistic` (`optimisticEstimate`) — with fallback to the conservative floor when the optional fields are absent. See invariant F in `AGENTS.md`.
+
 
 ---
 
@@ -224,6 +232,9 @@ The file name must match the `id` property. The schema requires:
 > - `limits` must **NOT** be `{}`.
 > - `models` must **NOT** be `[]`.
 > - `estimatedTokenBudget` must **NOT** be `null` and must have `estimatedMillionTokens > 0`.
+
+> [!NOTE]
+> **Estimate Ranges (optional but recommended)**: tiers may additionally carry `midpointEstimate` and `optimisticEstimate` (monthly millions) alongside the conservative floor `estimatedMillionTokens`. The Workflow Breakeven Calculator lets users switch its estimate basis between these three; the Decision Engine stacking modes always use the conservative floor. Plans missing the optional fields simply clamp to the conservative estimate with no warning.
 
 #### Step 2: Add to `data/generate_plans.py`
 Add the plan dictionary into the `PLANS` list in `data/generate_plans.py` so that `python3 data/generate_plans.py` will cleanly regenerate all plans without dropping your additions.

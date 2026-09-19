@@ -50,7 +50,7 @@ Every plan file in `data/coding-plans/*.json` must include:
   - `monthlyPrice`: number or `null` (for custom/enterprise).
   - `limits`: key-value object of human-readable limits (e.g. `fastRequests`, `fiveHourCredits`, `concurrency`). **Never leave as empty `{}`**.
   - `models`: string array of models supported. **Never leave as empty `[]`**.
-  - `estimatedTokenBudget`: object with `description`, `estimatedMillionTokens`, and `assumptions`. **Never leave as `null`**.
+  - `estimatedTokenBudget`: object with `description`, conservative (floor) `estimatedMillionTokens`, optional `midpointEstimate` / `optimisticEstimate`, and `assumptions`. **Never leave as `null`**.
 - `gotchas`: array of gotcha strings.
 - `dataTraining`: data privacy / training policy string.
 - `ipIndemnity`: boolean or descriptive string.
@@ -66,6 +66,14 @@ The Decision Engine (`src/components/budget/LabDecisionEngine.tsx`) offers Mix &
 - Set `estimatedTokenBudget` to `null`, `0`, or an empty object on any tier — the stacking modes silently drop such plans.
 - Feed the standard leaderboard's budget-normalized yields into stacking math (it double-counts the budget).
 Increase the Mix & Match bundle cap above 4 without adding dedupe/combination guards.
+
+### F. Workflow Calculator Must Use Tier Estimate Ranges, Not Hard-Coded Yields
+The Developer Workflow Breakeven Calculator (`src/components/budget/WorkflowCalculator.tsx`) models real agent workloads (daily vs. session mode, peak context, MCP tool stack, output tokens per turn) and compares them against plan capacity. It reads the **estimate basis** (`conservative` = `estimatedMillionTokens`, `midpoint` = `midpointEstimate`, `optimistic` = `optimisticEstimate`) directly from tier token budgets. Do not:
+- Import plan costs or token budgets into the calculator outside `plans` data — keep it a pure function of `{ models, plans }` props with no hard-coded plan yields.
+- Drop or silently skip plans whose `midpointEstimate`/`optimisticEstimate` are missing — fall back to the conservative `estimatedMillionTokens` instead.
+
+### G. Respect the Heretek Blood & Steel Design System
+All chrome lives in the `@theme` block of `src/index.css` (blood/steel/void palettes + design tokens). Components must use these semantic tokens; never introduce hard-coded hex colors or a second accent palette. Unknown model providers get the steel fallback from `getProviderColor` in `src/lib/pricing.ts` — do not invent per-provider colors there except for documented brand mappings.
 
 ---
 
@@ -98,15 +106,16 @@ Token-Max/
 │   └── build-data.mjs         # Merges models, benchmarks, and plans into public/data/
 ├── src/
 │   ├── components/
-│   │   ├── budget/            # BudgetInput, BudgetResults
+│   │   ├── budget/            # BudgetInput, BudgetResults, LabDecisionEngine, WorkflowCalculator
 │   │   ├── layout/            # Header, Footer
 │   │   ├── models/            # ModelTable, PricingBadge
 │   │   ├── plans/             # PlanGrid, PlanDetail, TokenTranslator
 │   │   ├── benchmarks/        # ValueScatter, LeaderboardTable
 │   │   ├── tos/               # GotchaCards, TrainingMatrix
-│   │   └── shared/            # SearchFilter, LoadingSpinner, DataFreshness
+│   │   ├── shared/            # SearchFilter, LoadingSpinner, DataFreshness
+│   ├── index.css              # Heretek Blood & Steel design tokens (@theme block)
 │   ├── hooks/                 # useModels, usePlans, useBenchmarks, useBudget
-│   ├── lib/                   # types.ts, pricing.ts, benchmarks.ts
+│   ├── lib/                   # types.ts, pricing.ts
 │   ├── pages/                 # Dashboard, ModelsExplorer, PlansCompare, BenchmarksPage, TosAudit
 │   ├── App.tsx                # HashRouter setup
 │   └── main.tsx
