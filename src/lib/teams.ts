@@ -1,3 +1,6 @@
+import type { NormalizedModel } from './types';
+import { calculateAgentRequestCost } from './pricing';
+
 export type DeveloperPersonaId = 'casual' | 'standard' | 'power';
 
 export interface DeveloperPersona {
@@ -136,6 +139,7 @@ export interface TeamEconomicsParams {
   powerPercent: number;
   selectedProviderId: string;
   sharedPromptCacheDiscount?: number; // e.g. 0.15 (15% savings from shared team repo caching)
+  baselineModel?: NormalizedModel;
 }
 
 export interface PersonaCostBreakdown {
@@ -167,6 +171,27 @@ export interface TeamEconomicsResult {
   recommendationSummary: string;
 }
 
+function computePersonaApiCost(p: DeveloperPersona, model?: NormalizedModel): number {
+  if (!model) return p.estimatedDirectApiCost;
+  const inPrice = model.pricing.input || model.blendedCost * 0.75;
+  const outPrice = model.pricing.output || model.blendedCost * 1.75;
+  const cachedPrice = model.pricing.cachedInput ?? inPrice * 0.1;
+  const { costPerRequest } = calculateAgentRequestCost(model, 0.75);
+
+  const agentCost = p.monthlyAgentTurns * costPerRequest;
+  const chatCost = p.monthlyChats * (
+    (10_000 * 0.25 * inPrice / 1e6) +
+    (10_000 * 0.75 * cachedPrice / 1e6) +
+    (500 * outPrice / 1e6)
+  );
+  const compCost = p.monthlyCompletions * (
+    (500 * inPrice / 1e6) +
+    (100 * outPrice / 1e6)
+  );
+
+  return Math.max(0.5, agentCost + chatCost + compCost);
+}
+
 export function calculateTeamEconomics(params: TeamEconomicsParams): TeamEconomicsResult {
   const {
     teamSize,
@@ -175,6 +200,7 @@ export function calculateTeamEconomics(params: TeamEconomicsParams): TeamEconomi
     powerPercent,
     selectedProviderId,
     sharedPromptCacheDiscount = 0.15,
+    baselineModel,
   } = params;
 
   const provider = SEAT_PROVIDERS.find((p) => p.id === selectedProviderId) || SEAT_PROVIDERS[0];
@@ -193,8 +219,9 @@ export function calculateTeamEconomics(params: TeamEconomicsParams): TeamEconomi
   ];
 
   const personaBreakdowns: PersonaCostBreakdown[] = personas.map(({ p, count }) => {
+    const rawApiCost = computePersonaApiCost(p, baselineModel);
     // Shared prompt caching reduces direct API spend for teams
-    const discountedApiCost = p.estimatedDirectApiCost * (1 - sharedPromptCacheDiscount);
+    const discountedApiCost = rawApiCost * (1 - sharedPromptCacheDiscount);
     const totalDirectApi = count * discountedApiCost;
     const totalFlatSeat = count * provider.monthlySeatPrice;
 

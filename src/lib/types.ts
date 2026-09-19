@@ -160,6 +160,7 @@ export interface PoolDrainRow {
   fractionConsumed: number;
   coveredCost: number;
   overageCost: number;
+  isSupported?: boolean;
 }
 
 export interface PoolDrainResult {
@@ -175,6 +176,9 @@ export interface PoolDrainResult {
   savings: number; // totalDirectCost - totalPlanCost
   isCapped: boolean; // whether overage occurred
   rows: PoolDrainRow[];
+  supportedModelsCount?: number;
+  totalModelsCount?: number;
+  coverageType?: 'full' | 'partial' | 'none';
 }
 
 export interface CodingPlan {

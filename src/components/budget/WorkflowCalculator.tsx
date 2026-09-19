@@ -88,6 +88,38 @@ function requestCost(
   );
 }
 
+function sessionCost(
+  model: NormalizedModel,
+  sessionInputSum: number,
+  finalContextTokens: number,
+  outputTokens: number,
+  cacheRate: CacheRate
+): number {
+  const inPrice = model.pricing.input || model.blendedCost * 0.75;
+  const outPrice = model.pricing.output || model.blendedCost * 1.75;
+  const cacheMult = getEffectiveCacheMultiplier(model);
+
+  if (cacheRate === 0) {
+    return (sessionInputSum * inPrice) / 1e6 + (outputTokens * outPrice) / 1e6;
+  }
+
+  // Realistic prefix caching across multi-turn sessions:
+  // Unique tokens generated/written across the session are bounded by finalContextTokens.
+  // Subsequent turns read previously written context from cache.
+  // Residual cache-busts / invalidations scale with (1 - cacheRate).
+  const baseFresh = Math.min(sessionInputSum, finalContextTokens);
+  const reReadTokens = Math.max(0, sessionInputSum - baseFresh);
+  const uncachedOverhead = Math.max(0, 1 - cacheRate);
+  const freshInput = baseFresh + reReadTokens * uncachedOverhead * 0.15;
+  const cachedInput = Math.max(0, sessionInputSum - freshInput);
+
+  return (
+    (freshInput * inPrice) / 1e6 +
+    (cachedInput * inPrice * cacheMult) / 1e6 +
+    (outputTokens * outPrice) / 1e6
+  );
+}
+
 function cleanedModels(models: NormalizedModel[]): NormalizedModel[] {
   const excludedPatterns = [
     'nemo', 'granite', 'lunaris', 'hermes', 'gemma-1', 'llama-2', 'gpt-3.5',
@@ -230,7 +262,7 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
 
     const sessionAgentCost = (m: NormalizedModel) =>
       inputMode === 'session'
-        ? requestCost(m, sessionInputSum, sessionOutput, cacheRate) * monthlySessions
+        ? sessionCost(m, sessionInputSum, finalContextTokens, sessionOutput, cacheRate) * monthlySessions
         : 0;
 
     const dailyAgentCost = (m: NormalizedModel) =>
@@ -253,7 +285,7 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
     )[0];
 
     return { frontier: frontier ? markdown(frontier) : null, workhorse: workhorse ? markdown(workhorse) : null };
-  }, [models, usage, inputMode, contextTokens, cacheRate, minCodingIndex, sessionInputSum, sessionOutput, monthlySessions]);
+  }, [models, usage, inputMode, contextTokens, cacheRate, minCodingIndex, sessionInputSum, finalContextTokens, sessionOutput, monthlySessions]);
 
   const tierRecommendations = useMemo(() => {
     const requiredTokens = usage.totalTokens / 1e6;

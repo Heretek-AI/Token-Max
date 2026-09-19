@@ -337,7 +337,11 @@ describe('calculateTimeBlendedCost', () => {
 describe('calculatePoolDrain', () => {
   it('drains pool within budget when usage is under quota', () => {
     const testPlan = plan();
-    const testTier = tier({ monthlyPrice: 20, estimatedTokenBudget: { estimatedMillionTokens: 100, assumptions: 'test' } });
+    const testTier = tier({
+      monthlyPrice: 20,
+      models: ['DeepSeek Flash', 'Claude Sonnet'],
+      estimatedTokenBudget: { estimatedMillionTokens: 100, assumptions: 'test' }
+    });
     const workload = [
       { modelId: 'deepseek-flash', modelName: 'DeepSeek Flash', share: 0.7, tokensMillion: 50, costPpu: 5 },
       { modelId: 'claude-sonnet', modelName: 'Claude Sonnet', share: 0.3, tokensMillion: 10, costPpu: 8 },
@@ -348,6 +352,7 @@ describe('calculatePoolDrain', () => {
     expect(result.totalPlanCost).toBe(20);
     expect(result.totalDirectCost).toBe(13);
     expect(result.poolUtilizedPercent).toBeLessThanOrEqual(100);
+    expect(result.coverageType).toBe('full');
   });
 
   it('correctly calculates pay-per-use overage when usage exceeds plan allowance', () => {
@@ -355,6 +360,7 @@ describe('calculatePoolDrain', () => {
     // A tier with modelAllowances: e.g. OpenCode Go style with $15 allowance for expensive models
     const testTier = tier({
       monthlyPrice: 10,
+      models: ['Claude Opus'],
       modelAllowances: { 'claude': 15 },
       estimatedTokenBudget: { estimatedMillionTokens: 50, assumptions: 'test' }
     });
@@ -367,6 +373,28 @@ describe('calculatePoolDrain', () => {
     expect(result.overageCost).toBe(15); // 30 - 15 = 15 overage
     expect(result.totalPlanCost).toBe(25); // 10 sub + 15 overage
     expect(result.savings).toBe(5); // 30 direct - 25 plan
+    expect(result.coverageType).toBe('full');
+  });
+
+  it('routes unsupported models entirely to direct pay-per-use overage', () => {
+    const testPlan = plan();
+    // Tier only supports Claude Sonnet
+    const testTier = tier({
+      monthlyPrice: 20,
+      models: ['Claude Sonnet'],
+      estimatedTokenBudget: { estimatedMillionTokens: 100, assumptions: 'test' }
+    });
+    // Workload includes unsupported DeepSeek Flash
+    const workload = [
+      { modelId: 'deepseek-flash', modelName: 'DeepSeek Flash', share: 0.5, tokensMillion: 50, costPpu: 10 },
+      { modelId: 'claude-sonnet', modelName: 'Claude Sonnet', share: 0.5, tokensMillion: 5, costPpu: 5 },
+    ];
+    const result = calculatePoolDrain(testPlan, testTier, workload);
+    // DeepSeek is unsupported, so it cannot be absorbed by the plan pool
+    expect(result.coverageType).toBe('partial');
+    expect(result.supportedModelsCount).toBe(1);
+    expect(result.totalModelsCount).toBe(2);
+    expect(result.overageCost).toBeGreaterThanOrEqual(10); // At least DeepSeek's $10 goes to overage
   });
 });
 

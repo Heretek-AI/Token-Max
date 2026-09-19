@@ -154,11 +154,13 @@ export default function MixOptimizer() {
     }));
   }, [resolvedMix]);
 
+  const [requireCompatible, setRequireCompatible] = useState<boolean>(true);
+
   // Run Pool Drain Engine across all 33 plans and all paid tiers
   const planRankings = useMemo(() => {
     if (workloadItems.length === 0 || totalTokensMillion === 0) return [];
 
-    return plans
+    const all = plans
       .flatMap(plan =>
         (plan.tiers || [])
           .filter(t => t.monthlyPrice !== null && t.monthlyPrice > 0 && t.estimatedTokenBudget)
@@ -175,9 +177,21 @@ export default function MixOptimizer() {
               fitsZeroOverage: !drain.isCapped,
             };
           })
-      )
-      .sort((a, b) => a.totalCost - b.totalCost);
-  }, [plans, workloadItems, totalTokensMillion, totalDirectCost]);
+      );
+
+    const filtered = requireCompatible
+      ? all.filter(r => (r.drain.coverageType || 'none') !== 'none')
+      : all;
+
+    return filtered.sort((a, b) => {
+      // Prioritize higher coverage type (full before partial before none)
+      const covWeight: Record<string, number> = { full: 3, partial: 2, none: 1 };
+      const covA = covWeight[a.drain.coverageType || 'none'] || 1;
+      const covB = covWeight[b.drain.coverageType || 'none'] || 1;
+      if (covB !== covA) return covB - covA;
+      return a.totalCost - b.totalCost;
+    });
+  }, [plans, workloadItems, totalTokensMillion, totalDirectCost, requireCompatible]);
 
   if (modelsLoading || plansLoading) return <LoadingSpinner />;
 
@@ -401,13 +415,24 @@ export default function MixOptimizer() {
 
       {/* Ranked Plan Candidates */}
       <section className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <h2 className="text-lg font-bold text-text flex items-center gap-2">
             <Rocket className="w-5 h-5 text-primary" /> Ranked Subscription & Hybrid Options
           </h2>
-          <span className="text-xs text-text-muted font-mono">
-            {planRankings.length} qualifying plans evaluated
-          </span>
+          <div className="flex items-center gap-3">
+            <label className="flex items-center gap-1.5 text-xs text-text-muted cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={requireCompatible}
+                onChange={e => setRequireCompatible(e.target.checked)}
+                className="rounded border-border text-primary focus:ring-primary h-3.5 w-3.5"
+              />
+              <span>Compatible plans only</span>
+            </label>
+            <span className="text-xs text-text-muted font-mono">
+              {planRankings.length} qualifying plans evaluated
+            </span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -426,15 +451,32 @@ export default function MixOptimizer() {
                     </div>
                     <div className="text-base font-extrabold text-text">{r.tier.name}</div>
                   </div>
-                  <span
-                    className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
-                      r.fitsZeroOverage
-                        ? 'bg-success/10 text-success border border-success/30'
-                        : 'bg-warning/10 text-warning border border-warning/30'
-                    }`}
-                  >
-                    {r.fitsZeroOverage ? 'Full Fit' : `+${r.drain.poolUtilizedPercent}% drain`}
-                  </span>
+                  <div className="flex flex-col items-end gap-1">
+                    <span
+                      className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
+                        r.fitsZeroOverage
+                          ? 'bg-success/10 text-success border border-success/30'
+                          : 'bg-warning/10 text-warning border border-warning/30'
+                      }`}
+                    >
+                      {r.fitsZeroOverage ? 'Full Fit' : `+${r.drain.poolUtilizedPercent}% drain`}
+                    </span>
+                    {r.drain.coverageType === 'full' && (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-success/10 text-success font-medium">
+                        All models covered
+                      </span>
+                    )}
+                    {r.drain.coverageType === 'partial' && (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-warning/10 text-warning font-medium">
+                        {r.drain.supportedModelsCount}/{r.drain.totalModelsCount} models covered
+                      </span>
+                    )}
+                    {r.drain.coverageType === 'none' && (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-blood-900/40 text-blood-400 font-medium">
+                        No native match
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <div className="flex items-baseline gap-1.5 my-2">

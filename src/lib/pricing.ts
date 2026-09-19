@@ -772,28 +772,63 @@ export function calculatePoolDrain(
 
   const totalDirectCost = workload.reduce((sum, item) => sum + item.costPpu, 0);
 
-  let remainingPoolFraction = 1.0;
-  let totalFractionConsumed = 0;
-  const rows: PoolDrainRow[] = [];
-
-  for (const item of workload) {
-    let allowance = 0;
+  // Model support check: if tier has a restricted model list, verify whether item is supported
+  const isItemSupported = (item: WorkloadItem): boolean => {
     if (tier.modelAllowances) {
       const matchKey = Object.keys(tier.modelAllowances).find(k =>
         item.modelId.toLowerCase().includes(k.toLowerCase()) ||
         item.modelName.toLowerCase().includes(k.toLowerCase())
       );
-      if (matchKey) {
-        allowance = tier.modelAllowances[matchKey];
+      if (matchKey) return true;
+    }
+    if (tier.models && tier.models.length > 0) {
+      return tier.models.some(planModelName =>
+        matchesPlanModel(planModelName, { id: item.modelId, name: item.modelName } as NormalizedModel)
+      );
+    }
+    return true;
+  };
+
+  // Greedy knapsack sorting:
+  // Supported models are processed first, sorted by highest unit cost ($/M) to maximize absorbed value.
+  // Unsupported models are placed last and spill directly into overage.
+  const sortedWorkload = [...workload].sort((a, b) => {
+    const aSupported = isItemSupported(a);
+    const bSupported = isItemSupported(b);
+    if (aSupported !== bSupported) return aSupported ? -1 : 1;
+    const aRate = a.tokensMillion > 0 ? a.costPpu / a.tokensMillion : 0;
+    const bRate = b.tokensMillion > 0 ? b.costPpu / b.tokensMillion : 0;
+    return bRate - aRate;
+  });
+
+  let remainingPoolFraction = 1.0;
+  let totalFractionConsumed = 0;
+  const rows: PoolDrainRow[] = [];
+  let supportedCount = 0;
+
+  for (const item of sortedWorkload) {
+    const supported = isItemSupported(item);
+    if (supported) supportedCount++;
+
+    let allowance = 0;
+    if (supported) {
+      if (tier.modelAllowances) {
+        const matchKey = Object.keys(tier.modelAllowances).find(k =>
+          item.modelId.toLowerCase().includes(k.toLowerCase()) ||
+          item.modelName.toLowerCase().includes(k.toLowerCase())
+        );
+        if (matchKey) {
+          allowance = tier.modelAllowances[matchKey];
+        }
+      }
+
+      if (allowance <= 0) {
+        const impliedRatePerMillion = item.tokensMillion > 0 ? item.costPpu / item.tokensMillion : 1.0;
+        allowance = Math.max(monthlyPrice, budgetTokens * impliedRatePerMillion);
       }
     }
 
-    if (allowance <= 0) {
-      const impliedRatePerMillion = item.tokensMillion > 0 ? item.costPpu / item.tokensMillion : 1.0;
-      allowance = Math.max(monthlyPrice, budgetTokens * impliedRatePerMillion);
-    }
-
-    const fraction = allowance > 0 ? item.costPpu / allowance : 1.0;
+    const fraction = allowance > 0 ? item.costPpu / allowance : 0;
     totalFractionConsumed += fraction;
 
     const usedFraction = Math.min(fraction, Math.max(0, remainingPoolFraction));
@@ -810,6 +845,7 @@ export function calculatePoolDrain(
       fractionConsumed: fraction,
       coveredCost,
       overageCost,
+      isSupported: supported,
     });
   }
 
@@ -817,6 +853,8 @@ export function calculatePoolDrain(
   const overageCost = rows.reduce((sum, r) => sum + r.overageCost, 0);
   const totalPlanCost = monthlyPrice + overageCost;
   const savings = totalDirectCost - totalPlanCost;
+  const coverageType: 'full' | 'partial' | 'none' =
+    supportedCount === workload.length ? 'full' : supportedCount > 0 ? 'partial' : 'none';
 
   return {
     planId: plan.id,
@@ -829,8 +867,11 @@ export function calculatePoolDrain(
     overageCost,
     totalPlanCost,
     savings,
-    isCapped: totalFractionConsumed > 1.0,
+    isCapped: totalFractionConsumed > 1.0 || supportedCount < workload.length,
     rows,
+    supportedModelsCount: supportedCount,
+    totalModelsCount: workload.length,
+    coverageType,
   };
 }
 

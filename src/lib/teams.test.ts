@@ -89,4 +89,35 @@ describe('Multi-Seat Team & Gateway Economics Engine', () => {
       expect(prov.url).toContain('https://');
     }
   });
+
+  it('dynamically prices personas when a custom baselineModel is provided', () => {
+    const cheapModel = {
+      id: 'deepseek/deepseek-v4.1-flash',
+      name: 'DeepSeek Flash',
+      provider: 'deepseek',
+      modality: 'text->text',
+      contextWindow: 128000,
+      maxOutput: 8192,
+      pricing: { input: 0.14, output: 0.28, cachedInput: 0.014, cachedInputWrite: null, reasoning: null, webSearch: null },
+      blendedCost: 0.18,
+      costPer1kRequests: 0.56,
+      benchmarks: { intelligenceIndex: 55, codingIndex: 68, agenticIndex: 52, valueScore: 350 },
+      reasoning: null,
+      isFree: false,
+      isBatch: false,
+    };
+
+    const result = calculateTeamEconomics({
+      teamSize: 10,
+      casualPercent: 20,
+      standardPercent: 40,
+      powerPercent: 40,
+      selectedProviderId: 'cursor-business',
+      baselineModel: cheapModel,
+    });
+
+    // On ultra-cheap DeepSeek model, direct API gateway should be far cheaper than flat seats
+    expect(result.gatewayMonthly).toBeLessThan(result.flatSeatsMonthly);
+    expect(result.recommendedStrategy).toBe('gateway-all');
+  });
 });

@@ -114,34 +114,55 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
       .slice(0, 12);
   }, [cleanModels, budget, modelCategory, matchingPlanModels, cacheRate]);
 
-  // Compute Arbitrage summary
+  // Compute Arbitrage summary with like-for-like quality matching
   const arbitrageInsight = useMemo(() => {
     if (!currentTier?.estimatedTokenBudget || displayModels.length === 0) return null;
     const planTokens = currentTier.estimatedTokenBudget.estimatedMillionTokens;
-    const topModel = displayModels[0];
-    const topApiTokens = topModel.affordableTokens;
 
-    if (topApiTokens > planTokens * 1.25) {
-      const ratio = (topApiTokens / planTokens).toFixed(1);
+    // Quality-matched selection:
+    // 1. Check if basisModel is documented in estimateMeta
+    // 2. Otherwise use the primary matching model from matchingPlanModels
+    // 3. Fallback to the model closest to the tier's capability or top workhorse
+    const basisName = (currentTier.estimatedTokenBudget as any).estimateMeta?.basisModel;
+    let comparisonModel = basisName
+      ? displayModels.find(m => matchesPlanModel(basisName, m))
+      : undefined;
+
+    if (!comparisonModel && matchingPlanModels.length > 0) {
+      comparisonModel = [...displayModels]
+        .filter(m => matchingPlanModels.some(pm => pm.id === m.id))
+        .sort((a, b) => (b.benchmarks?.codingIndex || 0) - (a.benchmarks?.codingIndex || 0))[0];
+    }
+
+    if (!comparisonModel) {
+      comparisonModel = [...displayModels].sort(
+        (a, b) => (b.benchmarks?.codingIndex || 0) - (a.benchmarks?.codingIndex || 0)
+      )[0] || displayModels[0];
+    }
+
+    const apiTokens = comparisonModel.affordableTokens;
+
+    if (apiTokens >= planTokens * 1.25) {
+      const ratio = (apiTokens / (planTokens || 1)).toFixed(1);
       return {
         type: 'api-advantage',
         ratio: `${ratio}x`,
-        message: `Direct ${topModel.name} delivers ${ratio}x more compute than this subscription.`
+        message: `Direct ${comparisonModel.name} delivers ${ratio}x more compute than this subscription (compared like-for-like).`
       };
-    } else if (planTokens > topApiTokens * 1.25) {
-      const ratio = (planTokens / topApiTokens).toFixed(1);
+    } else if (planTokens >= apiTokens * 1.25) {
+      const ratio = (planTokens / (apiTokens || 1)).toFixed(1);
       return {
         type: 'plan-advantage',
         ratio: `${ratio}x`,
-        message: `This plan bundles ${ratio}x more native allowance than direct API spend for ${topModel.name}.`
+        message: `This plan bundles ${ratio}x more native allowance than direct API spend for ${comparisonModel.name} (compared like-for-like).`
       };
     }
     return {
       type: 'parity',
       ratio: '1.0x',
-      message: `Plan allowance and direct API compute are roughly comparable at this price point.`
+      message: `Plan allowance and direct API compute for ${comparisonModel.name} are roughly comparable at this price point.`
     };
-  }, [currentTier, displayModels]);
+  }, [currentTier, displayModels, matchingPlanModels]);
 
   if (allTiers.length === 0) return null;
 
