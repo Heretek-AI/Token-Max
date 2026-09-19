@@ -69,20 +69,13 @@ async function buildData() {
     const mIdNorm = normalizeStr(modelIdClean);
     const mNameNorm = normalizeStr(model.name);
 
-    // Find best match in AA benchmarks
-    const match = benchmarks.find(b => {
-      const bSlugClean = b.slug || '';
-      const bSlugNorm = normalizeStr(bSlugClean);
-      const bNameNorm = normalizeStr(b.name);
+      const match = benchmarks.find(b => {
+        const bSlugClean = b.slug || '';
+        const bSlugNorm = normalizeStr(bSlugClean);
+        const bNameNorm = normalizeStr(b.name);
 
-      return (
-        bSlugNorm === mIdNorm ||
-        bSlugClean === modelIdClean ||
-        bNameNorm === mNameNorm ||
-        mIdNorm.includes(bSlugNorm) ||
-        bSlugNorm.includes(mIdNorm)
-      );
-    });
+        return bSlugNorm === mIdNorm || bNameNorm === mNameNorm;
+      });
 
     if (match && match.evaluations) {
       matchedCount++;

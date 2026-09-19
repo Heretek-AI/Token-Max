@@ -5,12 +5,13 @@ const OUTPUT_FILE = path.join(process.cwd(), 'public/data/benchmarks.json');
 
 async function fetchBenchmarks() {
   console.log('Fetching benchmarks from Artificial Analysis...');
-  const apiKey = process.env.AA_API_KEY || 'aa_deImEvQhbDWBmUhmWwipzqxziyAMKZur';
-
-  const headers = {};
-  if (apiKey) {
-    headers['x-api-key'] = apiKey;
+  const apiKey = process.env.AA_API_KEY;
+  if (!apiKey) {
+    console.error('AA_API_KEY env var is required. Set it from the Artificial Analysis dashboard (kept as a GitHub repo secret).');
+    process.exit(1);
   }
+
+  const headers = { 'x-api-key': apiKey };
 
   let allModels = [];
   let page = 1;
