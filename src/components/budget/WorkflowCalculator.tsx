@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import type { CodingPlan, NormalizedModel, CacheRate, WorkloadItem } from '../../lib/types';
 import { getEffectiveCacheMultiplier, calculatePoolDrain, QUALITY } from '../../lib/pricing';
 import { DEFAULT_CACHE_RATE } from '../../lib/estimate-constants';
@@ -14,6 +15,8 @@ import {
   Clock,
   Layers,
   Gauge,
+  Share2,
+  Check,
 } from 'lucide-react';
 
 const WORKDAYS_PER_MONTH = 22;
@@ -104,19 +107,74 @@ function formatTokens(m: number): string {
 }
 
 export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
-  const [inputMode, setInputMode] = useState<InputMode>('daily');
-  const [agentTasks, setAgentTasks] = useState(10);
-  const [chatQueries, setChatQueries] = useState(120);
-  const [completions, setCompletions] = useState(200);
-  const [contextKey, setContextKey] = useState<ContextKey>('medium');
-  const [cacheRate, setCacheRate] = useState<CacheRate>(DEFAULT_CACHE_RATE);
-  const [sessionHours, setSessionHours] = useState(5);
-  const [sessionsPerDay, setSessionsPerDay] = useState(1);
-  const [peakContextK, setPeakContextK] = useState(200);
-  const [mcpStack, setMcpStack] = useState<McpStackKey>('light');
-  const [estimateBasis, setEstimateBasis] = useState<EstimateBasis>('conservative');
-  const [qualityKey, setQualityKey] = useState<QualityKey>('balanced');
-  const [pipelineMode, setPipelineMode] = useState<'single' | 'hybrid'>('single');
+  const [searchParams] = useSearchParams();
+
+  const [inputMode, setInputMode] = useState<InputMode>(
+    searchParams.get('mode') === 'session' ? 'session' : 'daily'
+  );
+  const [agentTasks, setAgentTasks] = useState(
+    Number(searchParams.get('tasks')) || 10
+  );
+  const [chatQueries, setChatQueries] = useState(
+    Number(searchParams.get('chats')) || 120
+  );
+  const [completions, setCompletions] = useState(
+    Number(searchParams.get('comps')) || 200
+  );
+  const [contextKey, setContextKey] = useState<ContextKey>(
+    (searchParams.get('ctx') as ContextKey) || 'medium'
+  );
+  const [cacheRate, setCacheRate] = useState<CacheRate>(
+    searchParams.get('cache') !== null ? (Number(searchParams.get('cache')) as CacheRate) : DEFAULT_CACHE_RATE
+  );
+  const [sessionHours, setSessionHours] = useState(
+    Number(searchParams.get('h')) || 5
+  );
+  const [sessionsPerDay, setSessionsPerDay] = useState(
+    Number(searchParams.get('spd')) || 1
+  );
+  const [peakContextK, setPeakContextK] = useState(
+    Number(searchParams.get('peak')) || 200
+  );
+  const [mcpStack, setMcpStack] = useState<McpStackKey>(
+    (searchParams.get('mcp') as McpStackKey) || 'light'
+  );
+  const [estimateBasis, setEstimateBasis] = useState<EstimateBasis>(
+    (searchParams.get('basis') as EstimateBasis) || 'conservative'
+  );
+  const [qualityKey, setQualityKey] = useState<QualityKey>(
+    (searchParams.get('quality') as QualityKey) || 'balanced'
+  );
+  const [pipelineMode, setPipelineMode] = useState<'single' | 'hybrid'>(
+    searchParams.get('pipe') === 'hybrid' ? 'hybrid' : 'single'
+  );
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = () => {
+    const params = new URLSearchParams();
+    params.set('mode', inputMode);
+    if (inputMode === 'daily') {
+      params.set('tasks', String(agentTasks));
+      params.set('chats', String(chatQueries));
+      params.set('comps', String(completions));
+      params.set('ctx', contextKey);
+    } else {
+      params.set('h', String(sessionHours));
+      params.set('spd', String(sessionsPerDay));
+      params.set('peak', String(peakContextK));
+      params.set('mcp', mcpStack);
+    }
+    params.set('cache', String(cacheRate));
+    params.set('pipe', pipelineMode);
+    params.set('basis', estimateBasis);
+    params.set('quality', qualityKey);
+
+    const shareUrl = `${window.location.origin}${window.location.pathname}#/?${params.toString()}`;
+    navigator.clipboard.writeText(shareUrl).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    });
+  };
 
   const contextTokens = CONTEXT_OPTIONS.find(c => c.key === contextKey)!.tokens;
   const minCodingIndex = QUALITY_PRESETS.find(q => q.key === qualityKey)!.min;
@@ -400,6 +458,24 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
               Hybrid (75/25)
             </button>
           </div>
+
+          <button
+            onClick={handleShare}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-border bg-surface-alt hover:bg-surface text-xs font-semibold text-text-muted hover:text-text transition-colors shadow-xs"
+            title="Copy shareable link for this workflow scenario"
+          >
+            {copied ? (
+              <>
+                <Check className="w-3.5 h-3.5 text-success" />
+                <span className="text-success font-bold">Copied!</span>
+              </>
+            ) : (
+              <>
+                <Share2 className="w-3.5 h-3.5 text-primary" />
+                <span>Share</span>
+              </>
+            )}
+          </button>
         </div>
       </div>
 

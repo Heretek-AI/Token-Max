@@ -79,6 +79,20 @@ Fixed against official sources:
 
 ## Verification passes
 
+### 2026-09-19 — Multi-Model Mix Optimizer & Shareable URL State
+
+Delivered the Multi-Model Mix Optimizer tool and workflow URL permalinks:
+- **Shareable Scenario Permalinks:** Integrated `useSearchParams` into [`src/components/budget/WorkflowCalculator.tsx`](file:///home/john/Projects/Token-Max/src/components/budget/WorkflowCalculator.tsx) to encode daily/session parameters, cache rate, and pipeline mode into the URL hash, with a one-click clipboard share button.
+- **Mix Optimizer Page:** Created [`src/pages/MixOptimizer.tsx`](file:///home/john/Projects/Token-Max/src/pages/MixOptimizer.tsx) (`#/optimizer`) enabling developers to construct custom model pipelines across all 440+ models, with Autonomous Agent, Daily Driver, and Lean Open presets.
+- **Multi-Model Pool Drain Engine Integration:** Evaluated all 33 subscription plans against custom model mixes, computing pool utilization percentages, pay-per-use overages, and direct API savings.
+- **Navigation & Routing:** Added `/optimizer` route in [`src/App.tsx`](file:///home/john/Projects/Token-Max/src/App.tsx) and header navigation item in [`src/components/layout/Header.tsx`](file:///home/john/Projects/Token-Max/src/components/layout/Header.tsx).
+
+Commands run from repository root, all green:
+1. `npm run validate-data` — 33/33 plans valid.
+2. `npm test` — 46/46 unit tests pass.
+3. `npm run lint` — 0 errors, 0 warnings (oxlint).
+4. `npm run build` — TypeScript and Vite production build succeeds.
+
 ### 2026-09-19 — Quota calculation methodology evaluation & pool drain engine
 
 Forensic comparative audit of competitor and peer methodologies (**DeepFrugal**, **AI-10-USD**) versus Token-Max's pricing logic. Implemented architectural enhancements:

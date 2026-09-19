@@ -6,6 +6,7 @@ import ModelsExplorer from './pages/ModelsExplorer';
 import PlansCompare from './pages/PlansCompare';
 import BenchmarksPage from './pages/BenchmarksPage';
 import TosAudit from './pages/TosAudit';
+import MixOptimizer from './pages/MixOptimizer';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-6">
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/optimizer" element={<MixOptimizer />} />
               <Route path="/models" element={<ModelsExplorer />} />
               <Route path="/plans" element={<PlansCompare />} />
               <Route path="/benchmarks" element={<BenchmarksPage />} />
