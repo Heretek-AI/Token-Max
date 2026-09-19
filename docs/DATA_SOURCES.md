@@ -118,6 +118,9 @@ Models with high coding intelligence and low per-token cost score highest on the
 
 All subscription plans are tracked as structured, schema-validated JSON files in [`data/coding-plans/`](file:///home/john/Projects/Token-Max/data/coding-plans/).
 
+### Verification Standard (Sept 2026 audit)
+Every tier's `estimatedTokenBudget.assumptions` must contain an explicit estimation formula (unit count × tokens per unit at a blended cache-adjusted rate) and, where the vendor publishes no numbers, label the figure a low-confidence research estimate — never present an unpublished unit count as official. Tier `models` must reference models that resolve in `public/data/models.json` (or clearly-labeled proprietary/PAYG pool descriptors like "Kilo Gateway (500+ models)"). `url` must point at a page that currently loads (e.g. `windsurf.com/pricing`, `commandcode.ai/pricing`, `kilo.ai/pricing`, `claude.com/pricing`, `developer.meta.com/ai/products/muse-code`). The 2026-09-18 pass re-verified all 33 sources; plans whose quotas are intentionally opaque (Antigravity, Windsurf/Devin, Kimi Code, MiniMax, Amazon Q Pro) carry research-derived token estimates with explicit low-confidence assumptions.
+
 ### Schema Standard (`_schema.json`)
 Every file must strictly validate against `data/coding-plans/_schema.json`:
 - `id`: Slug matching filename without extension.
