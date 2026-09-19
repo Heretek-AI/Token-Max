@@ -356,9 +356,25 @@ export function computeApplesToApples(
       const tokensPerDollar = baseTokens / tier.monthlyPrice;
 
       const tierMatches: NormalizedModel[] = [];
+      const tierMatchIds = new Set<string>();
       for (const planModelName of tier.models || []) {
-        const match = cleanModels.find(m => matchesPlanModel(planModelName, m));
-        if (match && !tierMatches.some(tm => tm.id === match.id)) {
+        // Forward matching only here: a plan model name like "GLM-5.3-Flash"
+        // must not match the shorter "GLM-5.3" (reverse-substring would steal
+        // the tier's entry and drop the Flash row entirely). Each catalog
+        // model may be claimed at most once per tier.
+        const lower = planModelName.toLowerCase();
+        const match =
+          cleanModels.find(
+            m =>
+              !tierMatchIds.has(m.id) &&
+              (m.name.toLowerCase().includes(lower) || m.id.toLowerCase().includes(lower))
+          ) ??
+          cleanModels.find(
+            m => !tierMatchIds.has(m.id) && matchesPlanModel(planModelName, m)
+          ) ??
+          null;
+        if (match) {
+          tierMatchIds.add(match.id);
           tierMatches.push(match);
         }
       }
@@ -786,7 +802,9 @@ export function resolveTierModelBudget(
     basis: null as string | null,
   };
   if (!modelName) return fallback;
-  const key = Object.keys(tier.perModelTokenBudgets ?? {}).find(k => modelName.toLowerCase().includes(k));
+  // Longest key first so "glm-5.3-flash" wins over the shorter "glm-5.3".
+  const keys = Object.keys(tier.perModelTokenBudgets ?? {}).sort((a, b) => b.length - a.length);
+  const key = keys.find(k => modelName.toLowerCase().includes(k));
   if (!key) return fallback;
   const entry = tier.perModelTokenBudgets![key];
   return {

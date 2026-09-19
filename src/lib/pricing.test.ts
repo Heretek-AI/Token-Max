@@ -280,6 +280,56 @@ describe('computeApplesToApples', () => {
     expect(ids).not.toContain('openai/gpt-3.5-turbo');
     expect(ids).not.toContain('x/free');
   });
+
+  it('uses per-model token budgets over the tier pool when both models are listed', () => {
+    const flashModel = model({ id: 'z-ai/glm-5.3-flash', name: 'GLM-5.3-Flash' });
+    const glmModel = model({ id: 'z-ai/glm-5.3', name: 'GLM-5.3' });
+    const subPlan = plan({
+      id: 'z-ai',
+      name: 'Z.ai GLM Coding Plan',
+      url: 'https://example.com/pricing',
+      tiers: [
+        tier({
+          monthlyPrice: 168,
+          models: ['GLM-5.3', 'GLM-5.3-Flash'],
+          perModelTokenBudgets: {
+            'glm-5.3': { estimatedMillionTokens: 2927, basis: 'official-table' },
+            'glm-5.3-flash': { estimatedMillionTokens: 8864, basis: 'official-table' },
+          },
+          estimatedTokenBudget: { description: 'pool', estimatedMillionTokens: 2927, assumptions: 't' },
+        }),
+      ],
+    } as Partial<CodingPlan>);
+    const result = computeApplesToApples([glmModel, flashModel], [subPlan], 'all', 200, 0, 0.75);
+    const rows = result.options.filter(o => o.type === 'subscription');
+    const glmRow = rows.find(o => o.modelId === 'z-ai/glm-5.3');
+    const flashRow = rows.find(o => o.modelId === 'z-ai/glm-5.3-flash');
+    expect(glmRow).toBeDefined();
+    expect(flashRow).toBeDefined();
+    // Per-model native yields: GLM-5.3 drains at pool basis, Flash at 3.03x
+    expect(glmRow!.rawMonthlyTokens).toBe(2927);
+    expect(flashRow!.rawMonthlyTokens).toBe(8864);
+    // Normalized at $200 budget: tokensPerDollar * budget
+    expect(glmRow!.monthlyTokens).toBeCloseTo((2927 / 168) * 200, 4);
+    expect(flashRow!.monthlyTokens).toBeCloseTo((8864 / 168) * 200, 4);
+  });
+
+  it('falls back to the tier pool when no per-model entry matches', () => {
+    const otherModel = model({ id: 'other/solo-model', name: 'Solo Model' });
+    const subPlan = plan({
+      tiers: [
+        tier({
+          monthlyPrice: 20,
+          models: ['Solo Model'],
+          perModelTokenBudgets: { 'claude sonnet': { estimatedMillionTokens: 99, basis: 'official-table' } },
+          estimatedTokenBudget: { description: 'pool', estimatedMillionTokens: 10, assumptions: 't' },
+        }),
+      ],
+    } as Partial<CodingPlan>);
+    const result = computeApplesToApples([otherModel], [subPlan], 'all', 20, 0, 0.75);
+    const sub = result.options.find(o => o.type === 'subscription');
+    expect(sub!.rawMonthlyTokens).toBe(10);
+  });
 });
 
 describe('stack candidates', () => {
