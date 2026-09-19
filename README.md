@@ -16,42 +16,76 @@
 
 ---
 
-## ✨ Key Features
+## ✨ Key Features & Analytical Tools
 
-### 1. 💰 Budget Calculator ("What does $20 get me?")
+Token-Max provides an end-to-end workbench for engineering teams, independent developers, and AI researchers to audit, simulate, and optimize AI coding costs:
+
+### 1. 💰 Budget Calculator ("What does $X get me?")
 - Set any monthly budget ($1 to $500).
-- Instantly see which models maximize your token output (e.g. at $20/month, get **130M+ tokens** with DeepSeek V4.1 Flash vs. **2M–10M tokens** with flagship frontier models).
+- Instantly see which models maximize your token output (e.g. at $20/month, get **130M+ tokens** with DeepSeek Flash vs. **2M–10M tokens** with flagship frontier models).
 - Directly compare pay-per-token API yields against all subscription plans in that price tier.
-- **Lab Decision Engine modes**: beyond the standard single-option comparison, two stacking modes reshape the recommendation:
-  - **Mix & Match**: combines *distinct lesser subscriptions* whose summed price fits the budget via a greedy knapsack (2–4 subs) — e.g. a $10 plan + a $10 plan offered as a combined $20 package with the summed token yield.
-  - **Dangerous Dave Mode**: stacks multiple copies of the *same* subscription to hit the budget — e.g. a $160 budget showing the 16×-stacked yield of each $10 plan (same model, multiplied allowance). Check each provider's TOS on account stacking.
+- **Lab Decision Engine modes**:
+  - **Mix & Match**: combines *distinct lesser subscriptions* whose summed price fits the budget via a greedy knapsack (2–4 subs).
+  - **Dangerous Dave Mode**: stacks multiple copies of the *same* subscription to hit the budget. Checks provider stacking policies automatically.
 
-### 2. 🔍 Models Catalog & Pricing Explorer
-- Live data ingested daily from **OpenRouter**.
+### 2. 🖥️ Local Hardware vs Cloud Breakeven Calculator (`#/hardware`)
+- Models upfront hardware CapEx (12, 24, 36, or 48 months depreciation with residual salvage resale value).
+- Models real electricity OpEx (system TDP watts under active inference vs idle at regional `$/kWh` utility rates).
+- Calculates the exact **Breakeven Inflection Point** and **Crossover Token Volume** against cloud APIs (Claude 3.7 Sonnet, DeepSeek-V3, GPT-4o) and subscriptions.
+- 6 curated workstation presets: **Mac Mini M4 Pro (64GB)**, **Mac Studio M4 Max (128GB)**, **Mac Studio M4 Ultra (192GB)**, **Custom Dual RTX 5090 (64GB)**, **Single RTX 5090 (32GB)**, and **Homelab RTX 4090 (24GB)**.
+- Local model feasibility matrix with VRAM headroom bars, generation throughput (t/s), max context lengths, and coding benchmark ratings.
+
+### 3. 🧾 Autonomous Agent Session Receipt & Log Analyzer (`#/receipt`)
+- 100% client-side parser reading transcripts in browser memory with zero network data transmission.
+- Ingests **Google Antigravity / Gemini CLI JSONL** (`transcript.jsonl`), **Cline / Roo Code** (`ui_messages.json`), **Aider markdown logs**, and built-in sample session.
+- Generates an itemized thermal receipt breaking down Fresh Inputs, Cached Context Reads (with discounts), and Visible Code Diffs.
+- Cross-model repricing across 7+ models (DeepSeek Flash, DeepSeek-R1, Gemini Flash, o3-mini, Sonnet 5, Opus 5).
+- Subscription quota impact gauges for Cursor fast requests and Claude Code rolling pools.
+
+### 4. 🏢 Multi-Seat Team & Org Gateway Economics (`#/teams`)
+- Models the 80/20 power-law distribution on engineering teams (70–80% casual developers consuming ~$3.80/mo vs 10–20% power developers consuming $78/mo).
+- Compares flat $19–$40/seat licenses vs. centralized BYOK API gateway vs. the **Optimal Hybrid Strategy**.
+- Demonstrates 35%–60% ($4,000 to $25,000/year) savings for a 25-engineer org.
+- Generates an instant, copyable Markdown executive procurement memo.
+
+### 5. 🧠 Extended Thinking & Reasoning Token Exploder (`#/reasoning`)
+- Simulates hidden thinking token generation across configurable effort tiers (Off, Low 2K, Med 8K, High 24K, Max 48K).
+- Quantifies the 4x–12x silent bill multiplier when using reasoning models in coding agents.
+- **Plan Absorption Matrix**: Classifies 33 subscription plans by how they handle thinking tokens (Full Absorption, Quota Multiplier Penalty, or BYOK Pass-Through).
+
+### 6. 🎛️ BYOK Agent Router Config Exporter (`#/exporter`)
+- Generates copyable, downloadable, production-ready configuration files for:
+  - **Aider** (`.aider.conf.yml`)
+  - **Continue.dev** (`config.json`)
+  - **Cline** (`cline_custom_modes.json`)
+  - **OpenCode** (`opencode.json`)
+  - **Cursor Rules** (`.cursorrules`)
+- Real-time monthly cost preview based on selected primary coding and fast reasoning/architect models.
+
+### 7. ⏱️ 5-Hour Burst & Window Throttle Simulator (`#/simulator`)
+- Discrete 5-minute timestep simulation engine modeling sliding rate limits, rolling 5-hour pools, concurrency caps, and queue degradation cliffs.
+- Simulates real agent bursts (Antigravity sprints, overnight PR loops, multi-agent refactors).
+- Plan Headroom & Rate Limit Risk Matrix with color-coded safety margins.
+
+### 8. 🔀 Multi-Model Mix & Overages Optimizer (`#/optimizer`)
+- Composes complex multi-model development workflows (e.g. 70% Sonnet 3.7 + 20% DeepSeek-R1 + 10% Gemini Flash).
+- Simulates pool drain against all 33 plans and identifies exact overage charges.
+
+### 9. 🔍 Models Catalog & Pricing Explorer (`#/models`)
+- Live data ingested daily from **OpenRouter** covering 440+ models.
 - Breakdown of input, cached input, reasoning, and output costs per 1M tokens.
-- **Blended Cost** calculation (weighted 3:1 input:output) and **Cost per 1,000 requests** (2k in, 1k out).
-- **Agentic Blended Cost** for coding agents (20:1 input at 75% prompt cache + output) — the default Budget yield basis; estimation constants live in `data/estimate-constants.json` and are audited against real-world usage in `docs/TOKEN_ESTIMATE_VALIDATION.md`.
-- Context windows, parameter filters, and provider comparisons.
+- Blended Cost (3:1 chat) and Agentic Blended Cost (20:1 + prompt cache).
 
-### 3. 🔄 Token Translator (Subscription Credits → Tokens)
-- Select any IDE or agent plan (e.g., *GitHub Copilot Pro* $10/mo with $15 in AI Credits, or *Kiro Pro* $20/mo with 1,000 credits).
-- Translates those opaque credit balances into estimated token counts across different LLMs (Sonnet 5, GPT-5.6, Gemini Flash, DeepSeek).
+### 10. 🔄 Token Translator (Subscription Credits → Tokens) (`#/plans`)
+- Translates opaque credit units and request caps into estimated token allowances across frontier and workhorse models.
 
-### 4. 📊 Quality vs. Cost & Benchmarks
-- Direct integration with **Artificial Analysis** benchmark indices:
-  - **Intelligence Index** (v4.x composite)
-  - **Coding Index** (SWE-bench Verified, LiveCodeBench, Terminal-Bench)
-  - **Agentic Index** (multi-step tool use)
-- **Quality vs. Cost Scatter Plot**: Log-scale visualization pinpointing the Pareto frontier of models offering the best benchmark performance per dollar.
+### 11. 📊 Quality vs. Cost & Benchmarks (`#/benchmarks`)
+- Artificial Analysis benchmark indices: Intelligence Index, Coding Index (SWE-bench, LiveCodeBench), and Agentic Index.
+- Pareto frontier quality vs cost scatter plot.
 
-### 5. 🛡️ Terms-of-Service & Privacy Audit
-- **Data Training Matrix**: Highlights whether your code is used to train AI models on Free, Individual, or Enterprise tiers.
-- **Hidden Gotchas & Restrictions**: Documents 5-hour rolling limits, tool-only API keys (with ban risks), quota freezes, lack of IP indemnity, and peak/off-peak pricing traps.
-
-### 6. 🧰 Developer Workflow Breakeven Calculator
-- Models a real agent workload — daily vs. session mode, peak context, MCP tool stack, and output tokens per turn — instead of raw credit math.
-- Measures modeled demand against each plan's token capacity using a selectable **estimate basis** (conservative 🔒, midpoint ⚖️, or optimistic 🔓) from the tier token budgets.
-- Surfaces the true per-subscription breakeven point against pay-per-token API pricing.
+### 12. 🛡️ Terms-of-Service & Privacy Audit (`#/tos`)
+- Data Training Matrix classifying training policies across Free, Individual, and Enterprise tiers.
+- Documents 5-hour rolling limits, tool-only API keys, lack of IP indemnity, and stacking policies.
 
 ---
 

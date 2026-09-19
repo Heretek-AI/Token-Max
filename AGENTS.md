@@ -18,7 +18,7 @@ It solves a fundamental developer problem:
 ## 2. Core Architecture & Tech Stack
 
 - **Frontend:** React 19, TypeScript, Vite, Tailwind CSS v4, Lucide Icons, Recharts.
-- **Routing:** HashRouter (`#/`, `#/models`, `#/plans`, `#/benchmarks`, `#/tos`) — **CRITICAL**: Hash routing is required for GitHub Pages compatibility without server-side rewrite rules.
+- **Routing:** HashRouter (`#/`, `#/optimizer`, `#/simulator`, `#/exporter`, `#/reasoning`, `#/teams`, `#/receipt`, `#/hardware`, `#/models`, `#/plans`, `#/benchmarks`, `#/tos`) — **CRITICAL**: Hash routing is required for GitHub Pages compatibility without server-side rewrite rules.
 - **Backend / Runtime:** **Zero runtime backend**. Token-Max is a pure static single-page application (SPA) hosted on GitHub Pages.
 - **Data Layer:** Pre-computed static JSON files generated during build and stored in `public/data/`:
   - `public/data/models.json`: ~440+ normalized models with OpenRouter pricing and Artificial Analysis benchmarks.
@@ -100,7 +100,9 @@ Token-Max/
 │   └── generate_plans.py      # Python script that generates all 33 plan files
 ├── docs/
 │   ├── DATA_SOURCES.md        # Comprehensive data lineage & API documentation
-│   └── MAINTAINABILITY.md     # Operations runbook for updates and maintenance
+│   ├── MAINTAINABILITY.md     # Operations runbook for updates and maintenance
+│   ├── TOKEN_ESTIMATE_VALIDATION.md # Empirical validation for agentic blend constants
+│   └── VERIFICATION.md        # Provider audit log and verification records
 ├── public/data/               # Static JSON consumed by frontend
 │   ├── models.json
 │   ├── plans.json
@@ -109,7 +111,8 @@ Token-Max/
 ├── scripts/
 │   ├── fetch-models.mjs       # Fetches ~440+ models from OpenRouter API
 │   ├── fetch-benchmarks.mjs   # Fetches benchmarks from Artificial Analysis API v2
-│   └── build-data.mjs         # Merges models, benchmarks, and plans into public/data/
+│   ├── build-data.mjs         # Merges models, benchmarks, and plans into public/data/
+│   └── validate-data.mjs      # Enforces all schema invariants in CI
 ├── src/
 │   ├── components/
 │   │   ├── budget/            # BudgetInput, BudgetResults, LabDecisionEngine, WorkflowCalculator
@@ -118,12 +121,34 @@ Token-Max/
 │   │   ├── plans/             # PlanGrid, PlanDetail, TokenTranslator
 │   │   ├── benchmarks/        # ValueScatter, LeaderboardTable
 │   │   ├── tos/               # GotchaCards, TrainingMatrix
-│   │   ├── shared/            # SearchFilter, LoadingSpinner, DataFreshness
+│   │   └── shared/            # SearchFilter, LoadingSpinner, DataFreshness
 │   ├── index.css              # Heretek Blood & Steel design tokens (@theme block)
 │   ├── hooks/                 # useModels, usePlans
-│   ├── lib/                   # types.ts, pricing.ts
-│   ├── pages/                 # Dashboard, ModelsExplorer, PlansCompare, BenchmarksPage, TosAudit
-│   ├── App.tsx                # HashRouter setup
+│   ├── lib/                   # Analytical & mathematical calculation engines
+│   │   ├── types.ts           # Shared TypeScript interfaces & types
+│   │   ├── pricing.ts         # Budget ranking, blending, knapsack mix & match
+│   │   ├── hardware.ts        # CapEx amortization, electricity OpEx, crossover volume
+│   │   ├── log-parser.ts      # Client-side agent transcript parser (JSONL, JSON, Markdown)
+│   │   ├── receipt-math.ts    # Thermal receipt itemization and cross-model repricing
+│   │   ├── teams.ts           # 80/20 power-law team economics & gateway pooling
+│   │   ├── reasoning.ts       # Extended thinking token simulation & plan absorption
+│   │   ├── exporters.ts       # BYOK config generator for Aider, Continue, Cline, OpenCode, Cursor
+│   │   ├── throttle.ts        # 5-hour rolling pool, concurrency, & burst simulator
+│   │   └── tos.ts             # Terms of service and privacy classifications
+│   ├── pages/                 # Full feature route views
+│   │   ├── Dashboard.tsx      # Main Budget Calculator & Lab Decision Engine
+│   │   ├── HardwareBreakeven.tsx # Local Hardware vs Cloud Breakeven Calculator (#/hardware)
+│   │   ├── SessionReceipt.tsx # Autonomous Agent Session Receipt & Log Analyzer (#/receipt)
+│   │   ├── TeamEconomics.tsx  # Multi-Seat Team & Org Gateway Economics (#/teams)
+│   │   ├── ReasoningExploder.tsx # Extended Thinking & Reasoning Token Exploder (#/reasoning)
+│   │   ├── ConfigExporter.tsx # BYOK Agent Router Config Exporter (#/exporter)
+│   │   ├── BurstSimulator.tsx # 5-Hour Burst & Window Throttle Simulator (#/simulator)
+│   │   ├── MixOptimizer.tsx   # Multi-Model Mix & Overages Optimizer (#/optimizer)
+│   │   ├── ModelsExplorer.tsx # Catalog of 440+ foundation models
+│   │   ├── PlansCompare.tsx   # Curated 33 coding subscription plans
+│   │   ├── BenchmarksPage.tsx # Quality vs Cost Pareto Scatter & Leaderboard
+│   │   └── TosAudit.tsx       # TOS & Privacy Audit Matrix
+│   ├── App.tsx                # HashRouter setup & route registrations
 │   └── main.tsx
 ├── package.json
 └── vite.config.ts

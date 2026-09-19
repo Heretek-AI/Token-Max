@@ -8,10 +8,19 @@
 
 This repository is equipped with the **Codebase Knowledge Graph (codebase-memory-mcp)**:
 1. **Prefer MCP Graph Tools for Code Discovery**:
-   - `search_graph`: Find components, types, and hooks (e.g. `search_graph(name_pattern=".*TokenTranslator.*")`).
-   - `trace_path`: Trace incoming and outgoing calls for models and plans hooks.
+   - `search_graph`: Find components, types, and hooks (e.g. `search_graph(name_pattern=".*HardwareBreakeven.*")`, `search_graph(name_pattern=".*computeHardwareEconomics.*")`).
+   - `trace_path`: Trace incoming and outgoing calls for models, plans, and calculation engines.
    - `get_code_snippet`: Read source for specific symbols.
-2. **Fall Back to File & Grep Tools for**:
+2. **Key Analytical Engines in `src/lib/`**:
+   - `hardware.ts`: Local hardware CapEx depreciation, electricity OpEx, crossover volume, TCO curves.
+   - `log-parser.ts` & `receipt-math.ts`: Client-side agent transcript parsing (JSONL, JSON, Markdown) and itemized thermal receipt generation.
+   - `teams.ts`: 80/20 power-law team economics & centralized gateway routing.
+   - `reasoning.ts`: Extended thinking token inflation and plan absorption policies.
+   - `exporters.ts`: BYOK configuration generators (Aider, Continue, Cline, OpenCode, Cursor).
+   - `throttle.ts`: 5-hour rolling pool, concurrency limits, and burst simulation.
+   - `pricing.ts`: Blended rates, budget allocation, knapsack mix & match, Dangerous Dave mode.
+   - `tos.ts`: Privacy policy and terms of service classifier.
+3. **Fall Back to File & Grep Tools for**:
    - String literals, CSS classes, configuration JSONs, and Markdown files (`data/coding-plans/*.json`, `public/data/*.json`, `docs/*.md`).
    - Verifying file listings with `find_by_name` or `list_dir`.
 
@@ -31,6 +40,7 @@ This repository is equipped with the **Codebase Knowledge Graph (codebase-memory
   - `scripts/fetch-models.mjs`: Pulls from `https://openrouter.ai/api/v1/models` and calculates blended 3:1 input:output costs.
   - `scripts/fetch-benchmarks.mjs`: Pulls from `https://artificialanalysis.ai/api/v2/language/models/free` (requires `AA_API_KEY`) and matches model slugs.
   - `scripts/build-data.mjs`: Consolidates `public/data/models.json`, `public/data/plans.json`, `public/data/budget-precomputed.json`, and `public/data/last-updated.json`.
+  - `scripts/validate-data.mjs`: Validates all 33 curated plan schemas, limits, models, and budgets.
 - **Plan File Rule**: All plans in `data/coding-plans/` must strictly validate against `data/coding-plans/_schema.json`.
 - **Python Generator**: Ensure `data/generate_plans.py` matches any changes to individual JSON files in `data/coding-plans/`.
 
@@ -40,22 +50,16 @@ This repository is equipped with the **Codebase Knowledge Graph (codebase-memory
 
 Every code change must pass:
 ```bash
-# 1. Plan data audit (0 missing limits, 0 missing models, 0 missing token budgets)
-python3 -c '
-import json, glob
-plans = [json.load(open(f)) for f in glob.glob("data/coding-plans/*.json") if "_schema" not in f]
-for p in plans:
-    for t in p["tiers"]:
-        assert t.get("limits") and len(t["limits"]) > 0, f"{p[\"name\"]} tier {t[\"name\"]} missing limits"
-        assert t.get("models") and len(t["models"]) > 0, f"{p[\"name\"]} tier {t[\"name\"]} missing models"
-        assert t.get("estimatedTokenBudget"), f"{p[\"name\"]} tier {t[\"name\"]} missing estimatedTokenBudget"
-print("All plans passed validation!")
-'
+# 1. Plan data audit & invariant validation
+npm run validate-data
 
-# 2. Linter check (oxlint)
+# 2. Complete unit test suite (86 tests across 8 suites)
+npm test
+
+# 3. Linter check (oxlint: 0 errors, 0 warnings)
 npm run lint
 
-# 3. Production build
+# 4. Production build (tsc -b && vite build)
 npm run build
 ```
 
@@ -63,6 +67,7 @@ npm run build
 
 ## 5. UI Guardrails
 
-- **HashRouter**: Never replace `HashRouter` with `BrowserRouter` in `src/App.tsx`. GitHub Pages serves the app at `https://heretek-ai.github.io/Token-Max/` without URL rewriting.
+- **HashRouter**: Never replace `HashRouter` with `BrowserRouter` in `src/App.tsx`. GitHub Pages serves the app at `https://heretek-ai.github.io/Token-Max/` without URL rewriting across all 12 routes (`#/`, `#/optimizer`, `#/simulator`, `#/exporter`, `#/reasoning`, `#/teams`, `#/receipt`, `#/hardware`, `#/models`, `#/plans`, `#/benchmarks`, `#/tos`).
 - **Model Cleanliness**: Never display obsolete models (Mistral Nemo, Granite Micro, Lunaris, Gemma 1, Llama 2, GPT-3.5) by default in the Token Budget Translator.
 - **Provider Colors**: New model providers must have a color mapped in `src/lib/pricing.ts`.
+- **Theme Consistency**: Strictly use the Heretek Blood & Steel design system tokens from `@theme` in `src/index.css`.

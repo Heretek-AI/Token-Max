@@ -12,6 +12,8 @@ npm run dev              # Launch local Vite dev server (http://localhost:5173/T
 
 # Quality Checks
 npm run lint             # Run oxlint (0 errors, 0 warnings enforced)
+npm run validate-data    # Enforce plan data schema invariants
+npm test                 # Run vitest (86 tests across 8 suites)
 npm run build            # Run tsc -b && vite build
 
 # Data Pipeline
@@ -27,15 +29,24 @@ python3 data/generate_plans.py   # Regenerate all 33 curated coding plan JSONs
 
 1. **Zero-Backend Single Page App**:
    - Hosted on GitHub Pages at `https://heretek-ai.github.io/Token-Max/`.
-   - Routing uses **`HashRouter`** (`src/App.tsx`) to avoid 404s on GitHub Pages when reloading deep URLs like `#/plans` or `#/models`.
+   - Routing uses **`HashRouter`** (`src/App.tsx`) with 12 distinct routes (`#/`, `#/optimizer`, `#/simulator`, `#/exporter`, `#/reasoning`, `#/teams`, `#/receipt`, `#/hardware`, `#/models`, `#/plans`, `#/benchmarks`, `#/tos`).
 
-2. **Dual-Part Token Budget Translator (`src/components/plans/TokenTranslator.tsx`)**:
+2. **Analytical & Simulation Tool Suite**:
+   - **Local Hardware vs Cloud Breakeven (`#/hardware`)**: Models Mac Studio/RTX CapEx amortization, electricity OpEx, memory bandwidth, and generation throughput crossover curves.
+   - **Agent Session Receipt Analyzer (`#/receipt`)**: 100% client-side parser for Antigravity JSONL, Cline JSON, and Aider logs with itemized thermal receipt and cross-model repricing.
+   - **Team & Org Gateway Economics (`#/teams`)**: 80/20 power-law modeling comparing seat licenses vs gateway routing vs optimal hybrid architecture.
+   - **Reasoning Token Exploder (`#/reasoning`)**: Visualizes hidden thinking token inflation across effort levels and Plan Absorption policies.
+   - **BYOK Config Exporter (`#/exporter`)**: Instant configuration generator for Aider, Continue, Cline, OpenCode, and Cursor.
+   - **5-Hour Throttle Simulator (`#/simulator`)**: Discrete 5-min simulation of rolling token pools, concurrency limits, and queue cliffs.
+   - **Multi-Model Mix Optimizer (`#/optimizer`)**: Workload composer and overages calculator.
+
+3. **Dual-Part Token Budget Translator (`src/components/plans/TokenTranslator.tsx`)**:
    - Subscriptions (e.g. Cursor Pro $20, Copilot Pro $10, Z.ai Lite $18) do not sell raw API tokens.
    - **Part 1**: Displays the plan's **native models**, **credit quotas**, and **rate limits**.
    - **Part 2**: Compares what that exact monthly spend buys in direct pay-as-you-go API tokens.
    - **Constraint**: Obsolete or noisy models (e.g. Mistral Nemo, Granite Micro, Lunaris, Gemma 1, Llama 2, GPT-3.5) are strictly filtered out so they never float to the top of the comparison.
 
-3. **Plan Schema Integrity (`data/coding-plans/`)**:
+4. **Plan Schema Integrity (`data/coding-plans/`)**:
    - 33 plans tracked across `coding-ide`, `coding-router`, and `api-provider`.
    - Every tier MUST include complete `limits`, `models`, and `estimatedTokenBudget` (with `description`, `estimatedMillionTokens`, and `assumptions`).
    - Never leave fields empty or null on paid tiers.
@@ -56,10 +67,11 @@ When updating `classifyModelTier(model)`:
 - **Linter**: `oxlint` (`.oxlintrc.json`).
   - No unused variables (remove them or prefix with `_` if required by interface signatures).
   - Clean imports, no unused modules.
-- **Styling**: Tailwind CSS v4 using modern `@theme` variables in `src/index.css`:
-  - `--color-primary: #6366f1`
-  - `--color-surface: #ffffff` (dark: `#0f172a`)
-  - `--color-text: #0f172a` (dark: `#f1f5f9`)
+  - TypeScript types imported using `import type { ... }` due to `verbatimModuleSyntax`.
+- **Styling**: Tailwind CSS v4 using the **Heretek Blood & Steel** theme in `src/index.css`:
+  - Blood red accents (`#8a1818`, `--color-primary: #a81c1c`)
+  - Steel rails and borders (`--color-steel-*`)
+  - Deep void surfaces (`--color-void-*`)
 - **React**: Functional components with hooks (`useState`, `useMemo`, `useEffect`). No class components.
 
 ---
