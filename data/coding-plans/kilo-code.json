@@ -52,7 +52,7 @@
       "estimatedTokenBudget": {
         "description": "Custom agree - quote-based",
         "estimatedMillionTokens": 0,
-        "assumptions": "Negotiated agreement"
+        "assumptions": "No fixed bundle; negotiated enterprise agreement covers negotiated volume"
       },
       "notes": "Enterprise support and controls"
     }

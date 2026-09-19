@@ -37,7 +37,7 @@
       "estimatedTokenBudget": {
         "description": "Higher windows (~65M tokens/mo est.)",
         "estimatedMillionTokens": 65,
-        "assumptions": "Research estimate"
+        "assumptions": "Research estimate scaled ~3x over Plus tier (agents + multimodal); not officially published"
       },
       "notes": "Daily coding with agents and multimodal work"
     },
@@ -55,7 +55,7 @@
       "estimatedTokenBudget": {
         "description": "Highest windows (~160M tokens/mo est.)",
         "estimatedMillionTokens": 160,
-        "assumptions": "Research estimate"
+        "assumptions": "Research estimate scaled ~8x over Plus tier tier; not officially published"
       },
       "notes": "Heavy agent workflows and extended sessions"
     },

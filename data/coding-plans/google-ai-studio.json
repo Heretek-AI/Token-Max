@@ -77,7 +77,7 @@
       "estimatedTokenBudget": {
         "description": "Enterprise scale PAYG (~2B tokens)",
         "estimatedMillionTokens": 2000,
-        "assumptions": "Enterprise capacity"
+        "assumptions": "Tier3: dedicated capacity negotiations; well beyond 2,000 RPM PAYG tier ceilings"
       },
       "notes": "Enterprise capacity with custom quota allocations"
     }

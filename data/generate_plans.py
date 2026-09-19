@@ -784,7 +784,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Custom agree - quote-based",
                     "estimatedMillionTokens": 0,
-                    "assumptions": "Negotiated agreement",
+                    "assumptions": "No fixed bundle; negotiated enterprise agreement covers negotiated volume",
                 },
                 "notes": "Enterprise support and controls",
             }
@@ -1089,7 +1089,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Custom usage contract",
                     "estimatedMillionTokens": 0,
-                    "assumptions": "Negotiated agreement"
+                    "assumptions": "No fixed bundle; negotiated enterprise agreement covers negotiated volume"
                 },
                 "notes": "Volume-based"
             }
@@ -1155,7 +1155,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Custom contract",
                     "estimatedMillionTokens": 0,
-                    "assumptions": "Negotiated agreement"
+                    "assumptions": "No fixed bundle; negotiated enterprise agreement covers negotiated volume"
                 },
                 "notes": "Advanced privacy controls"
             }
@@ -1641,7 +1641,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Mainstream developer quota (~35M tokens/mo)",
                     "estimatedMillionTokens": 35,
-                    "assumptions": "Expanded personal quota",
+                    "assumptions": "Standard tier: 10K compute-credit window (1K credits = $1) ~= 10M tokens/mo at GLM-5.2/DeepSeek-V4.1-Flash blended rates",
                 },
                 "notes": "Mainstream plan for active coders",
             },
@@ -1656,7 +1656,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Power developer quota (~140M tokens/mo)",
                     "estimatedMillionTokens": 140,
-                    "assumptions": "High throughput quota",
+                    "assumptions": "Pro tier: 40K compute credits/mo ~= 40M tokens/mo at open-weight blended rates",
                 },
                 "notes": "Power developer tier with high concurrency",
             },
@@ -1671,7 +1671,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Per-seat team allocation (~40M tokens/seat)",
                     "estimatedMillionTokens": 40,
-                    "assumptions": "Per-seat team allocation",
+                    "assumptions": "Team Standard: 25K compute credits/seat/mo ~= 25M tokens/seat",
                 },
                 "notes": "Team tier with shared workspace controls",
             },
@@ -1701,7 +1701,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Maximum team throughput (~450M tokens/seat)",
                     "estimatedMillionTokens": 450,
-                    "assumptions": "Maximum team throughput",
+                    "assumptions": "Team Max: 250K compute credits/seat/mo ~= 250M tokens/seat",
                 },
                 "notes": "Dedicated capacity with high SLA",
             },
@@ -1750,7 +1750,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Higher windows (~65M tokens/mo est.)",
                     "estimatedMillionTokens": 65,
-                    "assumptions": "Research estimate",
+                    "assumptions": "Research estimate scaled ~3x over Plus tier (agents + multimodal); not officially published",
                 },
                 "notes": "Daily coding with agents and multimodal work"
             },
@@ -1762,7 +1762,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Highest windows (~160M tokens/mo est.)",
                     "estimatedMillionTokens": 160,
-                    "assumptions": "Research estimate",
+                    "assumptions": "Research estimate scaled ~8x over Plus tier tier; not officially published",
                 },
                 "notes": "Heavy agent workflows and extended sessions"
             },
@@ -1962,7 +1962,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Enterprise scale PAYG (~2B tokens)",
                     "estimatedMillionTokens": 2000,
-                    "assumptions": "Enterprise capacity",
+                    "assumptions": "Tier3: dedicated capacity negotiations; well beyond 2,000 RPM PAYG tier ceilings",
                 },
                 "notes": "Enterprise capacity with custom quota allocations",
             },
@@ -2218,7 +2218,7 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "$1 free trial (~1M tokens)",
                     "estimatedMillionTokens": 1,
-                    "assumptions": "$1 trial credits",
+                    "assumptions": "$1.00 / ~$0.50/M blended open-weight rate ~= 2M tokens of trial compute",
                 },
                 "notes": "Trial tier for function-calling evaluation",
             },

@@ -38,7 +38,7 @@
       "estimatedTokenBudget": {
         "description": "Mainstream developer quota (~35M tokens/mo)",
         "estimatedMillionTokens": 35,
-        "assumptions": "Expanded personal quota"
+        "assumptions": "Standard tier: 10K compute-credit window (1K credits = $1) ~= 10M tokens/mo at GLM-5.2/DeepSeek-V4.1-Flash blended rates"
       },
       "notes": "Mainstream plan for active coders"
     },
@@ -57,7 +57,7 @@
       "estimatedTokenBudget": {
         "description": "Power developer quota (~140M tokens/mo)",
         "estimatedMillionTokens": 140,
-        "assumptions": "High throughput quota"
+        "assumptions": "Pro tier: 40K compute credits/mo ~= 40M tokens/mo at open-weight blended rates"
       },
       "notes": "Power developer tier with high concurrency"
     },
@@ -75,7 +75,7 @@
       "estimatedTokenBudget": {
         "description": "Per-seat team allocation (~40M tokens/seat)",
         "estimatedMillionTokens": 40,
-        "assumptions": "Per-seat team allocation"
+        "assumptions": "Team Standard: 25K compute credits/seat/mo ~= 25M tokens/seat"
       },
       "notes": "Team tier with shared workspace controls"
     },
@@ -111,7 +111,7 @@
       "estimatedTokenBudget": {
         "description": "Maximum team throughput (~450M tokens/seat)",
         "estimatedMillionTokens": 450,
-        "assumptions": "Maximum team throughput"
+        "assumptions": "Team Max: 250K compute credits/seat/mo ~= 250M tokens/seat"
       },
       "notes": "Dedicated capacity with high SLA"
     }

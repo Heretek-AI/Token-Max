@@ -19,7 +19,7 @@
       "estimatedTokenBudget": {
         "description": "$1 free trial (~1M tokens)",
         "estimatedMillionTokens": 1,
-        "assumptions": "$1 trial credits"
+        "assumptions": "$1.00 / ~$0.50/M blended open-weight rate ~= 2M tokens of trial compute"
       },
       "notes": "Trial tier for function-calling evaluation"
     },

@@ -57,7 +57,7 @@
       "estimatedTokenBudget": {
         "description": "Custom usage contract",
         "estimatedMillionTokens": 0,
-        "assumptions": "Negotiated agreement"
+        "assumptions": "No fixed bundle; negotiated enterprise agreement covers negotiated volume"
       },
       "notes": "Volume-based"
     }
