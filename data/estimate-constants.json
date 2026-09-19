@@ -12,6 +12,12 @@
     "inputWeight": 3,
     "outputWeight": 1
   },
+  "agentTask": {
+    "_comment": "OSINT band for one autonomous agent task: conservative = floor of the 200-800K input + 30-100K output band; midpoint = band center; optimistic = ceiling. Interactive CLI sessions measure 60-240K. See docs/TOKEN_ESTIMATE_VALIDATION.md.",
+    "conservativeTokens": 250000,
+    "midpointTokens": 550000,
+    "optimisticTokens": 900000
+  },
   "defaultCacheRate": 0.75,
   "cacheWritePremium": 1.25
 }

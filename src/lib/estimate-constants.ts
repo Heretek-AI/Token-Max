@@ -14,6 +14,9 @@ export const CHAT_REQUEST_OUTPUT_TOKENS = constants.chatRequest.outputTokens;
 export const CHAT_REQUEST_TOKENS = CHAT_REQUEST_INPUT_TOKENS + CHAT_REQUEST_OUTPUT_TOKENS;
 export const CHAT_BLEND_INPUT_WEIGHT = constants.chatBlend.inputWeight;
 export const CHAT_BLEND_OUTPUT_WEIGHT = constants.chatBlend.outputWeight;
+export const AGENT_TASK_CONSERVATIVE_TOKENS = constants.agentTask.conservativeTokens;
+export const AGENT_TASK_MIDPOINT_TOKENS = constants.agentTask.midpointTokens;
+export const AGENT_TASK_OPTIMISTIC_TOKENS = constants.agentTask.optimisticTokens;
 export const DEFAULT_CACHE_RATE = constants.defaultCacheRate as CacheRate;
 /** Anthropic cache-write premium (5-minute TTL) used when a provider price is missing. */
 export const CACHE_WRITE_PREMIUM = constants.cacheWritePremium;

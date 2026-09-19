@@ -55,7 +55,7 @@ Derived quantities that inherit these assumptions:
 | 3:1 list blend (`blendedCost`) | 1.33:1 chat; 25:1–166:1 agentic | **Wrong for agentic**: at an output price of 5× input it implies 2.0×input per token vs ~0.43×input measured. Used by Budget yields at `pricing.ts:61` → understates agentic token yields ~4–5×. Acceptable only as a legacy chat metric. |
 | 20:1 + 75% cache agent blend (`agentBlendedCost`) | 25:1 + 84% measured | **Conservative match**: 0.55×input vs 0.43×input measured (~25% high). Very close to the normalized effective price that OpenClaw actually paid ($2.16/M). |
 | 21K standard agent request | 78K (Claude Code), 79K (OpenClaw), 500K–1M (Cursor heavy repos) | **3.7× low**: token *totals* are unaffected (they flow through the $/M blend), but every derived *request count* (`tierRawRequests`, TokenTranslator "requests") is overstated ~3.7× unless relabelled as normalized 21K-equivalents. |
-| ~150K tokens/agent task (Antigravity, Windsurf, Codex JSONs) | CLI session 50–200K input; autonomous task 200–800K input + output; SWE-bench 4.17M/task | **Low for an agentic "task"** and internally inconsistent with WorkflowCalculator (40 req × 21K–100K context = 0.84–4M/task). |
+| ~150K tokens/agent task (Antigravity, Windsurf, Codex JSONs) | CLI session 50–200K input; autonomous task 200–800K input + output; SWE-bench 4.17M/task | **Low for an agentic "task"** and internally inconsistent with WorkflowCalculator (40 req × 21K–100K context = 0.84–4M/task). Rebased to the shared 250K/550K/900K band (`data/estimate-constants.json` → `agentTask`). |
 | ~$2/M frontier blend | $2.16/M observed (OpenClaw); Vantage/Uber monthly spend consistent | **Excellent match.** |
 | 75% default cache rate | 84% measured; Anthropic/Z.ai plan tables assume up to 95% | **Conservative but defensible**; Z.ai's 95% is handled per-plan. |
 | MCP tool overhead 1–2K/turn | 10–15K per grep, 1–20K per file read | **Understated** for verbose tool stacks; session mode only. |
@@ -63,15 +63,19 @@ Derived quantities that inherit these assumptions:
 | Plan monthly yields (e.g. Claude Code Pro 12M, Cursor Pro 10M) | Vendor quotas unpublished; heavy users burn 200M+ tokens/mo | **Unverifiable by design**; correctly labelled `confidence: low`. Caps ≠ heavy-user demand. |
 | Weighted quality score 50/30/20 | No external equivalent | **Product choice, not a token estimate**; no OSINT conflict. |
 
-## 4. Recalibration actions
+## 4. Recalibration actions (implemented)
 
 - **Phase 1** — Budget token yields default to `agentBlendedCost` with a selectable
   chat (3:1) blend; request outputs relabelled as normalized 21K-equivalents.
-- **Phase 2** — `STANDARD_AGENT_REQUEST_TOKENS` and `DEFAULT_CACHE_RATE` exported as the
-  single source of truth; optional cache-write share pricing via `cachedInputWrite`.
-- **Phase 3** — Antigravity/Windsurf/Codex agent-task estimates rebased on the OSINT
-  band (CLI session vs autonomous task), with provenance kept in `estimateMeta`.
-- **Phase 4** — `npm run validate-data && npm test && npm run lint && npm run build`,
+- **Phase 2** — `data/estimate-constants.json` is the single source of truth for request
+  sizes, blend weights, default cache rate, cache-write premium and the agent-task band;
+  `calculateAgentRequestCost` takes an explicit `cacheWriteShare` (default 0) that prices
+  writes at `cachedInputWrite` or 1.25× input.
+- **Phase 3** — Antigravity/Windsurf/Codex agent-task estimates rebased on the 250K
+  conservative / 550K midpoint / 900K optimistic OSINT band, with provenance kept in
+  `estimateMeta`.
+- **Phase 4** — `python3 data/generate_plans.py && npm run build-data &&
+  npm run validate-data && npm test && npm run lint && npm run build`,
   recorded in `docs/VERIFICATION.md`.
 
 ## 5. Open items

@@ -29,7 +29,7 @@ source are explicitly labelled unknown or low-confidence and carry that label in
 | 11 | Fireworks.ai | fireworks.ai/pricing + account quotas docs | Verified | $1 credits; 6,000 RPM account-wide cap with card. Exact free RPM unpublished. |
 | 12 | GitHub Copilot | github.com/features/copilot/plans | Verified | 1 credit = $0.01; Pro $15, Pro+ $70, Max $200 total credits; Flex allotment is variable → conservative estimates use base credits only. |
 | 13 | Google AI Studio | ai.google.dev pricing + rate limits | Verified | Flash $0.75/$3.75 promotional through 2026-12-31; tier caps $250/$2,000/$20,000+; free data trains, paid does not. |
-| 14 | Google Antigravity | antigravity.google/pricing + one.google.com plans | Verified, fixed | Ultra no longer $249.99; official Google AI Ultra 5x $99.99 and 20x $199.99; quotas 5-hour refresh until weekly cap. |
+| 14 | Google Antigravity | antigravity.google/pricing + one.google.com plans | Verified, fixed | Ultra no longer $249.99; official Google AI Ultra 5x $99.99 and 20x $199.99; quotas 5-hour refresh until weekly cap. Research estimates rebased on the 250K–900K OSINT agent-task band (Pro 75M floor / 165M / 270M). |
 | 15 | Groq API | console.groq.com rate limits | Verified, fixed | Console tables are Developer-plan base limits; Free is lower and per-model. |
 | 16 | Kilo Code | kilo.ai/pricing + teams + kilo-pass | Verified | $15/user platform fee, inference at provider rates with no markup; Kilo Pass $19/$49/$199 with up to 50% bonus. |
 | 17 | Kimi Code | kimi.ai/help membership pricing | Verified | $19/$39/$99/$199 (annual $15/$31/$79/$159); shared credit pool + separate 5h/weekly Kimi Code limit; credit counts unpublished. |
@@ -41,13 +41,13 @@ source are explicitly labelled unknown or low-confidence and carry that label in
 | 23 | Mistral API | mistral.ai/pricing | Verified, fixed | Studio includes $10/mo credits; training is opt-out (previous "No" was wrong). |
 | 24 | Ollama Cloud | ollama.com/pricing | Verified, fixed | Team = **$1,000** credits and 10 streams (not $1,600/50); one account per person; peak Mon–Fri 12–18 UTC. |
 | 25 | OpenAI API | platform.openai.com docs + enterprise privacy | Verified, fixed | Sol $2/$10 and Luna $0.10/$0.60; ZDR is not default (30-day retention, ZDR on request); spend caps $100–$200k. |
-| 26 | OpenAI Codex | developers.openai.com/codex/pricing | Verified, low-confidence estimates | Free/Go $8/Plus $20; Pro from $100 (5x/20x); no published token quotas → scenario estimates. |
+| 26 | OpenAI Codex | developers.openai.com/codex/pricing | Verified, low-confidence estimates | Free/Go $8/Plus $20; Pro from $100 (5x/20x); no published token quotas → scenario estimates rebased on the 250K–900K OSINT agent-task band (Plus 20M floor / 44M / 72M). |
 | 27 | OpenCode | opencode.ai/zen + terms | Verified, fixed model list | Zen $20 minimum + $1.23 fee, zero markup; Go $10; official Go model list differs from the old dataset (now Qwen3.7 Plus/Kimi K3/K2.7/GPT-5.6 Luna/MiMo-V2.5). Multiple-account circumvention prohibited. |
 | 28 | OpenRouter | openrouter.ai/pricing + limits + terms | Verified | 5.5% platform fee; free-model limits 20 RPM / 50–1,000 RPD; multiple accounts to bypass limits prohibited. |
 | 29 | Replit | replit.com/pricing + terms | Verified | Core $20 ($18 annual), Pro $100 ($90); registering multiple accounts prohibited. |
 | 30 | Tabnine | tabnine.com/pricing + terms | Verified | $39/$59 annual per user; BYO LLM unlimited; provider LLM +5% handling; no training on customer code. |
 | 31 | Together.ai | docs.together.ai rate limits | Verified, fixed | Dynamic rate limits replaced the stale fixed 60 RPM/60k TPM claim. |
-| 32 | Windsurf (Cognition) | windsurf.com/pricing + AUP | Verified | Free/Pro $20/Max $200/Teams $80+$40; credential sharing banned. Data-training policy not published → unknown. |
+| 32 | Windsurf (Cognition) | windsurf.com/pricing + AUP | Verified | Free/Pro $20/Max $200/Teams $80+$40; credential sharing banned. Data-training policy not published → unknown. Estimates rebased on the 250K–900K OSINT agent-task band (Pro 75M floor / 165M / 270M); Max restored to a clean 5x Pro relation. |
 | 33 | Z.ai GLM Coding Plan | docs.z.ai devpack overview/teamplan/usage-policy | Verified, fixed | Official 95%-cache token allowance table (Lite 48–97M/wk, Pro 290–580M/wk, Max 676–1,352M/wk for GLM-5.3); peak Mon–Fri 14–18 UTC+8 at 1x, off-peak 0.5x; estimates now derived from these floors/ceilings. |
 
 ## Discrepancy log (September 2026 audit)
@@ -64,9 +64,13 @@ Fixed against official sources:
 - **Amazon Q** Free tier now uses the official 50-request cap; Pro is an explicitly low-confidence scenario band instead of 200M.
 - **DeepSeek** CNY pricing, **Mistral** training opt-out, **Groq** Developer-plan limits, **Together** dynamic limits, **Fireworks** trial math, **BytePlus** internal anchor, **Augment** 40% fee, and four zero-budget paid tiers (Kilo Teams, OpenCode Zen, Tabnine ×2) were corrected.
 
+### September 19, 2026 — OSINT task-band recalibration
+
+- **Antigravity / Windsurf / OpenAI Codex** opaque-quota estimates replaced the 150K-tokens-per-task basis (below the OSINT autonomous-task band and inconsistent with the WorkflowCalculator's 40-request task model) with the shared band in `data/estimate-constants.json`: 250K conservative / 550K midpoint / 900K optimistic tokens per autonomous task (interactive CLI sessions measure 60–240K; autonomous tasks 200–800K in + 30–100K out). Tier relations (5x/20x multipliers, per-seat mirrors) are preserved and every changed tier carries floor/midpoint/ceiling values plus `estimateMeta` provenance. Evidence: `docs/TOKEN_ESTIMATE_VALIDATION.md`.
+
 ## Open items
 
-- **Claude Code / OpenAI Codex / Amazon Q Pro / Google Antigravity** capacity is intentionally unpublished by the vendor; figures are research estimates with `confidence: low`.
+- **Claude Code / OpenAI Codex / Amazon Q Pro / Google Antigravity** capacity is intentionally unpublished by the vendor; figures are research estimates with `confidence: low` (Antigravity/Codex now use the 250K–900K OSINT task band).
 - **MiniMax** publishes prices and credit packages but not token quotas; third-party token figures conflict (~1.6B/mo claims vs our estimate) — verify in the console before trusting the estimate.
 - **Alibaba** credit coefficients are only partially documented (one worked example); frontier-model deductions may differ from the qwen3.6-plus basis.
 - **BytePlus** quota docs conflict across pages (≈1,900 vs 1,200 req/5h for Lite).

@@ -15,14 +15,19 @@
         "GPT-5.6 Luna"
       ],
       "estimatedTokenBudget": {
-        "description": "Limited Codex (~0.5M tokens/mo)",
-        "estimatedMillionTokens": 0.5,
-        "assumptions": "Occasional Codex tasks at ~150K tokens/task; exact limit not published",
+        "description": "Limited Codex (~0.75M tokens/mo)",
+        "estimatedMillionTokens": 0.75,
+        "midpointEstimate": 1.65,
+        "optimisticEstimate": 2.7,
+        "assumptions": "Occasional Codex tasks: 3 tasks/mo x the 250K-900K OSINT agent-task band (0.75M floor / 1.65M / 2.7M); exact limit not published",
         "estimateMeta": {
           "sourceUrl": "https://openai.com/chatgpt/pricing/",
+          "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-18",
+          "basisModel": "OpenAI Codex free quota (3 tasks/mo research estimate)",
+          "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
       },
       "notes": "Unlimited GPT-5.6 Luna text chats included"
@@ -39,14 +44,19 @@
         "GPT-5.6 Terra"
       ],
       "estimatedTokenBudget": {
-        "description": "Light coding assistance (~2.5M tokens/mo)",
-        "estimatedMillionTokens": 2.5,
-        "assumptions": "Limited tasks at ~150K tokens/task; $8 price commonly cited but the scraped page did not render USD amounts",
+        "description": "Light coding assistance (~4.3M tokens/mo)",
+        "estimatedMillionTokens": 4.25,
+        "midpointEstimate": 9.35,
+        "optimisticEstimate": 15.3,
+        "assumptions": "Limited tasks: ~17 tasks/mo x the 250K-900K OSINT agent-task band (4.25M floor / 9.35M / 15.3M); $8 price commonly cited but the scraped page did not render USD amounts",
         "estimateMeta": {
           "sourceUrl": "https://openai.com/chatgpt/pricing/",
+          "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-18",
+          "basisModel": "OpenAI Codex Go quota (17 tasks/mo research estimate)",
+          "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
       },
       "notes": "Entry tier; ads possible"
@@ -64,14 +74,19 @@
         "GPT-5.6 Terra"
       ],
       "estimatedTokenBudget": {
-        "description": "Expanded Codex (~12M tokens/mo)",
-        "estimatedMillionTokens": 12,
-        "assumptions": "Research estimate; no official numeric task limits",
+        "description": "Expanded Codex (~20M tokens/mo)",
+        "estimatedMillionTokens": 20.0,
+        "midpointEstimate": 44.0,
+        "optimisticEstimate": 72.0,
+        "assumptions": "Research estimate: ~80 tasks/mo x the 250K-900K OSINT agent-task band (20M floor / 44M / 72M); no official numeric task limits",
         "estimateMeta": {
           "sourceUrl": "https://openai.com/chatgpt/pricing/",
+          "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-18",
+          "basisModel": "OpenAI Codex Plus quota (80 tasks/mo research estimate)",
+          "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
       },
       "notes": "More uploads/projects"
@@ -87,14 +102,19 @@
         "GPT-5.6 Sol"
       ],
       "estimatedTokenBudget": {
-        "description": "5x Plus (~60M tokens/mo)",
-        "estimatedMillionTokens": 60,
-        "assumptions": "5x the Plus research estimate",
+        "description": "5x Plus (~100M tokens/mo)",
+        "estimatedMillionTokens": 100.0,
+        "midpointEstimate": 220.0,
+        "optimisticEstimate": 360.0,
+        "assumptions": "5x the Plus research estimate (100M floor / 220M / 360M)",
         "estimateMeta": {
           "sourceUrl": "https://openai.com/chatgpt/pricing/",
+          "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-18",
+          "basisModel": "OpenAI Codex Pro 5x (official 5x Plus multiplier x 80-task band)",
+          "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
       },
       "notes": "Intermediate tier; price unconfirmed (JS-hidden on page)"
@@ -111,14 +131,19 @@
         "GPT-5.6 Sol Pro"
       ],
       "estimatedTokenBudget": {
-        "description": "Maximum Codex (~250M tokens/mo)",
-        "estimatedMillionTokens": 250,
-        "assumptions": "Research estimate at max tier",
+        "description": "Maximum Codex (~400M tokens/mo)",
+        "estimatedMillionTokens": 400.0,
+        "midpointEstimate": 880.0,
+        "optimisticEstimate": 1440.0,
+        "assumptions": "Research estimate: 20x the Plus research estimate (400M floor / 880M / 1,440M); maximum Codex tasks",
         "estimateMeta": {
           "sourceUrl": "https://openai.com/chatgpt/pricing/",
+          "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-18",
+          "basisModel": "OpenAI Codex Pro maximum (20x Plus x 80-task band)",
+          "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
       },
       "notes": "Pro tier per official page; USD not rendered in scrape (commonly cited $200)"

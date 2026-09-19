@@ -25,14 +25,19 @@
         "gpt-oss-120b"
       ],
       "estimatedTokenBudget": {
-        "description": "Weekly-refresh baseline quota (~4M tokens/mo)",
-        "estimatedMillionTokens": 4,
-        "assumptions": "Research-based estimate: ~150K tokens/agent task * ~25 agent tasks/mo. Official quotas are undocumented and 'correlated with the amount of work done by the agent', so treat as low confidence",
+        "description": "Weekly-refresh baseline quota (~6.3M tokens/mo)",
+        "estimatedMillionTokens": 6.25,
+        "midpointEstimate": 13.75,
+        "optimisticEstimate": 22.5,
+        "assumptions": "Research-based estimate: ~25 agent tasks/mo x the 250K-900K OSINT agent-task band (6.25M floor / 13.75M / 22.5M). Official quotas are undocumented and 'correlated with the amount of work done by the agent', so treat as low confidence",
         "estimateMeta": {
           "sourceUrl": "https://antigravity.google/pricing",
+          "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-18",
+          "basisModel": "Google Antigravity free quota (25 tasks/mo research estimate)",
+          "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
       },
       "notes": "Free tier; no purchased AI-credit overage"
@@ -56,14 +61,19 @@
         "gpt-oss-120b"
       ],
       "estimatedTokenBudget": {
-        "description": "5-hour refresh quota with weekly caps (~45M tokens/mo)",
-        "estimatedMillionTokens": 45,
-        "assumptions": "Research-based estimate: ~150K tokens/agent task * ~300 agent tasks/mo. No official task counts published; low confidence",
+        "description": "5-hour refresh quota with weekly caps (~75M tokens/mo)",
+        "estimatedMillionTokens": 75.0,
+        "midpointEstimate": 165.0,
+        "optimisticEstimate": 270.0,
+        "assumptions": "Research-based estimate: ~300 agent tasks/mo x the 250K-900K OSINT agent-task band (75M floor / 165M / 270M). No official task counts published; low confidence",
         "estimateMeta": {
           "sourceUrl": "https://antigravity.google/pricing",
+          "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-18",
+          "basisModel": "Google Antigravity Pro quota (300 tasks/mo research estimate)",
+          "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
       },
       "notes": "Includes purchased AI-credit overage above baseline quota"
@@ -87,16 +97,18 @@
         "gpt-oss-120b"
       ],
       "estimatedTokenBudget": {
-        "description": "Official 5x Google AI Pro limits (~225M tokens/mo)",
-        "estimatedMillionTokens": 225,
-        "assumptions": "Google AI Ultra is officially 5x the Google AI Pro plan; 5 x our 45M Pro research estimate = 225M tokens/mo (low confidence, same basis as Pro)",
+        "description": "Official 5x Google AI Pro limits (~375M tokens/mo)",
+        "estimatedMillionTokens": 375.0,
+        "midpointEstimate": 825.0,
+        "optimisticEstimate": 1350.0,
+        "assumptions": "Google AI Ultra is officially 5x the Google AI Pro plan; 5 x our 75M Pro floor = 375M (midpoint 825M, ceiling 1,350M; low confidence, same basis as Pro)",
         "estimateMeta": {
           "sourceUrl": "https://one.google.com/about/google-ai-plans/",
           "sourceQuote": "Google AI Ultra 5x: 5x higher usage limits than Google AI Pro",
           "sourceType": "derived",
           "confidence": "low",
           "verifiedAt": "2026-09-18",
-          "basisModel": "Google AI Pro research estimate (45M)"
+          "basisModel": "Google AI Pro research estimate (75M floor x 250K-900K task band)"
         }
       },
       "notes": "Daily-driver tier; docs note access to third-party models (also available on non-Enterprise tiers)"
@@ -120,16 +132,18 @@
         "gpt-oss-120b"
       ],
       "estimatedTokenBudget": {
-        "description": "Official 20x Google AI Pro limits (~900M tokens/mo)",
-        "estimatedMillionTokens": 900,
-        "assumptions": "Google AI Ultra 20x is officially 20x the Google AI Pro plan; 20 x our 45M Pro research estimate = 900M tokens/mo (low confidence, same basis as Pro)",
+        "description": "Official 20x Google AI Pro limits (~1.5B tokens/mo)",
+        "estimatedMillionTokens": 1500.0,
+        "midpointEstimate": 3300.0,
+        "optimisticEstimate": 5400.0,
+        "assumptions": "Google AI Ultra 20x is officially 20x the Google AI Pro plan; 20 x our 75M Pro floor = 1,500M (midpoint 3,300M, ceiling 5,400M; low confidence, same basis as Pro)",
         "estimateMeta": {
           "sourceUrl": "https://one.google.com/about/google-ai-plans/",
           "sourceQuote": "Google AI Ultra 20x: 20x higher usage limits than Google AI Pro",
           "sourceType": "derived",
           "confidence": "low",
           "verifiedAt": "2026-09-18",
-          "basisModel": "Google AI Pro research estimate (45M)"
+          "basisModel": "Google AI Pro research estimate (75M floor x 250K-900K task band)"
         }
       },
       "notes": "Highest individual tier; supersedes the former $249.99 Ultra listing"

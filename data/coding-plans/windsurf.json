@@ -20,14 +20,19 @@
         "Claude Haiku 4.5"
       ],
       "estimatedTokenBudget": {
-        "description": "Light agent quota (~2M tokens/mo)",
-        "estimatedMillionTokens": 2,
-        "assumptions": "Usage allowance refreshes daily+weekly; size not published; research estimate at ~150K tokens/agent task, low confidence",
+        "description": "Light agent quota (~3.3M tokens/mo)",
+        "estimatedMillionTokens": 3.25,
+        "midpointEstimate": 7.15,
+        "optimisticEstimate": 11.7,
+        "assumptions": "Usage allowance refreshes daily+weekly; size not published; research estimate at ~13 agent tasks/mo x the 250K-900K OSINT agent-task band (3.25M floor / 7.15M / 11.7M), low confidence",
         "estimateMeta": {
           "sourceUrl": "https://windsurf.com/pricing",
+          "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-18",
+          "basisModel": "Windsurf free quota (13 tasks/mo research estimate)",
+          "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
       },
       "notes": "Unlimited inline edits and Tab completions"
@@ -48,14 +53,19 @@
         "Kimi K2.5"
       ],
       "estimatedTokenBudget": {
-        "description": "Pro daily+weekly quota (~45M tokens/mo)",
-        "estimatedMillionTokens": 45,
-        "assumptions": "Research estimate: ~150K tokens/agent task * ~300 agent tasks/mo; official quotas unpublished, low confidence",
+        "description": "Pro daily+weekly quota (~75M tokens/mo)",
+        "estimatedMillionTokens": 75.0,
+        "midpointEstimate": 165.0,
+        "optimisticEstimate": 270.0,
+        "assumptions": "Research estimate: ~300 agent tasks/mo x the 250K-900K OSINT agent-task band (75M floor / 165M / 270M); official quotas unpublished, low confidence",
         "estimateMeta": {
           "sourceUrl": "https://windsurf.com/pricing",
+          "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-18",
+          "basisModel": "Windsurf Pro quota (300 tasks/mo research estimate)",
+          "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
       },
       "notes": "Frontier OpenAI/Claude/Gemini access + open-source models; Devin Cloud included"
@@ -76,14 +86,19 @@
         "Kimi K2.5"
       ],
       "estimatedTokenBudget": {
-        "description": "Max daily+weekly quota (~225M tokens/mo)",
-        "estimatedMillionTokens": 225,
-        "assumptions": "Research estimate scaled from Pro tier (10x presumed headroom), low confidence",
+        "description": "Max daily+weekly quota (~375M tokens/mo)",
+        "estimatedMillionTokens": 375.0,
+        "midpointEstimate": 825.0,
+        "optimisticEstimate": 1350.0,
+        "assumptions": "Research estimate: 5x the Pro tier floor (375M floor / 825M / 1,350M); official headroom unpublished, low confidence",
         "estimateMeta": {
           "sourceUrl": "https://windsurf.com/pricing",
+          "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-18",
+          "basisModel": "Windsurf Max quota (5x Pro presumption x 300-task band)",
+          "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
       },
       "notes": "Power tier for daily-driver agent workflows"
@@ -104,14 +119,19 @@
         "Kimi K2.5"
       ],
       "estimatedTokenBudget": {
-        "description": "Pro-level quota per full user seat (~45M tokens/mo/seat)",
-        "estimatedMillionTokens": 45,
-        "assumptions": "Per-seat quota mirrors Pro tier; additional seats $40/mo each",
+        "description": "Pro-level quota per full user seat (~75M tokens/mo/seat)",
+        "estimatedMillionTokens": 75.0,
+        "midpointEstimate": 165.0,
+        "optimisticEstimate": 270.0,
+        "assumptions": "Per-seat quota mirrors the Pro tier (75M floor / 165M / 270M); additional seats $40/mo each",
         "estimateMeta": {
           "sourceUrl": "https://windsurf.com/pricing",
+          "sourceQuote": "Autonomous coding-agent tasks consume 200-800K input + 30-100K output tokens per task; interactive CLI sessions 60-240K",
           "sourceType": "research",
           "confidence": "low",
-          "verifiedAt": "2026-09-18"
+          "verifiedAt": "2026-09-18",
+          "basisModel": "Windsurf Teams seat quota (mirrors Pro 300-task band)",
+          "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
       },
       "notes": "Includes Devin Desktop, sharing, centralized billing, admin analytics"

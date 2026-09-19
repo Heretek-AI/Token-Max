@@ -97,7 +97,7 @@ STACKING_POLICY = {
     ),
     "byteplus": (
         "silent",
-        "BytePlus AI terms cover data training but contain no multi-account clause; plans are \"primarily intended for individual developers\" and non-coding use may be treated as abuse.",
+        'BytePlus AI terms cover data training but contain no multi-account clause; plans are "primarily intended for individual developers" and non-coding use may be treated as abuse.',
     ),
     "kilo-code": (
         "silent",
@@ -138,6 +138,60 @@ def write_json(filename, data):
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
     print(f"Wrote {filename}")
+
+
+# OSINT agent-task band shared with the frontend + Node scripts.
+# Rationale: docs/TOKEN_ESTIMATE_VALIDATION.md (autonomous tasks measure
+# 200-800K input + 30-100K output; interactive CLI sessions measure 60-240K).
+with open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "estimate-constants.json"),
+    encoding="utf-8",
+) as _f:
+    _ESTIMATE_CONSTANTS = json.load(_f)
+
+TASK_FLOOR_TOKENS = _ESTIMATE_CONSTANTS["agentTask"]["conservativeTokens"]
+TASK_MID_TOKENS = _ESTIMATE_CONSTANTS["agentTask"]["midpointTokens"]
+TASK_OPT_TOKENS = _ESTIMATE_CONSTANTS["agentTask"]["optimisticTokens"]
+
+
+def task_estimate(tasks, factor=1):
+    """Million-token floor/midpoint/ceiling for `tasks` agent tasks per month.
+
+    Opaque-quota plans (Antigravity, Windsurf, Codex) use this instead of the
+    retired 150K-per-task basis, which was below the OSINT autonomous-task band.
+    """
+    return {
+        "estimatedMillionTokens": round(
+            tasks * factor * TASK_FLOOR_TOKENS / 1_000_000, 2
+        ),
+        "midpointEstimate": round(tasks * factor * TASK_MID_TOKENS / 1_000_000, 2),
+        "optimisticEstimate": round(tasks * factor * TASK_OPT_TOKENS / 1_000_000, 2),
+    }
+
+
+def scale_estimate(base, factor):
+    """Scale a floor/midpoint/ceiling estimate by an official multiplier."""
+    return {
+        "estimatedMillionTokens": round(base["estimatedMillionTokens"] * factor, 2),
+        "midpointEstimate": round(base["midpointEstimate"] * factor, 2),
+        "optimisticEstimate": round(base["optimisticEstimate"] * factor, 2),
+    }
+
+
+def osint_meta(basis, source_url):
+    """Provenance block for OSINT-derived task estimates."""
+    return {
+        "sourceUrl": source_url,
+        "sourceQuote": (
+            "Autonomous coding-agent tasks consume 200-800K input + 30-100K output "
+            "tokens per task; interactive CLI sessions 60-240K"
+        ),
+        "sourceType": "research",
+        "confidence": "low",
+        "verifiedAt": LAST_VERIFIED,
+        "basisModel": basis,
+        "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate",
+    }
 
 
 # 1. Cursor
@@ -501,9 +555,13 @@ write_json(
                 "limits": {"codex": "Limited Codex access"},
                 "models": ["GPT-5.6 Luna"],
                 "estimatedTokenBudget": {
-                    "description": "Limited Codex (~0.5M tokens/mo)",
-                    "estimatedMillionTokens": 0.5,
-                    "assumptions": "Occasional Codex tasks at ~150K tokens/task; exact limit not published",
+                    "description": "Limited Codex (~0.75M tokens/mo)",
+                    **task_estimate(3),
+                    "assumptions": "Occasional Codex tasks: 3 tasks/mo x the 250K-900K OSINT agent-task band (0.75M floor / 1.65M / 2.7M); exact limit not published",
+                    "estimateMeta": osint_meta(
+                        "OpenAI Codex free quota (3 tasks/mo research estimate)",
+                        "https://openai.com/chatgpt/pricing/",
+                    ),
                 },
                 "notes": "Unlimited GPT-5.6 Luna text chats included",
             },
@@ -516,9 +574,13 @@ write_json(
                 },
                 "models": ["GPT-5.6 Luna", "GPT-5.6 Terra"],
                 "estimatedTokenBudget": {
-                    "description": "Light coding assistance (~2.5M tokens/mo)",
-                    "estimatedMillionTokens": 2.5,
-                    "assumptions": "Limited tasks at ~150K tokens/task; $8 price commonly cited but the scraped page did not render USD amounts",
+                    "description": "Light coding assistance (~4.3M tokens/mo)",
+                    **task_estimate(17),
+                    "assumptions": "Limited tasks: ~17 tasks/mo x the 250K-900K OSINT agent-task band (4.25M floor / 9.35M / 15.3M); $8 price commonly cited but the scraped page did not render USD amounts",
+                    "estimateMeta": osint_meta(
+                        "OpenAI Codex Go quota (17 tasks/mo research estimate)",
+                        "https://openai.com/chatgpt/pricing/",
+                    ),
                 },
                 "notes": "Entry tier; ads possible",
             },
@@ -531,9 +593,13 @@ write_json(
                 },
                 "models": ["GPT-6 Astra", "GPT-5.6 Sol", "GPT-5.6 Terra"],
                 "estimatedTokenBudget": {
-                    "description": "Expanded Codex (~12M tokens/mo)",
-                    "estimatedMillionTokens": 12,
-                    "assumptions": "Research estimate; no official numeric task limits",
+                    "description": "Expanded Codex (~20M tokens/mo)",
+                    **task_estimate(80),
+                    "assumptions": "Research estimate: ~80 tasks/mo x the 250K-900K OSINT agent-task band (20M floor / 44M / 72M); no official numeric task limits",
+                    "estimateMeta": osint_meta(
+                        "OpenAI Codex Plus quota (80 tasks/mo research estimate)",
+                        "https://openai.com/chatgpt/pricing/",
+                    ),
                 },
                 "notes": "More uploads/projects",
             },
@@ -543,9 +609,13 @@ write_json(
                 "limits": {"codex": "5x Plus usage; high-volume Codex"},
                 "models": ["GPT-6 Astra", "GPT-5.6 Sol"],
                 "estimatedTokenBudget": {
-                    "description": "5x Plus (~60M tokens/mo)",
-                    "estimatedMillionTokens": 60,
-                    "assumptions": "5x the Plus research estimate",
+                    "description": "5x Plus (~100M tokens/mo)",
+                    **scale_estimate(task_estimate(80), 5),
+                    "assumptions": "5x the Plus research estimate (100M floor / 220M / 360M)",
+                    "estimateMeta": osint_meta(
+                        "OpenAI Codex Pro 5x (official 5x Plus multiplier x 80-task band)",
+                        "https://openai.com/chatgpt/pricing/",
+                    ),
                 },
                 "notes": "Intermediate tier; price unconfirmed (JS-hidden on page)",
             },
@@ -558,9 +628,13 @@ write_json(
                 },
                 "models": ["GPT-6 Astra", "GPT-5.6 Sol Pro"],
                 "estimatedTokenBudget": {
-                    "description": "Maximum Codex (~250M tokens/mo)",
-                    "estimatedMillionTokens": 250,
-                    "assumptions": "Research estimate at max tier",
+                    "description": "Maximum Codex (~400M tokens/mo)",
+                    **scale_estimate(task_estimate(80), 20),
+                    "assumptions": "Research estimate: 20x the Plus research estimate (400M floor / 880M / 1,440M); maximum Codex tasks",
+                    "estimateMeta": osint_meta(
+                        "OpenAI Codex Pro maximum (20x Plus x 80-task band)",
+                        "https://openai.com/chatgpt/pricing/",
+                    ),
                 },
                 "notes": "Pro tier per official page; USD not rendered in scrape (commonly cited $200)",
             },
@@ -607,9 +681,13 @@ write_json(
                     "gpt-oss-120b",
                 ],
                 "estimatedTokenBudget": {
-                    "description": "Weekly-refresh baseline quota (~4M tokens/mo)",
-                    "estimatedMillionTokens": 4,
-                    "assumptions": "Research-based estimate: ~150K tokens/agent task * ~25 agent tasks/mo. Official quotas are undocumented and 'correlated with the amount of work done by the agent', so treat as low confidence",
+                    "description": "Weekly-refresh baseline quota (~6.3M tokens/mo)",
+                    **task_estimate(25),
+                    "assumptions": "Research-based estimate: ~25 agent tasks/mo x the 250K-900K OSINT agent-task band (6.25M floor / 13.75M / 22.5M). Official quotas are undocumented and 'correlated with the amount of work done by the agent', so treat as low confidence",
+                    "estimateMeta": osint_meta(
+                        "Google Antigravity free quota (25 tasks/mo research estimate)",
+                        "https://antigravity.google/pricing",
+                    ),
                 },
                 "notes": "Free tier; no purchased AI-credit overage",
             },
@@ -632,9 +710,13 @@ write_json(
                     "gpt-oss-120b",
                 ],
                 "estimatedTokenBudget": {
-                    "description": "5-hour refresh quota with weekly caps (~45M tokens/mo)",
-                    "estimatedMillionTokens": 45,
-                    "assumptions": "Research-based estimate: ~150K tokens/agent task * ~300 agent tasks/mo. No official task counts published; low confidence",
+                    "description": "5-hour refresh quota with weekly caps (~75M tokens/mo)",
+                    **task_estimate(300),
+                    "assumptions": "Research-based estimate: ~300 agent tasks/mo x the 250K-900K OSINT agent-task band (75M floor / 165M / 270M). No official task counts published; low confidence",
+                    "estimateMeta": osint_meta(
+                        "Google Antigravity Pro quota (300 tasks/mo research estimate)",
+                        "https://antigravity.google/pricing",
+                    ),
                 },
                 "notes": "Includes purchased AI-credit overage above baseline quota",
             },
@@ -657,16 +739,16 @@ write_json(
                     "gpt-oss-120b",
                 ],
                 "estimatedTokenBudget": {
-                    "description": "Official 5x Google AI Pro limits (~225M tokens/mo)",
-                    "estimatedMillionTokens": 225,
-                    "assumptions": "Google AI Ultra is officially 5x the Google AI Pro plan; 5 x our 45M Pro research estimate = 225M tokens/mo (low confidence, same basis as Pro)",
+                    "description": "Official 5x Google AI Pro limits (~375M tokens/mo)",
+                    **scale_estimate(task_estimate(300), 5),
+                    "assumptions": "Google AI Ultra is officially 5x the Google AI Pro plan; 5 x our 75M Pro floor = 375M (midpoint 825M, ceiling 1,350M; low confidence, same basis as Pro)",
                     "estimateMeta": {
                         "sourceUrl": "https://one.google.com/about/google-ai-plans/",
                         "sourceQuote": "Google AI Ultra 5x: 5x higher usage limits than Google AI Pro",
                         "sourceType": "derived",
                         "confidence": "low",
                         "verifiedAt": LAST_VERIFIED,
-                        "basisModel": "Google AI Pro research estimate (45M)",
+                        "basisModel": "Google AI Pro research estimate (75M floor x 250K-900K task band)",
                     },
                 },
                 "notes": "Daily-driver tier; docs note access to third-party models (also available on non-Enterprise tiers)",
@@ -690,16 +772,16 @@ write_json(
                     "gpt-oss-120b",
                 ],
                 "estimatedTokenBudget": {
-                    "description": "Official 20x Google AI Pro limits (~900M tokens/mo)",
-                    "estimatedMillionTokens": 900,
-                    "assumptions": "Google AI Ultra 20x is officially 20x the Google AI Pro plan; 20 x our 45M Pro research estimate = 900M tokens/mo (low confidence, same basis as Pro)",
+                    "description": "Official 20x Google AI Pro limits (~1.5B tokens/mo)",
+                    **scale_estimate(task_estimate(300), 20),
+                    "assumptions": "Google AI Ultra 20x is officially 20x the Google AI Pro plan; 20 x our 75M Pro floor = 1,500M (midpoint 3,300M, ceiling 5,400M; low confidence, same basis as Pro)",
                     "estimateMeta": {
                         "sourceUrl": "https://one.google.com/about/google-ai-plans/",
                         "sourceQuote": "Google AI Ultra 20x: 20x higher usage limits than Google AI Pro",
                         "sourceType": "derived",
                         "confidence": "low",
                         "verifiedAt": LAST_VERIFIED,
-                        "basisModel": "Google AI Pro research estimate (45M)",
+                        "basisModel": "Google AI Pro research estimate (75M floor x 250K-900K task band)",
                     },
                 },
                 "notes": "Highest individual tier; supersedes the former $249.99 Ultra listing",
@@ -760,8 +842,6 @@ write_json(
                 "monthlyPrice": 5,
                 "limits": {
                     "prompts": "10-50 prompts / 5h (official)",
-
-
                 },
                 "models": ["Muse Spark 1.3", "Llama 4 Scout"],
                 "estimatedTokenBudget": {
@@ -776,8 +856,6 @@ write_json(
                 "monthlyPrice": 15,
                 "limits": {
                     "prompts": "5x Everyday usage (official)",
-
-
                 },
                 "models": ["Muse Spark 1.3", "Llama 4 Scout", "Llama 4 Maverick"],
                 "estimatedTokenBudget": {
@@ -792,8 +870,6 @@ write_json(
                 "monthlyPrice": 50,
                 "limits": {
                     "prompts": "20x Everyday usage (official)",
-
-
                 },
                 "models": ["Muse Spark 1.3", "Llama 4 Maverick"],
                 "estimatedTokenBudget": {
@@ -1193,9 +1269,13 @@ write_json(
                 },
                 "models": ["SWE-2", "Kimi K2.5", "GPT 5.2 Mini", "Claude Haiku 4.5"],
                 "estimatedTokenBudget": {
-                    "description": "Light agent quota (~2M tokens/mo)",
-                    "estimatedMillionTokens": 2,
-                    "assumptions": "Usage allowance refreshes daily+weekly; size not published; research estimate at ~150K tokens/agent task, low confidence",
+                    "description": "Light agent quota (~3.3M tokens/mo)",
+                    **task_estimate(13),
+                    "assumptions": "Usage allowance refreshes daily+weekly; size not published; research estimate at ~13 agent tasks/mo x the 250K-900K OSINT agent-task band (3.25M floor / 7.15M / 11.7M), low confidence",
+                    "estimateMeta": osint_meta(
+                        "Windsurf free quota (13 tasks/mo research estimate)",
+                        "https://windsurf.com/pricing",
+                    ),
                 },
                 "notes": "Unlimited inline edits and Tab completions",
             },
@@ -1215,9 +1295,13 @@ write_json(
                     "Kimi K2.5",
                 ],
                 "estimatedTokenBudget": {
-                    "description": "Pro daily+weekly quota (~45M tokens/mo)",
-                    "estimatedMillionTokens": 45,
-                    "assumptions": "Research estimate: ~150K tokens/agent task * ~300 agent tasks/mo; official quotas unpublished, low confidence",
+                    "description": "Pro daily+weekly quota (~75M tokens/mo)",
+                    **task_estimate(300),
+                    "assumptions": "Research estimate: ~300 agent tasks/mo x the 250K-900K OSINT agent-task band (75M floor / 165M / 270M); official quotas unpublished, low confidence",
+                    "estimateMeta": osint_meta(
+                        "Windsurf Pro quota (300 tasks/mo research estimate)",
+                        "https://windsurf.com/pricing",
+                    ),
                 },
                 "notes": "Frontier OpenAI/Claude/Gemini access + open-source models; Devin Cloud included",
             },
@@ -1237,9 +1321,13 @@ write_json(
                     "Kimi K2.5",
                 ],
                 "estimatedTokenBudget": {
-                    "description": "Max daily+weekly quota (~225M tokens/mo)",
-                    "estimatedMillionTokens": 225,
-                    "assumptions": "Research estimate scaled from Pro tier (10x presumed headroom), low confidence",
+                    "description": "Max daily+weekly quota (~375M tokens/mo)",
+                    **scale_estimate(task_estimate(300), 5),
+                    "assumptions": "Research estimate: 5x the Pro tier floor (375M floor / 825M / 1,350M); official headroom unpublished, low confidence",
+                    "estimateMeta": osint_meta(
+                        "Windsurf Max quota (5x Pro presumption x 300-task band)",
+                        "https://windsurf.com/pricing",
+                    ),
                 },
                 "notes": "Power tier for daily-driver agent workflows",
             },
@@ -1259,9 +1347,13 @@ write_json(
                     "Kimi K2.5",
                 ],
                 "estimatedTokenBudget": {
-                    "description": "Pro-level quota per full user seat (~45M tokens/mo/seat)",
-                    "estimatedMillionTokens": 45,
-                    "assumptions": "Per-seat quota mirrors Pro tier; additional seats $40/mo each",
+                    "description": "Pro-level quota per full user seat (~75M tokens/mo/seat)",
+                    **task_estimate(300),
+                    "assumptions": "Per-seat quota mirrors the Pro tier (75M floor / 165M / 270M); additional seats $40/mo each",
+                    "estimateMeta": osint_meta(
+                        "Windsurf Teams seat quota (mirrors Pro 300-task band)",
+                        "https://windsurf.com/pricing",
+                    ),
                 },
                 "notes": "Includes Devin Desktop, sharing, centralized billing, admin analytics",
             },
