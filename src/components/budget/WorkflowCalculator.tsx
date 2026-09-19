@@ -181,7 +181,8 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
       const agentCost = sessionAgentCost(m) + dailyAgentCost(m);
       const chatCost = requestCost(m, 10_000, 500, cacheRate) * usage.chatQueries;
       const autoCost = requestCost(m, 500, 100, 0) * usage.completions;
-      return { model: m, monthlyCost: agentCost + chatCost + autoCost };
+      const monthlyCost = agentCost + chatCost + autoCost;
+      return { model: m, monthlyCost, effectivePerM: monthlyCost / (usage.totalTokens / 1e6) };
     };
 
     const frontier = [...clean]
@@ -724,6 +725,9 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
                     vs cheapest fitting plan at ${verdict.delta.toFixed(2)} premium
                   </div>
                 )}
+                <div className="text-[11px] text-text-muted mt-1">
+                  ≈ ${c.effectivePerM.toFixed(3)}/M effective · {Math.round(cacheRate * 100)}% cache
+                </div>
               </div>
             );
           })}
@@ -744,7 +748,9 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
           : `22 workdays/month, agent tasks average ${AGENT_REQUESTS_PER_TASK} requests of ${contextTokens / 1000}K-token context + 1K output`}
         , chat requests use {CHAT_INPUT_TOKENS / 1000}K input + 500 output, completions use ~300 tokens
         {inputMode === 'session' ? `, MCP tools add ${MCP_STACK_LEVEL[mcpStack] * MCP_TOOL_TOKENS_PER_TURN / 1000}K tool-output tokens per turn into later context` : ''}
-        , and plan capacity is measured against the {estimateBasis} estimate. Estimates are conservative — verify against
+        , and plan capacity is measured against the {estimateBasis} estimate. Direct API rates here are priced against
+        your own workload (cache-heavy, output-light session reads), while the Home leaderboard prices a fixed 20K-in/1K-out
+        standard request — the two $/M effective rates legitimately differ at the same cache setting. Estimates are conservative — verify against
         your actual usage dashboards.
       </p>
     </div>
