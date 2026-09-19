@@ -8,5 +8,10 @@
     "inputTokens": 2000,
     "outputTokens": 1000
   },
-  "defaultCacheRate": 0.75
+  "chatBlend": {
+    "inputWeight": 3,
+    "outputWeight": 1
+  },
+  "defaultCacheRate": 0.75,
+  "cacheWritePremium": 1.25
 }

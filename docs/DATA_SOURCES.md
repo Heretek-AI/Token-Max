@@ -83,6 +83,12 @@ flowchart TD
      reserved for chat-style comparisons. Measured real-world baselines (78K tokens/request,
      84% cache, 25:1–166:1 input:output) and the full OSINT audit live in
      [`docs/TOKEN_ESTIMATE_VALIDATION.md`](file:///home/john/Projects/Token-Max/docs/TOKEN_ESTIMATE_VALIDATION.md).
+   - **Single source of truth**: every executable use of these assumptions (request sizes,
+     blend weights, default cache rate) reads
+     [`data/estimate-constants.json`](file:///home/john/Projects/Token-Max/data/estimate-constants.json)
+     via `src/lib/estimate-constants.ts` or directly in `scripts/*.mjs`. `calculateAgentRequestCost`
+     accepts an optional `cacheWriteShare` to price prompt-cache writes at the published
+     write rate (Anthropic 1.25× input; fallback `cacheWritePremium` in the JSON).
 
 4. **Variant Separation**:
    Models with `:free` or `:batch` suffixes are flagged (`isFree: true`, `isBatch: true`) to avoid skewing standard pay-as-you-go comparisons.

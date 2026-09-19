@@ -10,6 +10,16 @@ async function fetchModels() {
     headers['Authorization'] = `Bearer ${process.env.OPENROUTER_API_KEY}`;
   }
 
+  // Shared estimation constants (single source of truth; see docs/TOKEN_ESTIMATE_VALIDATION.md).
+  const constants = JSON.parse(
+    await fs.readFile(path.join(process.cwd(), 'data/estimate-constants.json'), 'utf-8')
+  );
+  const { inputTokens: agentIn, outputTokens: agentOut } = constants.agentRequest;
+  const { inputTokens: chatIn, outputTokens: chatOut } = constants.chatRequest;
+  const { inputWeight: blendIn, outputWeight: blendOut } = constants.chatBlend;
+  const cacheRate = constants.defaultCacheRate;
+  const agentRequestTokens = agentIn + agentOut;
+
   const response = await fetch('https://openrouter.ai/api/v1/models', { headers });
   if (!response.ok) {
     throw new Error(`Failed to fetch models: ${response.statusText}`);
@@ -45,13 +55,11 @@ async function fetchModels() {
 
     const isFree = id.endsWith(':free') || (inputPrice === 0 && outputPrice === 0);
     const isBatch = id.includes(':batch');
-    // blendedCost: (input*3 + output*1) / 4
-    const blendedCost = (inputPrice * 3 + outputPrice * 1) / 4;
+    // blendedCost: legacy chatbot blend (default 3:1 input:output)
+    const blendedCost = (inputPrice * blendIn + outputPrice * blendOut) / (blendIn + blendOut);
     
-    // costPer1kRequests: assuming 2K input + 1K output
-    // cost for 1 request = (2000 * prompt_price) + (1000 * completion_price)
-    // 1k requests = 1000 * cost_for_1_request
-    const costFor1Req = (2000 * (parseFloat(pricing.prompt || '0'))) + (1000 * (parseFloat(pricing.completion || '0')));
+    // costPer1kRequests: legacy chat request (default 2K input + 1K output)
+    const costFor1Req = (chatIn * (parseFloat(pricing.prompt || '0'))) + (chatOut * (parseFloat(pricing.completion || '0')));
     const costPer1kRequests = costFor1Req * 1000;
 
     const provider = id.split('/')[0] || 'unknown';
@@ -99,13 +107,14 @@ async function fetchModels() {
       }
     }
 
-    // Agentic coding calculation: 20k input context (75% cached) + 1k output completion = 21k context.
+    // Agentic coding calculation: standard agent request (default 20K input at
+    // 75% cache + 1K output) from the shared estimate constants.
     // When no cache price is known, charge full input price for cached tokens (conservative).
-    const freshIn = 20000 * 0.25;
-    const cachedIn = 20000 * 0.75;
+    const freshIn = agentIn * (1 - cacheRate);
+    const cachedIn = agentIn * cacheRate;
     const cachePrice = cachedInput !== null ? cachedInput : inputPrice;
-    const agentReqCost = (freshIn * inputPrice / 1e6) + (cachedIn * cachePrice / 1e6) + (1000 * outputPrice / 1e6);
-    const agentBlendedCost = (agentReqCost / 21000) * 1e6;
+    const agentReqCost = (freshIn * inputPrice / 1e6) + (cachedIn * cachePrice / 1e6) + (agentOut * outputPrice / 1e6);
+    const agentBlendedCost = (agentReqCost / agentRequestTokens) * 1e6;
 
     normalized.push({
       id: model.id,

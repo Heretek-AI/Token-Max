@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import type { NormalizedModel, CodingPlan, FrontierLab, DisplayUnit, CacheRate, EngineMode, MixBundle, DaveStack, StackCandidate } from '../../lib/types';
 import { computeApplesToApples, computeMixAndMatch, computeDaveStacks, buildStackCandidates, formatMillionTokens, getProviderColor, QUALITY } from '../../lib/pricing';
+import { DEFAULT_CACHE_RATE, AGENT_REQUEST_INPUT_TOKENS } from '../../lib/estimate-constants';
 import { 
   Sparkles, 
   Layers, 
@@ -34,7 +35,7 @@ export function LabDecisionEngine({
 }: LabDecisionEngineProps) {
   const [selectedLab, setSelectedLab] = useState<FrontierLab>('all');
   const [displayUnit, setDisplayUnit] = useState<DisplayUnit>('tokens');
-  const [cacheRate, setCacheRate] = useState<CacheRate>(0.75);
+  const [cacheRate, setCacheRate] = useState<CacheRate>(DEFAULT_CACHE_RATE);
   const [showRequestInfo, setShowRequestInfo] = useState<boolean>(false);
   const [minCodingScore, setMinCodingScore] = useState<number>(0);
   const [showThresholdSlider, setShowThresholdSlider] = useState<boolean>(false);
@@ -219,7 +220,7 @@ export function LabDecisionEngine({
             <p className="text-text-muted leading-relaxed">
               Real-world agentic coding (Cursor, Claude Code, Cline, Copilot Edits) consumes large codebase context for concise diffs:
               <strong> 20,000 input context tokens</strong> (files, AST, conversation history, linters) + <strong>1,000 output tokens</strong> (code patch).
-              With prompt caching enabled (<strong>{Math.round(cacheRate * 100)}% active</strong>), up to {Math.round(20000 * cacheRate).toLocaleString()} input tokens per turn are billed at provider cache discount rates (up to <strong>90% off</strong> on Anthropic, DeepSeek, and Z.ai).
+              With prompt caching enabled (<strong>{Math.round(cacheRate * 100)}% active</strong>), up to {Math.round(AGENT_REQUEST_INPUT_TOKENS * cacheRate).toLocaleString()} input tokens per turn are billed at provider cache discount rates (up to <strong>90% off</strong> on Anthropic, DeepSeek, and Z.ai).
             </p>
           </div>
         )}

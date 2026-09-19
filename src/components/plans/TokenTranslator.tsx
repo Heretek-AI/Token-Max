@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import type { CodingPlan, NormalizedModel, CacheRate } from '../../lib/types';
 import { formatMillionTokens, getProviderColor, calculateAgentRequestCost, matchesPlanModel, QUALITY } from '../../lib/pricing';
+import { DEFAULT_CACHE_RATE, STANDARD_AGENT_REQUEST_TOKENS } from '../../lib/estimate-constants';
 import { ArrowRight, Sparkles, AlertCircle, Layers, CheckCircle2, HelpCircle, Info, Database, TrendingUp } from 'lucide-react';
 
 interface TokenTranslatorProps {
@@ -12,7 +13,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
   const [selectedPlanId, setSelectedPlanId] = useState<string>('cursor');
   const [selectedTierName, setSelectedTierName] = useState<string>('Pro');
   const [modelCategory, setModelCategory] = useState<'plan-models' | 'frontier' | 'value'>('plan-models');
-  const [cacheRate, setCacheRate] = useState<CacheRate>(0.75);
+  const [cacheRate, setCacheRate] = useState<CacheRate>(DEFAULT_CACHE_RATE);
 
   // Gather all tiers across ALL coding plans with a non-zero monthly price
   const allTiers = useMemo(() => {
@@ -91,7 +92,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
       .map(m => {
         const { costPerRequest, effectiveBlendedCost } = calculateAgentRequestCost(m, cacheRate);
         const approximateRequests = Math.round(budget / costPerRequest);
-        const affordableTokens = (approximateRequests * 21000) / 1e6;
+        const affordableTokens = (approximateRequests * STANDARD_AGENT_REQUEST_TOKENS) / 1e6;
 
         return {
           ...m,

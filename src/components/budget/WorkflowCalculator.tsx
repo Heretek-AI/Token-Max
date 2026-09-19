@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import type { CodingPlan, NormalizedModel, CacheRate } from '../../lib/types';
 import { getEffectiveCacheMultiplier, QUALITY } from '../../lib/pricing';
+import { DEFAULT_CACHE_RATE } from '../../lib/estimate-constants';
 import {
   Workflow,
   Sparkles,
@@ -108,7 +109,7 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
   const [chatQueries, setChatQueries] = useState(120);
   const [completions, setCompletions] = useState(200);
   const [contextKey, setContextKey] = useState<ContextKey>('medium');
-  const [cacheRate, setCacheRate] = useState<CacheRate>(0.75);
+  const [cacheRate, setCacheRate] = useState<CacheRate>(DEFAULT_CACHE_RATE);
   const [sessionHours, setSessionHours] = useState(5);
   const [sessionsPerDay, setSessionsPerDay] = useState(1);
   const [peakContextK, setPeakContextK] = useState(200);

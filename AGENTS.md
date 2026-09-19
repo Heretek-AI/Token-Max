@@ -78,6 +78,9 @@ The Developer Workflow Breakeven Calculator (`src/components/budget/WorkflowCalc
 ### G. Respect the Heretek Blood & Steel Design System
 All chrome lives in the `@theme` block of `src/index.css` (blood/steel/void palettes + design tokens). Components must use these semantic tokens; never introduce hard-coded hex colors or a second accent palette. Unknown model providers get the steel fallback from `getProviderColor` in `src/lib/pricing.ts` — do not invent per-provider colors there except for documented brand mappings.
 
+### H. Token-Estimate Arithmetic Reads the Shared Constants File
+Every executable use of the standard agent/chat request sizes, blend weights, default cache rate, or cache-write premium MUST read `data/estimate-constants.json` (frontend via `src/lib/estimate-constants.ts`, Node scripts directly). Never re-introduce literals (`21000`, `20000`, `0.75`, `3:1` weights) in calculation code. Assume the agentic 20:1+cache blend for Budget yields unless the user explicitly selects the legacy chat 3:1 blend. Rationale and OSINT evidence live in `docs/TOKEN_ESTIMATE_VALIDATION.md`.
+
 ---
 
 ## 4. Directory Layout
@@ -93,6 +96,7 @@ Token-Max/
 │   │   ├── cursor.json
 │   │   ├── z-ai.json
 │   │   └── ... (31 more)
+│   ├── estimate-constants.json # Single source of truth for token-estimate assumptions
 │   └── generate_plans.py      # Python script that generates all 33 plan files
 ├── docs/
 │   ├── DATA_SOURCES.md        # Comprehensive data lineage & API documentation

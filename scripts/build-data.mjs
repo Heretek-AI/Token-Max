@@ -45,6 +45,14 @@ function classifyModelTier(model) {
 async function buildData() {
   console.log('Building consolidated data...');
 
+  // Shared estimation constants (single source of truth; see docs/TOKEN_ESTIMATE_VALIDATION.md).
+  const estimateConstants = JSON.parse(
+    await fs.readFile(path.join(process.cwd(), 'data/estimate-constants.json'), 'utf-8')
+  );
+  const { inputTokens: agentIn, outputTokens: agentOut } = estimateConstants.agentRequest;
+  const agentRequestTokens = agentIn + agentOut;
+  const cacheRate = estimateConstants.defaultCacheRate;
+
   // 1. Load models
   let models = [];
   try {
@@ -103,12 +111,14 @@ async function buildData() {
     const outputPrice = model.pricing?.output || 0;
     const cachedInput = model.pricing?.cachedInput;
 
-    // Standard Agent Request: 20k input (75% cached) + 1k output = 21k context
-    const freshIn = 20000 * 0.25;
-    const cachedIn = 20000 * 0.75;
+    // Standard Agent Request from the shared estimate constants (default
+    // 20K input at 75% cache + 1K output). When no cache price is known,
+    // charge full input price for cached tokens (conservative).
+    const freshIn = agentIn * (1 - cacheRate);
+    const cachedIn = agentIn * cacheRate;
     const cachePrice = cachedInput !== null && cachedInput !== undefined ? cachedInput : inputPrice;
-    const agentReqCost = (freshIn * inputPrice / 1e6) + (cachedIn * cachePrice / 1e6) + (1000 * outputPrice / 1e6);
-    model.agentBlendedCost = parseFloat(((agentReqCost / 21000) * 1e6).toFixed(4));
+    const agentReqCost = (freshIn * inputPrice / 1e6) + (cachedIn * cachePrice / 1e6) + (agentOut * outputPrice / 1e6);
+    model.agentBlendedCost = parseFloat(((agentReqCost / agentRequestTokens) * 1e6).toFixed(4));
 
     // Assign tier
     model.tierClass = classifyModelTier(model);

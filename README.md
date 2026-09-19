@@ -30,6 +30,7 @@
 - Live data ingested daily from **OpenRouter**.
 - Breakdown of input, cached input, reasoning, and output costs per 1M tokens.
 - **Blended Cost** calculation (weighted 3:1 input:output) and **Cost per 1,000 requests** (2k in, 1k out).
+- **Agentic Blended Cost** for coding agents (20:1 input at 75% prompt cache + output) — the default Budget yield basis; estimation constants live in `data/estimate-constants.json` and are audited against real-world usage in `docs/TOKEN_ESTIMATE_VALIDATION.md`.
 - Context windows, parameter filters, and provider comparisons.
 
 ### 3. 🔄 Token Translator (Subscription Credits → Tokens)

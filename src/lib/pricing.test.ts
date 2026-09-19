@@ -117,6 +117,31 @@ describe('calculateAgentRequestCost', () => {
     const { costPerRequest } = calculateAgentRequestCost(free, 0);
     expect(costPerRequest).toBeGreaterThan(0);
   });
+
+  it('prices the explicit cache-write share at the published write rate', () => {
+    const cached = model({
+      pricing: { input: 2, output: 10, cachedInput: 0.2, cachedInputWrite: 2.5, reasoning: null, webSearch: null },
+    });
+    const { costPerRequest } = calculateAgentRequestCost(cached, 0.75, 0.2);
+    // 5k fresh * $2/M + 12k reads * $0.2/M + 3k writes * $2.5/M + 1k * $10/M
+    expect(costPerRequest).toBeCloseTo(0.0299, 10);
+  });
+
+  it('falls back to 1.25x input for writes when no write price is published', () => {
+    const { costPerRequest } = calculateAgentRequestCost(model(), 0.75, 1);
+    // 5k fresh * $2/M + 15k writes * $2.50/M + 1k output * $10/M
+    expect(costPerRequest).toBeCloseTo(0.0575, 10);
+  });
+
+  it('defaults to zero write share so steady-state reads are unchanged', () => {
+    const cached = model({
+      pricing: { input: 2, output: 10, cachedInput: 0.2, cachedInputWrite: 2.5, reasoning: null, webSearch: null },
+    });
+    const noWrites = calculateAgentRequestCost(cached, 0.75, 0);
+    const readOnly = calculateAgentRequestCost(cached, 0.75);
+    expect(noWrites.costPerRequest).toBeCloseTo(readOnly.costPerRequest, 12);
+    expect(noWrites.costPerRequest).toBeCloseTo(0.023, 10);
+  });
 });
 
 describe('computeWeightedScore / computeValueScore', () => {

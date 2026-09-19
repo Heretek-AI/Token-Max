@@ -18,6 +18,7 @@ import {
   AGENT_REQUEST_OUTPUT_TOKENS,
   STANDARD_AGENT_REQUEST_TOKENS,
   DEFAULT_CACHE_RATE,
+  CACHE_WRITE_PREMIUM,
 } from './estimate-constants';
 
 export function formatPrice(price: number): string {
@@ -229,20 +230,29 @@ export function matchesPlanModel(planModelName: string, model: NormalizedModel):
 
 export function calculateAgentRequestCost(
   model: NormalizedModel,
-  cacheRate: CacheRate = DEFAULT_CACHE_RATE
+  cacheRate: CacheRate = DEFAULT_CACHE_RATE,
+  cacheWriteShare: number = 0
 ): { costPerRequest: number; effectiveBlendedCost: number } {
   const inPrice = model.pricing.input || model.blendedCost * 0.75;
   const outPrice = model.pricing.output || model.blendedCost * 1.75;
   const cacheMult = getEffectiveCacheMultiplier(model);
 
-  // Standard Agent Request (see docs/TOKEN_ESTIMATE_VALIDATION.md)
+  // Standard Agent Request (see docs/TOKEN_ESTIMATE_VALIDATION.md).
+  // `cacheWriteShare` models the fraction of cached context written on this
+  // request at the provider's cache-write rate (Anthropic charges 1.25x input
+  // for the 5-minute TTL). The default 0 keeps the steady-state read model;
+  // opt in when estimating cold prefixes or short-lived cache windows.
+  const writeShare = Math.min(1, Math.max(0, cacheWriteShare));
   const freshInputTokens = AGENT_REQUEST_INPUT_TOKENS * (1 - cacheRate);
   const cachedInputTokens = AGENT_REQUEST_INPUT_TOKENS * cacheRate;
-  const outputTokens = AGENT_REQUEST_OUTPUT_TOKENS;
+  const writtenInputTokens = cachedInputTokens * writeShare;
+  const readInputTokens = cachedInputTokens - writtenInputTokens;
+  const writePrice = model.pricing.cachedInputWrite ?? inPrice * CACHE_WRITE_PREMIUM;
 
   const cost = (freshInputTokens * inPrice / 1e6) +
-               (cachedInputTokens * inPrice * cacheMult / 1e6) +
-               (outputTokens * outPrice / 1e6);
+               (readInputTokens * inPrice * cacheMult / 1e6) +
+               (writtenInputTokens * writePrice / 1e6) +
+               (AGENT_REQUEST_OUTPUT_TOKENS * outPrice / 1e6);
 
   const safeCost = cost > 0 ? cost : 0.0001;
   const effectiveBlendedCost = (safeCost / STANDARD_AGENT_REQUEST_TOKENS) * 1e6;
@@ -256,7 +266,7 @@ export function computeApplesToApples(
   lab: FrontierLab,
   budget: number,
   minCodingIndex: number = 0,
-  cacheRate: CacheRate = 0.75
+  cacheRate: CacheRate = DEFAULT_CACHE_RATE
 ): ApplesToApplesResult {
   const excludedPatterns = [
     'nemo', 'granite', 'lunaris', 'hermes', 'gemma-1', 'llama-2', 'gpt-3.5',
@@ -276,7 +286,7 @@ export function computeApplesToApples(
   const apiOptions: ApplesToApplesOption[] = cleanModels.map(m => {
     const { costPerRequest, effectiveBlendedCost } = calculateAgentRequestCost(m, cacheRate);
     const monthlyRequests = Math.round(budget / costPerRequest);
-    const monthlyTokens = (monthlyRequests * 21000) / 1e6;
+    const monthlyTokens = (monthlyRequests * STANDARD_AGENT_REQUEST_TOKENS) / 1e6;
     const modelLab = detectModelLab(m);
 
     return {
