@@ -183,9 +183,18 @@ npm run update-data
 npm run dev
 ```
 
-### Production Build & Lint
+### Quality & Verification Checks
 ```bash
+# Validate 33 plan files against schema invariants
+npm run validate-data
+
+# Run full unit test suite (97 tests across 8 suites)
+npm test
+
+# Run linter (oxlint: 0 errors, 0 warnings enforced)
 npm run lint
+
+# Production build (tsc -b && vite build)
 npm run build
 ```
 

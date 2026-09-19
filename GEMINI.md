@@ -53,7 +53,7 @@ Every code change must pass:
 # 1. Plan data audit & invariant validation
 npm run validate-data
 
-# 2. Complete unit test suite (86 tests across 8 suites)
+# 2. Complete unit test suite (97 tests across 8 suites)
 npm test
 
 # 3. Linter check (oxlint: 0 errors, 0 warnings)

@@ -52,7 +52,8 @@ flowchart TD
 1. **Pre-computation at Build Time**: All token conversion calculations, blended costs, request estimates, and benchmark cross-indexing are executed at build time. The user's browser performs zero heavy math or external network queries during runtime.
 2. **Immutable Schema Compliance**: All curated coding plans conform strictly to `data/coding-plans/_schema.json`.
 3. **Decoupled Data and Code**: New plans or model price updates require updating JSON files, not React component code (except for optional provider color themes).
-4. **Resilient Degradation**: If an external API is unavailable (e.g. Artificial Analysis API key rate limit), the build pipeline falls back to existing cached datasets without crashing the frontend.
+4. **Fail-Fast Ingestion & Resilient Datasets**: Ingestion scripts (`fetch-benchmarks.mjs`, `fetch-models.mjs`) fail fast on network or authentication errors to prevent writing truncated datasets or overwriting `public/data/` with empty arrays. Build scripts deterministically sort plan files via `(await fs.readdir(PLANS_DIR)).sort()` to prevent inode-ordering diffs.
+5. **Zero-Price Integrity**: Every pricing lookup across analytical engines enforces nullish coalescing `??` so that valid $0 prices (free cache hits, $0 free tiers) are never falsy-coerced into fallback rates.
 
 ### Decision Engine Stacking Modes (Mix & Match + Dangerous Dave)
 

@@ -81,6 +81,13 @@ All chrome lives in the `@theme` block of `src/index.css` (blood/steel/void pale
 ### H. Token-Estimate Arithmetic Reads the Shared Constants File
 Every executable use of the standard agent/chat request sizes, blend weights, default cache rate, or cache-write premium MUST read `data/estimate-constants.json` (frontend via `src/lib/estimate-constants.ts`, Node scripts directly). Never re-introduce literals (`21000`, `20000`, `0.75`, `3:1` weights) in calculation code. Assume the agentic 20:1+cache blend for Budget yields unless the user explicitly selects the legacy chat 3:1 blend. Rationale and OSINT evidence live in `docs/TOKEN_ESTIMATE_VALIDATION.md`.
 
+### I. Zero-Price Safety: Always Enforce Nullish Coalescing (`??`) Over Logical OR (`||`)
+Foundation models and subscription tiers often have legitimate $0 costs (e.g. free prompt caching, 100% discount on cache hits, free tier pricing). **NEVER** use `val || fallback` when checking token prices or tier costs. `0 || fallback` evaluates to the fallback, improperly charging users for free tiers or free prompt tokens. Always write `val ?? fallback` and guard `Number.isFinite(...)`.
+
+### J. Client-Side Parsing & Generation Sanitization
+- **Exporters (`src/lib/exporters.ts`)**: All user inputs and model identifiers embedded in YAML/JSON outputs must pass through `sanitizeYamlScalar` to strip ASCII control characters and newlines, preventing arbitrary YAML key injection or delimiter manipulation.
+- **Log Parser (`src/lib/log-parser.ts`)**: Transcripts must be validated with `safeTokenNumber` to ensure non-numeric or `NaN` values cannot corrupt accumulators. Enforce the 25MB parser safety limit and 15MB UI upload limit in `SessionReceipt.tsx`.
+
 ---
 
 ## 4. Directory Layout
@@ -168,7 +175,7 @@ npm run lint
 # Validate plan data invariants + consolidated artifact freshness
 npm run validate-data
 
-# Run pricing/TOS unit tests
+# Run pricing/TOS unit tests (97 tests across 8 suites)
 npm test
 
 # TypeScript check + Vite production build

@@ -13,7 +13,7 @@ npm run dev              # Launch local Vite dev server (http://localhost:5173/T
 # Quality Checks
 npm run lint             # Run oxlint (0 errors, 0 warnings enforced)
 npm run validate-data    # Enforce plan data schema invariants
-npm test                 # Run vitest (86 tests across 8 suites)
+npm test                 # Run vitest (97 tests across 8 suites)
 npm run build            # Run tsc -b && vite build
 
 # Data Pipeline
@@ -50,6 +50,12 @@ python3 data/generate_plans.py   # Regenerate all 33 curated coding plan JSONs
    - 33 plans tracked across `coding-ide`, `coding-router`, and `api-provider`.
    - Every tier MUST include complete `limits`, `models`, and `estimatedTokenBudget` (with `description`, `estimatedMillionTokens`, and `assumptions`).
    - Never leave fields empty or null on paid tiers.
+
+5. **Analytical & Mathematical Safety Invariants**:
+   - Always use nullish coalescing `??` for pricing lookups so that free prompt tokens (`pricing.input === 0`) are not overridden by non-zero fallbacks.
+   - Sanitize all BYOK exporter inputs against YAML newline/delimiter injections using `sanitizeYamlScalar`.
+   - Never let log parser accumulate unvalidated tokens without `safeTokenNumber` protection against `NaN` or non-numeric tokens.
+
 
 ---
 

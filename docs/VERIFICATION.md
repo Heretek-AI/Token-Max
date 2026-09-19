@@ -79,6 +79,40 @@ Fixed against official sources:
 
 ## Verification passes
 
+### 2026-09-19 — Adversarial Codebase Audit & 4-Phase Systemic Hardening
+
+Comprehensive adversarial investigation and remediation across analytical engines, mathematical models, ingestion scripts, schema invariants, security controls, and UI presentation:
+
+- **Phase 1 (Critical & High Math, URL & Allocation Fixes - `91b4d6a`):**
+  - Eliminated URL query parameter crash vectors in `WorkflowCalculator.tsx` with fallback chains for `?ctx=` and `?quality=`.
+  - Replaced `||` with `??` across 5 core calculation files (`pricing.ts`, `teams.ts`, `receipt-math.ts`, `reasoning.ts`, `WorkflowCalculator.tsx`) to eliminate systemic falsy zero-price bugs where $0 cached prompt tokens or $0 free tiers were overridden by fallbacks.
+  - Guarded knapsack against `NaN` budgets in `computeDaveStacks` and `computeMixAndMatch`.
+  - Fixed free cache multiplier inversion (`cachedInput === 0` correctly evaluates to 0).
+  - Prevented wildcard model query explosion (`matchesPlanModel` rejects queries `< 3` characters).
+  - Implemented Hamilton-Hare largest remainder algorithm in `teams.ts` for exact seat allocation invariant.
+
+- **Phase 2 (Medium Severity Hardening & Input Sanitization - `2911e19`):**
+  - Protected `throttle.ts` sprint duration, concurrency, and cadence against `NaN`, negative values, and zero-division.
+  - Clamped URL mix token parsing and inputs in `MixOptimizer.tsx`.
+  - Added `sanitizeYamlScalar` to `exporters.ts` to strip control characters and newlines, preventing YAML injection attacks.
+  - Hardened `log-parser.ts` with `safeTokenNumber` against `NaN`/non-numeric log tokens, added 25MB parser limit, and enforced 15MB file upload limit in `SessionReceipt.tsx`.
+
+- **Phase 3 (Data Ingestion & Pipeline Invariants - `c052c9b`):**
+  - Made `fetch-benchmarks.mjs` and `fetch-models.mjs` fail fast with explicit errors on API failure, refusing to clobber existing datasets with empty outputs.
+  - Added `.sort()` to `fs.readdir(PLANS_DIR)` in `build-data.mjs` for 100% deterministic plan builds across OS environments.
+  - Synchronized `_schema.json` with strict validation rules (required non-empty `limits`, `models`, and non-null `estimatedTokenBudget`).
+  - Added contextual multi-tier TOS classification in `tos.ts` for mixed policies (free trains vs paid shielded).
+
+- **Phase 4 (UI Display Polish - `e4e66aa`):**
+  - Replaced misleading `$0+` and `Free+` labels in `PlanGrid.tsx` with `"Free tier available"`, `"Free"`, or `"Enterprise / Custom"`.
+  - Handled $0 and null pricing in `TokenTranslator.tsx` with dedicated empty states rather than falling back to $20/mo.
+
+Commands run from repository root, all green:
+1. `npm run validate-data` — 33/33 plans valid against strict schema.
+2. `npm test` — 97/97 unit tests pass across 8 test suites.
+3. `npm run lint` — 0 errors, 0 warnings (oxlint).
+4. `npm run build` — TypeScript and Vite production build succeeds.
+
 ### 2026-09-19 — Multi-Model Mix Optimizer & Shareable URL State
 
 Delivered the Multi-Model Mix Optimizer tool and workflow URL permalinks:
