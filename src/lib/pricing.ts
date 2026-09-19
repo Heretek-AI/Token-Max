@@ -116,7 +116,7 @@ export function getProviderColor(provider: string): string {
     'z-ai': '#0256FF',
     '~z-ai': '#0256FF',
   };
-  return colors[provider] || '#94a3b8';
+  return colors[provider] || 'hsl(0 15% 55%)';
 }
 
 export function detectModelLab(model: NormalizedModel): FrontierLab {
