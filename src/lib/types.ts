@@ -41,6 +41,58 @@ export interface ApplesToApplesOption {
   url?: string;
 }
 
+export type EngineMode = 'standard' | 'mix' | 'dave';
+
+export interface StackCandidate {
+  planId: string;
+  planName: string;
+  planCategory: 'coding-ide' | 'coding-router' | 'api-provider';
+  planUrl: string;
+  tierName: string;
+  modelName: string | null;
+  modelId: string | null;
+  price: number;
+  tokens: number;
+  requests: number;
+  codingIndex: number | null;
+  lab: FrontierLab;
+}
+
+export interface StackComponent {
+  planId: string;
+  planName: string;
+  tierName: string;
+  modelName: string;
+  price: number;
+  tokens: number; // raw tier monthly million tokens
+  requests: number; // raw tier monthly agent requests
+  url: string;
+}
+
+export interface MixBundle {
+  id: string;
+  components: StackComponent[];
+  totalPrice: number;
+  totalTokens: number; // million tokens
+  totalRequests: number;
+  bestCodingIndex: number | null;
+}
+
+export interface DaveStack {
+  id: string;
+  planName: string;
+  tierName: string;
+  modelName: string;
+  qty: number;
+  unitPrice: number;
+  totalPrice: number;
+  unitTokens: number; // million tokens per single copy
+  totalTokens: number; // million tokens
+  totalRequests: number;
+  url: string;
+  codingIndex: number | null;
+}
+
 export interface NormalizedModel {
   id: string;
   name: string;

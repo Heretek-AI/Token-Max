@@ -6,7 +6,11 @@ import type {
   CodingPlan,
   PlanTier,
   ApplesToApplesOption,
-  CacheRate
+  CacheRate,
+  StackCandidate,
+  StackComponent,
+  MixBundle,
+  DaveStack
 } from './types';
 
 export function formatPrice(price: number): string {
@@ -441,4 +445,183 @@ export function computeApplesToApples(
     bestWorkhorse,
     arbitrageCallout,
   };
+}
+
+// ---------------------------------------------------------------------------
+// Subscription stacking helpers (Mix & Match + Dangerous Dave Mode)
+// ---------------------------------------------------------------------------
+
+const EXCLUDED_STACK_PATTERNS = [
+  'nemo', 'granite', 'lunaris', 'hermes', 'gemma-1', 'llama-2', 'gpt-3.5',
+  'claude-2', 'claude-1', 'gemini-1.0', 'command-r', 'dbrx'
+];
+
+function tierRawRequests(tier: PlanTier): number {
+  if (tier.limits?.fastRequests && typeof tier.limits.fastRequests === 'number') {
+    return tier.limits.fastRequests;
+  }
+  if (tier.limits?.fiveHourCredits && typeof tier.limits.fiveHourCredits === 'number') {
+    return tier.limits.fiveHourCredits * 6; // ~6 rolling blocks/day * 30 days conservative
+  }
+  return Math.round(((tier.estimatedTokenBudget?.estimatedMillionTokens || 0) * 1_000_000) / 21_000);
+}
+
+export function buildStackCandidates(
+  models: NormalizedModel[],
+  plans: CodingPlan[],
+  lab: FrontierLab
+): StackCandidate[] {
+  const cleanModels = models.filter(m => {
+    if (m.isFree || m.isBatch || m.blendedCost <= 0) return false;
+    const lower = m.id.toLowerCase();
+    return !EXCLUDED_STACK_PATTERNS.some(pat => lower.includes(pat));
+  });
+
+  const candidates: StackCandidate[] = [];
+
+  for (const plan of plans) {
+    let best: { tier: PlanTier; modelName: string | null; modelId: string | null; codingIndex: number | null } | null = null;
+
+    for (const tier of plan.tiers || []) {
+      if (tier.monthlyPrice === null || tier.monthlyPrice <= 0) continue;
+      const baseTokens = tier.estimatedTokenBudget?.estimatedMillionTokens || 0;
+      if (baseTokens <= 0) continue;
+
+      let match: NormalizedModel | null = null;
+      for (const planModelName of tier.models || []) {
+        if (EXCLUDED_STACK_PATTERNS.some(pat => planModelName.toLowerCase().includes(pat))) continue;
+        const found = cleanModels.find(m => matchesPlanModel(planModelName, m));
+        if (found && (!match || (found.benchmarks?.codingIndex || 0) > (match.benchmarks?.codingIndex || 0))) {
+          match = found;
+        }
+      }
+
+      const planLabs = detectPlanLabs(plan, tier);
+      if (lab !== 'all' && !planLabs.includes(lab)) continue;
+
+      const tokensPerDollar = baseTokens / (tier.monthlyPrice as number);
+      const bestExisting = best
+        ? (best.tier.estimatedTokenBudget?.estimatedMillionTokens || 0) / (best.tier.monthlyPrice || 1)
+        : -1;
+      // Prefer benchmark-matched tiers, then tokens-per-dollar value.
+      const candidateScore = (match ? 1 : 0) * 1000 + tokensPerDollar;
+      const bestScore = best ? (best.codingIndex != null ? 1000 : 0) + bestExisting : -1;
+
+      if (candidateScore > bestScore) {
+        best = {
+          tier,
+          modelName: match ? match.name : (tier.models?.[0] || plan.name),
+          modelId: match ? match.id : null,
+          codingIndex: match?.benchmarks?.codingIndex ?? null,
+        };
+      }
+    }
+
+    if (best) {
+      const price = best.tier.monthlyPrice as number;
+      const tokens = best.tier.estimatedTokenBudget!.estimatedMillionTokens;
+      candidates.push({
+        planId: plan.id,
+        planName: plan.name,
+        planCategory: plan.category,
+        planUrl: plan.url,
+        tierName: best.tier.name,
+        modelName: best.modelName,
+        modelId: best.modelId,
+        price,
+        tokens,
+        requests: tierRawRequests(best.tier),
+        codingIndex: best.codingIndex,
+        lab: detectPlanLabs(plan, best.tier)[0] || 'all',
+      });
+    }
+  }
+
+  return candidates;
+}
+
+export function computeDaveStacks(candidates: StackCandidate[], budget: number): DaveStack[] {
+  const stacks: DaveStack[] = [];
+  for (const c of candidates) {
+    const qty = Math.floor(budget / c.price);
+    if (qty < 2) continue;
+    stacks.push({
+      id: `dave-${c.planId}-${c.tierName}`.replace(/\s+/g, '-'),
+      planName: c.planName,
+      tierName: c.tierName,
+      modelName: c.modelName || 'Included Model Suite',
+      qty,
+      unitPrice: c.price,
+      totalPrice: qty * c.price,
+      unitTokens: c.tokens,
+      totalTokens: qty * c.tokens,
+      totalRequests: Math.round(qty * c.requests),
+      url: c.planUrl,
+      codingIndex: c.codingIndex,
+    });
+  }
+  return stacks.sort((a, b) => b.totalTokens - a.totalTokens).slice(0, 8);
+}
+
+export function computeMixAndMatch(
+  candidates: StackCandidate[],
+  budget: number,
+  maxSubs: number = 3,
+  topBundles: number = 3
+): MixBundle[] {
+  if (candidates.length === 0) return [];
+
+  const byBestValue = [...candidates].sort(
+    (a, b) => b.tokens / b.price - a.tokens / a.price
+  );
+
+  // Greedy pass: pick best tokens-per-dollar distinct plans that fit the budget.
+  const bundles: StackCandidate[][] = [];
+
+  const greedyPass = (skipFirst: number) => {
+    const pool = byBestValue.slice(skipFirst);
+    const picked: StackCandidate[] = [];
+    let spent = 0;
+    let subs = 0;
+    for (const c of pool) {
+      if (subs >= maxSubs) break;
+      if (spent + c.price > budget) continue; // skip item that overflows; keep scanning
+      picked.push(c);
+      spent += c.price;
+      subs++;
+    }
+    if (picked.length >= 2) bundles.push(picked);
+  };
+
+  greedyPass(0);
+  greedyPass(1);
+  greedyPass(2);
+
+  return bundles
+    .filter((bundle, i) => bundles.findIndex(b => b.map(c => c.planId).join('+') === bundle.map(c => c.planId).join('+')) === i)
+    .slice(0, topBundles)
+    .map(bundle => {
+      const components: StackComponent[] = bundle.map(c => ({
+        planId: c.planId,
+        planName: c.planName,
+        tierName: c.tierName,
+        modelName: c.modelName || 'Included Model Suite',
+        price: c.price,
+        tokens: c.tokens,
+        requests: c.requests,
+        url: c.planUrl,
+      }));
+      components.sort((a, b) => b.tokens - a.tokens);
+      const bestCodingIndex = Math.max(
+        ...bundle.map(c => c.codingIndex ?? -1)
+      );
+      return {
+        id: bundle.map(c => `${c.planId}-${c.tierName}`.replace(/\s+/g, '-')).join('+'),
+        components,
+        totalPrice: bundle.reduce((s, c) => s + c.price, 0),
+        totalTokens: bundle.reduce((s, c) => s + c.tokens, 0),
+        totalRequests: Math.round(bundle.reduce((s, c) => s + c.requests, 0)),
+        bestCodingIndex: bestCodingIndex >= 0 ? bestCodingIndex : null,
+      };
+    });
 }

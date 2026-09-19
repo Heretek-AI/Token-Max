@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
-import type { NormalizedModel, CodingPlan, FrontierLab, DisplayUnit, CacheRate } from '../../lib/types';
-import { computeApplesToApples, formatMillionTokens, getProviderColor } from '../../lib/pricing';
+import type { NormalizedModel, CodingPlan, FrontierLab, DisplayUnit, CacheRate, EngineMode, MixBundle, DaveStack, StackCandidate } from '../../lib/types';
+import { computeApplesToApples, computeMixAndMatch, computeDaveStacks, buildStackCandidates, formatMillionTokens, getProviderColor } from '../../lib/pricing';
 import { 
   Sparkles, 
   Layers, 
@@ -11,7 +11,10 @@ import {
   Bot, 
   SlidersHorizontal,
   Info,
-  Database
+  Database,
+  Combine,
+  Flame,
+  Package
 } from 'lucide-react';
 
 interface LabDecisionEngineProps {
@@ -33,6 +36,7 @@ export function LabDecisionEngine({
   const [showRequestInfo, setShowRequestInfo] = useState<boolean>(false);
   const [minCodingScore, setMinCodingScore] = useState<number>(0);
   const [showThresholdSlider, setShowThresholdSlider] = useState<boolean>(false);
+  const [mode, setMode] = useState<EngineMode>('standard');
 
   const budgetPresets = [10, 20, 50, 100, 200];
 
@@ -49,6 +53,20 @@ export function LabDecisionEngine({
   const { options, bestApi, bestSubscription, bestWorkhorse, arbitrageCallout } = useMemo(() => {
     return computeApplesToApples(models, plans, selectedLab, budget, minCodingScore, cacheRate);
   }, [models, plans, selectedLab, budget, minCodingScore, cacheRate]);
+
+  // Stacking-mode computations (Mix & Match + Dangerous Dave)
+  const stackCandidates: StackCandidate[] = useMemo(
+    () => buildStackCandidates(models, plans, selectedLab),
+    [models, plans, selectedLab]
+  );
+  const mixBundles: MixBundle[] = useMemo(() => {
+    if (mode !== 'mix') return [];
+    return computeMixAndMatch(stackCandidates, budget);
+  }, [mode, stackCandidates, budget]);
+  const daveStacks: DaveStack[] = useMemo(() => {
+    if (mode !== 'dave') return [];
+    return computeDaveStacks(stackCandidates, budget);
+  }, [mode, stackCandidates, budget]);
 
   const formatYield = (tokensM: number, requests: number) => {
     if (displayUnit === 'requests') {
@@ -111,6 +129,43 @@ export function LabDecisionEngine({
                 title="Long multi-file coding session (90% context read from cache)"
               >
                 90% (Deep)
+              </button>
+            </div>
+
+            {/* Engine Mode Toggles: Mix & Match + Dangerous Dave */}
+            <div className="flex items-center gap-1 bg-surface-alt p-1 rounded-xl border border-border text-xs">
+              <button
+                onClick={() => setMode('standard')}
+                className={`px-2.5 py-1 rounded-md flex items-center gap-1 font-semibold transition-colors ${
+                  mode === 'standard'
+                    ? 'bg-surface text-text shadow-xs border border-border'
+                    : 'text-text-muted hover:text-text'
+                }`}
+                title="Single-subscription comparison (default)"
+              >
+                <Package className="w-3 h-3" /> Standard
+              </button>
+              <button
+                onClick={() => setMode(mode === 'mix' ? 'standard' : 'mix')}
+                className={`px-2 py-0.5 rounded-md font-semibold flex items-center gap-1 transition-colors ${
+                  mode === 'mix'
+                    ? 'bg-primary text-white border border-primary'
+                    : 'text-text-muted hover:text-text'
+                }`}
+                title="Combine distinct lesser subscriptions to fill the Monthly Budget (e.g. $10 CommandCode Go + $10 OpenCodeGo)"
+              >
+                <Combine className={`w-3.5 h-3.5 ${mode === 'mix' ? 'text-white' : 'text-primary'}`} /> Mix &amp; Match
+              </button>
+              <button
+                onClick={() => setMode(mode === 'dave' ? 'standard' : 'dave')}
+                className={`px-2 py-0.5 rounded-md font-semibold flex items-center gap-1 transition-colors ${
+                  mode === 'dave'
+                    ? 'bg-warning text-white border border-warning'
+                    : 'text-text-muted hover:text-text'
+                }`}
+                title="Stack multiple copies of the same subscription to hit the Monthly Budget (e.g. 16x OpenCode Go plans)"
+              >
+                <Flame className={`w-3.5 h-3.5 ${mode === 'dave' ? 'text-white' : 'text-warning'}`} /> Dave
               </button>
             </div>
 
@@ -484,6 +539,135 @@ export function LabDecisionEngine({
         </div>
       </div>
 
+      {mode === 'mix' && mixBundles.length > 0 && (
+        <div className="bg-surface rounded-2xl border border-primary/25 overflow-hidden shadow-xs">
+          <div className="px-5 py-4 border-b border-border flex-auto">
+            <h3 className="font-extrabold text-base text-text flex items-center gap-2">
+              <Combine className="w-4 h-4 text-primary" />
+              <span>Mix &amp; Match Bundles at ${budget}/month</span>
+            </h3>
+            <p className="text-xs text-text-muted mt-0.5">
+              Stack <strong>distinct lesser subscriptions</strong> whose combined price fills the budget — the summed yield of several small plans can beat one big one.
+            </p>
+          </div>
+          <div className="p-4 space-y-3">
+            {mixBundles.map((bundle, i) => (
+              <div
+                key={bundle.id}
+                className={`p-4 rounded-xl border ${
+                  i === 0 ? 'bg-primary/5 border-primary/30' : 'bg-surface-alt/50 border-border'
+                }`}
+              >
+                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      {i === 0 && (
+                        <span className="text-[10px] bg-primary text-white px-2 py-0.5 rounded-md font-bold uppercase tracking-wider">
+                          Top Bundle
+                        </span>
+                      )}
+                      <span className="text-sm font-black text-text">
+                        {bundle.components.map(c => `$${c.price}`).join(' + ')} = ${bundle.totalPrice} package
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      {bundle.components.map(c => (
+                        <a
+                          key={`${bundle.id}-${c.planId}-${c.tierName}`}
+                          href={c.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] bg-surface px-2 py-0.5 rounded-md border border-border text-text-muted hover:text-primary transition-colors flex items-center gap-1"
+                          title={`${c.planName} · ${c.tierName} — ${c.modelName} (${formatMillionTokens(c.tokens)} tokens standalone)`}
+                        >
+                          {c.planName} ({c.tierName}) · {c.modelName} <ExternalLink className="w-2.5 h-2.5" />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="shrink-0 flex items-center gap-4">
+                    <div>
+                      <div className="text-xl font-black text-primary">
+                        {formatYield(bundle.totalTokens, bundle.totalRequests)}
+                      </div>
+                      <div className="text-[10px] text-text-muted uppercase tracking-wider font-bold">
+                        Combined yield
+                      </div>
+                    </div>
+                    {bundle.bestCodingIndex !== null && (
+                      <div className="text-center bg-surface px-2.5 py-1.5 rounded-lg border border-border">
+                        <div className="text-sm font-black text-text">{bundle.bestCodingIndex.toFixed(1)}</div>
+                        <div className="text-[9px] uppercase font-bold text-text-muted tracking-wider">Best CI</div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {mode === 'dave' && daveStacks.length > 0 && (
+        <div className="bg-surface rounded-2xl border border-warning/25 overflow-hidden shadow-xs">
+          <div className="px-5 py-4 border-b border-border">
+            <h3 className="font-extrabold text-base text-text flex items-center gap-2">
+              <Flame className="w-4 h-4 text-warning" />
+              <span>Dangerous Dave Stacks at ${budget}/month</span>
+            </h3>
+            <p className="text-xs text-text-muted mt-0.5">
+              Stack <strong>multiple copies of the same subscription</strong> to hit the budget — raw parallel accounts mean multiplied allowance. Check each provider&apos;s TOS on account stacking.
+            </p>
+          </div>
+          <div className="p-4">
+            {daveStacks.slice(0, 6).map((stack, i) => (
+              <div
+                key={stack.id}
+                className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl border ${
+                  i === 0 ? 'bg-warning/5 border-warning/40 mb-2' : 'border-transparent border-b border-border last:border-0'
+                }`}
+              >
+                <div className="flex items-start gap-3">
+                  <div className={`shrink-0 px-2.5 py-1.5 rounded-lg text-center font-black ${
+                    i === 0 ? 'bg-warning text-white' : 'bg-surface-alt text-text border border-border'
+                  }`}>
+                    <div className="text-lg leading-none">{stack.qty}&times;</div>
+                    <div className="text-[9px] uppercase tracking-wider font-bold">stack</div>
+                  </div>
+                  <div>
+                    <div className="font-bold text-sm text-text flex items-center gap-1.5" title={stack.modelName}>
+                      {stack.modelName}
+                    </div>
+                    <div className="text-[11px] font-semibold text-text-muted">
+                      {stack.qty}&times; {stack.planName} ({stack.tierName}) @ ${stack.unitPrice}/mo = ${stack.totalPrice}/mo combined
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 shrink-0">
+                  <div className="text-right">
+                    <div className="text-xl font-black text-warning">
+                      {formatYield(stack.totalTokens, stack.totalRequests)}
+                    </div>
+                    <div className="text-[10px] text-text-muted font-mono">
+                      {formatMillionTokens(stack.unitTokens)} per unit &middot; ~${(stack.unitPrice / stack.unitTokens).toFixed(2)}/M
+                    </div>
+                  </div>
+                  <a
+                    href={stack.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-text-muted hover:text-warning transition-colors"
+                    title="Visit Official Site"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* 4. Unified Apples-to-Apples Ranked Leaderboard */}
       <div className="bg-surface rounded-2xl border border-border overflow-hidden shadow-xs">
         <div className="px-5 py-4 border-b border-border flex flex-col sm:flex-row justify-between sm:items-center gap-2">
@@ -497,7 +681,9 @@ export function LabDecisionEngine({
             </p>
           </div>
           <div className="text-xs text-text-muted font-medium bg-surface-alt px-2.5 py-1 rounded-lg border border-border shrink-0">
-            {options.length} options evaluated
+            {mode === 'mix' || mode === 'dave'
+              ? `${options.length} options evaluated + ${mode === 'mix' ? mixBundles.length : daveStacks.length} stacked combinations`
+              : `${options.length} options evaluated`}
           </div>
         </div>
 
@@ -611,6 +797,102 @@ export function LabDecisionEngine({
                   </tr>
                 );
               })}
+              {mode === 'mix' && mixBundles.map(bundle => (
+                <tr
+                  key={`stacked-${bundle.id}`}
+                  className="bg-primary/5 font-medium"
+                >
+                  <td className="px-4 py-3 text-center">
+                    <span className="text-xs text-primary font-bold">+</span>
+                  </td>
+                  <td className="px-3 py-3">
+                    <div className="font-bold text-primary truncate max-w-[220px]" title="Mixed Bundle">
+                      Mixed Bundle ({bundle.components.length} subs)
+                    </div>
+                    <div className="text-[11px] font-semibold text-text-muted truncate max-w-[220px]">
+                      {bundle.components.map(c => `${c.planName} ($${c.price})`).join(' + ')}
+                    </div>
+                  </td>
+                  <td className="px-3 py-3">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-primary/10 text-primary border border-primary/30">
+                      Mixed Bundle
+                    </span>
+                  </td>
+                  <td className="px-3 py-3 text-right font-mono text-xs text-text">
+                    ${bundle.totalPrice}/mo
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <div className="font-bold text-sm text-primary">
+                      {formatYield(bundle.totalTokens, bundle.totalRequests)}
+                    </div>
+                    <div className="text-[10px] text-text-muted font-mono">
+                      {displayUnit === 'requests'
+                        ? `~${formatMillionTokens(bundle.totalTokens)} tokens`
+                        : `~${bundle.totalRequests.toLocaleString()} reqs`}
+                    </div>
+                  </td>
+                  <td className="px-3 py-3 text-right">
+                    {bundle.bestCodingIndex !== null && (
+                      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-primary/15 text-primary font-bold">
+                        {bundle.bestCodingIndex.toFixed(1)}
+                      </span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3 text-xs text-primary/80">
+                    <span className="truncate max-w-[240px]">
+                      Distinct plans combined into a ${bundle.totalPrice} package
+                    </span>
+                  </td>
+                </tr>
+              ))}
+              {mode === 'dave' && daveStacks.map(stack => (
+                <tr
+                  key={`stacked-${stack.id}`}
+                  className="bg-warning/5 font-medium"
+                >
+                  <td className="px-4 py-3 text-center">
+                    <span className="text-xs text-warning font-bold">×</span>
+                  </td>
+                  <td className="px-3 py-3">
+                    <div className="font-bold text-warning truncate max-w-[220px]" title={stack.modelName}>
+                      {stack.modelName}
+                    </div>
+                    <div className="text-[11px] font-semibold text-text-muted truncate max-w-[220px]">
+                      {stack.planName} · {stack.tierName}
+                    </div>
+                  </td>
+                  <td className="px-3 py-3">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-warning/10 text-warning border border-warning/25">
+                      Stacked ×{stack.qty}
+                    </span>
+                  </td>
+                  <td className="px-3 py-3 text-right font-mono text-xs text-text">
+                    ${stack.totalPrice}/mo
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <div className="font-bold text-sm text-warning">
+                      {formatYield(stack.totalTokens, stack.totalRequests)}
+                    </div>
+                    <div className="text-[10px] text-text-muted font-mono">
+                      {displayUnit === 'requests'
+                        ? `~${formatMillionTokens(stack.totalTokens)} tokens`
+                        : `~${stack.totalRequests.toLocaleString()} reqs`}
+                    </div>
+                  </td>
+                  <td className="px-3 py-3 text-right">
+                    {stack.codingIndex !== null && (
+                      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-warning/15 text-warning font-bold">
+                        {stack.codingIndex.toFixed(1)}
+                      </span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3 text-xs text-warning/80">
+                    <span className="truncate max-w-[240px]">
+                      {stack.qty}× ${stack.unitPrice}/mo subscriptions stacked; {formatMillionTokens(stack.unitTokens)} tokens per single unit
+                    </span>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
