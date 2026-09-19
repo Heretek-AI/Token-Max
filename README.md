@@ -2,11 +2,11 @@
 
 [![GitHub Pages](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-6366f1?style=for-the-badge&logo=github)](https://heretek-ai.github.io/Token-Max/)
 [![Models Tracked](https://img.shields.io/badge/Models%20Tracked-440+-success?style=for-the-badge)](https://heretek-ai.github.io/Token-Max/#/models)
-[![Plans Tracked](https://img.shields.io/badge/Plans%20Tracked-32+-blueviolet?style=for-the-badge)](https://heretek-ai.github.io/Token-Max/#/plans)
+[![Plans Tracked](https://img.shields.io/badge/Plans%20Tracked-33+-blueviolet?style=for-the-badge)](https://heretek-ai.github.io/Token-Max/#/plans)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
 > **Unobfuscate vague terms like "credits" and "requests" into definitive token counts.**  
-> An open-source dashboard tracking live pricing for **440+ foundation models** and **32+ developer coding subscriptions** to help you get the most intelligence out of every dollar.
+> An open-source dashboard tracking live pricing for **440+ foundation models** and **33+ developer coding subscriptions** to help you get the most intelligence out of every dollar.
 
 ---
 
@@ -46,13 +46,27 @@
 
 ---
 
-## 🗂️ Tracked Services & Platforms (32+)
+## 🗂️ Tracked Services & Platforms (33+)
 
 | Category | Platforms Included |
 | :--- | :--- |
 | **Coding IDEs & Agents** | Cursor • GitHub Copilot • Claude Code • OpenAI Codex • Google Antigravity/Jules • Meta Muse Code • Kiro (AWS) • Kilo AI • Lovable • Kimi Code • Windsurf (Devin) • Augment Code • Replit • Amazon Q Developer • Tabnine • Aider |
-| **Routers & Coding Plans** | CommandCode • OpenCode • OpenRouter • BytePlus ModelArk • Alibaba Cloud AI Token Plan • MiniMax |
+| **Routers & Coding Plans** | CommandCode • OpenCode • OpenRouter • BytePlus ModelArk • Alibaba Cloud AI Token Plan • MiniMax • Z.ai (GLM DevPack) |
 | **Direct APIs (Pay-Per-Token)** | OpenAI API • Anthropic Claude API • Google AI Studio • DeepSeek API • Groq • Mistral API • Together.ai • Fireworks.ai • Meta Model API • Ollama Cloud |
+
+---
+
+## 📚 Documentation & Agent Standards
+
+Comprehensive architectural documentation and agent instructions are provided in the repository:
+
+| Document | Description |
+| :--- | :--- |
+| [**`AGENTS.md`**](AGENTS.md) | Universal guidelines for all AI coding agents working on this codebase (Claude Code, Gemini CLI, OpenCode, Codex, Aider, Windsurf). Details architecture invariants, schema enforcement, and prohibited antipatterns. |
+| [**`CLAUDE.md`**](CLAUDE.md) | Dedicated developer guide tailored for **Claude Code** and Anthropic AI CLI tools, including fast build/lint commands and model classification logic. |
+| [**`GEMINI.md`**](GEMINI.md) | Dedicated developer guide for **Google Antigravity** and Gemini CLI agents, including Codebase Knowledge Graph MCP tool conventions and verification rules. |
+| [**`docs/DATA_SOURCES.md`**](docs/DATA_SOURCES.md) | Complete reference for all external data sources (OpenRouter API, Artificial Analysis API v2), data conversion formulas, and deep-dive documentation for all 33 coding plans. |
+| [**`docs/MAINTAINABILITY.md`**](docs/MAINTAINABILITY.md) | Operations runbook, automated daily cron workflows, manual data refresh procedures, troubleshooting guide, and step-by-step instructions for adding new subscription plans. |
 
 ---
 
