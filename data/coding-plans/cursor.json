@@ -2,74 +2,109 @@
   "id": "cursor",
   "name": "Cursor",
   "category": "coding-ide",
-  "url": "https://cursor.sh",
+  "url": "https://cursor.com/pricing",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Hobby",
       "monthlyPrice": 0,
-      "limits": {},
+      "annualPrice": null,
+      "limits": {
+        "completions": "2,000 completions/mo",
+        "fastRequests": "50 fast requests/mo",
+        "slowRequests": "Unlimited queued slow requests"
+      },
       "models": [
-        "grok-4.6",
-        "claude-sonnet-5",
-        "gpt-5.6-sol"
+        "Cursor Small",
+        "Claude Haiku 4.5"
       ],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "estimatedTokenBudget": {
+        "description": "50 fast requests + 2K completions (~0.5M tokens)",
+        "estimatedMillionTokens": 0.5,
+        "assumptions": "50 fast requests @ ~10K tokens context avg"
+      },
+      "notes": "Free tier with 50 fast premium requests"
     },
     {
       "name": "Pro",
       "monthlyPrice": 20,
-      "limits": {},
+      "annualPrice": 192,
+      "limits": {
+        "completions": "Unlimited tab completions",
+        "fastRequests": "500 fast requests/mo",
+        "slowRequests": "Unlimited queued requests",
+        "thirdPartyPool": "$20 equivalent pool"
+      },
       "models": [
-        "grok-4.6",
-        "claude-sonnet-5",
-        "gpt-5.6-sol"
+        "Claude Sonnet 5",
+        "GPT-5.6 Sol",
+        "Grok 4.6",
+        "Gemini 3.8 Flash",
+        "Cursor Fast"
       ],
       "estimatedTokenBudget": {
-        "description": "Pool estimated",
-        "estimatedMillionTokens": 20,
-        "assumptions": "Third-party pool estimation"
+        "description": "~$20 third-party compute pool + 500 fast requests (~10M tokens)",
+        "estimatedMillionTokens": 10,
+        "assumptions": "500 requests @ ~20K context avg or $20 third-party API spend"
       },
-      "notes": "Pro ~$20 third-party pool"
+      "notes": "Fallback to on-demand billing or slow pool when exhausted"
     },
     {
       "name": "Pro+",
       "monthlyPrice": 60,
-      "limits": {},
+      "annualPrice": null,
+      "limits": {
+        "completions": "Unlimited tab completions",
+        "fastRequests": "1,500 fast requests/mo",
+        "thirdPartyPool": "$70 equivalent pool"
+      },
       "models": [
-        "grok-4.6",
-        "claude-sonnet-5",
-        "gpt-5.6-sol"
+        "Claude Opus 5",
+        "Claude Sonnet 5",
+        "GPT-5.6 Sol",
+        "Grok 4.6",
+        "Gemini 3.8 Flash"
       ],
       "estimatedTokenBudget": {
-        "description": "Pool estimated",
-        "estimatedMillionTokens": 70,
-        "assumptions": "Third-party pool estimation"
+        "description": "~$70 compute pool + 1,500 fast requests (~35M tokens)",
+        "estimatedMillionTokens": 35,
+        "assumptions": "1,500 fast requests + expanded frontier model quota"
       },
-      "notes": "Pro+ ~$70"
+      "notes": "Higher allowance for power developers"
     },
     {
       "name": "Ultra",
       "monthlyPrice": 200,
-      "limits": {},
+      "annualPrice": null,
+      "limits": {
+        "completions": "Unlimited tab completions",
+        "fastRequests": "5,000 fast requests/mo",
+        "thirdPartyPool": "$400 equivalent pool",
+        "concurrency": "Priority routing"
+      },
       "models": [
-        "grok-4.6",
-        "claude-sonnet-5",
-        "gpt-5.6-sol"
+        "Claude Opus 5",
+        "GPT-6 Astra",
+        "Claude Sonnet 5",
+        "Grok 4.6"
       ],
       "estimatedTokenBudget": {
-        "description": "Pool estimated",
-        "estimatedMillionTokens": 400,
-        "assumptions": "Third-party pool estimation"
+        "description": "~$400 compute pool + 5,000 priority requests (~180M tokens)",
+        "estimatedMillionTokens": 180,
+        "assumptions": "Priority queue with $400 third-party pool value"
       },
-      "notes": "Ultra ~$400"
+      "notes": "Uncapped priority agent access"
     }
   ],
   "gotchas": [
-    "on-demand billing after pool"
+    "Third-party pool charged at public API rates — frontier models drain it fast",
+    "On-demand billing kicks in after pool exhaustion (billed in arrears)",
+    "Native pool (Grok/Composer) is separate and more generous"
   ],
-  "tosHighlights": [],
-  "dataTraining": "opt-out in privacy mode",
+  "tosHighlights": [
+    "Privacy mode available (no code stored server-side)",
+    "Business plan adds team admin, SSO, centralized billing"
+  ],
+  "dataTraining": "Opt-out available in Privacy Mode",
   "ipIndemnity": false
 }

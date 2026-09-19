@@ -2,66 +2,103 @@
   "id": "github-copilot",
   "name": "GitHub Copilot",
   "category": "coding-ide",
-  "url": "https://github.com/features/copilot",
+  "url": "https://github.com/features/copilot/plans",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Free",
       "monthlyPrice": 0,
       "limits": {
-        "credits": 0
+        "completions": "2,000 completions/mo",
+        "chatRequests": "50 messages/mo",
+        "aiCredits": "0 credits"
       },
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "models": [
+        "GPT-5 mini",
+        "Claude Haiku 4.5"
+      ],
+      "estimatedTokenBudget": {
+        "description": "50 chats + 2K completions (~0.4M tokens)",
+        "estimatedMillionTokens": 0.4,
+        "assumptions": "50 chat queries @ ~8K tokens avg"
+      },
+      "notes": "Basic code completions and limited chat"
     },
     {
       "name": "Pro",
       "monthlyPrice": 10,
       "limits": {
-        "credits": 1500
+        "completions": "Unlimited completions",
+        "aiCredits": "1,500 credits ($15 value)",
+        "chatRequests": "Unlimited standard"
       },
-      "models": [],
+      "models": [
+        "Claude Sonnet 5",
+        "GPT-5 mini",
+        "Gemini 3.8 Flash",
+        "o3-mini"
+      ],
       "estimatedTokenBudget": {
-        "description": "Based on credits",
-        "estimatedMillionTokens": 15,
-        "assumptions": "1 credit = $0.01"
+        "description": "1,500 credits ($15 compute budget, ~7.5M tokens)",
+        "estimatedMillionTokens": 7.5,
+        "assumptions": "1 credit = $0.01; $15 budget / $2.00/M blended on Sonnet 5 = 7.5M tokens"
       },
-      "notes": "1500 credits ($15)"
+      "notes": "1 AI Credit = $0.01. Unlimited autocomplete"
     },
     {
       "name": "Pro+",
       "monthlyPrice": 39,
       "limits": {
-        "credits": 7000
+        "completions": "Unlimited completions",
+        "aiCredits": "7,000 credits ($70 value)",
+        "agentTasks": "Multi-file edits included"
       },
-      "models": [],
+      "models": [
+        "Claude Sonnet 5",
+        "GPT-5.4",
+        "Gemini 3.8 Flash",
+        "Claude Opus 5"
+      ],
       "estimatedTokenBudget": {
-        "description": "Based on credits",
-        "estimatedMillionTokens": 70,
-        "assumptions": "1 credit = $0.01"
+        "description": "7,000 credits ($70 compute budget, ~35M tokens)",
+        "estimatedMillionTokens": 35,
+        "assumptions": "7,000 credits = $70 / $2.00/M = 35M tokens on Sonnet 5"
       },
-      "notes": "7000 credits ($70)"
+      "notes": "Designed for agentic coding workflows"
     },
     {
       "name": "Max",
       "monthlyPrice": 100,
       "limits": {
-        "credits": 20000
+        "completions": "Unlimited completions",
+        "aiCredits": "20,000 credits ($200 value)",
+        "prReviews": "Unlimited PR summaries"
       },
-      "models": [],
+      "models": [
+        "Claude Opus 5",
+        "GPT-6 Astra",
+        "Claude Sonnet 5",
+        "All Frontier Models"
+      ],
       "estimatedTokenBudget": {
-        "description": "Based on credits",
-        "estimatedMillionTokens": 200,
-        "assumptions": "1 credit = $0.01"
+        "description": "20,000 credits ($200 compute budget, ~100M tokens)",
+        "estimatedMillionTokens": 100,
+        "assumptions": "20,000 credits = $200 / $2.00/M = 100M tokens on Sonnet 5"
       },
-      "notes": "20000 credits ($200)"
+      "notes": "Maximum credit allotment with priority reasoning"
     }
   ],
   "gotchas": [
-    "data training unless opted out on individual plans"
+    "1 AI Credit = $0.01 USD straightforward conversion",
+    "Frontier reasoning models consume credits at higher multipliers",
+    "PR Reviews consume GitHub Actions minutes in addition to AI Credits",
+    "Data training enabled by default on personal Free/Pro plans"
   ],
-  "tosHighlights": [],
-  "dataTraining": "opt-out required for individual plans",
-  "ipIndemnity": "Business/Enterprise only"
+  "tosHighlights": [
+    "Free/Pro/Pro+ individual: data may be used for training unless opted out",
+    "No IP indemnity on individual plans",
+    "Business & Enterprise tiers never train and include IP indemnity"
+  ],
+  "dataTraining": "Opt-out required on Free/Pro/Pro+ individual plans",
+  "ipIndemnity": "Business and Enterprise only"
 }

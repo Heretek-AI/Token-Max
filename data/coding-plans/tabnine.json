@@ -2,41 +2,76 @@
   "id": "tabnine",
   "name": "Tabnine",
   "category": "coding-ide",
-  "url": "https://tabnine.com",
+  "url": "https://tabnine.com/pricing",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Starter",
       "monthlyPrice": 0,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "limits": {
+        "completions": "Short-line basic completions",
+        "chat": "Limited trial",
+        "context": "Local file only"
+      },
+      "models": [
+        "Tabnine Local Model"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Local completion model (~0.2M tokens/mo)",
+        "estimatedMillionTokens": 0.2,
+        "assumptions": "Lightweight local completions"
+      },
+      "notes": "Basic code completions run locally on device"
     },
     {
       "name": "Pro",
       "monthlyPrice": 15,
       "limits": {
-        "chat": 500
+        "completions": "Unlimited whole-line & full function completions",
+        "chat": "500 chat queries/day",
+        "context": "Project-wide context"
       },
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "unlimited completions"
+      "models": [
+        "Tabnine Protected",
+        "Claude Sonnet",
+        "GPT-5 mini"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Unlimited completions + 15K chats/mo (~10M tokens)",
+        "estimatedMillionTokens": 10,
+        "assumptions": "500 queries/day * 30 days"
+      },
+      "notes": "Zero Data Retention with permissive model switching"
     },
     {
       "name": "Enterprise",
       "monthlyPrice": 39,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "$39/user"
+      "limits": {
+        "completions": "Unlimited",
+        "chat": "Unlimited",
+        "deployment": "VPC or On-premises air-gapped"
+      },
+      "models": [
+        "Tabnine Protected Enterprise",
+        "Custom fine-tuned"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Enterprise uncapped volume (~30M tokens/mo)",
+        "estimatedMillionTokens": 30,
+        "assumptions": "Air-gapped enterprise volume"
+      },
+      "notes": "Full enterprise security and compliance governance"
     }
   ],
   "gotchas": [
-    "very limited free tier",
-    "ZDR focus"
+    "Very limited free tier compared to modern competitors",
+    "Zero Data Retention guarantee applies strictly to Tabnine Protected models",
+    "Custom connection setup required for enterprise SSO"
   ],
-  "tosHighlights": [],
-  "dataTraining": "ZDR",
+  "tosHighlights": [
+    "ZDR (Zero Data Retention) policy certified by third-party auditors",
+    "IP indemnification protects against copyright infringement"
+  ],
+  "dataTraining": "ZDR (Zero Data Retention)",
   "ipIndemnity": true
 }

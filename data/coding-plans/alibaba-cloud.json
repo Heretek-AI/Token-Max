@@ -2,62 +2,129 @@
   "id": "alibaba-cloud",
   "name": "Alibaba Cloud",
   "category": "api-provider",
-  "url": "https://alibabacloud.com",
+  "url": "https://www.alibabacloud.com/en/campaign/ai-landing-page-token",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Personal Lite",
       "monthlyPrice": 6,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "limits": {
+        "concurrency": "2 concurrent queries",
+        "monthlyTokens": "~10M tokens quota"
+      },
+      "models": [
+        "Qwen 3.8 Flash",
+        "Qwen 2.5 Coder"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Personal budget allotment (~10M tokens/mo)",
+        "estimatedMillionTokens": 10,
+        "assumptions": "Budget personal allotment"
+      },
+      "notes": "Entry-level coding plan for individual developers"
     },
     {
       "name": "Standard",
       "monthlyPrice": 18,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "limits": {
+        "concurrency": "5 concurrent queries",
+        "monthlyTokens": "~35M tokens quota"
+      },
+      "models": [
+        "Qwen 3.8 Max",
+        "Qwen 3.8 Flash",
+        "Qwen 2.5 Coder 32B"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Mainstream developer quota (~35M tokens/mo)",
+        "estimatedMillionTokens": 35,
+        "assumptions": "Expanded personal quota"
+      },
+      "notes": "Mainstream plan for active coders"
     },
     {
       "name": "Pro",
       "monthlyPrice": 68,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "limits": {
+        "concurrency": "15 concurrent queries",
+        "monthlyTokens": "~140M tokens quota"
+      },
+      "models": [
+        "Qwen 3.8 Max",
+        "Qwen 3.8 Flash",
+        "Qwen 2.5 Coder 32B"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Power developer quota (~140M tokens/mo)",
+        "estimatedMillionTokens": 140,
+        "assumptions": "High throughput quota"
+      },
+      "notes": "Power developer tier with high concurrency"
     },
     {
       "name": "Team Standard",
       "monthlyPrice": 20,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "/seat"
+      "limits": {
+        "concurrency": "10 concurrent/seat",
+        "billing": "Per seat billing"
+      },
+      "models": [
+        "Qwen 3.8 Max",
+        "Qwen 3.8 Flash"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Per-seat team allocation (~40M tokens/seat)",
+        "estimatedMillionTokens": 40,
+        "assumptions": "Per-seat team allocation"
+      },
+      "notes": "Team tier with shared workspace controls"
     },
     {
       "name": "Team Pro",
       "monthlyPrice": 75,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "limits": {
+        "concurrency": "25 concurrent/seat",
+        "billing": "Per seat billing"
+      },
+      "models": [
+        "Qwen 3.8 Max",
+        "Qwen 3.8 Flash"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Team Pro high concurrency (~150M tokens/seat)",
+        "estimatedMillionTokens": 150,
+        "assumptions": "Team Pro high concurrency"
+      },
+      "notes": "Enterprise development teams"
     },
     {
       "name": "Team Max",
       "monthlyPrice": 200,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "limits": {
+        "concurrency": "60 concurrent/seat",
+        "billing": "Per seat billing"
+      },
+      "models": [
+        "Qwen 3.8 Max",
+        "All Qwen Series"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Maximum team throughput (~450M tokens/seat)",
+        "estimatedMillionTokens": 450,
+        "assumptions": "Maximum team throughput"
+      },
+      "notes": "Dedicated capacity with high SLA"
     }
   ],
   "gotchas": [
-    "no training guarantee on personal plans"
+    "Personal plans offer NO guarantee against data training — code may be used for model improvement",
+    "Team and Enterprise tiers require formal business verification for ZDR",
+    "Currency exchange fluctuations apply if billed in USD"
   ],
-  "tosHighlights": [],
-  "dataTraining": "No guarantee on personal plans",
+  "tosHighlights": [
+    "Team plans include commercial IP protections and SOC2 compliance",
+    "Personal plans subject to standard cloud terms"
+  ],
+  "dataTraining": "No guarantee on personal plans; Team plans shielded",
   "ipIndemnity": false
 }

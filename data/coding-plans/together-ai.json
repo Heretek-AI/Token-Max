@@ -9,26 +9,51 @@
       "name": "Free",
       "monthlyPrice": 0,
       "limits": {
-        "RPM": 60,
-        "TPM": 60000
+        "RPM": "60 requests/min",
+        "TPM": "60,000 tokens/min",
+        "creditTrial": "$5 free credits"
       },
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "models": [
+        "Llama 3.3 70B",
+        "DeepSeek V3",
+        "Qwen 2.5 Coder"
+      ],
+      "estimatedTokenBudget": {
+        "description": "$5 trial credits (~5M tokens)",
+        "estimatedMillionTokens": 5,
+        "assumptions": "$5 trial credits on open source models"
+      },
+      "notes": "Trial credit package for open source model testing"
     },
     {
       "name": "PAYG",
       "monthlyPrice": null,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
+      "limits": {
+        "tierLimits": "Limits scale at $25, $50, $100, $250 spend",
+        "batchDiscount": "50% off Batch inference"
+      },
+      "models": [
+        "Llama 3.3 70B",
+        "DeepSeek V3",
+        "Qwen 2.5 Coder 32B"
+      ],
+      "estimatedTokenBudget": {
+        "description": "PAYG ($20 buys ~30M tokens)",
+        "estimatedMillionTokens": 30,
+        "assumptions": "$20 spent @ $0.65/M blended"
+      },
       "notes": "Tiered limits at $25/$50/$100/$250 spend. Batch 50% off."
     }
   ],
   "gotchas": [
-    "sudden traffic spikes hit 429s"
+    "Sudden traffic spikes hit 429 rate limits until account tier auto-upgrades",
+    "Cold start delays on infrequently accessed open-weights models",
+    "Dedicated endpoints incur minimum hourly billing"
   ],
-  "tosHighlights": [],
+  "tosHighlights": [
+    "Zero data retention by default for paid endpoints",
+    "SOC2 Type II certified"
+  ],
   "dataTraining": "No",
   "ipIndemnity": false
 }

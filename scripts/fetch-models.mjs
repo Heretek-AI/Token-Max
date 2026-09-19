@@ -40,9 +40,6 @@ async function fetchModels() {
     const pricing = model.pricing || {};
     const inputPrice = parseFloat(pricing.prompt || '0') * 1_000_000;
     const outputPrice = parseFloat(pricing.completion || '0') * 1_000_000;
-    const imagePrice = parseFloat(pricing.image || '0') * 1_000_000;
-    const requestPrice = parseFloat(pricing.request || '0');
-
     // blendedCost: (input*3 + output*1) / 4
     const blendedCost = (inputPrice * 3 + outputPrice * 1) / 4;
     
@@ -54,8 +51,6 @@ async function fetchModels() {
 
     const provider = id.split('/')[0] || 'unknown';
 
-    // Benchmarks from AA
-    const aa = (model.top_provider && model.top_provider.max_completion_tokens) ? null : null; // OpenRouter might not always embed AA directly as described, assuming it's in model.benchmarks?.artificial_analysis or similar.
     let benchmarks = {
       intelligenceIndex: null,
       codingIndex: null,

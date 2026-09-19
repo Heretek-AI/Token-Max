@@ -9,27 +9,50 @@
       "name": "Free",
       "monthlyPrice": 0,
       "limits": {
-        "RPM": 10
+        "RPM": "10 requests/min",
+        "trial": "$1 free credits"
       },
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "models": [
+        "Llama 3.3 70B",
+        "DeepSeek V3"
+      ],
+      "estimatedTokenBudget": {
+        "description": "$1 free trial (~1M tokens)",
+        "estimatedMillionTokens": 1,
+        "assumptions": "$1 trial credits"
+      },
+      "notes": "Trial tier for function-calling evaluation"
     },
     {
       "name": "PAYG",
       "monthlyPrice": null,
       "limits": {
-        "RPM": 6000
+        "RPM": "6,000 requests/min with valid card",
+        "batchDiscount": "50% off Batch API",
+        "latency": "Sub-100ms TTFT"
       },
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "Batch 50% off."
+      "models": [
+        "Llama 3.3 70B",
+        "DeepSeek V3",
+        "FireFunction v2"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Serverless PAYG ($20 buys ~35M tokens)",
+        "estimatedMillionTokens": 35,
+        "assumptions": "$20 spent @ $0.55/M blended on Llama 70B"
+      },
+      "notes": "Serverless PAYG. 6000 RPM with card. Batch 50% off."
     }
   ],
   "gotchas": [
-    "503 load shedding on saturated fleet"
+    "503 load shedding errors occur during saturated cluster load events",
+    "Card required on file to unlock 6,000 RPM high throughput",
+    "Fine-tuning deployment incurs hourly standby charges"
   ],
-  "tosHighlights": [],
+  "tosHighlights": [
+    "No training on customer API inputs",
+    "HIPAA and SOC2 compliance available on enterprise plans"
+  ],
   "dataTraining": "No",
   "ipIndemnity": false
 }

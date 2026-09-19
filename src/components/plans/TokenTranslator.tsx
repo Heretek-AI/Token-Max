@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import type { CodingPlan, NormalizedModel } from '../../lib/types';
 import { formatMillionTokens, getProviderColor } from '../../lib/pricing';
-import { ArrowRight, Sparkles, AlertCircle, Layers } from 'lucide-react';
+import { ArrowRight, Sparkles, AlertCircle, Layers, CheckCircle2, HelpCircle, Info } from 'lucide-react';
 
 interface TokenTranslatorProps {
   plans: CodingPlan[];
@@ -9,9 +9,9 @@ interface TokenTranslatorProps {
 }
 
 export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
-  const [selectedPlanId, setSelectedPlanId] = useState<string>('claude-code');
+  const [selectedPlanId, setSelectedPlanId] = useState<string>('cursor');
   const [selectedTierName, setSelectedTierName] = useState<string>('Pro');
-  const [modelCategory, setModelCategory] = useState<'all' | 'frontier' | 'value'>('all');
+  const [modelCategory, setModelCategory] = useState<'plan-models' | 'frontier' | 'value'>('plan-models');
 
   // Gather all tiers across ALL coding plans with a non-zero monthly price
   const allTiers = useMemo(() => {
@@ -21,7 +21,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
       .sort((a, b) => a.plan.name.localeCompare(b.plan.name) || (a.tier.monthlyPrice || 0) - (b.tier.monthlyPrice || 0));
   }, [plans]);
 
-  // Group tiers by plan category for the select optgroups
+  // Group tiers by plan category for select dropdown optgroups
   const groupedTiers = useMemo(() => {
     const groups: Record<string, typeof allTiers> = {
       'coding-ide': [],
@@ -44,16 +44,51 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
   const currentPlan = selectedData?.plan;
   const currentTier = selectedData?.tier;
 
-  // Calculate token yields across models for this plan's exact price
-  const topModels = useMemo(() => {
-    if (!budget) return [];
-    
-    let filtered = models.filter(m => !m.isFree && !m.isBatch && m.blendedCost > 0);
+  // Filter out legacy, obsolete, or batch/free noise models
+  const cleanModels = useMemo(() => {
+    const excludedPatterns = [
+      'nemo', 'granite', 'lunaris', 'hermes', 'gemma-1', 'llama-2', 'gpt-3.5',
+      'claude-2', 'claude-1', 'gemini-1.0', 'gemini-1.5-flash-8b', 'command-r', 'dbrx'
+    ];
+    return models.filter(m => {
+      if (m.isFree || m.isBatch || m.blendedCost <= 0) return false;
+      const lower = m.id.toLowerCase();
+      if (excludedPatterns.some(pat => lower.includes(pat))) return false;
+      return true;
+    });
+  }, [models]);
 
-    if (modelCategory === 'frontier') {
-      filtered = filtered.filter(m => m.tierClass === 'frontier' || (m.benchmarks.codingIndex && m.benchmarks.codingIndex >= 70));
+  // Calculate matching models that correspond to the current plan's supported model list
+  const matchingPlanModels = useMemo(() => {
+    if (!currentTier?.models || currentTier.models.length === 0) return [];
+    
+    return cleanModels.filter(m => {
+      return currentTier.models!.some(planModelName => {
+        const normPlan = planModelName.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const normName = m.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const normId = m.id.toLowerCase().replace(/[^a-z0-9]/g, '');
+        return normName.includes(normPlan) || normId.includes(normPlan) || normPlan.includes(normName);
+      });
+    });
+  }, [cleanModels, currentTier]);
+
+  // Calculate token yields across models for this plan's exact price
+  const displayModels = useMemo(() => {
+    if (!budget) return [];
+
+    let filtered = cleanModels;
+
+    if (modelCategory === 'plan-models') {
+      if (matchingPlanModels.length > 0) {
+        filtered = matchingPlanModels;
+      } else {
+        // Fallback to top frontier models if no exact match found
+        filtered = cleanModels.filter(m => (m.benchmarks.codingIndex || 0) >= 65 || m.tierClass === 'frontier');
+      }
+    } else if (modelCategory === 'frontier') {
+      filtered = cleanModels.filter(m => (m.benchmarks.codingIndex || 0) >= 65 || m.tierClass === 'frontier');
     } else if (modelCategory === 'value') {
-      filtered = filtered.filter(m => m.benchmarks.codingIndex != null && m.benchmarks.codingIndex >= 40);
+      filtered = cleanModels.filter(m => (m.benchmarks.codingIndex || 0) >= 50 && m.blendedCost <= 6.0);
     }
 
     return filtered
@@ -67,16 +102,16 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
         };
       })
       .sort((a, b) => {
-        if (modelCategory === 'frontier') {
-          return (b.benchmarks.codingIndex || 0) - (a.benchmarks.codingIndex || 0);
-        }
         if (modelCategory === 'value') {
           return (b.benchmarks.valueScore || 0) - (a.benchmarks.valueScore || 0);
+        }
+        if (modelCategory === 'frontier') {
+          return (b.benchmarks.codingIndex || 0) - (a.benchmarks.codingIndex || 0);
         }
         return b.affordableTokens - a.affordableTokens;
       })
       .slice(0, 12);
-  }, [models, budget, modelCategory]);
+  }, [cleanModels, budget, modelCategory, matchingPlanModels]);
 
   if (allTiers.length === 0) return null;
 
@@ -88,6 +123,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
 
   return (
     <div className="bg-surface rounded-2xl border border-border p-6 shadow-sm mb-12">
+      {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -97,7 +133,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
             <h3 className="text-xl font-extrabold text-text">Token Budget Translator</h3>
           </div>
           <p className="text-sm text-text-muted">
-            Select any coding subscription ({allTiers.length} tiers tracked) and see exactly what that monthly spend yields in direct API tokens.
+            Translate opaque subscription prices into real compute: compare what a plan gives you natively versus direct API equivalent tokens.
           </p>
         </div>
 
@@ -108,11 +144,21 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
         </div>
       </div>
 
+      {/* Explanatory banner */}
+      <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 mb-6 text-xs text-text-muted flex items-start gap-3">
+        <Info className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+        <div>
+          <strong className="text-text font-semibold">How this comparison works: </strong>
+          Coding tools (like Cursor, Copilot, or Claude Code) don't sell raw API tokens—they bundle curated models, completions, and proprietary credit pools.
+          Below, we show <strong>(1) what your subscription actually includes</strong>, and <strong>(2) what your ${budget}/mo buys if you spent it directly on modern frontier API tokens</strong>.
+        </div>
+      </div>
+
       {/* Plan Selector */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div className="md:col-span-2">
           <label className="block text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
-            Select Subscription Plan:
+            Select Subscription Plan to Translate:
           </label>
           <select 
             className="w-full px-4 py-2.5 bg-surface border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-text font-medium text-sm"
@@ -121,6 +167,8 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
               const [pId, tName] = e.target.value.split('|');
               setSelectedPlanId(pId);
               setSelectedTierName(tName);
+              // Set default tab back to plan-models when changing plans
+              setModelCategory('plan-models');
             }}
           >
             {Object.entries(groupedTiers).map(([catKey, items]) => {
@@ -141,39 +189,42 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
         {/* Model Filter Tabs */}
         <div>
           <label className="block text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
-            Compare Models:
+            API Equivalent Filter:
           </label>
           <div className="flex bg-surface-alt p-1 rounded-xl border border-border text-xs font-semibold">
             <button
               type="button"
-              onClick={() => setModelCategory('all')}
-              className={`flex-1 py-2 rounded-lg transition-all ${
-                modelCategory === 'all' 
+              onClick={() => setModelCategory('plan-models')}
+              className={`flex-1 py-2 px-1 rounded-lg transition-all text-center truncate ${
+                modelCategory === 'plan-models' 
                   ? 'bg-surface text-primary shadow-sm' 
                   : 'text-text-muted hover:text-text'
               }`}
+              title="Compare with models offered by this plan"
             >
-              All Models
+              Plan Models ({matchingPlanModels.length || 'Frontier'})
             </button>
             <button
               type="button"
               onClick={() => setModelCategory('frontier')}
-              className={`flex-1 py-2 rounded-lg transition-all ${
+              className={`flex-1 py-2 px-1 rounded-lg transition-all text-center truncate ${
                 modelCategory === 'frontier' 
                   ? 'bg-surface text-primary shadow-sm' 
                   : 'text-text-muted hover:text-text'
               }`}
+              title="Top frontier reasoning models (Coding Index 65+)"
             >
-              Frontier
+              Frontier (65+)
             </button>
             <button
               type="button"
               onClick={() => setModelCategory('value')}
-              className={`flex-1 py-2 rounded-lg transition-all ${
+              className={`flex-1 py-2 px-1 rounded-lg transition-all text-center truncate ${
                 modelCategory === 'value' 
                   ? 'bg-surface text-primary shadow-sm' 
                   : 'text-text-muted hover:text-text'
               }`}
+              title="High efficiency, low cost workhorses"
             >
               Best Value
             </button>
@@ -181,57 +232,114 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
         </div>
       </div>
 
-      {/* Plan Native Context Callout */}
+      {/* Part 1: Plan Native Allowance & Included Models */}
       {currentPlan && currentTier && (
-        <div className="bg-surface-alt/70 rounded-xl border border-border p-4 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs">
-          <div className="flex items-start gap-3">
-            <Layers className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-            <div>
-              <div className="font-bold text-text text-sm flex items-center gap-2">
-                <span>{currentPlan.name} ({currentTier.name})</span>
-                <span className="text-[11px] font-normal text-text-muted">
-                  {currentPlan.category === 'coding-ide' ? 'Coding IDE' : currentPlan.category === 'coding-router' ? 'API Router' : 'Cloud Plan'}
-                </span>
+        <div className="bg-surface-alt/70 rounded-xl border border-border p-5 mb-8">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-4 pb-4 border-b border-border/60">
+            <div className="flex items-start gap-3">
+              <div className="p-2 bg-primary/10 text-primary rounded-xl shrink-0 mt-0.5">
+                <Layers className="w-5 h-5" />
               </div>
-              <div className="text-text-muted mt-0.5">
-                {currentTier.estimatedTokenBudget ? (
-                  <span>Official/Estimated Allowance: <strong className="text-text">~{formatMillionTokens(currentTier.estimatedTokenBudget.estimatedMillionTokens)} tokens</strong> ({currentTier.estimatedTokenBudget.description})</span>
-                ) : (
-                  <span>Allowance: <strong className="text-text">{currentTier.notes || 'Metered by requests/concurrency'}</strong></span>
-                )}
+              <div>
+                <div className="font-bold text-text text-base flex items-center gap-2">
+                  <span>Part 1: What {currentPlan.name} ({currentTier.name}) Actually Delivers</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-surface border border-border text-text-muted font-normal">
+                    ${budget}/mo
+                  </span>
+                </div>
+                <p className="text-xs text-text-muted mt-0.5">
+                  Official native quotas, credit pools, and bundled models for this tier:
+                </p>
               </div>
             </div>
+
+            {currentTier.estimatedTokenBudget && (
+              <div className="bg-surface px-3 py-2 rounded-lg border border-border/80 shrink-0">
+                <div className="text-[11px] text-text-muted font-medium">Estimated Monthly Allowance:</div>
+                <div className="text-sm font-bold text-primary">
+                  {currentTier.estimatedTokenBudget.description}
+                </div>
+              </div>
+            )}
           </div>
 
-          {currentPlan.gotchas && currentPlan.gotchas.length > 0 && (
-            <div className="flex items-center gap-2 text-warning bg-warning/10 border border-warning/20 px-3 py-1.5 rounded-lg shrink-0 max-w-sm truncate">
-              <AlertCircle className="w-4 h-4 shrink-0" />
-              <span className="truncate" title={currentPlan.gotchas[0]}>
-                <strong>Gotcha:</strong> {currentPlan.gotchas[0]}
-              </span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            {/* Native Models Included */}
+            <div className="bg-surface p-3.5 rounded-lg border border-border">
+              <div className="font-semibold text-text mb-2 flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-success" />
+                <span>Models Included in this Plan ({currentTier.models?.length || 0}):</span>
+              </div>
+              {currentTier.models && currentTier.models.length > 0 ? (
+                <div className="flex flex-wrap gap-1.5">
+                  {currentTier.models.map(m => (
+                    <span 
+                      key={m} 
+                      className="px-2 py-1 bg-surface-alt border border-border rounded-md text-[11px] font-medium text-text"
+                    >
+                      {m}
+                    </span>
+                  ))}
+                </div>
+              ) : (
+                <span className="text-text-muted italic">Any provider-supported model</span>
+              )}
             </div>
-          )}
+
+            {/* Key Limits & Quota Rules */}
+            <div className="bg-surface p-3.5 rounded-lg border border-border">
+              <div className="font-semibold text-text mb-2 flex items-center gap-1.5">
+                <HelpCircle className="w-4 h-4 text-primary" />
+                <span>Key Plan Limits &amp; Quotas:</span>
+              </div>
+              <ul className="space-y-1 text-text-muted">
+                {Object.entries(currentTier.limits).map(([k, v]) => (
+                  <li key={k} className="flex items-start gap-1.5">
+                    <span className="text-primary font-medium capitalize shrink-0">
+                      {k.replace(/([A-Z])/g, ' $1')}:
+                    </span>
+                    <span className="text-text font-medium">{String(v)}</span>
+                  </li>
+                ))}
+              </ul>
+              {currentPlan.gotchas && currentPlan.gotchas.length > 0 && (
+                <div className="mt-2.5 pt-2 border-t border-border/60 flex items-center gap-1.5 text-warning text-[11px]">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span className="truncate" title={currentPlan.gotchas[0]}>
+                    <strong>Gotcha:</strong> {currentPlan.gotchas[0]}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       )}
 
-      {/* Token Translation Cards */}
+      {/* Part 2: Direct API Benchmark Comparison */}
       <div>
-        <div className="flex items-center justify-between mb-3 text-xs font-semibold text-text-muted uppercase tracking-wider">
-          <span className="flex items-center gap-1.5">
-            <span>Direct API Yield for ${budget}/mo</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-text uppercase tracking-wider flex items-center gap-1.5">
+              <span>Part 2: Direct API Equivalent Yield for ${budget}/mo</span>
+              <ArrowRight className="w-3.5 h-3.5 text-primary" />
+            </span>
+            <span className="text-[11px] text-text-muted">
+              (Frontier &amp; Workhorse LLMs only, no obsolete models)
+            </span>
+          </div>
+          <span className="text-xs text-text-muted font-medium">
+            Assuming 3:1 input:output token ratio
           </span>
-          <span>Tokens &amp; Requests</span>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          {topModels.map(m => (
+          {displayModels.map(m => (
             <div 
               key={m.id} 
               className="bg-surface p-3.5 rounded-xl border border-border hover:border-primary/40 transition-all flex flex-col justify-between shadow-sm"
             >
               <div>
-                <div className="flex items-center justify-between gap-1 mb-1">
+                <div className="flex items-center justify-between gap-1 mb-1.5">
                   <span 
                     className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
                     style={{ backgroundColor: `${getProviderColor(m.provider)}15`, color: getProviderColor(m.provider) }}
@@ -244,8 +352,11 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
                     </span>
                   )}
                 </div>
-                <div className="text-xs font-bold text-text truncate mb-2" title={m.name}>
+                <div className="text-xs font-bold text-text truncate mb-1" title={m.name}>
                   {m.name}
+                </div>
+                <div className="text-[10px] text-text-muted font-mono mb-2">
+                  ${m.blendedCost.toFixed(2)}/M blended
                 </div>
               </div>
 
@@ -255,7 +366,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
                 </div>
                 <div className="text-[11px] text-text-muted flex justify-between mt-0.5 font-medium">
                   <span>~{Math.round(m.approximateRequests).toLocaleString()} reqs</span>
-                  <span className="font-mono text-[10px]">${m.blendedCost.toFixed(2)}/M</span>
+                  <span>tokens/mo</span>
                 </div>
               </div>
             </div>

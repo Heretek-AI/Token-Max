@@ -2,30 +2,58 @@
   "id": "opencode",
   "name": "OpenCode",
   "category": "coding-router",
-  "url": "https://opencode.com",
+  "url": "https://opencode.ai",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Go",
       "monthlyPrice": 10,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "Per-model monthly dollar limits"
+      "limits": {
+        "monthlySpendCap": "$10/mo model quota",
+        "fiveHourRolling": "Max 20% of monthly cap ($2.00/5h)",
+        "weeklyCap": "Max 50% of monthly cap ($5.00/wk)"
+      },
+      "models": [
+        "DeepSeek V4.1 Flash",
+        "Claude Sonnet 5",
+        "Qwen 3.8 Max"
+      ],
+      "estimatedTokenBudget": {
+        "description": "$10 API budget (~12M tokens/mo)",
+        "estimatedMillionTokens": 12,
+        "assumptions": "$10 spent on blended DeepSeek and Sonnet models"
+      },
+      "notes": "Capped subscription with automated router optimizations"
     },
     {
       "name": "Zen",
       "monthlyPrice": null,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "PAYG"
+      "limits": {
+        "billing": "Pay-as-you-go with 0% platform markup",
+        "concurrency": "10 concurrent streams"
+      },
+      "models": [
+        "All Supported Routing Models",
+        "Claude Sonnet 5",
+        "GPT-6 Astra"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Uncapped PAYG at wholesale cost (~50M tokens @ $50)",
+        "estimatedMillionTokens": 50,
+        "assumptions": "Calculated on $50 typical monthly consumption"
+      },
+      "notes": "Direct wholesale rates with intelligent latency failover"
     }
   ],
   "gotchas": [
-    "ZDR varies by model"
+    "Zero Data Retention policies vary strictly by the underlying model provider selected",
+    "DeepSeek models have dynamic peak vs off-peak rates passed through",
+    "5-hour limit resets dynamically"
   ],
-  "tosHighlights": [],
-  "dataTraining": "Varies by model",
+  "tosHighlights": [
+    "Client-side proxy routing keeps API keys private",
+    "Open-source core architecture"
+  ],
+  "dataTraining": "Varies by model selected",
   "ipIndemnity": false
 }

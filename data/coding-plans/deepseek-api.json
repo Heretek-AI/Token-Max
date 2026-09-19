@@ -9,23 +9,31 @@
       "name": "PAYG",
       "monthlyPrice": null,
       "limits": {
-        "concurrency": {
-          "Flash": 2500,
-          "Pro": 500
-        }
+        "concurrency": "Flash: 2,500 concurrent | Pro: 500 concurrent",
+        "cacheHitDiscount": "98% off cache hits",
+        "offPeakDiscount": "50% off during 16:30-00:30 UTC"
       },
       "models": [
-        "Flash",
-        "V4-Pro"
+        "DeepSeek V4.1 Flash",
+        "DeepSeek V4-Pro"
       ],
-      "estimatedTokenBudget": null,
-      "notes": "time-of-day pricing. Cache hits 98% off."
+      "estimatedTokenBudget": {
+        "description": "Direct API PAYG ($20 buys ~133M Flash or ~25M Pro tokens)",
+        "estimatedMillionTokens": 133,
+        "assumptions": "$20 / $0.15/M blended off-peak on DeepSeek Flash"
+      },
+      "notes": "Time-of-day pricing. Cache hits 98% off"
     }
   ],
   "gotchas": [
-    "time-of-day pricing differences"
+    "Time-of-day pricing doubles rates during peak Asia hours (00:30-16:30 UTC)",
+    "Cache hits require identical prefix and are ephemeral",
+    "Occasional high latency during peak global demand"
   ],
-  "tosHighlights": [],
+  "tosHighlights": [
+    "No training on API traffic",
+    "Servers located in PRC and international cloud regions"
+  ],
   "dataTraining": "No",
   "ipIndemnity": false
 }

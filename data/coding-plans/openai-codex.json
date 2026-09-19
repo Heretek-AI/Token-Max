@@ -8,60 +8,111 @@
     {
       "name": "Free",
       "monthlyPrice": 0,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "limits": {
+        "messages": "10 msgs / 5h",
+        "modelAccess": "Mini models only"
+      },
+      "models": [
+        "GPT-5.6 Luna",
+        "GPT-5 mini"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Basic chat & completions (~0.5M tokens/mo)",
+        "estimatedMillionTokens": 0.5,
+        "assumptions": "10 msgs per 5-hour cycle"
+      },
+      "notes": "Free tier with strict rate limits"
     },
     {
       "name": "Go",
       "monthlyPrice": 8,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "limits": {
+        "messages": "20 msgs / 5h",
+        "context": "128K context window"
+      },
+      "models": [
+        "GPT-5.6 Luna",
+        "GPT-5.6 Terra"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Light coding assistance (~2.5M tokens/mo)",
+        "estimatedMillionTokens": 2.5,
+        "assumptions": "Budget tier for everyday coding"
+      },
+      "notes": "Lightweight tier for everyday coding"
     },
     {
       "name": "Plus",
       "monthlyPrice": 20,
       "limits": {
-        "messages": "5-45 msgs/5h"
+        "messages": "5-45 msgs / 5h rolling",
+        "canvas": "Canvas included",
+        "poolSharing": "Codex & ChatGPT share quota"
       },
       "models": [
-        "GPT-6 Astra"
+        "GPT-6 Astra",
+        "GPT-5.6 Sol",
+        "GPT-5.6 Luna"
       ],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "estimatedTokenBudget": {
+        "description": "Dynamic 5-hour quota (~12M tokens/mo)",
+        "estimatedMillionTokens": 12,
+        "assumptions": "Dynamic 5-hour message quota (5-45 msgs depending on peak demand)"
+      },
+      "notes": "Codex and Work/ChatGPT share the same 5-hour quota"
     },
     {
       "name": "Pro5x",
       "monthlyPrice": 100,
       "limits": {
-        "messages": "25-225 msgs/5h"
+        "messages": "25-225 msgs / 5h rolling",
+        "priority": "Dedicated compute priority",
+        "concurrency": "Multi-session enabled"
       },
       "models": [
-        "GPT-6 Astra"
+        "GPT-6 Astra",
+        "GPT-5.6 Sol",
+        "o3-pro",
+        "GPT-5.6 Luna"
       ],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "estimatedTokenBudget": {
+        "description": "5x Plus quota (~60M tokens/mo)",
+        "estimatedMillionTokens": 60,
+        "assumptions": "5x Plus quota with dedicated capacity"
+      },
+      "notes": "5x multiplier on message rate limits"
     },
     {
       "name": "Pro20x",
       "monthlyPrice": 200,
       "limits": {
-        "messages": "100-900 msgs/5h"
+        "messages": "100-900 msgs / 5h rolling",
+        "priority": "Maximum priority",
+        "concurrency": "Uncapped concurrent tasks"
       },
       "models": [
-        "GPT-6 Astra"
+        "GPT-6 Astra",
+        "GPT-5.6 Sol",
+        "o3-pro",
+        "All OpenAI Models"
       ],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "estimatedTokenBudget": {
+        "description": "20x Plus quota (~250M tokens/mo)",
+        "estimatedMillionTokens": 250,
+        "assumptions": "20x Plus quota with near-zero queue wait times"
+      },
+      "notes": "Full uncapped power tier for software teams"
     }
   ],
   "gotchas": [
-    "Work and Codex share same pool"
+    "Codex, ChatGPT Canvas, and Web chats all share one unified message pool",
+    "Complex coding prompts with massive context eat the 5-hour allowance faster",
+    "Dynamic rate limiting throttles message caps during peak hours"
   ],
-  "tosHighlights": [],
-  "dataTraining": "Opt-out available",
+  "tosHighlights": [
+    "Opt-out available in settings to prevent data training",
+    "Enterprise plans include business data privacy and SOC2"
+  ],
+  "dataTraining": "Opt-out available in settings",
   "ipIndemnity": false
 }

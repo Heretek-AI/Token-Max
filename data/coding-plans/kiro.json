@@ -2,66 +2,122 @@
   "id": "kiro",
   "name": "Kiro",
   "category": "coding-ide",
-  "url": "https://aws.amazon.com/kiro",
+  "url": "https://kiro.dev/pricing/",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Free",
       "monthlyPrice": 0,
       "limits": {
-        "credits": 50
+        "credits": "50 credits/mo",
+        "concurrency": "1",
+        "addOnPrice": "N/A"
       },
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "50 credits"
+      "models": [
+        "Claude Haiku 4.5",
+        "Claude Sonnet 5"
+      ],
+      "estimatedTokenBudget": {
+        "description": "50 credits (~1M tokens)",
+        "estimatedMillionTokens": 1,
+        "assumptions": "50 credits * $0.02 base = $1 value"
+      },
+      "notes": "Evaluation tier with 50 monthly credits"
     },
     {
       "name": "Pro",
       "monthlyPrice": 20,
       "limits": {
-        "credits": 1000
+        "credits": "1,000 credits/mo",
+        "addOnPrice": "$0.04/credit",
+        "multipliers": "Sonnet 1.3x, Opus 2.2x, Haiku 0.4x"
       },
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "1000 credits"
+      "models": [
+        "Claude Sonnet 5",
+        "Claude Opus 5",
+        "Claude Haiku 4.5",
+        "GPT-5.6 Sol"
+      ],
+      "estimatedTokenBudget": {
+        "description": "1,000 credits (~20M tokens on Sonnet)",
+        "estimatedMillionTokens": 20,
+        "assumptions": "1,000 credits @ $0.04 value = $40 equivalent"
+      },
+      "notes": "Model multipliers: Opus 2.2x, Sonnet 1.3x, Haiku 0.4x"
     },
     {
       "name": "Pro+",
       "monthlyPrice": 40,
       "limits": {
-        "credits": 2000
+        "credits": "2,000 credits/mo",
+        "addOnPrice": "$0.04/credit",
+        "concurrency": "3 concurrent tasks"
       },
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "2000 credits"
+      "models": [
+        "Claude Sonnet 5",
+        "Claude Opus 5",
+        "GPT-5.6 Sol",
+        "Claude Fable 5.1"
+      ],
+      "estimatedTokenBudget": {
+        "description": "2,000 credits (~40M tokens on Sonnet)",
+        "estimatedMillionTokens": 40,
+        "assumptions": "2,000 credits @ $0.04 value = $80 equivalent"
+      },
+      "notes": "Double credits for active full-stack developers"
     },
     {
       "name": "ProMax",
       "monthlyPrice": 100,
       "limits": {
-        "credits": 5000
+        "credits": "5,000 credits/mo",
+        "addOnPrice": "$0.035/credit",
+        "concurrency": "6 concurrent tasks"
       },
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "5000 credits"
+      "models": [
+        "Claude Sonnet 5",
+        "Claude Opus 5",
+        "GPT-5.6 Sol",
+        "Claude Fable 5.1"
+      ],
+      "estimatedTokenBudget": {
+        "description": "5,000 credits (~100M tokens on Sonnet)",
+        "estimatedMillionTokens": 100,
+        "assumptions": "5,000 credits @ $0.035 value = $175 equivalent"
+      },
+      "notes": "Power user tier with discounted add-on credit pricing"
     },
     {
       "name": "Power",
       "monthlyPrice": 200,
       "limits": {
-        "credits": 10000
+        "credits": "10,000 credits/mo",
+        "addOnPrice": "$0.03/credit",
+        "concurrency": "12 concurrent tasks"
       },
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "10000 credits"
+      "models": [
+        "Claude Opus 5",
+        "Claude Sonnet 5",
+        "Claude Fable 5.1",
+        "GPT-6 Astra"
+      ],
+      "estimatedTokenBudget": {
+        "description": "10,000 credits (~200M tokens on Sonnet)",
+        "estimatedMillionTokens": 200,
+        "assumptions": "10,000 credits @ $0.03 value = $300 equivalent"
+      },
+      "notes": "Maximum enterprise compute tier"
     }
   ],
   "gotchas": [
-    "Credits don't roll over",
-    "Add-on $0.04/credit",
-    "Model multipliers vary"
+    "Monthly credits DO NOT roll over to the next month — use them or lose them",
+    "Model multipliers vary wildly: Fable is 6.0x, Sol is 4.4x, Sonnet is 1.3x",
+    "Add-on credit top-ups cost $0.04 per credit"
   ],
-  "tosHighlights": [],
-  "dataTraining": "No",
+  "tosHighlights": [
+    "AWS Bedrock enterprise security foundation",
+    "Zero data retention and no model training on customer repositories"
+  ],
+  "dataTraining": "No (Enterprise ZDR)",
   "ipIndemnity": false
 }

@@ -2,31 +2,58 @@
   "id": "augment-code",
   "name": "Augment Code",
   "category": "coding-ide",
-  "url": "https://augment.co",
+  "url": "https://augmentcode.com",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Business",
       "monthlyPrice": 100,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "Effort/credit metered"
+      "limits": {
+        "agentEffortUnits": "Metered by codebase task complexity",
+        "autoTopUp": "$15 blocks",
+        "contextIndexing": "Full repo indexing"
+      },
+      "models": [
+        "Augment Deep Context",
+        "Claude Sonnet 5"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Task-complexity effort metering (~30M tokens/mo)",
+        "estimatedMillionTokens": 30,
+        "assumptions": "Task-complexity effort metering across indexed code"
+      },
+      "notes": "Deep contextual codebase understanding for enterprise repos"
     },
     {
       "name": "Enterprise",
       "monthlyPrice": null,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "Custom"
+      "limits": {
+        "agentEffortUnits": "Custom pool",
+        "deployment": "VPC / On-prem option",
+        "sla": "99.9% uptime SLA"
+      },
+      "models": [
+        "Augment Deep Context",
+        "Claude Opus 5",
+        "Custom fine-tuned"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Custom enterprise pool (~100M tokens/mo)",
+        "estimatedMillionTokens": 100,
+        "assumptions": "Custom enterprise negotiated pool"
+      },
+      "notes": "Dedicated tenant with custom compliance guarantees"
     }
   ],
   "gotchas": [
-    "no permanent free tier",
-    "Auto-top-up $15 blocks"
+    "No permanent free tier — strictly commercial/enterprise",
+    "Auto-top-ups trigger in $15 blocks if effort quota is exceeded",
+    "Heavy repo re-indexing events consume significant credit quotas"
   ],
-  "tosHighlights": [],
+  "tosHighlights": [
+    "Enterprise IP indemnity explicitly included",
+    "Full SOC2 compliance and zero code retention"
+  ],
   "dataTraining": "No",
   "ipIndemnity": true
 }

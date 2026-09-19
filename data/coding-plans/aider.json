@@ -6,18 +6,36 @@
   "lastVerified": "2026-09-18",
   "tiers": [
     {
-      "name": "Free",
+      "name": "Free / BYOK",
       "monthlyPrice": 0,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "BYOK only"
+      "limits": {
+        "toolCost": "100% Free Open Source Software",
+        "rateLimits": "Determined by your chosen API provider",
+        "byok": "Bring Your Own Key"
+      },
+      "models": [
+        "Claude Sonnet 5",
+        "GPT-6 Astra",
+        "DeepSeek V4.1 Flash",
+        "All OpenRouter models"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Direct BYOK API billing (0% tool markup)",
+        "estimatedMillionTokens": 20,
+        "assumptions": "Depends entirely on connected API key spend ($20 buys ~10M–130M tokens)"
+      },
+      "notes": "Open-source CLI pair programmer. Bring your own API key"
     }
   ],
   "gotchas": [
-    "No limits beyond API provider limits"
+    "No hosted cloud backend — you pay the LLM API provider directly",
+    "Large repo git-map indexing consumes significant context on startup",
+    "Requires local Python environment and git repo"
   ],
-  "tosHighlights": [],
-  "dataTraining": "Depends on API provider",
+  "tosHighlights": [
+    "Aider never sees or stores your code or API keys",
+    "TOS and privacy governed solely by your LLM API provider"
+  ],
+  "dataTraining": "Depends on API provider chosen",
   "ipIndemnity": false
 }

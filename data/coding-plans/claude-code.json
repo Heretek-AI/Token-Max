@@ -8,47 +8,76 @@
     {
       "name": "Pro",
       "monthlyPrice": 20,
-      "limits": {},
+      "limits": {
+        "rollingCap": "Shared 5-hour rolling limit (~45 messages)",
+        "weeklyAllocation": "Weekly sliding window",
+        "concurrency": "1 active CLI session"
+      },
       "models": [
-        "Fable 5.1",
-        "Opus 5",
-        "Sonnet 5",
-        "Haiku 4.5"
+        "Claude Sonnet 5",
+        "Claude Opus 5",
+        "Claude Fable 5.1",
+        "Claude Haiku 4.5"
       ],
-      "estimatedTokenBudget": null,
-      "notes": "Shared 5-hour rolling + weekly cap"
+      "estimatedTokenBudget": {
+        "description": "Shared 5h rolling cap (~12M agentic tokens/mo)",
+        "estimatedMillionTokens": 12,
+        "assumptions": "5-hour rolling quota shared with Claude.ai web interface"
+      },
+      "notes": "Shared quota with Claude.ai web app"
     },
     {
       "name": "Max5x",
       "monthlyPrice": 100,
-      "limits": {},
+      "limits": {
+        "rollingCap": "5x 5-hour rolling limit (~225 messages)",
+        "weeklyAllocation": "5x weekly budget",
+        "concurrency": "3 active CLI sessions"
+      },
       "models": [
-        "Fable 5.1",
-        "Opus 5",
-        "Sonnet 5",
-        "Haiku 4.5"
+        "Claude Sonnet 5",
+        "Claude Opus 5",
+        "Claude Fable 5.1",
+        "Claude Haiku 4.5"
       ],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "estimatedTokenBudget": {
+        "description": "5x rolling limit (~60M agentic tokens/mo)",
+        "estimatedMillionTokens": 60,
+        "assumptions": "5x the standard Pro rolling limit"
+      },
+      "notes": "5x usage multiplier across CLI and Web"
     },
     {
       "name": "Max20x",
       "monthlyPrice": 200,
-      "limits": {},
+      "limits": {
+        "rollingCap": "20x 5-hour rolling limit (~900 messages)",
+        "weeklyAllocation": "20x weekly budget",
+        "concurrency": "10 active CLI sessions"
+      },
       "models": [
-        "Fable 5.1",
-        "Opus 5",
-        "Sonnet 5",
-        "Haiku 4.5"
+        "Claude Sonnet 5",
+        "Claude Opus 5",
+        "Claude Fable 5.1",
+        "Claude Haiku 4.5"
       ],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "estimatedTokenBudget": {
+        "description": "20x rolling limit (~240M agentic tokens/mo)",
+        "estimatedMillionTokens": 240,
+        "assumptions": "20x the standard Pro rolling limit"
+      },
+      "notes": "20x usage multiplier for intense agent workflows"
     }
   ],
   "gotchas": [
-    "shared quota with Claude web app"
+    "CLI agent commands share the exact same 5-hour rolling window as Claude.ai web chats",
+    "Heavy multi-file refactoring runs can hit the 5-hour limit in under 30 minutes",
+    "Weekly hard spend caps exist behind the scenes"
   ],
-  "tosHighlights": [],
-  "dataTraining": "None specified",
+  "tosHighlights": [
+    "No training on commercial customer data",
+    "Console API BYOK keys supported for uncapped usage"
+  ],
+  "dataTraining": "Opt-out by default for paid plans",
   "ipIndemnity": false
 }

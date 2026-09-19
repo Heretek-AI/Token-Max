@@ -8,16 +8,33 @@
     {
       "name": "PAYG",
       "monthlyPrice": null,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
+      "limits": {
+        "batchDiscount": "50% off Batch API",
+        "cacheDiscount": "90% off prefix caching",
+        "hardContextCap": "Enforced context limit"
+      },
+      "models": [
+        "Mistral Large 2",
+        "Codestral 2501",
+        "Mistral Small"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Direct PAYG ($20 buys ~20M Codestral tokens)",
+        "estimatedMillionTokens": 20,
+        "assumptions": "$20 spent @ $1.00/M blended on Codestral"
+      },
       "notes": "50% batch discount. 90% cache discount."
     }
   ],
   "gotchas": [
-    "exceeding context = 400 error"
+    "Exceeding the context window triggers hard 400 Bad Request error rather than truncation",
+    "Batch API queue processing may take up to 24 hours",
+    "Codestral license restricts certain commercial reuse unless via paid API"
   ],
-  "tosHighlights": [],
+  "tosHighlights": [
+    "GDPR compliant and European data residency guarantees",
+    "Zero training on API inputs/outputs"
+  ],
   "dataTraining": "No",
   "ipIndemnity": false
 }

@@ -16,13 +16,13 @@ function classifyModelTier(model) {
 
   if (
     codingScore >= 70 ||
-    id.includes('astra') ||
-    id.includes('fable') ||
-    id.includes('opus') ||
-    id.includes('sonnet-5') ||
-    id.includes('gpt-6') ||
-    id.includes('gpt-sol') ||
-    id.includes('qwen3.8-max')
+    id.includes('astra') || name.includes('astra') ||
+    id.includes('fable') || name.includes('fable') ||
+    id.includes('opus') || name.includes('opus') ||
+    id.includes('sonnet-5') || name.includes('sonnet 5') ||
+    id.includes('gpt-6') || name.includes('gpt-6') ||
+    id.includes('gpt-sol') || name.includes('gpt sol') ||
+    id.includes('qwen3.8-max') || name.includes('qwen3.8 max')
   ) {
     return 'frontier';
   }

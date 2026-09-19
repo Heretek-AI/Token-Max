@@ -2,35 +2,60 @@
   "id": "byteplus",
   "name": "BytePlus ModelArk",
   "category": "api-provider",
-  "url": "https://byteplus.com",
+  "url": "https://www.byteplus.com/en/activity/codingplan",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Lite",
       "monthlyPrice": 10,
       "limits": {
-        "requests": 24000
+        "requests": "24,000 requests/mo (~800/day)",
+        "windowCaps": "5-hour and weekly burst caps",
+        "concurrency": "3 concurrent streams"
       },
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "models": [
+        "Doubao Coding",
+        "GLM 5",
+        "DeepSeek V4.1 Flash"
+      ],
+      "estimatedTokenBudget": {
+        "description": "24,000 requests (~35M tokens/mo)",
+        "estimatedMillionTokens": 35,
+        "assumptions": "24,000 requests * ~1.5K tokens avg"
+      },
+      "notes": "Cost-effective API plan for developer tooling"
     },
     {
       "name": "Pro",
       "monthlyPrice": 50,
       "limits": {
-        "requests": 120000
+        "requests": "120,000 requests/mo (~4,000/day)",
+        "windowCaps": "Expanded 5-hour window",
+        "concurrency": "10 concurrent streams"
       },
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "models": [
+        "Doubao Coding",
+        "GLM 5",
+        "DeepSeek V4.1 Flash",
+        "Qwen 3.8 Max"
+      ],
+      "estimatedTokenBudget": {
+        "description": "120,000 requests (~180M tokens/mo)",
+        "estimatedMillionTokens": 180,
+        "assumptions": "120,000 requests * ~1.5K tokens avg"
+      },
+      "notes": "High volume request quota for engineering teams"
     }
   ],
   "gotchas": [
-    "STRICTLY tool-only, direct API use = ban",
-    "No overage fallback"
+    "STRICTLY tool-only: direct automated API scraping or script misuse results in permanent ban",
+    "No overage fallback — requests hard-fail with 429 when monthly quota is reached",
+    "5-hour and weekly sub-windows can throttle usage during heavy dev sprints"
   ],
-  "tosHighlights": [],
-  "dataTraining": "Yes",
+  "tosHighlights": [
+    "Data may be retained for security monitoring and model quality verification",
+    "Service availability SLA guaranteed on Pro tier"
+  ],
+  "dataTraining": "Yes (unless enterprise private deployment)",
   "ipIndemnity": false
 }

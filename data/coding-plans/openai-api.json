@@ -8,21 +8,37 @@
     {
       "name": "PAYG",
       "monthlyPrice": null,
-      "limits": {},
+      "limits": {
+        "tier1": "$100/mo spend cap",
+        "tier2": "$500/mo spend cap",
+        "tier3": "$1,000/mo spend cap",
+        "tier4": "$5,000/mo spend cap",
+        "batchDiscount": "50% off Batch API"
+      },
       "models": [
         "GPT-6 Astra",
-        "Sol",
-        "Terra",
-        "Luna"
+        "GPT-5.6 Sol",
+        "GPT-5.6 Terra",
+        "GPT-5.6 Luna",
+        "o3-mini"
       ],
-      "estimatedTokenBudget": null,
-      "notes": "Batch 50% off"
+      "estimatedTokenBudget": {
+        "description": "Direct API PAYG ($20 buys ~2M Astra or ~100M Luna)",
+        "estimatedMillionTokens": 10,
+        "assumptions": "Blended rate across Sol ($2/M in, $10/M out)"
+      },
+      "notes": "Batch 50% off. Pay-as-you-go direct API with tiered rate limits"
     }
   ],
   "gotchas": [
-    "long-context pricing doubles above 272K tokens"
+    "Long-context pricing doubles on requests exceeding 272K tokens in context window",
+    "Rate limits (TPM/RPM) are strictly tiered based on total historical account spend",
+    "Reasoning tokens count towards output token billing"
   ],
-  "tosHighlights": [],
-  "dataTraining": "Opt-out available",
+  "tosHighlights": [
+    "Zero data retention by default for paid API customers",
+    "Enterprise IP indemnity included for standard outputs"
+  ],
+  "dataTraining": "No (Zero Data Retention for API)",
   "ipIndemnity": true
 }

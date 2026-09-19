@@ -8,21 +8,37 @@
     {
       "name": "PAYG",
       "monthlyPrice": null,
-      "limits": {},
+      "limits": {
+        "tier1": "$100/mo limit",
+        "tier2": "$500/mo limit",
+        "tier3": "$1,000/mo limit",
+        "tier4": "$5,000+/mo limit",
+        "cacheReadDiscount": "90% off cached input",
+        "batchDiscount": "50% off"
+      },
       "models": [
-        "Fable 5.1",
-        "Opus 5",
-        "Sonnet 5",
-        "Haiku 4.5"
+        "Claude Fable 5.1",
+        "Claude Opus 5",
+        "Claude Sonnet 5",
+        "Claude Haiku 4.5"
       ],
-      "estimatedTokenBudget": null,
+      "estimatedTokenBudget": {
+        "description": "Direct API PAYG ($20 buys ~10M Sonnet or ~4M Opus tokens)",
+        "estimatedMillionTokens": 10,
+        "assumptions": "$20 spent on Sonnet 5 @ $2/$10 with 3:1 input:output ratio"
+      },
       "notes": "Cache reads 90% off. Batch 50% off."
     }
   ],
   "gotchas": [
-    "Tiered rate limits based on spend"
+    "Strict tiered rate limits: Tier 1 accounts hit 429 rate limit errors easily on large codebases",
+    "Thinking/reasoning tokens are billed at standard output token rates",
+    "Cache write operations cost 25% more than base input tokens"
   ],
-  "tosHighlights": [],
-  "dataTraining": "No",
+  "tosHighlights": [
+    "Anthropic does not train models on API inputs or outputs",
+    "Commercial IP indemnity provided under commercial terms of service"
+  ],
+  "dataTraining": "No (Commercial API zero retention)",
   "ipIndemnity": true
 }

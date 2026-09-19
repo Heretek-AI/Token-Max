@@ -2,41 +2,77 @@
   "id": "kimi-code",
   "name": "Kimi Code",
   "category": "coding-ide",
-  "url": "https://moonshot.cn",
+  "url": "https://www.kimi.com/code/docs/en/",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Plus",
       "monthlyPrice": 19,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "\u00a579"
+      "limits": {
+        "monthlyPriceRMB": "¥79/mo",
+        "quota": "Standard HighSpeed quota",
+        "contextWindow": "256K"
+      },
+      "models": [
+        "Kimi K3 2.8T",
+        "Kimi K2.5"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Standard HighSpeed quota (~20M tokens/mo)",
+        "estimatedMillionTokens": 20,
+        "assumptions": "Standard daily quota allocations"
+      },
+      "notes": "Entry tier for Chinese & multilingual development"
     },
     {
       "name": "Pro",
       "monthlyPrice": 39,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "\u00a5159"
+      "limits": {
+        "monthlyPriceRMB": "¥159/mo",
+        "quota": "3x HighSpeed quota",
+        "contextWindow": "1M context"
+      },
+      "models": [
+        "Kimi K3 2.8T (1M Context)",
+        "Kimi K2.5"
+      ],
+      "estimatedTokenBudget": {
+        "description": "3x HighSpeed quota (~60M tokens/mo)",
+        "estimatedMillionTokens": 60,
+        "assumptions": "3x HighSpeed priority burst capacity"
+      },
+      "notes": "Includes 1 Million token context window"
     },
     {
       "name": "Max",
       "monthlyPrice": 199,
-      "limits": {},
+      "limits": {
+        "monthlyPriceRMB": "¥559/mo",
+        "quota": "15x HighSpeed quota",
+        "contextWindow": "2M context",
+        "concurrency": "5 concurrent tasks"
+      },
       "models": [
-        "K3 2.8T"
+        "Kimi K3 2.8T",
+        "Kimi Math",
+        "Kimi Coding Specialist"
       ],
-      "estimatedTokenBudget": null,
-      "notes": "\u00a5559"
+      "estimatedTokenBudget": {
+        "description": "15x HighSpeed quota (~250M tokens/mo)",
+        "estimatedMillionTokens": 250,
+        "assumptions": "Massive context agentic processing"
+      },
+      "notes": "Massive context reasoning for enterprise codebases"
     }
   ],
   "gotchas": [
-    "shared quota with consumer chat",
-    "User-Agent tampering = suspension"
+    "Shared quota pool with consumer Kimi chat app",
+    "Strict ban policy for User-Agent spoofing or headless automation",
+    "Server latency outside APAC can be variable"
   ],
-  "tosHighlights": [],
-  "dataTraining": "Yes",
+  "tosHighlights": [
+    "Data may be retained for reinforcement learning unless enterprise contract signed"
+  ],
+  "dataTraining": "Yes (unless enterprise SLA)",
   "ipIndemnity": false
 }

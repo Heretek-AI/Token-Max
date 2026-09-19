@@ -8,56 +8,94 @@
     {
       "name": "Free",
       "monthlyPrice": 0,
-      "limits": {},
+      "limits": {
+        "autocomplete": "Unlimited basic autocomplete",
+        "cascadePrompts": "25 Cascade agent prompts/mo",
+        "concurrency": "1"
+      },
       "models": [
         "SWE-1.5",
-        "Claude Sonnet 4.6",
-        "GPT-5.4"
+        "Codeium Fast"
       ],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "estimatedTokenBudget": {
+        "description": "25 Cascade prompts + autocomplete (~1M tokens)",
+        "estimatedMillionTokens": 1,
+        "assumptions": "25 Cascade prompts + autocomplete"
+      },
+      "notes": "Free tier with unlimited standard completions"
     },
     {
       "name": "Pro",
       "monthlyPrice": 20,
-      "limits": {},
+      "limits": {
+        "autocomplete": "Unlimited premium autocomplete",
+        "cascadePrompts": "500 fast Cascade prompts/mo",
+        "slowQueue": "Unlimited slow queue"
+      },
       "models": [
         "SWE-1.5",
         "Claude Sonnet 4.6",
-        "GPT-5.4"
+        "GPT-5.4",
+        "Claude Sonnet 5"
       ],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "estimatedTokenBudget": {
+        "description": "500 fast Cascade prompts (~15M tokens/mo)",
+        "estimatedMillionTokens": 15,
+        "assumptions": "500 fast Cascade agent requests @ ~30K context"
+      },
+      "notes": "Fast Cascade agent flows + priority autocomplete"
     },
     {
       "name": "Max",
       "monthlyPrice": 200,
-      "limits": {},
+      "limits": {
+        "autocomplete": "Unlimited priority autocomplete",
+        "cascadePrompts": "5,000 fast Cascade prompts/mo",
+        "concurrency": "5 concurrent agents"
+      },
       "models": [
         "SWE-1.5",
-        "Claude Sonnet 4.6",
-        "GPT-5.4"
+        "Claude Opus 5",
+        "GPT-6 Astra",
+        "Claude Sonnet 5"
       ],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "estimatedTokenBudget": {
+        "description": "5,000 fast Cascade prompts (~150M tokens/mo)",
+        "estimatedMillionTokens": 150,
+        "assumptions": "5,000 agent prompts with priority compute allocation"
+      },
+      "notes": "Uncapped agentic coding for power developers"
     },
     {
       "name": "Teams",
       "monthlyPrice": 40,
-      "limits": {},
+      "limits": {
+        "perSeat": "$40/user/mo",
+        "cascadePrompts": "1,000 fast prompts/user",
+        "teamAnalytics": "Included"
+      },
       "models": [
         "SWE-1.5",
-        "Claude Sonnet 4.6",
+        "Claude Sonnet 5",
         "GPT-5.4"
       ],
-      "estimatedTokenBudget": null,
-      "notes": "$40/user"
+      "estimatedTokenBudget": {
+        "description": "1,000 fast prompts/user (~30M tokens/mo)",
+        "estimatedMillionTokens": 30,
+        "assumptions": "1,000 fast prompts/user/mo"
+      },
+      "notes": "Centralized management and security controls"
     }
   ],
   "gotchas": [
-    "legacy Codeium credits retired"
+    "Legacy Codeium credits retired in favor of Cascade prompt quotas",
+    "Complex multi-file agent flows consume 3-5 prompt units per action",
+    "Slow queue wait times increase during peak US working hours"
   ],
-  "tosHighlights": [],
+  "tosHighlights": [
+    "Zero data retention for paid Pro/Teams accounts",
+    "SOC2 Type II certified infrastructure"
+  ],
   "dataTraining": "No",
   "ipIndemnity": false
 }

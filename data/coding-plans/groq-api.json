@@ -8,24 +8,52 @@
     {
       "name": "Free",
       "monthlyPrice": 0,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "limits": {
+        "RPM": "30 requests/min",
+        "TPM": "14,400 tokens/min",
+        "RPD": "14,400 requests/day"
+      },
+      "models": [
+        "Llama 3.3 70B",
+        "Mixtral 8x7B"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Free rate caps (~2M tokens/mo)",
+        "estimatedMillionTokens": 2,
+        "assumptions": "Free tier throughput caps"
+      },
+      "notes": "Ultra-fast inference on LPUs for testing"
     },
     {
       "name": "PAYG",
       "monthlyPrice": null,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "50% cached/batch discount"
+      "limits": {
+        "RPM": "1,000 requests/min",
+        "TPM": "300,000 tokens/min",
+        "batchDiscount": "50% cached/batch discount"
+      },
+      "models": [
+        "Llama 3.3 70B",
+        "Llama 3.1 8B",
+        "Qwen 2.5 Coder"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Direct PAYG ($20 buys ~40M tokens at 800 tokens/sec)",
+        "estimatedMillionTokens": 40,
+        "assumptions": "$20 spent @ $0.50/M blended on Llama 3.3 70B"
+      },
+      "notes": "Hardware LPU inference achieving 400-800 tokens/sec"
     }
   ],
   "gotchas": [
-    "must set spend caps manually"
+    "Users must set manual spend caps to prevent runaway loops with fast agent tools",
+    "Limited frontier reasoning models available (no Claude or OpenAI models)",
+    "Context windows restricted to 32K or 128K on select open weights"
   ],
-  "tosHighlights": [],
+  "tosHighlights": [
+    "Zero data retention by default for paid accounts",
+    "No customer data used for model training"
+  ],
   "dataTraining": "No",
   "ipIndemnity": false
 }

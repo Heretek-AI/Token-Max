@@ -2,47 +2,103 @@
   "id": "kilo-code",
   "name": "Kilo AI",
   "category": "coding-router",
-  "url": "https://kilo.ai",
+  "url": "https://kilo.ai/pricing/kilo-pass",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Starter",
       "monthlyPrice": 19,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "Kilo Pass"
+      "limits": {
+        "creditPool": "$19 + 40% bonus ($26.60 value)",
+        "markup": "0% API markup",
+        "processingFee": "5%"
+      },
+      "models": [
+        "DeepSeek V4.1 Flash",
+        "Claude Sonnet 5",
+        "GPT-6 Astra",
+        "Gemini 3.8 Flash"
+      ],
+      "estimatedTokenBudget": {
+        "description": "$26.60 API credit pool (~26M tokens)",
+        "estimatedMillionTokens": 26,
+        "assumptions": "$26.60 blended across DeepSeek and Sonnet at zero markup"
+      },
+      "notes": "Kilo Pass Starter tier with 40% bonus credits"
     },
     {
       "name": "Pro",
       "monthlyPrice": 49,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "Kilo Pass"
+      "limits": {
+        "creditPool": "$49 + 45% bonus ($71.05 value)",
+        "markup": "0% API markup",
+        "processingFee": "5%"
+      },
+      "models": [
+        "DeepSeek V4.1 Flash",
+        "Claude Sonnet 5",
+        "GPT-6 Astra",
+        "Gemini 3.8 Flash"
+      ],
+      "estimatedTokenBudget": {
+        "description": "$71.05 API credit pool (~71M tokens)",
+        "estimatedMillionTokens": 71,
+        "assumptions": "$71.05 blended across frontier models at zero markup"
+      },
+      "notes": "Kilo Pass Pro with 45% bonus credits"
     },
     {
       "name": "Expert",
       "monthlyPrice": 199,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "Kilo Pass"
+      "limits": {
+        "creditPool": "$199 + 50% bonus ($298.50 value)",
+        "markup": "0% API markup",
+        "processingFee": "5%"
+      },
+      "models": [
+        "DeepSeek V4.1 Flash",
+        "Claude Sonnet 5",
+        "GPT-6 Astra",
+        "Claude Opus 5"
+      ],
+      "estimatedTokenBudget": {
+        "description": "$298.50 API credit pool (~298M tokens)",
+        "estimatedMillionTokens": 298,
+        "assumptions": "$298.50 blended across frontier models at zero markup"
+      },
+      "notes": "Kilo Pass Expert with 50% bonus credits"
     },
     {
       "name": "Teams",
       "monthlyPrice": 15,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "$15/user/mo"
+      "limits": {
+        "perSeat": "$15/user base",
+        "markup": "0% API markup",
+        "centralizedBilling": "Yes"
+      },
+      "models": [
+        "DeepSeek V4.1 Flash",
+        "Claude Sonnet 5",
+        "GPT-6 Astra",
+        "All OpenRouter models"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Metered per seat + shared pool (~15M tokens/seat)",
+        "estimatedMillionTokens": 15,
+        "assumptions": "$15 seat credit at raw API rates"
+      },
+      "notes": "Team workspace with shared billing and role controls"
     }
   ],
   "gotchas": [
-    "bonus credits expire monthly",
-    "5% processing fee"
+    "Bonus credits expire at the end of each billing cycle",
+    "5% credit card processing fee applied to top-up reloads",
+    "Raw API errors from underlying providers are passed directly through"
   ],
-  "tosHighlights": [],
+  "tosHighlights": [
+    "Open source client extension with transparent routing",
+    "No data retention or model training on customer code"
+  ],
   "dataTraining": "No",
   "ipIndemnity": false
 }

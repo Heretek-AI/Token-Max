@@ -2,31 +2,58 @@
   "id": "replit",
   "name": "Replit",
   "category": "coding-ide",
-  "url": "https://replit.com",
+  "url": "https://replit.com/pricing",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Core",
       "monthlyPrice": 20,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "Effort-based checkpoint system"
+      "limits": {
+        "agentCheckpoints": "50 Agent checkpoints/mo",
+        "cloudCompute": "Basic cloud VM",
+        "dailyChats": "Capped daily chats"
+      },
+      "models": [
+        "Replit Agent v2",
+        "Claude Sonnet 4.6"
+      ],
+      "estimatedTokenBudget": {
+        "description": "50 Agent checkpoints (~15M tokens/mo)",
+        "estimatedMillionTokens": 15,
+        "assumptions": "50 checkpoints * ~300K tokens/checkpoint"
+      },
+      "notes": "Cloud development environment with Replit Agent"
     },
     {
       "name": "Pro",
       "monthlyPrice": 100,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "Effort-based checkpoint system"
+      "limits": {
+        "agentCheckpoints": "300 Agent checkpoints/mo",
+        "cloudCompute": "4 vCPU / 16GB RAM VM",
+        "priorityQueue": "High priority"
+      },
+      "models": [
+        "Replit Agent v2",
+        "Claude Sonnet 5",
+        "GPT-5"
+      ],
+      "estimatedTokenBudget": {
+        "description": "300 Agent checkpoints (~80M tokens/mo)",
+        "estimatedMillionTokens": 80,
+        "assumptions": "300 checkpoints with expanded VM resources"
+      },
+      "notes": "High performance cloud VMs + advanced agent autonomy"
     }
   ],
   "gotchas": [
-    "unpredictable costs",
-    "free daily chat caps"
+    "Effort-based checkpoint system can lead to unpredictable credit burn",
+    "Free daily chat caps severely restrict debugging in editor",
+    "VM compute charges apply if machines stay running"
   ],
-  "tosHighlights": [],
-  "dataTraining": "Yes",
+  "tosHighlights": [
+    "Public repls are openly visible and trained upon",
+    "Private repls on paid plans are shielded from public display"
+  ],
+  "dataTraining": "Yes on public Repls; opt-out on private paid",
   "ipIndemnity": false
 }

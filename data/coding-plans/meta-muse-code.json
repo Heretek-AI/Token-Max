@@ -2,39 +2,78 @@
   "id": "meta-muse-code",
   "name": "Meta Muse Code",
   "category": "coding-ide",
-  "url": "https://meta.com",
+  "url": "https://developer.meta.com/ai/lp/muse-code/",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Everyday",
       "monthlyPrice": 5,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "limits": {
+        "requests": "10-50 req / 5h",
+        "concurrency": "1 session",
+        "rateLimit": "60 RPM"
+      },
+      "models": [
+        "Muse Spark 1.3",
+        "Llama 4 Scout"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Light usage tier (~5M tokens/mo)",
+        "estimatedMillionTokens": 5,
+        "assumptions": "10-50 req/5h on lightweight models"
+      },
+      "notes": "Affordable entry-level coding assistance"
     },
     {
       "name": "High",
       "monthlyPrice": 15,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "limits": {
+        "requests": "50-250 req / 5h",
+        "concurrency": "3 sessions",
+        "rateLimit": "300 RPM"
+      },
+      "models": [
+        "Muse Spark 1.3",
+        "Llama 4 Scout",
+        "Llama 4 Code 70B"
+      ],
+      "estimatedTokenBudget": {
+        "description": "Standard developer tier (~20M tokens/mo)",
+        "estimatedMillionTokens": 20,
+        "assumptions": "50-250 req/5h across daily workflows"
+      },
+      "notes": "Standard developer tier with generous limits"
     },
     {
       "name": "Power",
       "monthlyPrice": 50,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "limits": {
+        "requests": "Unlimited priority reqs",
+        "concurrency": "10 sessions",
+        "rateLimit": "3,000 RPM"
+      },
+      "models": [
+        "Muse Spark 1.3",
+        "Llama 4 Code 70B",
+        "Llama 4 Maverick"
+      ],
+      "estimatedTokenBudget": {
+        "description": "High throughput agentic (~80M tokens/mo)",
+        "estimatedMillionTokens": 80,
+        "assumptions": "High throughput agentic development"
+      },
+      "notes": "Maximum rate limits and concurrent workflows"
     }
   ],
   "gotchas": [
-    "Contributor tier allows training on your code",
-    "Standard 3000 RPM, Contributor 60 RPM"
+    "Contributor tier allows Meta to train on your code in exchange for 90% cost reduction",
+    "Standard API is 3,000 RPM while Contributor API is throttled to 60 RPM",
+    "Regional availability restrictions apply"
   ],
-  "tosHighlights": [],
-  "dataTraining": "Contributor tier trains on your data",
+  "tosHighlights": [
+    "Contributor tier grants Meta royalty-free training rights on inputs/outputs",
+    "Standard tier guarantees zero data retention and no model training"
+  ],
+  "dataTraining": "Contributor tier trains on your data; Standard does not",
   "ipIndemnity": false
 }

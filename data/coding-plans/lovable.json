@@ -2,41 +2,79 @@
   "id": "lovable",
   "name": "Lovable",
   "category": "coding-ide",
-  "url": "https://lovable.dev",
+  "url": "https://lovable.dev/pricing",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Free",
       "monthlyPrice": 0,
       "limits": {
-        "build_credits": 5
+        "dailyCredits": "5 build credits/day",
+        "export": "GitHub sync only",
+        "concurrency": "1 build"
       },
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "Daily 5 build credits"
+      "models": [
+        "Lovable Agent v2",
+        "Claude Sonnet 5"
+      ],
+      "estimatedTokenBudget": {
+        "description": "150 build credits/mo (~3M tokens)",
+        "estimatedMillionTokens": 3,
+        "assumptions": "5 credits/day * 30 days"
+      },
+      "notes": "Free tier for experimenting and small apps"
     },
     {
       "name": "Pro",
       "monthlyPrice": 25,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "Top-up $0.30/cr"
+      "limits": {
+        "monthlyCredits": "100 build credits/mo",
+        "topUpPrice": "$0.30/credit",
+        "customDomains": "Unlimited"
+      },
+      "models": [
+        "Lovable Agent v2",
+        "Claude Sonnet 5",
+        "GPT-5"
+      ],
+      "estimatedTokenBudget": {
+        "description": "100 build credits/mo (~15M tokens)",
+        "estimatedMillionTokens": 15,
+        "assumptions": "100 build tasks @ ~150K tokens/build"
+      },
+      "notes": "Full fullstack code generation and live deployment"
     },
     {
       "name": "Business",
       "monthlyPrice": 50,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "Top-up $0.60/cr"
+      "limits": {
+        "monthlyCredits": "250 build credits/mo",
+        "topUpPrice": "$0.60/credit",
+        "teamMembers": "Up to 5 seats"
+      },
+      "models": [
+        "Lovable Agent v2",
+        "Claude Sonnet 5",
+        "GPT-5",
+        "Claude Opus 5"
+      ],
+      "estimatedTokenBudget": {
+        "description": "250 build credits/mo (~40M tokens)",
+        "estimatedMillionTokens": 40,
+        "assumptions": "250 high-effort build tasks @ ~160K tokens/build"
+      },
+      "notes": "Multi-seat collaborative app generation"
     }
   ],
   "gotchas": [
-    "perpetual license for training on Free/Pro",
-    "Credits expire 2 months"
+    "TOS grants Lovable a perpetual license to use and train on generated code on Free and Pro tiers",
+    "Credits expire after 2 months if unused",
+    "High-complexity prompt iterations consume 2-4 credits per build"
   ],
-  "tosHighlights": [],
-  "dataTraining": "Perpetual license on Free/Pro",
+  "tosHighlights": [
+    "Perpetual training license on Free/Pro tiers — Enterprise required for full IP protection",
+    "Live Supabase backend provisioning included"
+  ],
+  "dataTraining": "Perpetual license on Free/Pro; Enterprise opt-out",
   "ipIndemnity": false
 }

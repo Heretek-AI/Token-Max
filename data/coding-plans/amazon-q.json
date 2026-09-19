@@ -2,37 +2,58 @@
   "id": "amazon-q",
   "name": "Amazon Q Developer",
   "category": "coding-ide",
-  "url": "https://aws.amazon.com/q",
+  "url": "https://aws.amazon.com/q/developer/pricing/",
   "lastVerified": "2026-09-18",
   "tiers": [
     {
       "name": "Free",
       "monthlyPrice": 0,
       "limits": {
-        "lines": 1000,
-        "requests": 50
+        "completions": "1,000 lines/mo",
+        "chatRequests": "50 requests/mo",
+        "agentTasks": "5 dev tasks/mo"
       },
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "models": [
+        "Amazon Titan Code",
+        "Claude 3.5 Sonnet (AWS)"
+      ],
+      "estimatedTokenBudget": {
+        "description": "1K lines + 50 requests (~0.5M tokens/mo)",
+        "estimatedMillionTokens": 0.5,
+        "assumptions": "50 chat queries + 1,000 lines generated"
+      },
+      "notes": "Free AWS builder tier"
     },
     {
       "name": "Pro",
       "monthlyPrice": 19,
       "limits": {
-        "lines": 4000,
-        "requests": 1000,
-        "agent": 30
+        "completions": "4,000 lines/mo",
+        "chatRequests": "1,000 requests/mo",
+        "agentTasks": "30 dev agent tasks/mo",
+        "overages": "$0.003/line overage"
       },
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": "$19/user"
+      "models": [
+        "Amazon Titan Code",
+        "Claude Sonnet 5 via Bedrock"
+      ],
+      "estimatedTokenBudget": {
+        "description": "1,000 chat reqs + 30 agent tasks (~8M tokens/mo)",
+        "estimatedMillionTokens": 8,
+        "assumptions": "1,000 chat requests + 30 complex agent tasks"
+      },
+      "notes": "AWS IAM integrated developer assistant"
     }
   ],
   "gotchas": [
-    "Overages: $0.003/line"
+    "Overages billed at $0.003/line once 4,000 lines exceeded",
+    "Agent tasks consume heavy background compute that may incur Bedrock charges",
+    "AWS Console session timeouts can disconnect the IDE plugin"
   ],
-  "tosHighlights": [],
+  "tosHighlights": [
+    "Full AWS IP indemnity included on paid tier",
+    "Opt-out available for data retention and telemetry"
+  ],
   "dataTraining": "Opt-out available",
   "ipIndemnity": true
 }

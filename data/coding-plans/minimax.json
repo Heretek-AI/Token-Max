@@ -8,33 +8,72 @@
     {
       "name": "Plus",
       "monthlyPrice": 22,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "limits": {
+        "credits": "22,000 credits (1,000cr = $1)",
+        "concurrentAgents": "3 concurrent agent threads",
+        "creditValidity": "365 days"
+      },
+      "models": [
+        "MiniMax-01",
+        "MiniMax Text-02"
+      ],
+      "estimatedTokenBudget": {
+        "description": "22,000 credits (~25M tokens/mo)",
+        "estimatedMillionTokens": 25,
+        "assumptions": "$22 credit pool @ wholesale model rates"
+      },
+      "notes": "Prepaid credit package with 1-year expiration"
     },
     {
       "name": "Max",
       "monthlyPrice": 55,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "limits": {
+        "credits": "55,000 credits",
+        "concurrentAgents": "5 concurrent agent threads",
+        "creditValidity": "365 days"
+      },
+      "models": [
+        "MiniMax-01",
+        "MiniMax Text-02",
+        "MiniMax Code Specialist"
+      ],
+      "estimatedTokenBudget": {
+        "description": "55,000 credits (~65M tokens/mo)",
+        "estimatedMillionTokens": 65,
+        "assumptions": "$55 credit pool"
+      },
+      "notes": "Enhanced concurrency for background agent workflows"
     },
     {
       "name": "Ultra",
       "monthlyPrice": 132,
-      "limits": {},
-      "models": [],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "limits": {
+        "credits": "132,000 credits",
+        "concurrentAgents": "7 concurrent agent threads",
+        "creditValidity": "365 days"
+      },
+      "models": [
+        "MiniMax-01",
+        "MiniMax Text-02",
+        "MiniMax Code Specialist"
+      ],
+      "estimatedTokenBudget": {
+        "description": "132,000 credits (~160M tokens/mo)",
+        "estimatedMillionTokens": 160,
+        "assumptions": "$132 credit pool"
+      },
+      "notes": "High concurrency package for continuous code analysis"
     }
   ],
   "gotchas": [
-    "Agent limits: 3-7 depending on tier",
-    "Credits valid 365 days"
+    "Agent limits hard-capped at 3, 5, or 7 concurrent streams based on purchased tier",
+    "Unused credits expire after exactly 365 days from purchase",
+    "Data may be used for training on standard consumer tiers"
   ],
-  "tosHighlights": [],
-  "dataTraining": "Yes",
+  "tosHighlights": [
+    "Chinese & English bilingual optimization",
+    "Enterprise contracts offer on-prem and private cloud hosting"
+  ],
+  "dataTraining": "Yes (unless enterprise SLA)",
   "ipIndemnity": false
 }

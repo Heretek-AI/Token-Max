@@ -9,57 +9,88 @@
       "name": "Free",
       "monthlyPrice": 0,
       "limits": {
-        "RPM": 15,
-        "TPM": 1000000
+        "RPM": "15 requests/min",
+        "TPM": "1,000,000 tokens/min",
+        "RPD": "1,500 requests/day"
       },
       "models": [
-        "Gemini 3.8 Flash"
+        "Gemini 3.8 Flash",
+        "Gemini 3.8 Pro"
       ],
-      "estimatedTokenBudget": null,
-      "notes": ""
+      "estimatedTokenBudget": {
+        "description": "1,500 requests/day (~15M tokens/mo)",
+        "estimatedMillionTokens": 15,
+        "assumptions": "1,500 requests/day on free rate limits"
+      },
+      "notes": "Free tier with generous TPM limits"
     },
     {
       "name": "Tier1",
       "monthlyPrice": null,
       "limits": {
-        "spendCap": 250
+        "spendCap": "$250/mo spend limit",
+        "RPM": "1,000 requests/min",
+        "TPM": "4,000,000 tokens/min"
       },
       "models": [
-        "Gemini 3.8 Flash"
+        "Gemini 3.8 Flash",
+        "Gemini 3.8 Pro"
       ],
-      "estimatedTokenBudget": null,
-      "notes": "Based on spend"
+      "estimatedTokenBudget": {
+        "description": "PAYG up to $250/mo limit (~100M tokens @ $100)",
+        "estimatedMillionTokens": 100,
+        "assumptions": "$100 spent on Gemini 3.8 Flash @ $0.75/$3.75"
+      },
+      "notes": "Pay-as-you-go billing with $250 credit threshold"
     },
     {
       "name": "Tier2",
       "monthlyPrice": null,
       "limits": {
-        "spendCap": 2000
+        "spendCap": "$2,000/mo spend limit",
+        "RPM": "2,000 requests/min",
+        "TPM": "8,000,000 tokens/min"
       },
       "models": [
-        "Gemini 3.8 Flash"
+        "Gemini 3.8 Flash",
+        "Gemini 3.8 Pro"
       ],
-      "estimatedTokenBudget": null,
-      "notes": "Based on spend"
+      "estimatedTokenBudget": {
+        "description": "PAYG up to $2,000/mo limit (~500M tokens)",
+        "estimatedMillionTokens": 500,
+        "assumptions": "High volume developer spend"
+      },
+      "notes": "Higher throughput tier unlocked after spend verification"
     },
     {
       "name": "Tier3",
       "monthlyPrice": null,
       "limits": {
-        "spendCap": 100000
+        "spendCap": "$20,000-$100,000/mo spend limit",
+        "RPM": "5,000+ requests/min",
+        "TPM": "20,000,000+ tokens/min"
       },
       "models": [
-        "Gemini 3.8 Flash"
+        "Gemini 3.8 Flash",
+        "Gemini 3.8 Pro"
       ],
-      "estimatedTokenBudget": null,
-      "notes": "Based on spend"
+      "estimatedTokenBudget": {
+        "description": "Enterprise scale PAYG (~2B tokens)",
+        "estimatedMillionTokens": 2000,
+        "assumptions": "Enterprise capacity"
+      },
+      "notes": "Enterprise capacity with custom quota allocations"
     }
   ],
   "gotchas": [
-    "credits expire 1 year",
-    "non-refundable"
+    "Free tier data IS logged and used for model training and human review",
+    "Promotional credits expire after 1 year and are non-refundable",
+    "Context caching incurs continuous storage fees per hour"
   ],
-  "tosHighlights": [],
-  "dataTraining": "Yes on free tier",
+  "tosHighlights": [
+    "Free tier permits Google to review and train on prompts",
+    "Paid tiers do not train and offer Google Cloud enterprise compliance"
+  ],
+  "dataTraining": "Yes on Free tier; No on Paid tiers",
   "ipIndemnity": false
 }

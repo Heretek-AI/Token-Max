@@ -9,55 +9,91 @@
       "name": "Individual",
       "monthlyPrice": 0,
       "limits": {
-        "tasks": 15
+        "julesDailyTasks": "15 tasks/day",
+        "refreshCycle": "5-hour Gemini refresh",
+        "concurrency": "1 background task"
       },
       "models": [
-        "Jules"
+        "Gemini 3.8 Flash",
+        "Jules Agent"
       ],
-      "estimatedTokenBudget": null,
-      "notes": "15 daily tasks"
+      "estimatedTokenBudget": {
+        "description": "15 Jules tasks/day (~3M tokens/mo)",
+        "estimatedMillionTokens": 3,
+        "assumptions": "15 tasks/day * 30 days * ~7K tokens/task"
+      },
+      "notes": "Free personal tier with daily task limits"
     },
     {
       "name": "AI Pro",
       "monthlyPrice": 19.99,
       "limits": {
-        "tasks": 75
+        "julesDailyTasks": "75 tasks/day",
+        "refreshCycle": "5-hour Gemini refresh",
+        "concurrency": "3 background tasks"
       },
       "models": [
-        "Jules"
+        "Gemini 3.8 Flash",
+        "Gemini 3.8 Pro",
+        "Jules Agent"
       ],
-      "estimatedTokenBudget": null,
-      "notes": "75 daily tasks"
+      "estimatedTokenBudget": {
+        "description": "75 Jules tasks/day (~15M tokens/mo)",
+        "estimatedMillionTokens": 15,
+        "assumptions": "75 tasks/day across full workspace indexing"
+      },
+      "notes": "Full access to Jules agentic multi-file workflows"
     },
     {
       "name": "Ultra5x",
       "monthlyPrice": 99.99,
       "limits": {
-        "tasks": 300
+        "julesDailyTasks": "300 tasks/day",
+        "refreshCycle": "5-hour Gemini refresh",
+        "concurrency": "10 background tasks"
       },
       "models": [
-        "Jules"
+        "Gemini 3.8 Pro",
+        "Gemini 3.8 Flash",
+        "Jules Agent Ultra"
       ],
-      "estimatedTokenBudget": null,
-      "notes": "300 daily tasks"
+      "estimatedTokenBudget": {
+        "description": "300 Jules tasks/day (~65M tokens/mo)",
+        "estimatedMillionTokens": 65,
+        "assumptions": "300 tasks/day with high concurrency"
+      },
+      "notes": "5x Jules capacity for automated repo maintenance"
     },
     {
       "name": "Ultra20x",
       "monthlyPrice": 199.99,
       "limits": {
-        "tasks": 1200
+        "julesDailyTasks": "1,200 tasks/day",
+        "refreshCycle": "Priority continuous",
+        "concurrency": "25 background tasks"
       },
       "models": [
-        "Jules"
+        "Gemini 3.8 Pro",
+        "Gemini 3.8 Flash",
+        "Jules Agent Ultra"
       ],
-      "estimatedTokenBudget": null,
-      "notes": "5-hour refresh cycles"
+      "estimatedTokenBudget": {
+        "description": "1,200 Jules tasks/day (~260M tokens/mo)",
+        "estimatedMillionTokens": 260,
+        "assumptions": "1,200 tasks/day high-throughput agent operations"
+      },
+      "notes": "Enterprise-grade autonomy with continuous execution"
     }
   ],
   "gotchas": [
-    "task-based limits, not token-based"
+    "Limits are strictly task-based (Jules background tasks) rather than token-metered",
+    "Workspace indexing consumes background CPU and Gemini context quota",
+    "5-hour refresh cycles throttle bursts of rapid edits"
   ],
-  "tosHighlights": [],
+  "tosHighlights": [
+    "Opt-out available in workspace privacy settings",
+    "Google Cloud Enterprise agreements override consumer terms"
+  ],
   "dataTraining": "Opt-out available",
   "ipIndemnity": false
 }
