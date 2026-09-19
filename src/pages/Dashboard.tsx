@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useModels } from '../hooks/useModels';
 import { usePlans } from '../hooks/usePlans';
 import { LabDecisionEngine } from '../components/budget/LabDecisionEngine';
+import { WorkflowCalculator } from '../components/budget/WorkflowCalculator';
 import { LoadingSpinner } from '../components/shared/LoadingSpinner';
 import { Database, CreditCard, Zap, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -38,6 +39,11 @@ export default function Dashboard() {
           budget={budget}
           onBudgetChange={setBudget}
         />
+      </section>
+
+      {/* Secondary Feature: Developer Workflow Breakeven Calculator */}
+      <section>
+        <WorkflowCalculator models={models} plans={plans} />
       </section>
 
       {/* Quick Stats Grid */}
