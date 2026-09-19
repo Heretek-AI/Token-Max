@@ -16,6 +16,29 @@ export interface ModelBenchmarks {
 
 export type ModelTierClass = 'frontier' | 'balanced' | 'economy';
 export type BudgetSortMode = 'best-value' | 'frontier' | 'max-tokens';
+export type FrontierLab = 'all' | 'anthropic' | 'openai' | 'google' | 'deepseek' | 'glm';
+export type DisplayUnit = 'tokens' | 'requests';
+
+export interface ApplesToApplesOption {
+  id: string;
+  name: string;
+  provider: string;
+  lab: FrontierLab;
+  type: 'api' | 'subscription';
+  category?: 'coding-ide' | 'coding-router' | 'api-provider';
+  planId?: string;
+  planName?: string;
+  tierName?: string;
+  monthlyCost: number;
+  monthlyTokens: number; // in million tokens
+  monthlyRequests: number; // requests per month (using 21K token standard agent request)
+  codingIndex: number | null;
+  intelligenceIndex: number | null;
+  costPer1kRequests: number;
+  verdictBadge?: string;
+  notes: string;
+  url?: string;
+}
 
 export interface NormalizedModel {
   id: string;
