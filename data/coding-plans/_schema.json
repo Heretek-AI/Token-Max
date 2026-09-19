@@ -95,6 +95,27 @@
             "description": "Optional model-family or model-specific monthly credit allowance in USD",
             "type": "object"
           },
+          "perModelTokenBudgets": {
+            "type": "object",
+            "description": "Optional per-model token yields (M tokens/month if the whole quota is drained exclusively on that model). Keys are lowercase substrings of tier.models entries.",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "estimatedMillionTokens": { "type": "number" },
+                "midpointEstimate": { "type": "number" },
+                "optimisticEstimate": { "type": "number" },
+                "basis": {
+                  "type": "string",
+                  "enum": ["official-table", "official-multiplier", "list-price-credit", "equal-rate"]
+                },
+                "confidence": {
+                  "type": "string",
+                  "enum": ["high", "medium", "low"]
+                }
+              },
+              "required": ["estimatedMillionTokens"]
+            }
+          },
           "estimatedTokenBudget": {
             "type": "object",
             "required": [

@@ -18,6 +18,28 @@
         "DeepSeek V3.2",
         "MiniMax M2.1"
       ],
+      "perModelTokenBudgets": {
+        "claude sonnet 4.5": {
+          "estimatedMillionTokens": 1,
+          "basis": "official-multiplier",
+          "confidence": "medium"
+        },
+        "qwen3 coder next": {
+          "estimatedMillionTokens": 26,
+          "basis": "official-multiplier",
+          "confidence": "medium"
+        },
+        "deepseek v3.2": {
+          "estimatedMillionTokens": 5,
+          "basis": "official-multiplier",
+          "confidence": "medium"
+        },
+        "minimax m2.1": {
+          "estimatedMillionTokens": 9,
+          "basis": "official-multiplier",
+          "confidence": "medium"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "50 credits/mo (~1M tokens)",
         "estimatedMillionTokens": 1,
@@ -46,6 +68,33 @@
         "DeepSeek V3.2",
         "MiniMax M2.1"
       ],
+      "perModelTokenBudgets": {
+        "claude sonnet 5": {
+          "estimatedMillionTokens": 20,
+          "basis": "official-multiplier",
+          "confidence": "high"
+        },
+        "claude opus 5": {
+          "estimatedMillionTokens": 12,
+          "basis": "official-multiplier",
+          "confidence": "high"
+        },
+        "qwen3 coder next": {
+          "estimatedMillionTokens": 520,
+          "basis": "official-multiplier",
+          "confidence": "high"
+        },
+        "deepseek v3.2": {
+          "estimatedMillionTokens": 104,
+          "basis": "official-multiplier",
+          "confidence": "high"
+        },
+        "minimax m2.1": {
+          "estimatedMillionTokens": 173,
+          "basis": "official-multiplier",
+          "confidence": "high"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "1,000 credits/mo (~20M tokens on Sonnet 5)",
         "estimatedMillionTokens": 20,
@@ -74,6 +123,33 @@
         "DeepSeek V3.2",
         "MiniMax M2.1"
       ],
+      "perModelTokenBudgets": {
+        "claude sonnet 5": {
+          "estimatedMillionTokens": 40,
+          "basis": "official-multiplier",
+          "confidence": "high"
+        },
+        "claude opus 5": {
+          "estimatedMillionTokens": 24,
+          "basis": "official-multiplier",
+          "confidence": "high"
+        },
+        "qwen3 coder next": {
+          "estimatedMillionTokens": 1040,
+          "basis": "official-multiplier",
+          "confidence": "high"
+        },
+        "deepseek v3.2": {
+          "estimatedMillionTokens": 208,
+          "basis": "official-multiplier",
+          "confidence": "high"
+        },
+        "minimax m2.1": {
+          "estimatedMillionTokens": 347,
+          "basis": "official-multiplier",
+          "confidence": "high"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "2,000 credits/mo (~40M tokens on Sonnet 5)",
         "estimatedMillionTokens": 40,
@@ -100,6 +176,18 @@
         "Auto mode",
         "Open-weight models"
       ],
+      "perModelTokenBudgets": {
+        "claude sonnet 5": {
+          "estimatedMillionTokens": 100,
+          "basis": "official-multiplier",
+          "confidence": "high"
+        },
+        "claude opus 5": {
+          "estimatedMillionTokens": 59,
+          "basis": "official-multiplier",
+          "confidence": "high"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "5,000 credits/mo (~100M tokens on Sonnet 5)",
         "estimatedMillionTokens": 100,
@@ -126,6 +214,18 @@
         "Auto mode",
         "Open-weight models"
       ],
+      "perModelTokenBudgets": {
+        "claude sonnet 5": {
+          "estimatedMillionTokens": 200,
+          "basis": "official-multiplier",
+          "confidence": "high"
+        },
+        "claude opus 5": {
+          "estimatedMillionTokens": 118,
+          "basis": "official-multiplier",
+          "confidence": "high"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "10,000 credits/mo (~200M tokens on Sonnet 5)",
         "estimatedMillionTokens": 200,

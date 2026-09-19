@@ -22,6 +22,28 @@
         "open": 10.0,
         "default": 10.0
       },
+      "perModelTokenBudgets": {
+        "gpt-5.6 luna": {
+          "estimatedMillionTokens": 93.13,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "grok 4.5": {
+          "estimatedMillionTokens": 9.44,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "qwen 3.8 max": {
+          "estimatedMillionTokens": 12.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "minimax m3": {
+          "estimatedMillionTokens": 62.64,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "$10 compute credits (~15M tokens on open models)",
         "estimatedMillionTokens": 15,
@@ -56,6 +78,33 @@
         "frontier": 20.0,
         "default": 60.0
       },
+      "perModelTokenBudgets": {
+        "gpt-5.6 sol": {
+          "estimatedMillionTokens": 26.08,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "glm-5.2": {
+          "estimatedMillionTokens": 104.51,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "tencent hy3": {
+          "estimatedMillionTokens": 855.9,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "qwen 3.8 27b": {
+          "estimatedMillionTokens": 287.67,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "deepseek v4 flash": {
+          "estimatedMillionTokens": 1263.7,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "$70 compute credits (~70M tokens)",
         "estimatedMillionTokens": 70,
@@ -89,6 +138,33 @@
         "standard": 60.0,
         "frontier": 30.0,
         "default": 80.0
+      },
+      "perModelTokenBudgets": {
+        "claude opus 4.8": {
+          "estimatedMillionTokens": 32.7,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gpt-5.6 sol": {
+          "estimatedMillionTokens": 29.8,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gemini": {
+          "estimatedMillionTokens": 109.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "glm-5.2": {
+          "estimatedMillionTokens": 119.45,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "minimax m3": {
+          "estimatedMillionTokens": 501.12,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
       },
       "estimatedTokenBudget": {
         "description": "$80 compute credits (~80M tokens)",

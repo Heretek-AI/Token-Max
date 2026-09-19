@@ -150,6 +150,24 @@ export interface PlanTier {
   limits: Record<string, any>;
   models?: string[];
   modelAllowances?: Record<string, number>;
+  /**
+   * Per-model token yields for tiers whose quota drains at different rates
+   * depending on which named model is used. Keys are lowercase substrings of
+   * the entries in `models`. Values are returned token counts assuming the
+   * entire quota is drained exclusively on that model, at the conservative /
+   * midpoint / optimistic estimate bases. Pseudo-model slots ("Auto mode",
+   * "API models", ...) have no key and fall back to the tier pool.
+   */
+  perModelTokenBudgets?: Record<
+    string,
+    {
+      estimatedMillionTokens: number;
+      midpointEstimate?: number;
+      optimisticEstimate?: number;
+      basis?: 'official-table' | 'official-multiplier' | 'list-price-credit' | 'equal-rate';
+      confidence?: 'high' | 'medium' | 'low';
+    }
+  >;
   estimatedTokenBudget: {
     description?: string;
     estimatedMillionTokens: number;

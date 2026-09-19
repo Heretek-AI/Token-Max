@@ -21,6 +21,22 @@
         "GLM-5.3",
         "GLM-5.3-Flash"
       ],
+      "perModelTokenBudgets": {
+        "glm-5.3": {
+          "estimatedMillionTokens": 208,
+          "midpointEstimate": 314,
+          "optimisticEstimate": 420,
+          "basis": "official-table",
+          "confidence": "high"
+        },
+        "glm-5.3-flash": {
+          "estimatedMillionTokens": 632,
+          "midpointEstimate": 948,
+          "optimisticEstimate": 1264,
+          "basis": "official-table",
+          "confidence": "high"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "10K weekly credits; GLM-5.3 48-97M tokens/wk at 95% cache (official)",
         "estimatedMillionTokens": 208,
@@ -55,6 +71,22 @@
         "GLM-5.3",
         "GLM-5.3-Flash"
       ],
+      "perModelTokenBudgets": {
+        "glm-5.3": {
+          "estimatedMillionTokens": 1256,
+          "midpointEstimate": 1888,
+          "optimisticEstimate": 2520,
+          "basis": "official-table",
+          "confidence": "high"
+        },
+        "glm-5.3-flash": {
+          "estimatedMillionTokens": 3797,
+          "midpointEstimate": 5698,
+          "optimisticEstimate": 7600,
+          "basis": "official-table",
+          "confidence": "high"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "60K weekly credits; GLM-5.3 290-582M tokens/wk at 95% cache (official)",
         "estimatedMillionTokens": 1256,
@@ -89,6 +121,22 @@
         "GLM-5.3",
         "GLM-5.3-Flash"
       ],
+      "perModelTokenBudgets": {
+        "glm-5.3": {
+          "estimatedMillionTokens": 2927,
+          "midpointEstimate": 4405,
+          "optimisticEstimate": 5884,
+          "basis": "official-table",
+          "confidence": "high"
+        },
+        "glm-5.3-flash": {
+          "estimatedMillionTokens": 8864,
+          "midpointEstimate": 13298,
+          "optimisticEstimate": 17731,
+          "basis": "official-table",
+          "confidence": "high"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "140K weekly credits; GLM-5.3 676M-1.36B tokens/wk at 95% cache (official)",
         "estimatedMillionTokens": 2927,
@@ -123,6 +171,22 @@
         "GLM-5.3",
         "GLM-5.3-Flash"
       ],
+      "perModelTokenBudgets": {
+        "glm-5.3": {
+          "estimatedMillionTokens": 1381,
+          "midpointEstimate": 2072,
+          "optimisticEstimate": 2763,
+          "basis": "official-table",
+          "confidence": "medium"
+        },
+        "glm-5.3-flash": {
+          "estimatedMillionTokens": 4178,
+          "midpointEstimate": 6268,
+          "optimisticEstimate": 8357,
+          "basis": "official-table",
+          "confidence": "medium"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "66K weekly credits/seat; GLM-5.3 319-638M tokens/wk/seat (derived from official table)",
         "estimatedMillionTokens": 1381,

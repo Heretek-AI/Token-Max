@@ -125,6 +125,46 @@ function validatePlan(plan, filename) {
         err(`${t}: optimisticEstimate must be a number >= midpoint/conservative estimate`);
       }
     }
+
+    const pmb = tier.perModelTokenBudgets;
+    if (pmb !== undefined && pmb !== null) {
+      if (!isPlainObject(pmb)) {
+        err(`${t}: perModelTokenBudgets must be an object`);
+      } else {
+        const tierModels = Array.isArray(tier.models) ? tier.models : [];
+        for (const [key, entry] of Object.entries(pmb)) {
+          if (!isPlainObject(entry)) {
+            err(`${t}: perModelTokenBudgets[${key}] must be an object`);
+            continue;
+          }
+          const matched = tierModels.some(m => m.toLowerCase().includes(key));
+          if (!matched) {
+            err(`${t}: perModelTokenBudgets key "${key}" does not match any entry of tier.models`);
+          }
+          if (typeof entry.estimatedMillionTokens !== 'number' || !Number.isFinite(entry.estimatedMillionTokens) || entry.estimatedMillionTokens <= 0) {
+            err(`${t}: perModelTokenBudgets[${key}].estimatedMillionTokens must be a finite number > 0`);
+          }
+          if (entry.midpointEstimate !== undefined && entry.midpointEstimate !== null
+            && (typeof entry.midpointEstimate !== 'number' || entry.midpointEstimate < entry.estimatedMillionTokens)) {
+            err(`${t}: perModelTokenBudgets[${key}].midpointEstimate must be a number >= estimatedMillionTokens`);
+          }
+          if (entry.optimisticEstimate !== undefined && entry.optimisticEstimate !== null) {
+            const pmbFloor = entry.midpointEstimate ?? entry.estimatedMillionTokens;
+            if (typeof entry.optimisticEstimate !== 'number' || entry.optimisticEstimate < pmbFloor) {
+              err(`${t}: perModelTokenBudgets[${key}].optimisticEstimate must be >= midpoint/conservative estimate`);
+            }
+          }
+          if (entry.basis !== undefined && entry.basis !== null
+            && !['official-table', 'official-multiplier', 'list-price-credit', 'equal-rate'].includes(entry.basis)) {
+            err(`${t}: perModelTokenBudgets[${key}].basis must be official-table|official-multiplier|list-price-credit|equal-rate`);
+          }
+          if (entry.confidence !== undefined && entry.confidence !== null
+            && !['high', 'medium', 'low'].includes(entry.confidence)) {
+            err(`${t}: perModelTokenBudgets[${key}].confidence must be high|medium|low`);
+          }
+        }
+      }
+    }
   }
 }
 

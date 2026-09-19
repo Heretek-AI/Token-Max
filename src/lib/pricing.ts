@@ -385,12 +385,18 @@ export function computeApplesToApples(
       if (tier.monthlyPrice === null || tier.monthlyPrice <= 0) continue;
       if (tier.monthlyPrice > budget * 2.5 || tier.monthlyPrice < budget * 0.25) continue;
 
-      const baseTokens = tier.estimatedTokenBudget?.estimatedMillionTokens || 0;
+      // Per-model yield: tokens if the entire quota drains exclusively on this model,
+      // falling back to the tier pool when no per-model entry is published.
+      const resolved = resolveTierModelBudget(tier, model.name);
+      const baseTokens = resolved.tokens || 0;
       const rawRequests = tierRawRequests(tier);
       const tokensPerDollar = baseTokens / tier.monthlyPrice;
       const requestsPerDollar = rawRequests / tier.monthlyPrice;
       const normalizedTokens = tokensPerDollar * budget;
       const normalizedRequests = Math.round(requestsPerDollar * budget);
+      const poolBasisNote = resolved.basis
+        ? ` · ${resolved.basis} yield assuming all quota drained exclusively on ${model.name}`
+        : null;
 
       subscriptionOptions.push({
         id: `${plan.id}-${tier.name}-${model.id}`,
@@ -411,7 +417,7 @@ export function computeApplesToApples(
         codingIndex: model.benchmarks?.codingIndex ?? null,
         intelligenceIndex: model.benchmarks?.intelligenceIndex ?? null,
         costPer1kRequests: (tier.monthlyPrice / (rawRequests || 1)) * 1000,
-        notes: tier.estimatedTokenBudget?.description || `Included in ${tier.name} tier`,
+        notes: (tier.estimatedTokenBudget?.description || `Included in ${tier.name} tier`) + (poolBasisNote ?? ''),
         url: plan.url,
         yieldBasis: 'normalized',
       });
@@ -760,6 +766,35 @@ export function computeMixAndMatch(
       bestCodingIndex: bestCodingIndex >= 0 ? bestCodingIndex : null,
     };
   });
+}
+
+/**
+ * Resolve token budget for a (tier, model) pair. Prefers the per-model entry
+ * (when the whole quota is drained exclusively on that model); falls back to
+ * the tier-level pool. Returns the three estimate bases plus the basis label
+ * used for the leaderboard note.
+ */
+export function resolveTierModelBudget(
+  tier: PlanTier,
+  modelName: string | null
+): { tokens: number; midpoint: number; optimistic: number; basis: string | null } {
+  const tb = tier.estimatedTokenBudget;
+  const fallback = {
+    tokens: tb?.estimatedMillionTokens ?? 0,
+    midpoint: tb?.midpointEstimate ?? tb?.estimatedMillionTokens ?? 0,
+    optimistic: tb?.optimisticEstimate ?? tb?.estimatedMillionTokens ?? 0,
+    basis: null as string | null,
+  };
+  if (!modelName) return fallback;
+  const key = Object.keys(tier.perModelTokenBudgets ?? {}).find(k => modelName.toLowerCase().includes(k));
+  if (!key) return fallback;
+  const entry = tier.perModelTokenBudgets![key];
+  return {
+    tokens: entry.estimatedMillionTokens,
+    midpoint: entry.midpointEstimate ?? entry.estimatedMillionTokens,
+    optimistic: entry.optimisticEstimate ?? entry.estimatedMillionTokens,
+    basis: entry.basis ?? 'per-model',
+  };
 }
 
 /**

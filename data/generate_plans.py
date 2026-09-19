@@ -178,6 +178,146 @@ def scale_estimate(base, factor):
     }
 
 
+# Agent-blended cost engine for dollar/credit-denominated subscription pools.
+# Subscription credits drain at each model's own published API rate, so the
+# per-model token yield = model's agent-blended $/M inverted into token
+# equivalents. Mirrors src/lib/pricing.ts agent blend at 95% cache, reading
+# request sizes / cache-write premium from the shared constants file.
+_CWP = _ESTIMATE_CONSTANTS["cacheWritePremium"]
+_IN_TOK = _ESTIMATE_CONSTANTS["agentRequest"]["inputTokens"]
+_OUT_TOK = _ESTIMATE_CONSTANTS["agentRequest"]["outputTokens"]
+_PER_MODEL_CACHE_RATE = 0.95
+_PER_MODEL_WRITE_SHARE = 0.1
+
+
+def agent_blend_cost(prices, cache_rate=_PER_MODEL_CACHE_RATE):
+    """Agent-blended $/M for a model given its officially published token prices.
+
+    `prices`: {input, output, cacheRead, cacheWrite ($/M; None => input × premium), writeShare}
+    Returns the blended $ per million tokens under the 20K-in/1K-out agent shape.
+    """
+    write_share = prices.get("writeShare", 0.1)
+    cache_write = prices["cacheWrite"]
+    if cache_write is None:
+        cache_write = prices["input"] * _CWP
+    fresh = _IN_TOK * (1 - cache_rate)
+    cached = _IN_TOK * cache_rate
+    cost = (
+        fresh * prices["input"]
+        + cached * prices["cacheRead"]
+        + cached * write_share * cache_write
+        + _OUT_TOK * prices["output"]
+    ) / 1e6
+    return cost / ((_IN_TOK + _OUT_TOK) / 1e6)
+
+
+def per_model_pool(
+    pool_usd, slug_prices, basis="list-price-credit", confidence="medium"
+):
+    """Per-model token budgets (M/mo) for one tier whose quota is a $ or credit
+    pool draining at each model's published API rate.
+
+    `slug_prices`: {lowercase model key: ("prices dict", conservativeFraction, ...)}
+    Each model consumes the WHOLE pool exclusively -> tokens = pool / blended $/M.
+    """
+    out = {}
+    for key, prices in slug_prices.items():
+        blended = agent_blend_cost(prices)
+        out[key] = {
+            "estimatedMillionTokens": round(pool_usd / blended, 2),
+            "basis": basis,
+            "confidence": confidence,
+        }
+    return out
+
+
+# CommandCode officially bills subscriptions at each model's at-cost API rate
+# (https://commandcode.ai/docs/resources/pricing-limits, "Model pricing. At
+# cost."). Off-peak/DeepSeek rates shown are the primary 17h/day rates.
+_CMD_PRICES = {
+    "gpt-5.6 luna": {
+        "input": 0.20,
+        "output": 1.20,
+        "cacheRead": 0.02,
+        "cacheWrite": 0.25,
+    },
+    "grok 4.5": {"input": 2.00, "output": 6.00, "cacheRead": 0.50, "cacheWrite": None},
+    "qwen 3.8 max": {
+        "input": 2.00,
+        "output": 6.00,
+        "cacheRead": 0.25,
+        "cacheWrite": 2.50,
+    },
+    "minimax m3": {
+        "input": 0.30,
+        "output": 1.20,
+        "cacheRead": 0.06,
+        "cacheWrite": None,
+    },
+    "gpt-5.6 sol": {
+        "input": 5.00,
+        "output": 30.00,
+        "cacheRead": 0.50,
+        "cacheWrite": 6.25,
+    },
+    "glm-5.2": {"input": 1.40, "output": 4.40, "cacheRead": 0.26, "cacheWrite": None},
+    "tencent hy3": {
+        "input": 0.14,
+        "output": 0.58,
+        "cacheRead": 0.035,
+        "cacheWrite": None,
+    },
+    "qwen 3.8 27b": {
+        "input": 0.40,
+        "output": 3.00,
+        "cacheRead": 0.04,
+        "cacheWrite": None,
+    },
+    "deepseek v4 flash": {
+        "input": 0.15,
+        "output": 0.60,
+        "cacheRead": 0.003,
+        "cacheWrite": None,
+    },
+    "claude opus 4.8": {
+        "input": 5.00,
+        "output": 25.00,
+        "cacheRead": 0.50,
+        "cacheWrite": 6.25,
+    },
+    "gemini": {"input": 1.50, "output": 7.50, "cacheRead": 0.15, "cacheWrite": None},
+}
+_CMD_GPT_POOL = per_model_pool(
+    10.0,
+    {
+        "gpt-5.6 luna": _CMD_PRICES["gpt-5.6 luna"],
+        "grok 4.5": _CMD_PRICES["grok 4.5"],
+        "qwen 3.8 max": _CMD_PRICES["qwen 3.8 max"],
+        "minimax m3": _CMD_PRICES["minimax m3"],
+    },
+)
+_CMD_GOAT_POOL = per_model_pool(
+    70.0,
+    {
+        "gpt-5.6 sol": _CMD_PRICES["gpt-5.6 sol"],
+        "glm-5.2": _CMD_PRICES["glm-5.2"],
+        "tencent hy3": _CMD_PRICES["tencent hy3"],
+        "qwen 3.8 27b": _CMD_PRICES["qwen 3.8 27b"],
+        "deepseek v4 flash": _CMD_PRICES["deepseek v4 flash"],
+    },
+)
+_CMD_PRO_POOL = per_model_pool(
+    80.0,
+    {
+        "claude opus 4.8": _CMD_PRICES["claude opus 4.8"],
+        "gpt-5.6 sol": _CMD_PRICES["gpt-5.6 sol"],
+        "gemini": _CMD_PRICES["gemini"],
+        "glm-5.2": _CMD_PRICES["glm-5.2"],
+        "minimax m3": _CMD_PRICES["minimax m3"],
+    },
+)
+
+
 def osint_meta(basis, source_url):
     """Provenance block for OSINT-derived task estimates."""
     return {
@@ -918,6 +1058,28 @@ write_json(
                     "DeepSeek V3.2",
                     "MiniMax M2.1",
                 ],
+                "perModelTokenBudgets": {
+                    "claude sonnet 4.5": {
+                        "estimatedMillionTokens": 1,
+                        "basis": "official-multiplier",
+                        "confidence": "medium",
+                    },
+                    "qwen3 coder next": {
+                        "estimatedMillionTokens": 26,
+                        "basis": "official-multiplier",
+                        "confidence": "medium",
+                    },
+                    "deepseek v3.2": {
+                        "estimatedMillionTokens": 5,
+                        "basis": "official-multiplier",
+                        "confidence": "medium",
+                    },
+                    "minimax m2.1": {
+                        "estimatedMillionTokens": 9,
+                        "basis": "official-multiplier",
+                        "confidence": "medium",
+                    },
+                },
                 "estimatedTokenBudget": {
                     "description": "50 credits/mo (~1M tokens)",
                     "estimatedMillionTokens": 1,
@@ -940,6 +1102,33 @@ write_json(
                     "DeepSeek V3.2",
                     "MiniMax M2.1",
                 ],
+                "perModelTokenBudgets": {
+                    "claude sonnet 5": {
+                        "estimatedMillionTokens": 20,
+                        "basis": "official-multiplier",
+                        "confidence": "high",
+                    },
+                    "claude opus 5": {
+                        "estimatedMillionTokens": 12,
+                        "basis": "official-multiplier",
+                        "confidence": "high",
+                    },
+                    "qwen3 coder next": {
+                        "estimatedMillionTokens": 520,
+                        "basis": "official-multiplier",
+                        "confidence": "high",
+                    },
+                    "deepseek v3.2": {
+                        "estimatedMillionTokens": 104,
+                        "basis": "official-multiplier",
+                        "confidence": "high",
+                    },
+                    "minimax m2.1": {
+                        "estimatedMillionTokens": 173,
+                        "basis": "official-multiplier",
+                        "confidence": "high",
+                    },
+                },
                 "estimatedTokenBudget": {
                     "description": "1,000 credits/mo (~20M tokens on Sonnet 5)",
                     "estimatedMillionTokens": 20,
@@ -962,6 +1151,33 @@ write_json(
                     "DeepSeek V3.2",
                     "MiniMax M2.1",
                 ],
+                "perModelTokenBudgets": {
+                    "claude sonnet 5": {
+                        "estimatedMillionTokens": 40,
+                        "basis": "official-multiplier",
+                        "confidence": "high",
+                    },
+                    "claude opus 5": {
+                        "estimatedMillionTokens": 24,
+                        "basis": "official-multiplier",
+                        "confidence": "high",
+                    },
+                    "qwen3 coder next": {
+                        "estimatedMillionTokens": 1040,
+                        "basis": "official-multiplier",
+                        "confidence": "high",
+                    },
+                    "deepseek v3.2": {
+                        "estimatedMillionTokens": 208,
+                        "basis": "official-multiplier",
+                        "confidence": "high",
+                    },
+                    "minimax m2.1": {
+                        "estimatedMillionTokens": 347,
+                        "basis": "official-multiplier",
+                        "confidence": "high",
+                    },
+                },
                 "estimatedTokenBudget": {
                     "description": "2,000 credits/mo (~40M tokens on Sonnet 5)",
                     "estimatedMillionTokens": 40,
@@ -982,6 +1198,18 @@ write_json(
                     "Auto mode",
                     "Open-weight models",
                 ],
+                "perModelTokenBudgets": {
+                    "claude sonnet 5": {
+                        "estimatedMillionTokens": 100,
+                        "basis": "official-multiplier",
+                        "confidence": "high",
+                    },
+                    "claude opus 5": {
+                        "estimatedMillionTokens": 59,
+                        "basis": "official-multiplier",
+                        "confidence": "high",
+                    },
+                },
                 "estimatedTokenBudget": {
                     "description": "5,000 credits/mo (~100M tokens on Sonnet 5)",
                     "estimatedMillionTokens": 100,
@@ -1002,6 +1230,18 @@ write_json(
                     "Auto mode",
                     "Open-weight models",
                 ],
+                "perModelTokenBudgets": {
+                    "claude sonnet 5": {
+                        "estimatedMillionTokens": 200,
+                        "basis": "official-multiplier",
+                        "confidence": "high",
+                    },
+                    "claude opus 5": {
+                        "estimatedMillionTokens": 118,
+                        "basis": "official-multiplier",
+                        "confidence": "high",
+                    },
+                },
                 "estimatedTokenBudget": {
                     "description": "10,000 credits/mo (~200M tokens on Sonnet 5)",
                     "estimatedMillionTokens": 200,
@@ -1745,6 +1985,7 @@ write_json(
                     "open": 10.0,
                     "default": 10.0,
                 },
+                "perModelTokenBudgets": dict(_CMD_GPT_POOL),
                 "estimatedTokenBudget": {
                     "description": "$10 compute credits (~15M tokens on open models)",
                     "estimatedMillionTokens": 15,
@@ -1773,6 +2014,7 @@ write_json(
                     "frontier": 20.0,
                     "default": 60.0,
                 },
+                "perModelTokenBudgets": dict(_CMD_GOAT_POOL),
                 "estimatedTokenBudget": {
                     "description": "$70 compute credits (~70M tokens)",
                     "estimatedMillionTokens": 70,
@@ -1798,6 +2040,7 @@ write_json(
                     "frontier": 30.0,
                     "default": 80.0,
                 },
+                "perModelTokenBudgets": dict(_CMD_PRO_POOL),
                 "estimatedTokenBudget": {
                     "description": "$80 compute credits (~80M tokens)",
                     "estimatedMillionTokens": 80,
@@ -3121,6 +3364,22 @@ write_json(
                     "toolRestrictions": "Strictly limited to supported coding tools (Claude Code, Cline, OpenCode, Goose)",
                 },
                 "models": ["GLM-5.3", "GLM-5.3-Flash"],
+                "perModelTokenBudgets": {
+                    "glm-5.3": {
+                        "estimatedMillionTokens": 208,
+                        "midpointEstimate": 314,
+                        "optimisticEstimate": 420,
+                        "basis": "official-table",
+                        "confidence": "high",
+                    },
+                    "glm-5.3-flash": {
+                        "estimatedMillionTokens": 632,
+                        "midpointEstimate": 948,
+                        "optimisticEstimate": 1264,
+                        "basis": "official-table",
+                        "confidence": "high",
+                    },
+                },
                 "estimatedTokenBudget": {
                     "description": "10K weekly credits; GLM-5.3 48-97M tokens/wk at 95% cache (official)",
                     "estimatedMillionTokens": 208,
@@ -3152,6 +3411,22 @@ write_json(
                     "includedMcps": "Vision, Web Search, Web Reader, Zread",
                 },
                 "models": ["GLM-5.3", "GLM-5.3-Flash"],
+                "perModelTokenBudgets": {
+                    "glm-5.3": {
+                        "estimatedMillionTokens": 1256,
+                        "midpointEstimate": 1888,
+                        "optimisticEstimate": 2520,
+                        "basis": "official-table",
+                        "confidence": "high",
+                    },
+                    "glm-5.3-flash": {
+                        "estimatedMillionTokens": 3797,
+                        "midpointEstimate": 5698,
+                        "optimisticEstimate": 7600,
+                        "basis": "official-table",
+                        "confidence": "high",
+                    },
+                },
                 "estimatedTokenBudget": {
                     "description": "60K weekly credits; GLM-5.3 290-582M tokens/wk at 95% cache (official)",
                     "estimatedMillionTokens": 1256,
@@ -3183,6 +3458,22 @@ write_json(
                     "concurrency": "Highest concurrent task allocation",
                 },
                 "models": ["GLM-5.3", "GLM-5.3-Flash"],
+                "perModelTokenBudgets": {
+                    "glm-5.3": {
+                        "estimatedMillionTokens": 2927,
+                        "midpointEstimate": 4405,
+                        "optimisticEstimate": 5884,
+                        "basis": "official-table",
+                        "confidence": "high",
+                    },
+                    "glm-5.3-flash": {
+                        "estimatedMillionTokens": 8864,
+                        "midpointEstimate": 13298,
+                        "optimisticEstimate": 17731,
+                        "basis": "official-table",
+                        "confidence": "high",
+                    },
+                },
                 "estimatedTokenBudget": {
                     "description": "140K weekly credits; GLM-5.3 676M-1.36B tokens/wk at 95% cache (official)",
                     "estimatedMillionTokens": 2927,
@@ -3214,6 +3505,22 @@ write_json(
                     "billing": "Centralized billing, seat management & VAT invoicing",
                 },
                 "models": ["GLM-5.3", "GLM-5.3-Flash"],
+                "perModelTokenBudgets": {
+                    "glm-5.3": {
+                        "estimatedMillionTokens": 1381,
+                        "midpointEstimate": 2072,
+                        "optimisticEstimate": 2763,
+                        "basis": "official-table",
+                        "confidence": "medium",
+                    },
+                    "glm-5.3-flash": {
+                        "estimatedMillionTokens": 4178,
+                        "midpointEstimate": 6268,
+                        "optimisticEstimate": 8357,
+                        "basis": "official-table",
+                        "confidence": "medium",
+                    },
+                },
                 "estimatedTokenBudget": {
                     "description": "66K weekly credits/seat; GLM-5.3 319-638M tokens/wk/seat (derived from official table)",
                     "estimatedMillionTokens": 1381,
