@@ -344,7 +344,7 @@ export function computeApplesToApples(
     // Per-tier, per-model breakdown: attach real benchmark scores to subscription rows.
     // For a given (plan, matched model), surface only the tier whose price is closest
     // to the site budget so the same model isn't duplicated across a plan's tiers.
-    const matchedByModel = new Map<string, { model: NormalizedModel; tier: PlanTier }>();
+    const matchedByModel = new Map<string, { model: NormalizedModel; tier: PlanTier; planModelName: string }>();
     const unmatchedTiers: { tier: PlanTier; tokensPerDollar: number; rawRequests: number }[] = [];
 
     for (const tier of plan.tiers || []) {
@@ -352,10 +352,10 @@ export function computeApplesToApples(
       if (tier.monthlyPrice > budget * 2.5 || tier.monthlyPrice < budget * 0.25) continue;
 
       const baseTokens = tier.estimatedTokenBudget?.estimatedMillionTokens || 0;
-      const rawRequests = tierRawRequests(tier);
+      const rawRequests = tierRawRequests(tier, baseTokens);
       const tokensPerDollar = baseTokens / tier.monthlyPrice;
 
-      const tierMatches: NormalizedModel[] = [];
+      const tierMatches: { model: NormalizedModel; planModelName: string }[] = [];
       const tierMatchIds = new Set<string>();
       for (const planModelName of tier.models || []) {
         // Forward matching only here: a plan model name like "GLM-5.3-Flash"
@@ -375,7 +375,7 @@ export function computeApplesToApples(
           null;
         if (match) {
           tierMatchIds.add(match.id);
-          tierMatches.push(match);
+          tierMatches.push({ model: match, planModelName });
         }
       }
 
@@ -384,17 +384,17 @@ export function computeApplesToApples(
         continue;
       }
 
-      for (const model of tierMatches) {
+      for (const { model, planModelName } of tierMatches) {
         const existing = matchedByModel.get(model.id);
         const closer =
           !existing ||
           Math.abs((tier.monthlyPrice as number) - budget) <
           Math.abs((existing.tier.monthlyPrice as number) - budget);
-        if (closer) matchedByModel.set(model.id, { model, tier });
+        if (closer) matchedByModel.set(model.id, { model, tier, planModelName });
       }
     }
 
-    for (const { model, tier } of matchedByModel.values()) {
+    for (const { model, tier, planModelName } of matchedByModel.values()) {
       const planLabs = detectPlanLabs(plan, tier);
       if (lab !== 'all' && !planLabs.includes(lab)) continue;
 
@@ -403,13 +403,14 @@ export function computeApplesToApples(
 
       // Per-model yield: tokens if the entire quota drains exclusively on this model,
       // falling back to the tier pool when no per-model entry is published.
-      const resolved = resolveTierModelBudget(tier, model.name);
+      const resolved = resolveTierModelBudget(tier, model.name, model.id, planModelName);
       const baseTokens = resolved.tokens || 0;
-      const rawRequests = tierRawRequests(tier);
+      const rawRequests = tierRawRequests(tier, baseTokens);
       const tokensPerDollar = baseTokens / tier.monthlyPrice;
       const requestsPerDollar = rawRequests / tier.monthlyPrice;
       const normalizedTokens = tokensPerDollar * budget;
       const normalizedRequests = Math.round(requestsPerDollar * budget);
+      const isDedicatedDrain = Boolean(resolved.basis);
       const poolBasisNote = resolved.basis
         ? ` · ${resolved.basis} yield assuming all quota drained exclusively on ${model.name}`
         : null;
@@ -430,6 +431,8 @@ export function computeApplesToApples(
         monthlyRequests: normalizedRequests,
         rawMonthlyTokens: baseTokens,
         rawMonthlyRequests: rawRequests,
+        isDedicatedDrain,
+        drainBasis: resolved.basis,
         codingIndex: model.benchmarks?.codingIndex ?? null,
         intelligenceIndex: model.benchmarks?.intelligenceIndex ?? null,
         costPer1kRequests: (tier.monthlyPrice / (rawRequests || 1)) * 1000,
@@ -595,12 +598,13 @@ const EXCLUDED_STACK_PATTERNS = [
  * we derive requests from the token budget at the standard 21K request size.
  * Credits (Z.ai, Alibaba, etc.) are consumed per token and are NOT requests.
  */
-function tierRawRequests(tier: PlanTier): number {
+function tierRawRequests(tier: PlanTier, baseTokens?: number): number {
   const fastRequests = tier.limits?.fastRequests;
   if (typeof fastRequests === 'number') {
     return fastRequests;
   }
-  return Math.round(((tier.estimatedTokenBudget?.estimatedMillionTokens || 0) * 1_000_000) / STANDARD_AGENT_REQUEST_TOKENS);
+  const monthlyTokens = baseTokens ?? (tier.estimatedTokenBudget?.estimatedMillionTokens || 0);
+  return Math.round((monthlyTokens * 1_000_000) / STANDARD_AGENT_REQUEST_TOKENS);
 }
 
 export function buildStackCandidates(
@@ -792,7 +796,9 @@ export function computeMixAndMatch(
  */
 export function resolveTierModelBudget(
   tier: PlanTier,
-  modelName: string | null
+  modelName: string | null,
+  modelId?: string | null,
+  planModelName?: string | null
 ): { tokens: number; midpoint: number; optimistic: number; basis: string | null } {
   const tb = tier.estimatedTokenBudget;
   const fallback = {
@@ -801,12 +807,42 @@ export function resolveTierModelBudget(
     optimistic: tb?.optimisticEstimate ?? tb?.estimatedMillionTokens ?? 0,
     basis: null as string | null,
   };
-  if (!modelName) return fallback;
+  if (!modelName && !modelId && !planModelName) return fallback;
+
+  // Support both tier.perModelTokenBudgets and nested perModelTokenBudgets if present
+  const pmb = tier.perModelTokenBudgets ?? (tb as unknown as { perModelTokenBudgets?: PlanTier['perModelTokenBudgets'] })?.perModelTokenBudgets;
+  if (!pmb || Object.keys(pmb).length === 0) return fallback;
+
+  const normPlan = (planModelName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const normName = (modelName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const normId = (modelId || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const variants = ['flash', 'mini', 'nano', 'micro', 'lite', 'small'];
+
   // Longest key first so "glm-5.3-flash" wins over the shorter "glm-5.3".
-  const keys = Object.keys(tier.perModelTokenBudgets ?? {}).sort((a, b) => b.length - a.length);
-  const key = keys.find(k => modelName.toLowerCase().includes(k));
+  const keys = Object.keys(pmb).sort((a, b) => b.length - a.length);
+  const key = keys.find(k => {
+    const normKey = k.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (normKey.length < 2) return false;
+
+    // Variant guard: prevent base model key from matching flash target, or vice versa
+    for (const v of variants) {
+      const keyHasVariant = normKey.includes(v);
+      const targetHasVariant =
+        (normPlan.length >= 2 && normPlan.includes(v)) ||
+        (normName.length >= 2 && normName.includes(v)) ||
+        (normId.length >= 2 && normId.includes(v));
+      if (keyHasVariant !== targetHasVariant) return false;
+    }
+
+    return (
+      (normPlan.length >= 2 && (normPlan.includes(normKey) || normKey.includes(normPlan))) ||
+      (normId.length >= 2 && (normId.includes(normKey) || normKey.includes(normId))) ||
+      (normName.length >= 2 && normName.includes(normKey))
+    );
+  });
+
   if (!key) return fallback;
-  const entry = tier.perModelTokenBudgets![key];
+  const entry = pmb[key];
   return {
     tokens: entry.estimatedMillionTokens,
     midpoint: entry.midpointEstimate ?? entry.estimatedMillionTokens,

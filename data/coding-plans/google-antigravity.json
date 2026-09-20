@@ -40,6 +40,43 @@
           "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
         }
       },
+      "perModelTokenBudgets": {
+        "gemini 3.8 flash": {
+          "estimatedMillionTokens": 77.88,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gemini 3.7 flash": {
+          "estimatedMillionTokens": 77.88,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gemini 3.6 flash": {
+          "estimatedMillionTokens": 77.88,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gemini 3.1 pro": {
+          "estimatedMillionTokens": 6.25,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "claude sonnet 4.6": {
+          "estimatedMillionTokens": 3.06,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "claude opus 4.6": {
+          "estimatedMillionTokens": 0.61,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gpt-oss-120b": {
+          "estimatedMillionTokens": 50.91,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "notes": "Free tier; no purchased AI-credit overage"
     },
     {
@@ -74,6 +111,43 @@
           "verifiedAt": "2026-09-19",
           "basisModel": "Google Antigravity Pro quota (300 tasks/mo research estimate)",
           "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
+        }
+      },
+      "perModelTokenBudgets": {
+        "gemini 3.8 flash": {
+          "estimatedMillionTokens": 934.56,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gemini 3.7 flash": {
+          "estimatedMillionTokens": 934.56,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gemini 3.6 flash": {
+          "estimatedMillionTokens": 934.56,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gemini 3.1 pro": {
+          "estimatedMillionTokens": 75.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "claude sonnet 4.6": {
+          "estimatedMillionTokens": 36.76,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "claude opus 4.6": {
+          "estimatedMillionTokens": 7.35,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gpt-oss-120b": {
+          "estimatedMillionTokens": 610.87,
+          "basis": "list-price-credit",
+          "confidence": "medium"
         }
       },
       "notes": "Includes purchased AI-credit overage above baseline quota"
@@ -111,6 +185,43 @@
           "basisModel": "Google AI Pro research estimate (75M floor x 250K-900K task band)"
         }
       },
+      "perModelTokenBudgets": {
+        "gemini 3.8 flash": {
+          "estimatedMillionTokens": 4672.81,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gemini 3.7 flash": {
+          "estimatedMillionTokens": 4672.81,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gemini 3.6 flash": {
+          "estimatedMillionTokens": 4672.81,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gemini 3.1 pro": {
+          "estimatedMillionTokens": 375.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "claude sonnet 4.6": {
+          "estimatedMillionTokens": 183.8,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "claude opus 4.6": {
+          "estimatedMillionTokens": 36.76,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gpt-oss-120b": {
+          "estimatedMillionTokens": 3054.33,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "notes": "Daily-driver tier; docs note access to third-party models (also available on non-Enterprise tiers)"
     },
     {
@@ -144,6 +255,43 @@
           "confidence": "low",
           "verifiedAt": "2026-09-19",
           "basisModel": "Google AI Pro research estimate (75M floor x 250K-900K task band)"
+        }
+      },
+      "perModelTokenBudgets": {
+        "gemini 3.8 flash": {
+          "estimatedMillionTokens": 18691.24,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gemini 3.7 flash": {
+          "estimatedMillionTokens": 18691.24,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gemini 3.6 flash": {
+          "estimatedMillionTokens": 18691.24,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gemini 3.1 pro": {
+          "estimatedMillionTokens": 1500.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "claude sonnet 4.6": {
+          "estimatedMillionTokens": 735.22,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "claude opus 4.6": {
+          "estimatedMillionTokens": 147.04,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gpt-oss-120b": {
+          "estimatedMillionTokens": 12217.32,
+          "basis": "list-price-credit",
+          "confidence": "medium"
         }
       },
       "notes": "Highest individual tier; supersedes the former $249.99 Ultra listing"

@@ -87,6 +87,33 @@
             "cacheAssumption": "75% cache hit rate (plan example ran at ~83% cached)"
           }
         },
+        "perModelTokenBudgets": {
+          "qwen 3.7 plus": {
+            "estimatedMillionTokens": 23.86,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "qwen 3.6 plus": {
+            "estimatedMillionTokens": 45,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "kimi k2.5": {
+            "estimatedMillionTokens": 40.27,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "glm-5": {
+            "estimatedMillionTokens": 25.71,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "minimax m2.5": {
+            "estimatedMillionTokens": 49.8,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "notes": "Entry-level individual plan; credits reset every 7 days from first use"
       },
       {
@@ -120,6 +147,33 @@
             "verifiedAt": "2026-09-19",
             "basisModel": "qwen3.6-plus",
             "cacheAssumption": "75% cache hit rate"
+          }
+        },
+        "perModelTokenBudgets": {
+          "qwen 3.7 plus": {
+            "estimatedMillionTokens": 53.56,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "qwen 3.6 plus": {
+            "estimatedMillionTokens": 101,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "kimi k2.5": {
+            "estimatedMillionTokens": 90.38,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "glm-5": {
+            "estimatedMillionTokens": 57.71,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "minimax m2.5": {
+            "estimatedMillionTokens": 111.78,
+            "basis": "list-price-credit",
+            "confidence": "medium"
           }
         },
         "notes": "Mid-entry individual tier added in the 2026 Token Plan refresh"
@@ -157,6 +211,33 @@
             "cacheAssumption": "75% cache hit rate"
           }
         },
+        "perModelTokenBudgets": {
+          "qwen 3.7 plus": {
+            "estimatedMillionTokens": 95.45,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "qwen 3.6 plus": {
+            "estimatedMillionTokens": 180,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "kimi k2.5": {
+            "estimatedMillionTokens": 161.07,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "glm-5": {
+            "estimatedMillionTokens": 102.86,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "minimax m2.5": {
+            "estimatedMillionTokens": 199.21,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "notes": "Mainstream plan for active coders; no pay-as-you-go overage (calls block)"
       },
       {
@@ -192,6 +273,33 @@
             "cacheAssumption": "75% cache hit rate"
           }
         },
+        "perModelTokenBudgets": {
+          "qwen 3.7 plus": {
+            "estimatedMillionTokens": 381.29,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "qwen 3.6 plus": {
+            "estimatedMillionTokens": 719,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "kimi k2.5": {
+            "estimatedMillionTokens": 643.4,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "glm-5": {
+            "estimatedMillionTokens": 410.86,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "minimax m2.5": {
+            "estimatedMillionTokens": 795.73,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "notes": "Power developer tier with highest concurrency"
       },
       {
@@ -223,6 +331,28 @@
             "verifiedAt": "2026-09-19",
             "basisModel": "qwen3.6-plus",
             "cacheAssumption": "75% cache hit rate"
+          }
+        },
+        "perModelTokenBudgets": {
+          "qwen 3.7 plus": {
+            "estimatedMillionTokens": 55.68,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "qwen 3.6 plus": {
+            "estimatedMillionTokens": 105,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "kimi k2.5": {
+            "estimatedMillionTokens": 93.96,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "glm-5": {
+            "estimatedMillionTokens": 60,
+            "basis": "list-price-credit",
+            "confidence": "medium"
           }
         },
         "notes": "Team plan guarantees conversation data is not used for training"
@@ -258,6 +388,28 @@
             "cacheAssumption": "75% cache hit rate"
           }
         },
+        "perModelTokenBudgets": {
+          "qwen 3.7 plus": {
+            "estimatedMillionTokens": 222.2,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "qwen 3.6 plus": {
+            "estimatedMillionTokens": 419,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "kimi k2.5": {
+            "estimatedMillionTokens": 374.94,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "glm-5": {
+            "estimatedMillionTokens": 239.43,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "notes": "Higher team seat allowance"
       },
       {
@@ -291,7 +443,29 @@
             "cacheAssumption": "75% cache hit rate"
           }
         },
-        "notes": "Maximum team seat with dedicated capacity options"
+        "perModelTokenBudgets": {
+          "qwen 3.7 plus": {
+            "estimatedMillionTokens": 555.76,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "qwen 3.6 plus": {
+            "estimatedMillionTokens": 1048,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "kimi k2.5": {
+            "estimatedMillionTokens": 937.81,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "glm-5": {
+            "estimatedMillionTokens": 598.86,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
+        "notes": "Maximum team capacity tier with dedicated capacity options"
       }
     ],
     "gotchas": [
@@ -574,6 +748,43 @@
             "basisModel": "Claude Pro conservative estimate (12M)"
           }
         },
+        "perModelTokenBudgets": {
+          "dola-seed-2.0-pro": {
+            "estimatedMillionTokens": 36,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "dola-seed-2.0-lite": {
+            "estimatedMillionTokens": 126.51,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "glm-5.3-flash": {
+            "estimatedMillionTokens": 197.69,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "dola-seed-2.0-code": {
+            "estimatedMillionTokens": 45,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "deepseek-v4-flash": {
+            "estimatedMillionTokens": 124.94,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "kimi k2.5": {
+            "estimatedMillionTokens": 25.71,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-oss-120b": {
+            "estimatedMillionTokens": 54.22,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "notes": "Flexible model selection or Auto mode"
       },
       {
@@ -601,6 +812,38 @@
             "sourceType": "research",
             "confidence": "low",
             "verifiedAt": "2026-09-19"
+          }
+        },
+        "perModelTokenBudgets": {
+          "dola-seed-2.0-pro": {
+            "estimatedMillionTokens": 180,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "dola-seed-2.0-lite": {
+            "estimatedMillionTokens": 632.55,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "glm-5.3-flash": {
+            "estimatedMillionTokens": 988.45,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "deepseek-v4-pro": {
+            "estimatedMillionTokens": 90,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "kimi k2.5": {
+            "estimatedMillionTokens": 128.57,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-oss-120b": {
+            "estimatedMillionTokens": 271.09,
+            "basis": "list-price-credit",
+            "confidence": "medium"
           }
         },
         "notes": "Model availability varies by country/region"
@@ -709,6 +952,11 @@
             "estimatedMillionTokens": 120,
             "basis": "list-price-credit",
             "confidence": "low"
+          },
+          "claude fable 5.1": {
+            "estimatedMillionTokens": 6.96,
+            "basis": "list-price-credit",
+            "confidence": "low"
           }
         },
         "notes": "Higher output limits and priority access at peak times"
@@ -751,6 +999,11 @@
           },
           "claude haiku 4.5": {
             "estimatedMillionTokens": 480,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          },
+          "claude fable 5.1": {
+            "estimatedMillionTokens": 27.86,
             "basis": "list-price-credit",
             "confidence": "low"
           }
@@ -1883,6 +2136,43 @@
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
           }
         },
+        "perModelTokenBudgets": {
+          "gemini 3.8 flash": {
+            "estimatedMillionTokens": 77.88,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.7 flash": {
+            "estimatedMillionTokens": 77.88,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.6 flash": {
+            "estimatedMillionTokens": 77.88,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.1 pro": {
+            "estimatedMillionTokens": 6.25,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "claude sonnet 4.6": {
+            "estimatedMillionTokens": 3.06,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "claude opus 4.6": {
+            "estimatedMillionTokens": 0.61,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-oss-120b": {
+            "estimatedMillionTokens": 50.91,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "notes": "Free tier; no purchased AI-credit overage"
       },
       {
@@ -1917,6 +2207,43 @@
             "verifiedAt": "2026-09-19",
             "basisModel": "Google Antigravity Pro quota (300 tasks/mo research estimate)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
+          }
+        },
+        "perModelTokenBudgets": {
+          "gemini 3.8 flash": {
+            "estimatedMillionTokens": 934.56,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.7 flash": {
+            "estimatedMillionTokens": 934.56,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.6 flash": {
+            "estimatedMillionTokens": 934.56,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.1 pro": {
+            "estimatedMillionTokens": 75,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "claude sonnet 4.6": {
+            "estimatedMillionTokens": 36.76,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "claude opus 4.6": {
+            "estimatedMillionTokens": 7.35,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-oss-120b": {
+            "estimatedMillionTokens": 610.87,
+            "basis": "list-price-credit",
+            "confidence": "medium"
           }
         },
         "notes": "Includes purchased AI-credit overage above baseline quota"
@@ -1954,6 +2281,43 @@
             "basisModel": "Google AI Pro research estimate (75M floor x 250K-900K task band)"
           }
         },
+        "perModelTokenBudgets": {
+          "gemini 3.8 flash": {
+            "estimatedMillionTokens": 4672.81,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.7 flash": {
+            "estimatedMillionTokens": 4672.81,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.6 flash": {
+            "estimatedMillionTokens": 4672.81,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.1 pro": {
+            "estimatedMillionTokens": 375,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "claude sonnet 4.6": {
+            "estimatedMillionTokens": 183.8,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "claude opus 4.6": {
+            "estimatedMillionTokens": 36.76,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-oss-120b": {
+            "estimatedMillionTokens": 3054.33,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "notes": "Daily-driver tier; docs note access to third-party models (also available on non-Enterprise tiers)"
       },
       {
@@ -1987,6 +2351,43 @@
             "confidence": "low",
             "verifiedAt": "2026-09-19",
             "basisModel": "Google AI Pro research estimate (75M floor x 250K-900K task band)"
+          }
+        },
+        "perModelTokenBudgets": {
+          "gemini 3.8 flash": {
+            "estimatedMillionTokens": 18691.24,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.7 flash": {
+            "estimatedMillionTokens": 18691.24,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.6 flash": {
+            "estimatedMillionTokens": 18691.24,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.1 pro": {
+            "estimatedMillionTokens": 1500,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "claude sonnet 4.6": {
+            "estimatedMillionTokens": 735.22,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "claude opus 4.6": {
+            "estimatedMillionTokens": 147.04,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-oss-120b": {
+            "estimatedMillionTokens": 12217.32,
+            "basis": "list-price-credit",
+            "confidence": "medium"
           }
         },
         "notes": "Highest individual tier; supersedes the former $249.99 Ultra listing"
@@ -2224,24 +2625,24 @@
         "estimatedTokenBudget": {
           "description": "Weekly-refreshed quota (~60M tokens/mo)",
           "estimatedMillionTokens": 60,
-          "perModelTokenBudgets": {
-            "kimi k3": {
-              "estimatedMillionTokens": 60,
-              "basis": "list-price-credit",
-              "confidence": "low"
-            },
-            "k2.7 code": {
-              "estimatedMillionTokens": 170.99,
-              "basis": "list-price-credit",
-              "confidence": "low"
-            }
-          },
           "assumptions": "~300 req/window at kimi-k2.7-code rates ($0.19 cache/$0.95 input/$4.00 output; ~95% cache hit ~= $0.37/M blended) ~= 60M tokens/mo",
           "estimateMeta": {
             "sourceUrl": "https://www.kimi.com/coding-plan/",
             "sourceType": "research",
             "confidence": "low",
             "verifiedAt": "2026-09-19"
+          }
+        },
+        "perModelTokenBudgets": {
+          "kimi k3": {
+            "estimatedMillionTokens": 60,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          },
+          "k2.7 code": {
+            "estimatedMillionTokens": 170.99,
+            "basis": "list-price-credit",
+            "confidence": "low"
           }
         },
         "notes": "Tiers named after musical terms; K3 has low/high/max thinking modes"
@@ -2261,24 +2662,24 @@
         "estimatedTokenBudget": {
           "description": "Higher weekly quota (~150M tokens/mo)",
           "estimatedMillionTokens": 150,
-          "perModelTokenBudgets": {
-            "kimi k3": {
-              "estimatedMillionTokens": 150,
-              "basis": "list-price-credit",
-              "confidence": "low"
-            },
-            "k2.7 code": {
-              "estimatedMillionTokens": 427.48,
-              "basis": "list-price-credit",
-              "confidence": "low"
-            }
-          },
           "assumptions": "Research estimate scaled above Moderato; HighSpeed triples burn rate",
           "estimateMeta": {
             "sourceUrl": "https://www.kimi.com/coding-plan/",
             "sourceType": "research",
             "confidence": "low",
             "verifiedAt": "2026-09-19"
+          }
+        },
+        "perModelTokenBudgets": {
+          "kimi k3": {
+            "estimatedMillionTokens": 150,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          },
+          "k2.7 code": {
+            "estimatedMillionTokens": 427.48,
+            "basis": "list-price-credit",
+            "confidence": "low"
           }
         },
         "notes": "Unlocks HighSpeed model and 1M context"
@@ -2298,24 +2699,24 @@
         "estimatedTokenBudget": {
           "description": "Expansive quota (~400M tokens/mo)",
           "estimatedMillionTokens": 400,
-          "perModelTokenBudgets": {
-            "kimi k3": {
-              "estimatedMillionTokens": 400,
-              "basis": "list-price-credit",
-              "confidence": "low"
-            },
-            "k2.7 code": {
-              "estimatedMillionTokens": 1139.95,
-              "basis": "list-price-credit",
-              "confidence": "low"
-            }
-          },
           "assumptions": "Research estimate; exact credit counts not officially published",
           "estimateMeta": {
             "sourceUrl": "https://www.kimi.com/coding-plan/",
             "sourceType": "research",
             "confidence": "low",
             "verifiedAt": "2026-09-19"
+          }
+        },
+        "perModelTokenBudgets": {
+          "kimi k3": {
+            "estimatedMillionTokens": 400,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          },
+          "k2.7 code": {
+            "estimatedMillionTokens": 1139.95,
+            "basis": "list-price-credit",
+            "confidence": "low"
           }
         },
         "notes": "Heavy daily agentic coding"
@@ -2335,24 +2736,24 @@
         "estimatedTokenBudget": {
           "description": "Highest quota (~800M tokens/mo)",
           "estimatedMillionTokens": 800,
-          "perModelTokenBudgets": {
-            "kimi k3": {
-              "estimatedMillionTokens": 800,
-              "basis": "list-price-credit",
-              "confidence": "low"
-            },
-            "k2.7 code": {
-              "estimatedMillionTokens": 2279.9,
-              "basis": "list-price-credit",
-              "confidence": "low"
-            }
-          },
           "assumptions": "Research estimate; not officially published",
           "estimateMeta": {
             "sourceUrl": "https://www.kimi.com/coding-plan/",
             "sourceType": "research",
             "confidence": "low",
             "verifiedAt": "2026-09-19"
+          }
+        },
+        "perModelTokenBudgets": {
+          "kimi k3": {
+            "estimatedMillionTokens": 800,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          },
+          "k2.7 code": {
+            "estimatedMillionTokens": 2279.9,
+            "basis": "list-price-credit",
+            "confidence": "low"
           }
         },
         "notes": "Max tier"
@@ -2736,21 +3137,21 @@
           "Muse Spark 1.3",
           "Muse Spark 1.2"
         ],
+        "perModelTokenBudgets": {
+          "muse spark 1.3": {
+            "estimatedMillionTokens": 10,
+            "basis": "equal-rate",
+            "confidence": "high"
+          },
+          "muse spark 1.2": {
+            "estimatedMillionTokens": 10,
+            "basis": "equal-rate",
+            "confidence": "high"
+          }
+        },
         "estimatedTokenBudget": {
           "description": "Standard PAYG ($20 buys ~10M list-blend / ~14M cached-agent tokens)",
           "estimatedMillionTokens": 10,
-          "perModelTokenBudgets": {
-            "muse spark 1.3": {
-              "estimatedMillionTokens": 10,
-              "basis": "equal-rate",
-              "confidence": "high"
-            },
-            "muse spark 1.2": {
-              "estimatedMillionTokens": 10,
-              "basis": "equal-rate",
-              "confidence": "high"
-            }
-          },
           "midpointEstimate": 12,
           "optimisticEstimate": 14,
           "assumptions": "$20 at official Standard pricing $1.25/M input, $4.25/M output: 10M on a 3:1 list blend, ~14M on the standard 20K-in/1K-out agent request (no cache price published)",
@@ -2823,6 +3224,18 @@
           "Muse Spark 1.3",
           "Llama 4 Scout"
         ],
+        "perModelTokenBudgets": {
+          "muse spark 1.3": {
+            "estimatedMillionTokens": 5,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "llama 4 scout": {
+            "estimatedMillionTokens": 30.51,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "estimatedTokenBudget": {
           "description": "Light usage tier (~5M tokens/mo)",
           "estimatedMillionTokens": 5,
@@ -2847,6 +3260,23 @@
           "Llama 4 Scout",
           "Llama 4 Maverick"
         ],
+        "perModelTokenBudgets": {
+          "muse spark 1.3": {
+            "estimatedMillionTokens": 25,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "llama 4 scout": {
+            "estimatedMillionTokens": 152.54,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "llama 4 maverick": {
+            "estimatedMillionTokens": 34.2,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "estimatedTokenBudget": {
           "description": "5x Everyday usage (~25M tokens/mo, official multiplier)",
           "estimatedMillionTokens": 25,
@@ -2870,6 +3300,18 @@
           "Muse Spark 1.3",
           "Llama 4 Maverick"
         ],
+        "perModelTokenBudgets": {
+          "muse spark 1.3": {
+            "estimatedMillionTokens": 100,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "llama 4 maverick": {
+            "estimatedMillionTokens": 136.78,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "estimatedTokenBudget": {
           "description": "20x Everyday usage (~100M tokens/mo, official multiplier)",
           "estimatedMillionTokens": 100,
@@ -2915,6 +3357,18 @@
           "MiniMax M3",
           "M2.7"
         ],
+        "perModelTokenBudgets": {
+          "minimax m3": {
+            "estimatedMillionTokens": 20,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          },
+          "m2.7": {
+            "estimatedMillionTokens": 30,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          }
+        },
         "estimatedTokenBudget": {
           "description": "5h + weekly windows (~20M tokens/mo est.)",
           "estimatedMillionTokens": 20,
@@ -2939,6 +3393,18 @@
           "MiniMax M3",
           "M2.7"
         ],
+        "perModelTokenBudgets": {
+          "minimax m3": {
+            "estimatedMillionTokens": 65,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          },
+          "m2.7": {
+            "estimatedMillionTokens": 97.5,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          }
+        },
         "estimatedTokenBudget": {
           "description": "Higher windows (~65M tokens/mo est.)",
           "estimatedMillionTokens": 65,
@@ -2963,6 +3429,18 @@
           "MiniMax M3",
           "M2.7"
         ],
+        "perModelTokenBudgets": {
+          "minimax m3": {
+            "estimatedMillionTokens": 160,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          },
+          "m2.7": {
+            "estimatedMillionTokens": 240,
+            "basis": "list-price-credit",
+            "confidence": "low"
+          }
+        },
         "estimatedTokenBudget": {
           "description": "Highest windows (~160M tokens/mo est.)",
           "estimatedMillionTokens": 160,
@@ -3315,28 +3793,6 @@
           "estimatedMillionTokens": 4.25,
           "midpointEstimate": 9.35,
           "optimisticEstimate": 15.3,
-          "perModelTokenBudgets": {
-            "gpt-5.6 luna": {
-              "estimatedMillionTokens": 4.25,
-              "basis": "list-price-credit",
-              "confidence": "medium"
-            },
-            "gpt-5.6 terra": {
-              "estimatedMillionTokens": 0.42,
-              "basis": "list-price-credit",
-              "confidence": "medium"
-            },
-            "gpt-5.6 sol": {
-              "estimatedMillionTokens": 0.23,
-              "basis": "list-price-credit",
-              "confidence": "medium"
-            },
-            "gpt-6 astra": {
-              "estimatedMillionTokens": 0.09,
-              "basis": "list-price-credit",
-              "confidence": "medium"
-            }
-          },
           "assumptions": "Limited tasks: ~17 tasks/mo x the 250K-900K OSINT agent-task band (4.25M floor / 9.35M / 15.3M); $8 price commonly cited but the scraped page did not render USD amounts",
           "estimateMeta": {
             "sourceUrl": "https://openai.com/chatgpt/pricing/",
@@ -3346,6 +3802,18 @@
             "verifiedAt": "2026-09-19",
             "basisModel": "OpenAI Codex Go quota (17 tasks/mo research estimate)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
+          }
+        },
+        "perModelTokenBudgets": {
+          "gpt-5.6 luna": {
+            "estimatedMillionTokens": 4.25,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-5.6 terra": {
+            "estimatedMillionTokens": 0.42,
+            "basis": "list-price-credit",
+            "confidence": "medium"
           }
         },
         "notes": "Entry tier; ads possible"
@@ -3367,28 +3835,6 @@
           "estimatedMillionTokens": 20,
           "midpointEstimate": 44,
           "optimisticEstimate": 72,
-          "perModelTokenBudgets": {
-            "gpt-5.6 luna": {
-              "estimatedMillionTokens": 911.31,
-              "basis": "list-price-credit",
-              "confidence": "medium"
-            },
-            "gpt-5.6 terra": {
-              "estimatedMillionTokens": 91.13,
-              "basis": "list-price-credit",
-              "confidence": "medium"
-            },
-            "gpt-5.6 sol": {
-              "estimatedMillionTokens": 50,
-              "basis": "list-price-credit",
-              "confidence": "medium"
-            },
-            "gpt-6 astra": {
-              "estimatedMillionTokens": 20,
-              "basis": "list-price-credit",
-              "confidence": "medium"
-            }
-          },
           "assumptions": "Research estimate: ~80 tasks/mo x the 250K-900K OSINT agent-task band (20M floor / 44M / 72M); no official numeric task limits",
           "estimateMeta": {
             "sourceUrl": "https://openai.com/chatgpt/pricing/",
@@ -3398,6 +3844,23 @@
             "verifiedAt": "2026-09-19",
             "basisModel": "OpenAI Codex Plus quota (80 tasks/mo research estimate)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
+          }
+        },
+        "perModelTokenBudgets": {
+          "gpt-5.6 terra": {
+            "estimatedMillionTokens": 91.13,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-5.6 sol": {
+            "estimatedMillionTokens": 50,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-6 astra": {
+            "estimatedMillionTokens": 20,
+            "basis": "list-price-credit",
+            "confidence": "medium"
           }
         },
         "notes": "More uploads/projects"
@@ -3417,28 +3880,6 @@
           "estimatedMillionTokens": 100,
           "midpointEstimate": 220,
           "optimisticEstimate": 360,
-          "perModelTokenBudgets": {
-            "gpt-5.6 luna": {
-              "estimatedMillionTokens": 4556.54,
-              "basis": "list-price-credit",
-              "confidence": "medium"
-            },
-            "gpt-5.6 terra": {
-              "estimatedMillionTokens": 455.65,
-              "basis": "list-price-credit",
-              "confidence": "medium"
-            },
-            "gpt-5.6 sol": {
-              "estimatedMillionTokens": 250,
-              "basis": "list-price-credit",
-              "confidence": "medium"
-            },
-            "gpt-6 astra": {
-              "estimatedMillionTokens": 100,
-              "basis": "list-price-credit",
-              "confidence": "medium"
-            }
-          },
           "assumptions": "5x the Plus research estimate (100M floor / 220M / 360M)",
           "estimateMeta": {
             "sourceUrl": "https://openai.com/chatgpt/pricing/",
@@ -3448,6 +3889,18 @@
             "verifiedAt": "2026-09-19",
             "basisModel": "OpenAI Codex Pro 5x (official 5x Plus multiplier x 80-task band)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
+          }
+        },
+        "perModelTokenBudgets": {
+          "gpt-5.6 sol": {
+            "estimatedMillionTokens": 250,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-6 astra": {
+            "estimatedMillionTokens": 100,
+            "basis": "list-price-credit",
+            "confidence": "medium"
           }
         },
         "notes": "Intermediate tier; price unconfirmed (JS-hidden on page)"
@@ -3477,6 +3930,18 @@
             "verifiedAt": "2026-09-19",
             "basisModel": "OpenAI Codex Pro maximum (20x Plus x 80-task band)",
             "cacheAssumption": "Provider prompt caching at the plan's assumed cache rate"
+          }
+        },
+        "perModelTokenBudgets": {
+          "gpt-5.6 sol": {
+            "estimatedMillionTokens": 1000,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-6 astra": {
+            "estimatedMillionTokens": 400,
+            "basis": "list-price-credit",
+            "confidence": "medium"
           }
         },
         "notes": "Pro tier per official page; USD not rendered in scrape (commonly cited $200)"

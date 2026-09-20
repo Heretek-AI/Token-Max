@@ -38,6 +38,33 @@
           "cacheAssumption": "75% cache hit rate (plan example ran at ~83% cached)"
         }
       },
+      "perModelTokenBudgets": {
+        "qwen 3.7 plus": {
+          "estimatedMillionTokens": 23.86,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "qwen 3.6 plus": {
+          "estimatedMillionTokens": 45.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "kimi k2.5": {
+          "estimatedMillionTokens": 40.27,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "glm-5": {
+          "estimatedMillionTokens": 25.71,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "minimax m2.5": {
+          "estimatedMillionTokens": 49.8,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "notes": "Entry-level individual plan; credits reset every 7 days from first use"
     },
     {
@@ -71,6 +98,33 @@
           "verifiedAt": "2026-09-19",
           "basisModel": "qwen3.6-plus",
           "cacheAssumption": "75% cache hit rate"
+        }
+      },
+      "perModelTokenBudgets": {
+        "qwen 3.7 plus": {
+          "estimatedMillionTokens": 53.56,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "qwen 3.6 plus": {
+          "estimatedMillionTokens": 101.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "kimi k2.5": {
+          "estimatedMillionTokens": 90.38,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "glm-5": {
+          "estimatedMillionTokens": 57.71,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "minimax m2.5": {
+          "estimatedMillionTokens": 111.78,
+          "basis": "list-price-credit",
+          "confidence": "medium"
         }
       },
       "notes": "Mid-entry individual tier added in the 2026 Token Plan refresh"
@@ -108,6 +162,33 @@
           "cacheAssumption": "75% cache hit rate"
         }
       },
+      "perModelTokenBudgets": {
+        "qwen 3.7 plus": {
+          "estimatedMillionTokens": 95.45,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "qwen 3.6 plus": {
+          "estimatedMillionTokens": 180.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "kimi k2.5": {
+          "estimatedMillionTokens": 161.07,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "glm-5": {
+          "estimatedMillionTokens": 102.86,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "minimax m2.5": {
+          "estimatedMillionTokens": 199.21,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "notes": "Mainstream plan for active coders; no pay-as-you-go overage (calls block)"
     },
     {
@@ -143,6 +224,33 @@
           "cacheAssumption": "75% cache hit rate"
         }
       },
+      "perModelTokenBudgets": {
+        "qwen 3.7 plus": {
+          "estimatedMillionTokens": 381.29,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "qwen 3.6 plus": {
+          "estimatedMillionTokens": 719.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "kimi k2.5": {
+          "estimatedMillionTokens": 643.4,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "glm-5": {
+          "estimatedMillionTokens": 410.86,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "minimax m2.5": {
+          "estimatedMillionTokens": 795.73,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "notes": "Power developer tier with highest concurrency"
     },
     {
@@ -174,6 +282,28 @@
           "verifiedAt": "2026-09-19",
           "basisModel": "qwen3.6-plus",
           "cacheAssumption": "75% cache hit rate"
+        }
+      },
+      "perModelTokenBudgets": {
+        "qwen 3.7 plus": {
+          "estimatedMillionTokens": 55.68,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "qwen 3.6 plus": {
+          "estimatedMillionTokens": 105.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "kimi k2.5": {
+          "estimatedMillionTokens": 93.96,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "glm-5": {
+          "estimatedMillionTokens": 60.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
         }
       },
       "notes": "Team plan guarantees conversation data is not used for training"
@@ -209,6 +339,28 @@
           "cacheAssumption": "75% cache hit rate"
         }
       },
+      "perModelTokenBudgets": {
+        "qwen 3.7 plus": {
+          "estimatedMillionTokens": 222.2,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "qwen 3.6 plus": {
+          "estimatedMillionTokens": 419.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "kimi k2.5": {
+          "estimatedMillionTokens": 374.94,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "glm-5": {
+          "estimatedMillionTokens": 239.43,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "notes": "Higher team seat allowance"
     },
     {
@@ -242,7 +394,29 @@
           "cacheAssumption": "75% cache hit rate"
         }
       },
-      "notes": "Maximum team seat with dedicated capacity options"
+      "perModelTokenBudgets": {
+        "qwen 3.7 plus": {
+          "estimatedMillionTokens": 555.76,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "qwen 3.6 plus": {
+          "estimatedMillionTokens": 1048.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "kimi k2.5": {
+          "estimatedMillionTokens": 937.81,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "glm-5": {
+          "estimatedMillionTokens": 598.86,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
+      "notes": "Maximum team capacity tier with dedicated capacity options"
     }
   ],
   "gotchas": [

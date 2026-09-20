@@ -282,8 +282,9 @@ describe('computeApplesToApples', () => {
   });
 
   it('uses per-model token budgets over the tier pool when both models are listed', () => {
-    const flashModel = model({ id: 'z-ai/glm-5.3-flash', name: 'GLM-5.3-Flash' });
-    const glmModel = model({ id: 'z-ai/glm-5.3', name: 'GLM-5.3' });
+    // Test with real OpenRouter model names (vendor prefix and spaces)
+    const flashModel = model({ id: 'z-ai/glm-5.3-flash', name: 'Z.ai: GLM 5.3 Flash' });
+    const glmModel = model({ id: 'z-ai/glm-5.3', name: 'Z.ai: GLM 5.3' });
     const subPlan = plan({
       id: 'z-ai',
       name: 'Z.ai GLM Coding Plan',
@@ -309,6 +310,13 @@ describe('computeApplesToApples', () => {
     // Per-model native yields: GLM-5.3 drains at pool basis, Flash at 3.03x
     expect(glmRow!.rawMonthlyTokens).toBe(2927);
     expect(flashRow!.rawMonthlyTokens).toBe(8864);
+    // Dedicated drain flags
+    expect(glmRow!.isDedicatedDrain).toBe(true);
+    expect(flashRow!.isDedicatedDrain).toBe(true);
+    expect(flashRow!.drainBasis).toBe('official-table');
+    // Requests scale with each model's resolved token capacity
+    expect(flashRow!.rawMonthlyRequests).toBeGreaterThan(glmRow!.rawMonthlyRequests!);
+    expect(flashRow!.monthlyRequests).toBeGreaterThan(glmRow!.monthlyRequests);
     // Normalized at $200 budget: tokensPerDollar * budget
     expect(glmRow!.monthlyTokens).toBeCloseTo((2927 / 168) * 200, 4);
     expect(flashRow!.monthlyTokens).toBeCloseTo((8864 / 168) * 200, 4);

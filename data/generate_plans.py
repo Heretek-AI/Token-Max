@@ -466,6 +466,8 @@ def _claude_pool(pool_million_tokens, include_fable=False):
     fable_entry["estimatedMillionTokens"] = round(
         fable_entry["estimatedMillionTokens"] * 0.5, 2
     )
+    if include_fable:
+        out["claude fable 5.1"] = fable_entry
     return out
 
 
@@ -514,9 +516,14 @@ _KIMI_PRICES = {
 _KIMI_K3_BLENDED = agent_blend_cost(_KIMI_PRICES["kimi k3"])
 
 
-def _kimi_pool(pool_million_tokens):
+def _kimi_pool(pool_million_tokens, models=None):
     usd = pool_million_tokens * _KIMI_K3_BLENDED
-    return per_model_pool(usd, _KIMI_PRICES, basis="list-price-credit", confidence="low")
+    if models is not None:
+        lower_models = [m.lower() for m in models]
+        prices = {k: v for k, v in _KIMI_PRICES.items() if any(k in m for m in lower_models)}
+    else:
+        prices = _KIMI_PRICES
+    return per_model_pool(usd, prices, basis="list-price-credit", confidence="low")
 
 # OpenAI Codex drains ChatGPT-plan usage at each GPT model's API rate
 # (illustrated via OpenAI's published pricing mirrors: https://platform.openai.com/docs/pricing).
@@ -529,9 +536,14 @@ _GPT_PRICES = {
 _LUNA_BLENDED = agent_blend_cost(_GPT_PRICES["gpt-5.6 luna"])
 
 
-def _gpt_pool(pool_million_tokens, basis_model="gpt-5.6 luna"):
+def _gpt_pool(pool_million_tokens, models=None, basis_model="gpt-5.6 luna"):
     usd = pool_million_tokens * agent_blend_cost(_GPT_PRICES[basis_model])
-    return per_model_pool(usd, _GPT_PRICES, basis="list-price-credit", confidence="medium")
+    if models is not None:
+        lower_models = [m.lower() for m in models]
+        prices = {k: v for k, v in _GPT_PRICES.items() if any(k in m for m in lower_models)}
+    else:
+        prices = _GPT_PRICES
+    return per_model_pool(usd, prices, basis="list-price-credit", confidence="medium")
 
 # Meta Model API: Muse Spark 1.1/1.2/1.3 share identical Standard pricing
 # (https://dev.meta.ai/docs/pricing-rate-limits) -> true equal-rate models.
@@ -539,6 +551,84 @@ _META_PRICES = {
     "muse spark 1.3": {"input": 1.25, "output": 4.25, "cacheRead": 0.15, "cacheWrite": None},
     "muse spark 1.2": {"input": 1.25, "output": 4.25, "cacheRead": 0.15, "cacheWrite": None},
 }
+
+# Google Antigravity / Google AI plan model rates
+_ANTIGRAVITY_PRICES = {
+    "gemini 3.8 flash": {"input": 0.10, "output": 0.40, "cacheRead": 0.025, "cacheWrite": None},
+    "gemini 3.7 flash": {"input": 0.10, "output": 0.40, "cacheRead": 0.025, "cacheWrite": None},
+    "gemini 3.6 flash": {"input": 0.10, "output": 0.40, "cacheRead": 0.025, "cacheWrite": None},
+    "gemini 3.1 pro": {"input": 1.25, "output": 5.00, "cacheRead": 0.31, "cacheWrite": None},
+    "claude sonnet 4.6": {"input": 3.00, "output": 15.00, "cacheRead": 0.30, "cacheWrite": None},
+    "claude opus 4.6": {"input": 15.00, "output": 75.00, "cacheRead": 1.50, "cacheWrite": None},
+    "gpt-oss-120b": {"input": 0.20, "output": 0.80, "cacheRead": 0.02, "cacheWrite": None},
+}
+
+def _antigravity_pool(pool_million_tokens, models, basis_model="gemini 3.1 pro"):
+    usd = pool_million_tokens * agent_blend_cost(_ANTIGRAVITY_PRICES[basis_model])
+    lower_models = [m.lower() for m in models]
+    prices = {k: v for k, v in _ANTIGRAVITY_PRICES.items() if any(k in m for m in lower_models)}
+    return per_model_pool(usd, prices, basis="list-price-credit", confidence="medium")
+
+# BytePlus ModelArk Coding Plan models
+_BYTEPLUS_PRICES = {
+    "dola-seed-2.0-pro": {"input": 0.25, "output": 1.00, "cacheRead": 0.05, "cacheWrite": None},
+    "dola-seed-2.0-lite": {"input": 0.08, "output": 0.24, "cacheRead": 0.015, "cacheWrite": None},
+    "glm-5.3-flash": {"input": 0.05, "output": 0.15, "cacheRead": 0.01, "cacheWrite": None},
+    "dola-seed-2.0-code": {"input": 0.20, "output": 0.80, "cacheRead": 0.04, "cacheWrite": None},
+    "deepseek-v4-flash": {"input": 0.08, "output": 0.25, "cacheRead": 0.015, "cacheWrite": None},
+    "deepseek-v4-pro": {"input": 0.50, "output": 2.00, "cacheRead": 0.10, "cacheWrite": None},
+    "kimi k2.5": {"input": 0.35, "output": 1.40, "cacheRead": 0.07, "cacheWrite": None},
+    "gpt-oss-120b": {"input": 0.20, "output": 0.80, "cacheRead": 0.02, "cacheWrite": None},
+}
+
+def _byteplus_pool(pool_million_tokens, models, basis_model="dola-seed-2.0-pro"):
+    usd = pool_million_tokens * agent_blend_cost(_BYTEPLUS_PRICES[basis_model])
+    lower_models = [m.lower() for m in models]
+    prices = {k: v for k, v in _BYTEPLUS_PRICES.items() if any(k in m for m in lower_models)}
+    return per_model_pool(usd, prices, basis="list-price-credit", confidence="medium")
+
+# Alibaba Cloud Model Studio token plan models
+_ALIBABA_PRICES = {
+    "qwen 3.7 plus": {"input": 0.80, "output": 2.00, "cacheRead": 0.10, "cacheWrite": None},
+    "qwen 3.6 plus": {"input": 0.40, "output": 1.20, "cacheRead": 0.05, "cacheWrite": None},
+    "kimi k2.5": {"input": 0.35, "output": 1.40, "cacheRead": 0.07, "cacheWrite": None},
+    "glm-5": {"input": 0.60, "output": 2.20, "cacheRead": 0.10, "cacheWrite": None},
+    "minimax m2.5": {"input": 0.30, "output": 1.20, "cacheRead": 0.05, "cacheWrite": None},
+}
+
+def _alibaba_pool(pool_million_tokens, models, basis_model="qwen 3.6 plus"):
+    usd = pool_million_tokens * agent_blend_cost(_ALIBABA_PRICES[basis_model])
+    lower_models = [m.lower() for m in models]
+    prices = {k: v for k, v in _ALIBABA_PRICES.items() if any(k in m for m in lower_models)}
+    return per_model_pool(usd, prices, basis="list-price-credit", confidence="medium")
+
+# Meta Muse Code models
+_MUSE_PRICES = {
+    "muse spark 1.3": {"input": 1.25, "output": 4.25, "cacheRead": 0.15, "cacheWrite": None},
+    "llama 4 scout": {"input": 0.20, "output": 0.80, "cacheRead": 0.02, "cacheWrite": None},
+    "llama 4 maverick": {"input": 1.00, "output": 3.00, "cacheRead": 0.10, "cacheWrite": None},
+}
+
+def _muse_pool(pool_million_tokens, models, basis_model="muse spark 1.3"):
+    usd = pool_million_tokens * agent_blend_cost(_MUSE_PRICES[basis_model])
+    lower_models = [m.lower() for m in models]
+    prices = {k: v for k, v in _MUSE_PRICES.items() if any(k in m for m in lower_models)}
+    return per_model_pool(usd, prices, basis="list-price-credit", confidence="medium")
+
+# MiniMax Token Plan models
+_MINIMAX_PRICES = {
+    "minimax m3": {"input": 0.30, "output": 1.20, "cacheRead": 0.06, "cacheWrite": None},
+    "m2.7": {"input": 0.20, "output": 0.80, "cacheRead": 0.04, "cacheWrite": None},
+}
+
+def _minimax_pool(pool_million_tokens, models=None, basis_model="minimax m3"):
+    usd = pool_million_tokens * agent_blend_cost(_MINIMAX_PRICES[basis_model])
+    if models is not None:
+        lower_models = [m.lower() for m in models]
+        prices = {k: v for k, v in _MINIMAX_PRICES.items() if any(k in m for m in lower_models)}
+    else:
+        prices = _MINIMAX_PRICES
+    return per_model_pool(usd, prices, basis="list-price-credit", confidence="low")
 
 def osint_meta(basis, source_url):
     """Provenance block for OSINT-derived task estimates."""
@@ -948,13 +1038,13 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Light coding assistance (~4.3M tokens/mo)",
                     **task_estimate(17),
-                "perModelTokenBudgets": _gpt_pool(4.25),
                     "assumptions": "Limited tasks: ~17 tasks/mo x the 250K-900K OSINT agent-task band (4.25M floor / 9.35M / 15.3M); $8 price commonly cited but the scraped page did not render USD amounts",
                     "estimateMeta": osint_meta(
                         "OpenAI Codex Go quota (17 tasks/mo research estimate)",
                         "https://openai.com/chatgpt/pricing/",
                     ),
                 },
+                "perModelTokenBudgets": _gpt_pool(4.25, models=["GPT-5.6 Luna", "GPT-5.6 Terra"]),
                 "notes": "Entry tier; ads possible",
             },
             {
@@ -968,13 +1058,13 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Expanded Codex (~20M tokens/mo)",
                     **task_estimate(80),
-                "perModelTokenBudgets": _gpt_pool(20, basis_model="gpt-6 astra"),
                     "assumptions": "Research estimate: ~80 tasks/mo x the 250K-900K OSINT agent-task band (20M floor / 44M / 72M); no official numeric task limits",
                     "estimateMeta": osint_meta(
                         "OpenAI Codex Plus quota (80 tasks/mo research estimate)",
                         "https://openai.com/chatgpt/pricing/",
                     ),
                 },
+                "perModelTokenBudgets": _gpt_pool(20, models=["GPT-6 Astra", "GPT-5.6 Sol", "GPT-5.6 Terra"], basis_model="gpt-6 astra"),
                 "notes": "More uploads/projects",
             },
             {
@@ -985,13 +1075,13 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "5x Plus (~100M tokens/mo)",
                     **scale_estimate(task_estimate(80), 5),
-                "perModelTokenBudgets": _gpt_pool(100, basis_model="gpt-6 astra"),
                     "assumptions": "5x the Plus research estimate (100M floor / 220M / 360M)",
                     "estimateMeta": osint_meta(
                         "OpenAI Codex Pro 5x (official 5x Plus multiplier x 80-task band)",
                         "https://openai.com/chatgpt/pricing/",
                     ),
                 },
+                "perModelTokenBudgets": _gpt_pool(100, models=["GPT-6 Astra", "GPT-5.6 Sol"], basis_model="gpt-6 astra"),
                 "notes": "Intermediate tier; price unconfirmed (JS-hidden on page)",
             },
             {
@@ -1011,6 +1101,7 @@ write_json(
                         "https://openai.com/chatgpt/pricing/",
                     ),
                 },
+                "perModelTokenBudgets": _gpt_pool(400, models=["GPT-6 Astra", "GPT-5.6 Sol Pro"], basis_model="gpt-6 astra"),
                 "notes": "Pro tier per official page; USD not rendered in scrape (commonly cited $200)",
             },
         ],
@@ -1064,6 +1155,7 @@ write_json(
                         "https://antigravity.google/pricing",
                     ),
                 },
+                "perModelTokenBudgets": _antigravity_pool(6.25, models=["Gemini 3.8 Flash", "Gemini 3.7 Flash", "Gemini 3.6 Flash", "Gemini 3.1 Pro", "Claude Sonnet 4.6", "Claude Opus 4.6", "gpt-oss-120b"]),
                 "notes": "Free tier; no purchased AI-credit overage",
             },
             {
@@ -1093,6 +1185,7 @@ write_json(
                         "https://antigravity.google/pricing",
                     ),
                 },
+                "perModelTokenBudgets": _antigravity_pool(75, models=["Gemini 3.8 Flash", "Gemini 3.7 Flash", "Gemini 3.6 Flash", "Gemini 3.1 Pro", "Claude Sonnet 4.6", "Claude Opus 4.6", "gpt-oss-120b"]),
                 "notes": "Includes purchased AI-credit overage above baseline quota",
             },
             {
@@ -1126,6 +1219,7 @@ write_json(
                         "basisModel": "Google AI Pro research estimate (75M floor x 250K-900K task band)",
                     },
                 },
+                "perModelTokenBudgets": _antigravity_pool(375, models=["Gemini 3.8 Flash", "Gemini 3.7 Flash", "Gemini 3.6 Flash", "Gemini 3.1 Pro", "Claude Sonnet 4.6", "Claude Opus 4.6", "gpt-oss-120b"]),
                 "notes": "Daily-driver tier; docs note access to third-party models (also available on non-Enterprise tiers)",
             },
             {
@@ -1159,6 +1253,7 @@ write_json(
                         "basisModel": "Google AI Pro research estimate (75M floor x 250K-900K task band)",
                     },
                 },
+                "perModelTokenBudgets": _antigravity_pool(1500, models=["Gemini 3.8 Flash", "Gemini 3.7 Flash", "Gemini 3.6 Flash", "Gemini 3.1 Pro", "Claude Sonnet 4.6", "Claude Opus 4.6", "gpt-oss-120b"]),
                 "notes": "Highest individual tier; supersedes the former $249.99 Ultra listing",
             },
             {
@@ -1219,6 +1314,7 @@ write_json(
                     "prompts": "10-50 prompts / 5h (official)",
                 },
                 "models": ["Muse Spark 1.3", "Llama 4 Scout"],
+                "perModelTokenBudgets": _muse_pool(5, ["Muse Spark 1.3", "Llama 4 Scout"]),
                 "estimatedTokenBudget": {
                     "description": "Light usage tier (~5M tokens/mo)",
                     "estimatedMillionTokens": 5,
@@ -1233,6 +1329,7 @@ write_json(
                     "prompts": "5x Everyday usage (official)",
                 },
                 "models": ["Muse Spark 1.3", "Llama 4 Scout", "Llama 4 Maverick"],
+                "perModelTokenBudgets": _muse_pool(25, ["Muse Spark 1.3", "Llama 4 Scout", "Llama 4 Maverick"]),
                 "estimatedTokenBudget": {
                     "description": "5x Everyday usage (~25M tokens/mo, official multiplier)",
                     "estimatedMillionTokens": 25,
@@ -1247,6 +1344,7 @@ write_json(
                     "prompts": "20x Everyday usage (official)",
                 },
                 "models": ["Muse Spark 1.3", "Llama 4 Maverick"],
+                "perModelTokenBudgets": _muse_pool(100, ["Muse Spark 1.3", "Llama 4 Maverick"]),
                 "estimatedTokenBudget": {
                     "description": "20x Everyday usage (~100M tokens/mo, official multiplier)",
                     "estimatedMillionTokens": 100,
@@ -1659,9 +1757,9 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Weekly-refreshed quota (~60M tokens/mo)",
                     "estimatedMillionTokens": 60,
-                    "perModelTokenBudgets": _kimi_pool(60),
                     "assumptions": "~300 req/window at kimi-k2.7-code rates ($0.19 cache/$0.95 input/$4.00 output; ~95% cache hit ~= $0.37/M blended) ~= 60M tokens/mo",
                 },
+                "perModelTokenBudgets": _kimi_pool(60, models=["Kimi K3", "K2.7 Code"]),
                 "notes": "Tiers named after musical terms; K3 has low/high/max thinking modes",
             },
             {
@@ -1676,9 +1774,9 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Higher weekly quota (~150M tokens/mo)",
                     "estimatedMillionTokens": 150,
-                    "perModelTokenBudgets": _kimi_pool(150),
                     "assumptions": "Research estimate scaled above Moderato; HighSpeed triples burn rate",
                 },
+                "perModelTokenBudgets": _kimi_pool(150, models=["Kimi K3", "K2.7 Code"]),
                 "notes": "Unlocks HighSpeed model and 1M context",
             },
             {
@@ -1693,9 +1791,9 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Expansive quota (~400M tokens/mo)",
                     "estimatedMillionTokens": 400,
-                    "perModelTokenBudgets": _kimi_pool(400),
                     "assumptions": "Research estimate; exact credit counts not officially published",
                 },
+                "perModelTokenBudgets": _kimi_pool(400, models=["Kimi K3", "K2.7 Code"]),
                 "notes": "Heavy daily agentic coding",
             },
             {
@@ -1710,9 +1808,9 @@ write_json(
                 "estimatedTokenBudget": {
                     "description": "Highest quota (~800M tokens/mo)",
                     "estimatedMillionTokens": 800,
-                    "perModelTokenBudgets": _kimi_pool(800),
                     "assumptions": "Research estimate; not officially published",
                 },
+                "perModelTokenBudgets": _kimi_pool(800, models=["Kimi K3", "K2.7 Code"]),
                 "notes": "Max tier",
             },
         ],
@@ -2525,6 +2623,7 @@ write_json(
                         "basisModel": "Claude Pro conservative estimate (12M)",
                     },
                 },
+                "perModelTokenBudgets": _byteplus_pool(36, models=["Dola-Seed-2.0-Pro", "Dola-Seed-2.0-Lite", "GLM-5.3-Flash", "Dola-Seed-2.0-Code", "DeepSeek-V4-Flash", "Kimi K2.5", "GPT-OSS-120b"]),
                 "notes": "Flexible model selection or Auto mode",
             },
             {
@@ -2548,6 +2647,7 @@ write_json(
                     "estimatedMillionTokens": 180,
                     "assumptions": "5x the Lite estimate (36M), consistent with the marketed 5x tier multiplier; exact credits unpublished",
                 },
+                "perModelTokenBudgets": _byteplus_pool(180, models=["Dola-Seed-2.0-Pro", "Dola-Seed-2.0-Lite", "GLM-5.3-Flash", "DeepSeek-V4-Pro", "Kimi K2.5", "GPT-OSS-120b"]),
                 "notes": "Model availability varies by country/region",
             },
         ],
@@ -2606,6 +2706,7 @@ write_json(
                         "cacheAssumption": "75% cache hit rate (plan example ran at ~83% cached)",
                     },
                 },
+                "perModelTokenBudgets": _alibaba_pool(45, models=["Qwen 3.7 Plus", "Qwen 3.6 Plus", "Kimi K2.5", "GLM-5", "MiniMax M2.5"]),
                 "notes": "Entry-level individual plan; credits reset every 7 days from first use",
             },
             {
@@ -2641,6 +2742,7 @@ write_json(
                         "cacheAssumption": "75% cache hit rate",
                     },
                 },
+                "perModelTokenBudgets": _alibaba_pool(101, models=["Qwen 3.7 Plus", "Qwen 3.6 Plus", "Kimi K2.5", "GLM-5", "MiniMax M2.5"]),
                 "notes": "Mid-entry individual tier added in the 2026 Token Plan refresh",
             },
             {
@@ -2676,6 +2778,7 @@ write_json(
                         "cacheAssumption": "75% cache hit rate",
                     },
                 },
+                "perModelTokenBudgets": _alibaba_pool(180, models=["Qwen 3.7 Plus", "Qwen 3.6 Plus", "Kimi K2.5", "GLM-5", "MiniMax M2.5"]),
                 "notes": "Mainstream plan for active coders; no pay-as-you-go overage (calls block)",
             },
             {
@@ -2711,6 +2814,7 @@ write_json(
                         "cacheAssumption": "75% cache hit rate",
                     },
                 },
+                "perModelTokenBudgets": _alibaba_pool(719, models=["Qwen 3.7 Plus", "Qwen 3.6 Plus", "Kimi K2.5", "GLM-5", "MiniMax M2.5"]),
                 "notes": "Power developer tier with highest concurrency",
             },
             {
@@ -2739,6 +2843,7 @@ write_json(
                         "cacheAssumption": "75% cache hit rate",
                     },
                 },
+                "perModelTokenBudgets": _alibaba_pool(105, models=["Qwen 3.7 Plus", "Qwen 3.6 Plus", "Kimi K2.5", "GLM-5"]),
                 "notes": "Team plan guarantees conversation data is not used for training",
             },
             {
@@ -2767,6 +2872,7 @@ write_json(
                         "cacheAssumption": "75% cache hit rate",
                     },
                 },
+                "perModelTokenBudgets": _alibaba_pool(419, models=["Qwen 3.7 Plus", "Qwen 3.6 Plus", "Kimi K2.5", "GLM-5"]),
                 "notes": "Higher team seat allowance",
             },
             {
@@ -2795,7 +2901,8 @@ write_json(
                         "cacheAssumption": "75% cache hit rate",
                     },
                 },
-                "notes": "Maximum team seat with dedicated capacity options",
+                "perModelTokenBudgets": _alibaba_pool(1048, models=["Qwen 3.7 Plus", "Qwen 3.6 Plus", "Kimi K2.5", "GLM-5"]),
+                "notes": "Maximum team capacity tier with dedicated capacity options",
             },
         ],
         "gotchas": [
@@ -2833,6 +2940,7 @@ write_json(
                     "agents": "3-4 concurrent agents",
                 },
                 "models": ["MiniMax M3", "M2.7"],
+                "perModelTokenBudgets": _minimax_pool(20, ["MiniMax M3", "M2.7"]),
                 "estimatedTokenBudget": {
                     "description": "5h + weekly windows (~20M tokens/mo est.)",
                     "estimatedMillionTokens": 20,
@@ -2848,6 +2956,7 @@ write_json(
                     "agents": "4-5 concurrent agents",
                 },
                 "models": ["MiniMax M3", "M2.7"],
+                "perModelTokenBudgets": _minimax_pool(65, ["MiniMax M3", "M2.7"]),
                 "estimatedTokenBudget": {
                     "description": "Higher windows (~65M tokens/mo est.)",
                     "estimatedMillionTokens": 65,
@@ -2863,6 +2972,7 @@ write_json(
                     "agents": "6-7 concurrent agents",
                 },
                 "models": ["MiniMax M3", "M2.7"],
+                "perModelTokenBudgets": _minimax_pool(160, ["MiniMax M3", "M2.7"]),
                 "estimatedTokenBudget": {
                     "description": "Highest windows (~160M tokens/mo est.)",
                     "estimatedMillionTokens": 160,
@@ -3428,13 +3538,13 @@ write_json(
                     "price": "$1.25/M input, $4.25/M output (official)",
                 },
                 "models": ["Muse Spark 1.3", "Muse Spark 1.2"],
-                "estimatedTokenBudget": {
-                    "description": "Standard PAYG ($20 buys ~10M list-blend / ~14M cached-agent tokens)",
-                    "estimatedMillionTokens": 10,
                 "perModelTokenBudgets": {
                     "muse spark 1.3": {"estimatedMillionTokens": 10, "basis": "equal-rate", "confidence": "high"},
                     "muse spark 1.2": {"estimatedMillionTokens": 10, "basis": "equal-rate", "confidence": "high"},
                 },
+                "estimatedTokenBudget": {
+                    "description": "Standard PAYG ($20 buys ~10M list-blend / ~14M cached-agent tokens)",
+                    "estimatedMillionTokens": 10,
                     "midpointEstimate": 12,
                     "optimisticEstimate": 14,
                     "assumptions": "$20 at official Standard pricing $1.25/M input, $4.25/M output: 10M on a 3:1 list blend, ~14M on the standard 20K-in/1K-out agent request (no cache price published)",

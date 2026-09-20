@@ -72,13 +72,13 @@ flowchart TD
    - Cached read discounts (`pricing.request_discount` or cached token pricing) and reasoning token rates are captured where published.
 3. **Blended Cost Formulas**:
    - **Legacy Chatbot Blended Cost (3:1)**:
-     $$\text{Blended Cost (\$/M)} = \frac{3 \times \text{Input Cost} + 1 \times \text{Output Cost}}{4}$$
+     $$\text{Blended Cost (USD/M)} = \frac{3 \times \text{Input Cost} + 1 \times \text{Output Cost}}{4}$$
    - **Token-Max Agentic Blended Cost (20:1 with Prompt Caching)**:
      Modern coding agents (Cursor, Claude Code, Cline, Copilot Edits) ingest substantial repository context (AST, file snippets, linter logs) for concise code diffs.
      We standardize on the **Token-Max Agent Request**: **20,000 input context tokens + 1,000 output completion tokens (21,000 total)** with a dynamic prompt cache hit rate ($H$):
      $$\text{Cost per Request} = \frac{20,000 \times (1 - H) \times P_{\text{in}} + 20,000 \times H \times P_{\text{cached}} + 1,000 \times P_{\text{out}}}{1,000,000}$$
-     $$\text{Agent Blended Cost (\$/M)} = \frac{\text{Cost per Request}}{21,000} \times 1,000,000$$
-     Where $H = 0.75$ by default (typical agent session), and $P_{\text{cached}}$ reflects provider-specific cache discount multipliers ($90\%$ off for Anthropic, DeepSeek, and Z.ai; $75\%$ off for Gemini; $50\%$ off for OpenAI).
+     $$\text{Agent Blended Cost (USD/M)} = \frac{\text{Cost per Request}}{21,000} \times 1,000,000$$
+     Where $H = 0.75$ by default (typical agent session), and $P_{\text{cached}}$ reflects provider-specific cache discount multipliers (90% off for Anthropic, DeepSeek, and Z.ai; 75% off for Gemini; 50% off for OpenAI).
      The agentic blend is the default for Budget token yields; the legacy 3:1 blend is
      reserved for chat-style comparisons. Measured real-world baselines (78K tokens/request,
      84% cache, 25:1–166:1 input:output) and the full OSINT audit live in
@@ -119,7 +119,7 @@ $$\text{Weighted Score} = \frac{0.50 \times \text{Coding} + 0.30 \times \text{Ag
 A coding index is required (models without one score 0 and are excluded from value rankings). Missing dimensions are penalized (×0.9 for one missing, ×0.75 for two) rather than renormalized away, so partially-measured models cannot leapfrog fully-measured ones.
 
 ### Quality-Per-Dollar ("Value Score") Formula
-$$\text{Value Score} = \frac{\text{Weighted Score}}{\text{Blended Cost (\$/M)}} \times 100$$
+$$\text{Value Score} = \frac{\text{Weighted Score}}{\text{Blended Cost (USD/M)}} \times 100$$
 The same score is persisted by `scripts/build-data.mjs`, recomputed in `src/lib/pricing.ts` (`computeValueScore`) and used by every page. Coding-quality thresholds come from a single `QUALITY` constant (`economy 40`, `value 50`, `workhorse 65`, `frontier 75`).
 
 ---

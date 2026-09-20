@@ -834,12 +834,29 @@ export function LabDecisionEngine({
                     </td>
                     <td className="px-3 py-3">
                       {opt.type === 'subscription' ? (
-                        <span
-                          className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-success/10 text-success border border-success/20"
-                          title="Normalized to budget — assumes plan capacity scales linearly with spend"
-                        >
-                          Subscription*
-                        </span>
+                        <div className="flex flex-col items-start gap-1">
+                          <span
+                            className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-success/10 text-success border border-success/20"
+                            title="Normalized to budget — assumes plan capacity scales linearly with spend"
+                          >
+                            Subscription*
+                          </span>
+                          {opt.isDedicatedDrain ? (
+                            <span
+                              className="inline-flex items-center px-1.5 py-0.5 text-[9px] font-bold rounded bg-primary/10 text-primary border border-primary/20"
+                              title={`Model-specific drain rate (${opt.drainBasis || 'per-model rate'})`}
+                            >
+                              Model Drain
+                            </span>
+                          ) : (
+                            <span
+                              className="inline-flex items-center px-1.5 py-0.5 text-[9px] font-medium rounded bg-surface-alt text-text-muted border border-border"
+                              title="Shared tier token pool across all models"
+                            >
+                              Shared Pool
+                            </span>
+                          )}
+                        </div>
                       ) : (
                         <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-primary/10 text-primary border border-primary/20">
                           Direct API

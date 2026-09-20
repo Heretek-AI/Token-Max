@@ -35,6 +35,43 @@
           "basisModel": "Claude Pro conservative estimate (12M)"
         }
       },
+      "perModelTokenBudgets": {
+        "dola-seed-2.0-pro": {
+          "estimatedMillionTokens": 36.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "dola-seed-2.0-lite": {
+          "estimatedMillionTokens": 126.51,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "glm-5.3-flash": {
+          "estimatedMillionTokens": 197.69,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "dola-seed-2.0-code": {
+          "estimatedMillionTokens": 45.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "deepseek-v4-flash": {
+          "estimatedMillionTokens": 124.94,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "kimi k2.5": {
+          "estimatedMillionTokens": 25.71,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gpt-oss-120b": {
+          "estimatedMillionTokens": 54.22,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "notes": "Flexible model selection or Auto mode"
     },
     {
@@ -62,6 +99,38 @@
           "sourceType": "research",
           "confidence": "low",
           "verifiedAt": "2026-09-19"
+        }
+      },
+      "perModelTokenBudgets": {
+        "dola-seed-2.0-pro": {
+          "estimatedMillionTokens": 180.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "dola-seed-2.0-lite": {
+          "estimatedMillionTokens": 632.55,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "glm-5.3-flash": {
+          "estimatedMillionTokens": 988.45,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "deepseek-v4-pro": {
+          "estimatedMillionTokens": 90.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "kimi k2.5": {
+          "estimatedMillionTokens": 128.57,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gpt-oss-120b": {
+          "estimatedMillionTokens": 271.09,
+          "basis": "list-price-credit",
+          "confidence": "medium"
         }
       },
       "notes": "Model availability varies by country/region"

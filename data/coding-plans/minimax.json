@@ -16,6 +16,18 @@
         "MiniMax M3",
         "M2.7"
       ],
+      "perModelTokenBudgets": {
+        "minimax m3": {
+          "estimatedMillionTokens": 20.0,
+          "basis": "list-price-credit",
+          "confidence": "low"
+        },
+        "m2.7": {
+          "estimatedMillionTokens": 30.0,
+          "basis": "list-price-credit",
+          "confidence": "low"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "5h + weekly windows (~20M tokens/mo est.)",
         "estimatedMillionTokens": 20,
@@ -40,6 +52,18 @@
         "MiniMax M3",
         "M2.7"
       ],
+      "perModelTokenBudgets": {
+        "minimax m3": {
+          "estimatedMillionTokens": 65.0,
+          "basis": "list-price-credit",
+          "confidence": "low"
+        },
+        "m2.7": {
+          "estimatedMillionTokens": 97.5,
+          "basis": "list-price-credit",
+          "confidence": "low"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "Higher windows (~65M tokens/mo est.)",
         "estimatedMillionTokens": 65,
@@ -64,6 +88,18 @@
         "MiniMax M3",
         "M2.7"
       ],
+      "perModelTokenBudgets": {
+        "minimax m3": {
+          "estimatedMillionTokens": 160.0,
+          "basis": "list-price-credit",
+          "confidence": "low"
+        },
+        "m2.7": {
+          "estimatedMillionTokens": 240.0,
+          "basis": "list-price-credit",
+          "confidence": "low"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "Highest windows (~160M tokens/mo est.)",
         "estimatedMillionTokens": 160,

@@ -430,6 +430,33 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
             </div>
           </div>
 
+          {/* Per-Model Included Allowances when perModelTokenBudgets exists */}
+          {currentTier.perModelTokenBudgets && Object.keys(currentTier.perModelTokenBudgets).length > 0 && (
+            <div className="mt-4 pt-3.5 border-t border-border/70 text-xs">
+              <div className="font-semibold text-text mb-2 flex items-center gap-1.5">
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span>Per-Model Native Capacity (If Used Exclusively):</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                {Object.entries(currentTier.perModelTokenBudgets).map(([mKey, bEntry]) => (
+                  <div key={mKey} className="bg-surface p-2.5 rounded-lg border border-border flex flex-col justify-between">
+                    <span className="font-medium text-text capitalize truncate" title={mKey}>
+                      {mKey}
+                    </span>
+                    <div className="flex items-baseline justify-between mt-1.5 pt-1.5 border-t border-border/40">
+                      <span className="font-bold text-primary font-mono text-xs">
+                        {formatMillionTokens(bEntry.estimatedMillionTokens)} tok
+                      </span>
+                      <span className="text-[10px] text-text-muted capitalize">
+                        {bEntry.basis?.replace(/-/g, ' ') ?? 'model rate'}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Methodology & Basis Breakdown */}
           {currentTier.estimatedTokenBudget && (
             <div className="mt-4 pt-3.5 border-t border-border/70 text-xs">

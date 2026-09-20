@@ -15,6 +15,18 @@
         "Muse Spark 1.3",
         "Llama 4 Scout"
       ],
+      "perModelTokenBudgets": {
+        "muse spark 1.3": {
+          "estimatedMillionTokens": 5.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "llama 4 scout": {
+          "estimatedMillionTokens": 30.51,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "Light usage tier (~5M tokens/mo)",
         "estimatedMillionTokens": 5,
@@ -39,6 +51,23 @@
         "Llama 4 Scout",
         "Llama 4 Maverick"
       ],
+      "perModelTokenBudgets": {
+        "muse spark 1.3": {
+          "estimatedMillionTokens": 25.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "llama 4 scout": {
+          "estimatedMillionTokens": 152.54,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "llama 4 maverick": {
+          "estimatedMillionTokens": 34.2,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "5x Everyday usage (~25M tokens/mo, official multiplier)",
         "estimatedMillionTokens": 25,
@@ -62,6 +91,18 @@
         "Muse Spark 1.3",
         "Llama 4 Maverick"
       ],
+      "perModelTokenBudgets": {
+        "muse spark 1.3": {
+          "estimatedMillionTokens": 100.0,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "llama 4 maverick": {
+          "estimatedMillionTokens": 136.78,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "20x Everyday usage (~100M tokens/mo, official multiplier)",
         "estimatedMillionTokens": 100,

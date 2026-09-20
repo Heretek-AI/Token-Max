@@ -89,6 +89,11 @@
           "estimatedMillionTokens": 120.0,
           "basis": "list-price-credit",
           "confidence": "low"
+        },
+        "claude fable 5.1": {
+          "estimatedMillionTokens": 6.96,
+          "basis": "list-price-credit",
+          "confidence": "low"
         }
       },
       "notes": "Higher output limits and priority access at peak times"
@@ -131,6 +136,11 @@
         },
         "claude haiku 4.5": {
           "estimatedMillionTokens": 480.0,
+          "basis": "list-price-credit",
+          "confidence": "low"
+        },
+        "claude fable 5.1": {
+          "estimatedMillionTokens": 27.86,
           "basis": "list-price-credit",
           "confidence": "low"
         }
