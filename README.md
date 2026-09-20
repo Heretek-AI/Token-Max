@@ -111,6 +111,7 @@ Comprehensive architectural documentation and agent instructions are provided in
 
 | Document | Description |
 | :--- | :--- |
+| [**`SOURCE.md`**](SOURCE.md) | Authoritative primary evidence index, official documentation links, stated quota limits, and token derivation evidence for all 33 coding plans and model providers. |
 | [**`AGENTS.md`**](AGENTS.md) | Universal guidelines for all AI coding agents working on this codebase (Claude Code, Gemini CLI, OpenCode, Codex, Aider, Windsurf). Details architecture invariants, schema enforcement, and prohibited antipatterns. |
 | [**`CLAUDE.md`**](CLAUDE.md) | Dedicated developer guide tailored for **Claude Code** and Anthropic AI CLI tools, including fast build/lint commands and model classification logic. |
 | [**`GEMINI.md`**](GEMINI.md) | Dedicated developer guide for **Google Antigravity** and Gemini CLI agents, including Codebase Knowledge Graph MCP tool conventions and verification rules. |

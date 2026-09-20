@@ -153,7 +153,7 @@ Every file must strictly validate against `data/coding-plans/_schema.json`:
 
 ### Complete Directory of Tracked Services
 
-All figures below were re-verified against official pages during the September 2026 audit; see [`docs/VERIFICATION.md`](VERIFICATION.md) for the per-provider source table, evidence and open items.
+All figures below were re-verified against official pages during the September 2026 audit; see [`SOURCE.md`](../SOURCE.md) for the exhaustive per-provider source directory, evidence quotes, and stated usage limits, and [`docs/VERIFICATION.md`](VERIFICATION.md) for the chronological audit log.
 
 #### A. Coding IDEs & Agentic Environments (14 Services)
 1. **Cursor** (`cursor.json`): [cursor.com/pricing](https://cursor.com/pricing) — Hobby ($0), Pro ($20), Pro Plus ($60), Ultra ($200). Pro+ and Ultra are officially **3x and 20x** Pro agent limits; pool sizes are unpublished and modelled at ~10M tokens (Pro) → 30M / 200M.
