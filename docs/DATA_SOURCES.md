@@ -39,6 +39,7 @@ flowchart TD
     subgraph Outputs["Public Static Data (public/data/)"]
         M["models.json (440+ models)"]
         P["plans.json (33 plans)"]
+        U["usage-limits.json (332 entries)"]
         L["last-updated.json"]
     end
 
@@ -50,7 +51,7 @@ flowchart TD
     TOS --> CP
     BD --> M
     BD --> P
-    BD --> B
+    BD --> U
     BD --> L
 ```
 

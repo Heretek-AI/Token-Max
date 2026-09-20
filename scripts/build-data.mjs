@@ -204,6 +204,164 @@ async function buildData() {
   await fs.writeFile(path.join(PUBLIC_DATA_DIR, 'plans.json'), JSON.stringify(plans, null, 2));
   console.log(`Wrote plans.json with ${plans.length} plans.`);
 
+  // 4. Build usage-limits.json (per provider, per tier, per model breakdown)
+  function resolveModelBudget(tier, modelKey) {
+    const tb = tier.estimatedTokenBudget;
+    const pmb = tier.perModelTokenBudgets ?? tb?.perModelTokenBudgets;
+    const fallback = {
+      tokens: tb?.estimatedMillionTokens ?? 0,
+      midpoint: tb?.midpointEstimate ?? tb?.estimatedMillionTokens ?? 0,
+      optimistic: tb?.optimisticEstimate ?? tb?.estimatedMillionTokens ?? 0,
+      basis: tb?.estimateMeta?.basisModel || 'tier-baseline',
+      confidence: tb?.estimateMeta?.confidence || 'medium',
+      isModelSpecific: false,
+    };
+    if (!modelKey || !pmb || Object.keys(pmb).length === 0) return fallback;
+
+    const normModel = modelKey.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const variants = ['flash', 'mini', 'nano', 'micro', 'lite', 'small'];
+    const keys = Object.keys(pmb).sort((a, b) => b.length - a.length);
+
+    const matchedKey = keys.find(k => {
+      const normKey = k.toLowerCase().replace(/[^a-z0-9]/g, '');
+      if (normKey.length < 2) return false;
+      for (const v of variants) {
+        const keyHasVariant = normKey.includes(v);
+        const targetHasVariant = normModel.length >= 2 && normModel.includes(v);
+        if (keyHasVariant !== targetHasVariant) return false;
+      }
+      return normModel.length >= 2 && (normModel.includes(normKey) || normKey.includes(normModel));
+    });
+
+    if (!matchedKey) return fallback;
+    const entry = pmb[matchedKey];
+    return {
+      tokens: entry.estimatedMillionTokens,
+      midpoint: entry.midpointEstimate ?? entry.estimatedMillionTokens,
+      optimistic: entry.optimisticEstimate ?? entry.estimatedMillionTokens,
+      basis: entry.basis ?? 'per-model',
+      confidence: entry.confidence ?? fallback.confidence,
+      isModelSpecific: true,
+    };
+  }
+
+  const usageLimitEntries = [];
+  const structuredProviders = [];
+  let totalTiersCount = 0;
+
+  for (const plan of plans) {
+    const providerObj = {
+      id: plan.id,
+      name: plan.name,
+      category: plan.category,
+      url: plan.url,
+      lastVerified: plan.lastVerified,
+      stackingPolicy: plan.stackingPolicy ?? 'unknown',
+      stackingPolicyNote: plan.stackingPolicyNote,
+      tiers: [],
+    };
+
+    for (const tier of plan.tiers || []) {
+      totalTiersCount++;
+      const tb = tier.estimatedTokenBudget;
+      const tierObj = {
+        name: tier.name,
+        monthlyPrice: tier.monthlyPrice ?? null,
+        annualPrice: tier.annualPrice ?? null,
+        limits: tier.limits || {},
+        defaultTokenBudget: {
+          estimatedMillionTokens: tb?.estimatedMillionTokens ?? 0,
+          midpointEstimate: tb?.midpointEstimate ?? null,
+          optimisticEstimate: tb?.optimisticEstimate ?? null,
+          description: tb?.description ?? '',
+          assumptions: tb?.assumptions ?? '',
+          sourceType: tb?.estimateMeta?.sourceType ?? 'official',
+          confidence: tb?.estimateMeta?.confidence ?? 'medium',
+          sourceUrl: tb?.estimateMeta?.sourceUrl ?? plan.url,
+          sourceQuote: tb?.estimateMeta?.sourceQuote ?? '',
+          basisModel: tb?.estimateMeta?.basisModel ?? 'default',
+        },
+        models: [],
+      };
+
+      for (const modelKey of tier.models || []) {
+        const resolved = resolveModelBudget(tier, modelKey);
+        const monthlyTokens = Math.round(resolved.tokens * 1e6);
+        const normalized21kTurns = Math.round(monthlyTokens / agentRequestTokens);
+        const agentTasks = {
+          small250k: Math.floor(monthlyTokens / 250000),
+          medium550k: Math.floor(monthlyTokens / 550000),
+          large900k: Math.floor(monthlyTokens / 900000),
+        };
+
+        const modelEntry = {
+          modelKey,
+          estimatedMillionTokens: resolved.tokens,
+          midpointEstimate: resolved.midpoint,
+          optimisticEstimate: resolved.optimistic,
+          confidence: resolved.confidence,
+          basis: resolved.basis,
+          isModelSpecific: resolved.isModelSpecific,
+          computedUsageLimits: {
+            monthlyTokens,
+            normalized21kTurns,
+            agentTasks,
+          },
+        };
+        tierObj.models.push(modelEntry);
+
+        usageLimitEntries.push({
+          providerId: plan.id,
+          providerName: plan.name,
+          category: plan.category,
+          tierName: tier.name,
+          monthlyPrice: tier.monthlyPrice ?? null,
+          annualPrice: tier.annualPrice ?? null,
+          modelKey,
+          estimatedMillionTokens: resolved.tokens,
+          midpointEstimate: resolved.midpoint,
+          optimisticEstimate: resolved.optimistic,
+          confidence: resolved.confidence,
+          basis: resolved.basis,
+          isModelSpecific: resolved.isModelSpecific,
+          monthlyTokens,
+          normalized21kTurns,
+          agentTasks,
+          tierLimits: tier.limits || {},
+          sourceUrl: tb?.estimateMeta?.sourceUrl || plan.url,
+        });
+      }
+
+      providerObj.tiers.push(tierObj);
+    }
+
+    structuredProviders.push(providerObj);
+  }
+
+  const usageLimitsPayload = {
+    schemaVersion: '1.0.0',
+    generatedAt: new Date().toISOString(),
+    constants: {
+      agentTurnTokens: agentRequestTokens,
+      defaultCacheRate: cacheRate,
+      agentTaskTokens: {
+        small: 250000,
+        medium: 550000,
+        large: 900000,
+      },
+    },
+    summary: {
+      totalProviders: plans.length,
+      totalTiers: totalTiersCount,
+      totalModelLimitEntries: usageLimitEntries.length,
+    },
+    providers: structuredProviders,
+    entries: usageLimitEntries,
+  };
+
+  await fs.writeFile(path.join(PUBLIC_DATA_DIR, 'usage-limits.json'), JSON.stringify(usageLimitsPayload, null, 2));
+  console.log(`Wrote usage-limits.json with ${usageLimitEntries.length} model limit entries across ${plans.length} providers.`);
+
   // 5. Last updated
   await fs.writeFile(path.join(PUBLIC_DATA_DIR, 'last-updated.json'), JSON.stringify({
     timestamp: new Date().toISOString()

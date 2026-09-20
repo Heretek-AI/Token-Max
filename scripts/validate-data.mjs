@@ -4,6 +4,7 @@ import path from 'path';
 const PLANS_DIR = path.join(process.cwd(), 'data/coding-plans');
 const PUBLIC_PLANS = path.join(process.cwd(), 'public/data/plans.json');
 const PUBLIC_MODELS = path.join(process.cwd(), 'public/data/models.json');
+const PUBLIC_USAGE_LIMITS = path.join(process.cwd(), 'public/data/usage-limits.json');
 
 const CATEGORIES = new Set(['coding-ide', 'coding-router', 'api-provider']);
 const STACKING_POLICIES = new Set(['allowed', 'silent', 'prohibited', 'unknown']);
@@ -227,6 +228,83 @@ async function validateModels(models) {
   console.log(`Checked ${models.length} models across ${groups.size} series for cap/age invariants.`);
 }
 
+function validateUsageLimits(usageLimits, plans) {
+  const where = 'public/data/usage-limits.json';
+  if (!usageLimits || typeof usageLimits !== 'object') {
+    err(`${where}: not an object`);
+    return;
+  }
+  if (usageLimits.schemaVersion !== '1.0.0') {
+    err(`${where}: invalid schemaVersion "${usageLimits.schemaVersion}" (expected "1.0.0")`);
+  }
+  if (!usageLimits.summary || typeof usageLimits.summary !== 'object') {
+    err(`${where}: missing summary object`);
+  } else {
+    if (usageLimits.summary.totalProviders !== plans.size) {
+      err(`${where}: summary.totalProviders (${usageLimits.summary.totalProviders}) does not match plans count (${plans.size})`);
+    }
+    if (usageLimits.summary.totalModelLimitEntries !== usageLimits.entries?.length) {
+      err(`${where}: summary.totalModelLimitEntries (${usageLimits.summary.totalModelLimitEntries}) does not match entries count (${usageLimits.entries?.length})`);
+    }
+  }
+
+  if (!Array.isArray(usageLimits.providers) || usageLimits.providers.length !== plans.size) {
+    err(`${where}: providers array length (${usageLimits.providers?.length}) does not match plans count (${plans.size})`);
+  }
+
+  const providerMap = new Map((usageLimits.providers || []).map(p => [p.id, p]));
+  for (const [id, plan] of plans.entries()) {
+    const p = providerMap.get(id);
+    if (!p) {
+      err(`${where}: missing provider "${id}"`);
+      continue;
+    }
+    if (p.tiers?.length !== plan.tiers.length) {
+      err(`${where}: provider "${id}" tier count (${p.tiers?.length}) does not match plan (${plan.tiers.length})`);
+    }
+    for (const tier of plan.tiers) {
+      const t = p.tiers?.find(x => x.name === tier.name);
+      if (!t) {
+        err(`${where}: provider "${id}" missing tier "${tier.name}"`);
+        continue;
+      }
+      for (const modelKey of tier.models || []) {
+        const m = t.models?.find(x => x.modelKey === modelKey);
+        if (!m) {
+          err(`${where}: [${id}/${tier.name}] missing model entry for "${modelKey}"`);
+          continue;
+        }
+        if (!Number.isFinite(m.estimatedMillionTokens) || m.estimatedMillionTokens < 0) {
+          err(`${where}: [${id}/${tier.name}/${modelKey}] invalid estimatedMillionTokens: ${m.estimatedMillionTokens}`);
+        }
+        const limits = m.computedUsageLimits;
+        if (!limits || !Number.isFinite(limits.monthlyTokens) || limits.monthlyTokens < 0) {
+          err(`${where}: [${id}/${tier.name}/${modelKey}] invalid computed monthlyTokens: ${limits?.monthlyTokens}`);
+        }
+        if (!Number.isFinite(limits.normalized21kTurns) || limits.normalized21kTurns < 0) {
+          err(`${where}: [${id}/${tier.name}/${modelKey}] invalid computed normalized21kTurns: ${limits?.normalized21kTurns}`);
+        }
+      }
+    }
+  }
+
+  if (Array.isArray(usageLimits.entries)) {
+    for (const entry of usageLimits.entries) {
+      if (!plans.has(entry.providerId)) {
+        err(`${where} [entries]: unknown providerId "${entry.providerId}"`);
+      }
+      if (!Number.isFinite(entry.monthlyTokens) || entry.monthlyTokens < 0) {
+        err(`${where} [entries]: invalid monthlyTokens for ${entry.providerId}/${entry.tierName}/${entry.modelKey}`);
+      }
+      if (!Number.isFinite(entry.normalized21kTurns) || entry.normalized21kTurns < 0) {
+        err(`${where} [entries]: invalid normalized21kTurns for ${entry.providerId}/${entry.tierName}/${entry.modelKey}`);
+      }
+    }
+  }
+
+  console.log(`Validated usage-limits.json: ${usageLimits.summary?.totalModelLimitEntries} entries across ${plans.size} providers.`);
+}
+
 async function main() {
   let files = [];
   try {
@@ -277,6 +355,15 @@ async function main() {
         err(`public/data/plans.json: "${p.id}" differs from data/coding-plans/${p.id}.json — run npm run build-data`);
       }
     }
+  }
+
+  // Cross-check public/data/usage-limits.json
+  try {
+    const rawUsage = await fs.readFile(PUBLIC_USAGE_LIMITS, 'utf-8');
+    const parsedUsage = JSON.parse(rawUsage);
+    validateUsageLimits(parsedUsage, plans);
+  } catch (e) {
+    err(`public/data/usage-limits.json: cannot read or parse: ${e.message}`);
   }
 
   // Model catalog regression checks: series cap + 365-day age window.

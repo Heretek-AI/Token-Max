@@ -149,6 +149,17 @@ flowchart LR
 - **Daily Refresh**: GitHub Actions cron (`.github/workflows/update-data.yml`) updates pricing and benchmarks daily at 06:00 UTC.
 - **Static Hosting**: Deployed directly on GitHub Pages with zero runtime backend dependency.
 
+### 🌐 Published Machine-Readable Datasets
+
+As part of the continuous deployment workflow to GitHub Pages, Token-Max automatically compiles and publishes static, structured JSON files for external tools, CLI scripts, and researchers:
+
+- **Usage Limits Dataset**: [`https://heretek-ai.github.io/Token-Max/data/usage-limits.json`](https://heretek-ai.github.io/Token-Max/data/usage-limits.json)
+  - Normalized token and request limit usages broken down per provider, tier, and supported model.
+  - Includes empirical agent task capacity (small 250K, medium 550K, complex 900K turns), basis formulas, and source links.
+- **Curated Plans Dataset**: [`https://heretek-ai.github.io/Token-Max/data/plans.json`](https://heretek-ai.github.io/Token-Max/data/plans.json)
+- **Foundation Models Catalog**: [`https://heretek-ai.github.io/Token-Max/data/models.json`](https://heretek-ai.github.io/Token-Max/data/models.json)
+- **Data Freshness Timestamp**: [`https://heretek-ai.github.io/Token-Max/data/last-updated.json`](https://heretek-ai.github.io/Token-Max/data/last-updated.json)
+
 ---
 
 ## 💻 Local Development
