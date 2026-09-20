@@ -13,6 +13,8 @@ import {
   calculateTimeBlendedCost,
   calculatePoolDrain,
   getEffectiveCacheMultiplier,
+  parseTierRequestLimit,
+  tierRawRequests,
 } from './pricing';
 import type { CodingPlan, NormalizedModel, PlanTier, StackCandidate } from './types';
 
@@ -573,6 +575,110 @@ describe('Adversarial Edge Cases & Guardrails', () => {
     expect(result.isCapped).toBe(false);
     expect(result.overageCost).toBe(0);
     expect(result.poolUtilizedPercent).toBe(100);
+  });
+
+  it('parseTierRequestLimit parses human-readable limits accurately', () => {
+    expect(parseTierRequestLimit({ requests: '24,000/month' })).toBe(24000);
+    expect(parseTierRequestLimit({ requests: '≈1,900 requests/5h, 12,000/week, 24,000/month' })).toBe(24000);
+    expect(parseTierRequestLimit({ requests: '5x Lite quotas (≈9,500/5h, 60,000/week, 120,000/month)' })).toBe(120000);
+    expect(parseTierRequestLimit({ requests: '~15K mix estimate (~26K with DeepSeek V4 Flash at typical cache)' })).toBe(15000);
+    expect(parseTierRequestLimit({ requests: '~100K mix estimate' })).toBe(100000);
+    expect(parseTierRequestLimit({ agenticRequests: '50 agentic requests/mo (chat + agentic coding)' })).toBe(50);
+    expect(parseTierRequestLimit({ requests: '1,000 requests per 7-day sliding window' })).toBe(4000);
+    expect(parseTierRequestLimit({ fastRequests: 500 })).toBe(500);
+    // Ignores pure dollar credit strings
+    expect(parseTierRequestLimit({ monthlyCredits: '$10/mo compute credits' })).toBe(null);
+  });
+
+  it('tierRawRequests honors parsed request limits over token budget when baseline matches', () => {
+    const testTier = tier({
+      limits: { requests: '~15K mix estimate' },
+      estimatedTokenBudget: { estimatedMillionTokens: 4.2, assumptions: 'conservative' },
+    });
+    // With 4.2M tokens, 4.2M / 21K is ~200 requests. But published limit is 15K!
+    expect(tierRawRequests(testTier)).toBe(15000);
+  });
+
+  it('computeApplesToApples clamps non-stackable prohibited plans to single seat when budget exceeds price', () => {
+    const prohibitedPlan = plan({
+      id: 'cursor-test',
+      name: 'Cursor',
+      stackingPolicy: 'prohibited',
+      stackingPolicyNote: 'Terms prohibit multi-accounting',
+      tiers: [
+        tier({
+          name: 'Pro',
+          monthlyPrice: 20,
+          models: ['Claude Sonnet 5'],
+          estimatedTokenBudget: { estimatedMillionTokens: 10, assumptions: 'test' },
+        }),
+      ],
+    });
+    const sonnetModel = model({
+      id: 'anthropic/claude-sonnet-5',
+      name: 'Claude Sonnet 5',
+      benchmarks: { codingIndex: 85, intelligenceIndex: null, agenticIndex: null, valueScore: null },
+    });
+
+    // User has $40 budget, but plan is $20 and prohibited from stacking
+    const result = computeApplesToApples([sonnetModel], [prohibitedPlan], 'all', 40, 0, 0.75);
+    const subOption = result.options.find(o => o.type === 'subscription');
+    expect(subOption).toBeDefined();
+    expect(subOption!.isCapped).toBe(true);
+    expect(subOption!.unspentBudget).toBe(20); // $40 - $20 = $20 unspent
+    expect(subOption!.monthlyTokens).toBe(10); // Capped at single-seat 10M, not 20M!
+    expect(subOption!.notes).toContain('Single-seat cap');
+  });
+
+  it('calculatePoolDrain handles partitioned sub-pools without cross-pool depletion (CommandCode Max)', () => {
+    const maxTier = tier({
+      name: 'Max 10x',
+      monthlyPrice: 100,
+      limits: {
+        standardPool: '$150/mo standard model usage limit',
+        premiumPool: '$100/mo premium model usage limit',
+      },
+      modelAllowances: { standard: 150, premium: 100 },
+      models: ['Claude Sonnet 5', 'DeepSeek V4-Pro'],
+    });
+    const maxPlan = plan({ id: 'commandcode', name: 'CommandCode', tiers: [maxTier] });
+    const workload = [
+      { modelId: 'claude-sonnet-5', modelName: 'Claude Sonnet 5', share: 0.4, tokensMillion: 50, costPpu: 100 }, // exactly fills $100 premium pool
+      { modelId: 'deepseek-v4-pro', modelName: 'DeepSeek V4-Pro', share: 0.6, tokensMillion: 500, costPpu: 150 }, // exactly fills $150 standard pool
+    ];
+
+    const result = calculatePoolDrain(maxPlan, maxTier, workload);
+    expect(result.coverageType).toBe('full');
+    expect(result.isCapped).toBe(false);
+    expect(result.overageCost).toBe(0);
+    expect(result.coveredDirectCost).toBe(250); // $100 premium + $150 standard covered!
+  });
+
+  it('calculatePoolDrain handles independent per-model allowances (OpenCode Go)', () => {
+    const goTier = tier({
+      name: 'Go',
+      monthlyPrice: 10,
+      limits: {
+        monthlyCap: '100% of monthly allowance ($60 / $30 / $15)',
+      },
+      modelAllowances: { 'tier-60': 60, 'tier-30': 30, 'tier-15': 15 },
+      perModelTokenBudgets: {
+        'kimi k3': { estimatedMillionTokens: 7.85, basis: 'list-price-credit' },
+        'glm-5.2': { estimatedMillionTokens: 70.29, basis: 'list-price-credit' },
+      },
+      models: ['Kimi K3', 'GLM-5.2'],
+    });
+    const goPlan = plan({ id: 'opencode', name: 'OpenCode', tiers: [goTier] });
+    const workload = [
+      { modelId: 'kimi-k3', modelName: 'Kimi K3', share: 0.2, tokensMillion: 5, costPpu: 15 }, // fills $15 allowance
+      { modelId: 'glm-5.2', modelName: 'GLM-5.2', share: 0.8, tokensMillion: 50, costPpu: 60 }, // fills $60 allowance
+    ];
+
+    const result = calculatePoolDrain(goPlan, goTier, workload);
+    expect(result.coverageType).toBe('full');
+    expect(result.isCapped).toBe(false);
+    expect(result.overageCost).toBe(0);
+    expect(result.coveredDirectCost).toBe(75); // $15 + $60 = $75 covered independently!
   });
 });
 

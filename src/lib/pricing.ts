@@ -408,12 +408,21 @@ export function computeApplesToApples(
       const rawRequests = tierRawRequests(tier, baseTokens);
       const tokensPerDollar = baseTokens / tier.monthlyPrice;
       const requestsPerDollar = rawRequests / tier.monthlyPrice;
-      const normalizedTokens = tokensPerDollar * budget;
-      const normalizedRequests = Math.round(requestsPerDollar * budget);
+
+      const isProhibited = plan.stackingPolicy === 'prohibited';
+      const isOverBudget = budget > tier.monthlyPrice;
+      const isCapped = isProhibited && isOverBudget;
+
+      const unspentBudget = isCapped ? budget - tier.monthlyPrice : 0;
+      const normalizedTokens = isCapped ? baseTokens : tokensPerDollar * budget;
+      const normalizedRequests = isCapped ? rawRequests : Math.round(requestsPerDollar * budget);
       const isDedicatedDrain = Boolean(resolved.basis);
       const poolBasisNote = resolved.basis
         ? ` · ${resolved.basis} yield assuming all quota drained exclusively on ${model.name}`
         : null;
+      const capNote = isCapped
+        ? ` · Single-seat cap (TOS prohibits multi-accounting; $${unspentBudget.toFixed(0)} unspent budget)`
+        : '';
 
       subscriptionOptions.push({
         id: `${plan.id}-${tier.name}-${model.id}`,
@@ -433,10 +442,13 @@ export function computeApplesToApples(
         rawMonthlyRequests: rawRequests,
         isDedicatedDrain,
         drainBasis: resolved.basis,
+        isCapped,
+        unspentBudget: isCapped ? unspentBudget : undefined,
+        stackingPolicy: plan.stackingPolicy,
         codingIndex: model.benchmarks?.codingIndex ?? null,
         intelligenceIndex: model.benchmarks?.intelligenceIndex ?? null,
         costPer1kRequests: (tier.monthlyPrice / (rawRequests || 1)) * 1000,
-        notes: (tier.estimatedTokenBudget?.description || `Included in ${tier.name} tier`) + (poolBasisNote ?? ''),
+        notes: (tier.estimatedTokenBudget?.description || `Included in ${tier.name} tier`) + (poolBasisNote ?? '') + capNote,
         url: plan.url,
         yieldBasis: 'normalized',
       });
@@ -456,8 +468,17 @@ export function computeApplesToApples(
         const rawRequests = tierRawRequests(tier);
         const tokensPerDollar = baseTokens / tier.monthlyPrice;
         const requestsPerDollar = rawRequests / tier.monthlyPrice;
-        const normalizedTokens = tokensPerDollar * budget;
-        const normalizedRequests = Math.round(requestsPerDollar * budget);
+
+        const isProhibited = plan.stackingPolicy === 'prohibited';
+        const isOverBudget = budget > tier.monthlyPrice;
+        const isCapped = isProhibited && isOverBudget;
+
+        const unspentBudget = isCapped ? budget - tier.monthlyPrice : 0;
+        const normalizedTokens = isCapped ? baseTokens : tokensPerDollar * budget;
+        const normalizedRequests = isCapped ? rawRequests : Math.round(requestsPerDollar * budget);
+        const capNote = isCapped
+          ? ` · Single-seat cap (TOS prohibits multi-accounting; $${unspentBudget.toFixed(0)} unspent budget)`
+          : '';
 
         subscriptionOptions.push({
           id: `${plan.id}-${tier.name}`,
@@ -474,10 +495,13 @@ export function computeApplesToApples(
           monthlyRequests: normalizedRequests,
           rawMonthlyTokens: baseTokens,
           rawMonthlyRequests: rawRequests,
+          isCapped,
+          unspentBudget: isCapped ? unspentBudget : undefined,
+          stackingPolicy: plan.stackingPolicy,
           codingIndex: null,
           intelligenceIndex: null,
           costPer1kRequests: (tier.monthlyPrice / (rawRequests || 1)) * 1000,
-          notes: tier.estimatedTokenBudget?.description || `Includes ${tier.models?.slice(0, 2).join(', ')}`,
+          notes: (tier.estimatedTokenBudget?.description || `Includes ${tier.models?.slice(0, 2).join(', ')}`) + capNote,
           url: plan.url,
           yieldBasis: 'normalized',
         });
@@ -593,17 +617,72 @@ const EXCLUDED_STACK_PATTERNS = [
 ];
 
 /**
- * Monthly agent-request estimate for a tier. Vendor request caps are stored as
- * human-readable strings, so only numeric fastRequests are honored; otherwise
- * we derive requests from the token budget at the standard 21K request size.
- * Credits (Z.ai, Alibaba, etc.) are consumed per token and are NOT requests.
+ * Parses numeric request counts from limit fields or limit description strings.
+ * Vendor request caps are stored as human-readable strings (e.g. "24,000/month",
+ * "~15K mix estimate", "50 agentic requests/mo", "12,000/week").
+ * Explicitly ignores monetary amounts ($) and token/credit values.
  */
-function tierRawRequests(tier: PlanTier, baseTokens?: number): number {
-  const fastRequests = tier.limits?.fastRequests;
-  if (typeof fastRequests === 'number') {
-    return fastRequests;
+export function parseTierRequestLimit(limits?: Record<string, unknown>): number | null {
+  if (!limits) return null;
+
+  for (const key of ['fastRequests', 'requests', 'agenticRequests']) {
+    const val = limits[key];
+    if (typeof val === 'number' && Number.isFinite(val) && val > 0) {
+      return val;
+    }
+    if (typeof val === 'string') {
+      if (val.includes('$') && !/requests?/i.test(val)) continue;
+
+      // 1. Explicit monthly requests: e.g. "24,000/month", "120,000/month", "50 agentic requests/mo", "Up to 31,580/mo"
+      const monthMatch = val.match(/(?:≈|~)?\s*([0-9]+(?:,[0-9]+)*(?:\.[0-9]+)?)\s*(?:agentic\s*)?requests?\s*(?:\/|\s*per\s*)\s*(?:mo|month)/i) ||
+                         val.match(/([0-9]+(?:,[0-9]+)*)\s*\/\s*month/i) ||
+                         val.match(/up to\s+([0-9]+(?:,[0-9]+)*)\s*\/\s*mo/i);
+      if (monthMatch) {
+        return Math.round(parseFloat(monthMatch[1].replace(/,/g, '')));
+      }
+
+      // 2. K-notation mix/estimate: e.g. "~15K mix estimate", "~100K mix estimate"
+      const kMixMatch = val.match(/(?:≈|~)?\s*([0-9]+(?:\.[0-9]+)?)\s*k\s*(?:mix|estimate|requests?)/i);
+      if (kMixMatch) {
+        return Math.round(parseFloat(kMixMatch[1]) * 1000);
+      }
+
+      // 3. Weekly requests scaled x4: e.g. "12,000/week", "1,000 requests per 7-day"
+      const weekMatch = val.match(/(?:≈|~)?\s*([0-9]+(?:,[0-9]+)*(?:\.[0-9]+)?)\s*(?:agentic\s*)?requests?\s*(?:\/|\s*per\s*)\s*(?:week|7-day)/i) ||
+                        val.match(/([0-9]+(?:,[0-9]+)*)\s*\/\s*week/i);
+      if (weekMatch) {
+        return Math.round(parseFloat(weekMatch[1].replace(/,/g, '')) * 4);
+      }
+
+      // 4. Simple leading count: e.g. "50 agentic requests/mo", "50 requests"
+      const simpleMatch = val.match(/^([0-9]+(?:,[0-9]+)*)\s*(?:agentic\s*)?requests?/i);
+      if (simpleMatch) {
+        return Math.round(parseFloat(simpleMatch[1].replace(/,/g, '')));
+      }
+    }
   }
-  const monthlyTokens = baseTokens ?? (tier.estimatedTokenBudget?.estimatedMillionTokens || 0);
+  return null;
+}
+
+/**
+ * Monthly agent-request estimate for a tier.
+ * If a model-specific token yield was resolved that differs from the tier baseline,
+ * requests are derived from that model's token yield at the standard 21K request size.
+ * Otherwise, checks if the vendor published an explicit request limit (numeric or parsed string).
+ * Falls back to deriving requests from monthly tokens at standard 21K request size.
+ */
+export function tierRawRequests(tier: PlanTier, baseTokens?: number): number {
+  const tierBaselineTokens = tier.estimatedTokenBudget?.estimatedMillionTokens || 0;
+  if (baseTokens != null && baseTokens > 0 && Math.abs(baseTokens - tierBaselineTokens) > 0.001) {
+    return Math.round((baseTokens * 1_000_000) / STANDARD_AGENT_REQUEST_TOKENS);
+  }
+
+  const parsed = parseTierRequestLimit(tier.limits);
+  if (parsed !== null && parsed > 0) {
+    return parsed;
+  }
+
+  const monthlyTokens = baseTokens ?? tierBaselineTokens;
   return Math.round((monthlyTokens * 1_000_000) / STANDARD_AGENT_REQUEST_TOKENS);
 }
 
@@ -927,6 +1006,19 @@ export function calculatePoolDrain(
     return true;
   };
 
+  // Determine Pool Architecture:
+  // 1. Partitioned Sub-Pools (CommandCode Max 10x/20x with standard + premium pools)
+  // 2. Independent Model Allowances (OpenCode Go where each model has its own independent monthly allowance)
+  // 3. Shared Global Dollar Pool with Per-Model Caps (CommandCode GOAT/Pro with monthlyCredits pool and modelAllowances caps)
+  // 4. Standard Unified Pool (Cursor, Windsurf, Claude Code, Augment, Ollama - single proportional capacity)
+  const isCommandCodeMax = Boolean(
+    tier.limits?.standardPool && tier.limits?.premiumPool
+  );
+  const isOpenCodeGo = plan.id === 'opencode' && (tier.name.includes('Go') || Boolean(tier.modelAllowances && tier.modelAllowances['tier-60']));
+  const isCommandCodeCappedPool = Boolean(
+    tier.limits?.monthlyCredits && tier.modelAllowances && !isCommandCodeMax && !isOpenCodeGo
+  );
+
   // Greedy knapsack sorting:
   // Supported models are processed first, sorted by highest unit cost ($/M) to maximize absorbed value.
   // Unsupported models are placed last and spill directly into overage.
@@ -939,66 +1031,191 @@ export function calculatePoolDrain(
     return bRate - aRate;
   });
 
-  let remainingPoolFraction = 1.0;
-  let totalFractionConsumed = 0;
   const rows: PoolDrainRow[] = [];
   let supportedCount = 0;
 
-  for (const item of sortedWorkload) {
-    const supported = isItemSupported(item);
-    if (supported) supportedCount++;
+  if (isCommandCodeMax) {
+    // Partitioned Standard vs Premium Pools
+    const standardCap = tier.modelAllowances?.standard ?? (tier.name.includes('20x') ? 300 : 150);
+    const premiumCap = tier.modelAllowances?.premium ?? (tier.name.includes('20x') ? 200 : 100);
+    let remainingStandard = standardCap;
+    let remainingPremium = premiumCap;
 
-    let allowance = 0;
-    if (supported) {
-      if (tier.modelAllowances) {
-        const matchKey = Object.keys(tier.modelAllowances).find(k =>
+    for (const item of sortedWorkload) {
+      const supported = isItemSupported(item);
+      if (supported) supportedCount++;
+
+      const isPremium = item.modelId.toLowerCase().includes('claude') ||
+                        item.modelId.toLowerCase().includes('opus') ||
+                        item.modelId.toLowerCase().includes('sonnet') ||
+                        item.modelId.toLowerCase().includes('fable') ||
+                        item.modelName.toLowerCase().includes('claude') ||
+                        item.modelName.toLowerCase().includes('opus') ||
+                        item.modelName.toLowerCase().includes('sonnet');
+
+      const poolCap = isPremium ? premiumCap : standardCap;
+      let coveredCost = 0;
+      let fraction = 0;
+
+      if (supported) {
+        const available = isPremium ? remainingPremium : remainingStandard;
+        coveredCost = Math.min(item.costPpu, available);
+        fraction = poolCap > 0 ? item.costPpu / poolCap : 0;
+        if (isPremium) {
+          remainingPremium = Math.max(0, remainingPremium - coveredCost);
+        } else {
+          remainingStandard = Math.max(0, remainingStandard - coveredCost);
+        }
+      }
+
+      const overageCost = Math.max(0, item.costPpu - coveredCost);
+      rows.push({
+        modelName: item.modelName,
+        share: item.share,
+        costPpu: item.costPpu,
+        effectiveAllowance: poolCap,
+        fractionConsumed: fraction,
+        coveredCost,
+        overageCost,
+        isSupported: supported,
+      });
+    }
+  } else if (isOpenCodeGo) {
+    // Independent Per-Model Monthly Allowances: each model has its own allowance that drains independently
+    for (const item of sortedWorkload) {
+      const supported = isItemSupported(item);
+      if (supported) supportedCount++;
+
+      let allowance = 30; // default
+      if (supported && tier.perModelTokenBudgets) {
+        const matchKey = Object.keys(tier.perModelTokenBudgets).find(k =>
           item.modelId.toLowerCase().includes(k.toLowerCase()) ||
           item.modelName.toLowerCase().includes(k.toLowerCase())
         );
         if (matchKey) {
-          allowance = tier.modelAllowances[matchKey];
+          if (['kimi k3', 'qwen 3.8 max', 'grok 4.6', 'glm-5.3', 'deepseek v4 pro', 'gpt-5.6 luna'].some(m => matchKey.includes(m))) {
+            allowance = 15;
+          } else if (['qwen 3.7 max', 'hy4 preview', 'qwen 3.8 flash', 'deepseek v4 flash'].some(m => matchKey.includes(m))) {
+            allowance = 30;
+          } else {
+            allowance = 60;
+          }
         }
       }
 
-      if (allowance <= 0) {
-        const resolved = resolveTierModelBudget(tier, item.modelName, item.modelId);
-        const modelTokens =
-          estimateBasis === 'optimistic'
-            ? (resolved.optimistic || resolved.tokens)
-            : estimateBasis === 'midpoint'
-            ? (resolved.midpoint || resolved.tokens)
-            : resolved.tokens;
+      const coveredCost = supported ? Math.min(item.costPpu, allowance) : 0;
+      const overageCost = Math.max(0, item.costPpu - coveredCost);
+      const fraction = allowance > 0 ? item.costPpu / allowance : 0;
 
-        const effectiveTokens = modelTokens > 0 ? modelTokens : budgetTokens;
-        const impliedRatePerMillion = item.tokensMillion > 0 ? item.costPpu / item.tokensMillion : 1.0;
-
-        if (effectiveTokens > 0) {
-          allowance = effectiveTokens * impliedRatePerMillion;
-        } else {
-          allowance = monthlyPrice;
-        }
-      }
+      rows.push({
+        modelName: item.modelName,
+        share: item.share,
+        costPpu: item.costPpu,
+        effectiveAllowance: allowance,
+        fractionConsumed: fraction,
+        coveredCost,
+        overageCost,
+        isSupported: supported,
+      });
     }
+  } else if (isCommandCodeCappedPool) {
+    // Shared Global Dollar Pool with Per-Model Caps
+    const creditPoolMatch = String(tier.limits?.monthlyCredits || '').match(/\$([0-9]+)/);
+    const globalPool = creditPoolMatch ? parseFloat(creditPoolMatch[1]) : (monthlyPrice * 3.5);
+    let remainingGlobalDollars = globalPool;
 
-    const fraction = allowance > 0 ? item.costPpu / allowance : 0;
-    totalFractionConsumed += fraction;
+    for (const item of sortedWorkload) {
+      const supported = isItemSupported(item);
+      if (supported) supportedCount++;
 
-    const usedFraction = Math.min(fraction, Math.max(0, remainingPoolFraction));
-    remainingPoolFraction = Math.max(0, remainingPoolFraction - usedFraction);
+      let modelCap = globalPool;
+      if (supported && tier.modelAllowances) {
+        const matchKey = Object.keys(tier.modelAllowances).find(k =>
+          item.modelId.toLowerCase().includes(k.toLowerCase()) ||
+          item.modelName.toLowerCase().includes(k.toLowerCase())
+        );
+        if (matchKey && tier.modelAllowances[matchKey] != null) {
+          modelCap = tier.modelAllowances[matchKey];
+        } else if (tier.modelAllowances.default != null) {
+          modelCap = tier.modelAllowances.default;
+        }
+      }
 
-    const coveredCost = usedFraction * allowance;
-    const overageCost = Math.max(0, item.costPpu - coveredCost);
+      const claimable = supported ? Math.min(item.costPpu, modelCap, remainingGlobalDollars) : 0;
+      const coveredCost = claimable;
+      remainingGlobalDollars = Math.max(0, remainingGlobalDollars - coveredCost);
+      const overageCost = Math.max(0, item.costPpu - coveredCost);
+      const fraction = modelCap > 0 ? item.costPpu / modelCap : 0;
 
-    rows.push({
-      modelName: item.modelName,
-      share: item.share,
-      costPpu: item.costPpu,
-      effectiveAllowance: allowance,
-      fractionConsumed: fraction,
-      coveredCost,
-      overageCost,
-      isSupported: supported,
-    });
+      rows.push({
+        modelName: item.modelName,
+        share: item.share,
+        costPpu: item.costPpu,
+        effectiveAllowance: modelCap,
+        fractionConsumed: fraction,
+        coveredCost,
+        overageCost,
+        isSupported: supported,
+      });
+    }
+  } else {
+    // Standard Unified Pool: single shared pool fraction drained sequentially
+    let remainingPoolFraction = 1.0;
+
+    for (const item of sortedWorkload) {
+      const supported = isItemSupported(item);
+      if (supported) supportedCount++;
+
+      let allowance = 0;
+      if (supported) {
+        if (tier.modelAllowances) {
+          const matchKey = Object.keys(tier.modelAllowances).find(k =>
+            item.modelId.toLowerCase().includes(k.toLowerCase()) ||
+            item.modelName.toLowerCase().includes(k.toLowerCase())
+          );
+          if (matchKey) {
+            allowance = tier.modelAllowances[matchKey];
+          }
+        }
+
+        if (allowance <= 0) {
+          const resolved = resolveTierModelBudget(tier, item.modelName, item.modelId);
+          const modelTokens =
+            estimateBasis === 'optimistic'
+              ? (resolved.optimistic || resolved.tokens)
+              : estimateBasis === 'midpoint'
+              ? (resolved.midpoint || resolved.tokens)
+              : resolved.tokens;
+
+          const effectiveTokens = modelTokens > 0 ? modelTokens : budgetTokens;
+          const impliedRatePerMillion = item.tokensMillion > 0 ? item.costPpu / item.tokensMillion : 1.0;
+
+          if (effectiveTokens > 0) {
+            allowance = effectiveTokens * impliedRatePerMillion;
+          } else {
+            allowance = monthlyPrice;
+          }
+        }
+      }
+
+      const fraction = allowance > 0 ? item.costPpu / allowance : 0;
+      const usedFraction = Math.min(fraction, Math.max(0, remainingPoolFraction));
+      remainingPoolFraction = Math.max(0, remainingPoolFraction - usedFraction);
+
+      const coveredCost = usedFraction * allowance;
+      const overageCost = Math.max(0, item.costPpu - coveredCost);
+
+      rows.push({
+        modelName: item.modelName,
+        share: item.share,
+        costPpu: item.costPpu,
+        effectiveAllowance: allowance,
+        fractionConsumed: fraction,
+        coveredCost,
+        overageCost,
+        isSupported: supported,
+      });
+    }
   }
 
   const coveredDirectCost = rows.reduce((sum, r) => sum + r.coveredCost, 0);
@@ -1008,18 +1225,24 @@ export function calculatePoolDrain(
   const coverageType: 'full' | 'partial' | 'none' =
     supportedCount === workload.length ? 'full' : supportedCount > 0 ? 'partial' : 'none';
 
+  const totalAllowanceCapacity = rows.reduce((sum, r) => sum + r.effectiveAllowance, 0);
+  const isPartitionedOrIndependent = isCommandCodeMax || isOpenCodeGo;
+  const poolUtilizedPercent = isPartitionedOrIndependent
+    ? (totalAllowanceCapacity > 0 ? Math.round((coveredDirectCost / totalAllowanceCapacity) * 100) : 0)
+    : Math.round(rows.reduce((sum, r) => sum + r.fractionConsumed, 0) * 100);
+
   return {
     planId: plan.id,
     planName: plan.name,
     tierName: tier.name,
     monthlyPrice,
-    poolUtilizedPercent: Math.round(totalFractionConsumed * 100),
+    poolUtilizedPercent,
     totalDirectCost,
     coveredDirectCost,
     overageCost,
     totalPlanCost,
     savings,
-    isCapped: totalFractionConsumed > 1.0 || supportedCount < workload.length,
+    isCapped: overageCost > 0 || supportedCount < workload.length,
     rows,
     supportedModelsCount: supportedCount,
     totalModelsCount: workload.length,

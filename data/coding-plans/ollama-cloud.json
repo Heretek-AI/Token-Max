@@ -41,10 +41,38 @@
       },
       "models": [
         "DeepSeek V4.1 Flash",
-        "Kimi K2.7",
+        "DeepSeek V4-Pro",
         "MiniMax M3",
-        "GLM-5"
+        "GLM-5",
+        "Kimi K3"
       ],
+      "perModelTokenBudgets": {
+        "deepseek v4.1 flash": {
+          "estimatedMillionTokens": 1229.27,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "deepseek v4-pro": {
+          "estimatedMillionTokens": 181.62,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "minimax m3": {
+          "estimatedMillionTokens": 302.7,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "glm-5": {
+          "estimatedMillionTokens": 161.02,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "kimi k3": {
+          "estimatedMillionTokens": 31.4,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "$60 compute credits (~60M tokens/mo)",
         "estimatedMillionTokens": 60,
@@ -67,10 +95,39 @@
         "peakSurcharge": "Standard rates"
       },
       "models": [
-        "All Cloud Hosted Weights",
+        "DeepSeek V4.1 Flash",
         "DeepSeek V4-Pro",
-        "Llama 4 Maverick"
+        "MiniMax M3",
+        "GLM-5",
+        "Kimi K3"
       ],
+      "perModelTokenBudgets": {
+        "deepseek v4.1 flash": {
+          "estimatedMillionTokens": 6146.34,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "deepseek v4-pro": {
+          "estimatedMillionTokens": 908.11,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "minimax m3": {
+          "estimatedMillionTokens": 1513.51,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "glm-5": {
+          "estimatedMillionTokens": 805.11,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "kimi k3": {
+          "estimatedMillionTokens": 157.01,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "$300 compute credits (~300M tokens/mo)",
         "estimatedMillionTokens": 300,
@@ -93,8 +150,39 @@
         "privateEndpoints": "Dedicated pods"
       },
       "models": [
-        "All Open Weights & Custom Fine-tunes"
+        "DeepSeek V4.1 Flash",
+        "DeepSeek V4-Pro",
+        "MiniMax M3",
+        "GLM-5",
+        "Kimi K3"
       ],
+      "perModelTokenBudgets": {
+        "deepseek v4.1 flash": {
+          "estimatedMillionTokens": 20487.8,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "deepseek v4-pro": {
+          "estimatedMillionTokens": 3027.03,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "minimax m3": {
+          "estimatedMillionTokens": 5045.05,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "glm-5": {
+          "estimatedMillionTokens": 2683.71,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "kimi k3": {
+          "estimatedMillionTokens": 523.36,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "$1,000 compute credits (~1B tokens/mo)",
         "estimatedMillionTokens": 1000,

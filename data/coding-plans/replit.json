@@ -15,9 +15,34 @@
         "modelCredits": "$20 toward most powerful models"
       },
       "models": [
-        "Replit Agent",
-        "Frontier model pool"
+        "Claude Opus 5",
+        "GPT-5.6 Sol",
+        "DeepSeek V4-Pro",
+        "Gemini 3.8 Flash",
+        "Replit Agent"
       ],
+      "perModelTokenBudgets": {
+        "claude opus 5": {
+          "estimatedMillionTokens": 2.09,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gpt-5.6 sol": {
+          "estimatedMillionTokens": 7.85,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "deepseek v4-pro": {
+          "estimatedMillionTokens": 60.54,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gemini 3.8 flash": {
+          "estimatedMillionTokens": 287.18,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "$20 model-credit pool + 30 agent-hours (~24M tokens)",
         "estimatedMillionTokens": 24,
@@ -41,8 +66,34 @@
         "collaboration": "15 collaborators, 50 viewers"
       },
       "models": [
-        "Multi-agent frontier models"
+        "Claude Opus 5",
+        "GPT-5.6 Sol",
+        "DeepSeek V4-Pro",
+        "Gemini 3.8 Flash",
+        "Replit Agent"
       ],
+      "perModelTokenBudgets": {
+        "claude opus 5": {
+          "estimatedMillionTokens": 10.47,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gpt-5.6 sol": {
+          "estimatedMillionTokens": 39.25,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "deepseek v4-pro": {
+          "estimatedMillionTokens": 302.7,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        },
+        "gemini 3.8 flash": {
+          "estimatedMillionTokens": 1435.9,
+          "basis": "list-price-credit",
+          "confidence": "medium"
+        }
+      },
       "estimatedTokenBudget": {
         "description": "$100 model-credit pool (~120M tokens)",
         "estimatedMillionTokens": 120,

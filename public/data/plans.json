@@ -630,9 +630,34 @@
           "topUps": "PAYG top-ups valid 12 months"
         },
         "models": [
-          "Cosmos",
-          "API models via provider list"
+          "Claude Opus 5",
+          "GPT-5.6 Sol",
+          "DeepSeek V4-Pro",
+          "Gemini 3.8 Flash",
+          "Cosmos"
         ],
+        "perModelTokenBudgets": {
+          "claude opus 5": {
+            "estimatedMillionTokens": 1.49,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-5.6 sol": {
+            "estimatedMillionTokens": 5.61,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "deepseek v4-pro": {
+            "estimatedMillionTokens": 43.23,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.8 flash": {
+            "estimatedMillionTokens": 205.05,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "estimatedTokenBudget": {
           "description": "$20 usage pool with 40% LLM fee (~7.1M tokens)",
           "estimatedMillionTokens": 7.1,
@@ -656,9 +681,34 @@
           "usage": "$100 of usage included/mo"
         },
         "models": [
-          "Cosmos",
-          "API models"
+          "Claude Opus 5",
+          "GPT-5.6 Sol",
+          "DeepSeek V4-Pro",
+          "Gemini 3.8 Flash",
+          "Cosmos"
         ],
+        "perModelTokenBudgets": {
+          "claude opus 5": {
+            "estimatedMillionTokens": 7.48,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-5.6 sol": {
+            "estimatedMillionTokens": 28.04,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "deepseek v4-pro": {
+            "estimatedMillionTokens": 216.22,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.8 flash": {
+            "estimatedMillionTokens": 1025.66,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "estimatedTokenBudget": {
           "description": "$100 usage pool (~35.7M tokens)",
           "estimatedMillionTokens": 35.7,
@@ -3910,10 +3960,38 @@
         },
         "models": [
           "DeepSeek V4.1 Flash",
-          "Kimi K2.7",
+          "DeepSeek V4-Pro",
           "MiniMax M3",
-          "GLM-5"
+          "GLM-5",
+          "Kimi K3"
         ],
+        "perModelTokenBudgets": {
+          "deepseek v4.1 flash": {
+            "estimatedMillionTokens": 1229.27,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "deepseek v4-pro": {
+            "estimatedMillionTokens": 181.62,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "minimax m3": {
+            "estimatedMillionTokens": 302.7,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "glm-5": {
+            "estimatedMillionTokens": 161.02,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "kimi k3": {
+            "estimatedMillionTokens": 31.4,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "estimatedTokenBudget": {
           "description": "$60 compute credits (~60M tokens/mo)",
           "estimatedMillionTokens": 60,
@@ -3936,10 +4014,39 @@
           "peakSurcharge": "Standard rates"
         },
         "models": [
-          "All Cloud Hosted Weights",
+          "DeepSeek V4.1 Flash",
           "DeepSeek V4-Pro",
-          "Llama 4 Maverick"
+          "MiniMax M3",
+          "GLM-5",
+          "Kimi K3"
         ],
+        "perModelTokenBudgets": {
+          "deepseek v4.1 flash": {
+            "estimatedMillionTokens": 6146.34,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "deepseek v4-pro": {
+            "estimatedMillionTokens": 908.11,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "minimax m3": {
+            "estimatedMillionTokens": 1513.51,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "glm-5": {
+            "estimatedMillionTokens": 805.11,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "kimi k3": {
+            "estimatedMillionTokens": 157.01,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "estimatedTokenBudget": {
           "description": "$300 compute credits (~300M tokens/mo)",
           "estimatedMillionTokens": 300,
@@ -3962,8 +4069,39 @@
           "privateEndpoints": "Dedicated pods"
         },
         "models": [
-          "All Open Weights & Custom Fine-tunes"
+          "DeepSeek V4.1 Flash",
+          "DeepSeek V4-Pro",
+          "MiniMax M3",
+          "GLM-5",
+          "Kimi K3"
         ],
+        "perModelTokenBudgets": {
+          "deepseek v4.1 flash": {
+            "estimatedMillionTokens": 20487.8,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "deepseek v4-pro": {
+            "estimatedMillionTokens": 3027.03,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "minimax m3": {
+            "estimatedMillionTokens": 5045.05,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "glm-5": {
+            "estimatedMillionTokens": 2683.71,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "kimi k3": {
+            "estimatedMillionTokens": 523.36,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "estimatedTokenBudget": {
           "description": "$1,000 compute credits (~1B tokens/mo)",
           "estimatedMillionTokens": 1000,
@@ -4635,9 +4773,34 @@
           "modelCredits": "$20 toward most powerful models"
         },
         "models": [
-          "Replit Agent",
-          "Frontier model pool"
+          "Claude Opus 5",
+          "GPT-5.6 Sol",
+          "DeepSeek V4-Pro",
+          "Gemini 3.8 Flash",
+          "Replit Agent"
         ],
+        "perModelTokenBudgets": {
+          "claude opus 5": {
+            "estimatedMillionTokens": 2.09,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-5.6 sol": {
+            "estimatedMillionTokens": 7.85,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "deepseek v4-pro": {
+            "estimatedMillionTokens": 60.54,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.8 flash": {
+            "estimatedMillionTokens": 287.18,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "estimatedTokenBudget": {
           "description": "$20 model-credit pool + 30 agent-hours (~24M tokens)",
           "estimatedMillionTokens": 24,
@@ -4661,8 +4824,34 @@
           "collaboration": "15 collaborators, 50 viewers"
         },
         "models": [
-          "Multi-agent frontier models"
+          "Claude Opus 5",
+          "GPT-5.6 Sol",
+          "DeepSeek V4-Pro",
+          "Gemini 3.8 Flash",
+          "Replit Agent"
         ],
+        "perModelTokenBudgets": {
+          "claude opus 5": {
+            "estimatedMillionTokens": 10.47,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gpt-5.6 sol": {
+            "estimatedMillionTokens": 39.25,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "deepseek v4-pro": {
+            "estimatedMillionTokens": 302.7,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          },
+          "gemini 3.8 flash": {
+            "estimatedMillionTokens": 1435.9,
+            "basis": "list-price-credit",
+            "confidence": "medium"
+          }
+        },
         "estimatedTokenBudget": {
           "description": "$100 model-credit pool (~120M tokens)",
           "estimatedMillionTokens": 120,

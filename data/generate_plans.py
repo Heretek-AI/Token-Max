@@ -736,6 +736,31 @@ def _minimax_pool(pool_million_tokens, models=None, basis_model="minimax m3"):
         prices = _MINIMAX_PRICES
     return per_model_pool(usd, prices, basis="list-price-credit", confidence="low")
 
+# Replit Credit Pool models ($20 Core / $100 Pro)
+_REPLIT_PRICES = {
+    "claude opus 5": _ANTIGRAVITY_PRICES["claude opus 4.6"],
+    "gpt-5.6 sol": _GPT_PRICES["gpt-5.6 sol"],
+    "deepseek v4-pro": _BYTEPLUS_PRICES["deepseek-v4-pro"],
+    "gemini 3.8 flash": _ANTIGRAVITY_PRICES["gemini 3.8 flash"],
+}
+
+# Augment Code Credit Pool models (net pool after 40% LLM service fee: $14.28 Standard / $71.43 Business)
+_AUGMENT_PRICES = {
+    "claude opus 5": _ANTIGRAVITY_PRICES["claude opus 4.6"],
+    "gpt-5.6 sol": _GPT_PRICES["gpt-5.6 sol"],
+    "deepseek v4-pro": _BYTEPLUS_PRICES["deepseek-v4-pro"],
+    "gemini 3.8 flash": _ANTIGRAVITY_PRICES["gemini 3.8 flash"],
+}
+
+# Ollama Cloud Credit Pool models ($60 Pro / $300 Max / $1,000 Team)
+_OLLAMA_PRICES = {
+    "deepseek v4.1 flash": {"input": 0.08, "output": 0.25, "cacheRead": 0.015, "cacheWrite": None},
+    "deepseek v4-pro": {"input": 0.50, "output": 2.00, "cacheRead": 0.10, "cacheWrite": None},
+    "minimax m3": {"input": 0.30, "output": 1.20, "cacheRead": 0.06, "cacheWrite": None},
+    "glm-5": {"input": 0.60, "output": 2.20, "cacheRead": 0.10, "cacheWrite": None},
+    "kimi k3": {"input": 3.00, "output": 15.00, "cacheRead": 0.30, "cacheWrite": None},
+}
+
 def osint_meta(basis, source_url):
     """Provenance block for OSINT-derived task estimates."""
     return {
@@ -2076,7 +2101,8 @@ write_json(
                     "llmFee": "Provider list price + flat 40% service fee on LLM usage",
                     "topUps": "PAYG top-ups valid 12 months",
                 },
-                "models": ["Cosmos", "API models via provider list"],
+                "models": ["Claude Opus 5", "GPT-5.6 Sol", "DeepSeek V4-Pro", "Gemini 3.8 Flash", "Cosmos"],
+                "perModelTokenBudgets": per_model_pool(14.28, _AUGMENT_PRICES, basis="list-price-credit", confidence="medium"),
                 "estimatedTokenBudget": {
                     "description": "$20 usage pool with 40% LLM fee (~7.1M tokens)",
                     "estimatedMillionTokens": 7.1,
@@ -2099,7 +2125,8 @@ write_json(
                     "billing": "$100/mo flat per team, up to 50 seats",
                     "usage": "$100 of usage included/mo",
                 },
-                "models": ["Cosmos", "API models"],
+                "models": ["Claude Opus 5", "GPT-5.6 Sol", "DeepSeek V4-Pro", "Gemini 3.8 Flash", "Cosmos"],
+                "perModelTokenBudgets": per_model_pool(71.43, _AUGMENT_PRICES, basis="list-price-credit", confidence="medium"),
                 "estimatedTokenBudget": {
                     "description": "$100 usage pool (~35.7M tokens)",
                     "estimatedMillionTokens": 35.7,
@@ -2161,7 +2188,8 @@ write_json(
                     "projects": "Up to 60 projects on Free Mode",
                     "modelCredits": "$20 toward most powerful models",
                 },
-                "models": ["Replit Agent", "Frontier model pool"],
+                "models": ["Claude Opus 5", "GPT-5.6 Sol", "DeepSeek V4-Pro", "Gemini 3.8 Flash", "Replit Agent"],
+                "perModelTokenBudgets": per_model_pool(20.0, _REPLIT_PRICES, basis="list-price-credit", confidence="medium"),
                 "estimatedTokenBudget": {
                     "description": "$20 model-credit pool + 30 agent-hours (~24M tokens)",
                     "estimatedMillionTokens": 24,
@@ -2178,7 +2206,8 @@ write_json(
                     "modelCredits": "$100 toward most powerful models",
                     "collaboration": "15 collaborators, 50 viewers",
                 },
-                "models": ["Multi-agent frontier models"],
+                "models": ["Claude Opus 5", "GPT-5.6 Sol", "DeepSeek V4-Pro", "Gemini 3.8 Flash", "Replit Agent"],
+                "perModelTokenBudgets": per_model_pool(100.0, _REPLIT_PRICES, basis="list-price-credit", confidence="medium"),
                 "estimatedTokenBudget": {
                     "description": "$100 model-credit pool (~120M tokens)",
                     "estimatedMillionTokens": 120,
@@ -3952,7 +3981,8 @@ write_json(
                     "concurrency": "3 concurrent streams",
                     "peakSurcharge": "12:00-18:00 UTC peak rates, Mon-Fri",
                 },
-                "models": ["DeepSeek V4.1 Flash", "Kimi K2.7", "MiniMax M3", "GLM-5"],
+                "models": ["DeepSeek V4.1 Flash", "DeepSeek V4-Pro", "MiniMax M3", "GLM-5", "Kimi K3"],
+                "perModelTokenBudgets": per_model_pool(60.0, _OLLAMA_PRICES, basis="list-price-credit", confidence="medium"),
                 "estimatedTokenBudget": {
                     "description": "$60 compute credits (~60M tokens/mo)",
                     "estimatedMillionTokens": 60,
@@ -3968,11 +3998,8 @@ write_json(
                     "concurrency": "10 concurrent streams",
                     "peakSurcharge": "Standard rates",
                 },
-                "models": [
-                    "All Cloud Hosted Weights",
-                    "DeepSeek V4-Pro",
-                    "Llama 4 Maverick",
-                ],
+                "models": ["DeepSeek V4.1 Flash", "DeepSeek V4-Pro", "MiniMax M3", "GLM-5", "Kimi K3"],
+                "perModelTokenBudgets": per_model_pool(300.0, _OLLAMA_PRICES, basis="list-price-credit", confidence="medium"),
                 "estimatedTokenBudget": {
                     "description": "$300 compute credits (~300M tokens/mo)",
                     "estimatedMillionTokens": 300,
@@ -3988,7 +4015,8 @@ write_json(
                     "concurrency": "10 concurrent streams",
                     "privateEndpoints": "Dedicated pods",
                 },
-                "models": ["All Open Weights & Custom Fine-tunes"],
+                "models": ["DeepSeek V4.1 Flash", "DeepSeek V4-Pro", "MiniMax M3", "GLM-5", "Kimi K3"],
+                "perModelTokenBudgets": per_model_pool(1000.0, _OLLAMA_PRICES, basis="list-price-credit", confidence="medium"),
                 "estimatedTokenBudget": {
                     "description": "$1,000 compute credits (~1B tokens/mo)",
                     "estimatedMillionTokens": 1000,

@@ -264,6 +264,15 @@ async function buildData() {
     for (const tier of plan.tiers || []) {
       totalTiersCount++;
       const tb = tier.estimatedTokenBudget;
+      const OBFUSCATED_IDE_PLANS = new Set([
+        'claude-code', 'cursor', 'windsurf', 'google-antigravity', 'openai-codex', 'amazon-q'
+      ]);
+      const isObfuscated = OBFUSCATED_IDE_PLANS.has(plan.id);
+      const isOfficial = tb?.estimateMeta?.sourceType === 'official';
+      const isEstimatedCeiling = isObfuscated || !isOfficial;
+      const disclosedByVendor = isOfficial && !isObfuscated;
+      const osintSource = isEstimatedCeiling ? 'docs/OSINT_USAGE_STATISTICS.md' : null;
+
       const tierObj = {
         name: tier.name,
         monthlyPrice: tier.monthlyPrice ?? null,
@@ -280,6 +289,9 @@ async function buildData() {
           sourceUrl: tb?.estimateMeta?.sourceUrl ?? plan.url,
           sourceQuote: tb?.estimateMeta?.sourceQuote ?? '',
           basisModel: tb?.estimateMeta?.basisModel ?? 'default',
+          isEstimatedCeiling,
+          disclosedByVendor,
+          osintSource,
         },
         models: [],
       };
@@ -302,6 +314,9 @@ async function buildData() {
           confidence: resolved.confidence,
           basis: resolved.basis,
           isModelSpecific: resolved.isModelSpecific,
+          isEstimatedCeiling,
+          disclosedByVendor,
+          osintSource,
           computedUsageLimits: {
             monthlyTokens,
             normalized21kTurns,
@@ -324,6 +339,9 @@ async function buildData() {
           confidence: resolved.confidence,
           basis: resolved.basis,
           isModelSpecific: resolved.isModelSpecific,
+          isEstimatedCeiling,
+          disclosedByVendor,
+          osintSource,
           monthlyTokens,
           normalized21kTurns,
           agentTasks,

@@ -55,6 +55,12 @@ export interface ApplesToApplesOption {
   isDedicatedDrain?: boolean;
   /** Provenance basis for the per-model drain (e.g. official-table, list-price-credit). */
   drainBasis?: string | null;
+  /** True when non-stackable subscription plan is capped to single-seat monthly limit. */
+  isCapped?: boolean;
+  /** Dollars of unspent user budget when non-stackable plan is capped at 1 seat. */
+  unspentBudget?: number;
+  /** Stacking policy of the subscription plan. */
+  stackingPolicy?: StackingPolicy;
 }
 
 export type EngineMode = 'standard' | 'mix' | 'dave';
