@@ -154,7 +154,7 @@ flowchart LR
 As part of the continuous deployment workflow to GitHub Pages, Token-Max automatically compiles and publishes static, structured JSON files for external tools, CLI scripts, and researchers:
 
 - **Usage Limits Dataset**: [`https://heretek-ai.github.io/Token-Max/data/usage-limits.json`](https://heretek-ai.github.io/Token-Max/data/usage-limits.json)
-  - Normalized token and request limit usages broken down per provider, tier, and supported model.
+  - 394 normalized token and request limit usages broken down per provider, tier, and supported model across all 33 services.
   - Includes empirical agent task capacity (small 250K, medium 550K, complex 900K turns), basis formulas, and source links.
 - **Curated Plans Dataset**: [`https://heretek-ai.github.io/Token-Max/data/plans.json`](https://heretek-ai.github.io/Token-Max/data/plans.json)
 - **Foundation Models Catalog**: [`https://heretek-ai.github.io/Token-Max/data/models.json`](https://heretek-ai.github.io/Token-Max/data/models.json)
@@ -200,7 +200,7 @@ npm run dev
 # Validate 33 plan files against schema invariants
 npm run validate-data
 
-# Run full unit test suite (97 tests across 8 suites)
+# Run full unit test suite (102 tests across 8 suites)
 npm test
 
 # Run linter (oxlint: 0 errors, 0 warnings enforced)

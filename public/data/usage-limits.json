@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-09-20T01:48:06.588Z",
+  "generatedAt": "2026-09-20T01:54:00.003Z",
   "constants": {
     "agentTurnTokens": 21000,
     "defaultCacheRate": 0.75,
@@ -9754,9 +9754,12 @@
           "limits": {
             "fiveHourCredits": "2,000 credits",
             "weeklyCredits": "10,000 credits",
-            "weeklyCeiling": "Up to 97M GLM-5.3 / 584M GLM-5.3-Flash tokens (official V3)",
+            "weeklyCeiling": "Up to 97M GLM-5.3 / 584M GLM-5.3-Flash tokens/week (~420M / 2,529M monthly ceiling)",
+            "weeklyLimitGLM53": "Up to 97M Tokens/week",
+            "weeklyLimitGLM53Flash": "Up to 584M Tokens/week",
             "offPeakDiscount": "50% credit rate during off-peak",
             "peakHours": "Mon-Fri 14:00-18:00 UTC+8",
+            "concurrency": "Recommended for 1 project at a time (dynamic off-peak boost)",
             "toolRestrictions": "Strictly limited to supported coding tools (Claude Code, Cline, OpenCode, Goose)"
           },
           "defaultTokenBudget": {
@@ -9793,8 +9796,8 @@
             {
               "modelKey": "GLM-5.3-Flash",
               "estimatedMillionTokens": 632,
-              "midpointEstimate": 948,
-              "optimisticEstimate": 1264,
+              "midpointEstimate": 1264,
+              "optimisticEstimate": 2529,
               "confidence": "high",
               "basis": "official-table",
               "isModelSpecific": true,
@@ -9817,9 +9820,11 @@
           "limits": {
             "fiveHourCredits": "12,000 credits",
             "weeklyCredits": "60,000 credits",
-            "weeklyCeiling": "Up to 582M GLM-5.3 / 3,504M GLM-5.3-Flash tokens (6× Lite)",
+            "weeklyCeiling": "Up to 582M GLM-5.3 / 3,504M GLM-5.3-Flash tokens/week (~2,520M / 15,172M monthly ceiling; 6× Lite)",
+            "weeklyLimitGLM53": "Up to 582M Tokens/week",
+            "weeklyLimitGLM53Flash": "Up to 3,504M Tokens/week",
             "offPeakDiscount": "50% credit rate during off-peak",
-            "concurrency": "Dynamic scaling with off-peak boosts",
+            "concurrency": "Recommended for 1-2 projects simultaneously (dynamic off-peak boost)",
             "includedMcps": "Vision, Web Search, Web Reader, Zread"
           },
           "defaultTokenBudget": {
@@ -9856,8 +9861,8 @@
             {
               "modelKey": "GLM-5.3-Flash",
               "estimatedMillionTokens": 3797,
-              "midpointEstimate": 5698,
-              "optimisticEstimate": 7600,
+              "midpointEstimate": 7600,
+              "optimisticEstimate": 15172,
               "confidence": "high",
               "basis": "official-table",
               "isModelSpecific": true,
@@ -9880,10 +9885,12 @@
           "limits": {
             "fiveHourCredits": "28,000 credits",
             "weeklyCredits": "140,000 credits",
-            "weeklyCeiling": "Up to 1,358M GLM-5.3 / 8,176M GLM-5.3-Flash tokens (14× Lite)",
+            "weeklyCeiling": "Up to 1,358M GLM-5.3 / 8,176M GLM-5.3-Flash tokens/week (~5,884M / 35,402M monthly ceiling; 14× Lite)",
+            "weeklyLimitGLM53": "Up to 1,358M Tokens/week",
+            "weeklyLimitGLM53Flash": "Up to 8,176M Tokens/week",
             "offPeakDiscount": "50% credit rate during off-peak",
             "priority": "Priority resource allocation during peak hours",
-            "concurrency": "Highest concurrent task allocation"
+            "concurrency": "Recommended for 2+ projects simultaneously (highest allocation, dynamic off-peak boost)"
           },
           "defaultTokenBudget": {
             "estimatedMillionTokens": 2927,
@@ -9919,8 +9926,8 @@
             {
               "modelKey": "GLM-5.3-Flash",
               "estimatedMillionTokens": 8864,
-              "midpointEstimate": 13298,
-              "optimisticEstimate": 17731,
+              "midpointEstimate": 17731,
+              "optimisticEstimate": 35402,
               "confidence": "high",
               "basis": "official-table",
               "isModelSpecific": true,
@@ -21041,9 +21048,12 @@
       "tierLimits": {
         "fiveHourCredits": "2,000 credits",
         "weeklyCredits": "10,000 credits",
-        "weeklyCeiling": "Up to 97M GLM-5.3 / 584M GLM-5.3-Flash tokens (official V3)",
+        "weeklyCeiling": "Up to 97M GLM-5.3 / 584M GLM-5.3-Flash tokens/week (~420M / 2,529M monthly ceiling)",
+        "weeklyLimitGLM53": "Up to 97M Tokens/week",
+        "weeklyLimitGLM53Flash": "Up to 584M Tokens/week",
         "offPeakDiscount": "50% credit rate during off-peak",
         "peakHours": "Mon-Fri 14:00-18:00 UTC+8",
+        "concurrency": "Recommended for 1 project at a time (dynamic off-peak boost)",
         "toolRestrictions": "Strictly limited to supported coding tools (Claude Code, Cline, OpenCode, Goose)"
       },
       "sourceUrl": "https://docs.z.ai/devpack/overview"
@@ -21057,8 +21067,8 @@
       "annualPrice": 151,
       "modelKey": "GLM-5.3-Flash",
       "estimatedMillionTokens": 632,
-      "midpointEstimate": 948,
-      "optimisticEstimate": 1264,
+      "midpointEstimate": 1264,
+      "optimisticEstimate": 2529,
       "confidence": "high",
       "basis": "official-table",
       "isModelSpecific": true,
@@ -21072,9 +21082,12 @@
       "tierLimits": {
         "fiveHourCredits": "2,000 credits",
         "weeklyCredits": "10,000 credits",
-        "weeklyCeiling": "Up to 97M GLM-5.3 / 584M GLM-5.3-Flash tokens (official V3)",
+        "weeklyCeiling": "Up to 97M GLM-5.3 / 584M GLM-5.3-Flash tokens/week (~420M / 2,529M monthly ceiling)",
+        "weeklyLimitGLM53": "Up to 97M Tokens/week",
+        "weeklyLimitGLM53Flash": "Up to 584M Tokens/week",
         "offPeakDiscount": "50% credit rate during off-peak",
         "peakHours": "Mon-Fri 14:00-18:00 UTC+8",
+        "concurrency": "Recommended for 1 project at a time (dynamic off-peak boost)",
         "toolRestrictions": "Strictly limited to supported coding tools (Claude Code, Cline, OpenCode, Goose)"
       },
       "sourceUrl": "https://docs.z.ai/devpack/overview"
@@ -21103,9 +21116,11 @@
       "tierLimits": {
         "fiveHourCredits": "12,000 credits",
         "weeklyCredits": "60,000 credits",
-        "weeklyCeiling": "Up to 582M GLM-5.3 / 3,504M GLM-5.3-Flash tokens (6× Lite)",
+        "weeklyCeiling": "Up to 582M GLM-5.3 / 3,504M GLM-5.3-Flash tokens/week (~2,520M / 15,172M monthly ceiling; 6× Lite)",
+        "weeklyLimitGLM53": "Up to 582M Tokens/week",
+        "weeklyLimitGLM53Flash": "Up to 3,504M Tokens/week",
         "offPeakDiscount": "50% credit rate during off-peak",
-        "concurrency": "Dynamic scaling with off-peak boosts",
+        "concurrency": "Recommended for 1-2 projects simultaneously (dynamic off-peak boost)",
         "includedMcps": "Vision, Web Search, Web Reader, Zread"
       },
       "sourceUrl": "https://docs.z.ai/devpack/overview"
@@ -21119,8 +21134,8 @@
       "annualPrice": 605,
       "modelKey": "GLM-5.3-Flash",
       "estimatedMillionTokens": 3797,
-      "midpointEstimate": 5698,
-      "optimisticEstimate": 7600,
+      "midpointEstimate": 7600,
+      "optimisticEstimate": 15172,
       "confidence": "high",
       "basis": "official-table",
       "isModelSpecific": true,
@@ -21134,9 +21149,11 @@
       "tierLimits": {
         "fiveHourCredits": "12,000 credits",
         "weeklyCredits": "60,000 credits",
-        "weeklyCeiling": "Up to 582M GLM-5.3 / 3,504M GLM-5.3-Flash tokens (6× Lite)",
+        "weeklyCeiling": "Up to 582M GLM-5.3 / 3,504M GLM-5.3-Flash tokens/week (~2,520M / 15,172M monthly ceiling; 6× Lite)",
+        "weeklyLimitGLM53": "Up to 582M Tokens/week",
+        "weeklyLimitGLM53Flash": "Up to 3,504M Tokens/week",
         "offPeakDiscount": "50% credit rate during off-peak",
-        "concurrency": "Dynamic scaling with off-peak boosts",
+        "concurrency": "Recommended for 1-2 projects simultaneously (dynamic off-peak boost)",
         "includedMcps": "Vision, Web Search, Web Reader, Zread"
       },
       "sourceUrl": "https://docs.z.ai/devpack/overview"
@@ -21165,10 +21182,12 @@
       "tierLimits": {
         "fiveHourCredits": "28,000 credits",
         "weeklyCredits": "140,000 credits",
-        "weeklyCeiling": "Up to 1,358M GLM-5.3 / 8,176M GLM-5.3-Flash tokens (14× Lite)",
+        "weeklyCeiling": "Up to 1,358M GLM-5.3 / 8,176M GLM-5.3-Flash tokens/week (~5,884M / 35,402M monthly ceiling; 14× Lite)",
+        "weeklyLimitGLM53": "Up to 1,358M Tokens/week",
+        "weeklyLimitGLM53Flash": "Up to 8,176M Tokens/week",
         "offPeakDiscount": "50% credit rate during off-peak",
         "priority": "Priority resource allocation during peak hours",
-        "concurrency": "Highest concurrent task allocation"
+        "concurrency": "Recommended for 2+ projects simultaneously (highest allocation, dynamic off-peak boost)"
       },
       "sourceUrl": "https://docs.z.ai/devpack/overview"
     },
@@ -21181,8 +21200,8 @@
       "annualPrice": 1344,
       "modelKey": "GLM-5.3-Flash",
       "estimatedMillionTokens": 8864,
-      "midpointEstimate": 13298,
-      "optimisticEstimate": 17731,
+      "midpointEstimate": 17731,
+      "optimisticEstimate": 35402,
       "confidence": "high",
       "basis": "official-table",
       "isModelSpecific": true,
@@ -21196,10 +21215,12 @@
       "tierLimits": {
         "fiveHourCredits": "28,000 credits",
         "weeklyCredits": "140,000 credits",
-        "weeklyCeiling": "Up to 1,358M GLM-5.3 / 8,176M GLM-5.3-Flash tokens (14× Lite)",
+        "weeklyCeiling": "Up to 1,358M GLM-5.3 / 8,176M GLM-5.3-Flash tokens/week (~5,884M / 35,402M monthly ceiling; 14× Lite)",
+        "weeklyLimitGLM53": "Up to 1,358M Tokens/week",
+        "weeklyLimitGLM53Flash": "Up to 8,176M Tokens/week",
         "offPeakDiscount": "50% credit rate during off-peak",
         "priority": "Priority resource allocation during peak hours",
-        "concurrency": "Highest concurrent task allocation"
+        "concurrency": "Recommended for 2+ projects simultaneously (highest allocation, dynamic off-peak boost)"
       },
       "sourceUrl": "https://docs.z.ai/devpack/overview"
     },

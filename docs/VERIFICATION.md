@@ -23,7 +23,7 @@ source are explicitly labelled unknown or low-confidence and carry that label in
 | 5 | Augment Code | augmentcode.com/pricing | Verified | $20/$100 pools; flat 40% LLM fee; 50 seats; top-ups 12 months. |
 | 6 | BytePlus ModelArk | docs.byteplus.com ModelArk 1925114/2165245 + AI terms | Verified, quota docs conflict | Lite $10/Pro $50; docs quote ≈1,900 req/5h, 12,000/wk, 24,000/mo for Lite (older FAQ lower); no token conversion; Customer Data not used for training. |
 | 7 | Claude Code | claude.com/pricing + docs.claude.com costs | Verified, low-confidence estimates | Prices and 5-hour/weekly shared-pool mechanics verified; Anthropic publishes no token numbers → 12/60/240M research estimates. |
-| 8 | CommandCode | commandcode.ai/pricing + terms | Verified | Go $1 genuinely includes $10 credits; one account per person (stacking prohibited). |
+| 8 | CommandCode | commandcode.ai/pricing + terms | Verified | Full 5-tier matrix verified: Go $1 ($10 credits, 250/5h, 1k/7d), GOAT $10 ($70 credits, 500/5h, 2k/7d), Pro $20 ($80 credits, 750/5h, 3k/7d), Max 10x $100 ($150 credits, 1.5k/5h, 6k/7d), Max 20x $200 ($300 credits, 3k/5h, 12k/7d); dual standard & premium pools; one account per person (stacking prohibited). |
 | 9 | Cursor | cursor.com/pricing + FAQ | Verified, pool sizes unpublished | Pro+ = 3x and Ultra = 20x Pro limits (official); Pro pool modelled at ~10M tokens. Reseller purchases unauthorized. |
 | 10 | DeepSeek API | api-docs.deepseek.com pricing | Verified, fixed | Previous USD figures did not match official CNY rates; now quotes ¥9/¥27 with cache-hit ¥0.15–0.30 and 50% off-peak. |
 | 11 | Fireworks.ai | fireworks.ai/pricing + account quotas docs | Verified | $1 credits; 6,000 RPM account-wide cap with card. Exact free RPM unpublished. |
@@ -42,13 +42,13 @@ source are explicitly labelled unknown or low-confidence and carry that label in
 | 24 | Ollama Cloud | ollama.com/pricing | Verified, fixed | Team = **$1,000** credits and 10 streams (not $1,600/50); one account per person; peak Mon–Fri 12–18 UTC. |
 | 25 | OpenAI API | platform.openai.com docs + enterprise privacy | Verified, fixed | Sol $2/$10 and Luna $0.10/$0.60; ZDR is not default (30-day retention, ZDR on request); spend caps $100–$200k. |
 | 26 | OpenAI Codex | developers.openai.com/codex/pricing | Verified, low-confidence estimates | Free/Go $8/Plus $20; Pro from $100 (5x/20x); no published token quotas → scenario estimates rebased on the 250K–900K OSINT agent-task band (Plus 20M floor / 44M / 72M). |
-| 27 | OpenCode | opencode.ai/zen + terms | Verified, fixed model list | Zen $20 minimum + $1.23 fee, zero markup; Go $10; official Go model list differs from the old dataset (now Qwen3.7 Plus/Kimi K3/K2.7/GPT-5.6 Luna/MiMo-V2.5). Multiple-account circumvention prohibited. |
+| 27 | OpenCode | opencode.ai/zen + docs.opencode.ai/go + terms | Verified | Zen $20 minimum + $1.23 fee, zero markup; Go $10/mo open-model subscription covering 28 models across $15, $30, $60 monthly allowance pools with 20% 5h and 50% 7d rolling window exhaustion caps. Multiple-account circumvention prohibited. |
 | 28 | OpenRouter | openrouter.ai/pricing + limits + terms | Verified | 5.5% platform fee; free-model limits 20 RPM / 50–1,000 RPD; multiple accounts to bypass limits prohibited. |
 | 29 | Replit | replit.com/pricing + terms | Verified | Core $20 ($18 annual), Pro $100 ($90); registering multiple accounts prohibited. |
 | 30 | Tabnine | tabnine.com/pricing + terms | Verified | $39/$59 annual per user; BYO LLM unlimited; provider LLM +5% handling; no training on customer code. |
 | 31 | Together.ai | docs.together.ai rate limits | Verified, fixed | Dynamic rate limits replaced the stale fixed 60 RPM/60k TPM claim. |
 | 32 | Windsurf (Cognition) | windsurf.com/pricing + AUP | Verified | Free/Pro $20/Max $200/Teams $80+$40; credential sharing banned. Data-training policy not published → unknown. Estimates rebased on the 250K–900K OSINT agent-task band (Pro 75M floor / 165M / 270M); Max restored to a clean 5x Pro relation. |
-| 33 | Z.ai GLM Coding Plan | docs.z.ai devpack overview/teamplan/usage-policy | Verified, fixed | Official 95%-cache token allowance table (Lite 48–97M/wk, Pro 290–580M/wk, Max 676–1,352M/wk for GLM-5.3); peak Mon–Fri 14–18 UTC+8 at 1x, off-peak 0.5x; estimates now derived from these floors/ceilings. |
+| 33 | Z.ai GLM Coding Plan | docs.z.ai devpack overview/teamplan/usage-policy | Verified | Lite $18, Pro $80, Max $168 with official weekly allowance ceilings: GLM-5.3 (97M / 582M / 1,358M) and GLM-5.3-Flash (584M / 3,504M / 8,176M); concurrency caps (1 / 1-2 / 2+); 95% prompt cache; off-peak 50% credit rate outside Mon–Fri 14–18 UTC+8. |
 
 ## Discrepancy log (September 2026 audit)
 
@@ -329,4 +329,29 @@ and `node scripts/build-data.mjs`.
 - `npm run lint` — 0 errors, 0 warnings (72 files).
 - `npm run validate-data` — 33 plans and 33 models pass all schema invariants.
 - `npm test` — 102/102 tests pass (8 suites, including new tests for model-aware stack candidates and pool drainage).
+- `npm run build` — Clean production build with Vite + TypeScript.
+
+## Recalibration & Machine-Readable Usage Limits Export (2026-09-19 / 2026-09-20)
+
+### Key Achievements & Recalibrations
+1. **Machine-Readable Usage Limits Dataset (`public/data/usage-limits.json`)**:
+   - Compiled and published 394 normalized limit records across all 33 services as part of the GitHub Pages build/deployment pipeline.
+   - Includes empirical agent task counts (250K conservative, 550K midpoint, 900K complex turns), mathematical basis formulas, and source links.
+   - Enforced schema validation in `scripts/validate-data.mjs` (CI fails if entries are missing, empty, or non-finite).
+2. **CommandCode Full 5-Tier Matrix Audit**:
+   - Expanded from single-tier stub to complete matrix: Go ($1, $10 credits, 250/5h, 1k/7d), GOAT ($10, $70 credits, 500/5h, 2k/7d), Pro ($20, $80 credits, 750/5h, 3k/7d), Max 10x ($100, $150 credits, 1.5k/5h, 6k/7d), and Max 20x ($200, $300 credits, 3k/5h, 12k/7d).
+   - Modeled dual standard and premium credit pools, rolling 5-hour pools, and 7-day sliding window exhaustion rules.
+3. **OpenCode Go 28-Model Matrix Recalibration**:
+   - Audited the full 28-model Go catalog across $15, $30, and $60 monthly allowance pools with 20% 5h and 50% 7d rolling window caps.
+   - Integrated model-specific request limits and token yields into `data/generate_plans.py` and `data/coding-plans/opencode.json`.
+4. **Z.ai GLM Coding Plan Formal Quota Alignment**:
+   - Recalibrated Lite ($18), Pro ($80), and Max ($168) against official weekly allowance ceilings: GLM-5.3 (97M, 582M, 1,358M tok/wk) and GLM-5.3-Flash (584M, 3,504M, 8,176M tok/wk).
+   - Documented project concurrency limits (1, 1–2, 2+), 95% prompt cache, and off-peak 50% credit pricing.
+5. **Primary Documentation Index (`SOURCE.md`)**:
+   - Established `SOURCE.md` as the unified primary evidence archive with direct links, documentation quotes, and mathematical formulas for all 33 services.
+
+### Verification
+- `npm run lint` — 0 errors, 0 warnings (72 files).
+- `npm run validate-data` — 33 plans and 394 usage limits entries pass all schema invariants.
+- `npm test` — 102/102 tests pass across 8 test suites.
 - `npm run build` — Clean production build with Vite + TypeScript.

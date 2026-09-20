@@ -12,12 +12,12 @@ npm run dev              # Launch local Vite dev server (http://localhost:5173/T
 
 # Quality Checks
 npm run lint             # Run oxlint (0 errors, 0 warnings enforced)
-npm run validate-data    # Enforce plan data schema invariants
-npm test                 # Run vitest (97 tests across 8 suites)
+npm run validate-data    # Enforce plan data schema invariants & usage-limits.json
+npm test                 # Run vitest (102 tests across 8 suites)
 npm run build            # Run tsc -b && vite build
 
 # Data Pipeline
-node scripts/build-data.mjs       # Rebuild consolidated plans & models data
+node scripts/build-data.mjs       # Rebuild consolidated plans, models & usage-limits data
 node scripts/fetch-models.mjs     # Fetch latest OpenRouter models (public)
 AA_API_KEY="..." node scripts/fetch-benchmarks.mjs  # Fetch AA benchmarks
 python3 data/generate_plans.py   # Regenerate all 33 curated coding plan JSONs
@@ -56,6 +56,10 @@ python3 data/generate_plans.py   # Regenerate all 33 curated coding plan JSONs
    - Sanitize all BYOK exporter inputs against YAML newline/delimiter injections using `sanitizeYamlScalar`.
    - Never let log parser accumulate unvalidated tokens without `safeTokenNumber` protection against `NaN` or non-numeric tokens.
 
+6. **Primary Evidence & Public Datasets (`SOURCE.md` & `usage-limits.json`)**:
+   - `SOURCE.md` is the single source of truth for verbatim vendor documentation quotes, pricing URLs, and credit-to-token derivation rationale across all 33 plans.
+   - `public/data/usage-limits.json` is generated during build (`scripts/build-data.mjs`), validating 394 model limit entries against schema invariants in CI (`scripts/validate-data.mjs`).
+
 
 ---
 
@@ -84,10 +88,10 @@ When updating `classifyModelTier(model)`:
 
 ## 5. Adding a New Plan Workflow
 
-1. Research the service and verify pricing, limits, and models.
+1. Research the service and record official quotes, links, and quota math in `SOURCE.md`.
 2. Create `data/coding-plans/<id>.json` conforming to `data/coding-plans/_schema.json`.
 3. Append plan creation to `data/generate_plans.py`.
 4. Add provider color to `getProviderColor` in `src/lib/pricing.ts`.
-5. Run `node scripts/build-data.mjs`.
-6. Run `npm run lint && npm run build`.
+5. Run `node scripts/build-data.mjs` to regenerate `public/data/plans.json` and `public/data/usage-limits.json`.
+6. Run `npm run lint && npm run validate-data && npm test && npm run build`.
 7. Verify live via `npm run dev` at `#/plans`.

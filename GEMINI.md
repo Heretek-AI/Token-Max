@@ -21,7 +21,7 @@ This repository is equipped with the **Codebase Knowledge Graph (codebase-memory
    - `pricing.ts`: Blended rates, budget allocation, knapsack mix & match, Dangerous Dave mode.
    - `tos.ts`: Privacy policy and terms of service classifier.
 3. **Fall Back to File & Grep Tools for**:
-   - String literals, CSS classes, configuration JSONs, and Markdown files (`data/coding-plans/*.json`, `public/data/*.json`, `docs/*.md`).
+   - String literals, CSS classes, configuration JSONs, and Markdown files (`SOURCE.md`, `data/coding-plans/*.json`, `public/data/*.json`, `docs/*.md`).
    - Verifying file listings with `find_by_name` or `list_dir`.
 
 ---
@@ -39,9 +39,9 @@ This repository is equipped with the **Codebase Knowledge Graph (codebase-memory
 - **Core Ingestion Scripts**:
   - `scripts/fetch-models.mjs`: Pulls from `https://openrouter.ai/api/v1/models` and calculates blended 3:1 input:output costs.
   - `scripts/fetch-benchmarks.mjs`: Pulls from `https://artificialanalysis.ai/api/v2/language/models/free` (requires `AA_API_KEY`) and matches model slugs.
-  - `scripts/build-data.mjs`: Consolidates `public/data/models.json`, `public/data/plans.json`, `public/data/budget-precomputed.json`, and `public/data/last-updated.json`.
-  - `scripts/validate-data.mjs`: Validates all 33 curated plan schemas, limits, models, and budgets.
-- **Plan File Rule**: All plans in `data/coding-plans/` must strictly validate against `data/coding-plans/_schema.json`.
+  - `scripts/build-data.mjs`: Consolidates `public/data/models.json`, `public/data/plans.json`, `public/data/usage-limits.json` (394 entries), and `public/data/last-updated.json`.
+  - `scripts/validate-data.mjs`: Validates all 33 curated plan schemas, limits, models, budgets, and published `usage-limits.json`.
+- **Plan File Rule**: All plans in `data/coding-plans/` must strictly validate against `data/coding-plans/_schema.json` and cite primary documentation in `SOURCE.md`.
 - **Python Generator**: Ensure `data/generate_plans.py` matches any changes to individual JSON files in `data/coding-plans/`.
 
 ---
@@ -53,7 +53,7 @@ Every code change must pass:
 # 1. Plan data audit & invariant validation
 npm run validate-data
 
-# 2. Complete unit test suite (97 tests across 8 suites)
+# 2. Complete unit test suite (102 tests across 8 suites)
 npm test
 
 # 3. Linter check (oxlint: 0 errors, 0 warnings)

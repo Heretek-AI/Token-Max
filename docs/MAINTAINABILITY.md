@@ -27,6 +27,7 @@ flowchart TD
         MJSON["models.json"]
         BJSON["benchmarks.json"]
         PJSON["plans.json"]
+        UJSON["usage-limits.json"]
         LUJSON["last-updated.json"]
     end
 
@@ -42,7 +43,7 @@ flowchart TD
     MJSON --> BD
     BJSON --> BD
     BD --> PJSON
-    BD --> BPJSON
+    BD --> UJSON
     BD --> LUJSON
 
     StaticAssets --> Vite --> Frontend
@@ -132,8 +133,10 @@ Check that generated files exist and contain valid JSON:
 node -e "
 const models = JSON.parse(fs.readFileSync('public/data/models.json'));
 const plans = JSON.parse(fs.readFileSync('public/data/plans.json'));
+const usageLimits = JSON.parse(fs.readFileSync('public/data/usage-limits.json'));
 console.log('Models count:', models.length);
 console.log('Plans count:', plans.length);
+console.log('Usage limits count:', usageLimits.length);
 "
 ```
 
@@ -150,11 +153,11 @@ npm run build
 Follow this step-by-step checklist whenever a new developer AI subscription, coding agent, or API plan enters the market.
 
 ### Checklist:
-- [ ] 1. Obtain Official Pricing & Documentation
+- [ ] 1. Obtain Official Pricing & Documentation, record quotes & limits in `SOURCE.md`
 - [ ] 2. Create Plan JSON File in `data/coding-plans/<id>.json`
 - [ ] 3. Update `data/generate_plans.py` for Reproducibility
 - [ ] 4. Register Provider Brand Color in `src/lib/pricing.ts`
-- [ ] 5. Run Validation & Build Pipeline
+- [ ] 5. Run Validation & Build Pipeline (`npm run validate-data`)
 - [ ] 6. Test in UI & Commit
 
 ---

@@ -39,7 +39,7 @@ flowchart TD
     subgraph Outputs["Public Static Data (public/data/)"]
         M["models.json (440+ models)"]
         P["plans.json (33 plans)"]
-        U["usage-limits.json (332 entries)"]
+        U["usage-limits.json (394 entries)"]
         L["last-updated.json"]
     end
 
@@ -54,6 +54,24 @@ flowchart TD
     BD --> U
     BD --> L
 ```
+
+### Published Machine-Readable Artifact: `public/data/usage-limits.json`
+
+During the build pipeline (`scripts/build-data.mjs`), Token-Max exports a consolidated, queryable catalog of usage limits across all 33 providers:
+- **Scope**: 394 normalized records representing every supported model across all provider subscription tiers.
+- **Hosted Endpoint**: `https://heretek-ai.github.io/Token-Max/data/usage-limits.json`
+- **Schema & Key Fields**:
+  - `providerId` & `providerName`: Unique identifier and human-readable name.
+  - `tierName`: Official tier name (e.g., "Pro", "Max 10x", "Lite").
+  - `monthlyPrice`: Listed USD monthly subscription price.
+  - `category`: Provider taxonomy (`coding-ide`, `coding-router`, or `api-provider`).
+  - `modelId` & `modelName`: Model identifier and display name.
+  - `limits`: Raw provider quota specifications (e.g., fast requests, rolling windows, concurrency caps).
+  - `monthlyTokens`: Model-specific monthly token allowance (in millions), resolved via `resolveTierModelBudget`.
+  - `weeklyCeilingTokens` / `fiveHourTokens`: Explicit intermediate window ceilings where documented (e.g. Z.ai, OpenCode, CommandCode).
+  - `empiricalTasks`: Estimated end-to-end autonomous agent coding tasks supported per month across conservative (250K tokens), midpoint (550K tokens), and complex (900K tokens) scenarios.
+  - `basisFormula`: Mathematical derivation equation for token allotments.
+  - `sourceUrl` & `verifiedAt`: Provenance audit link and ISO verification date.
 
 ---
 
@@ -173,10 +191,10 @@ All figures below were re-verified against official pages during the September 2
 14. **Tabnine** (`tabnine.json`): [tabnine.com/pricing](https://www.tabnine.com/pricing/) — Code Assistant ($39/user/mo), Agentic Platform ($59/user/mo), Enterprise (custom), all annual subscriptions. BYO LLM endpoint = unlimited; Tabnine-provided LLM access = provider list price + 5% handling fee.
 
 #### B. Routers & Coding Token Packages (5 Services)
-15. **Z.ai GLM Coding Plan** (`z-ai.json`): [z.ai/subscribe](https://z.ai/subscribe) — Lite ($18), Pro ($72), Max ($160), Team Standard ($80/seat). Official 95%-cache allowance table: GLM-5.3 48–97M / 290–580M / 676–1,352M tokens per week (Lite/Pro/Max); off-peak (outside Mon–Fri 14:00–18:00 UTC+8) bills at 50% credits. Conservative/midpoint/optimistic tier figures are derived from those published floors/ceilings.
+15. **Z.ai GLM Coding Plan** (`z-ai.json`): [z.ai/subscribe](https://z.ai/subscribe) — Lite ($18), Pro ($80), Max ($168), Team Standard ($80/seat). Official weekly allowance ceilings: GLM-5.3 97M / 582M / 1,358M tokens/week; GLM-5.3-Flash 584M / 3,504M / 8,176M tokens/week. Concurrency limits 1 (Lite), 1–2 (Pro), 2+ (Max). Off-peak (outside Mon–Fri 14:00–18:00 UTC+8) bills at 50% credits with 95% prompt cache.
 16. **Kilo Code** (`kilo-code.json`): [kilo.ai/pricing](https://kilo.ai/pricing) — Individual ($0), Teams ($15/user/mo), Enterprise (custom). The $15 is a platform fee; inference passes through at provider rates with no markup (5% on credit top-ups). Kilo Pass: Starter $19 / Pro $49 / Expert $199 with up to 50% bonus credits.
-17. **CommandCode** (`commandcode.json`): [commandcode.ai/pricing](https://commandcode.ai/pricing) — Go ($1, $10 credits), GOAT ($10, $70), Pro ($20, $80), Max 10x ($100, $150), Max 20x ($200, $300). Token estimates convert credit dollars at the plan's documented open-model blend; terms allow one account per person.
-18. **OpenCode** (`opencode.json`): [opencode.ai/zen](https://opencode.ai/zen) — CLI (free/BYOK), Zen ($20 minimum prepaid balance + $1.23 card fee, zero markup), Go ($10/mo open-model subscription). Terms prohibit multiple accounts to circumvent limits.
+17. **CommandCode** (`commandcode.json`): [commandcode.ai/pricing](https://commandcode.ai/pricing) — Go ($1, $10 credits, 250 req/5h, 1,000 req/7d), GOAT ($10, $70 credits, 500 req/5h, 2,000 req/7d), Pro ($20, $80 credits, 750 req/5h, 3,000 req/7d), Max 10x ($100, $150 credits, 1,500 req/5h, 6,000 req/7d), Max 20x ($200, $300 credits, 3,000 req/5h, 12,000 req/7d). Features dual standard and premium model credit pools. Terms enforce one account per person.
+18. **OpenCode** (`opencode.json`): [opencode.ai/zen](https://opencode.ai/zen) — CLI (free/BYOK), Zen ($20 minimum prepaid balance + $1.23 card fee, zero markup), Go ($10/mo open-model subscription covering 28 models across $15, $30, and $60 monthly allowance pools with 20% 5h and 50% 7d rolling exhaustion caps). Terms prohibit multiple accounts to circumvent limits.
 19. **OpenRouter** (`openrouter.json`): [openrouter.ai/pricing](https://openrouter.ai/pricing) — Free ($0) and PAYG with a 5.5% platform fee; free-model limits are 20 RPM / 50 RPD (<10 credits) or 1,000 RPD. Multiple accounts to bypass limits are prohibited.
 
 #### C. Direct API & Cloud Token Plans (14 Services)

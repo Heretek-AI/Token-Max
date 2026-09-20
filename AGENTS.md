@@ -23,6 +23,7 @@ It solves a fundamental developer problem:
 - **Data Layer:** Pre-computed static JSON files generated during build and stored in `public/data/`:
   - `public/data/models.json`: ~440+ normalized models with OpenRouter pricing and Artificial Analysis benchmarks.
   - `public/data/plans.json`: Consolidated array of all 33 curated coding subscription plans.
+  - `public/data/usage-limits.json`: Machine-readable dataset of 394 normalized model limit entries, empirical agent task capacities (250K/550K/900K), and source links.
   - `public/data/last-updated.json`: Timestamp metadata.
 
 ---
@@ -175,7 +176,7 @@ npm run lint
 # Validate plan data invariants + consolidated artifact freshness
 npm run validate-data
 
-# Run pricing/TOS unit tests (97 tests across 8 suites)
+# Run pricing/TOS unit tests (102 tests across 8 suites)
 npm test
 
 # TypeScript check + Vite production build
@@ -204,11 +205,11 @@ python3 data/generate_plans.py
 
 ## 6. How to Add a New Coding Service (Quick Reference)
 
-1. Research the service's official pricing page and documentation.
+1. Research the service's official pricing page and documentation; record quotes and links in `SOURCE.md`.
 2. Create `data/coding-plans/<service-id>.json` following `_schema.json`.
 3. Add the plan generation definition into `data/generate_plans.py`.
 4. If the provider is a model creator, add their brand color to `getProviderColor` in `src/lib/pricing.ts`.
-5. Run `node scripts/build-data.mjs` to re-generate `public/data/plans.json`.
+5. Run `node scripts/build-data.mjs` to re-generate `public/data/plans.json` and `public/data/usage-limits.json`.
 6. Run `npm run lint && npm run validate-data && npm test && npm run build` to confirm zero errors.
 7. Test the changes in `#/plans`, the Token Budget Translator and the TOS audit page.
-8. Record the verification pass in `docs/VERIFICATION.md`.
+8. Record the verification pass in `docs/VERIFICATION.md` and update `SOURCE.md`.
