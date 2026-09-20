@@ -9,227 +9,528 @@
       "name": "Go",
       "monthlyPrice": 1,
       "limits": {
-        "credits": "$10/mo compute credits (up to ~$20 with deals)",
-        "requests": "~15K"
+        "monthlyCredits": "$10/mo compute credits ($1/mo plan fee)",
+        "fiveHourCap": "$3 rolling limit (resets 5h from first use)",
+        "weeklyCap": "$6 rolling limit (resets 7d from first use)",
+        "requests": "~15K mix estimate (~26K with DeepSeek V4 Flash at typical cache)",
+        "topUp": "Extra pay-as-you-go credits are never limited and never expire"
       },
       "models": [
+        "DeepSeek V4 Flash",
         "GPT-5.6 Luna",
-        "Grok 4.5",
+        "GLM-5.3 Flash",
+        "MiniMax M3",
         "Qwen 3.8 Max",
-        "MiniMax M3"
+        "Grok 4.5"
       ],
       "modelAllowances": {
         "open": 10.0,
         "default": 10.0
       },
       "perModelTokenBudgets": {
+        "deepseek v4 flash": {
+          "estimatedMillionTokens": 125.28,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
         "gpt-5.6 luna": {
           "estimatedMillionTokens": 73.04,
           "basis": "list-price-credit",
-          "confidence": "medium"
+          "confidence": "high"
         },
-        "grok 4.5": {
-          "estimatedMillionTokens": 7.71,
+        "glm-5.3 flash": {
+          "estimatedMillionTokens": 105.99,
           "basis": "list-price-credit",
-          "confidence": "medium"
-        },
-        "qwen 3.8 max": {
-          "estimatedMillionTokens": 8.94,
-          "basis": "list-price-credit",
-          "confidence": "medium"
+          "confidence": "high"
         },
         "minimax m3": {
           "estimatedMillionTokens": 50.45,
           "basis": "list-price-credit",
-          "confidence": "medium"
+          "confidence": "high"
+        },
+        "qwen 3.8 max": {
+          "estimatedMillionTokens": 8.94,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "grok 4.5": {
+          "estimatedMillionTokens": 7.71,
+          "basis": "list-price-credit",
+          "confidence": "high"
         }
       },
       "estimatedTokenBudget": {
         "description": "$10 compute credits (~15M tokens on open models)",
         "estimatedMillionTokens": 15,
-        "assumptions": "$10.00 / ~$0.65/M blended open-model rate ~= 15M tokens",
+        "midpointEstimate": 26,
+        "optimisticEstimate": 84,
+        "assumptions": "$10.00 / ~$0.65/M blended open-model rate ~= 15M tokens; vendor benchmarks ~26K requests on DeepSeek V4 Flash (~26M tokens) and up to 84M on GPT-5.6 Luna",
         "estimateMeta": {
-          "sourceUrl": "https://commandcode.ai/pricing",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-19"
+          "sourceUrl": "https://commandcode.ai/docs/resources/pricing-limits#usage-estimates",
+          "sourceQuote": "On Go, DeepSeek V4 Flash runs ~ 42K requests with no cache - ~ 26K once the typical 50K cache reads are included. Our plan estimate is the mix average across the plan's typical models.",
+          "sourceType": "official",
+          "confidence": "high",
+          "verifiedAt": "2026-09-19",
+          "basisModel": "open-model-mix"
         }
       },
-      "notes": "Processing fee applies; open models + select premium"
+      "notes": "Processing fee applies; 46 open models + select premium (GPT-5.6 Luna, Grok 4.5, Qwen Max/Plus)"
     },
     {
       "name": "GOAT",
       "monthlyPrice": 10,
       "limits": {
-        "credits": "$70/mo credits (up to ~$100 with deals)",
-        "requests": "~75K"
+        "monthlyCredits": "$70/mo usage value credits ($10/mo plan fee)",
+        "fiveHourCap": "$14 rolling limit (resets 5h from first use)",
+        "weeklyCap": "$35 rolling limit (resets 7d from first use)",
+        "requests": "~75K mix estimate (~154K with DeepSeek V4 Flash)",
+        "modelAllowances": "$70 Sol/GLM-5.2/Hy3/Qwen27B · $60 DeepSeek Flash · $47 MiniMax M3 · $40 GLM Flash · $20 Luna/Grok",
+        "topUp": "Extra pay-as-you-go credits are never limited and never expire"
       },
       "models": [
+        "DeepSeek V4 Flash",
         "GPT-5.6 Sol",
         "GLM-5.2",
+        "GLM-5.3 Flash",
         "Tencent Hy3",
         "Qwen 3.8 27B",
-        "DeepSeek V4 Flash"
+        "Qwen 3.8 Max",
+        "MiniMax M3",
+        "Gemini 3.8 Flash",
+        "GPT-5.6 Luna",
+        "Grok 4.5"
       ],
       "modelAllowances": {
-        "deepseek": 60.0,
-        "economy": 60.0,
-        "standard": 40.0,
-        "frontier": 20.0,
-        "default": 60.0
+        "gpt-5.6-sol": 70.0,
+        "glm-5.2": 70.0,
+        "tencent-hy3": 70.0,
+        "qwen-3.8-27b": 70.0,
+        "deepseek-v4-flash": 60.0,
+        "minimax-m3": 47.0,
+        "glm-5.3-flash": 40.0,
+        "gemini-3.8-flash": 40.0,
+        "gpt-5.6-luna": 20.0,
+        "default": 70.0
       },
       "perModelTokenBudgets": {
         "gpt-5.6 sol": {
           "estimatedMillionTokens": 20.45,
           "basis": "list-price-credit",
-          "confidence": "medium"
+          "confidence": "high"
         },
         "glm-5.2": {
           "estimatedMillionTokens": 82.01,
           "basis": "list-price-credit",
-          "confidence": "medium"
+          "confidence": "high"
         },
         "tencent hy3": {
           "estimatedMillionTokens": 711.0,
           "basis": "list-price-credit",
-          "confidence": "medium"
+          "confidence": "high"
         },
         "qwen 3.8 27b": {
           "estimatedMillionTokens": 231.5,
           "basis": "list-price-credit",
-          "confidence": "medium"
+          "confidence": "high"
         },
         "deepseek v4 flash": {
-          "estimatedMillionTokens": 876.96,
+          "estimatedMillionTokens": 751.68,
           "basis": "list-price-credit",
-          "confidence": "medium"
+          "confidence": "high"
+        },
+        "minimax m3": {
+          "estimatedMillionTokens": 237.12,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "glm-5.3 flash": {
+          "estimatedMillionTokens": 423.97,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "gemini 3.8 flash": {
+          "estimatedMillionTokens": 41.87,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "gpt-5.6 luna": {
+          "estimatedMillionTokens": 146.09,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "qwen 3.8 max": {
+          "estimatedMillionTokens": 17.87,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "grok 4.5": {
+          "estimatedMillionTokens": 15.41,
+          "basis": "list-price-credit",
+          "confidence": "high"
         }
       },
       "estimatedTokenBudget": {
         "description": "$70 compute credits (~70M tokens)",
         "estimatedMillionTokens": 70,
-        "assumptions": "$70.00 / ~$1/M blended ~= 70M tokens; per-model dollar allowances",
+        "midpointEstimate": 120,
+        "optimisticEstimate": 751,
+        "assumptions": "$70.00 / ~$1/M blended ~= 70M tokens; official vendor model allowances range from $20 to $70 per model ($60 on DeepSeek V4 Flash delivers 751M tokens; ~154K requests)",
         "estimateMeta": {
-          "sourceUrl": "https://commandcode.ai/pricing",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-19"
+          "sourceUrl": "https://commandcode.ai/docs/plans/goat",
+          "sourceQuote": "You pay $10 and code with up to $70 of per-model credit allowances... $14 of usage in any 5 hours, $35 in any 7 days, and $70 per month.",
+          "sourceType": "official",
+          "confidence": "high",
+          "verifiedAt": "2026-09-19",
+          "basisModel": "GLM-5.2"
         }
       },
-      "notes": "29+ models"
+      "notes": "49+ models; includes official per-model dollar allowances up to $70"
     },
     {
       "name": "Pro",
       "monthlyPrice": 20,
       "limits": {
-        "credits": "$80/mo credits",
-        "requests": "~100K"
+        "monthlyCredits": "$80/mo usage value credits ($20/mo plan fee)",
+        "fiveHourCap": "$16 rolling limit (resets 5h from first use)",
+        "weeklyCap": "$40 rolling limit (resets 7d from first use)",
+        "requests": "~100K mix estimate (~47% standard / ~53% premium)",
+        "modelAllowances": "$80 Sol/GLM-5.2/Hy3 · $70 DeepSeek Flash · $57 MiniMax M3 · $50 GLM Flash · $20 Claude Sonnet/Opus",
+        "topUp": "Extra pay-as-you-go credits are never limited and never expire"
       },
       "models": [
+        "Claude Sonnet 5",
         "Claude Opus 4.8",
+        "Claude Haiku 4.5",
         "GPT-5.6 Sol",
-        "Gemini",
+        "GPT-5.6 Terra",
+        "GPT-5.5",
+        "DeepSeek V4 Flash",
         "GLM-5.2",
-        "MiniMax M3"
+        "GLM-5.3 Flash",
+        "Gemini 3.8 Flash",
+        "MiniMax M3",
+        "Qwen 3.8 27B",
+        "Qwen 3.8 Max",
+        "Tencent Hy3",
+        "GPT-5.6 Luna",
+        "Grok 4.5"
       ],
       "modelAllowances": {
-        "deepseek": 80.0,
-        "economy": 80.0,
-        "standard": 60.0,
-        "frontier": 30.0,
+        "gpt-5.6-sol": 80.0,
+        "glm-5.2": 80.0,
+        "tencent-hy3": 80.0,
+        "qwen-3.8-27b": 80.0,
+        "deepseek-v4-flash": 70.0,
+        "minimax-m3": 57.0,
+        "glm-5.3-flash": 50.0,
+        "claude-sonnet-5": 20.0,
+        "claude-opus-4.8": 20.0,
         "default": 80.0
       },
       "perModelTokenBudgets": {
-        "claude opus 4.8": {
-          "estimatedMillionTokens": 25.12,
-          "basis": "list-price-credit",
-          "confidence": "medium"
-        },
         "gpt-5.6 sol": {
           "estimatedMillionTokens": 23.37,
           "basis": "list-price-credit",
-          "confidence": "medium"
-        },
-        "gemini": {
-          "estimatedMillionTokens": 83.74,
-          "basis": "list-price-credit",
-          "confidence": "medium"
+          "confidence": "high"
         },
         "glm-5.2": {
           "estimatedMillionTokens": 93.72,
           "basis": "list-price-credit",
-          "confidence": "medium"
+          "confidence": "high"
+        },
+        "tencent hy3": {
+          "estimatedMillionTokens": 812.58,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "qwen 3.8 27b": {
+          "estimatedMillionTokens": 264.57,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "deepseek v4 flash": {
+          "estimatedMillionTokens": 876.96,
+          "basis": "list-price-credit",
+          "confidence": "high"
         },
         "minimax m3": {
-          "estimatedMillionTokens": 403.6,
+          "estimatedMillionTokens": 287.57,
           "basis": "list-price-credit",
-          "confidence": "medium"
+          "confidence": "high"
+        },
+        "glm-5.3 flash": {
+          "estimatedMillionTokens": 529.97,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "gemini 3.8 flash": {
+          "estimatedMillionTokens": 52.34,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "gpt-5.6 luna": {
+          "estimatedMillionTokens": 219.13,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "qwen 3.8 max": {
+          "estimatedMillionTokens": 26.81,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "grok 4.5": {
+          "estimatedMillionTokens": 23.12,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "claude sonnet 5": {
+          "estimatedMillionTokens": 15.7,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "claude opus 4.8": {
+          "estimatedMillionTokens": 6.28,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "claude haiku 4.5": {
+          "estimatedMillionTokens": 31.4,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "gpt-5.6 terra": {
+          "estimatedMillionTokens": 14.61,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "gpt-5.5": {
+          "estimatedMillionTokens": 5.84,
+          "basis": "list-price-credit",
+          "confidence": "high"
         }
       },
       "estimatedTokenBudget": {
         "description": "$80 compute credits (~80M tokens)",
         "estimatedMillionTokens": 80,
-        "assumptions": "$80.00 / ~$1/M blended ~= 80M tokens; deals increase effective value",
+        "midpointEstimate": 120,
+        "optimisticEstimate": 877,
+        "assumptions": "$80.00 / ~$1/M blended ~= 80M tokens; official vendor model allowances range from $20 for premium frontier models (Claude Sonnet/Opus, Terra) up to $80 for standard models ($70 on DeepSeek V4 Flash delivers 877M tokens)",
         "estimateMeta": {
-          "sourceUrl": "https://commandcode.ai/pricing",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-19"
+          "sourceUrl": "https://commandcode.ai/docs/plans/pro",
+          "sourceQuote": "Pro works the same way: 16 credits in any 5 hours and 40 in any 7 days across its per-model credits - premium models included - worth $16 / $40 of usage on a full-allowance model.",
+          "sourceType": "official",
+          "confidence": "high",
+          "verifiedAt": "2026-09-19",
+          "basisModel": "GLM-5.2"
         }
       },
-      "notes": "Adds all premium models incl Claude; 1M context"
+      "notes": "Adds all premium models incl Claude Opus/Sonnet; 1M context"
     },
     {
       "name": "Max 10x",
       "monthlyPrice": 100,
       "limits": {
-        "credits": "$150/mo credits (up to ~$300)",
-        "requests": "~219K"
+        "standardPool": "$150/mo standard model usage limit (Sol, Luna, Grok, DeepSeek)",
+        "premiumPool": "$100/mo premium model usage limit (Claude Opus, Sonnet, Fable)",
+        "fiveHourCap": "$45 rolling limit (resets 5h from first use)",
+        "weeklyCap": "$90 rolling limit (resets 7d from first use)",
+        "requests": "~230K mix estimate (~43% standard / ~57% premium)",
+        "topUp": "Extra pay-as-you-go credits are never limited and never expire"
       },
       "models": [
-        "All 30+ models"
+        "Claude Sonnet 5",
+        "Claude Opus 4.8",
+        "Claude Haiku 4.5",
+        "GPT-5.6 Sol",
+        "GPT-5.6 Terra",
+        "GPT-5.5",
+        "DeepSeek V4 Flash",
+        "GLM-5.3 Flash",
+        "GPT-5.6 Luna",
+        "MiniMax M3",
+        "Grok 4.5"
       ],
       "modelAllowances": {
+        "standard": 150.0,
+        "premium": 100.0,
         "default": 150.0
       },
-      "estimatedTokenBudget": {
-        "description": "$150 compute credits (~150M tokens)",
-        "estimatedMillionTokens": 150,
-        "assumptions": "$150.00 / ~$1/M blended ~= 150M tokens",
-        "estimateMeta": {
-          "sourceUrl": "https://commandcode.ai/pricing",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-19"
+      "perModelTokenBudgets": {
+        "gpt-5.6 sol": {
+          "estimatedMillionTokens": 43.83,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "deepseek v4 flash": {
+          "estimatedMillionTokens": 1879.19,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "glm-5.3 flash": {
+          "estimatedMillionTokens": 1589.91,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "gpt-5.6 luna": {
+          "estimatedMillionTokens": 1095.65,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "minimax m3": {
+          "estimatedMillionTokens": 756.76,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "grok 4.5": {
+          "estimatedMillionTokens": 115.6,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "claude sonnet 5": {
+          "estimatedMillionTokens": 78.5,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "claude opus 4.8": {
+          "estimatedMillionTokens": 31.4,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "claude haiku 4.5": {
+          "estimatedMillionTokens": 157.01,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "gpt-5.6 terra": {
+          "estimatedMillionTokens": 73.04,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "gpt-5.5": {
+          "estimatedMillionTokens": 29.22,
+          "basis": "list-price-credit",
+          "confidence": "high"
         }
       },
-      "notes": "Higher rate limits"
+      "estimatedTokenBudget": {
+        "description": "$150 standard + $100 premium compute credits",
+        "estimatedMillionTokens": 150,
+        "midpointEstimate": 230,
+        "optimisticEstimate": 500,
+        "assumptions": "Max 10x provides dual pools: $150 standard model usage limit + $100 premium model usage limit (~230K mix requests); standard models include Sol, Luna, Grok, DeepSeek; premium models include Claude Opus, Sonnet, Fable",
+        "estimateMeta": {
+          "sourceUrl": "https://commandcode.ai/docs/plans/max#usage-limits",
+          "sourceQuote": "On Max 10×, you have a $150 standard model usage limit and a $100 premium model usage limit... $45 of usage in any 5 hours and $90 in any 7 days.",
+          "sourceType": "official",
+          "confidence": "high",
+          "verifiedAt": "2026-09-19",
+          "basisModel": "dual-pool-mix"
+        }
+      },
+      "notes": "Dual pools: $150 standard + $100 premium model usage; full catalog"
     },
     {
       "name": "Max 20x",
       "monthlyPrice": 200,
       "limits": {
-        "credits": "$300/mo credits (up to ~$600)",
-        "requests": "~437K"
+        "standardPool": "$300/mo standard model usage limit (Sol, Luna, Grok, DeepSeek)",
+        "premiumPool": "$200/mo premium model usage limit (Claude Opus, Sonnet, Fable)",
+        "fiveHourCap": "$90 rolling limit (resets 5h from first use)",
+        "weeklyCap": "$180 rolling limit (resets 7d from first use)",
+        "requests": "~370K mix estimate (~43% standard / ~57% premium)",
+        "topUp": "Extra pay-as-you-go credits are never limited and never expire"
       },
       "models": [
-        "All 30+ models"
+        "Claude Sonnet 5",
+        "Claude Opus 4.8",
+        "Claude Haiku 4.5",
+        "GPT-5.6 Sol",
+        "GPT-5.6 Terra",
+        "GPT-5.5",
+        "DeepSeek V4 Flash",
+        "GLM-5.3 Flash",
+        "GPT-5.6 Luna",
+        "MiniMax M3",
+        "Grok 4.5"
       ],
       "modelAllowances": {
+        "standard": 300.0,
+        "premium": 200.0,
         "default": 300.0
       },
-      "estimatedTokenBudget": {
-        "description": "$300 compute credits (~300M tokens)",
-        "estimatedMillionTokens": 300,
-        "assumptions": "$300.00 / ~$1/M blended ~= 300M tokens",
-        "estimateMeta": {
-          "sourceUrl": "https://commandcode.ai/pricing",
-          "sourceType": "research",
-          "confidence": "low",
-          "verifiedAt": "2026-09-19"
+      "perModelTokenBudgets": {
+        "gpt-5.6 sol": {
+          "estimatedMillionTokens": 87.65,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "deepseek v4 flash": {
+          "estimatedMillionTokens": 3758.39,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "glm-5.3 flash": {
+          "estimatedMillionTokens": 3179.81,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "gpt-5.6 luna": {
+          "estimatedMillionTokens": 2191.3,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "minimax m3": {
+          "estimatedMillionTokens": 1513.51,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "grok 4.5": {
+          "estimatedMillionTokens": 231.19,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "claude sonnet 5": {
+          "estimatedMillionTokens": 157.01,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "claude opus 4.8": {
+          "estimatedMillionTokens": 62.8,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "claude haiku 4.5": {
+          "estimatedMillionTokens": 314.02,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "gpt-5.6 terra": {
+          "estimatedMillionTokens": 146.09,
+          "basis": "list-price-credit",
+          "confidence": "high"
+        },
+        "gpt-5.5": {
+          "estimatedMillionTokens": 58.43,
+          "basis": "list-price-credit",
+          "confidence": "high"
         }
       },
-      "notes": "Highest rate limits; every model"
+      "estimatedTokenBudget": {
+        "description": "$300 standard + $200 premium compute credits",
+        "estimatedMillionTokens": 300,
+        "midpointEstimate": 370,
+        "optimisticEstimate": 1000,
+        "assumptions": "Max 20x provides dual pools: $300 standard model usage limit + $200 premium model usage limit (~370K mix requests); standard models include Sol, Luna, Grok, DeepSeek; premium models include Claude Opus, Sonnet, Fable",
+        "estimateMeta": {
+          "sourceUrl": "https://commandcode.ai/docs/plans/max#usage-limits",
+          "sourceQuote": "On Max 20×, that's $300 standard and $200 premium... $90 of usage in any 5 hours and $180 in any 7 days.",
+          "sourceType": "official",
+          "confidence": "high",
+          "verifiedAt": "2026-09-19",
+          "basisModel": "dual-pool-mix"
+        }
+      },
+      "notes": "Dual pools: $300 standard + $200 premium model usage; highest request volume"
     }
   ],
   "gotchas": [

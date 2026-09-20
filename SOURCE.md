@@ -377,8 +377,14 @@ Every tier in Token-Max is classified with explicit provenance in `estimateMeta`
 ### CommandCode (`commandcode`)
 
 - **Primary Pricing & Docs:** [https://commandcode.ai/pricing](https://commandcode.ai/pricing)
+- **Official Usage Limits & Rolling Caps:** [https://commandcode.ai/docs/resources/usage-limits](https://commandcode.ai/docs/resources/usage-limits)
+- **Usage Estimates & Request Sizing:** [https://commandcode.ai/docs/resources/pricing-limits#usage-estimates](https://commandcode.ai/docs/resources/pricing-limits#usage-estimates)
+- **Go Plan Specification:** [https://commandcode.ai/docs/plans/go](https://commandcode.ai/docs/plans/go)
+- **GOAT Plan Specification & Model Allowances:** [https://commandcode.ai/docs/plans/goat](https://commandcode.ai/docs/plans/goat)
+- **Pro Plan Specification & Premium Allowances:** [https://commandcode.ai/docs/plans/pro](https://commandcode.ai/docs/plans/pro)
+- **Max Plans & Dual-Pool Credit Rules:** [https://commandcode.ai/docs/plans/max#usage-limits](https://commandcode.ai/docs/plans/max#usage-limits) · [https://commandcode.ai/docs/plans/max#how-credits-work](https://commandcode.ai/docs/plans/max#how-credits-work)
 - **Category:** `coding-router`
-- **Data Privacy & Training:** No training on your code
+- **Data Privacy & Training:** No training on your code (Zero Data Retention available via `CMD_ZDR=1`)
 - **IP Indemnity:** False
 - **Stacking Policy:** `prohibited` — *"Terms: "One account per person. You may not register, operate, or control more than one account... Creating, operating, or controlling multiple accounts is a material breach.""*
 
@@ -386,17 +392,20 @@ Every tier in Token-Max is classified with explicit provenance in `estimateMeta`
 
 | Tier | Price | Stated Quotas & Limits | Supported Models | Monthly Token Budget | Source & Evidence |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Go** | $1/mo | **credits**: $10/mo compute credits (up to ~$20 with deals)<br/>**requests**: ~15K | GPT-5.6 Luna, Grok 4.5, Qwen 3.8 Max, MiniMax M3 | **$10 compute credits (~15M tokens on open models)**<br/>Floor: `15M` | [RESEARCH (low)](https://commandcode.ai/pricing) |
-| **GOAT** | $10/mo | **credits**: $70/mo credits (up to ~$100 with deals)<br/>**requests**: ~75K | GPT-5.6 Sol, GLM-5.2, Tencent Hy3<br/>*(+2 more)* | **$70 compute credits (~70M tokens)**<br/>Floor: `70M` | [RESEARCH (low)](https://commandcode.ai/pricing) |
-| **Pro** | $20/mo | **credits**: $80/mo credits<br/>**requests**: ~100K | Claude Opus 4.8, GPT-5.6 Sol, Gemini<br/>*(+2 more)* | **$80 compute credits (~80M tokens)**<br/>Floor: `80M` | [RESEARCH (low)](https://commandcode.ai/pricing) |
-| **Max 10x** | $100/mo | **credits**: $150/mo credits (up to ~$300)<br/>**requests**: ~219K | All 30+ models | **$150 compute credits (~150M tokens)**<br/>Floor: `150M` | [RESEARCH (low)](https://commandcode.ai/pricing) |
-| **Max 20x** | $200/mo | **credits**: $300/mo credits (up to ~$600)<br/>**requests**: ~437K | All 30+ models | **$300 compute credits (~300M tokens)**<br/>Floor: `300M` | [RESEARCH (low)](https://commandcode.ai/pricing) |
+| **Go** | $1/mo | **monthlyCredits**: $10/mo compute credits<br/>**5h cap**: $3 rolling limit<br/>**weekly cap**: $6 rolling limit<br/>**requests**: ~15K mix (~26K DeepSeek V4 Flash at typical cache) | DeepSeek V4 Flash, GPT-5.6 Luna, GLM-5.3 Flash, MiniMax M3, Qwen 3.8 Max, Grok 4.5 | **$10 compute credits (~15M tokens on open models)**<br/>Floor: `15M` · Mid: `26M` · Opt: `84M` | [OFFICIAL (high)](https://commandcode.ai/docs/resources/pricing-limits#usage-estimates)<br/>*"On Go, DeepSeek V4 Flash runs ~ 42K requests with no cache - ~ 26K once the typical 50K cache reads are included."* |
+| **GOAT** | $10/mo | **monthlyCredits**: $70/mo usage value credits<br/>**5h cap**: $14 rolling limit<br/>**weekly cap**: $35 rolling limit<br/>**requests**: ~75K mix (~154K with DeepSeek V4 Flash)<br/>**allowances**: $70 Sol/GLM-5.2/Hy3 · $60 DeepSeek Flash · $47 MiniMax M3 · $40 GLM Flash · $20 Luna/Grok | DeepSeek V4 Flash, GPT-5.6 Sol, GLM-5.2, GLM-5.3 Flash, Tencent Hy3, Qwen 3.8 27B, MiniMax M3, Gemini 3.8 Flash, GPT-5.6 Luna, Grok 4.5 | **$70 compute credits (~70M tokens)**<br/>Floor: `70M` · Mid: `120M` · Opt: `751M` | [OFFICIAL (high)](https://commandcode.ai/docs/plans/goat)<br/>*"You pay $10 and code with up to $70 of per-model credit allowances... $14 of usage in any 5 hours, $35 in any 7 days, and $70 per month."* |
+| **Pro** | $20/mo | **monthlyCredits**: $80/mo usage value credits<br/>**5h cap**: $16 rolling limit<br/>**weekly cap**: $40 rolling limit<br/>**requests**: ~100K mix (~47% standard / ~53% premium)<br/>**allowances**: $80 Sol/GLM-5.2/Hy3 · $70 DeepSeek Flash · $57 MiniMax M3 · $50 GLM Flash · $20 Claude Sonnet/Opus | Claude Sonnet 5, Claude Opus 4.8, GPT-5.6 Sol, DeepSeek V4 Flash, GLM-5.2, GLM-5.3 Flash, Gemini 3.8 Flash, MiniMax M3, GPT-5.6 Terra | **$80 compute credits (~80M tokens)**<br/>Floor: `80M` · Mid: `120M` · Opt: `877M` | [OFFICIAL (high)](https://commandcode.ai/docs/plans/pro)<br/>*"Pro works the same way: 16 credits in any 5 hours and 40 in any 7 days across its per-model credits - premium models included - worth $16 / $40 of usage on a full-allowance model."* |
+| **Max 10x** | $100/mo | **standardPool**: $150/mo standard model usage limit<br/>**premiumPool**: $100/mo premium model usage limit<br/>**5h cap**: $45 rolling limit<br/>**weekly cap**: $90 rolling limit<br/>**requests**: ~230K mix (~43% standard / ~57% premium) | Claude Sonnet 5, Claude Opus 4.8, GPT-5.6 Sol, DeepSeek V4 Flash, GLM-5.3 Flash, GPT-5.6 Terra, MiniMax M3, Grok 4.5 | **$150 standard + $100 premium credits**<br/>Floor: `150M` · Mid: `230M` · Opt: `500M` | [OFFICIAL (high)](https://commandcode.ai/docs/plans/max#usage-limits)<br/>*"On Max 10×, you have a $150 standard model usage limit and a $100 premium model usage limit... $45 of usage in any 5 hours and $90 in any 7 days."* |
+| **Max 20x** | $200/mo | **standardPool**: $300/mo standard model usage limit<br/>**premiumPool**: $200/mo premium model usage limit<br/>**5h cap**: $90 rolling limit<br/>**weekly cap**: $180 rolling limit<br/>**requests**: ~370K mix (~43% standard / ~57% premium) | Claude Sonnet 5, Claude Opus 4.8, GPT-5.6 Sol, DeepSeek V4 Flash, GLM-5.3 Flash, GPT-5.6 Terra, MiniMax M3, Grok 4.5 | **$300 standard + $200 premium credits**<br/>Floor: `300M` · Mid: `370M` · Opt: `1000M` | [OFFICIAL (high)](https://commandcode.ai/docs/plans/max#usage-limits)<br/>*"On Max 20×, that's $300 standard and $200 premium... $90 of usage in any 5 hours and $180 in any 7 days."* |
 
 **Key Gotchas & Constraints:**
+- Vendor request definition: ~700–1K input tokens, ~125–200 output tokens, ~50K average prompt cache reads
+- Paced by two rolling windows (5-hour and weekly) that start on first use; extra on-demand top-up credits bypass rolling caps
+- Max 10x and Max 20x enforce distinct standard vs. premium model usage limits ($150/$100 on Max 10x, $300/$200 on Max 20x). Sol, Luna, Grok, and Gemini bill as standard; Claude Opus, Sonnet, and Fable bill as premium
 - Domain moved from commandcode.dev to commandcode.ai
 - Every plan adds a small processing fee on top of the sticker price
 - Credits roll over forever; auto top-up billed at API cost
-- Free tier retired - now paid; taste-1 learning data stored locally only
+- Free tier retired - now paid ($1 Go tier); taste-1 learning data stored locally only
 
 ---
 
