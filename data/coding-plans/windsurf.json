@@ -139,6 +139,7 @@
   ],
   "gotchas": [
     "After Cognition's acquisition, windsurf.com/pricing serves the Devin-branded plan sheet; there is no separate Windsurf editor pricing",
+    "On March 19, 2026, Windsurf replaced credit blocks with auto-refreshing daily and weekly quotas integrated with Devin",
     "Quotas are undisclosed 'usage allowances' that refresh daily and weekly; overage is consumed at API pricing",
     "SWE-2 is included free in Devin Desktop and CLI only through Oct 10, 2026",
     "Message cost varies by model, task size and complexity - not a fixed token count",

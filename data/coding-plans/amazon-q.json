@@ -61,6 +61,7 @@
   ],
   "gotchas": [
     "Pro request cap is not numerically published - token estimate is research-derived",
+    "AWS announced April 30, 2027 end-of-support for Amazon Q Developer IDE plugins; transitioning to Kiro as the successor agentic environment",
     "Subscription activates only on first agentic action or code completion",
     "Transformation overage billed at $0.003/LOC at payer-account level",
     "Data collection: opt-out available on Free; automatically opted out on Pro"

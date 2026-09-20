@@ -548,6 +548,7 @@
     ],
     "gotchas": [
       "Pro request cap is not numerically published - token estimate is research-derived",
+      "AWS announced April 30, 2027 end-of-support for Amazon Q Developer IDE plugins; transitioning to Kiro as the successor agentic environment",
       "Subscription activates only on first agentic action or code completion",
       "Transformation overage billed at $0.003/LOC at payer-account level",
       "Data collection: opt-out available on Free; automatically opted out on Pro"
@@ -1013,6 +1014,7 @@
     ],
     "gotchas": [
       "Usage is quota-based per rolling 5-hour session plus weekly caps, deliberately NOT token- or message-metered",
+      "In May 2026, Anthropic doubled 5-hour rate limits for Pro/Max/Team and eliminated peak-hour throttling; weekly hard caps still enforce account ceilings",
       "After limits, work continues only if you opt into usage credits billed at standard API rates (with optional monthly spend cap)",
       "Claude Code shares the same usage pool as Claude.ai chat, desktop and mobile",
       "On Pro, Claude Fable 5.1 runs via usage credits only; on Max it consumes 50% of weekly limits",
@@ -5020,6 +5022,7 @@
     ],
     "gotchas": [
       "After Cognition's acquisition, windsurf.com/pricing serves the Devin-branded plan sheet; there is no separate Windsurf editor pricing",
+      "On March 19, 2026, Windsurf replaced credit blocks with auto-refreshing daily and weekly quotas integrated with Devin",
       "Quotas are undisclosed 'usage allowances' that refresh daily and weekly; overage is consumed at API pricing",
       "SWE-2 is included free in Devin Desktop and CLI only through Oct 10, 2026",
       "Message cost varies by model, task size and complexity - not a fixed token count",

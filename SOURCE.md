@@ -60,9 +60,11 @@ Every tier in Token-Max is classified with explicit provenance in `estimateMeta`
 
 **Key Gotchas & Constraints:**
 - Pro request cap is not numerically published - token estimate is research-derived
+- AWS announced April 30, 2027 end-of-support for Amazon Q Developer IDE plugins; transitioning to Kiro as the successor agentic environment
 - Subscription activates only on first agentic action or code completion
 - Transformation overage billed at $0.003/LOC at payer-account level
 - Data collection: opt-out available on Free; automatically opted out on Pro
+- Deep-dive telemetry: see [`docs/OSINT_USAGE_STATISTICS.md`](docs/OSINT_USAGE_STATISTICS.md)
 
 ---
 
@@ -107,10 +109,12 @@ Every tier in Token-Max is classified with explicit provenance in `estimateMeta`
 
 **Key Gotchas & Constraints:**
 - Usage is quota-based per rolling 5-hour session plus weekly caps, deliberately NOT token- or message-metered
+- In May 2026, Anthropic officially doubled the 5-hour rolling rate limits for Pro, Max, and Team plans and removed peak-hour throttling cliffs
 - After limits, work continues only if you opt into usage credits billed at standard API rates (with optional monthly spend cap)
 - Claude Code shares the same usage pool as Claude.ai chat, desktop and mobile
 - On Pro, Claude Fable 5.1 runs via usage credits only; on Max it consumes 50% of weekly limits
 - Cache TTL is 1 hour on subscriptions but drops to 5 minutes while drawing usage credits
+- Deep-dive telemetry: see [`docs/OSINT_USAGE_STATISTICS.md`](docs/OSINT_USAGE_STATISTICS.md)
 
 ---
 
@@ -139,6 +143,7 @@ Every tier in Token-Max is classified with explicit provenance in `estimateMeta`
 - India-only Start plan (Rs 649) limits users to the Cursor Models pool only
 - Teams Standard ($40/user) and Premium ($120/user) plans are sold separately and are not modeled as tiers here
 - Subscriptions are only sold directly via cursor.com; resellers are unauthorized and may be suspended
+- Deep-dive telemetry: see [`docs/OSINT_USAGE_STATISTICS.md`](docs/OSINT_USAGE_STATISTICS.md)
 
 ---
 
@@ -369,6 +374,8 @@ Every tier in Token-Max is classified with explicit provenance in `estimateMeta`
 - SWE-2 is included free in Devin Desktop and CLI only through Oct 10, 2026
 - Message cost varies by model, task size and complexity - not a fixed token count
 - Old 'Cascade prompts' / 'Fast prompts' terminology is retired from pricing
+- On March 19, 2026, Windsurf replaced credit blocks with auto-refreshing daily and weekly usage quotas deeply integrated with Devin
+- Deep-dive telemetry: see [`docs/OSINT_USAGE_STATISTICS.md`](docs/OSINT_USAGE_STATISTICS.md)
 
 ---
 

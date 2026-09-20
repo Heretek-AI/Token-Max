@@ -150,6 +150,7 @@
   ],
   "gotchas": [
     "Usage is quota-based per rolling 5-hour session plus weekly caps, deliberately NOT token- or message-metered",
+    "In May 2026, Anthropic doubled 5-hour rate limits for Pro/Max/Team and eliminated peak-hour throttling; weekly hard caps still enforce account ceilings",
     "After limits, work continues only if you opt into usage credits billed at standard API rates (with optional monthly spend cap)",
     "Claude Code shares the same usage pool as Claude.ai chat, desktop and mobile",
     "On Pro, Claude Fable 5.1 runs via usage credits only; on Max it consumes 50% of weekly limits",

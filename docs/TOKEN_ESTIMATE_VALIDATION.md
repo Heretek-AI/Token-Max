@@ -46,7 +46,13 @@ Derived quantities that inherit these assumptions:
 | AI Cost Estimator, *Real data breakdown* (2026-06-18) | CLI agents (15–20 turns): 50–200K input / 10–40K output; autonomous sandbox agents: **200–800K input / 30–100K output per task, $2–$15/task**; quadratic context growth |
 | Token Limits (2026-04-18) | Tool outputs dominate plan burn: one grep = 10–15K tokens, file reads = 1–20K tokens; Claude Code allowances are weekly and neither token counts nor thresholds are published |
 | Anthropic, *Prompt caching* docs (2026) | Cache reads billed at **10%** of input; cache writes **1.25×** (5-min TTL) / **2×** (1-hour TTL) |
+| Anthropic, *Rate limit expansion* (2026-05) | **Doubled 5-hour rate limits** for Pro/Max/Team; peak-hour throttling cliffs removed; Fable capped at 50% weekly allowance |
+| Cursor, *Pricing transition* (2025–2026) | Retired "500 fast requests" for **monthly dollar usage pools ($20 Pro, $60 Pro+, $200 Ultra)**; dual Cursor Models vs Other Models pools |
+| Windsurf / Cognition (2026-03-19) | Retired credit blocks for **auto-refreshing daily + weekly quotas**; Cascade agent integrated with Devin autonomous execution |
+| AWS / Kiro (2026) | Amazon Q Developer IDE support sunsets **April 30, 2027**; Kiro introduces published multipliers (0.05x Qwen to 2.2x Opus 5) |
 | The Information / Fortune, via Tokenade (2026-05) | Uber: **$500–$2,000 per heavy Claude Code user per month**; annual AI budget spent in 4 months |
+
+> 📖 **Deep-Dive Dossiers**: See [`docs/OSINT_USAGE_STATISTICS.md`](OSINT_USAGE_STATISTICS.md) for the complete provider-by-provider OSINT telemetry reports across Claude Code, Cursor, Windsurf, Antigravity, OpenAI Codex, Amazon Q, Kiro, MiniMax, and Kimi.
 
 ## 3. Verdicts by assumption
 
@@ -110,3 +116,9 @@ Derived quantities that inherit these assumptions:
    https://tokenlimits.app/blog/claude-code-token-limit-per-plan
 9. Anthropic, *Prompt caching*,
    https://platform.claude.com/docs/en/build-with-claude/prompt-caching
+10. Cursor, *Pricing & Usage Pool Architecture*,
+    https://cursor.com/docs/account/pricing
+11. Windsurf / Cognition, *Usage & Quota Overhaul*,
+    https://windsurf.com/pricing
+12. AWS, *Amazon Q Developer & Kiro Documentation*,
+    https://aws.amazon.com/q/developer/pricing/ and https://kiro.dev/docs/models
