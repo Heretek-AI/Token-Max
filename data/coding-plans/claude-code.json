@@ -91,7 +91,7 @@
           "confidence": "low"
         },
         "claude fable 5.1": {
-          "estimatedMillionTokens": 6.96,
+          "estimatedMillionTokens": 6.55,
           "basis": "list-price-credit",
           "confidence": "low"
         }
@@ -140,7 +140,7 @@
           "confidence": "low"
         },
         "claude fable 5.1": {
-          "estimatedMillionTokens": 27.86,
+          "estimatedMillionTokens": 26.2,
           "basis": "list-price-credit",
           "confidence": "low"
         }

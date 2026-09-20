@@ -103,7 +103,7 @@
       },
       "perModelTokenBudgets": {
         "gpt-5.6 terra": {
-          "estimatedMillionTokens": 91.13,
+          "estimatedMillionTokens": 93.04,
           "basis": "list-price-credit",
           "confidence": "medium"
         },

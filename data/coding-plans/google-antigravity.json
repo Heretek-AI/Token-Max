@@ -42,17 +42,17 @@
       },
       "perModelTokenBudgets": {
         "gemini 3.8 flash": {
-          "estimatedMillionTokens": 77.88,
+          "estimatedMillionTokens": 77.96,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "gemini 3.7 flash": {
-          "estimatedMillionTokens": 77.88,
+          "estimatedMillionTokens": 77.96,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "gemini 3.6 flash": {
-          "estimatedMillionTokens": 77.88,
+          "estimatedMillionTokens": 77.96,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
@@ -62,17 +62,17 @@
           "confidence": "medium"
         },
         "claude sonnet 4.6": {
-          "estimatedMillionTokens": 3.06,
+          "estimatedMillionTokens": 2.84,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "claude opus 4.6": {
-          "estimatedMillionTokens": 0.61,
+          "estimatedMillionTokens": 0.57,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "gpt-oss-120b": {
-          "estimatedMillionTokens": 50.91,
+          "estimatedMillionTokens": 46.07,
           "basis": "list-price-credit",
           "confidence": "medium"
         }
@@ -115,17 +115,17 @@
       },
       "perModelTokenBudgets": {
         "gemini 3.8 flash": {
-          "estimatedMillionTokens": 934.56,
+          "estimatedMillionTokens": 935.58,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "gemini 3.7 flash": {
-          "estimatedMillionTokens": 934.56,
+          "estimatedMillionTokens": 935.58,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "gemini 3.6 flash": {
-          "estimatedMillionTokens": 934.56,
+          "estimatedMillionTokens": 935.58,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
@@ -135,17 +135,17 @@
           "confidence": "medium"
         },
         "claude sonnet 4.6": {
-          "estimatedMillionTokens": 36.76,
+          "estimatedMillionTokens": 34.1,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "claude opus 4.6": {
-          "estimatedMillionTokens": 7.35,
+          "estimatedMillionTokens": 6.82,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "gpt-oss-120b": {
-          "estimatedMillionTokens": 610.87,
+          "estimatedMillionTokens": 552.84,
           "basis": "list-price-credit",
           "confidence": "medium"
         }
@@ -187,17 +187,17 @@
       },
       "perModelTokenBudgets": {
         "gemini 3.8 flash": {
-          "estimatedMillionTokens": 4672.81,
+          "estimatedMillionTokens": 4677.88,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "gemini 3.7 flash": {
-          "estimatedMillionTokens": 4672.81,
+          "estimatedMillionTokens": 4677.88,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "gemini 3.6 flash": {
-          "estimatedMillionTokens": 4672.81,
+          "estimatedMillionTokens": 4677.88,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
@@ -207,17 +207,17 @@
           "confidence": "medium"
         },
         "claude sonnet 4.6": {
-          "estimatedMillionTokens": 183.8,
+          "estimatedMillionTokens": 170.5,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "claude opus 4.6": {
-          "estimatedMillionTokens": 36.76,
+          "estimatedMillionTokens": 34.1,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "gpt-oss-120b": {
-          "estimatedMillionTokens": 3054.33,
+          "estimatedMillionTokens": 2764.2,
           "basis": "list-price-credit",
           "confidence": "medium"
         }
@@ -259,17 +259,17 @@
       },
       "perModelTokenBudgets": {
         "gemini 3.8 flash": {
-          "estimatedMillionTokens": 18691.24,
+          "estimatedMillionTokens": 18711.54,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "gemini 3.7 flash": {
-          "estimatedMillionTokens": 18691.24,
+          "estimatedMillionTokens": 18711.54,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "gemini 3.6 flash": {
-          "estimatedMillionTokens": 18691.24,
+          "estimatedMillionTokens": 18711.54,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
@@ -279,17 +279,17 @@
           "confidence": "medium"
         },
         "claude sonnet 4.6": {
-          "estimatedMillionTokens": 735.22,
+          "estimatedMillionTokens": 682.01,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "claude opus 4.6": {
-          "estimatedMillionTokens": 147.04,
+          "estimatedMillionTokens": 136.4,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "gpt-oss-120b": {
-          "estimatedMillionTokens": 12217.32,
+          "estimatedMillionTokens": 11056.82,
           "basis": "list-price-credit",
           "confidence": "medium"
         }

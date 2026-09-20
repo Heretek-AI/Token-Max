@@ -621,7 +621,7 @@ export function buildStackCandidates(
   const candidates: StackCandidate[] = [];
 
   for (const plan of plans) {
-    let best: { tier: PlanTier; modelName: string | null; modelId: string | null; codingIndex: number | null; score: number } | null = null;
+    let best: { tier: PlanTier; modelName: string | null; modelId: string | null; codingIndex: number | null; tokens: number; score: number } | null = null;
 
     for (const tier of plan.tiers || []) {
       if (tier.monthlyPrice === null || tier.monthlyPrice <= 0) continue;
@@ -632,17 +632,23 @@ export function buildStackCandidates(
       if (lab !== 'all' && !planLabs.includes(lab)) continue;
 
       let match: NormalizedModel | null = null;
+      let matchedPlanModelName: string | null = null;
       for (const planModelName of tier.models || []) {
         if (EXCLUDED_STACK_PATTERNS.some(pat => planModelName.toLowerCase().includes(pat))) continue;
         const found = cleanModels.find(m => matchesPlanModel(planModelName, m));
         if (found && (!match || (found.benchmarks?.codingIndex || 0) > (match.benchmarks?.codingIndex || 0))) {
           match = found;
+          matchedPlanModelName = planModelName;
         }
       }
 
+      // Resolve model-specific token budget when available; fall back to tier baseline
+      const resolved = resolveTierModelBudget(tier, match ? match.name : null, match ? match.id : null, matchedPlanModelName);
+      const effectiveTokens = resolved.tokens > 0 ? resolved.tokens : baseTokens;
+
       // Rank tiers by tokens-per-dollar; a small 10% preference for tiers with
       // a benchmark-matched model breaks near-ties without overriding value.
-      const tokensPerDollar = baseTokens / (tier.monthlyPrice as number);
+      const tokensPerDollar = effectiveTokens / (tier.monthlyPrice as number);
       const score = tokensPerDollar * (match ? 1.0 : 0.9);
 
       if (!best || score > best.score) {
@@ -651,6 +657,7 @@ export function buildStackCandidates(
           modelName: match ? match.name : (tier.models?.[0] || plan.name),
           modelId: match ? match.id : null,
           codingIndex: match?.benchmarks?.codingIndex ?? null,
+          tokens: effectiveTokens,
           score,
         };
       }
@@ -658,7 +665,7 @@ export function buildStackCandidates(
 
     if (best) {
       const price = best.tier.monthlyPrice as number;
-      const tokens = best.tier.estimatedTokenBudget!.estimatedMillionTokens;
+      const tokens = best.tokens;
       const stackingPolicy = plan.stackingPolicy ?? 'unknown';
       candidates.push({
         planId: plan.id,
@@ -670,7 +677,7 @@ export function buildStackCandidates(
         modelId: best.modelId,
         price,
         tokens,
-        requests: tierRawRequests(best.tier),
+        requests: tierRawRequests(best.tier, tokens),
         codingIndex: best.codingIndex,
         lab: detectPlanLabs(plan, best.tier)[0] || 'all',
         stackingPolicy,
@@ -905,6 +912,13 @@ export function calculatePoolDrain(
       );
       if (matchKey) return true;
     }
+    if (tier.perModelTokenBudgets) {
+      const matchKey = Object.keys(tier.perModelTokenBudgets).find(k =>
+        item.modelId.toLowerCase().includes(k.toLowerCase()) ||
+        item.modelName.toLowerCase().includes(k.toLowerCase())
+      );
+      if (matchKey) return true;
+    }
     if (tier.models && tier.models.length > 0) {
       return tier.models.some(planModelName =>
         matchesPlanModel(planModelName, { id: item.modelId, name: item.modelName } as NormalizedModel)
@@ -947,8 +961,22 @@ export function calculatePoolDrain(
       }
 
       if (allowance <= 0) {
+        const resolved = resolveTierModelBudget(tier, item.modelName, item.modelId);
+        const modelTokens =
+          estimateBasis === 'optimistic'
+            ? (resolved.optimistic || resolved.tokens)
+            : estimateBasis === 'midpoint'
+            ? (resolved.midpoint || resolved.tokens)
+            : resolved.tokens;
+
+        const effectiveTokens = modelTokens > 0 ? modelTokens : budgetTokens;
         const impliedRatePerMillion = item.tokensMillion > 0 ? item.costPpu / item.tokensMillion : 1.0;
-        allowance = Math.max(monthlyPrice, budgetTokens * impliedRatePerMillion);
+
+        if (effectiveTokens > 0) {
+          allowance = effectiveTokens * impliedRatePerMillion;
+        } else {
+          allowance = monthlyPrice;
+        }
       }
     }
 

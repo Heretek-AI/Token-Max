@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { CodingPlan, NormalizedModel, CacheRate, WorkloadItem } from '../../lib/types';
-import { getEffectiveCacheMultiplier, calculatePoolDrain, QUALITY } from '../../lib/pricing';
+import { getEffectiveCacheMultiplier, calculatePoolDrain, resolveTierModelBudget, QUALITY } from '../../lib/pricing';
 import { DEFAULT_CACHE_RATE } from '../../lib/estimate-constants';
 import {
   Workflow,
@@ -330,19 +330,21 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
           .filter(t => t.monthlyPrice !== null && t.monthlyPrice > 0 && t.estimatedTokenBudget)
           .map(tier => {
             const tb = tier.estimatedTokenBudget;
-            const conservative = tb ? tb.estimatedMillionTokens : 0;
-            const optimistic = tb ? (tb.optimisticEstimate ?? conservative) : 0;
-            const midpoint = tb ? (tb.midpointEstimate ?? conservative) : 0;
+            const primaryItem = workloadItems[0];
+            const resolved = resolveTierModelBudget(tier, primaryItem?.modelName, primaryItem?.modelId);
+            const conservative = resolved.tokens > 0 ? resolved.tokens : (tb ? tb.estimatedMillionTokens : 0);
+            const optimistic = resolved.tokens > 0 ? (resolved.optimistic || resolved.tokens) : (tb ? (tb.optimisticEstimate ?? conservative) : 0);
+            const midpoint = resolved.tokens > 0 ? (resolved.midpoint || resolved.tokens) : (tb ? (tb.midpointEstimate ?? conservative) : 0);
             const basis =
               estimateBasis === 'optimistic' ? optimistic :
               estimateBasis === 'midpoint' ? midpoint :
               conservative;
             const caps = { basis, optimistic, conservative };
-            const fits = caps.basis >= requiredTokens;
-            const borderline = !fits && caps.optimistic > caps.basis && caps.optimistic >= requiredTokens;
+            const poolDrain = calculatePoolDrain(plan, tier, workloadItems, estimateBasis);
+            const fits = poolDrain.coverageType !== 'none' && poolDrain.overageCost === 0 && (caps.basis >= requiredTokens || poolDrain.coveredDirectCost >= poolDrain.totalDirectCost);
+            const borderline = !fits && poolDrain.coverageType !== 'none' && (caps.optimistic >= requiredTokens || (caps.optimistic > caps.basis && poolDrain.overageCost < poolDrain.totalDirectCost * 0.25));
             const dailyCapacity = (caps.basis * 1e6) / 30;
             const windowRisk = dailyDemand > dailyCapacity;
-            const poolDrain = calculatePoolDrain(plan, tier, workloadItems, estimateBasis);
 
             return {
               planId: plan.id,

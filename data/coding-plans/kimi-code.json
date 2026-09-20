@@ -35,7 +35,7 @@
           "confidence": "low"
         },
         "k2.7 code": {
-          "estimatedMillionTokens": 170.99,
+          "estimatedMillionTokens": 179.92,
           "basis": "list-price-credit",
           "confidence": "low"
         }
@@ -72,7 +72,7 @@
           "confidence": "low"
         },
         "k2.7 code": {
-          "estimatedMillionTokens": 427.48,
+          "estimatedMillionTokens": 449.79,
           "basis": "list-price-credit",
           "confidence": "low"
         }
@@ -109,7 +109,7 @@
           "confidence": "low"
         },
         "k2.7 code": {
-          "estimatedMillionTokens": 1139.95,
+          "estimatedMillionTokens": 1199.44,
           "basis": "list-price-credit",
           "confidence": "low"
         }
@@ -146,7 +146,7 @@
           "confidence": "low"
         },
         "k2.7 code": {
-          "estimatedMillionTokens": 2279.9,
+          "estimatedMillionTokens": 2398.88,
           "basis": "list-price-credit",
           "confidence": "low"
         }

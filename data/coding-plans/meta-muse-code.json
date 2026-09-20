@@ -22,7 +22,7 @@
           "confidence": "medium"
         },
         "llama 4 scout": {
-          "estimatedMillionTokens": 30.51,
+          "estimatedMillionTokens": 30.49,
           "basis": "list-price-credit",
           "confidence": "medium"
         }
@@ -58,12 +58,12 @@
           "confidence": "medium"
         },
         "llama 4 scout": {
-          "estimatedMillionTokens": 152.54,
+          "estimatedMillionTokens": 152.46,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "llama 4 maverick": {
-          "estimatedMillionTokens": 34.2,
+          "estimatedMillionTokens": 33.17,
           "basis": "list-price-credit",
           "confidence": "medium"
         }
@@ -98,7 +98,7 @@
           "confidence": "medium"
         },
         "llama 4 maverick": {
-          "estimatedMillionTokens": 136.78,
+          "estimatedMillionTokens": 132.69,
           "basis": "list-price-credit",
           "confidence": "medium"
         }

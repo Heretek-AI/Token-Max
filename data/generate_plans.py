@@ -186,7 +186,7 @@ def scale_estimate(base, factor):
 _CWP = _ESTIMATE_CONSTANTS["cacheWritePremium"]
 _IN_TOK = _ESTIMATE_CONSTANTS["agentRequest"]["inputTokens"]
 _OUT_TOK = _ESTIMATE_CONSTANTS["agentRequest"]["outputTokens"]
-_PER_MODEL_CACHE_RATE = 0.95
+_PER_MODEL_CACHE_RATE = _ESTIMATE_CONSTANTS["defaultCacheRate"]
 _PER_MODEL_WRITE_SHARE = 0.1
 
 

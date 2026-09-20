@@ -24,22 +24,22 @@
       },
       "perModelTokenBudgets": {
         "gpt-5.6 luna": {
-          "estimatedMillionTokens": 93.13,
+          "estimatedMillionTokens": 73.04,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "grok 4.5": {
-          "estimatedMillionTokens": 9.44,
+          "estimatedMillionTokens": 7.71,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "qwen 3.8 max": {
-          "estimatedMillionTokens": 12.0,
+          "estimatedMillionTokens": 8.94,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "minimax m3": {
-          "estimatedMillionTokens": 62.64,
+          "estimatedMillionTokens": 50.45,
           "basis": "list-price-credit",
           "confidence": "medium"
         }
@@ -80,27 +80,27 @@
       },
       "perModelTokenBudgets": {
         "gpt-5.6 sol": {
-          "estimatedMillionTokens": 26.08,
+          "estimatedMillionTokens": 20.45,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "glm-5.2": {
-          "estimatedMillionTokens": 104.51,
+          "estimatedMillionTokens": 82.01,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "tencent hy3": {
-          "estimatedMillionTokens": 855.9,
+          "estimatedMillionTokens": 711.0,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "qwen 3.8 27b": {
-          "estimatedMillionTokens": 287.67,
+          "estimatedMillionTokens": 231.5,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "deepseek v4 flash": {
-          "estimatedMillionTokens": 1263.7,
+          "estimatedMillionTokens": 876.96,
           "basis": "list-price-credit",
           "confidence": "medium"
         }
@@ -141,27 +141,27 @@
       },
       "perModelTokenBudgets": {
         "claude opus 4.8": {
-          "estimatedMillionTokens": 32.7,
+          "estimatedMillionTokens": 25.12,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "gpt-5.6 sol": {
-          "estimatedMillionTokens": 29.8,
+          "estimatedMillionTokens": 23.37,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "gemini": {
-          "estimatedMillionTokens": 109.0,
+          "estimatedMillionTokens": 83.74,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "glm-5.2": {
-          "estimatedMillionTokens": 119.45,
+          "estimatedMillionTokens": 93.72,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "minimax m3": {
-          "estimatedMillionTokens": 501.12,
+          "estimatedMillionTokens": 403.6,
           "basis": "list-price-credit",
           "confidence": "medium"
         }

@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import type { CodingPlan, NormalizedModel, CacheRate } from '../../lib/types';
-import { formatMillionTokens, getProviderColor, calculateAgentRequestCost, matchesPlanModel, QUALITY } from '../../lib/pricing';
+import { formatMillionTokens, getProviderColor, calculateAgentRequestCost, matchesPlanModel, resolveTierModelBudget, QUALITY } from '../../lib/pricing';
 import { DEFAULT_CACHE_RATE, STANDARD_AGENT_REQUEST_TOKENS } from '../../lib/estimate-constants';
 import { ArrowRight, Sparkles, AlertCircle, Layers, CheckCircle2, HelpCircle, Info, Database, TrendingUp, ExternalLink } from 'lucide-react';
 
@@ -117,7 +117,6 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
   // Compute Arbitrage summary with like-for-like quality matching
   const arbitrageInsight = useMemo(() => {
     if (!currentTier?.estimatedTokenBudget || displayModels.length === 0) return null;
-    const planTokens = currentTier.estimatedTokenBudget.estimatedMillionTokens;
 
     // Quality-matched selection:
     // 1. Check if basisModel is documented in estimateMeta
@@ -139,6 +138,10 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
         (a, b) => (b.benchmarks?.codingIndex || 0) - (a.benchmarks?.codingIndex || 0)
       )[0] || displayModels[0];
     }
+
+    // Resolve tier token capacity model-specifically for the comparison model
+    const resolved = resolveTierModelBudget(currentTier, comparisonModel.name, comparisonModel.id);
+    const planTokens = resolved.tokens > 0 ? resolved.tokens : currentTier.estimatedTokenBudget.estimatedMillionTokens;
 
     const apiTokens = comparisonModel.affordableTokens;
 
@@ -565,7 +568,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
                     {formatMillionTokens(m.affordableTokens)}
                   </div>
                   <div className="text-[11px] text-text-muted flex justify-between mt-0.5 font-medium">
-                    <span>~{Math.round(m.approximateRequests).toLocaleString()} reqs</span>
+                    <span>~{Math.round(m.approximateRequests).toLocaleString()} turns (21k)</span>
                     <span>tokens/mo</span>
                   </div>
                 </div>

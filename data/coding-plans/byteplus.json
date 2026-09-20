@@ -42,12 +42,12 @@
           "confidence": "medium"
         },
         "dola-seed-2.0-lite": {
-          "estimatedMillionTokens": 126.51,
+          "estimatedMillionTokens": 123.03,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "glm-5.3-flash": {
-          "estimatedMillionTokens": 197.69,
+          "estimatedMillionTokens": 193.98,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
@@ -57,7 +57,7 @@
           "confidence": "medium"
         },
         "deepseek-v4-flash": {
-          "estimatedMillionTokens": 124.94,
+          "estimatedMillionTokens": 121.83,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
@@ -67,7 +67,7 @@
           "confidence": "medium"
         },
         "gpt-oss-120b": {
-          "estimatedMillionTokens": 54.22,
+          "estimatedMillionTokens": 50.45,
           "basis": "list-price-credit",
           "confidence": "medium"
         }
@@ -108,12 +108,12 @@
           "confidence": "medium"
         },
         "dola-seed-2.0-lite": {
-          "estimatedMillionTokens": 632.55,
+          "estimatedMillionTokens": 615.15,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
         "glm-5.3-flash": {
-          "estimatedMillionTokens": 988.45,
+          "estimatedMillionTokens": 969.9,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
@@ -128,7 +128,7 @@
           "confidence": "medium"
         },
         "gpt-oss-120b": {
-          "estimatedMillionTokens": 271.09,
+          "estimatedMillionTokens": 252.27,
           "basis": "list-price-credit",
           "confidence": "medium"
         }

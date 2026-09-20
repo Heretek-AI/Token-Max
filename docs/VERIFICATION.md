@@ -314,3 +314,19 @@ windsurf (Devin quota mechanism unpublished), plus any pseudo-model slot
 `npm test` 100/100 (added per-model + fallback cases);
 `npm run build` clean; data regenerated via `python3 data/generate_plans.py`
 and `node scripts/build-data.mjs`.
+
+## Adversarial Review Recalibration (2026-09-19)
+
+### Key Audit Findings & Mathematical Fixes
+1. **Cache Rate Harmonization**: Eliminated `_PER_MODEL_CACHE_RATE = 0.95` in `data/generate_plans.py` which was artificially doubling plan token capacity. Plan generation now enforces the shared `defaultCacheRate: 0.75` from `data/estimate-constants.json` across all credit pools, reserving 95% caching only for providers with documented guarantees (Z.ai).
+2. **Model-Aware Token Resolution in `TokenTranslator`**: `TokenTranslator.tsx` now calls `resolveTierModelBudget(currentTier, comparisonModel.name, comparisonModel.id)` rather than comparing direct API yields against monolithic tier scalars. Relabeled linear request counts to "Normalized 21K Turns".
+3. **Multi-Model Pool Drain Engine Fix**: Fixed `calculatePoolDrain` in `src/lib/pricing.ts` to support `perModelTokenBudgets` alongside `modelAllowances`. Removed the `Math.max(monthlyPrice, ...)` flaw that was artificially inflating pool capacity for low-cost models.
+4. **Stack Candidates Model-Aware Ranking**: `buildStackCandidates` now scores and scales candidates using the matched model's resolved token capacity (`resolveTierModelBudget`), preventing Dangerous Dave and Mix & Match from assigning inaccurate token yields to models.
+5. **Workflow Calculator Model Alignment**: `WorkflowCalculator.tsx` now resolves plan capacity using `resolveTierModelBudget` for the active primary model in the workflow and verifies fit against `poolDrain.overageCost === 0`.
+6. **Subsystem Policy Reconciliation**: Updated Cursor Pro evidence quotes and reasoning token descriptions across `src/lib/throttle-profiles.ts` and `src/lib/reasoning.ts` to reflect the dual-pool architecture (Cursor Models pool vs Other Models at API rates).
+
+### Verification
+- `npm run lint` — 0 errors, 0 warnings (72 files).
+- `npm run validate-data` — 33 plans and 33 models pass all schema invariants.
+- `npm test` — 102/102 tests pass (8 suites, including new tests for model-aware stack candidates and pool drainage).
+- `npm run build` — Clean production build with Vite + TypeScript.

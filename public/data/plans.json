@@ -89,7 +89,7 @@
         },
         "perModelTokenBudgets": {
           "qwen 3.7 plus": {
-            "estimatedMillionTokens": 23.86,
+            "estimatedMillionTokens": 23.5,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
@@ -99,17 +99,17 @@
             "confidence": "medium"
           },
           "kimi k2.5": {
-            "estimatedMillionTokens": 40.27,
+            "estimatedMillionTokens": 43.55,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "glm-5": {
-            "estimatedMillionTokens": 25.71,
+            "estimatedMillionTokens": 27.03,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "minimax m2.5": {
-            "estimatedMillionTokens": 49.8,
+            "estimatedMillionTokens": 52.71,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -151,7 +151,7 @@
         },
         "perModelTokenBudgets": {
           "qwen 3.7 plus": {
-            "estimatedMillionTokens": 53.56,
+            "estimatedMillionTokens": 52.74,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
@@ -161,17 +161,17 @@
             "confidence": "medium"
           },
           "kimi k2.5": {
-            "estimatedMillionTokens": 90.38,
+            "estimatedMillionTokens": 97.75,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "glm-5": {
-            "estimatedMillionTokens": 57.71,
+            "estimatedMillionTokens": 60.66,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "minimax m2.5": {
-            "estimatedMillionTokens": 111.78,
+            "estimatedMillionTokens": 118.31,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -213,7 +213,7 @@
         },
         "perModelTokenBudgets": {
           "qwen 3.7 plus": {
-            "estimatedMillionTokens": 95.45,
+            "estimatedMillionTokens": 94,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
@@ -223,17 +223,17 @@
             "confidence": "medium"
           },
           "kimi k2.5": {
-            "estimatedMillionTokens": 161.07,
+            "estimatedMillionTokens": 174.21,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "glm-5": {
-            "estimatedMillionTokens": 102.86,
+            "estimatedMillionTokens": 108.12,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "minimax m2.5": {
-            "estimatedMillionTokens": 199.21,
+            "estimatedMillionTokens": 210.84,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -275,7 +275,7 @@
         },
         "perModelTokenBudgets": {
           "qwen 3.7 plus": {
-            "estimatedMillionTokens": 381.29,
+            "estimatedMillionTokens": 375.48,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
@@ -285,17 +285,17 @@
             "confidence": "medium"
           },
           "kimi k2.5": {
-            "estimatedMillionTokens": 643.4,
+            "estimatedMillionTokens": 695.87,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "glm-5": {
-            "estimatedMillionTokens": 410.86,
+            "estimatedMillionTokens": 431.86,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "minimax m2.5": {
-            "estimatedMillionTokens": 795.73,
+            "estimatedMillionTokens": 842.19,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -335,7 +335,7 @@
         },
         "perModelTokenBudgets": {
           "qwen 3.7 plus": {
-            "estimatedMillionTokens": 55.68,
+            "estimatedMillionTokens": 54.83,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
@@ -345,12 +345,12 @@
             "confidence": "medium"
           },
           "kimi k2.5": {
-            "estimatedMillionTokens": 93.96,
+            "estimatedMillionTokens": 101.62,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "glm-5": {
-            "estimatedMillionTokens": 60,
+            "estimatedMillionTokens": 63.07,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -390,7 +390,7 @@
         },
         "perModelTokenBudgets": {
           "qwen 3.7 plus": {
-            "estimatedMillionTokens": 222.2,
+            "estimatedMillionTokens": 218.81,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
@@ -400,12 +400,12 @@
             "confidence": "medium"
           },
           "kimi k2.5": {
-            "estimatedMillionTokens": 374.94,
+            "estimatedMillionTokens": 405.52,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "glm-5": {
-            "estimatedMillionTokens": 239.43,
+            "estimatedMillionTokens": 251.67,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -445,7 +445,7 @@
         },
         "perModelTokenBudgets": {
           "qwen 3.7 plus": {
-            "estimatedMillionTokens": 555.76,
+            "estimatedMillionTokens": 547.29,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
@@ -455,12 +455,12 @@
             "confidence": "medium"
           },
           "kimi k2.5": {
-            "estimatedMillionTokens": 937.81,
+            "estimatedMillionTokens": 1014.28,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "glm-5": {
-            "estimatedMillionTokens": 598.86,
+            "estimatedMillionTokens": 629.47,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -755,12 +755,12 @@
             "confidence": "medium"
           },
           "dola-seed-2.0-lite": {
-            "estimatedMillionTokens": 126.51,
+            "estimatedMillionTokens": 123.03,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "glm-5.3-flash": {
-            "estimatedMillionTokens": 197.69,
+            "estimatedMillionTokens": 193.98,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
@@ -770,7 +770,7 @@
             "confidence": "medium"
           },
           "deepseek-v4-flash": {
-            "estimatedMillionTokens": 124.94,
+            "estimatedMillionTokens": 121.83,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
@@ -780,7 +780,7 @@
             "confidence": "medium"
           },
           "gpt-oss-120b": {
-            "estimatedMillionTokens": 54.22,
+            "estimatedMillionTokens": 50.45,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -821,12 +821,12 @@
             "confidence": "medium"
           },
           "dola-seed-2.0-lite": {
-            "estimatedMillionTokens": 632.55,
+            "estimatedMillionTokens": 615.15,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "glm-5.3-flash": {
-            "estimatedMillionTokens": 988.45,
+            "estimatedMillionTokens": 969.9,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
@@ -841,7 +841,7 @@
             "confidence": "medium"
           },
           "gpt-oss-120b": {
-            "estimatedMillionTokens": 271.09,
+            "estimatedMillionTokens": 252.27,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -954,7 +954,7 @@
             "confidence": "low"
           },
           "claude fable 5.1": {
-            "estimatedMillionTokens": 6.96,
+            "estimatedMillionTokens": 6.55,
             "basis": "list-price-credit",
             "confidence": "low"
           }
@@ -1003,7 +1003,7 @@
             "confidence": "low"
           },
           "claude fable 5.1": {
-            "estimatedMillionTokens": 27.86,
+            "estimatedMillionTokens": 26.2,
             "basis": "list-price-credit",
             "confidence": "low"
           }
@@ -1050,22 +1050,22 @@
         },
         "perModelTokenBudgets": {
           "gpt-5.6 luna": {
-            "estimatedMillionTokens": 93.13,
+            "estimatedMillionTokens": 73.04,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "grok 4.5": {
-            "estimatedMillionTokens": 9.44,
+            "estimatedMillionTokens": 7.71,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "qwen 3.8 max": {
-            "estimatedMillionTokens": 12,
+            "estimatedMillionTokens": 8.94,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "minimax m3": {
-            "estimatedMillionTokens": 62.64,
+            "estimatedMillionTokens": 50.45,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -1106,27 +1106,27 @@
         },
         "perModelTokenBudgets": {
           "gpt-5.6 sol": {
-            "estimatedMillionTokens": 26.08,
+            "estimatedMillionTokens": 20.45,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "glm-5.2": {
-            "estimatedMillionTokens": 104.51,
+            "estimatedMillionTokens": 82.01,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "tencent hy3": {
-            "estimatedMillionTokens": 855.9,
+            "estimatedMillionTokens": 711,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "qwen 3.8 27b": {
-            "estimatedMillionTokens": 287.67,
+            "estimatedMillionTokens": 231.5,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "deepseek v4 flash": {
-            "estimatedMillionTokens": 1263.7,
+            "estimatedMillionTokens": 876.96,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -1167,27 +1167,27 @@
         },
         "perModelTokenBudgets": {
           "claude opus 4.8": {
-            "estimatedMillionTokens": 32.7,
+            "estimatedMillionTokens": 25.12,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gpt-5.6 sol": {
-            "estimatedMillionTokens": 29.8,
+            "estimatedMillionTokens": 23.37,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini": {
-            "estimatedMillionTokens": 109,
+            "estimatedMillionTokens": 83.74,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "glm-5.2": {
-            "estimatedMillionTokens": 119.45,
+            "estimatedMillionTokens": 93.72,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "minimax m3": {
-            "estimatedMillionTokens": 501.12,
+            "estimatedMillionTokens": 403.6,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -1326,47 +1326,47 @@
         ],
         "perModelTokenBudgets": {
           "cursor grok 4.6": {
-            "estimatedMillionTokens": 18.88,
+            "estimatedMillionTokens": 15.41,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "composer 2.5": {
-            "estimatedMillionTokens": 52.58,
+            "estimatedMillionTokens": 46.99,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude fable 5.1": {
-            "estimatedMillionTokens": 4.75,
+            "estimatedMillionTokens": 3.43,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude opus 5": {
-            "estimatedMillionTokens": 8.18,
+            "estimatedMillionTokens": 6.28,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude sonnet 5": {
-            "estimatedMillionTokens": 20.44,
+            "estimatedMillionTokens": 15.7,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gpt-5.6 sol": {
-            "estimatedMillionTokens": 10.22,
+            "estimatedMillionTokens": 7.85,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.1 pro": {
-            "estimatedMillionTokens": 18.63,
+            "estimatedMillionTokens": 14.61,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.8 flash": {
-            "estimatedMillionTokens": 56.33,
+            "estimatedMillionTokens": 42.94,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "muse spark 1.3": {
-            "estimatedMillionTokens": 37.11,
+            "estimatedMillionTokens": 27.83,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -1403,37 +1403,37 @@
         ],
         "perModelTokenBudgets": {
           "cursor grok 4.6": {
-            "estimatedMillionTokens": 56.63,
+            "estimatedMillionTokens": 46.24,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "composer 2.5": {
-            "estimatedMillionTokens": 157.75,
+            "estimatedMillionTokens": 140.98,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude fable 5.1": {
-            "estimatedMillionTokens": 14.24,
+            "estimatedMillionTokens": 10.29,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude opus 5": {
-            "estimatedMillionTokens": 24.53,
+            "estimatedMillionTokens": 18.84,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude sonnet 5": {
-            "estimatedMillionTokens": 61.31,
+            "estimatedMillionTokens": 47.1,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gpt-5.6 sol": {
-            "estimatedMillionTokens": 30.66,
+            "estimatedMillionTokens": 23.55,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.8 flash": {
-            "estimatedMillionTokens": 168.99,
+            "estimatedMillionTokens": 128.82,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -1469,32 +1469,32 @@
         ],
         "perModelTokenBudgets": {
           "cursor grok 4.6": {
-            "estimatedMillionTokens": 188.76,
+            "estimatedMillionTokens": 154.13,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "composer 2.5": {
-            "estimatedMillionTokens": 525.82,
+            "estimatedMillionTokens": 469.93,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude fable 5.1": {
-            "estimatedMillionTokens": 47.46,
+            "estimatedMillionTokens": 34.29,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude opus 5": {
-            "estimatedMillionTokens": 81.75,
+            "estimatedMillionTokens": 62.8,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.8 flash": {
-            "estimatedMillionTokens": 563.29,
+            "estimatedMillionTokens": 429.39,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gpt-6 astra": {
-            "estimatedMillionTokens": 40.88,
+            "estimatedMillionTokens": 31.4,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -1727,42 +1727,42 @@
         ],
         "perModelTokenBudgets": {
           "claude sonnet 5": {
-            "estimatedMillionTokens": 3.07,
+            "estimatedMillionTokens": 2.36,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude haiku 4.5": {
-            "estimatedMillionTokens": 6.13,
+            "estimatedMillionTokens": 4.71,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gpt-5.4": {
-            "estimatedMillionTokens": 2.24,
+            "estimatedMillionTokens": 1.75,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gpt-5.3-codex": {
-            "estimatedMillionTokens": 2.71,
+            "estimatedMillionTokens": 2.2,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.5 flash": {
-            "estimatedMillionTokens": 3.73,
+            "estimatedMillionTokens": 2.92,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.6 flash": {
-            "estimatedMillionTokens": 8.18,
+            "estimatedMillionTokens": 6.28,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.7 flash": {
-            "estimatedMillionTokens": 8.18,
+            "estimatedMillionTokens": 6.28,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.8 flash": {
-            "estimatedMillionTokens": 8.18,
+            "estimatedMillionTokens": 6.28,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -1800,37 +1800,37 @@
         ],
         "perModelTokenBudgets": {
           "claude sonnet 5": {
-            "estimatedMillionTokens": 9.2,
+            "estimatedMillionTokens": 7.07,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gpt-5.3-codex": {
-            "estimatedMillionTokens": 8.14,
+            "estimatedMillionTokens": 6.6,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.8 flash": {
-            "estimatedMillionTokens": 24.53,
+            "estimatedMillionTokens": 18.84,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude opus 5": {
-            "estimatedMillionTokens": 3.68,
+            "estimatedMillionTokens": 2.83,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude fable 5.1": {
-            "estimatedMillionTokens": 2.14,
+            "estimatedMillionTokens": 1.54,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gpt-5.4 nano": {
-            "estimatedMillionTokens": 82,
+            "estimatedMillionTokens": 64.62,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gpt-6 astra": {
-            "estimatedMillionTokens": 1.84,
+            "estimatedMillionTokens": 1.41,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -1865,27 +1865,27 @@
         ],
         "perModelTokenBudgets": {
           "gpt-5.3-codex": {
-            "estimatedMillionTokens": 27.12,
+            "estimatedMillionTokens": 21.98,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.8 flash": {
-            "estimatedMillionTokens": 81.75,
+            "estimatedMillionTokens": 62.8,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude opus 5": {
-            "estimatedMillionTokens": 12.26,
+            "estimatedMillionTokens": 9.42,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude fable 5.1": {
-            "estimatedMillionTokens": 7.12,
+            "estimatedMillionTokens": 5.14,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gpt-6 astra": {
-            "estimatedMillionTokens": 6.13,
+            "estimatedMillionTokens": 4.71,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -2138,17 +2138,17 @@
         },
         "perModelTokenBudgets": {
           "gemini 3.8 flash": {
-            "estimatedMillionTokens": 77.88,
+            "estimatedMillionTokens": 77.96,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.7 flash": {
-            "estimatedMillionTokens": 77.88,
+            "estimatedMillionTokens": 77.96,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.6 flash": {
-            "estimatedMillionTokens": 77.88,
+            "estimatedMillionTokens": 77.96,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
@@ -2158,17 +2158,17 @@
             "confidence": "medium"
           },
           "claude sonnet 4.6": {
-            "estimatedMillionTokens": 3.06,
+            "estimatedMillionTokens": 2.84,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude opus 4.6": {
-            "estimatedMillionTokens": 0.61,
+            "estimatedMillionTokens": 0.57,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gpt-oss-120b": {
-            "estimatedMillionTokens": 50.91,
+            "estimatedMillionTokens": 46.07,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -2211,17 +2211,17 @@
         },
         "perModelTokenBudgets": {
           "gemini 3.8 flash": {
-            "estimatedMillionTokens": 934.56,
+            "estimatedMillionTokens": 935.58,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.7 flash": {
-            "estimatedMillionTokens": 934.56,
+            "estimatedMillionTokens": 935.58,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.6 flash": {
-            "estimatedMillionTokens": 934.56,
+            "estimatedMillionTokens": 935.58,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
@@ -2231,17 +2231,17 @@
             "confidence": "medium"
           },
           "claude sonnet 4.6": {
-            "estimatedMillionTokens": 36.76,
+            "estimatedMillionTokens": 34.1,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude opus 4.6": {
-            "estimatedMillionTokens": 7.35,
+            "estimatedMillionTokens": 6.82,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gpt-oss-120b": {
-            "estimatedMillionTokens": 610.87,
+            "estimatedMillionTokens": 552.84,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -2283,17 +2283,17 @@
         },
         "perModelTokenBudgets": {
           "gemini 3.8 flash": {
-            "estimatedMillionTokens": 4672.81,
+            "estimatedMillionTokens": 4677.88,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.7 flash": {
-            "estimatedMillionTokens": 4672.81,
+            "estimatedMillionTokens": 4677.88,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.6 flash": {
-            "estimatedMillionTokens": 4672.81,
+            "estimatedMillionTokens": 4677.88,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
@@ -2303,17 +2303,17 @@
             "confidence": "medium"
           },
           "claude sonnet 4.6": {
-            "estimatedMillionTokens": 183.8,
+            "estimatedMillionTokens": 170.5,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude opus 4.6": {
-            "estimatedMillionTokens": 36.76,
+            "estimatedMillionTokens": 34.1,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gpt-oss-120b": {
-            "estimatedMillionTokens": 3054.33,
+            "estimatedMillionTokens": 2764.2,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -2355,17 +2355,17 @@
         },
         "perModelTokenBudgets": {
           "gemini 3.8 flash": {
-            "estimatedMillionTokens": 18691.24,
+            "estimatedMillionTokens": 18711.54,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.7 flash": {
-            "estimatedMillionTokens": 18691.24,
+            "estimatedMillionTokens": 18711.54,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gemini 3.6 flash": {
-            "estimatedMillionTokens": 18691.24,
+            "estimatedMillionTokens": 18711.54,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
@@ -2375,17 +2375,17 @@
             "confidence": "medium"
           },
           "claude sonnet 4.6": {
-            "estimatedMillionTokens": 735.22,
+            "estimatedMillionTokens": 682.01,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "claude opus 4.6": {
-            "estimatedMillionTokens": 147.04,
+            "estimatedMillionTokens": 136.4,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "gpt-oss-120b": {
-            "estimatedMillionTokens": 12217.32,
+            "estimatedMillionTokens": 11056.82,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -2640,7 +2640,7 @@
             "confidence": "low"
           },
           "k2.7 code": {
-            "estimatedMillionTokens": 170.99,
+            "estimatedMillionTokens": 179.92,
             "basis": "list-price-credit",
             "confidence": "low"
           }
@@ -2677,7 +2677,7 @@
             "confidence": "low"
           },
           "k2.7 code": {
-            "estimatedMillionTokens": 427.48,
+            "estimatedMillionTokens": 449.79,
             "basis": "list-price-credit",
             "confidence": "low"
           }
@@ -2714,7 +2714,7 @@
             "confidence": "low"
           },
           "k2.7 code": {
-            "estimatedMillionTokens": 1139.95,
+            "estimatedMillionTokens": 1199.44,
             "basis": "list-price-credit",
             "confidence": "low"
           }
@@ -2751,7 +2751,7 @@
             "confidence": "low"
           },
           "k2.7 code": {
-            "estimatedMillionTokens": 2279.9,
+            "estimatedMillionTokens": 2398.88,
             "basis": "list-price-credit",
             "confidence": "low"
           }
@@ -3231,7 +3231,7 @@
             "confidence": "medium"
           },
           "llama 4 scout": {
-            "estimatedMillionTokens": 30.51,
+            "estimatedMillionTokens": 30.49,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -3267,12 +3267,12 @@
             "confidence": "medium"
           },
           "llama 4 scout": {
-            "estimatedMillionTokens": 152.54,
+            "estimatedMillionTokens": 152.46,
             "basis": "list-price-credit",
             "confidence": "medium"
           },
           "llama 4 maverick": {
-            "estimatedMillionTokens": 34.2,
+            "estimatedMillionTokens": 33.17,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -3307,7 +3307,7 @@
             "confidence": "medium"
           },
           "llama 4 maverick": {
-            "estimatedMillionTokens": 136.78,
+            "estimatedMillionTokens": 132.69,
             "basis": "list-price-credit",
             "confidence": "medium"
           }
@@ -3848,7 +3848,7 @@
         },
         "perModelTokenBudgets": {
           "gpt-5.6 terra": {
-            "estimatedMillionTokens": 91.13,
+            "estimatedMillionTokens": 93.04,
             "basis": "list-price-credit",
             "confidence": "medium"
           },

@@ -525,5 +525,54 @@ describe('Adversarial Edge Cases & Guardrails', () => {
     expect(calculateBudgetResults([model()], NaN)).toEqual([]);
     expect(calculateBudgetResults([model()], -10)).toEqual([]);
   });
+
+  it('buildStackCandidates assigns model-specific token budget when perModelTokenBudgets exists', () => {
+    const testTier = tier({
+      name: 'Pro',
+      monthlyPrice: 20,
+      models: ['Claude Sonnet 5', 'Claude Opus 5'],
+      estimatedTokenBudget: { estimatedMillionTokens: 10, assumptions: 'flat scalar' },
+      perModelTokenBudgets: {
+        'claude sonnet 5': { estimatedMillionTokens: 25, basis: 'list-price-credit' },
+        'claude opus 5': { estimatedMillionTokens: 5, basis: 'list-price-credit' },
+      },
+    });
+    const testPlan = plan({ id: 'test-plan', name: 'Test Plan', tiers: [testTier] });
+    const sonnetModel = model({
+      id: 'anthropic/claude-sonnet-5',
+      name: 'Claude Sonnet 5',
+      benchmarks: { codingIndex: 85, intelligenceIndex: null, agenticIndex: null, valueScore: null },
+    });
+
+    const candidates = buildStackCandidates([sonnetModel], [testPlan], 'all');
+    expect(candidates.length).toBe(1);
+    expect(candidates[0].modelName).toBe('Claude Sonnet 5');
+    // Tokens must be the resolved 25M, not the flat 10M
+    expect(candidates[0].tokens).toBe(25);
+  });
+
+  it('calculatePoolDrain uses perModelTokenBudgets for multi-model drainage', () => {
+    const testTier = tier({
+      name: 'Pro',
+      monthlyPrice: 20,
+      models: ['Claude Sonnet', 'Gemini Flash'],
+      estimatedTokenBudget: { estimatedMillionTokens: 10, assumptions: 'flat scalar' },
+      perModelTokenBudgets: {
+        'claude sonnet': { estimatedMillionTokens: 10, basis: 'list-price-credit' },
+        'gemini flash': { estimatedMillionTokens: 50, basis: 'list-price-credit' },
+      },
+    });
+    const testPlan = plan({ id: 'test-plan', name: 'Test Plan', tiers: [testTier] });
+    const workload = [
+      { modelId: 'gemini-flash', modelName: 'Gemini Flash', share: 0.5, tokensMillion: 25, costPpu: 5 }, // 25M of 50M = 50%
+      { modelId: 'claude-sonnet', modelName: 'Claude Sonnet', share: 0.5, tokensMillion: 5, costPpu: 10 }, // 5M of 10M = 50%
+    ];
+
+    const result = calculatePoolDrain(testPlan, testTier, workload);
+    expect(result.coverageType).toBe('full');
+    expect(result.isCapped).toBe(false);
+    expect(result.overageCost).toBe(0);
+    expect(result.poolUtilizedPercent).toBe(100);
+  });
 });
 

@@ -37,7 +37,7 @@ export const THROTTLE_PROFILES: ThrottleProfile[] = [
     monthlyFastRequests: 500,
     exhaustionBehavior: 'slow-queue',
     slowQueueDelaySec: 30, // Slow pool typically introduces 20-60s queue wait during peak hours
-    evidenceQuote: '500 fast requests per month. Once exhausted, falls back to the slow queue with variable queue latency.',
+    evidenceQuote: 'Cursor Models pool + Other Models pool (third-party at API rates). Priority queue allocation with slow queue fallback on proprietary models.',
     url: 'https://cursor.com/docs/account/pricing',
   },
   {
@@ -52,7 +52,7 @@ export const THROTTLE_PROFILES: ThrottleProfile[] = [
     monthlyFastRequests: 10000, // 20x Pro pool
     exhaustionBehavior: 'slow-queue',
     slowQueueDelaySec: 10,
-    evidenceQuote: '20x Pro pool with priority queue allocation and higher concurrent composer tasks.',
+    evidenceQuote: '20x Pro pool with priority queue allocation across Cursor Models and expanded third-party API allowance.',
     url: 'https://cursor.com/docs/account/pricing',
   },
   {
