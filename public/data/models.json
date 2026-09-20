@@ -22,12 +22,12 @@
     "agentBlendedCost": 0.1714,
     "costPer1kRequests": 1.8,
     "benchmarks": {
-      "intelligenceIndex": 29.6,
+      "intelligenceIndex": 29.2,
       "codingIndex": 58.6,
-      "agenticIndex": 30.8,
-      "valueScore": 8468.6
+      "agenticIndex": 29.5,
+      "valueScore": 8379
     },
-    "benchmarkSource": "artificial-analysis",
+    "benchmarkSource": "openrouter",
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
@@ -56,10 +56,10 @@
     "agentBlendedCost": 0.1714,
     "costPer1kRequests": 1.8,
     "benchmarks": {
-      "intelligenceIndex": 29.6,
+      "intelligenceIndex": 29.2,
       "codingIndex": 58.6,
-      "agenticIndex": 30.8,
-      "valueScore": 8468.6
+      "agenticIndex": 29.5,
+      "valueScore": 8379
     },
     "benchmarkSource": "openrouter",
     "reasoning": null,
@@ -68,34 +68,34 @@
     "tierClass": "balanced"
   },
   {
-    "id": "xiaomi/mimo-v2.5-pro",
-    "name": "Xiaomi: MiMo-V2.5-Pro",
-    "provider": "xiaomi",
-    "series": "MiMo",
+    "id": "tencent/hy3-preview",
+    "name": "Tencent: Hy3 preview",
+    "provider": "tencent",
+    "series": "other",
     "releasedAt": "2026-04-22",
-    "createdUnix": 1776874273,
+    "createdUnix": 1776878150,
     "unbenchmarked": false,
     "modality": "text->text",
-    "contextWindow": 1050000,
-    "maxOutput": 131072,
+    "contextWindow": 262144,
+    "maxOutput": 235929,
     "pricing": {
-      "input": 0.435,
-      "output": 0.87,
-      "cachedInput": 0.0036,
+      "input": 0.18,
+      "output": 0.6,
+      "cachedInput": 0.06,
       "cachedInputWrite": null,
       "reasoning": null,
       "webSearch": null
     },
-    "blendedCost": 0.54375,
-    "agentBlendedCost": 0.1476,
-    "costPer1kRequests": 1.74,
+    "blendedCost": 0.28500000000000003,
+    "agentBlendedCost": 0.1143,
+    "costPer1kRequests": 0.96,
     "benchmarks": {
-      "intelligenceIndex": 26.4,
-      "codingIndex": 60.2,
-      "agenticIndex": 22.7,
-      "valueScore": 7759.1
+      "intelligenceIndex": 25.3,
+      "codingIndex": 58.8,
+      "agenticIndex": 24.1,
+      "valueScore": 14628.1
     },
-    "benchmarkSource": "artificial-analysis",
+    "benchmarkSource": "openrouter",
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
@@ -113,21 +113,21 @@
     "contextWindow": 1310720,
     "maxOutput": 131072,
     "pricing": {
-      "input": 0.9099999999999999,
-      "output": 2.8600000000000003,
-      "cachedInput": 0.169,
+      "input": 0.896,
+      "output": 2.816,
+      "cachedInput": 0.1664,
       "cachedInputWrite": null,
       "reasoning": null,
       "webSearch": null
     },
-    "blendedCost": 1.3975,
-    "agentBlendedCost": 0.4736,
-    "costPer1kRequests": 4.68,
+    "blendedCost": 1.376,
+    "agentBlendedCost": 0.4663,
+    "costPer1kRequests": 4.6080000000000005,
     "benchmarks": {
-      "intelligenceIndex": 44.9,
+      "intelligenceIndex": 44.8,
       "codingIndex": 74.8,
-      "agenticIndex": 53.4,
-      "valueScore": 4465.1
+      "agenticIndex": 53.1,
+      "valueScore": 4526.9
     },
     "benchmarkSource": "artificial-analysis",
     "reasoning": null,
@@ -158,10 +158,10 @@
     "agentBlendedCost": 0.3643,
     "costPer1kRequests": 3.6,
     "benchmarks": {
-      "intelligenceIndex": 44.9,
+      "intelligenceIndex": 44.8,
       "codingIndex": 74.8,
-      "agenticIndex": 53.4,
-      "valueScore": 5804.7
+      "agenticIndex": 53.1,
+      "valueScore": 5794.4
     },
     "benchmarkSource": "openrouter",
     "reasoning": null,
@@ -192,10 +192,10 @@
     "agentBlendedCost": 0.0486,
     "costPer1kRequests": 0.48,
     "benchmarks": {
-      "intelligenceIndex": 41.9,
+      "intelligenceIndex": 41.8,
       "codingIndex": 71.5,
-      "agenticIndex": 51.2,
-      "valueScore": 41747.4
+      "agenticIndex": 50.9,
+      "valueScore": 41670.2
     },
     "benchmarkSource": "artificial-analysis",
     "reasoning": null,
@@ -247,23 +247,23 @@
     "unbenchmarked": false,
     "modality": "text->text",
     "contextWindow": 1048576,
-    "maxOutput": 393216,
+    "maxOutput": 384000,
     "pricing": {
-      "input": 0.57816,
-      "output": 1.73448,
-      "cachedInput": 0.0184,
+      "input": 0.66,
+      "output": 1.9800000000000002,
+      "cachedInput": 0.022,
       "cachedInputWrite": null,
       "reasoning": null,
       "webSearch": null
     },
-    "blendedCost": 0.86724,
-    "agentBlendedCost": 0.2334,
-    "costPer1kRequests": 2.8907999999999996,
+    "blendedCost": 0.99,
+    "agentBlendedCost": 0.2671,
+    "costPer1kRequests": 3.3,
     "benchmarks": {
-      "intelligenceIndex": 36.3,
+      "intelligenceIndex": 36,
       "codingIndex": 68.8,
-      "agenticIndex": 42.3,
-      "valueScore": 6267
+      "agenticIndex": 41.3,
+      "valueScore": 5453.5
     },
     "benchmarkSource": "openrouter",
     "reasoning": null,
@@ -294,10 +294,10 @@
     "agentBlendedCost": 0.2671,
     "costPer1kRequests": 3.3,
     "benchmarks": {
-      "intelligenceIndex": 36.3,
+      "intelligenceIndex": 36,
       "codingIndex": 68.8,
-      "agenticIndex": 42.3,
-      "valueScore": 5489.9
+      "agenticIndex": 41.3,
+      "valueScore": 5453.5
     },
     "benchmarkSource": "openrouter",
     "reasoning": null,
@@ -328,10 +328,10 @@
     "agentBlendedCost": 5.4762,
     "costPer1kRequests": 70,
     "benchmarks": {
-      "intelligenceIndex": 52.8,
+      "intelligenceIndex": 52.7,
       "codingIndex": 76.9,
-      "agenticIndex": 51.5,
-      "valueScore": 322.3
+      "agenticIndex": 51,
+      "valueScore": 321.4
     },
     "benchmarkSource": "artificial-analysis",
     "reasoning": null,
@@ -362,10 +362,10 @@
     "agentBlendedCost": 2.7381,
     "costPer1kRequests": 35,
     "benchmarks": {
-      "intelligenceIndex": 52.8,
+      "intelligenceIndex": 52.7,
       "codingIndex": 76.9,
-      "agenticIndex": 51.5,
-      "valueScore": 644.6
+      "agenticIndex": 51,
+      "valueScore": 642.9
     },
     "benchmarkSource": "openrouter",
     "reasoning": null,
@@ -396,12 +396,12 @@
     "agentBlendedCost": 1.0952,
     "costPer1kRequests": 14,
     "benchmarks": {
-      "intelligenceIndex": 47.1,
+      "intelligenceIndex": 47,
       "codingIndex": 77.4,
-      "agenticIndex": 50.5,
-      "valueScore": 1581.8
+      "agenticIndex": 50.2,
+      "valueScore": 1579
     },
-    "benchmarkSource": "artificial-analysis",
+    "benchmarkSource": "openrouter",
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
@@ -432,8 +432,8 @@
     "benchmarks": {
       "intelligenceIndex": 45.4,
       "codingIndex": 76.2,
-      "agenticIndex": 56.1,
-      "valueScore": 2133.7
+      "agenticIndex": 56,
+      "valueScore": 2132.7
     },
     "benchmarkSource": "openrouter",
     "reasoning": null,
@@ -464,12 +464,12 @@
     "agentBlendedCost": 0.9405,
     "costPer1kRequests": 10,
     "benchmarks": {
-      "intelligenceIndex": 40,
+      "intelligenceIndex": 39.9,
       "codingIndex": 71.9,
-      "agenticIndex": 50.4,
-      "valueScore": 1969
+      "agenticIndex": 50.1,
+      "valueScore": 1965.3
     },
-    "benchmarkSource": "artificial-analysis",
+    "benchmarkSource": "openrouter",
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
@@ -498,10 +498,10 @@
     "agentBlendedCost": 0.9405,
     "costPer1kRequests": 10,
     "benchmarks": {
-      "intelligenceIndex": 40,
+      "intelligenceIndex": 39.9,
       "codingIndex": 71.9,
-      "agenticIndex": 50.4,
-      "valueScore": 1969
+      "agenticIndex": 50.1,
+      "valueScore": 1965.3
     },
     "benchmarkSource": "openrouter",
     "reasoning": null,
@@ -532,12 +532,12 @@
     "agentBlendedCost": 0.6071,
     "costPer1kRequests": 6.750000000000001,
     "benchmarks": {
-      "intelligenceIndex": 39.8,
+      "intelligenceIndex": 39.6,
       "codingIndex": 72.2,
-      "agenticIndex": 44,
-      "valueScore": 2863
+      "agenticIndex": 43.2,
+      "valueScore": 2849
     },
-    "benchmarkSource": "artificial-analysis",
+    "benchmarkSource": "openrouter",
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
@@ -566,12 +566,12 @@
     "agentBlendedCost": 0.6071,
     "costPer1kRequests": 6.750000000000001,
     "benchmarks": {
-      "intelligenceIndex": 34.3,
+      "intelligenceIndex": 33.7,
       "codingIndex": 71.3,
-      "agenticIndex": 27.5,
-      "valueScore": 2538
+      "agenticIndex": 25.8,
+      "valueScore": 2506.5
     },
-    "benchmarkSource": "artificial-analysis",
+    "benchmarkSource": "openrouter",
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
@@ -634,10 +634,10 @@
     "agentBlendedCost": 0.4107,
     "costPer1kRequests": 5.25,
     "benchmarks": {
-      "intelligenceIndex": 41.2,
+      "intelligenceIndex": 40.9,
       "codingIndex": 76.3,
-      "agenticIndex": 41.1,
-      "valueScore": 3914.7
+      "agenticIndex": 40.2,
+      "valueScore": 3892.7
     },
     "benchmarkSource": "artificial-analysis",
     "reasoning": null,
@@ -668,10 +668,10 @@
     "agentBlendedCost": 0.2054,
     "costPer1kRequests": 2.625,
     "benchmarks": {
-      "intelligenceIndex": 41.2,
+      "intelligenceIndex": 40.9,
       "codingIndex": 76.3,
-      "agenticIndex": 41.1,
-      "valueScore": 7829.3
+      "agenticIndex": 40.2,
+      "valueScore": 7785.3
     },
     "benchmarkSource": "openrouter",
     "reasoning": null,
@@ -702,12 +702,12 @@
     "agentBlendedCost": 0.4107,
     "costPer1kRequests": 5.25,
     "benchmarks": {
-      "intelligenceIndex": 39.4,
+      "intelligenceIndex": 39.1,
       "codingIndex": 76.1,
-      "agenticIndex": 36.4,
-      "valueScore": 3790
+      "agenticIndex": 35.2,
+      "valueScore": 3762
     },
-    "benchmarkSource": "artificial-analysis",
+    "benchmarkSource": "openrouter",
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
@@ -738,8 +738,8 @@
     "benchmarks": {
       "intelligenceIndex": 53.4,
       "codingIndex": 81.6,
-      "agenticIndex": 58,
-      "valueScore": 344.4
+      "agenticIndex": 57.9,
+      "valueScore": 344.3
     },
     "benchmarkSource": "artificial-analysis",
     "reasoning": null,
@@ -772,8 +772,8 @@
     "benchmarks": {
       "intelligenceIndex": 53.4,
       "codingIndex": 81.6,
-      "agenticIndex": 58,
-      "valueScore": 688.8
+      "agenticIndex": 57.9,
+      "valueScore": 688.5
     },
     "benchmarkSource": "openrouter",
     "reasoning": null,
@@ -804,12 +804,12 @@
     "agentBlendedCost": 2.7381,
     "costPer1kRequests": 35,
     "benchmarks": {
-      "intelligenceIndex": 50.7,
+      "intelligenceIndex": 50.8,
       "codingIndex": 78,
-      "agenticIndex": 56.2,
-      "valueScore": 660
+      "agenticIndex": 56.5,
+      "valueScore": 661.1
     },
-    "benchmarkSource": "artificial-analysis",
+    "benchmarkSource": "openrouter",
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
@@ -838,10 +838,10 @@
     "agentBlendedCost": 1.119,
     "costPer1kRequests": 10,
     "benchmarks": {
-      "intelligenceIndex": 44.4,
+      "intelligenceIndex": 44.3,
       "codingIndex": 76.8,
-      "agenticIndex": 53.4,
-      "valueScore": 2110
+      "agenticIndex": 53,
+      "valueScore": 2105.3
     },
     "benchmarkSource": "artificial-analysis",
     "reasoning": null,
@@ -872,12 +872,12 @@
     "agentBlendedCost": 0.9762,
     "costPer1kRequests": 10,
     "benchmarks": {
-      "intelligenceIndex": 39.1,
+      "intelligenceIndex": 38.8,
       "codingIndex": 72.4,
-      "agenticIndex": 42.1,
-      "valueScore": 1888.3
+      "agenticIndex": 41.2,
+      "valueScore": 1877.3
     },
-    "benchmarkSource": "artificial-analysis",
+    "benchmarkSource": "openrouter",
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
@@ -906,12 +906,12 @@
     "agentBlendedCost": 0.5595,
     "costPer1kRequests": 5,
     "benchmarks": {
-      "intelligenceIndex": 25.4,
+      "intelligenceIndex": 24.9,
       "codingIndex": 42.2,
-      "agenticIndex": 17.2,
-      "valueScore": 2005.8
+      "agenticIndex": 15.5,
+      "valueScore": 1966.7
     },
-    "benchmarkSource": "artificial-analysis",
+    "benchmarkSource": "openrouter",
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
@@ -940,10 +940,10 @@
     "agentBlendedCost": 0.931,
     "costPer1kRequests": 11.9,
     "benchmarks": {
-      "intelligenceIndex": 43.8,
+      "intelligenceIndex": 43.6,
       "codingIndex": 76.2,
-      "agenticIndex": 50.6,
-      "valueScore": 1824.7
+      "agenticIndex": 50,
+      "valueScore": 1818.2
     },
     "benchmarkSource": "artificial-analysis",
     "reasoning": null,
@@ -974,10 +974,10 @@
     "agentBlendedCost": 1.6429,
     "costPer1kRequests": 21,
     "benchmarks": {
-      "intelligenceIndex": 43.8,
+      "intelligenceIndex": 43.6,
       "codingIndex": 76.2,
-      "agenticIndex": 50.6,
-      "valueScore": 1034
+      "agenticIndex": 50,
+      "valueScore": 1030.3
     },
     "benchmarkSource": "openrouter",
     "reasoning": null,
@@ -1008,12 +1008,12 @@
     "agentBlendedCost": 0.531,
     "costPer1kRequests": 5.8999999999999995,
     "benchmarks": {
-      "intelligenceIndex": 27.5,
+      "intelligenceIndex": 27,
       "codingIndex": 61.8,
-      "agenticIndex": 22.1,
-      "valueScore": 2512.7
+      "agenticIndex": 20.5,
+      "valueScore": 2478.8
     },
-    "benchmarkSource": "artificial-analysis",
+    "benchmarkSource": "openrouter",
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
@@ -1042,10 +1042,10 @@
     "agentBlendedCost": 1.7857,
     "costPer1kRequests": 10.5,
     "benchmarks": {
-      "intelligenceIndex": 14.9,
+      "intelligenceIndex": 14.2,
       "codingIndex": 46.9,
-      "agenticIndex": 9.4,
-      "valueScore": 975
+      "agenticIndex": 7,
+      "valueScore": 946.3
     },
     "benchmarkSource": "artificial-analysis",
     "reasoning": null,
@@ -1076,10 +1076,10 @@
     "agentBlendedCost": 0.8929,
     "costPer1kRequests": 5.25,
     "benchmarks": {
-      "intelligenceIndex": 14.9,
+      "intelligenceIndex": 14.2,
       "codingIndex": 46.9,
-      "agenticIndex": 9.4,
-      "valueScore": 1950
+      "agenticIndex": 7,
+      "valueScore": 1892.7
     },
     "benchmarkSource": "openrouter",
     "reasoning": null,
@@ -1110,10 +1110,78 @@
     "agentBlendedCost": 0.075,
     "costPer1kRequests": 0.9,
     "benchmarks": {
-      "intelligenceIndex": 11.5,
+      "intelligenceIndex": 11.3,
       "codingIndex": 26.6,
-      "agenticIndex": 1.4,
-      "valueScore": 6102.9
+      "agenticIndex": 0.8,
+      "valueScore": 6019
+    },
+    "benchmarkSource": "openrouter",
+    "reasoning": null,
+    "isFree": false,
+    "isBatch": false,
+    "tierClass": "balanced"
+  },
+  {
+    "id": "xiaomi/mimo-v2.5-pro",
+    "name": "Xiaomi: MiMo-V2.5-Pro",
+    "provider": "xiaomi",
+    "series": "MiMo",
+    "releasedAt": "2026-04-22",
+    "createdUnix": 1776874273,
+    "unbenchmarked": false,
+    "modality": "text->text",
+    "contextWindow": 1050000,
+    "maxOutput": 131072,
+    "pricing": {
+      "input": 0.435,
+      "output": 0.87,
+      "cachedInput": 0.0036,
+      "cachedInputWrite": null,
+      "reasoning": null,
+      "webSearch": null
+    },
+    "blendedCost": 0.54375,
+    "agentBlendedCost": 0.1476,
+    "costPer1kRequests": 1.74,
+    "benchmarks": {
+      "intelligenceIndex": 26,
+      "codingIndex": 60.2,
+      "agenticIndex": 21.3,
+      "valueScore": 7667.1
+    },
+    "benchmarkSource": "artificial-analysis",
+    "reasoning": null,
+    "isFree": false,
+    "isBatch": false,
+    "tierClass": "balanced"
+  },
+  {
+    "id": "xiaomi/mimo-v2.5",
+    "name": "Xiaomi: MiMo-V2.5",
+    "provider": "xiaomi",
+    "series": "MiMo",
+    "releasedAt": "2026-04-22",
+    "createdUnix": 1776874269,
+    "unbenchmarked": false,
+    "modality": "text+image+audio+video->text",
+    "contextWindow": 1050000,
+    "maxOutput": 131072,
+    "pricing": {
+      "input": 0.14,
+      "output": 0.28,
+      "cachedInput": 0.0028,
+      "cachedInputWrite": null,
+      "reasoning": null,
+      "webSearch": null
+    },
+    "blendedCost": 0.17500000000000002,
+    "agentBlendedCost": 0.0487,
+    "costPer1kRequests": 0.56,
+    "benchmarks": {
+      "intelligenceIndex": null,
+      "codingIndex": 56.8,
+      "agenticIndex": 15.8,
+      "valueScore": 21304.3
     },
     "benchmarkSource": "openrouter",
     "reasoning": null,
