@@ -171,6 +171,8 @@ export function getProviderColor(provider: string): string {
     sakana: '#06b6d4',
     'z-ai': '#0256FF',
     '~z-ai': '#0256FF',
+    xiaomi: '#ff6900',
+    '~xiaomi': '#ff6900',
   };
   return colors[provider] || 'hsl(0 15% 55%)';
 }

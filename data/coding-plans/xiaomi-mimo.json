@@ -1,0 +1,222 @@
+{
+  "id": "xiaomi-mimo",
+  "name": "Xiaomi MiMo",
+  "category": "coding-router",
+  "url": "https://platform.xiaomimimo.com/token-plan",
+  "lastVerified": "2026-09-19",
+  "tiers": [
+    {
+      "name": "Lite",
+      "monthlyPrice": 6,
+      "annualPrice": 63.36,
+      "limits": {
+        "credits": "4,100,000,000 (4.1B) Credits/mo",
+        "concurrency": "Standard dynamic concurrency",
+        "rpm": "100 RPM across models",
+        "tpm": "10,000,000 TPM (10M)",
+        "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+      },
+      "models": [
+        "MiMo-V2.5-Pro",
+        "MiMo-V2.5"
+      ],
+      "perModelTokenBudgets": {
+        "mimo-v2.5-pro": {
+          "estimatedMillionTokens": 40.28,
+          "midpointEstimate": 45.0,
+          "optimisticEstimate": 50.35,
+          "basis": "official-table",
+          "confidence": "high"
+        },
+        "mimo-v2.5": {
+          "estimatedMillionTokens": 117.94,
+          "midpointEstimate": 130.0,
+          "optimisticEstimate": 147.43,
+          "basis": "official-table",
+          "confidence": "high"
+        }
+      },
+      "estimatedTokenBudget": {
+        "description": "4.1B Credits/mo; ~40M tokens on MiMo-V2.5-Pro or ~118M on MiMo-V2.5 (official credit conversion)",
+        "estimatedMillionTokens": 40.28,
+        "midpointEstimate": 79.11,
+        "optimisticEstimate": 117.94,
+        "assumptions": "4.1B Credits / 101.79M credits/M tokens on MiMo-V2.5-Pro (standard 20:1 + 75% cache) ~= 40.28M tokens; on MiMo-V2.5 (34.76M credits/M) ~= 117.94M tokens. Nighttime 0.8x off-peak rate grants +25% capacity bonus",
+        "estimateMeta": {
+          "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan",
+          "sourceQuote": "Lite: $6/month, ¥39/month, 4,100,000,000 Credits. mimo-v2.5-pro: 2.5 cache hit, 300 cache miss, 600 output; mimo-v2.5: 2 hit, 100 miss, 200 out",
+          "sourceType": "official",
+          "confidence": "high",
+          "verifiedAt": "2026-09-19",
+          "basisModel": "MiMo-V2.5-Pro",
+          "cacheAssumption": "75% cache hit rate (official 2.5 Credits hit vs 300 miss)"
+        }
+      },
+      "notes": "Lite tier for developers; compatible with OpenCode, OpenClaw, Claude Code, Cline, and Codex via OpenAI/Anthropic proxy protocols"
+    },
+    {
+      "name": "Standard",
+      "monthlyPrice": 16,
+      "annualPrice": 168.96,
+      "limits": {
+        "credits": "11,000,000,000 (11B) Credits/mo",
+        "concurrency": "Standard dynamic concurrency",
+        "rpm": "100 RPM across models",
+        "tpm": "10,000,000 TPM (10M)",
+        "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+      },
+      "models": [
+        "MiMo-V2.5-Pro",
+        "MiMo-V2.5"
+      ],
+      "perModelTokenBudgets": {
+        "mimo-v2.5-pro": {
+          "estimatedMillionTokens": 108.07,
+          "midpointEstimate": 120.0,
+          "optimisticEstimate": 135.09,
+          "basis": "official-table",
+          "confidence": "high"
+        },
+        "mimo-v2.5": {
+          "estimatedMillionTokens": 316.44,
+          "midpointEstimate": 350.0,
+          "optimisticEstimate": 395.55,
+          "basis": "official-table",
+          "confidence": "high"
+        }
+      },
+      "estimatedTokenBudget": {
+        "description": "11B Credits/mo; ~108M tokens on MiMo-V2.5-Pro or ~316M on MiMo-V2.5",
+        "estimatedMillionTokens": 108.07,
+        "midpointEstimate": 212.26,
+        "optimisticEstimate": 316.44,
+        "assumptions": "11B Credits / 101.79M credits/M tokens on MiMo-V2.5-Pro ~= 108.07M tokens; on MiMo-V2.5 ~= 316.44M tokens",
+        "estimateMeta": {
+          "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan",
+          "sourceQuote": "Standard: $16/month, ¥99/month, 11,000,000,000 Credits",
+          "sourceType": "official",
+          "confidence": "high",
+          "verifiedAt": "2026-09-19",
+          "basisModel": "MiMo-V2.5-Pro",
+          "cacheAssumption": "75% cache hit rate"
+        }
+      },
+      "notes": "Standard package for regular AI programming workloads"
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 50,
+      "annualPrice": 528.0,
+      "limits": {
+        "credits": "38,000,000,000 (38B) Credits/mo",
+        "concurrency": "High dynamic concurrency",
+        "rpm": "100 RPM across models",
+        "tpm": "10,000,000 TPM (10M)",
+        "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+      },
+      "models": [
+        "MiMo-V2.5-Pro",
+        "MiMo-V2.5"
+      ],
+      "perModelTokenBudgets": {
+        "mimo-v2.5-pro": {
+          "estimatedMillionTokens": 373.33,
+          "midpointEstimate": 420.0,
+          "optimisticEstimate": 466.66,
+          "basis": "official-table",
+          "confidence": "high"
+        },
+        "mimo-v2.5": {
+          "estimatedMillionTokens": 1093.15,
+          "midpointEstimate": 1200.0,
+          "optimisticEstimate": 1366.44,
+          "basis": "official-table",
+          "confidence": "high"
+        }
+      },
+      "estimatedTokenBudget": {
+        "description": "38B Credits/mo; ~373M tokens on MiMo-V2.5-Pro or ~1.09B on MiMo-V2.5",
+        "estimatedMillionTokens": 373.33,
+        "midpointEstimate": 733.24,
+        "optimisticEstimate": 1093.15,
+        "assumptions": "38B Credits / 101.79M credits/M tokens on MiMo-V2.5-Pro ~= 373.33M tokens; on MiMo-V2.5 ~= 1,093.15M tokens (1.09B)",
+        "estimateMeta": {
+          "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan",
+          "sourceQuote": "Pro: $50/month, ¥329/month, 38,000,000,000 Credits",
+          "sourceType": "official",
+          "confidence": "high",
+          "verifiedAt": "2026-09-19",
+          "basisModel": "MiMo-V2.5-Pro",
+          "cacheAssumption": "75% cache hit rate"
+        }
+      },
+      "notes": "Pro package for daily high-frequency agentic software development"
+    },
+    {
+      "name": "Max",
+      "monthlyPrice": 100,
+      "annualPrice": 1056.0,
+      "limits": {
+        "credits": "82,000,000,000 (82B) Credits/mo",
+        "concurrency": "Maximum dynamic concurrency",
+        "rpm": "100 RPM across models",
+        "tpm": "10,000,000 TPM (10M)",
+        "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+      },
+      "models": [
+        "MiMo-V2.5-Pro",
+        "MiMo-V2.5"
+      ],
+      "perModelTokenBudgets": {
+        "mimo-v2.5-pro": {
+          "estimatedMillionTokens": 805.61,
+          "midpointEstimate": 900.0,
+          "optimisticEstimate": 1007.01,
+          "basis": "official-table",
+          "confidence": "high"
+        },
+        "mimo-v2.5": {
+          "estimatedMillionTokens": 2358.9,
+          "midpointEstimate": 2600.0,
+          "optimisticEstimate": 2948.63,
+          "basis": "official-table",
+          "confidence": "high"
+        }
+      },
+      "estimatedTokenBudget": {
+        "description": "82B Credits/mo; ~806M tokens on MiMo-V2.5-Pro or ~2.36B on MiMo-V2.5",
+        "estimatedMillionTokens": 805.61,
+        "midpointEstimate": 1582.26,
+        "optimisticEstimate": 2358.9,
+        "assumptions": "82B Credits / 101.79M credits/M tokens on MiMo-V2.5-Pro ~= 805.61M tokens; on MiMo-V2.5 ~= 2,358.90M tokens (2.36B). Off-peak nighttime 0.8x rate reaches over 1.0B on Pro and 2.95B on V2.5",
+        "estimateMeta": {
+          "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan",
+          "sourceQuote": "Max: $100/month, ¥659/month, 82,000,000,000 Credits",
+          "sourceType": "official",
+          "confidence": "high",
+          "verifiedAt": "2026-09-19",
+          "basisModel": "MiMo-V2.5-Pro",
+          "cacheAssumption": "75% cache hit rate"
+        }
+      },
+      "notes": "Max package for high-intensity engineering teams and autonomous agent loops"
+    }
+  ],
+  "gotchas": [
+    "Strictly restricted to AI programming scenarios (OpenCode, OpenClaw, Claude Code, Cline, Codex); generic API scraping or non-coding backends are prohibited and subject to API key revocation",
+    "Platform allows only 1 active subscription package per account; upgrades are supported by paying the pro-rata price difference, but downgrading is disallowed",
+    "When the monthly Credit quota is exhausted, service halts safely without automatic overdraft or balance depletion",
+    "MiMo-V2.5-Pro-UltraSpeed (>1,000 TPS TileRT engine) is not included in the Token Plan quota and must be accessed via PAYG",
+    "Nighttime off-peak rate: UTC 16:00-24:00 (Beijing 0:00-8:00) consumes credits at 0.8x coefficient (+25% yield bonus)",
+    "Unused credits do not roll over to subsequent months and are non-refundable once activated"
+  ],
+  "tosHighlights": [
+    "Includes regional proxy clusters in Singapore, Europe (Amsterdam), and China with native OpenAI and Anthropic compatibility",
+    "TTS voice synthesis models are free for a limited time and do not deplete Token Plan credits",
+    "Zero balance drain: service cutoffs prevent surprise charges on underlying account balance"
+  ],
+  "dataTraining": "Standard platform terms apply to consumer subscriptions; zero data retention and enterprise isolation available under enterprise contracts",
+  "ipIndemnity": false,
+  "stackingPolicy": "prohibited",
+  "stackingPolicyNote": "Platform terms: \"Currently, the platform only supports purchasing 1 package at a time\" and API keys are tied strictly to the individual subscribing account; proxying or non-coding API access is prohibited."
+}

@@ -38,8 +38,8 @@ flowchart TD
 
     subgraph Outputs["Public Static Data (public/data/)"]
         M["models.json (440+ models)"]
-        P["plans.json (33 plans)"]
-        U["usage-limits.json (394 entries)"]
+        P["plans.json (34 plans)"]
+        U["usage-limits.json (422 entries)"]
         L["last-updated.json"]
     end
 
@@ -57,8 +57,8 @@ flowchart TD
 
 ### Published Machine-Readable Artifact: `public/data/usage-limits.json`
 
-During the build pipeline (`scripts/build-data.mjs`), Token-Max exports a consolidated, queryable catalog of usage limits across all 33 providers:
-- **Scope**: 394 normalized records representing every supported model across all provider subscription tiers.
+During the build pipeline (`scripts/build-data.mjs`), Token-Max exports a consolidated, queryable catalog of usage limits across all 34 providers:
+- **Scope**: 422 normalized records representing every supported model across all provider subscription tiers.
 - **Hosted Endpoint**: `https://heretek-ai.github.io/Token-Max/data/usage-limits.json`
 - **Schema & Key Fields**:
   - `providerId` & `providerName`: Unique identifier and human-readable name.
@@ -70,6 +70,9 @@ During the build pipeline (`scripts/build-data.mjs`), Token-Max exports a consol
   - `monthlyTokens`: Model-specific monthly token allowance (in millions), resolved via `resolveTierModelBudget`.
   - `weeklyCeilingTokens` / `fiveHourTokens`: Explicit intermediate window ceilings where documented (e.g. Z.ai, OpenCode, CommandCode).
   - `empiricalTasks`: Estimated end-to-end autonomous agent coding tasks supported per month across conservative (250K tokens), midpoint (550K tokens), and complex (900K tokens) scenarios.
+  - `isEstimatedCeiling`: Boolean indicating if the monthly quota is an empirical ceiling rather than an unconstrained subscription guarantee.
+  - `disclosedByVendor`: Boolean indicating whether the token/request quota was explicitly published by the vendor or derived through research/telemetry.
+  - `osintSource`: Documentation path (e.g. `docs/OSINT_USAGE_STATISTICS.md`) or primary source link providing verification evidence.
   - `basisFormula`: Mathematical derivation equation for token allotments.
   - `sourceUrl` & `verifiedAt`: Provenance audit link and ISO verification date.
 

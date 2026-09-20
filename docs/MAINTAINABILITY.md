@@ -136,13 +136,22 @@ const plans = JSON.parse(fs.readFileSync('public/data/plans.json'));
 const usageLimits = JSON.parse(fs.readFileSync('public/data/usage-limits.json'));
 console.log('Models count:', models.length);
 console.log('Plans count:', plans.length);
-console.log('Usage limits count:', usageLimits.length);
+console.log('Usage limits count:', usageLimits.entries?.length || usageLimits.length);
 "
 ```
 
-### Step 4: Validate Lint & Build
+### Step 4: Validate Tests, Lint & Build
 ```bash
+# Validate 34 plans and 422 usage-limits entries against schema invariants
+npm run validate-data
+
+# Run complete unit test suite (109 tests across 8 suites)
+npm test
+
+# Run linter (oxlint: 0 errors, 0 warnings)
 npm run lint
+
+# Production build
 npm run build
 ```
 

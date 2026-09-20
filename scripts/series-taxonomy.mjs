@@ -21,6 +21,7 @@ export const KNOWN_SERIES = [
   'GLM',
   'Kimi',
   'Mistral',
+  'MiMo',
   'other',
 ];
 
@@ -74,6 +75,7 @@ const SERIES_TABLE = [
   { series: 'GLM', providers: ['z-ai'], patterns: ['glm'] },
   { series: 'Kimi', providers: ['moonshotai', 'moonshot'], patterns: ['kimi'] },
   { series: 'Mistral', providers: ['mistralai', 'mistral', 'mistral-nemo'], patterns: ['mistral', 'magistral', 'ministral', 'devstral', 'pixtral', 'codestral'] },
+  { series: 'MiMo', providers: ['xiaomi'], patterns: ['mimo'] },
 ];
 
 /**

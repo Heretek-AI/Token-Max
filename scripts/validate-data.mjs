@@ -182,7 +182,7 @@ async function validateModels(models) {
   // Series membership whitelist (mirrors scripts/series-taxonomy.mjs).
   const KNOWN_SERIES = new Set([
     'GPT', 'Claude', 'Gemini', 'Grok', 'Qwen', 'DeepSeek', 'Llama',
-    'GLM', 'Kimi', 'Mistral', 'other',
+    'GLM', 'Kimi', 'Mistral', 'MiMo', 'other',
   ]);
 
   const SERIES_CAP = 3;

@@ -355,3 +355,65 @@ and `node scripts/build-data.mjs`.
 - `npm run validate-data` — 33 plans and 394 usage limits entries pass all schema invariants.
 - `npm test` — 102/102 tests pass across 8 test suites.
 - `npm run build` — Clean production build with Vite + TypeScript.
+
+## Adversarial Math Audit & Telemetry Remediation Pass (September 19, 2026)
+
+### Key Audit Findings & Remediations (ADV-01 through ADV-05)
+1. **ADV-01: Non-Stackable Plans in Dangerous Dave Mode**:
+   - Resolved user requirement allowing non-stackable plans into Dangerous Dave mode while enforcing mathematical and contractual reality.
+   - Plans with `stackingPolicy === 'prohibited'` are strictly clamped to `copies: 1` in `computeDaveStacks` (`src/lib/pricing.ts`).
+   - Lab Decision Engine displays an amber warning banner highlighting ToS single-account constraints rather than artificially projecting 4x multipliers.
+2. **ADV-02: Robust String Request Quota Parsing (`parseTierRequestLimit`)**:
+   - Replaced brittle `Number(tier.limits.fastRequests)` with regex-powered `parseTierRequestLimit` capable of parsing human-readable quotas like `"500 fast requests/mo"`, `"1k/7d"`, `"250/5h"`, and hyphenated ranges (`"200-300"`).
+   - Fixed pool drain calculations across OpenCode, CommandCode, and Z.ai tiers where numeric conversion previously yielded `NaN` or `undefined`.
+3. **ADV-03: Partitioned Sub-Pool Architecture**:
+   - Extended `poolDrain` in `src/lib/pricing.ts` to support dual standard and premium model allowances.
+   - Workflows mixing standard and premium models now deplete their respective partitioned allowances rather than overflowing into overages prematurely.
+4. **ADV-04: Expanded Per-Model Yield Catalog for Credit Pool Providers**:
+   - Added explicit, multi-model `perModelTokenBudgets` across the full model fleets of credit-pool IDEs and API providers:
+     - **Augment Code** (`augment-code`): Standard ($14.28 net credit after 40% LLM service fee) and Business ($71.43 net credit) across Claude Opus 5, GPT-5.6 Sol, DeepSeek V4-Pro, Gemini 3.8 Flash, and Cosmos.
+     - **Replit** (`replit`): Core ($20 credit) and Pro ($100 credit) across Claude Opus 5, GPT-5.6 Sol, DeepSeek V4-Pro, Gemini 3.8 Flash, and Replit Agent.
+     - **Ollama Cloud** (`ollama-cloud`): Pro ($60 credit), Max ($300 credit), and Team ($1,000 credit) across DeepSeek V4.1 Flash, DeepSeek V4-Pro, MiniMax M3, GLM-5, and Kimi K3.
+5. **ADV-05: Real-World OSINT Telemetry & Obfuscation Auditing**:
+   - Added `isEstimatedCeiling`, `disclosedByVendor`, and `osintSource` fields to `public/data/usage-limits.json`, tracking 414 total normalized entries across 33 providers.
+   - Cross-linked reverse-engineered client telemetry, community telemetry traces, and proxy analytics to [`docs/OSINT_USAGE_STATISTICS.md`](docs/OSINT_USAGE_STATISTICS.md) for opaque services (Claude Code, Cursor, Windsurf, Google Antigravity, OpenAI Codex, Amazon Q).
+
+### Verification
+- `npm run lint` — 0 errors, 0 warnings (72 files).
+- `npm run validate-data` — 33 plans and 414 usage limits entries pass all schema invariants.
+- `npm test` — 107/107 tests pass across 8 test suites (expanded by 5 tests for non-stackable clamping, regex parsing, partitioned sub-pools).
+- `npm run build` — Clean production build with Vite + TypeScript.
+
+---
+
+## Pass 10: Xiaomi MiMo Token Plan Integration (2026-09-20)
+
+**Scope:** Added Xiaomi MiMo as the 34th curated coding plan. MiMo Token Plans use a credit-based pricing system with model-specific credit consumption rates that vary by cache hit, cache miss, and output tokens.
+
+### Changes
+1. **New Plan File (`data/coding-plans/xiaomi-mimo.json`)**:
+   - 4 tiers: Lite ($6/mo, 4.1B credits), Standard ($16/mo, 11B), Pro ($50/mo, 38B), Max ($100/mo, 82B).
+   - Per-model token budgets for MiMo-V2.5 and MiMo-V2.5-Pro derived from official credit-to-token conversion tables.
+   - Off-peak 0.8× multiplier (UTC 16:00–24:00) noted in gotchas.
+   - MiMo-V2.5-Pro-UltraSpeed (PAYG-only, MXFP4 quantized, >1000 TPS) documented as excluded from Token Plans.
+2. **Plan Generator (`data/generate_plans.py`)**:
+   - Added `xiaomi-mimo` to `STACKING_POLICY` (prohibited).
+   - Full plan generation with per-model credit-to-token math.
+3. **Provider Color (`src/lib/pricing.ts`)**: Added `xiaomi: '#ff6900'` brand orange.
+4. **Series Taxonomy**: Added `MiMo` to `KNOWN_SERIES` in both `scripts/series-taxonomy.mjs` and `scripts/validate-data.mjs`.
+5. **Tests (`src/lib/pricing.test.ts`)**: Added 2 tests for Xiaomi provider color and MiMo tier budget resolution (109 total).
+6. **Build Data**: Regenerated `public/data/plans.json` (34 plans) and `public/data/usage-limits.json` (422 entries across 34 providers).
+
+### Data Sources
+- Official Token Plan pricing: [https://mimo.mi.com/docs/en-US/price/token-plan](https://mimo.mi.com/docs/en-US/price/token-plan)
+- Pay-As-You-Go overseas pricing: [https://mimo.mi.com/docs/en-US/price/pay-as-you-go](https://mimo.mi.com/docs/en-US/price/pay-as-you-go)
+- Rate limits: [https://mimo.mi.com/docs/en-US/api/guidance/rate-limit](https://mimo.mi.com/docs/en-US/api/guidance/rate-limit)
+- Model cards: [https://mimo.mi.com/models/en-US/mimo-v2.5](https://mimo.mi.com/models/en-US/mimo-v2.5) · [https://mimo.mi.com/models/en-US/mimo-v2.5-pro](https://mimo.mi.com/models/en-US/mimo-v2.5-pro)
+- OpenRouter listings: [https://openrouter.ai/xiaomi](https://openrouter.ai/xiaomi)
+
+### Verification
+- `npm run lint` — 0 errors, 0 warnings.
+- `npm run validate-data` — 34 plans and 422 usage-limit entries pass all schema invariants.
+- `npm test` — 109/109 tests pass across 8 test suites.
+- `npm run build` — Clean production build.
+

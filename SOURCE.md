@@ -2,7 +2,7 @@
 
 > **Purpose:** This document is the comprehensive, audit-ready index of primary documentation sources, stated quota limits, and token derivation evidence for all **33 coding services and model providers** tracked by [Token-Max](https://github.com/Heretek-AI/Token-Max).
 
-> **Audit Date:** September 2026 | **Enforced by:** `npm run validate-data`
+> **Audit Date:** September 2026 | **Scope:** 33 Services · 414 Normalized Usage Limits · 107 Unit Tests | **Enforced by:** `npm run validate-data`
 
 
 ---
@@ -80,13 +80,14 @@ Every tier in Token-Max is classified with explicit provenance in `estimateMeta`
 
 | Tier | Price | Stated Quotas & Limits | Supported Models | Monthly Token Budget | Source & Evidence |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Standard** | $20/mo | **billing**: $20/mo flat per team (no per-seat charge), up to 50 seats<br/>**usage**: $20 of usage included/mo (LLM + Context Engine + compute)<br/>**llmFee**: Provider list price + flat 40% service fee on LLM usage<br/>**topUps**: PAYG top-ups valid 12 months | Cosmos, API models via provider list | **$20 usage pool with 40% LLM fee (~7.1M tokens)**<br/>Floor: `7.1M` | [DERIVED (medium)](https://www.augmentcode.com/pricing)<br/>*Basis: frontier API models at ~$2/M blended*<br/>*"flat 40% fee on LLM usage; $20 of usage included per month"* |
-| **Business** | $100/mo | **billing**: $100/mo flat per team, up to 50 seats<br/>**usage**: $100 of usage included/mo | Cosmos, API models | **$100 usage pool (~35.7M tokens)**<br/>Floor: `35.7M` | [DERIVED (medium)](https://www.augmentcode.com/pricing)<br/>*Basis: frontier API models at ~$2/M blended*<br/>*"$100 of usage included per month with the flat 40% LLM fee"* |
+| **Standard** | $20/mo | **billing**: $20/mo flat per team (no per-seat charge), up to 50 seats<br/>**usage**: $20 of usage included/mo (LLM + Context Engine + compute)<br/>**llmFee**: Provider list price + flat 40% service fee on LLM usage<br/>**topUps**: PAYG top-ups valid 12 months | Claude Opus 5, GPT-5.6 Sol, DeepSeek V4-Pro, Gemini 3.8 Flash, Cosmos | **$20 pool with 40% fee (~7.1M tokens baseline; 1.49M Opus 5 to 205.05M Gemini Flash)**<br/>Floor: `7.1M` | [DERIVED (medium)](https://www.augmentcode.com/pricing)<br/>*Basis: $14.28 net credit ($20 / 1.4) across list-price models*<br/>*"flat 40% fee on LLM usage; $20 of usage included per month"* |
+| **Business** | $100/mo | **billing**: $100/mo flat per team, up to 50 seats<br/>**usage**: $100 of usage included/mo | Claude Opus 5, GPT-5.6 Sol, DeepSeek V4-Pro, Gemini 3.8 Flash, Cosmos | **$100 pool (~35.7M tokens baseline; 7.48M Opus 5 to 1025.66M Gemini Flash)**<br/>Floor: `35.7M` | [DERIVED (medium)](https://www.augmentcode.com/pricing)<br/>*Basis: $71.43 net credit ($100 / 1.4) across list-price models*<br/>*"$100 of usage included per month with the flat 40% LLM fee"* |
 | **Enterprise** | Enterprise | **billing**: Custom usage + top-ups; unlimited seats<br/>**security**: SSO/OIDC/SCIM | Cosmos, API models | **Custom usage contract**<br/>Floor: `0M` | [RESEARCH (low)](https://www.augmentcode.com/pricing) |
 
 **Key Gotchas & Constraints:**
+- Flat 40% service fee on LLM usage means Standard ($20) provides $14.28 net compute, and Business ($100) provides $71.43 net compute; compute infrastructure is billed at cost (no fee)
+- Multi-model catalog spans Claude Opus 5 (1.49M/7.48M), GPT-5.6 Sol (5.61M/28.04M), DeepSeek V4-Pro (43.23M/216.22M), Gemini 3.8 Flash (205.05M/1025.66M), and Cosmos
 - Restructured from seat-based message plans to flat team pricing with dollar usage pools
-- LLM usage billed at provider list price + 40% service fee; compute at cost (no fee)
 - Top-up tokens valid 12 months
 
 ---
@@ -201,6 +202,7 @@ Every tier in Token-Max is classified with explicit provenance in `estimateMeta`
 - Using third-party software/tools against Antigravity OAuth (e.g. OpenClaw) breaches the ToS and can lead to account suspension
 - No BYOK or bring-your-own-endpoint support, even on paid tiers
 - Google Cloud/Enterprise usage is governed by Google Cloud terms instead of the consumer terms
+- Deep-dive telemetry: see [`docs/OSINT_USAGE_STATISTICS.md`](docs/OSINT_USAGE_STATISTICS.md)
 
 ---
 
@@ -300,6 +302,7 @@ Every tier in Token-Max is classified with explicit provenance in `estimateMeta`
 - Codex access is Limited on Free/Go, Expanded on Plus, Maximum on Pro
 - GPT-5.3-Codex appears in other registries (GitHub Copilot) but is not marketed on ChatGPT pricing
 - Content is used to train OpenAI models; opt-out available on all tiers
+- Deep-dive telemetry: see [`docs/OSINT_USAGE_STATISTICS.md`](docs/OSINT_USAGE_STATISTICS.md)
 
 ---
 
@@ -315,15 +318,16 @@ Every tier in Token-Max is classified with explicit provenance in `estimateMeta`
 
 | Tier | Price | Stated Quotas & Limits | Supported Models | Monthly Token Budget | Source & Evidence |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Core** | $20/mo<br/>($216/yr) | **agentHours**: Up to 30 hours of chat in Free Mode<br/>**projects**: Up to 60 projects on Free Mode<br/>**modelCredits**: $20 toward most powerful models | Replit Agent, Frontier model pool | **$20 model-credit pool + 30 agent-hours (~24M tokens)**<br/>Floor: `24M` | [RESEARCH (low)](https://replit.com/pricing) |
-| **Pro** | $100/mo<br/>($1080/yr) | **parallelAgents**: 10 parallel agents<br/>**modelCredits**: $100 toward most powerful models<br/>**collaboration**: 15 collaborators, 50 viewers | Multi-agent frontier models | **$100 model-credit pool (~120M tokens)**<br/>Floor: `120M` | [RESEARCH (low)](https://replit.com/pricing) |
+| **Core** | $20/mo<br/>($216/yr) | **agentHours**: Up to 30 hours of chat in Free Mode<br/>**projects**: Up to 60 projects on Free Mode<br/>**modelCredits**: $20 toward most powerful models | Claude Opus 5, GPT-5.6 Sol, DeepSeek V4-Pro, Gemini 3.8 Flash, Replit Agent | **$20 credit pool + 30h (~24M baseline; 2.09M Opus 5 to 287.18M Gemini Flash)**<br/>Floor: `24M` | [RESEARCH (low)](https://replit.com/pricing) |
+| **Pro** | $100/mo<br/>($1080/yr) | **parallelAgents**: 10 parallel agents<br/>**modelCredits**: $100 toward most powerful models<br/>**collaboration**: 15 collaborators, 50 viewers | Claude Opus 5, GPT-5.6 Sol, DeepSeek V4-Pro, Gemini 3.8 Flash, Replit Agent | **$100 credit pool (~120M baseline; 10.47M Opus 5 to 1435.9M Gemini Flash)**<br/>Floor: `120M` | [RESEARCH (low)](https://replit.com/pricing) |
 | **Enterprise** | Enterprise | **billing**: Custom seats; SSO/SAML, single-tenant, static IPs | Custom fleet | **Custom contract**<br/>Floor: `0M` | [RESEARCH (low)](https://replit.com/pricing) |
 
 **Key Gotchas & Constraints:**
-- $20/$100 'toward most powerful models' is a dollar credit pool, not free tokens
+- $20/$100 'toward most powerful models' is a dollar credit pool spent at list prices across Claude Opus 5 (2.09M/10.47M), GPT-5.6 Sol (7.85M/39.25M), DeepSeek V4-Pro (60.54M/302.7M), Gemini 3.8 Flash (287.18M/1435.9M), and Replit Agent
 - Beyond included Free-Mode hours, effort-based pricing applies (agent-hours billed as usage)
 - Optional Prepacks: $90/$215/$425/$825/$2,000 per month
 - Exact checkpoint consumption per tier not officially published
+- Stacking prohibited: multi-account creation banned in terms; clamped to 1 copy in Dangerous Dave mode
 
 ---
 
@@ -513,7 +517,7 @@ Every tier in Token-Max is classified with explicit provenance in `estimateMeta`
 
 ---
 
-## 3. Direct APIs & Cloud Token Plans (14 Services)
+## 3. Direct APIs & Cloud Token Plans (15 Services)
 
 ### Alibaba Cloud (`alibaba-cloud`)
 
@@ -761,14 +765,15 @@ Every tier in Token-Max is classified with explicit provenance in `estimateMeta`
 | Tier | Price | Stated Quotas & Limits | Supported Models | Monthly Token Budget | Source & Evidence |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Free** | Free ($0) | **cloudModels**: Community hosted models<br/>**concurrency**: 1 stream<br/>**localUse**: Unlimited local execution | Llama 3.2, Qwen 2.5 Coder 7B | **Free cloud tier (~1M tokens/mo)**<br/>Floor: `1M` | [RESEARCH (low)](https://ollama.com) |
-| **Pro** | $20/mo<br/>($200/yr) | **credits**: $60 cloud compute credits/mo<br/>**concurrency**: 3 concurrent streams<br/>**peakSurcharge**: 12:00-18:00 UTC peak rates, Mon-Fri | DeepSeek V4.1 Flash, Kimi K2.7, MiniMax M3, GLM-5 | **$60 compute credits (~60M tokens/mo)**<br/>Floor: `60M` | [RESEARCH (low)](https://ollama.com) |
-| **Max** | $100/mo | **credits**: $300 cloud compute credits/mo<br/>**concurrency**: 10 concurrent streams<br/>**peakSurcharge**: Standard rates | All Cloud Hosted Weights, DeepSeek V4-Pro, Llama 4 Maverick | **$300 compute credits (~300M tokens/mo)**<br/>Floor: `300M` | [RESEARCH (low)](https://ollama.com) |
-| **Team** | $500/mo | **credits**: $1,000 cloud compute credits/mo<br/>**concurrency**: 10 concurrent streams<br/>**privateEndpoints**: Dedicated pods | All Open Weights & Custom Fine-tunes | **$1,000 compute credits (~1B tokens/mo)**<br/>Floor: `1000M` | [RESEARCH (low)](https://ollama.com) |
+| **Pro** | $20/mo<br/>($200/yr) | **credits**: $60 cloud compute credits/mo<br/>**concurrency**: 3 concurrent streams<br/>**peakSurcharge**: 12:00-18:00 UTC peak rates, Mon-Fri | DeepSeek V4.1 Flash, DeepSeek V4-Pro, MiniMax M3, GLM-5, Kimi K3 | **$60 credits (~60M baseline; 31.4M Kimi K3 to 1.23B DeepSeek Flash)**<br/>Floor: `60M` | [RESEARCH (low)](https://ollama.com) |
+| **Max** | $100/mo | **credits**: $300 cloud compute credits/mo<br/>**concurrency**: 10 concurrent streams<br/>**peakSurcharge**: Standard rates | DeepSeek V4.1 Flash, DeepSeek V4-Pro, MiniMax M3, GLM-5, Kimi K3 | **$300 credits (~300M baseline; 157.01M Kimi K3 to 6.15B DeepSeek Flash)**<br/>Floor: `300M` | [RESEARCH (low)](https://ollama.com) |
+| **Team** | $500/mo | **credits**: $1,000 cloud compute credits/mo<br/>**concurrency**: 10 concurrent streams<br/>**privateEndpoints**: Dedicated pods | DeepSeek V4.1 Flash, DeepSeek V4-Pro, MiniMax M3, GLM-5, Kimi K3 | **$1,000 credits (~1B baseline; 523.36M Kimi K3 to 20.49B DeepSeek Flash)**<br/>Floor: `1000M` | [RESEARCH (low)](https://ollama.com) |
 
 **Key Gotchas & Constraints:**
+- Dollar credit pools ($60 Pro, $300 Max, $1,000 Team) spent across DeepSeek V4.1 Flash, DeepSeek V4-Pro, MiniMax M3, GLM-5, and Kimi K3
 - Unused included usage does not roll over
 - Peak pricing applies 12:00-18:00 UTC Monday-Friday
-- One account per person: multiple Ollama accounts are not permitted
+- Stacking prohibited: one account per person is strictly enforced; multiple accounts banned, clamped to 1 copy in Dangerous Dave mode
 
 ---
 
@@ -812,6 +817,48 @@ Every tier in Token-Max is classified with explicit provenance in `estimateMeta`
 - Sudden traffic spikes hit 429 rate limits until account tier auto-upgrades
 - Cold start delays on infrequently accessed open-weights models
 - Dedicated endpoints incur minimum hourly billing
+
+---
+
+### Xiaomi MiMo Token Plan (`xiaomi-mimo`)
+
+- **Primary Pricing & Docs:** [https://mimo.mi.com/docs/en-US/price/token-plan](https://mimo.mi.com/docs/en-US/price/token-plan) · Token Plan Subscription FAQ: [https://mimo.mi.com/docs/en-US/quick-start/faq/token-plan](https://mimo.mi.com/docs/en-US/quick-start/faq/token-plan) · Pay-As-You-Go Pricing: [https://mimo.mi.com/docs/en-US/price/pay-as-you-go](https://mimo.mi.com/docs/en-US/price/pay-as-you-go) · Rate Limits: [https://mimo.mi.com/docs/en-US/api/guidance/rate-limit](https://mimo.mi.com/docs/en-US/api/guidance/rate-limit) · Platform: [https://platform.xiaomimimo.com/token-plan](https://platform.xiaomimimo.com/token-plan)
+- **Category:** `api-provider`
+- **Data Privacy & Training:** Standard API terms; no explicit opt-out mechanism documented for model training
+- **IP Indemnity:** False
+- **Stacking Policy:** `prohibited` — *"Each account can only subscribe to one Token Plan at a time. If you want to change your plan, you must wait until the current billing cycle ends."*
+
+#### Credit-to-Token Conversion Math
+
+Xiaomi Token Plan uses a **credit-based system** where different operations consume different credit amounts per token:
+
+| Model | Cache Hit (credits/token) | Cache Miss (credits/token) | Output (credits/token) |
+| :--- | :---: | :---: | :---: |
+| **MiMo-V2.5** | 2 | 100 | 200 |
+| **MiMo-V2.5-Pro** | 2.5 | 300 | 600 |
+
+Under Token-Max's standard agentic request (20K input, 75% cache hit, 1K output):
+- **MiMo-V2.5**: (15,000 × 2) + (5,000 × 100) + (1,000 × 200) = 730,000 credits/turn → 34.762M credits per 1M tokens
+- **MiMo-V2.5-Pro**: (15,000 × 2.5) + (5,000 × 300) + (1,000 × 600) = 2,137,500 credits/turn → 101.786M credits per 1M tokens
+
+#### Stated Limits & Token Yield Estimates
+
+| Tier | Price | Stated Quotas & Limits | Supported Models | Monthly Token Budget | Source & Evidence |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Lite** | $6/mo | **credits**: 4,100,000,000 (4.1B) Credits/mo<br/>**offPeakMultiplier**: 0.8× deduction rate UTC 16:00–24:00<br/>**rateLimit**: 10 RPM, 200 TPM (K) | MiMo-V2.5-Pro, MiMo-V2.5 | **4.1B credits; V2.5-Pro 40.28M / V2.5 117.93M tokens (derived from official table)**<br/>Floor: `40.28M` (V2.5-Pro) / `117.93M` (V2.5) | [OFFICIAL (high)](https://mimo.mi.com/docs/en-US/price/token-plan)<br/>*"Lite: 4.1 billion credits"* |
+| **Standard** | $16/mo | **credits**: 11,000,000,000 (11B) Credits/mo<br/>**offPeakMultiplier**: 0.8× deduction rate UTC 16:00–24:00<br/>**rateLimit**: 10 RPM, 200 TPM (K) | MiMo-V2.5-Pro, MiMo-V2.5 | **11B credits; V2.5-Pro 108.07M / V2.5 316.42M tokens (derived from official table)**<br/>Floor: `108.07M` (V2.5-Pro) / `316.42M` (V2.5) | [OFFICIAL (high)](https://mimo.mi.com/docs/en-US/price/token-plan)<br/>*"Standard: 11 billion credits"* |
+| **Pro** | $50/mo | **credits**: 38,000,000,000 (38B) Credits/mo<br/>**offPeakMultiplier**: 0.8× deduction rate UTC 16:00–24:00<br/>**rateLimit**: 10 RPM, 200 TPM (K) | MiMo-V2.5-Pro, MiMo-V2.5 | **38B credits; V2.5-Pro 373.33M / V2.5 1093.08M tokens (derived from official table)**<br/>Floor: `373.33M` (V2.5-Pro) / `1093.08M` (V2.5) | [OFFICIAL (high)](https://mimo.mi.com/docs/en-US/price/token-plan)<br/>*"Pro: 38 billion credits"* |
+| **Max** | $100/mo | **credits**: 82,000,000,000 (82B) Credits/mo<br/>**offPeakMultiplier**: 0.8× deduction rate UTC 16:00–24:00<br/>**rateLimit**: 10 RPM, 200 TPM (K) | MiMo-V2.5-Pro, MiMo-V2.5 | **82B credits; V2.5-Pro 805.61M / V2.5 2358.9M tokens (derived from official table)**<br/>Floor: `805.61M` (V2.5-Pro) / `2358.9M` (V2.5) | [OFFICIAL (high)](https://mimo.mi.com/docs/en-US/price/token-plan)<br/>*"Max: 82 billion credits"* |
+
+**Key Gotchas & Constraints:**
+- Credit system: costs vary by cache hit/miss/output — actual token yield depends heavily on cache hit rate
+- Off-peak 0.8× multiplier (UTC 16:00–24:00) effectively gives 25% more tokens during off-peak hours
+- Each account limited to one active Token Plan at a time; no mid-cycle upgrades
+- MiMo-V2.5-Pro-UltraSpeed (MXFP4 quantized, >1000 TPS) is PAYG-only and NOT included in Token Plans
+- Rate limits are relatively low (10 RPM, 200K TPM) compared to Western providers
+- Token Plan credits do NOT roll over to the next billing cycle
+- Overseas (non-China) PAYG pricing is higher than domestic pricing
+- OpenRouter pricing may differ from direct API pricing
 
 ---
 

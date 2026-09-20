@@ -83,11 +83,17 @@ Derived quantities that inherit these assumptions:
 - **Phase 4** — `python3 data/generate_plans.py && npm run build-data &&
   npm run validate-data && npm test && npm run lint && npm run build`,
   recorded in `docs/VERIFICATION.md`.
+- **Phase 5 (Adversarial Zero-Trust Audit & Remediations)**:
+  - **ADV-01 (Dynamic Credit Pools)**: Resolved per-model token allocations for dollar-credit pools (Replit Core $20 / Pro $100, Augment Code Standard $20 / Business $100 after 40% LLM fee, Ollama Cloud Pro $60 / Max $300 / Team $1,000) using `per_model_pool` so lightweight models reflect their true 5x–15x token yield.
+  - **ADV-02 (Single-Seat Budget Clamping)**: When `plan.stackingPolicy === 'prohibited'` and `budget > tier.monthlyPrice`, Standard Mode (`computeApplesToApples`) clamps compute to 1 seat (`normalizedTokens = baseTokens`, `normalizedRequests = rawRequests`), marks `isCapped: true`, and surfaces `unspentBudget = budget - tier.monthlyPrice`. Dangerous Dave Mode retains multi-account scaling with TOS callouts.
+  - **ADV-03 (String Quota Parsing)**: Added `parseTierRequestLimit` to extract monthly, K-notation, and weekly request counts from `tier.limits` strings before falling back to `tokens / 21,000`, eliminating 20x undercounts on CommandCode, BytePlus, and Amazon Q.
+  - **ADV-04 (Partitioned Sub-Pools)**: Upgraded `calculatePoolDrain` to support independent pools (CommandCode Max `standard`/`premium`, OpenCode Go per-model allowances) without cross-pool depletion.
+  - **ADV-05 (Synthetic Ceiling Flags)**: Added `isEstimatedCeiling`, `disclosedByVendor`, and `osintSource` to `public/data/usage-limits.json` so external tools can differentiate vendor-disclosed numbers from derived research ceilings.
 
 ## 5. Open items
 
 - Vendor plan caps remain opaque (Anthropic, Cursor, Codex, Antigravity, Windsurf); the
-  estimates are ceilings, not observations, and should stay low-confidence.
+  estimates are ceilings, not observations, and are explicitly flagged `isEstimatedCeiling: true, disclosedByVendor: false` in `usage-limits.json`.
 - The 84% cache figure comes from a single 100M-token tracking study; the 25:1 session
   ratio and the 153:1 benchmark ratio describe different workloads (interactive session
   vs autonomous SWE-bench trajectories) — both are quoted, neither is universal.

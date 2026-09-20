@@ -15,6 +15,8 @@ import {
   getEffectiveCacheMultiplier,
   parseTierRequestLimit,
   tierRawRequests,
+  getProviderColor,
+  resolveTierModelBudget,
 } from './pricing';
 import type { CodingPlan, NormalizedModel, PlanTier, StackCandidate } from './types';
 
@@ -679,6 +681,32 @@ describe('Adversarial Edge Cases & Guardrails', () => {
     expect(result.isCapped).toBe(false);
     expect(result.overageCost).toBe(0);
     expect(result.coveredDirectCost).toBe(75); // $15 + $60 = $75 covered independently!
+  });
+
+  it('getProviderColor maps xiaomi to #ff6900 brand orange', () => {
+    expect(getProviderColor('xiaomi')).toBe('#ff6900');
+    expect(getProviderColor('~xiaomi')).toBe('#ff6900');
+  });
+
+  it('resolveTierModelBudget resolves Xiaomi MiMo tier budgets correctly', () => {
+    const mimoTier = tier({
+      name: 'Max',
+      monthlyPrice: 100,
+      limits: { credits: '82,000,000,000 (82B) Credits/mo' },
+      models: ['MiMo-V2.5-Pro', 'MiMo-V2.5'],
+      perModelTokenBudgets: {
+        'mimo-v2.5-pro': { estimatedMillionTokens: 805.61, basis: 'official-table' },
+        'mimo-v2.5': { estimatedMillionTokens: 2358.9, basis: 'official-table' },
+      },
+    });
+
+    const proResolved = resolveTierModelBudget(mimoTier, 'MiMo-V2.5-Pro', 'xiaomi/mimo-v2.5-pro');
+    expect(proResolved.tokens).toBe(805.61);
+    expect(proResolved.basis).toBe('official-table');
+
+    const baseResolved = resolveTierModelBudget(mimoTier, 'MiMo-V2.5', 'xiaomi/mimo-v2.5');
+    expect(baseResolved.tokens).toBe(2358.9);
+    expect(baseResolved.basis).toBe('official-table');
   });
 });
 

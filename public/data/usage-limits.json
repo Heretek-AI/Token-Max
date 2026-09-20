@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-09-20T02:09:12.008Z",
+  "generatedAt": "2026-09-20T02:17:48.256Z",
   "constants": {
     "agentTurnTokens": 21000,
     "defaultCacheRate": 0.75,
@@ -11,9 +11,9 @@
     }
   },
   "summary": {
-    "totalProviders": 33,
-    "totalTiers": 106,
-    "totalModelLimitEntries": 414
+    "totalProviders": 34,
+    "totalTiers": 110,
+    "totalModelLimitEntries": 422
   },
   "providers": [
     {
@@ -11615,6 +11615,301 @@
                   "small250k": 300,
                   "medium550k": 136,
                   "large900k": 83
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "xiaomi-mimo",
+      "name": "Xiaomi MiMo",
+      "category": "coding-router",
+      "url": "https://platform.xiaomimimo.com/token-plan",
+      "lastVerified": "2026-09-19",
+      "stackingPolicy": "prohibited",
+      "stackingPolicyNote": "Platform terms: \"Currently, the platform only supports purchasing 1 package at a time\" and API keys are tied strictly to the individual subscribing account; proxying or non-coding API access is prohibited.",
+      "tiers": [
+        {
+          "name": "Lite",
+          "monthlyPrice": 6,
+          "annualPrice": 63.36,
+          "limits": {
+            "credits": "4,100,000,000 (4.1B) Credits/mo",
+            "concurrency": "Standard dynamic concurrency",
+            "rpm": "100 RPM across models",
+            "tpm": "10,000,000 TPM (10M)",
+            "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+          },
+          "defaultTokenBudget": {
+            "estimatedMillionTokens": 40.28,
+            "midpointEstimate": 79.11,
+            "optimisticEstimate": 117.94,
+            "description": "4.1B Credits/mo; ~40M tokens on MiMo-V2.5-Pro or ~118M on MiMo-V2.5 (official credit conversion)",
+            "assumptions": "4.1B Credits / 101.79M credits/M tokens on MiMo-V2.5-Pro (standard 20:1 + 75% cache) ~= 40.28M tokens; on MiMo-V2.5 (34.76M credits/M) ~= 117.94M tokens. Nighttime 0.8x off-peak rate grants +25% capacity bonus",
+            "sourceType": "official",
+            "confidence": "high",
+            "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan",
+            "sourceQuote": "Lite: $6/month, ¥39/month, 4,100,000,000 Credits. mimo-v2.5-pro: 2.5 cache hit, 300 cache miss, 600 output; mimo-v2.5: 2 hit, 100 miss, 200 out",
+            "basisModel": "MiMo-V2.5-Pro",
+            "isEstimatedCeiling": false,
+            "disclosedByVendor": true,
+            "osintSource": null
+          },
+          "models": [
+            {
+              "modelKey": "MiMo-V2.5-Pro",
+              "estimatedMillionTokens": 40.28,
+              "midpointEstimate": 45,
+              "optimisticEstimate": 50.35,
+              "confidence": "high",
+              "basis": "official-table",
+              "isModelSpecific": true,
+              "isEstimatedCeiling": false,
+              "disclosedByVendor": true,
+              "osintSource": null,
+              "computedUsageLimits": {
+                "monthlyTokens": 40280000,
+                "normalized21kTurns": 1918,
+                "agentTasks": {
+                  "small250k": 161,
+                  "medium550k": 73,
+                  "large900k": 44
+                }
+              }
+            },
+            {
+              "modelKey": "MiMo-V2.5",
+              "estimatedMillionTokens": 40.28,
+              "midpointEstimate": 45,
+              "optimisticEstimate": 50.35,
+              "confidence": "high",
+              "basis": "official-table",
+              "isModelSpecific": true,
+              "isEstimatedCeiling": false,
+              "disclosedByVendor": true,
+              "osintSource": null,
+              "computedUsageLimits": {
+                "monthlyTokens": 40280000,
+                "normalized21kTurns": 1918,
+                "agentTasks": {
+                  "small250k": 161,
+                  "medium550k": 73,
+                  "large900k": 44
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Standard",
+          "monthlyPrice": 16,
+          "annualPrice": 168.96,
+          "limits": {
+            "credits": "11,000,000,000 (11B) Credits/mo",
+            "concurrency": "Standard dynamic concurrency",
+            "rpm": "100 RPM across models",
+            "tpm": "10,000,000 TPM (10M)",
+            "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+          },
+          "defaultTokenBudget": {
+            "estimatedMillionTokens": 108.07,
+            "midpointEstimate": 212.26,
+            "optimisticEstimate": 316.44,
+            "description": "11B Credits/mo; ~108M tokens on MiMo-V2.5-Pro or ~316M on MiMo-V2.5",
+            "assumptions": "11B Credits / 101.79M credits/M tokens on MiMo-V2.5-Pro ~= 108.07M tokens; on MiMo-V2.5 ~= 316.44M tokens",
+            "sourceType": "official",
+            "confidence": "high",
+            "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan",
+            "sourceQuote": "Standard: $16/month, ¥99/month, 11,000,000,000 Credits",
+            "basisModel": "MiMo-V2.5-Pro",
+            "isEstimatedCeiling": false,
+            "disclosedByVendor": true,
+            "osintSource": null
+          },
+          "models": [
+            {
+              "modelKey": "MiMo-V2.5-Pro",
+              "estimatedMillionTokens": 108.07,
+              "midpointEstimate": 120,
+              "optimisticEstimate": 135.09,
+              "confidence": "high",
+              "basis": "official-table",
+              "isModelSpecific": true,
+              "isEstimatedCeiling": false,
+              "disclosedByVendor": true,
+              "osintSource": null,
+              "computedUsageLimits": {
+                "monthlyTokens": 108070000,
+                "normalized21kTurns": 5146,
+                "agentTasks": {
+                  "small250k": 432,
+                  "medium550k": 196,
+                  "large900k": 120
+                }
+              }
+            },
+            {
+              "modelKey": "MiMo-V2.5",
+              "estimatedMillionTokens": 108.07,
+              "midpointEstimate": 120,
+              "optimisticEstimate": 135.09,
+              "confidence": "high",
+              "basis": "official-table",
+              "isModelSpecific": true,
+              "isEstimatedCeiling": false,
+              "disclosedByVendor": true,
+              "osintSource": null,
+              "computedUsageLimits": {
+                "monthlyTokens": 108070000,
+                "normalized21kTurns": 5146,
+                "agentTasks": {
+                  "small250k": 432,
+                  "medium550k": 196,
+                  "large900k": 120
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Pro",
+          "monthlyPrice": 50,
+          "annualPrice": 528,
+          "limits": {
+            "credits": "38,000,000,000 (38B) Credits/mo",
+            "concurrency": "High dynamic concurrency",
+            "rpm": "100 RPM across models",
+            "tpm": "10,000,000 TPM (10M)",
+            "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+          },
+          "defaultTokenBudget": {
+            "estimatedMillionTokens": 373.33,
+            "midpointEstimate": 733.24,
+            "optimisticEstimate": 1093.15,
+            "description": "38B Credits/mo; ~373M tokens on MiMo-V2.5-Pro or ~1.09B on MiMo-V2.5",
+            "assumptions": "38B Credits / 101.79M credits/M tokens on MiMo-V2.5-Pro ~= 373.33M tokens; on MiMo-V2.5 ~= 1,093.15M tokens (1.09B)",
+            "sourceType": "official",
+            "confidence": "high",
+            "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan",
+            "sourceQuote": "Pro: $50/month, ¥329/month, 38,000,000,000 Credits",
+            "basisModel": "MiMo-V2.5-Pro",
+            "isEstimatedCeiling": false,
+            "disclosedByVendor": true,
+            "osintSource": null
+          },
+          "models": [
+            {
+              "modelKey": "MiMo-V2.5-Pro",
+              "estimatedMillionTokens": 373.33,
+              "midpointEstimate": 420,
+              "optimisticEstimate": 466.66,
+              "confidence": "high",
+              "basis": "official-table",
+              "isModelSpecific": true,
+              "isEstimatedCeiling": false,
+              "disclosedByVendor": true,
+              "osintSource": null,
+              "computedUsageLimits": {
+                "monthlyTokens": 373330000,
+                "normalized21kTurns": 17778,
+                "agentTasks": {
+                  "small250k": 1493,
+                  "medium550k": 678,
+                  "large900k": 414
+                }
+              }
+            },
+            {
+              "modelKey": "MiMo-V2.5",
+              "estimatedMillionTokens": 373.33,
+              "midpointEstimate": 420,
+              "optimisticEstimate": 466.66,
+              "confidence": "high",
+              "basis": "official-table",
+              "isModelSpecific": true,
+              "isEstimatedCeiling": false,
+              "disclosedByVendor": true,
+              "osintSource": null,
+              "computedUsageLimits": {
+                "monthlyTokens": 373330000,
+                "normalized21kTurns": 17778,
+                "agentTasks": {
+                  "small250k": 1493,
+                  "medium550k": 678,
+                  "large900k": 414
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Max",
+          "monthlyPrice": 100,
+          "annualPrice": 1056,
+          "limits": {
+            "credits": "82,000,000,000 (82B) Credits/mo",
+            "concurrency": "Maximum dynamic concurrency",
+            "rpm": "100 RPM across models",
+            "tpm": "10,000,000 TPM (10M)",
+            "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+          },
+          "defaultTokenBudget": {
+            "estimatedMillionTokens": 805.61,
+            "midpointEstimate": 1582.26,
+            "optimisticEstimate": 2358.9,
+            "description": "82B Credits/mo; ~806M tokens on MiMo-V2.5-Pro or ~2.36B on MiMo-V2.5",
+            "assumptions": "82B Credits / 101.79M credits/M tokens on MiMo-V2.5-Pro ~= 805.61M tokens; on MiMo-V2.5 ~= 2,358.90M tokens (2.36B). Off-peak nighttime 0.8x rate reaches over 1.0B on Pro and 2.95B on V2.5",
+            "sourceType": "official",
+            "confidence": "high",
+            "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan",
+            "sourceQuote": "Max: $100/month, ¥659/month, 82,000,000,000 Credits",
+            "basisModel": "MiMo-V2.5-Pro",
+            "isEstimatedCeiling": false,
+            "disclosedByVendor": true,
+            "osintSource": null
+          },
+          "models": [
+            {
+              "modelKey": "MiMo-V2.5-Pro",
+              "estimatedMillionTokens": 805.61,
+              "midpointEstimate": 900,
+              "optimisticEstimate": 1007.01,
+              "confidence": "high",
+              "basis": "official-table",
+              "isModelSpecific": true,
+              "isEstimatedCeiling": false,
+              "disclosedByVendor": true,
+              "osintSource": null,
+              "computedUsageLimits": {
+                "monthlyTokens": 805610000,
+                "normalized21kTurns": 38362,
+                "agentTasks": {
+                  "small250k": 3222,
+                  "medium550k": 1464,
+                  "large900k": 895
+                }
+              }
+            },
+            {
+              "modelKey": "MiMo-V2.5",
+              "estimatedMillionTokens": 805.61,
+              "midpointEstimate": 900,
+              "optimisticEstimate": 1007.01,
+              "confidence": "high",
+              "basis": "official-table",
+              "isModelSpecific": true,
+              "isEstimatedCeiling": false,
+              "disclosedByVendor": true,
+              "osintSource": null,
+              "computedUsageLimits": {
+                "monthlyTokens": 805610000,
+                "normalized21kTurns": 38362,
+                "agentTasks": {
+                  "small250k": 3222,
+                  "medium550k": 1464,
+                  "large900k": 895
                 }
               }
             }
@@ -24721,6 +25016,270 @@
         "concurrency": "Unlimited concurrent sessions"
       },
       "sourceUrl": "https://windsurf.com/pricing"
+    },
+    {
+      "providerId": "xiaomi-mimo",
+      "providerName": "Xiaomi MiMo",
+      "category": "coding-router",
+      "tierName": "Lite",
+      "monthlyPrice": 6,
+      "annualPrice": 63.36,
+      "modelKey": "MiMo-V2.5-Pro",
+      "estimatedMillionTokens": 40.28,
+      "midpointEstimate": 45,
+      "optimisticEstimate": 50.35,
+      "confidence": "high",
+      "basis": "official-table",
+      "isModelSpecific": true,
+      "isEstimatedCeiling": false,
+      "disclosedByVendor": true,
+      "osintSource": null,
+      "monthlyTokens": 40280000,
+      "normalized21kTurns": 1918,
+      "agentTasks": {
+        "small250k": 161,
+        "medium550k": 73,
+        "large900k": 44
+      },
+      "tierLimits": {
+        "credits": "4,100,000,000 (4.1B) Credits/mo",
+        "concurrency": "Standard dynamic concurrency",
+        "rpm": "100 RPM across models",
+        "tpm": "10,000,000 TPM (10M)",
+        "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+      },
+      "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan"
+    },
+    {
+      "providerId": "xiaomi-mimo",
+      "providerName": "Xiaomi MiMo",
+      "category": "coding-router",
+      "tierName": "Lite",
+      "monthlyPrice": 6,
+      "annualPrice": 63.36,
+      "modelKey": "MiMo-V2.5",
+      "estimatedMillionTokens": 40.28,
+      "midpointEstimate": 45,
+      "optimisticEstimate": 50.35,
+      "confidence": "high",
+      "basis": "official-table",
+      "isModelSpecific": true,
+      "isEstimatedCeiling": false,
+      "disclosedByVendor": true,
+      "osintSource": null,
+      "monthlyTokens": 40280000,
+      "normalized21kTurns": 1918,
+      "agentTasks": {
+        "small250k": 161,
+        "medium550k": 73,
+        "large900k": 44
+      },
+      "tierLimits": {
+        "credits": "4,100,000,000 (4.1B) Credits/mo",
+        "concurrency": "Standard dynamic concurrency",
+        "rpm": "100 RPM across models",
+        "tpm": "10,000,000 TPM (10M)",
+        "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+      },
+      "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan"
+    },
+    {
+      "providerId": "xiaomi-mimo",
+      "providerName": "Xiaomi MiMo",
+      "category": "coding-router",
+      "tierName": "Standard",
+      "monthlyPrice": 16,
+      "annualPrice": 168.96,
+      "modelKey": "MiMo-V2.5-Pro",
+      "estimatedMillionTokens": 108.07,
+      "midpointEstimate": 120,
+      "optimisticEstimate": 135.09,
+      "confidence": "high",
+      "basis": "official-table",
+      "isModelSpecific": true,
+      "isEstimatedCeiling": false,
+      "disclosedByVendor": true,
+      "osintSource": null,
+      "monthlyTokens": 108070000,
+      "normalized21kTurns": 5146,
+      "agentTasks": {
+        "small250k": 432,
+        "medium550k": 196,
+        "large900k": 120
+      },
+      "tierLimits": {
+        "credits": "11,000,000,000 (11B) Credits/mo",
+        "concurrency": "Standard dynamic concurrency",
+        "rpm": "100 RPM across models",
+        "tpm": "10,000,000 TPM (10M)",
+        "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+      },
+      "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan"
+    },
+    {
+      "providerId": "xiaomi-mimo",
+      "providerName": "Xiaomi MiMo",
+      "category": "coding-router",
+      "tierName": "Standard",
+      "monthlyPrice": 16,
+      "annualPrice": 168.96,
+      "modelKey": "MiMo-V2.5",
+      "estimatedMillionTokens": 108.07,
+      "midpointEstimate": 120,
+      "optimisticEstimate": 135.09,
+      "confidence": "high",
+      "basis": "official-table",
+      "isModelSpecific": true,
+      "isEstimatedCeiling": false,
+      "disclosedByVendor": true,
+      "osintSource": null,
+      "monthlyTokens": 108070000,
+      "normalized21kTurns": 5146,
+      "agentTasks": {
+        "small250k": 432,
+        "medium550k": 196,
+        "large900k": 120
+      },
+      "tierLimits": {
+        "credits": "11,000,000,000 (11B) Credits/mo",
+        "concurrency": "Standard dynamic concurrency",
+        "rpm": "100 RPM across models",
+        "tpm": "10,000,000 TPM (10M)",
+        "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+      },
+      "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan"
+    },
+    {
+      "providerId": "xiaomi-mimo",
+      "providerName": "Xiaomi MiMo",
+      "category": "coding-router",
+      "tierName": "Pro",
+      "monthlyPrice": 50,
+      "annualPrice": 528,
+      "modelKey": "MiMo-V2.5-Pro",
+      "estimatedMillionTokens": 373.33,
+      "midpointEstimate": 420,
+      "optimisticEstimate": 466.66,
+      "confidence": "high",
+      "basis": "official-table",
+      "isModelSpecific": true,
+      "isEstimatedCeiling": false,
+      "disclosedByVendor": true,
+      "osintSource": null,
+      "monthlyTokens": 373330000,
+      "normalized21kTurns": 17778,
+      "agentTasks": {
+        "small250k": 1493,
+        "medium550k": 678,
+        "large900k": 414
+      },
+      "tierLimits": {
+        "credits": "38,000,000,000 (38B) Credits/mo",
+        "concurrency": "High dynamic concurrency",
+        "rpm": "100 RPM across models",
+        "tpm": "10,000,000 TPM (10M)",
+        "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+      },
+      "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan"
+    },
+    {
+      "providerId": "xiaomi-mimo",
+      "providerName": "Xiaomi MiMo",
+      "category": "coding-router",
+      "tierName": "Pro",
+      "monthlyPrice": 50,
+      "annualPrice": 528,
+      "modelKey": "MiMo-V2.5",
+      "estimatedMillionTokens": 373.33,
+      "midpointEstimate": 420,
+      "optimisticEstimate": 466.66,
+      "confidence": "high",
+      "basis": "official-table",
+      "isModelSpecific": true,
+      "isEstimatedCeiling": false,
+      "disclosedByVendor": true,
+      "osintSource": null,
+      "monthlyTokens": 373330000,
+      "normalized21kTurns": 17778,
+      "agentTasks": {
+        "small250k": 1493,
+        "medium550k": 678,
+        "large900k": 414
+      },
+      "tierLimits": {
+        "credits": "38,000,000,000 (38B) Credits/mo",
+        "concurrency": "High dynamic concurrency",
+        "rpm": "100 RPM across models",
+        "tpm": "10,000,000 TPM (10M)",
+        "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+      },
+      "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan"
+    },
+    {
+      "providerId": "xiaomi-mimo",
+      "providerName": "Xiaomi MiMo",
+      "category": "coding-router",
+      "tierName": "Max",
+      "monthlyPrice": 100,
+      "annualPrice": 1056,
+      "modelKey": "MiMo-V2.5-Pro",
+      "estimatedMillionTokens": 805.61,
+      "midpointEstimate": 900,
+      "optimisticEstimate": 1007.01,
+      "confidence": "high",
+      "basis": "official-table",
+      "isModelSpecific": true,
+      "isEstimatedCeiling": false,
+      "disclosedByVendor": true,
+      "osintSource": null,
+      "monthlyTokens": 805610000,
+      "normalized21kTurns": 38362,
+      "agentTasks": {
+        "small250k": 3222,
+        "medium550k": 1464,
+        "large900k": 895
+      },
+      "tierLimits": {
+        "credits": "82,000,000,000 (82B) Credits/mo",
+        "concurrency": "Maximum dynamic concurrency",
+        "rpm": "100 RPM across models",
+        "tpm": "10,000,000 TPM (10M)",
+        "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+      },
+      "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan"
+    },
+    {
+      "providerId": "xiaomi-mimo",
+      "providerName": "Xiaomi MiMo",
+      "category": "coding-router",
+      "tierName": "Max",
+      "monthlyPrice": 100,
+      "annualPrice": 1056,
+      "modelKey": "MiMo-V2.5",
+      "estimatedMillionTokens": 805.61,
+      "midpointEstimate": 900,
+      "optimisticEstimate": 1007.01,
+      "confidence": "high",
+      "basis": "official-table",
+      "isModelSpecific": true,
+      "isEstimatedCeiling": false,
+      "disclosedByVendor": true,
+      "osintSource": null,
+      "monthlyTokens": 805610000,
+      "normalized21kTurns": 38362,
+      "agentTasks": {
+        "small250k": 3222,
+        "medium550k": 1464,
+        "large900k": 895
+      },
+      "tierLimits": {
+        "credits": "82,000,000,000 (82B) Credits/mo",
+        "concurrency": "Maximum dynamic concurrency",
+        "rpm": "100 RPM across models",
+        "tpm": "10,000,000 TPM (10M)",
+        "models": "6 models (mimo-v2.5-pro, mimo-v2.5, mimo-v2.5-asr, TTS series)"
+      },
+      "sourceUrl": "https://mimo.mi.com/docs/en-US/price/token-plan"
     },
     {
       "providerId": "z-ai",

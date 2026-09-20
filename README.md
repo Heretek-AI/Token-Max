@@ -69,7 +69,7 @@ Token-Max provides an end-to-end workbench for engineering teams, independent de
 
 ### 8. 🔀 Multi-Model Mix & Overages Optimizer (`#/optimizer`)
 - Composes complex multi-model development workflows (e.g. 70% Sonnet 3.7 + 20% DeepSeek-R1 + 10% Gemini Flash).
-- Simulates pool drain against all 33 plans and identifies exact overage charges.
+- Simulates pool drain against all 34 plans and identifies exact overage charges.
 
 ### 9. 🔍 Models Catalog & Pricing Explorer (`#/models`)
 - Live data ingested daily from **OpenRouter** covering 440+ models.
@@ -154,8 +154,8 @@ flowchart LR
 As part of the continuous deployment workflow to GitHub Pages, Token-Max automatically compiles and publishes static, structured JSON files for external tools, CLI scripts, and researchers:
 
 - **Usage Limits Dataset**: [`https://heretek-ai.github.io/Token-Max/data/usage-limits.json`](https://heretek-ai.github.io/Token-Max/data/usage-limits.json)
-  - 394 normalized token and request limit usages broken down per provider, tier, and supported model across all 33 services.
-  - Includes empirical agent task capacity (small 250K, medium 550K, complex 900K turns), basis formulas, and source links.
+  - 422 normalized token and request limit usages broken down per provider, tier, and supported model across all 34 services.
+  - Includes empirical agent task capacity (small 250K, medium 550K, complex 900K turns), basis formulas, vendor disclosure flags (`disclosedByVendor`, `isEstimatedCeiling`), and source links to primary docs and OSINT dossiers.
 - **Curated Plans Dataset**: [`https://heretek-ai.github.io/Token-Max/data/plans.json`](https://heretek-ai.github.io/Token-Max/data/plans.json)
 - **Foundation Models Catalog**: [`https://heretek-ai.github.io/Token-Max/data/models.json`](https://heretek-ai.github.io/Token-Max/data/models.json)
 - **Data Freshness Timestamp**: [`https://heretek-ai.github.io/Token-Max/data/last-updated.json`](https://heretek-ai.github.io/Token-Max/data/last-updated.json)
@@ -197,10 +197,10 @@ npm run dev
 
 ### Quality & Verification Checks
 ```bash
-# Validate 33 plan files against schema invariants
+# Validate 34 plan files against schema invariants
 npm run validate-data
 
-# Run full unit test suite (102 tests across 8 suites)
+# Run full unit test suite (109 tests across 8 suites)
 npm test
 
 # Run linter (oxlint: 0 errors, 0 warnings enforced)

@@ -22,8 +22,8 @@ It solves a fundamental developer problem:
 - **Backend / Runtime:** **Zero runtime backend**. Token-Max is a pure static single-page application (SPA) hosted on GitHub Pages.
 - **Data Layer:** Pre-computed static JSON files generated during build and stored in `public/data/`:
   - `public/data/models.json`: ~440+ normalized models with OpenRouter pricing and Artificial Analysis benchmarks.
-  - `public/data/plans.json`: Consolidated array of all 33 curated coding subscription plans.
-  - `public/data/usage-limits.json`: Machine-readable dataset of 394 normalized model limit entries, empirical agent task capacities (250K/550K/900K), and source links.
+  - `public/data/plans.json`: Consolidated array of all 34 curated coding subscription plans.
+  - `public/data/usage-limits.json`: Machine-readable dataset of 422 normalized model limit entries, empirical agent task capacities (250K/550K/900K), vendor disclosure flags (`disclosedByVendor`, `isEstimatedCeiling`), and source links.
   - `public/data/last-updated.json`: Timestamp metadata.
 
 ---
@@ -60,7 +60,7 @@ Every plan file in `data/coding-plans/*.json` must include:
 `scripts/validate-data.mjs` (run via `npm run validate-data`) enforces all of the above in CI.
 
 ### C. Reproducible Generation
-Whenever modifying or adding plans in `data/coding-plans/`, update `data/generate_plans.py` to ensure that running `python3 data/generate_plans.py` regenerates all plan JSON files consistently.
+Whenever modifying or adding plans in `data/coding-plans/`, update `data/generate_plans.py` to ensure that running `python3 data/generate_plans.py` regenerates all plan JSON files consistently. Plans with dollar credit pools (Replit, Augment Code, Ollama Cloud) must define per-model token allocations using `per_model_pool`.
 
 ### D. Zero Linter Warnings
 The repository uses `oxlint`. Every PR/commit must pass `npm run lint` with **0 errors and 0 warnings**.
@@ -89,6 +89,21 @@ Foundation models and subscription tiers often have legitimate $0 costs (e.g. fr
 - **Exporters (`src/lib/exporters.ts`)**: All user inputs and model identifiers embedded in YAML/JSON outputs must pass through `sanitizeYamlScalar` to strip ASCII control characters and newlines, preventing arbitrary YAML key injection or delimiter manipulation.
 - **Log Parser (`src/lib/log-parser.ts`)**: Transcripts must be validated with `safeTokenNumber` to ensure non-numeric or `NaN` values cannot corrupt accumulators. Enforce the 25MB parser safety limit and 15MB UI upload limit in `SessionReceipt.tsx`.
 
+### K. Non-Stackable Subscription Plan Clamping in Standard Mode
+When `plan.stackingPolicy === 'prohibited'` and `budget > tier.monthlyPrice`:
+- Standard Mode (`computeApplesToApples`) MUST clamp compute to a single account (`normalizedTokens = baseTokens`, `normalizedRequests = rawRequests`), mark `isCapped: true`, and calculate `unspentBudget = budget - tier.monthlyPrice` with explicit single-seat disclaimer notes.
+- Dangerous Dave Mode (`computeDaveStacks`) explicitly permits multi-account stacking across all plans (`qty = Math.floor(budget / price)`), accompanied by prominent Terms-of-Service warnings.
+
+### L. Human-Readable Request Quota Parsing
+When evaluating request limits (`tierRawRequests`), vendor limits in `tier.limits` stored as descriptive strings (e.g., `24,000/month`, `~15K mix estimate`, `50 agentic requests/mo`, `12,000/week`) MUST be parsed via `parseTierRequestLimit` before falling back to `tokens / 21,000`. Only fallback when no numerical request quota can be parsed or when a model-specific token budget differs from the tier baseline.
+
+### M. Partitioned Sub-Pool Architecture
+Multi-model pool drainage in `calculatePoolDrain` must honor partitioned sub-pools and independent model allowances:
+- **Partitioned Sub-Pools** (CommandCode Max `standard`/`premium`): Standard and premium allowances drain independently without cross-pool depletion.
+- **Independent Model Allowances** (OpenCode Go): Supported models drain independent monthly allowances ($15, $30, $60) without cross-model starvation.
+- **Shared Capped Pools** (CommandCode GOAT/Pro): Shared global dollar pool with per-model allowance caps.
+- **Unified Pools** (Cursor, Claude Code, Windsurf, Augment, Ollama): Sequential fractional pool drainage.
+
 ---
 
 ## 4. Directory Layout
@@ -99,13 +114,13 @@ Token-Max/
 │   ├── deploy.yml            # Builds & deploys dist/ to GitHub Pages on push to main
 │   └── update-data.yml        # Daily cron (06:00 UTC) running fetch & build scripts
 ├── data/
-│   ├── coding-plans/          # Curated JSON files for all 33 services
+│   ├── coding-plans/          # Curated JSON files for all 34 services
 │   │   ├── _schema.json       # JSON Schema defining plan structure
 │   │   ├── cursor.json
 │   │   ├── z-ai.json
 │   │   └── ... (31 more)
 │   ├── estimate-constants.json # Single source of truth for token-estimate assumptions
-│   └── generate_plans.py      # Python script that generates all 33 plan files
+│   └── generate_plans.py      # Python script that generates all 34 plan files
 ├── docs/
 │   ├── DATA_SOURCES.md        # Comprehensive data lineage & API documentation
 │   ├── MAINTAINABILITY.md     # Operations runbook for updates and maintenance
@@ -176,7 +191,7 @@ npm run lint
 # Validate plan data invariants + consolidated artifact freshness
 npm run validate-data
 
-# Run pricing/TOS unit tests (102 tests across 8 suites)
+# Run pricing/TOS unit tests (109 tests across 8 suites)
 npm test
 
 # TypeScript check + Vite production build
