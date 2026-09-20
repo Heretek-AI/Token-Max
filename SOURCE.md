@@ -460,9 +460,9 @@ Every tier in Token-Max is classified with explicit provenance in `estimateMeta`
 
 ### OpenCode (`opencode`)
 
-- **Primary Pricing & Docs:** [https://opencode.ai/zen](https://opencode.ai/zen)
+- **Primary Pricing & Docs:** [https://opencode.ai/go](https://opencode.ai/go) · Usage Limits: [https://opencode.ai/docs/go/#usage-limits](https://opencode.ai/docs/go/#usage-limits) · Zen PAYG: [https://opencode.ai/zen](https://opencode.ai/zen)
 - **Category:** `coding-router`
-- **Data Privacy & Training:** Zero-retention; no training on Zen
+- **Data Privacy & Training:** Zero data retention (0 days) on most Go models; 30 days on Grok 4.6 & GPT-5.6 Luna; Muse Spark Contributor trains on code. Zen models US-hosted with zero retention
 - **IP Indemnity:** False
 - **Stacking Policy:** `prohibited` — *"Terms of Service: prohibits users who "create, maintain, or use multiple accounts to circumvent usage limits, access restrictions, billing obligations... or any other restriction or policy.""*
 
@@ -472,13 +472,15 @@ Every tier in Token-Max is classified with explicit provenance in `estimateMeta`
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **OpenSource CLI** | Free ($0) | **usage**: Free open-source agent; BYOK to any provider | BYOK any provider | **Token cost = your provider's rates**<br/>Floor: `0M` | [RESEARCH (low)](https://opencode.ai/zen) |
 | **Zen (PAYG)** | $20/mo | **billing**: Pay-as-you-go dollar balance, min $20 top-up (+$1.23 card fee)<br/>**markup**: Zero markup per request<br/>**autoTopUp**: $20 when balance < $5 | GPT-5.6 Luna, GPT-5.6 Sol, Claude Fable 5.1<br/>*(+5 more)* | **Prepaid balance (~10M fee-equivalent tokens)**<br/>Floor: `10M` | Mid: `20M` | Opt: `40M` | [RESEARCH (low)](https://opencode.ai/zen) |
-| **Go** | $10/mo | **usage**: Open-model subscription ($10/mo) for stable global access | Qwen3.7 Plus, Kimi K3, Kimi K2.7<br/>*(+2 more)* | **Open-model subscription (~30M tokens/mo est.)**<br/>Floor: `30M` | [RESEARCH (low)](https://opencode.ai/zen) |
+| **Go** | $10/mo | **monthlyAllowance**: Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)<br/>**fiveHourCap**: 20% of monthly allowance in any 5h ($12 / $6 / $3)<br/>**weeklyCap**: 50% of monthly allowance in any 7d ($30 / $15 / $7.50)<br/>**monthlyCap**: 100% of monthly allowance ($60 / $30 / $15)<br/>**requests**: Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5, 226,600/mo on Muse Spark<br/>**topUp**: Optional 'Use balance' falls back to Zen PAYG balance when limits reached | Kimi K3, Qwen 3.8 Max, Grok 4.6, GLM-5.3, GLM-5.2, DeepSeek V4.1 Flash, MiniMax M3, MiMo-V2.5, Muse Spark<br/>*(28 models)* | **$10/mo open-model subscription ($15–$60 per-model allowances; ~30M–752M tokens)**<br/>Floor: `30M` | Mid: `95M` | Opt: `752M` | [OFFICIAL (high)](https://opencode.ai/docs/go/#usage-limits)<br/>*"Usage limits are defined as monthly dollar amounts... Each model has the following usage limits: 5-hour — 20% of the monthly limit; weekly — 50%; and monthly — 100%. For example, if a model has a $60 monthly limit, you can spend up to: 5-hour limit — $12, weekly limit — $30, monthly limit — $60."* |
 
 **Key Gotchas & Constraints:**
-- The CLI itself is free/open-source; opencode.ai/pricing is retired (404) - offerings are Zen (PAYG) and Go ($10/mo)
-- Zen charges $1.23 card processing fee on top-ups; auto top-up at $20 below $5 balance
-- GPT-5.6 Sol carries 50% discount through Sept 18, 2026
-- Zen models hosted in US with zero-retention provider policy
+- OpenCode Go ($10/mo) provides $15, $30, or $60 monthly usage allowance per model with 20% 5h and 50% weekly caps
+- Optional 'Use balance' falls back to Zen PAYG balance when Go model limits are reached instead of blocking requests
+- DeepSeek V4.1 Flash has 4× promotional limits ($60/mo limit; 26K req / 5h) through Sep 20, 2026 (normally $15)
+- Muse Spark Contributor models train on prompt/output data and are not zero data retention (ZDR); all other Go models provide zero training (0 days retention, except Grok 4.6 and GPT-5.6 Luna with 30 days retention)
+- Zen PAYG charges $1.23 card processing fee on top-ups; auto top-up at $20 below $5 balance
+- The CLI itself is free/open-source; opencode.ai/pricing is retired (404) - offerings are Go ($10/mo) and Zen (PAYG)
 
 ---
 

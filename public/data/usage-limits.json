@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-09-20T01:44:26.555Z",
+  "generatedAt": "2026-09-20T01:48:06.588Z",
   "constants": {
     "agentTurnTokens": 21000,
     "defaultCacheRate": 0.75,
@@ -13,7 +13,7 @@
   "summary": {
     "totalProviders": 33,
     "totalTiers": 106,
-    "totalModelLimitEntries": 371
+    "totalModelLimitEntries": 394
   },
   "providers": [
     {
@@ -7995,7 +7995,7 @@
       "id": "opencode",
       "name": "OpenCode",
       "category": "coding-router",
-      "url": "https://opencode.ai/zen",
+      "url": "https://opencode.ai/go",
       "lastVerified": "2026-09-19",
       "stackingPolicy": "prohibited",
       "stackingPolicyNote": "Terms of Service: prohibits users who \"create, maintain, or use multiple accounts to circumvent usage limits, access restrictions, billing obligations... or any other restriction or policy.\"",
@@ -8015,7 +8015,7 @@
             "assumptions": "No fixed bundle; you pay your API provider directly",
             "sourceType": "research",
             "confidence": "low",
-            "sourceUrl": "https://opencode.ai/zen",
+            "sourceUrl": "https://opencode.ai/go",
             "sourceQuote": "",
             "basisModel": "default"
           },
@@ -8057,7 +8057,7 @@
             "assumptions": "$20 minimum balance at zero markup buys $20 of inference at curated gateway rates; conservative 10M at ~$2.00/M frontier blend, midpoint 20M at ~$1.00/M, optimistic 40M at ~$0.50/M open-model rates; excludes the $1.23 card fee",
             "sourceType": "research",
             "confidence": "low",
-            "sourceUrl": "https://opencode.ai/zen",
+            "sourceUrl": "https://opencode.ai/go",
             "sourceQuote": "",
             "basisModel": "default"
           },
@@ -8213,108 +8213,527 @@
           "monthlyPrice": 10,
           "annualPrice": null,
           "limits": {
-            "usage": "Open-model subscription ($10/mo) for stable global access"
+            "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+            "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+            "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+            "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+            "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+            "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
           },
           "defaultTokenBudget": {
             "estimatedMillionTokens": 30,
-            "midpointEstimate": null,
-            "optimisticEstimate": null,
-            "description": "Open-model subscription (~30M tokens/mo est.)",
-            "assumptions": "$10 / ~$0.3/M blended open-model rate ~= 30M tokens; exact cap not published",
-            "sourceType": "research",
-            "confidence": "low",
-            "sourceUrl": "https://opencode.ai/zen",
-            "sourceQuote": "",
-            "basisModel": "default"
+            "midpointEstimate": 95,
+            "optimisticEstimate": 752,
+            "description": "$10/mo open-model subscription ($15–$60 per-model allowances; ~30M–752M tokens)",
+            "assumptions": "$10/mo plan fee provides independent monthly usage allowances per model ($15, $30, or $60) with 20% 5h and 50% weekly caps; tokens range from 7.85M (Kimi K3 at $15 allowance) to 94M (Kimi K2.7 Code at $60) up to 752M (DeepSeek V4.1 Flash at $60 promo) and 981M (MiMo-V2.5)",
+            "sourceType": "official",
+            "confidence": "high",
+            "sourceUrl": "https://opencode.ai/docs/go/#usage-limits",
+            "sourceQuote": "Usage limits are defined as monthly dollar amounts... Each model has the following usage limits: 5-hour — 20% of the monthly limit; weekly — 50%; and monthly — 100%. For example, if a model has a $60 monthly limit, you can spend up to: 5-hour limit — $12, weekly limit — $30, monthly limit — $60.",
+            "basisModel": "open-model-allowances"
           },
           "models": [
             {
-              "modelKey": "Qwen3.7 Plus",
-              "estimatedMillionTokens": 30,
-              "midpointEstimate": 30,
-              "optimisticEstimate": 30,
-              "confidence": "low",
-              "basis": "tier-baseline",
-              "isModelSpecific": false,
-              "computedUsageLimits": {
-                "monthlyTokens": 30000000,
-                "normalized21kTurns": 1429,
-                "agentTasks": {
-                  "small250k": 120,
-                  "medium550k": 54,
-                  "large900k": 33
-                }
-              }
-            },
-            {
               "modelKey": "Kimi K3",
-              "estimatedMillionTokens": 30,
-              "midpointEstimate": 30,
-              "optimisticEstimate": 30,
-              "confidence": "low",
-              "basis": "tier-baseline",
-              "isModelSpecific": false,
+              "estimatedMillionTokens": 7.85,
+              "midpointEstimate": 7.85,
+              "optimisticEstimate": 7.85,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
               "computedUsageLimits": {
-                "monthlyTokens": 30000000,
-                "normalized21kTurns": 1429,
+                "monthlyTokens": 7850000,
+                "normalized21kTurns": 374,
                 "agentTasks": {
-                  "small250k": 120,
-                  "medium550k": 54,
-                  "large900k": 33
+                  "small250k": 31,
+                  "medium550k": 14,
+                  "large900k": 8
                 }
               }
             },
             {
-              "modelKey": "Kimi K2.7",
-              "estimatedMillionTokens": 30,
-              "midpointEstimate": 30,
-              "optimisticEstimate": 30,
-              "confidence": "low",
-              "basis": "tier-baseline",
-              "isModelSpecific": false,
+              "modelKey": "Qwen 3.8 Max",
+              "estimatedMillionTokens": 13.4,
+              "midpointEstimate": 13.4,
+              "optimisticEstimate": 13.4,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
               "computedUsageLimits": {
-                "monthlyTokens": 30000000,
-                "normalized21kTurns": 1429,
+                "monthlyTokens": 13400000,
+                "normalized21kTurns": 638,
                 "agentTasks": {
-                  "small250k": 120,
-                  "medium550k": 54,
-                  "large900k": 33
+                  "small250k": 53,
+                  "medium550k": 24,
+                  "large900k": 14
+                }
+              }
+            },
+            {
+              "modelKey": "Grok 4.6",
+              "estimatedMillionTokens": 11.56,
+              "midpointEstimate": 11.56,
+              "optimisticEstimate": 11.56,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 11560000,
+                "normalized21kTurns": 550,
+                "agentTasks": {
+                  "small250k": 46,
+                  "medium550k": 21,
+                  "large900k": 12
+                }
+              }
+            },
+            {
+              "modelKey": "Qwen 3.7 Max",
+              "estimatedMillionTokens": 19.57,
+              "midpointEstimate": 19.57,
+              "optimisticEstimate": 19.57,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 19570000,
+                "normalized21kTurns": 932,
+                "agentTasks": {
+                  "small250k": 78,
+                  "medium550k": 35,
+                  "large900k": 21
+                }
+              }
+            },
+            {
+              "modelKey": "GLM-5.3",
+              "estimatedMillionTokens": 17.57,
+              "midpointEstimate": 17.57,
+              "optimisticEstimate": 17.57,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 17570000,
+                "normalized21kTurns": 837,
+                "agentTasks": {
+                  "small250k": 70,
+                  "medium550k": 31,
+                  "large900k": 19
+                }
+              }
+            },
+            {
+              "modelKey": "GLM-5.2",
+              "estimatedMillionTokens": 70.29,
+              "midpointEstimate": 70.29,
+              "optimisticEstimate": 70.29,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 70290000,
+                "normalized21kTurns": 3347,
+                "agentTasks": {
+                  "small250k": 281,
+                  "medium550k": 127,
+                  "large900k": 78
+                }
+              }
+            },
+            {
+              "modelKey": "GLM-5.1",
+              "estimatedMillionTokens": 70.29,
+              "midpointEstimate": 70.29,
+              "optimisticEstimate": 70.29,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 70290000,
+                "normalized21kTurns": 3347,
+                "agentTasks": {
+                  "small250k": 281,
+                  "medium550k": 127,
+                  "large900k": 78
+                }
+              }
+            },
+            {
+              "modelKey": "DeepSeek V4 Pro",
+              "estimatedMillionTokens": 46,
+              "midpointEstimate": 46,
+              "optimisticEstimate": 46,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 46000000,
+                "normalized21kTurns": 2190,
+                "agentTasks": {
+                  "small250k": 184,
+                  "medium550k": 83,
+                  "large900k": 51
+                }
+              }
+            },
+            {
+              "modelKey": "Kimi K2.6",
+              "estimatedMillionTokens": 97.44,
+              "midpointEstimate": 97.44,
+              "optimisticEstimate": 97.44,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 97440000,
+                "normalized21kTurns": 4640,
+                "agentTasks": {
+                  "small250k": 389,
+                  "medium550k": 177,
+                  "large900k": 108
+                }
+              }
+            },
+            {
+              "modelKey": "Kimi K2.7 Code",
+              "estimatedMillionTokens": 94.16,
+              "midpointEstimate": 94.16,
+              "optimisticEstimate": 94.16,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 94160000,
+                "normalized21kTurns": 4484,
+                "agentTasks": {
+                  "small250k": 376,
+                  "medium550k": 171,
+                  "large900k": 104
+                }
+              }
+            },
+            {
+              "modelKey": "Hy4 preview",
+              "estimatedMillionTokens": 71.07,
+              "midpointEstimate": 71.07,
+              "optimisticEstimate": 71.07,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 71070000,
+                "normalized21kTurns": 3384,
+                "agentTasks": {
+                  "small250k": 284,
+                  "medium550k": 129,
+                  "large900k": 78
                 }
               }
             },
             {
               "modelKey": "GPT-5.6 Luna",
-              "estimatedMillionTokens": 30,
-              "midpointEstimate": 30,
-              "optimisticEstimate": 30,
-              "confidence": "low",
-              "basis": "tier-baseline",
-              "isModelSpecific": false,
+              "estimatedMillionTokens": 109.57,
+              "midpointEstimate": 109.57,
+              "optimisticEstimate": 109.57,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
               "computedUsageLimits": {
-                "monthlyTokens": 30000000,
-                "normalized21kTurns": 1429,
+                "monthlyTokens": 109570000,
+                "normalized21kTurns": 5218,
                 "agentTasks": {
-                  "small250k": 120,
-                  "medium550k": 54,
-                  "large900k": 33
+                  "small250k": 438,
+                  "medium550k": 199,
+                  "large900k": 121
+                }
+              }
+            },
+            {
+              "modelKey": "MiniMax M3",
+              "estimatedMillionTokens": 302.7,
+              "midpointEstimate": 302.7,
+              "optimisticEstimate": 302.7,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 302700000,
+                "normalized21kTurns": 14414,
+                "agentTasks": {
+                  "small250k": 1210,
+                  "medium550k": 550,
+                  "large900k": 336
+                }
+              }
+            },
+            {
+              "modelKey": "MiMo-V2.5-Pro",
+              "estimatedMillionTokens": 80.46,
+              "midpointEstimate": 80.46,
+              "optimisticEstimate": 80.46,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 80460000,
+                "normalized21kTurns": 3831,
+                "agentTasks": {
+                  "small250k": 321,
+                  "medium550k": 146,
+                  "large900k": 89
+                }
+              }
+            },
+            {
+              "modelKey": "Qwen 3.6 Plus",
+              "estimatedMillionTokens": 175.3,
+              "midpointEstimate": 175.3,
+              "optimisticEstimate": 175.3,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 175300000,
+                "normalized21kTurns": 8348,
+                "agentTasks": {
+                  "small250k": 701,
+                  "medium550k": 318,
+                  "large900k": 194
+                }
+              }
+            },
+            {
+              "modelKey": "MiniMax M2.7",
+              "estimatedMillionTokens": 302.7,
+              "midpointEstimate": 302.7,
+              "optimisticEstimate": 302.7,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 302700000,
+                "normalized21kTurns": 14414,
+                "agentTasks": {
+                  "small250k": 1210,
+                  "medium550k": 550,
+                  "large900k": 336
+                }
+              }
+            },
+            {
+              "modelKey": "MiniMax M2.5",
+              "estimatedMillionTokens": 302.7,
+              "midpointEstimate": 302.7,
+              "optimisticEstimate": 302.7,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 302700000,
+                "normalized21kTurns": 14414,
+                "agentTasks": {
+                  "small250k": 1210,
+                  "medium550k": 550,
+                  "large900k": 336
+                }
+              }
+            },
+            {
+              "modelKey": "Qwen 3.7 Plus",
+              "estimatedMillionTokens": 254.55,
+              "midpointEstimate": 254.55,
+              "optimisticEstimate": 254.55,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 254550000,
+                "normalized21kTurns": 12121,
+                "agentTasks": {
+                  "small250k": 1018,
+                  "medium550k": 462,
+                  "large900k": 282
+                }
+              }
+            },
+            {
+              "modelKey": "Hy3",
+              "estimatedMillionTokens": 609.43,
+              "midpointEstimate": 609.43,
+              "optimisticEstimate": 609.43,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 609430000,
+                "normalized21kTurns": 29020,
+                "agentTasks": {
+                  "small250k": 2437,
+                  "medium550k": 1108,
+                  "large900k": 677
+                }
+              }
+            },
+            {
+              "modelKey": "Qwen 3.8 Flash",
+              "estimatedMillionTokens": 357.95,
+              "midpointEstimate": 357.95,
+              "optimisticEstimate": 357.95,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 357950000,
+                "normalized21kTurns": 17045,
+                "agentTasks": {
+                  "small250k": 1431,
+                  "medium550k": 650,
+                  "large900k": 397
+                }
+              }
+            },
+            {
+              "modelKey": "GLM-5.3 Flash",
+              "estimatedMillionTokens": 635.96,
+              "midpointEstimate": 635.96,
+              "optimisticEstimate": 635.96,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 635960000,
+                "normalized21kTurns": 30284,
+                "agentTasks": {
+                  "small250k": 2543,
+                  "medium550k": 1156,
+                  "large900k": 706
+                }
+              }
+            },
+            {
+              "modelKey": "DeepSeek V4 Flash Vision Exp",
+              "estimatedMillionTokens": 187.92,
+              "midpointEstimate": 187.92,
+              "optimisticEstimate": 187.92,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 187920000,
+                "normalized21kTurns": 8949,
+                "agentTasks": {
+                  "small250k": 751,
+                  "medium550k": 341,
+                  "large900k": 208
+                }
+              }
+            },
+            {
+              "modelKey": "LongCat-2.0",
+              "estimatedMillionTokens": 375.84,
+              "midpointEstimate": 375.84,
+              "optimisticEstimate": 375.84,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 375840000,
+                "normalized21kTurns": 17897,
+                "agentTasks": {
+                  "small250k": 1503,
+                  "medium550k": 683,
+                  "large900k": 417
+                }
+              }
+            },
+            {
+              "modelKey": "DeepSeek V4 Flash",
+              "estimatedMillionTokens": 187.92,
+              "midpointEstimate": 187.92,
+              "optimisticEstimate": 187.92,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 187920000,
+                "normalized21kTurns": 8949,
+                "agentTasks": {
+                  "small250k": 751,
+                  "medium550k": 341,
+                  "large900k": 208
+                }
+              }
+            },
+            {
+              "modelKey": "DeepSeek V4.1 Flash",
+              "estimatedMillionTokens": 751.68,
+              "midpointEstimate": 751.68,
+              "optimisticEstimate": 751.68,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 751680000,
+                "normalized21kTurns": 35794,
+                "agentTasks": {
+                  "small250k": 3006,
+                  "medium550k": 1366,
+                  "large900k": 835
                 }
               }
             },
             {
               "modelKey": "MiMo-V2.5",
-              "estimatedMillionTokens": 30,
-              "midpointEstimate": 30,
-              "optimisticEstimate": 30,
-              "confidence": "low",
-              "basis": "tier-baseline",
-              "isModelSpecific": false,
+              "estimatedMillionTokens": 80.46,
+              "midpointEstimate": 80.46,
+              "optimisticEstimate": 80.46,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
               "computedUsageLimits": {
-                "monthlyTokens": 30000000,
-                "normalized21kTurns": 1429,
+                "monthlyTokens": 80460000,
+                "normalized21kTurns": 3831,
                 "agentTasks": {
-                  "small250k": 120,
-                  "medium550k": 54,
-                  "large900k": 33
+                  "small250k": 321,
+                  "medium550k": 146,
+                  "large900k": 89
+                }
+              }
+            },
+            {
+              "modelKey": "Muse Spark 1.3 Contributor",
+              "estimatedMillionTokens": 1373.3,
+              "midpointEstimate": 1373.3,
+              "optimisticEstimate": 1373.3,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 1373300000,
+                "normalized21kTurns": 65395,
+                "agentTasks": {
+                  "small250k": 5493,
+                  "medium550k": 2496,
+                  "large900k": 1525
+                }
+              }
+            },
+            {
+              "modelKey": "Muse Spark 1.2 Contributor",
+              "estimatedMillionTokens": 1373.3,
+              "midpointEstimate": 1373.3,
+              "optimisticEstimate": 1373.3,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "computedUsageLimits": {
+                "monthlyTokens": 1373300000,
+                "normalized21kTurns": 65395,
+                "agentTasks": {
+                  "small250k": 5493,
+                  "medium550k": 2496,
+                  "large900k": 1525
                 }
               }
             }
@@ -18562,7 +18981,7 @@
       "tierLimits": {
         "usage": "Free open-source agent; BYOK to any provider"
       },
-      "sourceUrl": "https://opencode.ai/zen"
+      "sourceUrl": "https://opencode.ai/go"
     },
     {
       "providerId": "opencode",
@@ -18590,7 +19009,7 @@
         "markup": "Zero markup per request",
         "autoTopUp": "$20 when balance < $5"
       },
-      "sourceUrl": "https://opencode.ai/zen"
+      "sourceUrl": "https://opencode.ai/go"
     },
     {
       "providerId": "opencode",
@@ -18618,7 +19037,7 @@
         "markup": "Zero markup per request",
         "autoTopUp": "$20 when balance < $5"
       },
-      "sourceUrl": "https://opencode.ai/zen"
+      "sourceUrl": "https://opencode.ai/go"
     },
     {
       "providerId": "opencode",
@@ -18646,7 +19065,7 @@
         "markup": "Zero markup per request",
         "autoTopUp": "$20 when balance < $5"
       },
-      "sourceUrl": "https://opencode.ai/zen"
+      "sourceUrl": "https://opencode.ai/go"
     },
     {
       "providerId": "opencode",
@@ -18674,7 +19093,7 @@
         "markup": "Zero markup per request",
         "autoTopUp": "$20 when balance < $5"
       },
-      "sourceUrl": "https://opencode.ai/zen"
+      "sourceUrl": "https://opencode.ai/go"
     },
     {
       "providerId": "opencode",
@@ -18702,7 +19121,7 @@
         "markup": "Zero markup per request",
         "autoTopUp": "$20 when balance < $5"
       },
-      "sourceUrl": "https://opencode.ai/zen"
+      "sourceUrl": "https://opencode.ai/go"
     },
     {
       "providerId": "opencode",
@@ -18730,7 +19149,7 @@
         "markup": "Zero markup per request",
         "autoTopUp": "$20 when balance < $5"
       },
-      "sourceUrl": "https://opencode.ai/zen"
+      "sourceUrl": "https://opencode.ai/go"
     },
     {
       "providerId": "opencode",
@@ -18758,7 +19177,7 @@
         "markup": "Zero markup per request",
         "autoTopUp": "$20 when balance < $5"
       },
-      "sourceUrl": "https://opencode.ai/zen"
+      "sourceUrl": "https://opencode.ai/go"
     },
     {
       "providerId": "opencode",
@@ -18786,33 +19205,7 @@
         "markup": "Zero markup per request",
         "autoTopUp": "$20 when balance < $5"
       },
-      "sourceUrl": "https://opencode.ai/zen"
-    },
-    {
-      "providerId": "opencode",
-      "providerName": "OpenCode",
-      "category": "coding-router",
-      "tierName": "Go",
-      "monthlyPrice": 10,
-      "annualPrice": null,
-      "modelKey": "Qwen3.7 Plus",
-      "estimatedMillionTokens": 30,
-      "midpointEstimate": 30,
-      "optimisticEstimate": 30,
-      "confidence": "low",
-      "basis": "tier-baseline",
-      "isModelSpecific": false,
-      "monthlyTokens": 30000000,
-      "normalized21kTurns": 1429,
-      "agentTasks": {
-        "small250k": 120,
-        "medium550k": 54,
-        "large900k": 33
-      },
-      "tierLimits": {
-        "usage": "Open-model subscription ($10/mo) for stable global access"
-      },
-      "sourceUrl": "https://opencode.ai/zen"
+      "sourceUrl": "https://opencode.ai/go"
     },
     {
       "providerId": "opencode",
@@ -18822,23 +19215,28 @@
       "monthlyPrice": 10,
       "annualPrice": null,
       "modelKey": "Kimi K3",
-      "estimatedMillionTokens": 30,
-      "midpointEstimate": 30,
-      "optimisticEstimate": 30,
-      "confidence": "low",
-      "basis": "tier-baseline",
-      "isModelSpecific": false,
-      "monthlyTokens": 30000000,
-      "normalized21kTurns": 1429,
+      "estimatedMillionTokens": 7.85,
+      "midpointEstimate": 7.85,
+      "optimisticEstimate": 7.85,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 7850000,
+      "normalized21kTurns": 374,
       "agentTasks": {
-        "small250k": 120,
-        "medium550k": 54,
-        "large900k": 33
+        "small250k": 31,
+        "medium550k": 14,
+        "large900k": 8
       },
       "tierLimits": {
-        "usage": "Open-model subscription ($10/mo) for stable global access"
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
       },
-      "sourceUrl": "https://opencode.ai/zen"
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
     },
     {
       "providerId": "opencode",
@@ -18847,24 +19245,308 @@
       "tierName": "Go",
       "monthlyPrice": 10,
       "annualPrice": null,
-      "modelKey": "Kimi K2.7",
-      "estimatedMillionTokens": 30,
-      "midpointEstimate": 30,
-      "optimisticEstimate": 30,
-      "confidence": "low",
-      "basis": "tier-baseline",
-      "isModelSpecific": false,
-      "monthlyTokens": 30000000,
-      "normalized21kTurns": 1429,
+      "modelKey": "Qwen 3.8 Max",
+      "estimatedMillionTokens": 13.4,
+      "midpointEstimate": 13.4,
+      "optimisticEstimate": 13.4,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 13400000,
+      "normalized21kTurns": 638,
       "agentTasks": {
-        "small250k": 120,
-        "medium550k": 54,
-        "large900k": 33
+        "small250k": 53,
+        "medium550k": 24,
+        "large900k": 14
       },
       "tierLimits": {
-        "usage": "Open-model subscription ($10/mo) for stable global access"
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
       },
-      "sourceUrl": "https://opencode.ai/zen"
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "Grok 4.6",
+      "estimatedMillionTokens": 11.56,
+      "midpointEstimate": 11.56,
+      "optimisticEstimate": 11.56,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 11560000,
+      "normalized21kTurns": 550,
+      "agentTasks": {
+        "small250k": 46,
+        "medium550k": 21,
+        "large900k": 12
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "Qwen 3.7 Max",
+      "estimatedMillionTokens": 19.57,
+      "midpointEstimate": 19.57,
+      "optimisticEstimate": 19.57,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 19570000,
+      "normalized21kTurns": 932,
+      "agentTasks": {
+        "small250k": 78,
+        "medium550k": 35,
+        "large900k": 21
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "GLM-5.3",
+      "estimatedMillionTokens": 17.57,
+      "midpointEstimate": 17.57,
+      "optimisticEstimate": 17.57,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 17570000,
+      "normalized21kTurns": 837,
+      "agentTasks": {
+        "small250k": 70,
+        "medium550k": 31,
+        "large900k": 19
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "GLM-5.2",
+      "estimatedMillionTokens": 70.29,
+      "midpointEstimate": 70.29,
+      "optimisticEstimate": 70.29,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 70290000,
+      "normalized21kTurns": 3347,
+      "agentTasks": {
+        "small250k": 281,
+        "medium550k": 127,
+        "large900k": 78
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "GLM-5.1",
+      "estimatedMillionTokens": 70.29,
+      "midpointEstimate": 70.29,
+      "optimisticEstimate": 70.29,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 70290000,
+      "normalized21kTurns": 3347,
+      "agentTasks": {
+        "small250k": 281,
+        "medium550k": 127,
+        "large900k": 78
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "DeepSeek V4 Pro",
+      "estimatedMillionTokens": 46,
+      "midpointEstimate": 46,
+      "optimisticEstimate": 46,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 46000000,
+      "normalized21kTurns": 2190,
+      "agentTasks": {
+        "small250k": 184,
+        "medium550k": 83,
+        "large900k": 51
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "Kimi K2.6",
+      "estimatedMillionTokens": 97.44,
+      "midpointEstimate": 97.44,
+      "optimisticEstimate": 97.44,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 97440000,
+      "normalized21kTurns": 4640,
+      "agentTasks": {
+        "small250k": 389,
+        "medium550k": 177,
+        "large900k": 108
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "Kimi K2.7 Code",
+      "estimatedMillionTokens": 94.16,
+      "midpointEstimate": 94.16,
+      "optimisticEstimate": 94.16,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 94160000,
+      "normalized21kTurns": 4484,
+      "agentTasks": {
+        "small250k": 376,
+        "medium550k": 171,
+        "large900k": 104
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "Hy4 preview",
+      "estimatedMillionTokens": 71.07,
+      "midpointEstimate": 71.07,
+      "optimisticEstimate": 71.07,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 71070000,
+      "normalized21kTurns": 3384,
+      "agentTasks": {
+        "small250k": 284,
+        "medium550k": 129,
+        "large900k": 78
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
     },
     {
       "providerId": "opencode",
@@ -18874,23 +19556,431 @@
       "monthlyPrice": 10,
       "annualPrice": null,
       "modelKey": "GPT-5.6 Luna",
-      "estimatedMillionTokens": 30,
-      "midpointEstimate": 30,
-      "optimisticEstimate": 30,
-      "confidence": "low",
-      "basis": "tier-baseline",
-      "isModelSpecific": false,
-      "monthlyTokens": 30000000,
-      "normalized21kTurns": 1429,
+      "estimatedMillionTokens": 109.57,
+      "midpointEstimate": 109.57,
+      "optimisticEstimate": 109.57,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 109570000,
+      "normalized21kTurns": 5218,
       "agentTasks": {
-        "small250k": 120,
-        "medium550k": 54,
-        "large900k": 33
+        "small250k": 438,
+        "medium550k": 199,
+        "large900k": 121
       },
       "tierLimits": {
-        "usage": "Open-model subscription ($10/mo) for stable global access"
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
       },
-      "sourceUrl": "https://opencode.ai/zen"
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "MiniMax M3",
+      "estimatedMillionTokens": 302.7,
+      "midpointEstimate": 302.7,
+      "optimisticEstimate": 302.7,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 302700000,
+      "normalized21kTurns": 14414,
+      "agentTasks": {
+        "small250k": 1210,
+        "medium550k": 550,
+        "large900k": 336
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "MiMo-V2.5-Pro",
+      "estimatedMillionTokens": 80.46,
+      "midpointEstimate": 80.46,
+      "optimisticEstimate": 80.46,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 80460000,
+      "normalized21kTurns": 3831,
+      "agentTasks": {
+        "small250k": 321,
+        "medium550k": 146,
+        "large900k": 89
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "Qwen 3.6 Plus",
+      "estimatedMillionTokens": 175.3,
+      "midpointEstimate": 175.3,
+      "optimisticEstimate": 175.3,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 175300000,
+      "normalized21kTurns": 8348,
+      "agentTasks": {
+        "small250k": 701,
+        "medium550k": 318,
+        "large900k": 194
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "MiniMax M2.7",
+      "estimatedMillionTokens": 302.7,
+      "midpointEstimate": 302.7,
+      "optimisticEstimate": 302.7,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 302700000,
+      "normalized21kTurns": 14414,
+      "agentTasks": {
+        "small250k": 1210,
+        "medium550k": 550,
+        "large900k": 336
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "MiniMax M2.5",
+      "estimatedMillionTokens": 302.7,
+      "midpointEstimate": 302.7,
+      "optimisticEstimate": 302.7,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 302700000,
+      "normalized21kTurns": 14414,
+      "agentTasks": {
+        "small250k": 1210,
+        "medium550k": 550,
+        "large900k": 336
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "Qwen 3.7 Plus",
+      "estimatedMillionTokens": 254.55,
+      "midpointEstimate": 254.55,
+      "optimisticEstimate": 254.55,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 254550000,
+      "normalized21kTurns": 12121,
+      "agentTasks": {
+        "small250k": 1018,
+        "medium550k": 462,
+        "large900k": 282
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "Hy3",
+      "estimatedMillionTokens": 609.43,
+      "midpointEstimate": 609.43,
+      "optimisticEstimate": 609.43,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 609430000,
+      "normalized21kTurns": 29020,
+      "agentTasks": {
+        "small250k": 2437,
+        "medium550k": 1108,
+        "large900k": 677
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "Qwen 3.8 Flash",
+      "estimatedMillionTokens": 357.95,
+      "midpointEstimate": 357.95,
+      "optimisticEstimate": 357.95,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 357950000,
+      "normalized21kTurns": 17045,
+      "agentTasks": {
+        "small250k": 1431,
+        "medium550k": 650,
+        "large900k": 397
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "GLM-5.3 Flash",
+      "estimatedMillionTokens": 635.96,
+      "midpointEstimate": 635.96,
+      "optimisticEstimate": 635.96,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 635960000,
+      "normalized21kTurns": 30284,
+      "agentTasks": {
+        "small250k": 2543,
+        "medium550k": 1156,
+        "large900k": 706
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "DeepSeek V4 Flash Vision Exp",
+      "estimatedMillionTokens": 187.92,
+      "midpointEstimate": 187.92,
+      "optimisticEstimate": 187.92,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 187920000,
+      "normalized21kTurns": 8949,
+      "agentTasks": {
+        "small250k": 751,
+        "medium550k": 341,
+        "large900k": 208
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "LongCat-2.0",
+      "estimatedMillionTokens": 375.84,
+      "midpointEstimate": 375.84,
+      "optimisticEstimate": 375.84,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 375840000,
+      "normalized21kTurns": 17897,
+      "agentTasks": {
+        "small250k": 1503,
+        "medium550k": 683,
+        "large900k": 417
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "DeepSeek V4 Flash",
+      "estimatedMillionTokens": 187.92,
+      "midpointEstimate": 187.92,
+      "optimisticEstimate": 187.92,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 187920000,
+      "normalized21kTurns": 8949,
+      "agentTasks": {
+        "small250k": 751,
+        "medium550k": 341,
+        "large900k": 208
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "DeepSeek V4.1 Flash",
+      "estimatedMillionTokens": 751.68,
+      "midpointEstimate": 751.68,
+      "optimisticEstimate": 751.68,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 751680000,
+      "normalized21kTurns": 35794,
+      "agentTasks": {
+        "small250k": 3006,
+        "medium550k": 1366,
+        "large900k": 835
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
     },
     {
       "providerId": "opencode",
@@ -18900,23 +19990,90 @@
       "monthlyPrice": 10,
       "annualPrice": null,
       "modelKey": "MiMo-V2.5",
-      "estimatedMillionTokens": 30,
-      "midpointEstimate": 30,
-      "optimisticEstimate": 30,
-      "confidence": "low",
-      "basis": "tier-baseline",
-      "isModelSpecific": false,
-      "monthlyTokens": 30000000,
-      "normalized21kTurns": 1429,
+      "estimatedMillionTokens": 80.46,
+      "midpointEstimate": 80.46,
+      "optimisticEstimate": 80.46,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 80460000,
+      "normalized21kTurns": 3831,
       "agentTasks": {
-        "small250k": 120,
-        "medium550k": 54,
-        "large900k": 33
+        "small250k": 321,
+        "medium550k": 146,
+        "large900k": 89
       },
       "tierLimits": {
-        "usage": "Open-model subscription ($10/mo) for stable global access"
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
       },
-      "sourceUrl": "https://opencode.ai/zen"
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "Muse Spark 1.3 Contributor",
+      "estimatedMillionTokens": 1373.3,
+      "midpointEstimate": 1373.3,
+      "optimisticEstimate": 1373.3,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 1373300000,
+      "normalized21kTurns": 65395,
+      "agentTasks": {
+        "small250k": 5493,
+        "medium550k": 2496,
+        "large900k": 1525
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
+    },
+    {
+      "providerId": "opencode",
+      "providerName": "OpenCode",
+      "category": "coding-router",
+      "tierName": "Go",
+      "monthlyPrice": 10,
+      "annualPrice": null,
+      "modelKey": "Muse Spark 1.2 Contributor",
+      "estimatedMillionTokens": 1373.3,
+      "midpointEstimate": 1373.3,
+      "optimisticEstimate": 1373.3,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "monthlyTokens": 1373300000,
+      "normalized21kTurns": 65395,
+      "agentTasks": {
+        "small250k": 5493,
+        "medium550k": 2496,
+        "large900k": 1525
+      },
+      "tierLimits": {
+        "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+        "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+        "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+        "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+        "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+        "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
+      },
+      "sourceUrl": "https://opencode.ai/docs/go/#usage-limits"
     },
     {
       "providerId": "openrouter",

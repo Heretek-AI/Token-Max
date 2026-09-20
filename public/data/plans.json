@@ -4266,7 +4266,7 @@
     "id": "opencode",
     "name": "OpenCode",
     "category": "coding-router",
-    "url": "https://opencode.ai/zen",
+    "url": "https://opencode.ai/go",
     "lastVerified": "2026-09-19",
     "tiers": [
       {
@@ -4283,7 +4283,7 @@
           "estimatedMillionTokens": 0,
           "assumptions": "No fixed bundle; you pay your API provider directly",
           "estimateMeta": {
-            "sourceUrl": "https://opencode.ai/zen",
+            "sourceUrl": "https://opencode.ai/go",
             "sourceType": "research",
             "confidence": "low",
             "verifiedAt": "2026-09-19"
@@ -4316,7 +4316,7 @@
           "optimisticEstimate": 40,
           "assumptions": "$20 minimum balance at zero markup buys $20 of inference at curated gateway rates; conservative 10M at ~$2.00/M frontier blend, midpoint 20M at ~$1.00/M, optimistic 40M at ~$0.50/M open-model rates; excludes the $1.23 card fee",
           "estimateMeta": {
-            "sourceUrl": "https://opencode.ai/zen",
+            "sourceUrl": "https://opencode.ai/go",
             "sourceType": "research",
             "confidence": "low",
             "verifiedAt": "2026-09-19"
@@ -4328,45 +4328,221 @@
         "name": "Go",
         "monthlyPrice": 10,
         "limits": {
-          "usage": "Open-model subscription ($10/mo) for stable global access"
+          "monthlyAllowance": "Per-model monthly usage: $60 (tier 1 models), $30 (tier 2), $15 (tier 3)",
+          "fiveHourCap": "20% of monthly allowance in any 5h ($12 / $6 / $3)",
+          "weeklyCap": "50% of monthly allowance in any 7d ($30 / $15 / $7.50)",
+          "monthlyCap": "100% of monthly allowance ($60 / $30 / $15)",
+          "requests": "Up to 31,580/mo on GLM-5.3-Flash, 65,000/mo on DeepSeek Flash, 150,400/mo on MiMo-V2.5",
+          "topUp": "Optional 'Use balance' falls back to Zen PAYG balance when limits reached"
         },
         "models": [
-          "Qwen3.7 Plus",
           "Kimi K3",
-          "Kimi K2.7",
+          "Qwen 3.8 Max",
+          "Grok 4.6",
+          "Qwen 3.7 Max",
+          "GLM-5.3",
+          "GLM-5.2",
+          "GLM-5.1",
+          "DeepSeek V4 Pro",
+          "Kimi K2.6",
+          "Kimi K2.7 Code",
+          "Hy4 preview",
           "GPT-5.6 Luna",
-          "MiMo-V2.5"
+          "MiniMax M3",
+          "MiMo-V2.5-Pro",
+          "Qwen 3.6 Plus",
+          "MiniMax M2.7",
+          "MiniMax M2.5",
+          "Qwen 3.7 Plus",
+          "Hy3",
+          "Qwen 3.8 Flash",
+          "GLM-5.3 Flash",
+          "DeepSeek V4 Flash Vision Exp",
+          "LongCat-2.0",
+          "DeepSeek V4 Flash",
+          "DeepSeek V4.1 Flash",
+          "MiMo-V2.5",
+          "Muse Spark 1.3 Contributor",
+          "Muse Spark 1.2 Contributor"
         ],
         "modelAllowances": {
-          "deepseek": 60,
-          "glm": 60,
-          "economy": 60,
-          "standard": 30,
-          "frontier": 15,
+          "tier-60": 60,
+          "tier-30": 30,
+          "tier-15": 15,
           "default": 30
         },
-        "estimatedTokenBudget": {
-          "description": "Open-model subscription (~30M tokens/mo est.)",
-          "estimatedMillionTokens": 30,
-          "assumptions": "$10 / ~$0.3/M blended open-model rate ~= 30M tokens; exact cap not published",
-          "estimateMeta": {
-            "sourceUrl": "https://opencode.ai/zen",
-            "sourceType": "research",
-            "confidence": "low",
-            "verifiedAt": "2026-09-19"
+        "perModelTokenBudgets": {
+          "kimi k3": {
+            "estimatedMillionTokens": 7.85,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "qwen 3.8 max": {
+            "estimatedMillionTokens": 13.4,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "grok 4.6": {
+            "estimatedMillionTokens": 11.56,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "qwen 3.7 max": {
+            "estimatedMillionTokens": 19.57,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "glm-5.3": {
+            "estimatedMillionTokens": 17.57,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "glm-5.2": {
+            "estimatedMillionTokens": 70.29,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "glm-5.1": {
+            "estimatedMillionTokens": 70.29,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "deepseek v4 pro": {
+            "estimatedMillionTokens": 46,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "kimi k2.6": {
+            "estimatedMillionTokens": 97.44,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "kimi k2.7 code": {
+            "estimatedMillionTokens": 94.16,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "hy4 preview": {
+            "estimatedMillionTokens": 71.07,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "gpt-5.6 luna": {
+            "estimatedMillionTokens": 109.57,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "minimax m3": {
+            "estimatedMillionTokens": 302.7,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "mimo-v2.5-pro": {
+            "estimatedMillionTokens": 80.46,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "qwen 3.6 plus": {
+            "estimatedMillionTokens": 175.3,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "minimax m2.7": {
+            "estimatedMillionTokens": 302.7,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "minimax m2.5": {
+            "estimatedMillionTokens": 302.7,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "qwen 3.7 plus": {
+            "estimatedMillionTokens": 254.55,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "hy3": {
+            "estimatedMillionTokens": 609.43,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "qwen 3.8 flash": {
+            "estimatedMillionTokens": 357.95,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "glm-5.3 flash": {
+            "estimatedMillionTokens": 635.96,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "deepseek v4 flash vision exp": {
+            "estimatedMillionTokens": 187.92,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "longcat-2.0": {
+            "estimatedMillionTokens": 375.84,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "deepseek v4 flash": {
+            "estimatedMillionTokens": 375.84,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "deepseek v4.1 flash": {
+            "estimatedMillionTokens": 751.68,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "mimo-v2.5": {
+            "estimatedMillionTokens": 980.93,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "muse spark 1.3 contributor": {
+            "estimatedMillionTokens": 1373.3,
+            "basis": "list-price-credit",
+            "confidence": "high"
+          },
+          "muse spark 1.2 contributor": {
+            "estimatedMillionTokens": 1373.3,
+            "basis": "list-price-credit",
+            "confidence": "high"
           }
         },
-        "notes": "New Sept 2026 low-cost subscription tier"
+        "estimatedTokenBudget": {
+          "description": "$10/mo open-model subscription ($15–$60 per-model allowances; ~30M–752M tokens)",
+          "estimatedMillionTokens": 30,
+          "midpointEstimate": 95,
+          "optimisticEstimate": 752,
+          "assumptions": "$10/mo plan fee provides independent monthly usage allowances per model ($15, $30, or $60) with 20% 5h and 50% weekly caps; tokens range from 7.85M (Kimi K3 at $15 allowance) to 94M (Kimi K2.7 Code at $60) up to 752M (DeepSeek V4.1 Flash at $60 promo) and 981M (MiMo-V2.5)",
+          "estimateMeta": {
+            "sourceUrl": "https://opencode.ai/docs/go/#usage-limits",
+            "sourceQuote": "Usage limits are defined as monthly dollar amounts... Each model has the following usage limits: 5-hour — 20% of the monthly limit; weekly — 50%; and monthly — 100%. For example, if a model has a $60 monthly limit, you can spend up to: 5-hour limit — $12, weekly limit — $30, monthly limit — $60.",
+            "sourceType": "official",
+            "confidence": "high",
+            "verifiedAt": "2026-09-19",
+            "basisModel": "open-model-allowances"
+          }
+        },
+        "notes": "New low-cost open-model subscription with independent allowances per model"
       }
     ],
     "gotchas": [
-      "The CLI itself is free/open-source; opencode.ai/pricing is retired (404) - offerings are Zen (PAYG) and Go ($10/mo)",
-      "Zen charges $1.23 card processing fee on top-ups; auto top-up at $20 below $5 balance",
-      "GPT-5.6 Sol carries 50% discount through Sept 18, 2026",
-      "Zen models hosted in US with zero-retention provider policy"
+      "OpenCode Go ($10/mo) provides $15, $30, or $60 monthly usage allowance per model with 20% 5h and 50% weekly caps",
+      "Optional 'Use balance' falls back to Zen PAYG balance when Go model limits are reached",
+      "DeepSeek V4.1 Flash has 4× promotional limits ($60/mo limit) through Sep 20, 2026 (normally $15)",
+      "Muse Spark Contributor models train on prompt/output data and are not zero data retention (ZDR); all other Go models provide zero training (0 days retention, except Grok 4.6 and GPT-5.6 Luna with 30 days retention)",
+      "Zen PAYG charges $1.23 card processing fee on top-ups; auto top-up at $20 below $5 balance"
     ],
-    "tosHighlights": [],
-    "dataTraining": "Zero-retention; no training on Zen",
+    "tosHighlights": [
+      "Zero data retention on most Go models (0 days); 30 days on Grok 4.6 and GPT-5.6 Luna; Muse Spark Contributor trains on code",
+      "Zen models US-hosted with zero retention"
+    ],
+    "dataTraining": "Zero data retention (0 days) on most models; 30 days on Grok 4.6 & GPT-5.6 Luna; Muse Spark Contributor trains on code",
     "ipIndemnity": false,
     "stackingPolicy": "prohibited",
     "stackingPolicyNote": "Terms of Service: prohibits users who \"create, maintain, or use multiple accounts to circumvent usage limits, access restrictions, billing obligations... or any other restriction or policy.\""
