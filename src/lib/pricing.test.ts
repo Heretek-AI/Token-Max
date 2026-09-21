@@ -17,6 +17,7 @@ import {
   tierRawRequests,
   getProviderColor,
   resolveTierModelBudget,
+  parsePlanCacheAssumption,
 } from './pricing';
 import type { CodingPlan, NormalizedModel, PlanTier, StackCandidate } from './types';
 
@@ -802,5 +803,113 @@ describe('Adversarial Edge Cases & Guardrails', () => {
     expect(baseResolved.tokens).toBe(2358.9);
     expect(baseResolved.basis).toBe('official-table');
   });
+
+  it('calculatePoolDrain computes overage and pool exhaustion when workload exceeds model allowance (CommandCode Pro)', () => {
+    const proTier = tier({
+      name: 'Pro',
+      monthlyPrice: 20,
+      limits: {
+        monthlyCredits: '$80/mo usage value credits ($20/mo plan fee)',
+        modelAllowances: '$50 GLM Flash · $20 Claude Sonnet',
+      },
+      modelAllowances: {
+        'glm-5.3-flash': 50.0,
+        default: 80.0,
+      },
+      perModelTokenBudgets: {
+        'glm-5.3 flash': { estimatedMillionTokens: 529.97, basis: 'list-price-credit' },
+      },
+      models: ['GLM-5.3 Flash'],
+    });
+    const proPlan = plan({ id: 'commandcode', name: 'CommandCode', tiers: [proTier] });
+
+    // Workload demanding 1,943.8M tokens of GLM Flash (direct API cost $43.96)
+    const workload = [
+      {
+        modelId: 'zhipu/glm-5.3-flash',
+        modelName: 'GLM-5.3 Flash',
+        share: 1.0,
+        tokensMillion: 1943.8,
+        costPpu: 43.96,
+      },
+    ];
+
+    const result = calculatePoolDrain(proPlan, proTier, workload);
+    expect(result.coverageType).toBe('full');
+    expect(result.isCapped).toBe(true);
+    // Since plan allowance is 529.97M, remaining 1413.83M spills into overage
+    expect(result.overageCost).toBeGreaterThan(25);
+    expect(result.coveredDirectCost).toBeLessThan(15);
+    expect(result.poolUtilizedPercent).toBeGreaterThan(100);
+    // Total plan cost ($20 monthly fee + overage) exceeds direct API cost ($43.96), so negative savings
+    expect(result.savings).toBeLessThan(0);
+  });
+
+  it('computeApplesToApples applies symmetric cache scaling to subscription yields', () => {
+    const testModel = model({
+      id: 'z-ai/glm-5.3',
+      name: 'GLM-5.3',
+      pricing: { input: 1.0, output: 2.0, cachedInput: 0.1, cachedInputWrite: null, reasoning: null, webSearch: null },
+      blendedCost: 1.25,
+      benchmarks: { codingIndex: 75, intelligenceIndex: 75, agenticIndex: 75, valueScore: 200 },
+    });
+
+    const testTier = tier({
+      name: 'Pro',
+      monthlyPrice: 80,
+      models: ['GLM-5.3'],
+      estimatedTokenBudget: {
+        estimatedMillionTokens: 1000,
+        estimateMeta: {
+          cacheAssumption: '95% cache hit rate',
+          sourceUrl: 'https://z.ai',
+          sourceType: 'official',
+          confidence: 'high',
+          verifiedAt: '2026-09-19',
+        },
+        assumptions: '95% cache hit rate',
+      },
+    });
+
+    const testPlan = plan({ id: 'z-ai', name: 'Z.ai', tiers: [testTier] });
+
+    // When cacheRate is 75% (lower than 95% plan assumption), subscription tokens scale down symmetrically
+    const result75 = computeApplesToApples([testModel], [testPlan], 'all', 100, 0, 0.75);
+    const sub75 = result75.options.find(o => o.type === 'subscription');
+
+    // When cacheRate is 0% (fresh tokens, no cache), subscription tokens scale down even further
+    const result0 = computeApplesToApples([testModel], [testPlan], 'all', 100, 0, 0.0);
+    const sub0 = result0.options.find(o => o.type === 'subscription');
+
+    expect(sub75).toBeDefined();
+    expect(sub0).toBeDefined();
+    // 0% cache delivers fewer tokens than 75% cache for the subscription
+    expect(sub0!.monthlyTokens).toBeLessThan(sub75!.monthlyTokens);
+    // 75% cache delivers fewer tokens than the 95% marketing estimate (1000M)
+    expect(sub75!.monthlyTokens).toBeLessThan(1000);
+  });
+
+  it('parsePlanCacheAssumption correctly parses declared cache hit percentages', () => {
+    const tier95 = tier({
+      estimatedTokenBudget: {
+        estimatedMillionTokens: 100,
+        assumptions: '95% cache hit rate',
+        estimateMeta: { cacheAssumption: '95% cache hit rate', sourceUrl: 'test', sourceType: 'official', confidence: 'high', verifiedAt: '2026-09-19' },
+      },
+    });
+    expect(parsePlanCacheAssumption(tier95)).toBe(0.95);
+
+    const tier75 = tier({
+      estimatedTokenBudget: {
+        estimatedMillionTokens: 100,
+        assumptions: '75% cache hit rate',
+      },
+    });
+    expect(parsePlanCacheAssumption(tier75)).toBe(0.75);
+
+    const tierDefault = tier();
+    expect(parsePlanCacheAssumption(tierDefault)).toBe(0.75);
+  });
 });
+
 

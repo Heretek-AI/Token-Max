@@ -259,6 +259,28 @@ export function matchesPlanModel(planModelName: string, model: NormalizedModel):
   return normName.includes(normPlan) || normId.includes(normPlan) || (normName.length >= 4 && normPlan.includes(normName));
 }
 
+/**
+ * Parses the plan or tier's assumed prompt caching rate (e.g. 0.75, 0.95).
+ * Falls back to DEFAULT_CACHE_RATE (0.75).
+ */
+export function parsePlanCacheAssumption(tier: PlanTier): number {
+  const metaStr = tier.estimatedTokenBudget?.estimateMeta?.cacheAssumption;
+  if (metaStr) {
+    const match = metaStr.match(/([0-9]+)%/);
+    if (match) {
+      return parseInt(match[1], 10) / 100;
+    }
+  }
+  const assumptions = tier.estimatedTokenBudget?.assumptions;
+  if (assumptions) {
+    const match = assumptions.match(/([0-9]+)%\s*cache/i);
+    if (match) {
+      return parseInt(match[1], 10) / 100;
+    }
+  }
+  return DEFAULT_CACHE_RATE;
+}
+
 export function calculateAgentRequestCost(
   model: NormalizedModel,
   cacheRate: CacheRate = DEFAULT_CACHE_RATE,
@@ -406,7 +428,15 @@ export function computeApplesToApples(
       // Per-model yield: tokens if the entire quota drains exclusively on this model,
       // falling back to the tier pool when no per-model entry is published.
       const resolved = resolveTierModelBudget(tier, model.name, model.id, planModelName);
-      const baseTokens = resolved.tokens || 0;
+      const rawBaseTokens = resolved.tokens || 0;
+
+      // Symmetric cache scaling: dynamically adjust subscription capacity with active cacheRate
+      const planAssumedCache = parsePlanCacheAssumption(tier);
+      const turnCostAssumed = calculateAgentRequestCost(model, planAssumedCache as CacheRate).costPerRequest;
+      const turnCostUser = calculateAgentRequestCost(model, cacheRate).costPerRequest;
+      const cacheScaleFactor = (turnCostAssumed > 0 && turnCostUser > 0) ? (turnCostAssumed / turnCostUser) : 1.0;
+
+      const baseTokens = Math.round(rawBaseTokens * cacheScaleFactor);
       const rawRequests = tierRawRequests(tier, baseTokens);
       const vendorQuota = parseTierRequestLimit(tier.limits);
 
@@ -468,8 +498,11 @@ export function computeApplesToApples(
         if (tier.monthlyPrice === null || tier.monthlyPrice <= 0) continue;
         if (tier.monthlyPrice > budget) continue;
 
-        const baseTokens = tier.estimatedTokenBudget?.estimatedMillionTokens || 0;
-        const rawRequests = tierRawRequests(tier);
+        const rawBaseTokens = tier.estimatedTokenBudget?.estimatedMillionTokens || 0;
+        const planAssumedCache = parsePlanCacheAssumption(tier);
+        const cacheScaleFactor = (1 - planAssumedCache * 0.8) / (1 - cacheRate * 0.8);
+        const baseTokens = Math.round(rawBaseTokens * (cacheScaleFactor > 0 ? cacheScaleFactor : 1.0));
+        const rawRequests = tierRawRequests(tier, baseTokens);
         const vendorQuota = parseTierRequestLimit(tier.limits);
 
         const isProhibited = plan.stackingPolicy === 'prohibited';
@@ -1062,12 +1095,36 @@ export function calculatePoolDrain(
 
       if (supported) {
         const available = isPremium ? remainingPremium : remainingStandard;
-        coveredCost = Math.min(item.costPpu, available);
-        fraction = poolCap > 0 ? item.costPpu / poolCap : 0;
-        if (isPremium) {
-          remainingPremium = Math.max(0, remainingPremium - coveredCost);
+        const resolved = resolveTierModelBudget(tier, item.modelName, item.modelId);
+        const hasDedicatedModelBudget = Boolean(resolved.basis);
+        const modelTokens =
+          estimateBasis === 'optimistic'
+            ? (resolved.optimistic || resolved.tokens)
+            : estimateBasis === 'midpoint'
+            ? (resolved.midpoint || resolved.tokens)
+            : resolved.tokens;
+
+        if (hasDedicatedModelBudget && modelTokens > 0 && item.tokensMillion > 0) {
+          const internalRatePerM = poolCap / modelTokens;
+          const creditsDemanded = item.tokensMillion * internalRatePerM;
+          const claimableCredits = Math.min(creditsDemanded, available);
+          if (isPremium) {
+            remainingPremium = Math.max(0, remainingPremium - claimableCredits);
+          } else {
+            remainingStandard = Math.max(0, remainingStandard - claimableCredits);
+          }
+          const coveredTokens = internalRatePerM > 0 ? claimableCredits / internalRatePerM : 0;
+          const directRatePerM = item.costPpu / item.tokensMillion;
+          coveredCost = coveredTokens * directRatePerM;
+          fraction = poolCap > 0 ? creditsDemanded / poolCap : 0;
         } else {
-          remainingStandard = Math.max(0, remainingStandard - coveredCost);
+          coveredCost = Math.min(item.costPpu, available);
+          fraction = poolCap > 0 ? item.costPpu / poolCap : 0;
+          if (isPremium) {
+            remainingPremium = Math.max(0, remainingPremium - coveredCost);
+          } else {
+            remainingStandard = Math.max(0, remainingStandard - coveredCost);
+          }
         }
       }
 
@@ -1106,10 +1163,34 @@ export function calculatePoolDrain(
         }
       }
 
-      const coveredCost = supported ? Math.min(item.costPpu, allowance) : 0;
-      const overageCost = Math.max(0, item.costPpu - coveredCost);
-      const fraction = allowance > 0 ? item.costPpu / allowance : 0;
+      let coveredCost = 0;
+      let fraction = 0;
 
+      if (supported) {
+        const resolved = resolveTierModelBudget(tier, item.modelName, item.modelId);
+        const hasDedicatedModelBudget = Boolean(resolved.basis);
+        const modelTokens =
+          estimateBasis === 'optimistic'
+            ? (resolved.optimistic || resolved.tokens)
+            : estimateBasis === 'midpoint'
+            ? (resolved.midpoint || resolved.tokens)
+            : resolved.tokens;
+
+        if (hasDedicatedModelBudget && modelTokens > 0 && item.tokensMillion > 0) {
+          const internalRatePerM = allowance / modelTokens;
+          const creditsDemanded = item.tokensMillion * internalRatePerM;
+          const claimableCredits = Math.min(creditsDemanded, allowance);
+          const coveredTokens = internalRatePerM > 0 ? claimableCredits / internalRatePerM : 0;
+          const directRatePerM = item.costPpu / item.tokensMillion;
+          coveredCost = coveredTokens * directRatePerM;
+          fraction = allowance > 0 ? creditsDemanded / allowance : 0;
+        } else {
+          coveredCost = Math.min(item.costPpu, allowance);
+          fraction = allowance > 0 ? item.costPpu / allowance : 0;
+        }
+      }
+
+      const overageCost = Math.max(0, item.costPpu - coveredCost);
       rows.push({
         modelName: item.modelName,
         share: item.share,
@@ -1144,12 +1225,37 @@ export function calculatePoolDrain(
         }
       }
 
-      const claimable = supported ? Math.min(item.costPpu, modelCap, remainingGlobalDollars) : 0;
-      const coveredCost = claimable;
-      remainingGlobalDollars = Math.max(0, remainingGlobalDollars - coveredCost);
-      const overageCost = Math.max(0, item.costPpu - coveredCost);
-      const fraction = modelCap > 0 ? item.costPpu / modelCap : 0;
+      let coveredCost = 0;
+      let fraction = 0;
 
+      if (supported) {
+        const resolved = resolveTierModelBudget(tier, item.modelName, item.modelId);
+        const hasDedicatedModelBudget = Boolean(resolved.basis);
+        const modelTokens =
+          estimateBasis === 'optimistic'
+            ? (resolved.optimistic || resolved.tokens)
+            : estimateBasis === 'midpoint'
+            ? (resolved.midpoint || resolved.tokens)
+            : resolved.tokens;
+
+        if (hasDedicatedModelBudget && modelTokens > 0 && item.tokensMillion > 0) {
+          const internalRatePerM = modelCap / modelTokens;
+          const creditsDemanded = item.tokensMillion * internalRatePerM;
+          const claimableCredits = Math.min(creditsDemanded, modelCap, remainingGlobalDollars);
+          remainingGlobalDollars = Math.max(0, remainingGlobalDollars - claimableCredits);
+          const coveredTokens = internalRatePerM > 0 ? claimableCredits / internalRatePerM : 0;
+          const directRatePerM = item.costPpu / item.tokensMillion;
+          coveredCost = coveredTokens * directRatePerM;
+          fraction = modelCap > 0 ? creditsDemanded / modelCap : 0;
+        } else {
+          const claimable = Math.min(item.costPpu, modelCap, remainingGlobalDollars);
+          coveredCost = claimable;
+          remainingGlobalDollars = Math.max(0, remainingGlobalDollars - coveredCost);
+          fraction = modelCap > 0 ? item.costPpu / modelCap : 0;
+        }
+      }
+
+      const overageCost = Math.max(0, item.costPpu - coveredCost);
       rows.push({
         modelName: item.modelName,
         share: item.share,
@@ -1231,7 +1337,7 @@ export function calculatePoolDrain(
   const totalAllowanceCapacity = rows.reduce((sum, r) => sum + r.effectiveAllowance, 0);
   const isPartitionedOrIndependent = isCommandCodeMax || isOpenCodeGo;
   const poolUtilizedPercent = isPartitionedOrIndependent
-    ? (totalAllowanceCapacity > 0 ? Math.round((coveredDirectCost / totalAllowanceCapacity) * 100) : 0)
+    ? (totalAllowanceCapacity > 0 ? Math.round((rows.reduce((sum, r) => sum + r.fractionConsumed * r.effectiveAllowance, 0) / totalAllowanceCapacity) * 100) : 0)
     : Math.round(rows.reduce((sum, r) => sum + r.fractionConsumed, 0) * 100);
 
   return {

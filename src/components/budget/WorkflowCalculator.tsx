@@ -343,8 +343,15 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
               conservative;
             const caps = { basis, optimistic, conservative };
             const poolDrain = calculatePoolDrain(plan, tier, workloadItems, estimateBasis);
-            const fits = poolDrain.coverageType !== 'none' && poolDrain.overageCost === 0 && (caps.basis >= requiredTokens || poolDrain.coveredDirectCost >= poolDrain.totalDirectCost);
-            const borderline = !fits && poolDrain.coverageType !== 'none' && (caps.optimistic >= requiredTokens || (caps.optimistic > caps.basis && poolDrain.overageCost < poolDrain.totalDirectCost * 0.25));
+            const fits =
+              poolDrain.coverageType !== 'none' &&
+              poolDrain.overageCost === 0 &&
+              caps.basis >= requiredTokens;
+            const borderline =
+              !fits &&
+              poolDrain.coverageType !== 'none' &&
+              caps.optimistic >= requiredTokens &&
+              poolDrain.overageCost < poolDrain.totalDirectCost * 0.25;
             const dailyCapacity = (caps.basis * 1e6) / 30;
             const windowRisk = dailyDemand > dailyCapacity;
 
@@ -383,11 +390,17 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
   const verdict = useMemo(() => {
     if (cheapestFit && overageApi != null) {
       const delta = overageApi - cheapestFit.monthlyPrice;
+      const monthlyWageLoss = Math.round((cheapestFit.windowRisk ? 2.5 : 0.75) * developerHourlyRate * 4.33);
+      const hasSevereLockout = cheapestFit.windowRisk && monthlyWageLoss > 300;
+
       return {
-        planWinner: delta > 1,
-        apiWinner: delta < -1,
+        planWinner: delta > 1 && !hasSevereLockout,
+        apiWinner: delta < -1 || (hasSevereLockout && delta < 50),
+        hasSevereLockout,
         delta: Math.abs(delta),
-        headline: delta > 1
+        headline: hasSevereLockout
+          ? `${cheapestFit.planName} ${cheapestFit.tierName} saves $${delta.toFixed(0)}/mo on paper, but carries high lockout risk (~$${monthlyWageLoss}/mo wage exposure). Direct API or a higher tier recommended.`
+          : delta > 1
           ? `${cheapestFit.planName} ${cheapestFit.tierName} saves you $${delta.toFixed(0)}/mo`
           : delta < -1
           ? `Direct API saves you $${Math.abs(delta).toFixed(0)}/mo vs the cheapest fitting plan`
@@ -419,7 +432,7 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
       };
     }
     return null;
-  }, [cheapestFit, cheapestBorderline, overageApi, usage]);
+  }, [cheapestFit, cheapestBorderline, overageApi, usage, developerHourlyRate]);
 
   return (
     <div className="bg-surface rounded-2xl border border-border p-6 shadow-sm">
@@ -928,7 +941,11 @@ export function WorkflowCalculator({ models, plans }: WorkflowCalculatorProps) {
                     Capacity ~{formatTokens(c.basis)}
                     {hasRange ? ` (${formatTokens(c.conservative)}–${formatTokens(c.optimistic)})` : ''} tokens
                     {overageApi != null && (
-                      <> · saves ${Math.max(0, overageApi - r.monthlyPrice).toFixed(2)} vs API</>
+                      overageApi >= r.monthlyPrice ? (
+                        <span className="text-success"> · saves ${(overageApi - r.monthlyPrice).toFixed(2)} vs API</span>
+                      ) : (
+                        <span className="text-warning"> · costs +${(r.monthlyPrice - overageApi).toFixed(2)}/mo vs API</span>
+                      )
                     )}
                   </div>
                   {r.poolDrain && (

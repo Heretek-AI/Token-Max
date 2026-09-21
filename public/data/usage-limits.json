@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-09-21T01:56:55.591Z",
+  "generatedAt": "2026-09-21T02:11:48.927Z",
   "constants": {
     "agentTurnTokens": 21000,
     "defaultCacheRate": 0.75,
@@ -5438,64 +5438,64 @@
           "models": [
             {
               "modelKey": "Gemini 3.8 Flash",
-              "estimatedMillionTokens": 77.96,
-              "midpointEstimate": 77.96,
-              "optimisticEstimate": 77.96,
-              "confidence": "medium",
+              "estimatedMillionTokens": 12.5,
+              "midpointEstimate": 12.5,
+              "optimisticEstimate": 12.5,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 77960000,
-                "normalized21kTurns": 3712,
+                "monthlyTokens": 12500000,
+                "normalized21kTurns": 595,
                 "agentTasks": {
-                  "small250k": 311,
-                  "medium550k": 141,
-                  "large900k": 86
+                  "small250k": 50,
+                  "medium550k": 22,
+                  "large900k": 13
                 }
               }
             },
             {
               "modelKey": "Gemini 3.7 Flash",
-              "estimatedMillionTokens": 77.96,
-              "midpointEstimate": 77.96,
-              "optimisticEstimate": 77.96,
-              "confidence": "medium",
+              "estimatedMillionTokens": 12.5,
+              "midpointEstimate": 12.5,
+              "optimisticEstimate": 12.5,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 77960000,
-                "normalized21kTurns": 3712,
+                "monthlyTokens": 12500000,
+                "normalized21kTurns": 595,
                 "agentTasks": {
-                  "small250k": 311,
-                  "medium550k": 141,
-                  "large900k": 86
+                  "small250k": 50,
+                  "medium550k": 22,
+                  "large900k": 13
                 }
               }
             },
             {
               "modelKey": "Gemini 3.6 Flash",
-              "estimatedMillionTokens": 77.96,
-              "midpointEstimate": 77.96,
-              "optimisticEstimate": 77.96,
-              "confidence": "medium",
+              "estimatedMillionTokens": 12.5,
+              "midpointEstimate": 12.5,
+              "optimisticEstimate": 12.5,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 77960000,
-                "normalized21kTurns": 3712,
+                "monthlyTokens": 12500000,
+                "normalized21kTurns": 595,
                 "agentTasks": {
-                  "small250k": 311,
-                  "medium550k": 141,
-                  "large900k": 86
+                  "small250k": 50,
+                  "medium550k": 22,
+                  "large900k": 13
                 }
               }
             },
@@ -5504,7 +5504,7 @@
               "estimatedMillionTokens": 6.25,
               "midpointEstimate": 6.25,
               "optimisticEstimate": 6.25,
-              "confidence": "medium",
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
@@ -5522,51 +5522,51 @@
             },
             {
               "modelKey": "Claude Sonnet 4.6",
-              "estimatedMillionTokens": 2.84,
-              "midpointEstimate": 2.84,
-              "optimisticEstimate": 2.84,
-              "confidence": "medium",
+              "estimatedMillionTokens": 0.75,
+              "midpointEstimate": 0.75,
+              "optimisticEstimate": 0.75,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 2840000,
-                "normalized21kTurns": 135,
+                "monthlyTokens": 750000,
+                "normalized21kTurns": 36,
                 "agentTasks": {
-                  "small250k": 11,
-                  "medium550k": 5,
-                  "large900k": 3
-                }
-              }
-            },
-            {
-              "modelKey": "Claude Opus 4.6",
-              "estimatedMillionTokens": 0.57,
-              "midpointEstimate": 0.57,
-              "optimisticEstimate": 0.57,
-              "confidence": "medium",
-              "basis": "list-price-credit",
-              "isModelSpecific": true,
-              "isEstimatedCeiling": true,
-              "disclosedByVendor": false,
-              "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-              "computedUsageLimits": {
-                "monthlyTokens": 570000,
-                "normalized21kTurns": 27,
-                "agentTasks": {
-                  "small250k": 2,
+                  "small250k": 3,
                   "medium550k": 1,
                   "large900k": 0
                 }
               }
             },
             {
+              "modelKey": "Claude Opus 4.6",
+              "estimatedMillionTokens": 0.15,
+              "midpointEstimate": 0.15,
+              "optimisticEstimate": 0.15,
+              "confidence": "high",
+              "basis": "list-price-credit",
+              "isModelSpecific": true,
+              "isEstimatedCeiling": true,
+              "disclosedByVendor": false,
+              "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
+              "computedUsageLimits": {
+                "monthlyTokens": 150000,
+                "normalized21kTurns": 7,
+                "agentTasks": {
+                  "small250k": 0,
+                  "medium550k": 0,
+                  "large900k": 0
+                }
+              }
+            },
+            {
               "modelKey": "gpt-oss-120b",
-              "estimatedMillionTokens": 46.07,
-              "midpointEstimate": 46.07,
-              "optimisticEstimate": 46.07,
+              "estimatedMillionTokens": 5,
+              "midpointEstimate": 5,
+              "optimisticEstimate": 5,
               "confidence": "medium",
               "basis": "list-price-credit",
               "isModelSpecific": true,
@@ -5574,12 +5574,12 @@
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 46070000,
-                "normalized21kTurns": 2194,
+                "monthlyTokens": 5000000,
+                "normalized21kTurns": 238,
                 "agentTasks": {
-                  "small250k": 184,
-                  "medium550k": 83,
-                  "large900k": 51
+                  "small250k": 20,
+                  "medium550k": 9,
+                  "large900k": 5
                 }
               }
             }
@@ -5613,64 +5613,64 @@
           "models": [
             {
               "modelKey": "Gemini 3.8 Flash",
-              "estimatedMillionTokens": 935.58,
-              "midpointEstimate": 935.58,
-              "optimisticEstimate": 935.58,
-              "confidence": "medium",
+              "estimatedMillionTokens": 150,
+              "midpointEstimate": 150,
+              "optimisticEstimate": 150,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 935580000,
-                "normalized21kTurns": 44551,
+                "monthlyTokens": 150000000,
+                "normalized21kTurns": 7143,
                 "agentTasks": {
-                  "small250k": 3742,
-                  "medium550k": 1701,
-                  "large900k": 1039
+                  "small250k": 600,
+                  "medium550k": 272,
+                  "large900k": 166
                 }
               }
             },
             {
               "modelKey": "Gemini 3.7 Flash",
-              "estimatedMillionTokens": 935.58,
-              "midpointEstimate": 935.58,
-              "optimisticEstimate": 935.58,
-              "confidence": "medium",
+              "estimatedMillionTokens": 150,
+              "midpointEstimate": 150,
+              "optimisticEstimate": 150,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 935580000,
-                "normalized21kTurns": 44551,
+                "monthlyTokens": 150000000,
+                "normalized21kTurns": 7143,
                 "agentTasks": {
-                  "small250k": 3742,
-                  "medium550k": 1701,
-                  "large900k": 1039
+                  "small250k": 600,
+                  "medium550k": 272,
+                  "large900k": 166
                 }
               }
             },
             {
               "modelKey": "Gemini 3.6 Flash",
-              "estimatedMillionTokens": 935.58,
-              "midpointEstimate": 935.58,
-              "optimisticEstimate": 935.58,
-              "confidence": "medium",
+              "estimatedMillionTokens": 150,
+              "midpointEstimate": 150,
+              "optimisticEstimate": 150,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 935580000,
-                "normalized21kTurns": 44551,
+                "monthlyTokens": 150000000,
+                "normalized21kTurns": 7143,
                 "agentTasks": {
-                  "small250k": 3742,
-                  "medium550k": 1701,
-                  "large900k": 1039
+                  "small250k": 600,
+                  "medium550k": 272,
+                  "large900k": 166
                 }
               }
             },
@@ -5679,7 +5679,7 @@
               "estimatedMillionTokens": 75,
               "midpointEstimate": 75,
               "optimisticEstimate": 75,
-              "confidence": "medium",
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
@@ -5697,51 +5697,51 @@
             },
             {
               "modelKey": "Claude Sonnet 4.6",
-              "estimatedMillionTokens": 34.1,
-              "midpointEstimate": 34.1,
-              "optimisticEstimate": 34.1,
-              "confidence": "medium",
+              "estimatedMillionTokens": 9,
+              "midpointEstimate": 9,
+              "optimisticEstimate": 9,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 34100000,
-                "normalized21kTurns": 1624,
+                "monthlyTokens": 9000000,
+                "normalized21kTurns": 429,
                 "agentTasks": {
-                  "small250k": 136,
-                  "medium550k": 62,
-                  "large900k": 37
+                  "small250k": 36,
+                  "medium550k": 16,
+                  "large900k": 10
                 }
               }
             },
             {
               "modelKey": "Claude Opus 4.6",
-              "estimatedMillionTokens": 6.82,
-              "midpointEstimate": 6.82,
-              "optimisticEstimate": 6.82,
-              "confidence": "medium",
+              "estimatedMillionTokens": 1.75,
+              "midpointEstimate": 1.75,
+              "optimisticEstimate": 1.75,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 6820000,
-                "normalized21kTurns": 325,
+                "monthlyTokens": 1750000,
+                "normalized21kTurns": 83,
                 "agentTasks": {
-                  "small250k": 27,
-                  "medium550k": 12,
-                  "large900k": 7
+                  "small250k": 7,
+                  "medium550k": 3,
+                  "large900k": 1
                 }
               }
             },
             {
               "modelKey": "gpt-oss-120b",
-              "estimatedMillionTokens": 552.84,
-              "midpointEstimate": 552.84,
-              "optimisticEstimate": 552.84,
+              "estimatedMillionTokens": 60,
+              "midpointEstimate": 60,
+              "optimisticEstimate": 60,
               "confidence": "medium",
               "basis": "list-price-credit",
               "isModelSpecific": true,
@@ -5749,12 +5749,12 @@
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 552840000,
-                "normalized21kTurns": 26326,
+                "monthlyTokens": 60000000,
+                "normalized21kTurns": 2857,
                 "agentTasks": {
-                  "small250k": 2211,
-                  "medium550k": 1005,
-                  "large900k": 614
+                  "small250k": 240,
+                  "medium550k": 109,
+                  "large900k": 66
                 }
               }
             }
@@ -5788,64 +5788,64 @@
           "models": [
             {
               "modelKey": "Gemini 3.8 Flash",
-              "estimatedMillionTokens": 4677.88,
-              "midpointEstimate": 4677.88,
-              "optimisticEstimate": 4677.88,
-              "confidence": "medium",
+              "estimatedMillionTokens": 750,
+              "midpointEstimate": 750,
+              "optimisticEstimate": 750,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 4677880000,
-                "normalized21kTurns": 222756,
+                "monthlyTokens": 750000000,
+                "normalized21kTurns": 35714,
                 "agentTasks": {
-                  "small250k": 18711,
-                  "medium550k": 8505,
-                  "large900k": 5197
+                  "small250k": 3000,
+                  "medium550k": 1363,
+                  "large900k": 833
                 }
               }
             },
             {
               "modelKey": "Gemini 3.7 Flash",
-              "estimatedMillionTokens": 4677.88,
-              "midpointEstimate": 4677.88,
-              "optimisticEstimate": 4677.88,
-              "confidence": "medium",
+              "estimatedMillionTokens": 750,
+              "midpointEstimate": 750,
+              "optimisticEstimate": 750,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 4677880000,
-                "normalized21kTurns": 222756,
+                "monthlyTokens": 750000000,
+                "normalized21kTurns": 35714,
                 "agentTasks": {
-                  "small250k": 18711,
-                  "medium550k": 8505,
-                  "large900k": 5197
+                  "small250k": 3000,
+                  "medium550k": 1363,
+                  "large900k": 833
                 }
               }
             },
             {
               "modelKey": "Gemini 3.6 Flash",
-              "estimatedMillionTokens": 4677.88,
-              "midpointEstimate": 4677.88,
-              "optimisticEstimate": 4677.88,
-              "confidence": "medium",
+              "estimatedMillionTokens": 750,
+              "midpointEstimate": 750,
+              "optimisticEstimate": 750,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 4677880000,
-                "normalized21kTurns": 222756,
+                "monthlyTokens": 750000000,
+                "normalized21kTurns": 35714,
                 "agentTasks": {
-                  "small250k": 18711,
-                  "medium550k": 8505,
-                  "large900k": 5197
+                  "small250k": 3000,
+                  "medium550k": 1363,
+                  "large900k": 833
                 }
               }
             },
@@ -5854,7 +5854,7 @@
               "estimatedMillionTokens": 375,
               "midpointEstimate": 375,
               "optimisticEstimate": 375,
-              "confidence": "medium",
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
@@ -5872,51 +5872,51 @@
             },
             {
               "modelKey": "Claude Sonnet 4.6",
-              "estimatedMillionTokens": 170.5,
-              "midpointEstimate": 170.5,
-              "optimisticEstimate": 170.5,
-              "confidence": "medium",
+              "estimatedMillionTokens": 45,
+              "midpointEstimate": 45,
+              "optimisticEstimate": 45,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 170500000,
-                "normalized21kTurns": 8119,
+                "monthlyTokens": 45000000,
+                "normalized21kTurns": 2143,
                 "agentTasks": {
-                  "small250k": 682,
-                  "medium550k": 310,
-                  "large900k": 189
+                  "small250k": 180,
+                  "medium550k": 81,
+                  "large900k": 50
                 }
               }
             },
             {
               "modelKey": "Claude Opus 4.6",
-              "estimatedMillionTokens": 34.1,
-              "midpointEstimate": 34.1,
-              "optimisticEstimate": 34.1,
-              "confidence": "medium",
+              "estimatedMillionTokens": 8.75,
+              "midpointEstimate": 8.75,
+              "optimisticEstimate": 8.75,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 34100000,
-                "normalized21kTurns": 1624,
+                "monthlyTokens": 8750000,
+                "normalized21kTurns": 417,
                 "agentTasks": {
-                  "small250k": 136,
-                  "medium550k": 62,
-                  "large900k": 37
+                  "small250k": 35,
+                  "medium550k": 15,
+                  "large900k": 9
                 }
               }
             },
             {
               "modelKey": "gpt-oss-120b",
-              "estimatedMillionTokens": 2764.2,
-              "midpointEstimate": 2764.2,
-              "optimisticEstimate": 2764.2,
+              "estimatedMillionTokens": 300,
+              "midpointEstimate": 300,
+              "optimisticEstimate": 300,
               "confidence": "medium",
               "basis": "list-price-credit",
               "isModelSpecific": true,
@@ -5924,12 +5924,12 @@
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 2764200000,
-                "normalized21kTurns": 131629,
+                "monthlyTokens": 300000000,
+                "normalized21kTurns": 14286,
                 "agentTasks": {
-                  "small250k": 11056,
-                  "medium550k": 5025,
-                  "large900k": 3071
+                  "small250k": 1200,
+                  "medium550k": 545,
+                  "large900k": 333
                 }
               }
             }
@@ -5963,64 +5963,64 @@
           "models": [
             {
               "modelKey": "Gemini 3.8 Flash",
-              "estimatedMillionTokens": 18711.54,
-              "midpointEstimate": 18711.54,
-              "optimisticEstimate": 18711.54,
-              "confidence": "medium",
+              "estimatedMillionTokens": 3000,
+              "midpointEstimate": 3000,
+              "optimisticEstimate": 3000,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 18711540000,
-                "normalized21kTurns": 891026,
+                "monthlyTokens": 3000000000,
+                "normalized21kTurns": 142857,
                 "agentTasks": {
-                  "small250k": 74846,
-                  "medium550k": 34020,
-                  "large900k": 20790
+                  "small250k": 12000,
+                  "medium550k": 5454,
+                  "large900k": 3333
                 }
               }
             },
             {
               "modelKey": "Gemini 3.7 Flash",
-              "estimatedMillionTokens": 18711.54,
-              "midpointEstimate": 18711.54,
-              "optimisticEstimate": 18711.54,
-              "confidence": "medium",
+              "estimatedMillionTokens": 3000,
+              "midpointEstimate": 3000,
+              "optimisticEstimate": 3000,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 18711540000,
-                "normalized21kTurns": 891026,
+                "monthlyTokens": 3000000000,
+                "normalized21kTurns": 142857,
                 "agentTasks": {
-                  "small250k": 74846,
-                  "medium550k": 34020,
-                  "large900k": 20790
+                  "small250k": 12000,
+                  "medium550k": 5454,
+                  "large900k": 3333
                 }
               }
             },
             {
               "modelKey": "Gemini 3.6 Flash",
-              "estimatedMillionTokens": 18711.54,
-              "midpointEstimate": 18711.54,
-              "optimisticEstimate": 18711.54,
-              "confidence": "medium",
+              "estimatedMillionTokens": 3000,
+              "midpointEstimate": 3000,
+              "optimisticEstimate": 3000,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 18711540000,
-                "normalized21kTurns": 891026,
+                "monthlyTokens": 3000000000,
+                "normalized21kTurns": 142857,
                 "agentTasks": {
-                  "small250k": 74846,
-                  "medium550k": 34020,
-                  "large900k": 20790
+                  "small250k": 12000,
+                  "medium550k": 5454,
+                  "large900k": 3333
                 }
               }
             },
@@ -6029,7 +6029,7 @@
               "estimatedMillionTokens": 1500,
               "midpointEstimate": 1500,
               "optimisticEstimate": 1500,
-              "confidence": "medium",
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
@@ -6047,51 +6047,51 @@
             },
             {
               "modelKey": "Claude Sonnet 4.6",
-              "estimatedMillionTokens": 682.01,
-              "midpointEstimate": 682.01,
-              "optimisticEstimate": 682.01,
-              "confidence": "medium",
+              "estimatedMillionTokens": 180,
+              "midpointEstimate": 180,
+              "optimisticEstimate": 180,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 682010000,
-                "normalized21kTurns": 32477,
+                "monthlyTokens": 180000000,
+                "normalized21kTurns": 8571,
                 "agentTasks": {
-                  "small250k": 2728,
-                  "medium550k": 1240,
-                  "large900k": 757
+                  "small250k": 720,
+                  "medium550k": 327,
+                  "large900k": 200
                 }
               }
             },
             {
               "modelKey": "Claude Opus 4.6",
-              "estimatedMillionTokens": 136.4,
-              "midpointEstimate": 136.4,
-              "optimisticEstimate": 136.4,
-              "confidence": "medium",
+              "estimatedMillionTokens": 35,
+              "midpointEstimate": 35,
+              "optimisticEstimate": 35,
+              "confidence": "high",
               "basis": "list-price-credit",
               "isModelSpecific": true,
               "isEstimatedCeiling": true,
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 136400000,
-                "normalized21kTurns": 6495,
+                "monthlyTokens": 35000000,
+                "normalized21kTurns": 1667,
                 "agentTasks": {
-                  "small250k": 545,
-                  "medium550k": 248,
-                  "large900k": 151
+                  "small250k": 140,
+                  "medium550k": 63,
+                  "large900k": 38
                 }
               }
             },
             {
               "modelKey": "gpt-oss-120b",
-              "estimatedMillionTokens": 11056.82,
-              "midpointEstimate": 11056.82,
-              "optimisticEstimate": 11056.82,
+              "estimatedMillionTokens": 1200,
+              "midpointEstimate": 1200,
+              "optimisticEstimate": 1200,
               "confidence": "medium",
               "basis": "list-price-credit",
               "isModelSpecific": true,
@@ -6099,12 +6099,12 @@
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 11056820000,
-                "normalized21kTurns": 526515,
+                "monthlyTokens": 1200000000,
+                "normalized21kTurns": 57143,
                 "agentTasks": {
-                  "small250k": 44227,
-                  "medium550k": 20103,
-                  "large900k": 12285
+                  "small250k": 4800,
+                  "medium550k": 2181,
+                  "large900k": 1333
                 }
               }
             }
@@ -6845,9 +6845,9 @@
             },
             {
               "modelKey": "K2.7 Code",
-              "estimatedMillionTokens": 2398.88,
-              "midpointEstimate": 2398.88,
-              "optimisticEstimate": 2398.88,
+              "estimatedMillionTokens": 1200,
+              "midpointEstimate": 1200,
+              "optimisticEstimate": 1200,
               "confidence": "low",
               "basis": "list-price-credit",
               "isModelSpecific": true,
@@ -6855,12 +6855,12 @@
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 2398880000,
-                "normalized21kTurns": 114232,
+                "monthlyTokens": 1200000000,
+                "normalized21kTurns": 57143,
                 "agentTasks": {
-                  "small250k": 9595,
-                  "medium550k": 4361,
-                  "large900k": 2665
+                  "small250k": 4800,
+                  "medium550k": 2181,
+                  "large900k": 1333
                 }
               }
             }
@@ -8886,9 +8886,9 @@
           "models": [
             {
               "modelKey": "DeepSeek V4.1 Flash",
-              "estimatedMillionTokens": 20487.8,
-              "midpointEstimate": 20487.8,
-              "optimisticEstimate": 20487.8,
+              "estimatedMillionTokens": 4500,
+              "midpointEstimate": 4500,
+              "optimisticEstimate": 4500,
               "confidence": "medium",
               "basis": "list-price-credit",
               "isModelSpecific": true,
@@ -8896,12 +8896,12 @@
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 20487800000,
-                "normalized21kTurns": 975610,
+                "monthlyTokens": 4500000000,
+                "normalized21kTurns": 214286,
                 "agentTasks": {
-                  "small250k": 81951,
-                  "medium550k": 37250,
-                  "large900k": 22764
+                  "small250k": 18000,
+                  "medium550k": 8181,
+                  "large900k": 5000
                 }
               }
             },
@@ -8928,9 +8928,9 @@
             },
             {
               "modelKey": "MiniMax M3",
-              "estimatedMillionTokens": 5045.05,
-              "midpointEstimate": 5045.05,
-              "optimisticEstimate": 5045.05,
+              "estimatedMillionTokens": 4500,
+              "midpointEstimate": 4500,
+              "optimisticEstimate": 4500,
               "confidence": "medium",
               "basis": "list-price-credit",
               "isModelSpecific": true,
@@ -8938,12 +8938,12 @@
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 5045050000,
-                "normalized21kTurns": 240240,
+                "monthlyTokens": 4500000000,
+                "normalized21kTurns": 214286,
                 "agentTasks": {
-                  "small250k": 20180,
-                  "medium550k": 9172,
-                  "large900k": 5605
+                  "small250k": 18000,
+                  "medium550k": 8181,
+                  "large900k": 5000
                 }
               }
             },
@@ -18460,21 +18460,21 @@
       "monthlyPrice": 0,
       "annualPrice": null,
       "modelKey": "Gemini 3.8 Flash",
-      "estimatedMillionTokens": 77.96,
-      "midpointEstimate": 77.96,
-      "optimisticEstimate": 77.96,
-      "confidence": "medium",
+      "estimatedMillionTokens": 12.5,
+      "midpointEstimate": 12.5,
+      "optimisticEstimate": 12.5,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 77960000,
-      "normalized21kTurns": 3712,
+      "monthlyTokens": 12500000,
+      "normalized21kTurns": 595,
       "agentTasks": {
-        "small250k": 311,
-        "medium550k": 141,
-        "large900k": 86
+        "small250k": 50,
+        "medium550k": 22,
+        "large900k": 13
       },
       "tierLimits": {
         "quota": "Meaningful weekly quota, refreshed weekly (no 5-hour refresh)",
@@ -18493,21 +18493,21 @@
       "monthlyPrice": 0,
       "annualPrice": null,
       "modelKey": "Gemini 3.7 Flash",
-      "estimatedMillionTokens": 77.96,
-      "midpointEstimate": 77.96,
-      "optimisticEstimate": 77.96,
-      "confidence": "medium",
+      "estimatedMillionTokens": 12.5,
+      "midpointEstimate": 12.5,
+      "optimisticEstimate": 12.5,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 77960000,
-      "normalized21kTurns": 3712,
+      "monthlyTokens": 12500000,
+      "normalized21kTurns": 595,
       "agentTasks": {
-        "small250k": 311,
-        "medium550k": 141,
-        "large900k": 86
+        "small250k": 50,
+        "medium550k": 22,
+        "large900k": 13
       },
       "tierLimits": {
         "quota": "Meaningful weekly quota, refreshed weekly (no 5-hour refresh)",
@@ -18526,21 +18526,21 @@
       "monthlyPrice": 0,
       "annualPrice": null,
       "modelKey": "Gemini 3.6 Flash",
-      "estimatedMillionTokens": 77.96,
-      "midpointEstimate": 77.96,
-      "optimisticEstimate": 77.96,
-      "confidence": "medium",
+      "estimatedMillionTokens": 12.5,
+      "midpointEstimate": 12.5,
+      "optimisticEstimate": 12.5,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 77960000,
-      "normalized21kTurns": 3712,
+      "monthlyTokens": 12500000,
+      "normalized21kTurns": 595,
       "agentTasks": {
-        "small250k": 311,
-        "medium550k": 141,
-        "large900k": 86
+        "small250k": 50,
+        "medium550k": 22,
+        "large900k": 13
       },
       "tierLimits": {
         "quota": "Meaningful weekly quota, refreshed weekly (no 5-hour refresh)",
@@ -18562,7 +18562,7 @@
       "estimatedMillionTokens": 6.25,
       "midpointEstimate": 6.25,
       "optimisticEstimate": 6.25,
-      "confidence": "medium",
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
@@ -18592,52 +18592,19 @@
       "monthlyPrice": 0,
       "annualPrice": null,
       "modelKey": "Claude Sonnet 4.6",
-      "estimatedMillionTokens": 2.84,
-      "midpointEstimate": 2.84,
-      "optimisticEstimate": 2.84,
-      "confidence": "medium",
+      "estimatedMillionTokens": 0.75,
+      "midpointEstimate": 0.75,
+      "optimisticEstimate": 0.75,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 2840000,
-      "normalized21kTurns": 135,
+      "monthlyTokens": 750000,
+      "normalized21kTurns": 36,
       "agentTasks": {
-        "small250k": 11,
-        "medium550k": 5,
-        "large900k": 3
-      },
-      "tierLimits": {
-        "quota": "Meaningful weekly quota, refreshed weekly (no 5-hour refresh)",
-        "rateLimit": "Basic weekly rate limits per model",
-        "tabCompletions": "Unlimited",
-        "commandRequests": "Unlimited",
-        "creditOverage": "Not available (Pro/Ultra only)"
-      },
-      "sourceUrl": "https://antigravity.google/pricing"
-    },
-    {
-      "providerId": "google-antigravity",
-      "providerName": "Google Antigravity",
-      "category": "coding-ide",
-      "tierName": "Individual",
-      "monthlyPrice": 0,
-      "annualPrice": null,
-      "modelKey": "Claude Opus 4.6",
-      "estimatedMillionTokens": 0.57,
-      "midpointEstimate": 0.57,
-      "optimisticEstimate": 0.57,
-      "confidence": "medium",
-      "basis": "list-price-credit",
-      "isModelSpecific": true,
-      "isEstimatedCeiling": true,
-      "disclosedByVendor": false,
-      "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 570000,
-      "normalized21kTurns": 27,
-      "agentTasks": {
-        "small250k": 2,
+        "small250k": 3,
         "medium550k": 1,
         "large900k": 0
       },
@@ -18657,22 +18624,55 @@
       "tierName": "Individual",
       "monthlyPrice": 0,
       "annualPrice": null,
+      "modelKey": "Claude Opus 4.6",
+      "estimatedMillionTokens": 0.15,
+      "midpointEstimate": 0.15,
+      "optimisticEstimate": 0.15,
+      "confidence": "high",
+      "basis": "list-price-credit",
+      "isModelSpecific": true,
+      "isEstimatedCeiling": true,
+      "disclosedByVendor": false,
+      "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
+      "monthlyTokens": 150000,
+      "normalized21kTurns": 7,
+      "agentTasks": {
+        "small250k": 0,
+        "medium550k": 0,
+        "large900k": 0
+      },
+      "tierLimits": {
+        "quota": "Meaningful weekly quota, refreshed weekly (no 5-hour refresh)",
+        "rateLimit": "Basic weekly rate limits per model",
+        "tabCompletions": "Unlimited",
+        "commandRequests": "Unlimited",
+        "creditOverage": "Not available (Pro/Ultra only)"
+      },
+      "sourceUrl": "https://antigravity.google/pricing"
+    },
+    {
+      "providerId": "google-antigravity",
+      "providerName": "Google Antigravity",
+      "category": "coding-ide",
+      "tierName": "Individual",
+      "monthlyPrice": 0,
+      "annualPrice": null,
       "modelKey": "gpt-oss-120b",
-      "estimatedMillionTokens": 46.07,
-      "midpointEstimate": 46.07,
-      "optimisticEstimate": 46.07,
+      "estimatedMillionTokens": 5,
+      "midpointEstimate": 5,
+      "optimisticEstimate": 5,
       "confidence": "medium",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 46070000,
-      "normalized21kTurns": 2194,
+      "monthlyTokens": 5000000,
+      "normalized21kTurns": 238,
       "agentTasks": {
-        "small250k": 184,
-        "medium550k": 83,
-        "large900k": 51
+        "small250k": 20,
+        "medium550k": 9,
+        "large900k": 5
       },
       "tierLimits": {
         "quota": "Meaningful weekly quota, refreshed weekly (no 5-hour refresh)",
@@ -18691,21 +18691,21 @@
       "monthlyPrice": 19.99,
       "annualPrice": null,
       "modelKey": "Gemini 3.8 Flash",
-      "estimatedMillionTokens": 935.58,
-      "midpointEstimate": 935.58,
-      "optimisticEstimate": 935.58,
-      "confidence": "medium",
+      "estimatedMillionTokens": 150,
+      "midpointEstimate": 150,
+      "optimisticEstimate": 150,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 935580000,
-      "normalized21kTurns": 44551,
+      "monthlyTokens": 150000000,
+      "normalized21kTurns": 7143,
       "agentTasks": {
-        "small250k": 3742,
-        "medium550k": 1701,
-        "large900k": 1039
+        "small250k": 600,
+        "medium550k": 272,
+        "large900k": 166
       },
       "tierLimits": {
         "quota": "High quota, refreshed every 5 hours until weekly limit reached",
@@ -18723,21 +18723,21 @@
       "monthlyPrice": 19.99,
       "annualPrice": null,
       "modelKey": "Gemini 3.7 Flash",
-      "estimatedMillionTokens": 935.58,
-      "midpointEstimate": 935.58,
-      "optimisticEstimate": 935.58,
-      "confidence": "medium",
+      "estimatedMillionTokens": 150,
+      "midpointEstimate": 150,
+      "optimisticEstimate": 150,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 935580000,
-      "normalized21kTurns": 44551,
+      "monthlyTokens": 150000000,
+      "normalized21kTurns": 7143,
       "agentTasks": {
-        "small250k": 3742,
-        "medium550k": 1701,
-        "large900k": 1039
+        "small250k": 600,
+        "medium550k": 272,
+        "large900k": 166
       },
       "tierLimits": {
         "quota": "High quota, refreshed every 5 hours until weekly limit reached",
@@ -18755,21 +18755,21 @@
       "monthlyPrice": 19.99,
       "annualPrice": null,
       "modelKey": "Gemini 3.6 Flash",
-      "estimatedMillionTokens": 935.58,
-      "midpointEstimate": 935.58,
-      "optimisticEstimate": 935.58,
-      "confidence": "medium",
+      "estimatedMillionTokens": 150,
+      "midpointEstimate": 150,
+      "optimisticEstimate": 150,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 935580000,
-      "normalized21kTurns": 44551,
+      "monthlyTokens": 150000000,
+      "normalized21kTurns": 7143,
       "agentTasks": {
-        "small250k": 3742,
-        "medium550k": 1701,
-        "large900k": 1039
+        "small250k": 600,
+        "medium550k": 272,
+        "large900k": 166
       },
       "tierLimits": {
         "quota": "High quota, refreshed every 5 hours until weekly limit reached",
@@ -18790,7 +18790,7 @@
       "estimatedMillionTokens": 75,
       "midpointEstimate": 75,
       "optimisticEstimate": 75,
-      "confidence": "medium",
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
@@ -18819,21 +18819,21 @@
       "monthlyPrice": 19.99,
       "annualPrice": null,
       "modelKey": "Claude Sonnet 4.6",
-      "estimatedMillionTokens": 34.1,
-      "midpointEstimate": 34.1,
-      "optimisticEstimate": 34.1,
-      "confidence": "medium",
+      "estimatedMillionTokens": 9,
+      "midpointEstimate": 9,
+      "optimisticEstimate": 9,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 34100000,
-      "normalized21kTurns": 1624,
+      "monthlyTokens": 9000000,
+      "normalized21kTurns": 429,
       "agentTasks": {
-        "small250k": 136,
-        "medium550k": 62,
-        "large900k": 37
+        "small250k": 36,
+        "medium550k": 16,
+        "large900k": 10
       },
       "tierLimits": {
         "quota": "High quota, refreshed every 5 hours until weekly limit reached",
@@ -18851,21 +18851,21 @@
       "monthlyPrice": 19.99,
       "annualPrice": null,
       "modelKey": "Claude Opus 4.6",
-      "estimatedMillionTokens": 6.82,
-      "midpointEstimate": 6.82,
-      "optimisticEstimate": 6.82,
-      "confidence": "medium",
+      "estimatedMillionTokens": 1.75,
+      "midpointEstimate": 1.75,
+      "optimisticEstimate": 1.75,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 6820000,
-      "normalized21kTurns": 325,
+      "monthlyTokens": 1750000,
+      "normalized21kTurns": 83,
       "agentTasks": {
-        "small250k": 27,
-        "medium550k": 12,
-        "large900k": 7
+        "small250k": 7,
+        "medium550k": 3,
+        "large900k": 1
       },
       "tierLimits": {
         "quota": "High quota, refreshed every 5 hours until weekly limit reached",
@@ -18883,21 +18883,21 @@
       "monthlyPrice": 19.99,
       "annualPrice": null,
       "modelKey": "gpt-oss-120b",
-      "estimatedMillionTokens": 552.84,
-      "midpointEstimate": 552.84,
-      "optimisticEstimate": 552.84,
+      "estimatedMillionTokens": 60,
+      "midpointEstimate": 60,
+      "optimisticEstimate": 60,
       "confidence": "medium",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 552840000,
-      "normalized21kTurns": 26326,
+      "monthlyTokens": 60000000,
+      "normalized21kTurns": 2857,
       "agentTasks": {
-        "small250k": 2211,
-        "medium550k": 1005,
-        "large900k": 614
+        "small250k": 240,
+        "medium550k": 109,
+        "large900k": 66
       },
       "tierLimits": {
         "quota": "High quota, refreshed every 5 hours until weekly limit reached",
@@ -18915,21 +18915,21 @@
       "monthlyPrice": 99.99,
       "annualPrice": null,
       "modelKey": "Gemini 3.8 Flash",
-      "estimatedMillionTokens": 4677.88,
-      "midpointEstimate": 4677.88,
-      "optimisticEstimate": 4677.88,
-      "confidence": "medium",
+      "estimatedMillionTokens": 750,
+      "midpointEstimate": 750,
+      "optimisticEstimate": 750,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 4677880000,
-      "normalized21kTurns": 222756,
+      "monthlyTokens": 750000000,
+      "normalized21kTurns": 35714,
       "agentTasks": {
-        "small250k": 18711,
-        "medium550k": 8505,
-        "large900k": 5197
+        "small250k": 3000,
+        "medium550k": 1363,
+        "large900k": 833
       },
       "tierLimits": {
         "quota": "Highest quota, refreshed every 5 hours until weekly limit reached",
@@ -18947,21 +18947,21 @@
       "monthlyPrice": 99.99,
       "annualPrice": null,
       "modelKey": "Gemini 3.7 Flash",
-      "estimatedMillionTokens": 4677.88,
-      "midpointEstimate": 4677.88,
-      "optimisticEstimate": 4677.88,
-      "confidence": "medium",
+      "estimatedMillionTokens": 750,
+      "midpointEstimate": 750,
+      "optimisticEstimate": 750,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 4677880000,
-      "normalized21kTurns": 222756,
+      "monthlyTokens": 750000000,
+      "normalized21kTurns": 35714,
       "agentTasks": {
-        "small250k": 18711,
-        "medium550k": 8505,
-        "large900k": 5197
+        "small250k": 3000,
+        "medium550k": 1363,
+        "large900k": 833
       },
       "tierLimits": {
         "quota": "Highest quota, refreshed every 5 hours until weekly limit reached",
@@ -18979,21 +18979,21 @@
       "monthlyPrice": 99.99,
       "annualPrice": null,
       "modelKey": "Gemini 3.6 Flash",
-      "estimatedMillionTokens": 4677.88,
-      "midpointEstimate": 4677.88,
-      "optimisticEstimate": 4677.88,
-      "confidence": "medium",
+      "estimatedMillionTokens": 750,
+      "midpointEstimate": 750,
+      "optimisticEstimate": 750,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 4677880000,
-      "normalized21kTurns": 222756,
+      "monthlyTokens": 750000000,
+      "normalized21kTurns": 35714,
       "agentTasks": {
-        "small250k": 18711,
-        "medium550k": 8505,
-        "large900k": 5197
+        "small250k": 3000,
+        "medium550k": 1363,
+        "large900k": 833
       },
       "tierLimits": {
         "quota": "Highest quota, refreshed every 5 hours until weekly limit reached",
@@ -19014,7 +19014,7 @@
       "estimatedMillionTokens": 375,
       "midpointEstimate": 375,
       "optimisticEstimate": 375,
-      "confidence": "medium",
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
@@ -19043,21 +19043,21 @@
       "monthlyPrice": 99.99,
       "annualPrice": null,
       "modelKey": "Claude Sonnet 4.6",
-      "estimatedMillionTokens": 170.5,
-      "midpointEstimate": 170.5,
-      "optimisticEstimate": 170.5,
-      "confidence": "medium",
+      "estimatedMillionTokens": 45,
+      "midpointEstimate": 45,
+      "optimisticEstimate": 45,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 170500000,
-      "normalized21kTurns": 8119,
+      "monthlyTokens": 45000000,
+      "normalized21kTurns": 2143,
       "agentTasks": {
-        "small250k": 682,
-        "medium550k": 310,
-        "large900k": 189
+        "small250k": 180,
+        "medium550k": 81,
+        "large900k": 50
       },
       "tierLimits": {
         "quota": "Highest quota, refreshed every 5 hours until weekly limit reached",
@@ -19075,21 +19075,21 @@
       "monthlyPrice": 99.99,
       "annualPrice": null,
       "modelKey": "Claude Opus 4.6",
-      "estimatedMillionTokens": 34.1,
-      "midpointEstimate": 34.1,
-      "optimisticEstimate": 34.1,
-      "confidence": "medium",
+      "estimatedMillionTokens": 8.75,
+      "midpointEstimate": 8.75,
+      "optimisticEstimate": 8.75,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 34100000,
-      "normalized21kTurns": 1624,
+      "monthlyTokens": 8750000,
+      "normalized21kTurns": 417,
       "agentTasks": {
-        "small250k": 136,
-        "medium550k": 62,
-        "large900k": 37
+        "small250k": 35,
+        "medium550k": 15,
+        "large900k": 9
       },
       "tierLimits": {
         "quota": "Highest quota, refreshed every 5 hours until weekly limit reached",
@@ -19107,21 +19107,21 @@
       "monthlyPrice": 99.99,
       "annualPrice": null,
       "modelKey": "gpt-oss-120b",
-      "estimatedMillionTokens": 2764.2,
-      "midpointEstimate": 2764.2,
-      "optimisticEstimate": 2764.2,
+      "estimatedMillionTokens": 300,
+      "midpointEstimate": 300,
+      "optimisticEstimate": 300,
       "confidence": "medium",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 2764200000,
-      "normalized21kTurns": 131629,
+      "monthlyTokens": 300000000,
+      "normalized21kTurns": 14286,
       "agentTasks": {
-        "small250k": 11056,
-        "medium550k": 5025,
-        "large900k": 3071
+        "small250k": 1200,
+        "medium550k": 545,
+        "large900k": 333
       },
       "tierLimits": {
         "quota": "Highest quota, refreshed every 5 hours until weekly limit reached",
@@ -19139,21 +19139,21 @@
       "monthlyPrice": 199.99,
       "annualPrice": null,
       "modelKey": "Gemini 3.8 Flash",
-      "estimatedMillionTokens": 18711.54,
-      "midpointEstimate": 18711.54,
-      "optimisticEstimate": 18711.54,
-      "confidence": "medium",
+      "estimatedMillionTokens": 3000,
+      "midpointEstimate": 3000,
+      "optimisticEstimate": 3000,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 18711540000,
-      "normalized21kTurns": 891026,
+      "monthlyTokens": 3000000000,
+      "normalized21kTurns": 142857,
       "agentTasks": {
-        "small250k": 74846,
-        "medium550k": 34020,
-        "large900k": 20790
+        "small250k": 12000,
+        "medium550k": 5454,
+        "large900k": 3333
       },
       "tierLimits": {
         "quota": "Highest quota, refreshed every 5 hours until weekly limit reached",
@@ -19171,21 +19171,21 @@
       "monthlyPrice": 199.99,
       "annualPrice": null,
       "modelKey": "Gemini 3.7 Flash",
-      "estimatedMillionTokens": 18711.54,
-      "midpointEstimate": 18711.54,
-      "optimisticEstimate": 18711.54,
-      "confidence": "medium",
+      "estimatedMillionTokens": 3000,
+      "midpointEstimate": 3000,
+      "optimisticEstimate": 3000,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 18711540000,
-      "normalized21kTurns": 891026,
+      "monthlyTokens": 3000000000,
+      "normalized21kTurns": 142857,
       "agentTasks": {
-        "small250k": 74846,
-        "medium550k": 34020,
-        "large900k": 20790
+        "small250k": 12000,
+        "medium550k": 5454,
+        "large900k": 3333
       },
       "tierLimits": {
         "quota": "Highest quota, refreshed every 5 hours until weekly limit reached",
@@ -19203,21 +19203,21 @@
       "monthlyPrice": 199.99,
       "annualPrice": null,
       "modelKey": "Gemini 3.6 Flash",
-      "estimatedMillionTokens": 18711.54,
-      "midpointEstimate": 18711.54,
-      "optimisticEstimate": 18711.54,
-      "confidence": "medium",
+      "estimatedMillionTokens": 3000,
+      "midpointEstimate": 3000,
+      "optimisticEstimate": 3000,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 18711540000,
-      "normalized21kTurns": 891026,
+      "monthlyTokens": 3000000000,
+      "normalized21kTurns": 142857,
       "agentTasks": {
-        "small250k": 74846,
-        "medium550k": 34020,
-        "large900k": 20790
+        "small250k": 12000,
+        "medium550k": 5454,
+        "large900k": 3333
       },
       "tierLimits": {
         "quota": "Highest quota, refreshed every 5 hours until weekly limit reached",
@@ -19238,7 +19238,7 @@
       "estimatedMillionTokens": 1500,
       "midpointEstimate": 1500,
       "optimisticEstimate": 1500,
-      "confidence": "medium",
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
@@ -19267,21 +19267,21 @@
       "monthlyPrice": 199.99,
       "annualPrice": null,
       "modelKey": "Claude Sonnet 4.6",
-      "estimatedMillionTokens": 682.01,
-      "midpointEstimate": 682.01,
-      "optimisticEstimate": 682.01,
-      "confidence": "medium",
+      "estimatedMillionTokens": 180,
+      "midpointEstimate": 180,
+      "optimisticEstimate": 180,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 682010000,
-      "normalized21kTurns": 32477,
+      "monthlyTokens": 180000000,
+      "normalized21kTurns": 8571,
       "agentTasks": {
-        "small250k": 2728,
-        "medium550k": 1240,
-        "large900k": 757
+        "small250k": 720,
+        "medium550k": 327,
+        "large900k": 200
       },
       "tierLimits": {
         "quota": "Highest quota, refreshed every 5 hours until weekly limit reached",
@@ -19299,21 +19299,21 @@
       "monthlyPrice": 199.99,
       "annualPrice": null,
       "modelKey": "Claude Opus 4.6",
-      "estimatedMillionTokens": 136.4,
-      "midpointEstimate": 136.4,
-      "optimisticEstimate": 136.4,
-      "confidence": "medium",
+      "estimatedMillionTokens": 35,
+      "midpointEstimate": 35,
+      "optimisticEstimate": 35,
+      "confidence": "high",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 136400000,
-      "normalized21kTurns": 6495,
+      "monthlyTokens": 35000000,
+      "normalized21kTurns": 1667,
       "agentTasks": {
-        "small250k": 545,
-        "medium550k": 248,
-        "large900k": 151
+        "small250k": 140,
+        "medium550k": 63,
+        "large900k": 38
       },
       "tierLimits": {
         "quota": "Highest quota, refreshed every 5 hours until weekly limit reached",
@@ -19331,21 +19331,21 @@
       "monthlyPrice": 199.99,
       "annualPrice": null,
       "modelKey": "gpt-oss-120b",
-      "estimatedMillionTokens": 11056.82,
-      "midpointEstimate": 11056.82,
-      "optimisticEstimate": 11056.82,
+      "estimatedMillionTokens": 1200,
+      "midpointEstimate": 1200,
+      "optimisticEstimate": 1200,
       "confidence": "medium",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 11056820000,
-      "normalized21kTurns": 526515,
+      "monthlyTokens": 1200000000,
+      "normalized21kTurns": 57143,
       "agentTasks": {
-        "small250k": 44227,
-        "medium550k": 20103,
-        "large900k": 12285
+        "small250k": 4800,
+        "medium550k": 2181,
+        "large900k": 1333
       },
       "tierLimits": {
         "quota": "Highest quota, refreshed every 5 hours until weekly limit reached",
@@ -19996,21 +19996,21 @@
       "monthlyPrice": 199,
       "annualPrice": 1908,
       "modelKey": "K2.7 Code",
-      "estimatedMillionTokens": 2398.88,
-      "midpointEstimate": 2398.88,
-      "optimisticEstimate": 2398.88,
+      "estimatedMillionTokens": 1200,
+      "midpointEstimate": 1200,
+      "optimisticEstimate": 1200,
       "confidence": "low",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 2398880000,
-      "normalized21kTurns": 114232,
+      "monthlyTokens": 1200000000,
+      "normalized21kTurns": 57143,
       "agentTasks": {
-        "small250k": 9595,
-        "medium550k": 4361,
-        "large900k": 2665
+        "small250k": 4800,
+        "medium550k": 2181,
+        "large900k": 1333
       },
       "tierLimits": {
         "quota": "Highest weekly quotas (~1,200 req/5h)",
@@ -21959,21 +21959,21 @@
       "monthlyPrice": 500,
       "annualPrice": null,
       "modelKey": "DeepSeek V4.1 Flash",
-      "estimatedMillionTokens": 20487.8,
-      "midpointEstimate": 20487.8,
-      "optimisticEstimate": 20487.8,
+      "estimatedMillionTokens": 4500,
+      "midpointEstimate": 4500,
+      "optimisticEstimate": 4500,
       "confidence": "medium",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 20487800000,
-      "normalized21kTurns": 975610,
+      "monthlyTokens": 4500000000,
+      "normalized21kTurns": 214286,
       "agentTasks": {
-        "small250k": 81951,
-        "medium550k": 37250,
-        "large900k": 22764
+        "small250k": 18000,
+        "medium550k": 8181,
+        "large900k": 5000
       },
       "tierLimits": {
         "credits": "$1,000 cloud compute credits/mo",
@@ -22021,21 +22021,21 @@
       "monthlyPrice": 500,
       "annualPrice": null,
       "modelKey": "MiniMax M3",
-      "estimatedMillionTokens": 5045.05,
-      "midpointEstimate": 5045.05,
-      "optimisticEstimate": 5045.05,
+      "estimatedMillionTokens": 4500,
+      "midpointEstimate": 4500,
+      "optimisticEstimate": 4500,
       "confidence": "medium",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 5045050000,
-      "normalized21kTurns": 240240,
+      "monthlyTokens": 4500000000,
+      "normalized21kTurns": 214286,
       "agentTasks": {
-        "small250k": 20180,
-        "medium550k": 9172,
-        "large900k": 5605
+        "small250k": 18000,
+        "medium550k": 8181,
+        "large900k": 5000
       },
       "tierLimits": {
         "credits": "$1,000 cloud compute credits/mo",

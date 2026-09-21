@@ -158,7 +158,7 @@
       ],
       "perModelTokenBudgets": {
         "deepseek v4.1 flash": {
-          "estimatedMillionTokens": 20487.8,
+          "estimatedMillionTokens": 4500.0,
           "basis": "list-price-credit",
           "confidence": "medium"
         },
@@ -168,7 +168,7 @@
           "confidence": "medium"
         },
         "minimax m3": {
-          "estimatedMillionTokens": 5045.05,
+          "estimatedMillionTokens": 4500.0,
           "basis": "list-price-credit",
           "confidence": "medium"
         },

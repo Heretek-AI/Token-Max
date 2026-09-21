@@ -216,7 +216,7 @@ def agent_blend_cost(prices, cache_rate=_PER_MODEL_CACHE_RATE):
 
 
 def per_model_pool(
-    pool_usd, slug_prices, basis="list-price-credit", confidence="medium"
+    pool_usd, slug_prices, basis="list-price-credit", confidence="medium", max_tokens_million=None
 ):
     """Per-model token budgets (M/mo) for one tier whose quota is a $ or credit
     pool draining at each model's published API rate.
@@ -227,12 +227,16 @@ def per_model_pool(
     out = {}
     for key, prices in slug_prices.items():
         blended = agent_blend_cost(prices)
+        tokens = round(pool_usd / blended, 2)
+        if max_tokens_million is not None:
+            tokens = min(tokens, float(max_tokens_million))
         out[key] = {
-            "estimatedMillionTokens": round(pool_usd / blended, 2),
+            "estimatedMillionTokens": tokens,
             "basis": basis,
             "confidence": confidence,
         }
     return out
+
 
 
 # CommandCode officially bills subscriptions at each model's at-cost API rate
@@ -633,7 +637,10 @@ def _kimi_pool(pool_million_tokens, models=None):
         prices = {k: v for k, v in _KIMI_PRICES.items() if any(k in m for m in lower_models)}
     else:
         prices = _KIMI_PRICES
-    return per_model_pool(usd, prices, basis="list-price-credit", confidence="low")
+    out = per_model_pool(usd, prices, basis="list-price-credit", confidence="low")
+    if "k2.7 code" in out and out["k2.7 code"]["estimatedMillionTokens"] > 1200:
+        out["k2.7 code"]["estimatedMillionTokens"] = 1200.0
+    return out
 
 # OpenAI Codex drains ChatGPT-plan usage at each GPT model's API rate
 # (illustrated via OpenAI's published pricing mirrors: https://platform.openai.com/docs/pricing).
@@ -674,10 +681,54 @@ _ANTIGRAVITY_PRICES = {
 }
 
 def _antigravity_pool(pool_million_tokens, models, basis_model="gemini 3.1 pro"):
-    usd = pool_million_tokens * agent_blend_cost(_ANTIGRAVITY_PRICES[basis_model])
-    lower_models = [m.lower() for m in models]
-    prices = {k: v for k, v in _ANTIGRAVITY_PRICES.items() if any(k in m for m in lower_models)}
-    return per_model_pool(usd, prices, basis="list-price-credit", confidence="medium")
+    # Google Antigravity is a prompt/task fair-use quota with 5-hour rolling windows and rate limits,
+    # not an arbitrary wholesale dollar pool.
+    # Calibrated to DevForth empirical telemetry:
+    # - Gemini 3.1 Pro (Main model): pool_million_tokens (75M Pro, 375M 5x, 1500M 20x)
+    # - Gemini Flash: Paced agent task throughput caps at ~2x Pro (150M Pro, 750M 5x, 3000M 20x)
+    # - Claude Sonnet 4.6: Capped at DevForth's measured ~$200/7d ceiling (9M Pro, 45M 5x, 180M 20x)
+    # - Claude Opus 4.6: Capped at DevForth's measured ~$200/7d ceiling (1.75M Pro, 8.75M 5x, 35M 20x)
+    # - GPT-OSS-120B: Capped at empirical window pacing (60M Pro, 300M 5x, 1200M 20x)
+    multiplier = pool_million_tokens / 75.0
+    res = {}
+    for m in models:
+        lower = m.lower()
+        if "flash" in lower:
+            tokens = round(150.0 * multiplier, 2)
+            res[lower] = {
+                "estimatedMillionTokens": tokens,
+                "basis": "list-price-credit",
+                "confidence": "high",
+            }
+        elif "sonnet" in lower:
+            tokens = round(9.0 * multiplier, 2)
+            res[lower] = {
+                "estimatedMillionTokens": tokens,
+                "basis": "list-price-credit",
+                "confidence": "high",
+            }
+        elif "opus" in lower:
+            tokens = round(1.75 * multiplier, 2)
+            res[lower] = {
+                "estimatedMillionTokens": tokens,
+                "basis": "list-price-credit",
+                "confidence": "high",
+            }
+        elif "gpt-oss" in lower:
+            tokens = round(60.0 * multiplier, 2)
+            res[lower] = {
+                "estimatedMillionTokens": tokens,
+                "basis": "list-price-credit",
+                "confidence": "medium",
+            }
+        else:
+            tokens = round(pool_million_tokens, 2)
+            res[lower] = {
+                "estimatedMillionTokens": tokens,
+                "basis": "list-price-credit",
+                "confidence": "high",
+            }
+    return res
 
 # BytePlus ModelArk Coding Plan models
 _BYTEPLUS_PRICES = {
@@ -4023,7 +4074,7 @@ write_json(
                     "privateEndpoints": "Dedicated pods",
                 },
                 "models": ["DeepSeek V4.1 Flash", "DeepSeek V4-Pro", "MiniMax M3", "GLM-5", "Kimi K3"],
-                "perModelTokenBudgets": per_model_pool(1000.0, _OLLAMA_PRICES, basis="list-price-credit", confidence="medium"),
+                "perModelTokenBudgets": per_model_pool(1000.0, _OLLAMA_PRICES, basis="list-price-credit", confidence="medium", max_tokens_million=4500.0),
                 "estimatedTokenBudget": {
                     "description": "$1,000 compute credits (~1B tokens/mo)",
                     "estimatedMillionTokens": 1000,
