@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-09-20T11:02:18.116Z",
+  "generatedAt": "2026-09-21T01:39:43.705Z",
   "constants": {
     "agentTurnTokens": 21000,
     "defaultCacheRate": 0.75,
@@ -2145,7 +2145,7 @@
           "annualPrice": null,
           "limits": {
             "rollingCap": "20x Pro usage per 5-hour session",
-            "weeklyAllocation": "Weekly sliding window scales with 20x multiplier",
+            "weeklyAllocation": "Weekly sliding window (~6x Pro empirical ceiling, not 20x)",
             "overage": "Usage credits at API rates"
           },
           "defaultTokenBudget": {
@@ -14599,7 +14599,7 @@
       },
       "tierLimits": {
         "rollingCap": "20x Pro usage per 5-hour session",
-        "weeklyAllocation": "Weekly sliding window scales with 20x multiplier",
+        "weeklyAllocation": "Weekly sliding window (~6x Pro empirical ceiling, not 20x)",
         "overage": "Usage credits at API rates"
       },
       "sourceUrl": "https://claude.com/pricing"
@@ -14630,7 +14630,7 @@
       },
       "tierLimits": {
         "rollingCap": "20x Pro usage per 5-hour session",
-        "weeklyAllocation": "Weekly sliding window scales with 20x multiplier",
+        "weeklyAllocation": "Weekly sliding window (~6x Pro empirical ceiling, not 20x)",
         "overage": "Usage credits at API rates"
       },
       "sourceUrl": "https://claude.com/pricing"
@@ -14661,7 +14661,7 @@
       },
       "tierLimits": {
         "rollingCap": "20x Pro usage per 5-hour session",
-        "weeklyAllocation": "Weekly sliding window scales with 20x multiplier",
+        "weeklyAllocation": "Weekly sliding window (~6x Pro empirical ceiling, not 20x)",
         "overage": "Usage credits at API rates"
       },
       "sourceUrl": "https://claude.com/pricing"
@@ -14692,7 +14692,7 @@
       },
       "tierLimits": {
         "rollingCap": "20x Pro usage per 5-hour session",
-        "weeklyAllocation": "Weekly sliding window scales with 20x multiplier",
+        "weeklyAllocation": "Weekly sliding window (~6x Pro empirical ceiling, not 20x)",
         "overage": "Usage credits at API rates"
       },
       "sourceUrl": "https://claude.com/pricing"

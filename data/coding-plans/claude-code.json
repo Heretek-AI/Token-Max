@@ -103,7 +103,7 @@
       "monthlyPrice": 200,
       "limits": {
         "rollingCap": "20x Pro usage per 5-hour session",
-        "weeklyAllocation": "Weekly sliding window scales with 20x multiplier",
+        "weeklyAllocation": "Weekly sliding window (~6x Pro empirical ceiling, not 20x)",
         "overage": "Usage credits at API rates"
       },
       "models": [
@@ -150,9 +150,10 @@
   ],
   "gotchas": [
     "Usage is quota-based per rolling 5-hour session plus weekly caps, deliberately NOT token- or message-metered",
+    "While Max 20x provides 20x headroom within 5-hour burst windows, empirical telemetry (Faros AI / Morph) confirms the overall weekly ceiling scales to only ~6x of the Pro tier, causing high-velocity developers to hit weekly account lockouts prematurely",
     "In May 2026, Anthropic doubled 5-hour rate limits for Pro/Max/Team and eliminated peak-hour throttling; weekly hard caps still enforce account ceilings",
+    "Claude Code capacity is pooled across CLI sessions, Claude.ai web/desktop apps, and Claude Cowork",
     "After limits, work continues only if you opt into usage credits billed at standard API rates (with optional monthly spend cap)",
-    "Claude Code shares the same usage pool as Claude.ai chat, desktop and mobile",
     "On Pro, Claude Fable 5.1 runs via usage credits only; on Max it consumes 50% of weekly limits",
     "Cache TTL is 1 hour on subscriptions but drops to 5 minutes while drawing usage credits"
   ],

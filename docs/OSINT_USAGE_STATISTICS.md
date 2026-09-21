@@ -41,8 +41,18 @@ Modern agentic coding workflows do not look like traditional chatbot conversatio
 - **Two-Tier Throttle System**:
   - **Rolling 5-Hour Burst Window**: Controls immediate usage rate. Initiates on the first prompt of a session and rolls continuously. In **May 2026**, Anthropic officially doubled the 5-hour rate limits across Pro, Max, and Team subscriptions and eliminated peak-hour throttling cliffs.
   - **Weekly Account Ceiling**: An overarching hard limit that resets at a fixed, account-specific day and hour each week. Even if a user has 5-hour burst headroom, hitting the weekly ceiling results in a complete lockout until the weekly reset.
+  - **The 5-Hour vs. Weekly Multiplier Asymmetry (Faros AI Telemetry)**:
+    Empirical reverse-engineering by Faros AI reveals that Anthropic's tier multipliers apply strictly to the **5-hour burst session**, *not* the weekly account ceiling:
+    | Upgrade Path | Increase in 5-Hour Capacity | Approx. Increase in Weekly Capacity | Empirical Finding |
+    | :--- | :--- | :--- | :--- |
+    | **Pro → Max 5x** | **5x** | **~3.5x** | Sub-linear weekly scaling; sustainable for regular pairing |
+    | **Max 5x → Max 20x** | **4x** | **~1.7x** | Massive burst expansion, modest weekly lift |
+    | **Pro → Max 20x** | **20x** | **~6.0x (NOT 20x)** | **Primary cause of weekly lockouts** among heavy agent developers |
+    *Takeaway:* Upgrading from Pro to Max 20x provides 20x burst headroom within any given 5-hour window, but total weekly capacity is only ~6x that of Pro. Developers running continuous multi-agent sprints hit weekly hard lockouts within 2.5 to 3.5 days unless backed by pay-as-you-go overages.
 - **Shared Pool Cross-Surface Drain**:
-  - Claude Code CLI, Claude.ai (Web), Claude Desktop, and Mobile all draw from the **identical shared pool**. A heavy multi-hour coding session directly depletes available web chat queries.
+  - Claude Code CLI, Claude.ai (Web), Claude Desktop, and Claude Cowork all draw from the **identical shared pool** (MorphLLM telemetry). A heavy multi-hour coding session directly depletes available web chat queries.
+  - In September 2026, following the conclusion of a temporary 50% weekly promotional boost on September 13, Anthropic permanently instituted a **25% increase** to baseline weekly limits relative to pre-promotion standards.
+  - On Team subscriptions, **Team Premium seats** provide **6.25x** the capacity of a standard Pro seat.
 - **Model Weighting & Drain Differential**:
   - Claude Opus 5 consumes quota significantly faster than Claude Sonnet 5 (~3x–5x higher burn).
   - Claude Fable 5.1 operates under a dedicated restriction: capped at a maximum of **50% of the user's total weekly allowance**.
@@ -126,8 +136,14 @@ Modern agentic coding workflows do not look like traditional chatbot conversatio
   - **Plus ($20/mo)**: Designed for interactive, human-in-the-loop pairing. Easily exhausted in 2–3 hours of continuous autonomous agent loops.
   - **Pro 5x ($100/mo)**: Introduced in April 2026 as a bridge tier for high-frequency individual developers.
   - **Pro 20x ($200/mo)**: The flagship heavy-developer tier providing maximum reasoning compute and parallel task capability.
-- **Empirical Telemetry**:
+- **Empirical Telemetry & Observed Limit Windows (DevForth Telemetry)**:
   - In the Tom's Hardware / OpenClaw benchmark study, autonomous OpenAI agents consumed **603 Billion tokens across 7.6 Million requests** (~79,342 tokens/request) with an effective blended cost of **$2.16 per Million tokens**.
+  - DevForth's empirical tracking of OpenAI subscriptions identified explicit window ceilings in API-equivalent dollar value across shared model allowances:
+    - **Plus ($20/mo)**: Capped at **~$15 per 5-hour window** and **~$70 per 7-day rolling window** (~$304/mo total included API-equivalent value).
+    - **Pro 5x ($100/mo)**: Capped at **~$75 per 5-hour window** and **~$350 per 7-day rolling window** (~$1,522/mo total included API-equivalent value).
+    - **Pro 20x ($200/mo)**: Capped at **~$400 per 5-hour window** and **~$2,560 per 7-day rolling window** (~$11,131/mo maximum burst value).
+    - **Business Standard ($25/seat/mo)**: Capped at **~$75 per 7-day window** per user.
+    - **Business Premium ($125/seat/mo)**: Capped at **~$375 per 7-day window** per user.
 
 ---
 
@@ -199,7 +215,31 @@ Modern agentic coding workflows do not look like traditional chatbot conversatio
 
 ---
 
-## 4. Methodology Comparison: Token-Max vs. Real-World Telemetry
+## 4. Enterprise Engineering Telemetry & ROI Benchmarks (DX 400+ Orgs & Faros AI)
+
+Comprehensive telemetry from **400+ engineering organizations** tracked by DX (Developer Experience Index) and Faros AI reveals key real-world spending patterns and transition realities:
+
+### Real-World Per-Developer Costs
+- **Interactive + Agentic Hybrid Workloads**: Engineering teams mixing interactive IDE tools (Cursor, Copilot) with autonomous CLI agents (Claude Code, Devin) spend **$200 to $600 per developer per month** in combined seat fees and API overages.
+- **Claude Code Enterprise Deployments**: Anthropic enterprise data demonstrates that unconstrained developers average **$150 to $300/month** in pure token consumption.
+- **The Four Hidden Cost Layers**:
+  1. **Token Consumption & Quota Exhaustion**: As repository context accumulates, agent calls scale from a few thousand tokens to 100K+ cache reads per turn.
+  2. **Premium Model Overrides**: Once developers experience frontier reasoning models (GPT-5.6 Sol, Claude Opus 5), they consistently override standard default models, multiplying burn rates 3x–5x.
+  3. **Context Accumulation**: Long-running conversation history in IDEs causes repeated transmission of inactive history tokens unless cleared regularly.
+  4. **Multi-Seat Sprawl**: Organizations paying for inactive seats without centralized routing gateway oversight suffer from 40–60% wasted capacity.
+
+### GitHub Copilot Token Billing Transition
+- On **June 1, 2026**, GitHub completed a structural transition to token-based consumption:
+  - **Individual Tiers**: Pro ($10/mo), Pro+ ($39/mo), Max ($100/mo).
+  - **Business & Enterprise Seats**: $19/user/mo (Business) and $39/user/mo (Enterprise).
+  - **Promotional Credit Masking**: Promotional compute credits ($30/user/mo for Business, $70/user/mo for Enterprise) temporarily mask full production token costs until expiration.
+
+### Measured Engineering ROI
+- DX research measures a **median 7.76% gain in PR throughput** across 400+ orgs, with most organizations landing in the **5% to 15%** productivity improvement band.
+
+---
+
+## 5. Methodology Comparison: Token-Max vs. Real-World Telemetry
 
 | Parameter | Token-Max Formula | Real-World OSINT Telemetry | Status / Alignment |
 | :--- | :--- | :--- | :--- |
@@ -210,7 +250,7 @@ Modern agentic coding workflows do not look like traditional chatbot conversatio
 
 ---
 
-## 5. Primary Research Citations & OSINT Sources
+## 6. Primary Research Citations & OSINT Sources
 
 1. **BSWEN Research** (March 10, 2026): *Claude Code Token Usage: Real Data From 100M Tokens Tracked*.  
    URL: `https://docs.bswen.com/blog/2026-03-10-claude-code-token-usage-per-request/`  
@@ -233,6 +273,21 @@ Modern agentic coding workflows do not look like traditional chatbot conversatio
 7. **Anthropic Official Product Updates** (May 2026): *Claude Rate Limit Expansion & 5-Hour Headroom Doubling*.  
    URL: `https://claude.com/pricing` & `https://platform.claude.com/docs/en/build-with-claude/prompt-caching`  
    *Findings: Doubled 5-hour rate limits for Pro/Max/Team; removal of peak-hour throttling; prompt cache reads at 10%.*
-8. **AWS AWS Q / Kiro Roadmap**: *Amazon Q Developer support lifecycle & Kiro agentic environment*.  
+8. **AWS Q / Kiro Roadmap**: *Amazon Q Developer support lifecycle & Kiro agentic environment*.  
    URL: `https://aws.amazon.com/q/developer/pricing/` & `https://kiro.dev/docs/models`  
    *Findings: April 30, 2027 sunset; Kiro model multipliers 0.05x (Qwen3) to 2.2x (Opus 5).*
+9. **Faros AI Research** (September 2026): *Claude Code Token Limits and How to Manage AI Coding Costs* (by Thierry Donneau-Golencer).  
+   URL: `https://www.faros.ai/blog/claude-code-token-limits`  
+   *Findings: 5-hour session multipliers (5x/20x) do not scale weekly capacity linearly (Pro→Max 20x provides 20x burst but only ~6x weekly); enterprise usage-based seat structure; model effort burn rates.*
+10. **DX Engineering Research** (2026): *AI Coding Assistant Pricing and ROI Guide: Costs, Benchmarks, and What the Data Shows* (400+ Engineering Orgs).  
+    URL: `https://getdx.com/blog/ai-coding-assistant-pricing/`  
+    *Findings: Blended developer spend of $200–$600/month; GitHub Copilot token transition (June 1, 2026) and credit masking ($30–$70/mo); 7.76% median PR throughput gain.*
+11. **DevForth Telemetry** (September 2026): *Coding Agent Plans: Observed Limits and Value & Coding Models Benchmarks*.  
+    URL: `https://devforth.io/agents-for-code.md` & `https://devforth.io/models-for-code.md`  
+    *Findings: Observed window limits for ChatGPT/Codex (Plus $15/5h, $70/7d; Pro 5x $75/5h, $350/7d; Pro 20x $400/5h, $2,560/7d); benchmark scores across Terminal-Bench 4.0, SciCode, AutomationBench-AA.*
+12. **MorphLLM Research** (September 2026): *Claude Code Usage Limits & Cursor vs Copilot Deep Dive*.  
+    URL: `https://www.morphllm.com/claude-code-usage-limits` & `https://www.morphllm.com/comparisons/cursor-vs-copilot`  
+    *Findings: Unified pool cross-draining Claude Code CLI, Claude.ai, and Claude Cowork; permanent +25% weekly capacity increase post-Sept 13, 2026; Team Premium 6.25x multiplier.*
+13. **LLMPrice Daily Feeds** (September 2026): *Daily Model Pricing & Endpoint Verification Catalog*.  
+    URL: `https://llmprice.com/methodology/` & `https://llmprice.com/assets/pricing-data.json`  
+    *Findings: 481 models with verified first-party direct provider cache-write rates, batch discounts, and long-context pricing thresholds.*

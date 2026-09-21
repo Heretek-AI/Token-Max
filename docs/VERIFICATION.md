@@ -22,7 +22,7 @@ source are explicitly labelled unknown or low-confidence and carry that label in
 | 4 | Anthropic API | docs.claude.com pricing + commercial terms | Verified | Sonnet 5 $2/$10, cache reads 0.1x, writes +25%, batch −50%, spend tiers Start/Build/Scale; no training on Customer Content. |
 | 5 | Augment Code | augmentcode.com/pricing | Verified | $20/$100 pools; flat 40% LLM fee; 50 seats; top-ups 12 months. |
 | 6 | BytePlus ModelArk | docs.byteplus.com ModelArk 1925114/2165245 + AI terms | Verified, quota docs conflict | Lite $10/Pro $50; docs quote ≈1,900 req/5h, 12,000/wk, 24,000/mo for Lite (older FAQ lower); no token conversion; Customer Data not used for training. |
-| 7 | Claude Code | claude.com/pricing + docs.claude.com costs | Verified, low-confidence estimates | Prices and 5-hour/weekly shared-pool mechanics verified; Anthropic publishes no token numbers → 12/60/240M research estimates. |
+| 7 | Claude Code | claude.com/pricing + docs.claude.com costs | Verified, low-confidence estimates | Prices and 5-hour/weekly shared-pool mechanics verified; Anthropic publishes no token numbers → 12/60/240M research estimates. Faros AI & Morph empirical telemetry confirmed Max 20x tier asymmetry (20x in 5h burst, but only ~6x weekly) and shared capacity pool across CLI, Claude.ai, and Cowork. |
 | 8 | CommandCode | commandcode.ai/pricing + terms | Verified | Full 5-tier matrix verified: Go $1 ($10 credits, 250/5h, 1k/7d), GOAT $10 ($70 credits, 500/5h, 2k/7d), Pro $20 ($80 credits, 750/5h, 3k/7d), Max 10x $100 ($150 credits, 1.5k/5h, 6k/7d), Max 20x $200 ($300 credits, 3k/5h, 12k/7d); dual standard & premium pools; one account per person (stacking prohibited). |
 | 9 | Cursor | cursor.com/pricing + FAQ | Verified, pool sizes unpublished | Pro+ = 3x and Ultra = 20x Pro limits (official); Pro pool modelled at ~10M tokens. Reseller purchases unauthorized. |
 | 10 | DeepSeek API | api-docs.deepseek.com pricing | Verified, fixed | Previous USD figures did not match official CNY rates; now quotes ¥9/¥27 with cache-hit ¥0.15–0.30 and 50% off-peak. |
@@ -41,7 +41,7 @@ source are explicitly labelled unknown or low-confidence and carry that label in
 | 23 | Mistral API | mistral.ai/pricing | Verified, fixed | Studio includes $10/mo credits; training is opt-out (previous "No" was wrong). |
 | 24 | Ollama Cloud | ollama.com/pricing | Verified, fixed | Team = **$1,000** credits and 10 streams (not $1,600/50); one account per person; peak Mon–Fri 12–18 UTC. |
 | 25 | OpenAI API | platform.openai.com docs + enterprise privacy | Verified, fixed | Sol $2/$10 and Luna $0.10/$0.60; ZDR is not default (30-day retention, ZDR on request); spend caps $100–$200k. |
-| 26 | OpenAI Codex | developers.openai.com/codex/pricing | Verified, low-confidence estimates | Free/Go $8/Plus $20; Pro from $100 (5x/20x); no published token quotas → scenario estimates rebased on the 250K–900K OSINT agent-task band (Plus 20M floor / 44M / 72M). |
+| 26 | OpenAI Codex | developers.openai.com/codex/pricing | Verified, low-confidence estimates | Free/Go $8/Plus $20; Pro from $100 (5x/20x); no published token quotas → scenario estimates rebased on the 250K–900K OSINT agent-task band (Plus 20M floor / 44M / 72M). DevForth telemetry confirms observed window limits: Plus ($15/5h, $70/7d), Pro 5x ($75/5h, $350/7d), Pro 20x ($400/5h, $2,560/7d). |
 | 27 | OpenCode | opencode.ai/zen + docs.opencode.ai/go + terms | Verified | Zen $20 minimum + $1.23 fee, zero markup; Go $10/mo open-model subscription covering 28 models across $15, $30, $60 monthly allowance pools with 20% 5h and 50% 7d rolling window exhaustion caps. Multiple-account circumvention prohibited. |
 | 28 | OpenRouter | openrouter.ai/pricing + limits + terms | Verified | 5.5% platform fee; free-model limits 20 RPM / 50–1,000 RPD; multiple accounts to bypass limits prohibited. |
 | 29 | Replit | replit.com/pricing + terms | Verified | Core $20 ($18 annual), Pro $100 ($90); registering multiple accounts prohibited. |
@@ -78,6 +78,26 @@ Fixed against official sources:
 - **Windsurf, Kiro, Replit, Kimi, MiniMax, BytePlus** training policies are unpublished → TOS matrix shows Unknown.
 
 ## Verification passes
+
+### 2026-09-20 — External Sources & Empirical Usage Telemetry Audit Pass
+
+Comprehensive investigation across 13 external pricing APIs, machine-readable datasets, and real-world engineering telemetry:
+
+- **Secondary Pricing Feed Ingestion & Auditor (`scripts/audit-external-sources.mjs`):**
+  - Integrated `llmprice.com` daily JSON feed (`/assets/pricing-data.json`), cross-validating 481 models and confirming exact first-party cache-write rates and long-context pricing rules for OpenAI, Anthropic, Google, and DeepSeek.
+  - Added non-destructive CLI command `npm run audit-sources` to cross-check live pricing deltas without build-blocking failure points.
+- **Claude Code Quota Asymmetry Discovery (Faros AI & MorphLLM Telemetry):**
+  - Reverse-engineered and documented the 5-hour burst vs. weekly ceiling multiplier disparity: Max 20x provides 20x burst headroom in a 5-hour window but scales weekly capacity to only ~6x of the Pro tier.
+  - Documented cross-surface capacity pooling across Claude Code CLI, Claude.ai, and Claude Cowork.
+  - Added dedicated `claude-code-max20x` throttle profile to `src/lib/throttle-profiles.ts`.
+- **OpenAI Codex Observed Limit Windows (DevForth Telemetry):**
+  - Incorporated DevForth empirical tracking of OpenAI subscriptions: Plus ($15/5h, $70/7d), Pro 5x ($75/5h, $350/7d), and Pro 20x ($400/5h, $2,560/7d).
+  - Added `openai-codex-pro5x` and `openai-codex-pro20x` throttle profiles to `src/lib/throttle-profiles.ts`.
+- **Enterprise Spend Benchmarking (DX 400+ Organization Study):**
+  - Verified ground-truth blended developer spend ($200–$600/month per seat) for hybrid IDE and CLI agent workflows.
+  - Documented GitHub Copilot's June 1, 2026 token transition and promotional credit offsets ($30–$70/user/mo).
+- **Chinese Regional Token Plans Baseline (`tokenplan.vip`):**
+  - Verified domestic Chinese token subscriptions and off-peak rate multipliers across 41 platforms.
 
 ### 2026-09-19 — Adversarial Codebase Audit & 4-Phase Systemic Hardening
 

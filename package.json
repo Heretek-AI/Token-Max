@@ -13,7 +13,8 @@
     "validate-data": "node scripts/validate-data.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "audit-sources": "node scripts/audit-external-sources.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

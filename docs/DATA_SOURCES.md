@@ -259,3 +259,42 @@ Data policies and legal clauses are tracked per provider in the plan JSON files 
 | **Aider** | — | ❓ Unknown (depends on API provider) | — | ❌ None |
 
 The TOS page (`#/tos`) renders this matrix live from the JSON data, including per-plan `tosHighlights`, the `lastVerified` date and the multi-account `stackingPolicy` with its evidence.
+
+---
+
+## 6. Secondary Automated Auditing & External Pricing Feeds
+
+In addition to the primary OpenRouter and Artificial Analysis pipelines, Token-Max cross-references external automated feeds and OSINT repositories to validate pricing stability and reverse-engineer opaque limits:
+
+### A. `llmprice.com` Daily Pricing Catalog Feed
+- **Data Endpoint:** `https://llmprice.com/assets/pricing-data.json`
+- **Format:** Daily static JSON feed (unauthenticated, refreshed ~07:30 UTC).
+- **Scope:** 481 models spanning 30 direct provider listings, 10 official inference endpoints, and 441 OpenRouter routes.
+- **Audit Value:**
+  - Provides first-party verified cache-write pricing and cache-read discounts across OpenAI, Anthropic, Google, DeepSeek, and Mistral.
+  - Documents exact long-context rate thresholds (e.g. OpenAI `long_threshold: 272000`, doubling input/output rates) and batch API discounts (`batch_discount: 0.5`).
+  - Used by `scripts/audit-external-sources.mjs` as an automated cross-check against Token-Max direct model rates.
+
+### B. `devforth.io` Machine-Readable Agent & Model Feeds
+- **Data Endpoints:**
+  - Agent Plans: `https://devforth.io/agents-for-code.md`
+  - Model Benchmarks: `https://devforth.io/models-for-code.md`
+- **Format:** Structured Markdown feeds updated weekly.
+- **Audit Value:**
+  - Documents observed dollar-equivalent quota ceilings across 5-hour and 7-day windows for ChatGPT/Codex, Claude Code, GitHub Copilot, and Google Antigravity.
+  - Tracks empirical coding benchmark suites: Terminal-Bench 4.0, SciCode, AutomationBench-AA, and AA-LCR v1.1.
+  - Supplies independent average coding task cost estimates based on real agent tool loops.
+
+### C. `tokenplan.vip` Chinese Regional Token Plans Index
+- **Data Endpoints:** `/sitemaps/vendor-plans.xml` and schema.org structured data.
+- **Scope:** 41 AI platforms and 395+ models, with unique coverage of Chinese domestic cloud token plans (Xiaomi MiMo, Baidu Qianfan, Tencent Hunyuan, ByteDance Volcengine Ark, China Telecom TeleAI, iFlytek SparkDesk, Zhipu GLM).
+- **Audit Value:** Serves as the primary verification baseline for regional token subscriptions, off-peak discount coefficients, and local payment tier structures.
+
+### D. Empirical Enterprise Telemetry (`getdx.com` & `faros.ai`)
+- **Sources:**
+  - DX Engineering 400+ Organization Study: `https://getdx.com/blog/ai-coding-assistant-pricing/`
+  - Faros AI Empirical Telemetry: `https://www.faros.ai/blog/claude-code-token-limits`
+- **Audit Value:**
+  - Ground-truth validation for Token-Max's Multi-Seat Team Economics (`#/teams`), proving realistic blended developer spend of $200–$600/month.
+  - Mathematical basis for 5-hour burst vs. weekly ceiling modeling in the Burst Simulator (`#/simulator`).
+
