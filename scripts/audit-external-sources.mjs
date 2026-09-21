@@ -15,6 +15,7 @@ import path from 'path';
 
 const LLMPRICE_JSON_URL = 'https://llmprice.com/assets/pricing-data.json';
 const DEVFORTH_AGENTS_URL = 'https://devforth.io/agents-for-code.md';
+const TOKENPLANS_JSON_URL = 'https://api.tokenplans.dev/plans.json';
 const FETCH_TIMEOUT_MS = 8000;
 
 async function fetchWithTimeout(url, options = {}) {
@@ -124,19 +125,79 @@ async function auditDevForth() {
   }
 }
 
+async function auditTokenPlans(localPlans) {
+  console.log('\n--- Auditing tokenplans.dev Verified Pricing Ledger ---');
+  try {
+    const res = await fetchWithTimeout(TOKENPLANS_JSON_URL);
+    if (!res.ok) {
+      console.warn(`[WARN] tokenplans.dev returned HTTP ${res.status}`);
+      return;
+    }
+    const data = await res.json();
+    console.log(`Successfully fetched tokenplans.dev ledger: ${data.total ?? data.data?.length ?? 0} total plans tracked.`);
+    console.log(`Ledger metadata: last_modified=${data.last_modified}, projection=${data.projection}`);
+
+    const externalPlans = data.data || [];
+    let matchedCount = 0;
+    const trackedExternalIds = new Set();
+
+    for (const ep of externalPlans) {
+      trackedExternalIds.add(ep.providerId || ep.id);
+      // Check for match against local plans
+      const localMatch = localPlans.find((lp) => {
+        const cleanLpId = (lp.id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const cleanEpId = (ep.id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const cleanEpProvider = (ep.providerId || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        return cleanLpId === cleanEpProvider || cleanLpId.includes(cleanEpProvider) || cleanEpId.includes(cleanLpId);
+      });
+
+      if (localMatch) {
+        matchedCount++;
+        const modelPreview = (ep.models || []).slice(0, 3).join(', ');
+        console.log(`  • [MATCH] ${ep.providerId || ep.id} (${ep.name}) -> Token-Max: ${localMatch.name}`);
+        console.log(`    ↳ Flagship models: ${modelPreview || 'None listed'} (lastChecked: ${ep.lastChecked || 'N/A'})`);
+      }
+    }
+
+    console.log(`Cross-referenced ${matchedCount} plans from tokenplans.dev against Token-Max's curated catalog.`);
+
+    // Find any providers tracked in tokenplans.dev that Token-Max doesn't have yet
+    const missingProviders = [...trackedExternalIds].filter(
+      (extId) => !localPlans.some((lp) => lp.id.toLowerCase().includes(extId) || extId.includes(lp.id.toLowerCase()))
+    );
+    if (missingProviders.length > 0) {
+      console.log(`Untracked providers in tokenplans.dev: ${missingProviders.slice(0, 8).join(', ')}${missingProviders.length > 8 ? '...' : ''}`);
+    }
+  } catch (err) {
+    console.warn(`[SKIP] Could not audit tokenplans.dev (${err.message}). Continuing...`);
+  }
+}
+
 async function main() {
   console.log('=== Token-Max External Sources Auditor ===');
   const modelsPath = path.join(process.cwd(), 'public/data/models.json');
+  const plansPath = path.join(process.cwd(), 'public/data/plans.json');
+  
   let localModels = [];
+  let localPlans = [];
+  
   try {
-    const raw = await fs.readFile(modelsPath, 'utf-8');
-    localModels = JSON.parse(raw);
+    const rawModels = await fs.readFile(modelsPath, 'utf-8');
+    localModels = JSON.parse(rawModels);
   } catch {
     console.warn('Local models.json not found, proceeding with empty catalog.');
   }
 
+  try {
+    const rawPlans = await fs.readFile(plansPath, 'utf-8');
+    localPlans = JSON.parse(rawPlans);
+  } catch {
+    console.warn('Local plans.json not found, proceeding with empty catalog.');
+  }
+
   await auditLLMPrice(localModels);
   await auditDevForth();
+  await auditTokenPlans(localPlans);
   console.log('\nAudit pass completed.\n');
 }
 

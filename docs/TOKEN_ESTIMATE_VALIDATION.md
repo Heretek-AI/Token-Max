@@ -51,6 +51,9 @@ Derived quantities that inherit these assumptions:
 | Windsurf / Cognition (2026-03-19) | Retired credit blocks for **auto-refreshing daily + weekly quotas**; Cascade agent integrated with Devin autonomous execution |
 | AWS / Kiro (2026) | Amazon Q Developer IDE support sunsets **April 30, 2027**; Kiro introduces published multipliers (0.05x Qwen to 2.2x Opus 5) |
 | The Information / Fortune, via Tokenade (2026-05) | Uber: **$500–$2,000 per heavy Claude Code user per month**; annual AI budget spent in 4 months |
+| Bilal Bakht Ahmad, *sites.diy* empirical proxy study (2026-05-01) | Measured live Claude Code tokens: **92.4% cache read, 2.4% fresh input, 5.2% output** (97.47% cache hit on input context); dual-window caps: Claude Pro $4.75/5h, $38/wk (8 max-burst sessions/wk = 7.6× subsidy, 26.9M tok/mo ceiling on Opus 4.7); Codex Plus $22/5h, $134/wk (26.8× subsidy, 250M tok/mo ceiling on GPT-5.5) |
+| Krzysztof, *tokenplans.dev* methodology & ledger (2026-09) | 89 plans across 31 providers; Req / $1 comparison; confidence taxonomy: Exact (published rates + budget), Proxy ~ (±20–50%), Coarse ≈ (fair-use ±5–10×); borrowed-cap distinction for fair-use plans; x402 payment API |
+| Soren Starck, *SessionWatcher* telemetry & calculator (2026) | Turn vs task breakdown: **~4,800 tokens** per interactive turn vs **50K–100K+** per agent run; prompt cache savings: 90% Anthropic, 50% OpenAI; median Claude Code user burns **<40%** of daily budget; rate-limit lockout wage economics ($75/hr × 2 hrs/wk lost = $600/mo) dwarfs subscription tier cost |
 
 > 📖 **Deep-Dive Dossiers**: See [`docs/OSINT_USAGE_STATISTICS.md`](OSINT_USAGE_STATISTICS.md) for the complete provider-by-provider OSINT telemetry reports across Claude Code, Cursor, Windsurf, Antigravity, OpenAI Codex, Amazon Q, Kiro, MiniMax, and Kimi.
 
@@ -128,3 +131,9 @@ Derived quantities that inherit these assumptions:
     https://windsurf.com/pricing
 12. AWS, *Amazon Q Developer & Kiro Documentation*,
     https://aws.amazon.com/q/developer/pricing/ and https://kiro.dev/docs/models
+13. Bilal Bakht Ahmad, *sites.diy: AI Coding Plan Comparisons*,
+    https://sites.diy/blog/2026-05-01-coding-plan-comparisons/
+14. Krzysztof, *TokenPlans.dev: AI Coding Subscription Pricing & Methodology*,
+    https://tokenplans.dev/ and https://tokenplans.dev/methodology
+15. Soren Starck, *SessionWatcher: AI Coding Plan Calculator & Claude Code Rate Limits*,
+    https://sessionwatcher.com/tool/plan-calculator and https://sessionwatcher.com/guides/claude-code-rate-limits-explained

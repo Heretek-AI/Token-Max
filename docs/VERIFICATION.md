@@ -208,6 +208,25 @@ Evidence and OSINT sources: `docs/TOKEN_ESTIMATE_VALIDATION.md`.
 4. Run `npm run validate-data && npm test && npm run lint && npm run build`.
 5. Record the pass here and bump `LAST_VERIFIED` in `data/generate_plans.py`.
 
+### 2026-09-20 — External OSINT Comparative Audit & Runtime Telemetry Integration
+
+Findings from comparative analysis across 4 primary external sources:
+1. `sites.diy` (Bilal Bakht Ahmad, May 1, 2026): Live MITM proxy logging of Claude Code, Codex, Kimi, GLM sessions measured **92.4% cache read / 2.4% fresh input / 5.2% output** (97.47% cache hit rate on context). Validated Token-Max's `deepAgent: 0.92` cache preset. Documented 5-hour rolling limits vs weekly hard ceilings (Claude Pro $4.75/5h, $38/wk = 8 max sessions/wk, 7.6× subsidy, 26.9M tok/mo ceiling on Opus 4.7; Codex Plus $22/5h, $134/wk = 26.8× subsidy, 250M tok/mo ceiling on GPT-5.5).
+2. `tokenplans.dev` (Krzysztof, September 2026): Hand-verified pricing ledger of 89 plans across 31 providers tracking Req / $1, confidence levels (Exact, Proxy ~, Coarse ≈), and borrowed-cap flags.
+3. `sessionwatcher.com` (Soren Starck, 2026): Turn-level (~4,800 tokens) vs agent run (50K–100K+) sizing; prompt caching discounts (90% Anthropic, 50% OpenAI); median developer uses <40% of plan allowance; rate-limit lockout wage economics ($75/hr × 2 hrs/wk lost = $600/mo productivity loss).
+
+Enhancements implemented:
+1. `src/components/plans/TokenTranslator.tsx` — added `EMPIRICAL_SATURATION_DATA` card comparing conservative usable floors (40h human workweek) against theoretical 24/7 saturation ceilings (sites.diy empirical proxy logs) with 5h cap, weekly cap, sessions/week, and subsidy multipliers.
+2. `src/components/budget/WorkflowCalculator.tsx` — added interactive Rate-Limit Lockout Economics & Wage Risk card ($75/hr baseline) calculating weekly lockout exposure and monthly developer wage loss when daily demand exceeds 5-hour rolling capacity.
+3. `scripts/audit-external-sources.mjs` — integrated `https://api.tokenplans.dev/plans.json` public teaser endpoint to automatically cross-reference tracked coding providers and flagship models.
+4. `docs/TOKEN_ESTIMATE_VALIDATION.md` & `docs/OSINT_USAGE_STATISTICS.md` — added detailed citations and methodology alignment documentation.
+
+Commands run, all green:
+- `npm run validate-data` (422 entries across 34 providers pass invariants)
+- `npm test` (109/109 tests pass across 8 suites)
+- `npm run lint` (0 errors, 0 warnings across 71 files)
+- `npm run build` (TypeScript + Vite build succeeds in 637ms)
+
 ### 2026-09-19 — Leaderboard quality-filter leak fix + Z.ai V3 price/ceiling update
 
 Findings: with Quality Baseline = Top Frontier (≥75), Z.ai GLM tiers surfaced as

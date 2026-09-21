@@ -2,7 +2,65 @@ import { useState, useMemo } from 'react';
 import type { CodingPlan, NormalizedModel, CacheRate } from '../../lib/types';
 import { formatMillionTokens, getProviderColor, calculateAgentRequestCost, matchesPlanModel, resolveTierModelBudget, QUALITY } from '../../lib/pricing';
 import { DEFAULT_CACHE_RATE, STANDARD_AGENT_REQUEST_TOKENS } from '../../lib/estimate-constants';
-import { ArrowRight, Sparkles, AlertCircle, Layers, CheckCircle2, HelpCircle, Info, Database, TrendingUp, ExternalLink } from 'lucide-react';
+import { ArrowRight, Sparkles, AlertCircle, Layers, CheckCircle2, HelpCircle, Info, Database, TrendingUp, ExternalLink, Gauge } from 'lucide-react';
+
+interface EmpiricalCeilingData {
+  saturationTokensMillion: number;
+  sessionsPerWeek: number;
+  fiveHourCapUsd: number;
+  weeklyCapUsd: number;
+  subsidyMultiplier: number;
+  sourceName: string;
+  sourceUrl: string;
+  notes: string;
+}
+
+const EMPIRICAL_SATURATION_DATA: Record<string, Record<string, EmpiricalCeilingData>> = {
+  'claude-code': {
+    'Pro': {
+      saturationTokensMillion: 26.9,
+      sessionsPerWeek: 8.0,
+      fiveHourCapUsd: 4.75,
+      weeklyCapUsd: 38.0,
+      subsidyMultiplier: 7.6,
+      sourceName: 'sites.diy (May 2026 proxy study)',
+      sourceUrl: 'https://sites.diy/blog/2026-05-01-coding-plan-comparisons/',
+      notes: 'Opus 4.7 live proxy trace: 92.4% cache-read. 8 max-burst sessions/week before weekly hard lockout.'
+    },
+    'Max 5x': {
+      saturationTokensMillion: 134.5,
+      sessionsPerWeek: 8.0,
+      fiveHourCapUsd: 23.75,
+      weeklyCapUsd: 133.0,
+      subsidyMultiplier: 5.3,
+      sourceName: 'Faros AI & sites.diy telemetry',
+      sourceUrl: 'https://www.faros.ai/blog/claude-code-token-limits',
+      notes: '5x 5-hour burst headroom with ~3.5x weekly capacity multiplier.'
+    },
+    'Max 20x': {
+      saturationTokensMillion: 269.0,
+      sessionsPerWeek: 8.0,
+      fiveHourCapUsd: 95.0,
+      weeklyCapUsd: 228.0,
+      subsidyMultiplier: 4.6,
+      sourceName: 'Faros AI & sites.diy telemetry',
+      sourceUrl: 'https://www.faros.ai/blog/claude-code-token-limits',
+      notes: '20x 5-hour burst headroom with ~6x weekly capacity multiplier.'
+    }
+  },
+  'openai-codex': {
+    'Plus': {
+      saturationTokensMillion: 250.0,
+      sessionsPerWeek: 6.0,
+      fiveHourCapUsd: 22.0,
+      weeklyCapUsd: 134.0,
+      subsidyMultiplier: 26.8,
+      sourceName: 'sites.diy (May 2026 proxy study)',
+      sourceUrl: 'https://sites.diy/blog/2026-05-01-coding-plan-comparisons/',
+      notes: 'GPT-5.5 live proxy trace: 6 max-burst sessions/week hitting $134/wk quota ($536/mo API value).'
+    }
+  }
+};
 
 interface TokenTranslatorProps {
   plans: CodingPlan[];
@@ -45,6 +103,7 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
   const budget = selectedData?.tier.monthlyPrice ?? null;
   const currentPlan = selectedData?.plan;
   const currentTier = selectedData?.tier;
+  const empiricalCeiling = EMPIRICAL_SATURATION_DATA[activePlanId]?.[activeTierName];
 
   // Filter out legacy, obsolete, or batch/free noise models
   const cleanModels = useMemo(() => {
@@ -456,6 +515,67 @@ export function TokenTranslator({ plans, models }: TokenTranslatorProps) {
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+          )}
+
+          {/* Empirical Saturation Telemetry (sites.diy / Faros AI) */}
+          {empiricalCeiling && (
+            <div className="mt-4 pt-3.5 border-t border-border/70 text-xs">
+              <div className="p-3.5 bg-primary/5 border border-primary/20 rounded-xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2 pb-2 border-b border-primary/10">
+                  <div className="flex items-center gap-1.5 font-bold text-text">
+                    <Gauge className="w-4 h-4 text-primary" />
+                    <span>Empirical Quota Telemetry &amp; Saturation Ceiling</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-[11px]">
+                    <span className="px-2 py-0.5 rounded-md bg-surface border border-border text-primary font-bold">
+                      {empiricalCeiling.subsidyMultiplier}x API Subsidy
+                    </span>
+                    <a
+                      href={empiricalCeiling.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-text-muted hover:text-primary transition-colors"
+                      title={empiricalCeiling.sourceName}
+                    >
+                      <span>{empiricalCeiling.sourceName}</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2.5 text-center">
+                  <div className="bg-surface p-2 rounded-lg border border-border">
+                    <div className="text-[10px] text-text-muted uppercase font-semibold">Conservative Floor</div>
+                    <div className="font-bold text-text text-sm">
+                      {formatMillionTokens(currentTier.estimatedTokenBudget?.estimatedMillionTokens ?? 0)}
+                    </div>
+                    <div className="text-[9px] text-text-muted">40h human workweek</div>
+                  </div>
+                  <div className="bg-surface p-2 rounded-lg border border-border">
+                    <div className="text-[10px] text-primary uppercase font-semibold">24/7 Saturation</div>
+                    <div className="font-bold text-primary text-sm">
+                      {formatMillionTokens(empiricalCeiling.saturationTokensMillion)}
+                    </div>
+                    <div className="text-[9px] text-text-muted">Max weekly quota</div>
+                  </div>
+                  <div className="bg-surface p-2 rounded-lg border border-border">
+                    <div className="text-[10px] text-text-muted uppercase font-semibold">5-Hour Burst Cap</div>
+                    <div className="font-bold text-text text-sm">${empiricalCeiling.fiveHourCapUsd.toFixed(2)}</div>
+                    <div className="text-[9px] text-text-muted">API value / 5h</div>
+                  </div>
+                  <div className="bg-surface p-2 rounded-lg border border-border">
+                    <div className="text-[10px] text-text-muted uppercase font-semibold">Weekly Hard Cap</div>
+                    <div className="font-bold text-text text-sm">${empiricalCeiling.weeklyCapUsd.toFixed(2)}</div>
+                    <div className="text-[9px] text-text-muted">max {empiricalCeiling.sessionsPerWeek} burst sessions</div>
+                  </div>
+                </div>
+
+                <p className="text-[11px] text-text-muted leading-relaxed">
+                  <strong className="text-text font-semibold">Empirical Insight: </strong>
+                  {empiricalCeiling.notes} Token-Max models the conservative floor for sustainable human engineering work. The saturation ceiling reflects an automated harness continuously draining 5-hour rolling windows 24/7 until hitting the weekly account cap.
+                </p>
               </div>
             </div>
           )}

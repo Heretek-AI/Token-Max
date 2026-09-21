@@ -247,6 +247,8 @@ Comprehensive telemetry from **400+ engineering organizations** tracked by DX (D
 | **Autonomous Agent Task** | 250K (floor) / 550K (mid) / 900K (ceiling) | 200K–800K input + 30K–100K output (AI Cost Estimator) | **Exact Match**: Token-Max task capacities reflect empirical sandbox agent logs. |
 | **Effective Frontier $/M** | ~$2.00 / 1M blended tokens | $2.16 / 1M blended (OpenClaw $1.3M dataset) | **High Precision**: Within 7.5% of verified 603B-token real-world spend. |
 | **5-Hour Rolling Pool** | Modeled in `throttle.ts` (12 discrete 5-min buckets) | Verified across Claude Code, Antigravity, CommandCode | **Production Alignment**: Fully captures sliding-window burst exhaustion. |
+| **Deep Agent Cache Hit Rate** | 92% preset (`estimate-constants.json:agentCachePresets`) | 92.4% measured by packet sniffer proxy (sites.diy) | **Empirically Validated**: Measured input context hit rate of 97.47% confirms deep-agent model. |
+| **Lockout Productivity Cost** | Modeled via developer wage impact ($75/hr baseline) | SessionWatcher telemetry ($150/wk lost wage per 2h lockout) | **Actionable Economic Metric**: Wage loss ($600/mo) dwarfs subscription fee differences. |
 
 ---
 
@@ -291,3 +293,12 @@ Comprehensive telemetry from **400+ engineering organizations** tracked by DX (D
 13. **LLMPrice Daily Feeds** (September 2026): *Daily Model Pricing & Endpoint Verification Catalog*.  
     URL: `https://llmprice.com/methodology/` & `https://llmprice.com/assets/pricing-data.json`  
     *Findings: 481 models with verified first-party direct provider cache-write rates, batch discounts, and long-context pricing thresholds.*
+14. **Bilal Bakht Ahmad / sites.diy** (May 1, 2026): *Coding Plan Comparisons: Real-world empirical proxy measurements*.  
+    URL: `https://sites.diy/blog/2026-05-01-coding-plan-comparisons/`  
+    *Findings: Live proxy logging of Claude Code, Codex, Kimi, GLM; measured 92.4% cache read / 2.4% fresh input / 5.2% output (97.47% cache hit rate on context); Claude Pro $4.75/5h, $38/wk cap (8 max sessions/wk = 7.6× subsidy, 26.9M tok/mo ceiling on Opus 4.7); Codex Plus $22/5h, $134/wk cap (26.8× subsidy, 250M tok/mo ceiling on GPT-5.5).*
+15. **Krzysztof / TokenPlans.dev** (September 2026): *AI Coding Subscription Pricing Ledger & Verification Methodology*.  
+    URL: `https://tokenplans.dev/` & `https://tokenplans.dev/methodology`  
+    *Findings: Hand-checked catalog tracking 89 plans across 31 providers; Req / $1 comparison; confidence taxonomy (Exact, Proxy ~, Coarse ≈); borrowed-cap classification for fair-use plans; x402 payment API ($0.10 USDC on Base).*
+16. **Soren Starck / SessionWatcher** (2026): *AI Coding Plan Calculator & Rate Limits Analysis*.  
+    URL: `https://sessionwatcher.com/tool/plan-calculator` & `https://sessionwatcher.com/guides/claude-code-rate-limits-explained`  
+    *Findings: Interactive turn ~4.8K tokens vs autonomous agent run 50K–100K+ tokens; prompt cache discounts: 90% Anthropic, 50% OpenAI; median Claude Code user burns <40% of daily budget; rate-limit lockout wage economics ($75/hr × 2 hrs/wk lost = $600/mo) dwarfs subscription tier cost.*
