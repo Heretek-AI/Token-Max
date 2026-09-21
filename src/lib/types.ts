@@ -51,6 +51,8 @@ export interface ApplesToApplesOption {
   rawMonthlyTokens?: number;
   /** Native plan monthly agent request allowance (unnormalized) for subscriptions. */
   rawMonthlyRequests?: number;
+  /** Vendor-published request quota (e.g. 24,000 chat requests/mo), if specified in plan limits. */
+  vendorQuotaRequests?: number;
   /** True when token yield assumes 100% of the subscription pool is drained exclusively on this model. */
   isDedicatedDrain?: boolean;
   /** Provenance basis for the per-model drain (e.g. official-table, list-price-credit). */

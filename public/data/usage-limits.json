@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-09-21T01:39:43.705Z",
+  "generatedAt": "2026-09-21T01:56:55.591Z",
   "constants": {
     "agentTurnTokens": 21000,
     "defaultCacheRate": 0.75,
@@ -2149,11 +2149,11 @@
             "overage": "Usage credits at API rates"
           },
           "defaultTokenBudget": {
-            "estimatedMillionTokens": 240,
-            "midpointEstimate": null,
-            "optimisticEstimate": null,
-            "description": "20x Pro rolling limit (~240M agentic tokens/mo)",
-            "assumptions": "20x the Pro research estimate; no official token figures published, low confidence",
+            "estimatedMillionTokens": 72,
+            "midpointEstimate": 144,
+            "optimisticEstimate": 240,
+            "description": "Weekly-capped steady state (~72M agentic tokens/mo, 20x burst)",
+            "assumptions": "While Max 20x provides 20x headroom in rolling 5h sessions (up to 240M peak), empirical telemetry confirms the weekly sliding window caps sustained monthly throughput to ~6x Pro (~72M tokens/mo conservative, 144M midpoint, 240M theoretical unconstrained burst ceiling)",
             "sourceType": "research",
             "confidence": "low",
             "sourceUrl": "https://claude.com/pricing",
@@ -2166,9 +2166,9 @@
           "models": [
             {
               "modelKey": "Claude Opus 5",
-              "estimatedMillionTokens": 96,
-              "midpointEstimate": 96,
-              "optimisticEstimate": 96,
+              "estimatedMillionTokens": 28.8,
+              "midpointEstimate": 28.8,
+              "optimisticEstimate": 28.8,
               "confidence": "low",
               "basis": "list-price-credit",
               "isModelSpecific": true,
@@ -2176,20 +2176,20 @@
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 96000000,
-                "normalized21kTurns": 4571,
+                "monthlyTokens": 28800000,
+                "normalized21kTurns": 1371,
                 "agentTasks": {
-                  "small250k": 384,
-                  "medium550k": 174,
-                  "large900k": 106
+                  "small250k": 115,
+                  "medium550k": 52,
+                  "large900k": 32
                 }
               }
             },
             {
               "modelKey": "Claude Fable 5.1",
-              "estimatedMillionTokens": 26.2,
-              "midpointEstimate": 26.2,
-              "optimisticEstimate": 26.2,
+              "estimatedMillionTokens": 7.86,
+              "midpointEstimate": 7.86,
+              "optimisticEstimate": 7.86,
               "confidence": "low",
               "basis": "list-price-credit",
               "isModelSpecific": true,
@@ -2197,20 +2197,20 @@
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 26200000,
-                "normalized21kTurns": 1248,
+                "monthlyTokens": 7860000,
+                "normalized21kTurns": 374,
                 "agentTasks": {
-                  "small250k": 104,
-                  "medium550k": 47,
-                  "large900k": 29
+                  "small250k": 31,
+                  "medium550k": 14,
+                  "large900k": 8
                 }
               }
             },
             {
               "modelKey": "Claude Sonnet 5",
-              "estimatedMillionTokens": 240,
-              "midpointEstimate": 240,
-              "optimisticEstimate": 240,
+              "estimatedMillionTokens": 72,
+              "midpointEstimate": 72,
+              "optimisticEstimate": 72,
               "confidence": "low",
               "basis": "list-price-credit",
               "isModelSpecific": true,
@@ -2218,20 +2218,20 @@
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 240000000,
-                "normalized21kTurns": 11429,
+                "monthlyTokens": 72000000,
+                "normalized21kTurns": 3429,
                 "agentTasks": {
-                  "small250k": 960,
-                  "medium550k": 436,
-                  "large900k": 266
+                  "small250k": 288,
+                  "medium550k": 130,
+                  "large900k": 80
                 }
               }
             },
             {
               "modelKey": "Claude Haiku 4.5",
-              "estimatedMillionTokens": 480,
-              "midpointEstimate": 480,
-              "optimisticEstimate": 480,
+              "estimatedMillionTokens": 144,
+              "midpointEstimate": 144,
+              "optimisticEstimate": 144,
               "confidence": "low",
               "basis": "list-price-credit",
               "isModelSpecific": true,
@@ -2239,12 +2239,12 @@
               "disclosedByVendor": false,
               "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
               "computedUsageLimits": {
-                "monthlyTokens": 480000000,
-                "normalized21kTurns": 22857,
+                "monthlyTokens": 144000000,
+                "normalized21kTurns": 6857,
                 "agentTasks": {
-                  "small250k": 1920,
-                  "medium550k": 872,
-                  "large900k": 533
+                  "small250k": 576,
+                  "medium550k": 261,
+                  "large900k": 160
                 }
               }
             }
@@ -14581,21 +14581,21 @@
       "monthlyPrice": 200,
       "annualPrice": null,
       "modelKey": "Claude Opus 5",
-      "estimatedMillionTokens": 96,
-      "midpointEstimate": 96,
-      "optimisticEstimate": 96,
+      "estimatedMillionTokens": 28.8,
+      "midpointEstimate": 28.8,
+      "optimisticEstimate": 28.8,
       "confidence": "low",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 96000000,
-      "normalized21kTurns": 4571,
+      "monthlyTokens": 28800000,
+      "normalized21kTurns": 1371,
       "agentTasks": {
-        "small250k": 384,
-        "medium550k": 174,
-        "large900k": 106
+        "small250k": 115,
+        "medium550k": 52,
+        "large900k": 32
       },
       "tierLimits": {
         "rollingCap": "20x Pro usage per 5-hour session",
@@ -14612,21 +14612,21 @@
       "monthlyPrice": 200,
       "annualPrice": null,
       "modelKey": "Claude Fable 5.1",
-      "estimatedMillionTokens": 26.2,
-      "midpointEstimate": 26.2,
-      "optimisticEstimate": 26.2,
+      "estimatedMillionTokens": 7.86,
+      "midpointEstimate": 7.86,
+      "optimisticEstimate": 7.86,
       "confidence": "low",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 26200000,
-      "normalized21kTurns": 1248,
+      "monthlyTokens": 7860000,
+      "normalized21kTurns": 374,
       "agentTasks": {
-        "small250k": 104,
-        "medium550k": 47,
-        "large900k": 29
+        "small250k": 31,
+        "medium550k": 14,
+        "large900k": 8
       },
       "tierLimits": {
         "rollingCap": "20x Pro usage per 5-hour session",
@@ -14643,21 +14643,21 @@
       "monthlyPrice": 200,
       "annualPrice": null,
       "modelKey": "Claude Sonnet 5",
-      "estimatedMillionTokens": 240,
-      "midpointEstimate": 240,
-      "optimisticEstimate": 240,
+      "estimatedMillionTokens": 72,
+      "midpointEstimate": 72,
+      "optimisticEstimate": 72,
       "confidence": "low",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 240000000,
-      "normalized21kTurns": 11429,
+      "monthlyTokens": 72000000,
+      "normalized21kTurns": 3429,
       "agentTasks": {
-        "small250k": 960,
-        "medium550k": 436,
-        "large900k": 266
+        "small250k": 288,
+        "medium550k": 130,
+        "large900k": 80
       },
       "tierLimits": {
         "rollingCap": "20x Pro usage per 5-hour session",
@@ -14674,21 +14674,21 @@
       "monthlyPrice": 200,
       "annualPrice": null,
       "modelKey": "Claude Haiku 4.5",
-      "estimatedMillionTokens": 480,
-      "midpointEstimate": 480,
-      "optimisticEstimate": 480,
+      "estimatedMillionTokens": 144,
+      "midpointEstimate": 144,
+      "optimisticEstimate": 144,
       "confidence": "low",
       "basis": "list-price-credit",
       "isModelSpecific": true,
       "isEstimatedCeiling": true,
       "disclosedByVendor": false,
       "osintSource": "docs/OSINT_USAGE_STATISTICS.md",
-      "monthlyTokens": 480000000,
-      "normalized21kTurns": 22857,
+      "monthlyTokens": 144000000,
+      "normalized21kTurns": 6857,
       "agentTasks": {
-        "small250k": 1920,
-        "medium550k": 872,
-        "large900k": 533
+        "small250k": 576,
+        "medium550k": 261,
+        "large900k": 160
       },
       "tierLimits": {
         "rollingCap": "20x Pro usage per 5-hour session",

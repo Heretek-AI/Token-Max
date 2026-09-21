@@ -878,6 +878,14 @@ export function LabDecisionEngine({
                           ? `~${formatMillionTokens(opt.monthlyTokens)} tokens`
                           : `~${opt.monthlyRequests.toLocaleString()} reqs`}
                       </div>
+                      {opt.vendorQuotaRequests != null && opt.vendorQuotaRequests > 0 && (
+                        <div
+                          className="text-[9px] text-text-muted font-mono"
+                          title={`Vendor publishes an explicit limit of ${opt.vendorQuotaRequests.toLocaleString()} requests/month (typically short chat turns). Token-Max normalizes all request columns to 21K agent turns for fair comparison.`}
+                        >
+                          Vendor Quota: ~{opt.vendorQuotaRequests.toLocaleString()} reqs
+                        </div>
+                      )}
                       {opt.type === 'subscription' && typeof opt.rawMonthlyTokens === 'number' && Number.isFinite(opt.rawMonthlyTokens) && opt.rawMonthlyTokens > 0 && (
                         <div
                           className="text-[10px] text-text-muted font-mono"

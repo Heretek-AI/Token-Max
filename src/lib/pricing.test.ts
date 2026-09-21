@@ -321,9 +321,11 @@ describe('computeApplesToApples', () => {
     // Requests scale with each model's resolved token capacity
     expect(flashRow!.rawMonthlyRequests).toBeGreaterThan(glmRow!.rawMonthlyRequests!);
     expect(flashRow!.monthlyRequests).toBeGreaterThan(glmRow!.monthlyRequests);
-    // Normalized at $200 budget: tokensPerDollar * budget
-    expect(glmRow!.monthlyTokens).toBeCloseTo((2927 / 168) * 200, 4);
-    expect(flashRow!.monthlyTokens).toBeCloseTo((8864 / 168) * 200, 4);
+    // Discrete single-seat clamp at $200 budget ($168 plan): clamped to base tokens with unspent budget
+    expect(glmRow!.monthlyTokens).toBe(2927);
+    expect(flashRow!.monthlyTokens).toBe(8864);
+    expect(glmRow!.isCapped).toBe(true);
+    expect(glmRow!.unspentBudget).toBe(32);
   });
 
   it('falls back to the tier pool when no per-model entry matches', () => {
@@ -592,13 +594,43 @@ describe('Adversarial Edge Cases & Guardrails', () => {
     expect(parseTierRequestLimit({ monthlyCredits: '$10/mo compute credits' })).toBe(null);
   });
 
-  it('tierRawRequests honors parsed request limits over token budget when baseline matches', () => {
+  it('tierRawRequests standardizes on 21K agent requests while parseTierRequestLimit preserves vendor quota', () => {
     const testTier = tier({
       limits: { requests: '~15K mix estimate' },
       estimatedTokenBudget: { estimatedMillionTokens: 4.2, assumptions: 'conservative' },
     });
-    // With 4.2M tokens, 4.2M / 21K is ~200 requests. But published limit is 15K!
-    expect(tierRawRequests(testTier)).toBe(15000);
+    // Standard normalized 21K requests: 4.2M / 21K = 200 requests
+    expect(tierRawRequests(testTier)).toBe(200);
+    // Vendor chat quota is preserved separately via parseTierRequestLimit
+    expect(parseTierRequestLimit(testTier.limits)).toBe(15000);
+  });
+
+  it('computeApplesToApples attaches vendorQuotaRequests and standardizes monthlyRequests', () => {
+    const quotaPlan = plan({
+      id: 'byteplus-test',
+      name: 'BytePlus',
+      tiers: [
+        tier({
+          name: 'Lite',
+          monthlyPrice: 20,
+          limits: { requests: '24,000/month' },
+          models: ['Claude Sonnet 5'],
+          estimatedTokenBudget: { estimatedMillionTokens: 36, assumptions: 'test' },
+        }),
+      ],
+    });
+    const sonnetModel = model({
+      id: 'anthropic/claude-sonnet-5',
+      name: 'Claude Sonnet 5',
+    });
+
+    const result = computeApplesToApples([sonnetModel], [quotaPlan], 'all', 20, 0, 0.75);
+    const subOption = result.options.find(o => o.type === 'subscription');
+    expect(subOption).toBeDefined();
+    // 36M / 21K = 1,714 normalized agent requests
+    expect(subOption!.monthlyRequests).toBe(1714);
+    // Vendor chat quota preserved
+    expect(subOption!.vendorQuotaRequests).toBe(24000);
   });
 
   it('computeApplesToApples clamps non-stackable prohibited plans to single seat when budget exceeds price', () => {
@@ -632,6 +664,40 @@ describe('Adversarial Edge Cases & Guardrails', () => {
     expect(subOption!.notes).toContain('Single-seat cap');
   });
 
+  it('computeApplesToApples clamps silent plans to single seat and excludes tiers exceeding budget', () => {
+    const silentPlan = plan({
+      id: 'cursor-silent',
+      name: 'Cursor',
+      stackingPolicy: 'silent',
+      tiers: [
+        tier({
+          name: 'Pro',
+          monthlyPrice: 20,
+          models: ['Claude Sonnet 5'],
+          estimatedTokenBudget: { estimatedMillionTokens: 10, assumptions: 'test' },
+        }),
+      ],
+    });
+    const sonnetModel = model({
+      id: 'anthropic/claude-sonnet-5',
+      name: 'Claude Sonnet 5',
+    });
+
+    // At $100 budget, single-seat commitment gives 1 seat (10M), not 50M
+    const res100 = computeApplesToApples([sonnetModel], [silentPlan], 'all', 100, 0, 0.75);
+    const sub100 = res100.options.find(o => o.type === 'subscription');
+    expect(sub100).toBeDefined();
+    expect(sub100!.isCapped).toBe(true);
+    expect(sub100!.unspentBudget).toBe(80);
+    expect(sub100!.monthlyTokens).toBe(10);
+    expect(sub100!.notes).toContain('Single-seat subscription');
+
+    // At $15 budget, $20 plan exceeds budget and must be omitted (no fractional plans)
+    const res15 = computeApplesToApples([sonnetModel], [silentPlan], 'all', 15, 0, 0.75);
+    const sub15 = res15.options.find(o => o.type === 'subscription');
+    expect(sub15).toBeUndefined();
+  });
+
   it('calculatePoolDrain handles partitioned sub-pools without cross-pool depletion (CommandCode Max)', () => {
     const maxTier = tier({
       name: 'Max 10x',
@@ -654,6 +720,34 @@ describe('Adversarial Edge Cases & Guardrails', () => {
     expect(result.isCapped).toBe(false);
     expect(result.overageCost).toBe(0);
     expect(result.coveredDirectCost).toBe(250); // $100 premium + $150 standard covered!
+  });
+
+  it('calculatePoolDrain classifies non-Claude frontier models (GPT-5, o3) as premium in CommandCode Max', () => {
+    const maxTier = tier({
+      name: 'Max 10x',
+      monthlyPrice: 100,
+      limits: {
+        standardPool: '$150/mo standard model usage limit',
+        premiumPool: '$100/mo premium model usage limit',
+      },
+      modelAllowances: { standard: 150, premium: 100 },
+      models: ['GPT-5.6 Sol', 'DeepSeek V3'],
+    });
+    const maxPlan = plan({ id: 'commandcode', name: 'CommandCode', tiers: [maxTier] });
+    const workload = [
+      { modelId: 'openai/gpt-5-sol', modelName: 'GPT-5.6 Sol', share: 0.5, tokensMillion: 20, costPpu: 100 }, // drains premium pool
+      { modelId: 'deepseek/deepseek-chat', modelName: 'DeepSeek V3', share: 0.5, tokensMillion: 200, costPpu: 150 }, // drains standard pool
+    ];
+
+    const result = calculatePoolDrain(maxPlan, maxTier, workload);
+    expect(result.coverageType).toBe('full');
+    expect(result.isCapped).toBe(false);
+    expect(result.overageCost).toBe(0);
+    expect(result.coveredDirectCost).toBe(250);
+    const gptRow = result.rows.find(b => b.modelName === 'GPT-5.6 Sol');
+    const dsRow = result.rows.find(b => b.modelName === 'DeepSeek V3');
+    expect(gptRow?.effectiveAllowance).toBe(100);
+    expect(dsRow?.effectiveAllowance).toBe(150);
   });
 
   it('calculatePoolDrain handles independent per-model allowances (OpenCode Go)', () => {

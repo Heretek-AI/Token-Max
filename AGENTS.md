@@ -89,13 +89,16 @@ Foundation models and subscription tiers often have legitimate $0 costs (e.g. fr
 - **Exporters (`src/lib/exporters.ts`)**: All user inputs and model identifiers embedded in YAML/JSON outputs must pass through `sanitizeYamlScalar` to strip ASCII control characters and newlines, preventing arbitrary YAML key injection or delimiter manipulation.
 - **Log Parser (`src/lib/log-parser.ts`)**: Transcripts must be validated with `safeTokenNumber` to ensure non-numeric or `NaN` values cannot corrupt accumulators. Enforce the 25MB parser safety limit and 15MB UI upload limit in `SessionReceipt.tsx`.
 
-### K. Non-Stackable Subscription Plan Clamping in Standard Mode
-When `plan.stackingPolicy === 'prohibited'` and `budget > tier.monthlyPrice`:
-- Standard Mode (`computeApplesToApples`) MUST clamp compute to a single account (`normalizedTokens = baseTokens`, `normalizedRequests = rawRequests`), mark `isCapped: true`, and calculate `unspentBudget = budget - tier.monthlyPrice` with explicit single-seat disclaimer notes.
-- Dangerous Dave Mode (`computeDaveStacks`) explicitly permits multi-account stacking across all plans (`qty = Math.floor(budget / price)`), accompanied by prominent Terms-of-Service warnings.
+### K. Discrete Single-Seat Clamping in Standard Mode
+In Standard Mode (`computeApplesToApples`):
+- All subscription tiers deliver their discrete single-seat allowance (`normalizedTokens = baseTokens`, `normalizedRequests = rawRequests`).
+- When `budget >= tier.monthlyPrice`: compute is clamped to 1 seat, marked `isCapped = true` if `budget > tier.monthlyPrice`, and reports `unspentBudget = budget - tier.monthlyPrice`. Tiers with `prohibited` stacking note TOS prohibitions against multi-accounting; all other tiers note single-seat commitment and direct users to Dave Mode or Mix & Match to stack.
+- When `budget < tier.monthlyPrice`: tiers are omitted because subscriptions cannot be purchased fractionally.
+- Dangerous Dave Mode (`computeDaveStacks`) explicitly permits whole multi-account stacking across all plans (`qty = Math.floor(budget / price)`), accompanied by prominent Terms-of-Service warnings.
 
-### L. Human-Readable Request Quota Parsing
-When evaluating request limits (`tierRawRequests`), vendor limits in `tier.limits` stored as descriptive strings (e.g., `24,000/month`, `~15K mix estimate`, `50 agentic requests/mo`, `12,000/week`) MUST be parsed via `parseTierRequestLimit` before falling back to `tokens / 21,000`. Only fallback when no numerical request quota can be parsed or when a model-specific token budget differs from the tier baseline.
+### L. Normalized 21K Request Standard & Vendor Quota Parsing
+- All leaderboard request columns (`monthlyRequests`, `rawMonthlyRequests`, `totalRequests`) and `costPer1kRequests` MUST always be calculated using the standard 21K agent request (`Math.round(tokens * 1e6 / 21_000)`) via `tierRawRequests` so all models, tiers, and APIs compare identical compute work.
+- Vendor limits in `tier.limits` stored as descriptive strings (e.g., `24,000/month`, `~15K mix estimate`, `50 agentic requests/mo`, `12,000/week`) are parsed via `parseTierRequestLimit` and exposed separately as `vendorQuotaRequests` for informational display and tooltips, preventing chat-quota unit distortion.
 
 ### M. Partitioned Sub-Pool Architecture
 Multi-model pool drainage in `calculatePoolDrain` must honor partitioned sub-pools and independent model allowances:

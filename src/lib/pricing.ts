@@ -351,7 +351,7 @@ export function computeApplesToApples(
 
     for (const tier of plan.tiers || []) {
       if (tier.monthlyPrice === null || tier.monthlyPrice <= 0) continue;
-      if (tier.monthlyPrice > budget * 2.5 || tier.monthlyPrice < budget * 0.25) continue;
+      if (tier.monthlyPrice > budget) continue;
 
       const baseTokens = tier.estimatedTokenBudget?.estimatedMillionTokens || 0;
       const rawRequests = tierRawRequests(tier, baseTokens);
@@ -401,29 +401,30 @@ export function computeApplesToApples(
       if (lab !== 'all' && !planLabs.includes(lab)) continue;
 
       if (tier.monthlyPrice === null || tier.monthlyPrice <= 0) continue;
-      if (tier.monthlyPrice > budget * 2.5 || tier.monthlyPrice < budget * 0.25) continue;
+      if (tier.monthlyPrice > budget) continue;
 
       // Per-model yield: tokens if the entire quota drains exclusively on this model,
       // falling back to the tier pool when no per-model entry is published.
       const resolved = resolveTierModelBudget(tier, model.name, model.id, planModelName);
       const baseTokens = resolved.tokens || 0;
       const rawRequests = tierRawRequests(tier, baseTokens);
-      const tokensPerDollar = baseTokens / tier.monthlyPrice;
-      const requestsPerDollar = rawRequests / tier.monthlyPrice;
+      const vendorQuota = parseTierRequestLimit(tier.limits);
 
       const isProhibited = plan.stackingPolicy === 'prohibited';
       const isOverBudget = budget > tier.monthlyPrice;
-      const isCapped = isProhibited && isOverBudget;
+      const isCapped = isOverBudget;
 
       const unspentBudget = isCapped ? budget - tier.monthlyPrice : 0;
-      const normalizedTokens = isCapped ? baseTokens : tokensPerDollar * budget;
-      const normalizedRequests = isCapped ? rawRequests : Math.round(requestsPerDollar * budget);
+      const normalizedTokens = baseTokens;
+      const normalizedRequests = rawRequests;
       const isDedicatedDrain = Boolean(resolved.basis);
       const poolBasisNote = resolved.basis
         ? ` · ${resolved.basis} yield assuming all quota drained exclusively on ${model.name}`
         : null;
-      const capNote = isCapped
-        ? ` · Single-seat cap (TOS prohibits multi-accounting; $${unspentBudget.toFixed(0)} unspent budget)`
+      const capNote = isOverBudget
+        ? isProhibited
+          ? ` · Single-seat cap (TOS prohibits multi-accounting; $${unspentBudget.toFixed(0)} unspent budget)`
+          : ` · Single-seat subscription ($${unspentBudget.toFixed(0)} unspent budget; use Dave Mode or Mix & Match to stack)`
         : '';
 
       subscriptionOptions.push({
@@ -442,6 +443,7 @@ export function computeApplesToApples(
         monthlyRequests: normalizedRequests,
         rawMonthlyTokens: baseTokens,
         rawMonthlyRequests: rawRequests,
+        vendorQuotaRequests: vendorQuota ?? undefined,
         isDedicatedDrain,
         drainBasis: resolved.basis,
         isCapped,
@@ -464,22 +466,23 @@ export function computeApplesToApples(
         if (lab !== 'all' && !planLabs.includes(lab)) continue;
 
         if (tier.monthlyPrice === null || tier.monthlyPrice <= 0) continue;
-        if (tier.monthlyPrice > budget * 2.5 || tier.monthlyPrice < budget * 0.25) continue;
+        if (tier.monthlyPrice > budget) continue;
 
         const baseTokens = tier.estimatedTokenBudget?.estimatedMillionTokens || 0;
         const rawRequests = tierRawRequests(tier);
-        const tokensPerDollar = baseTokens / tier.monthlyPrice;
-        const requestsPerDollar = rawRequests / tier.monthlyPrice;
+        const vendorQuota = parseTierRequestLimit(tier.limits);
 
         const isProhibited = plan.stackingPolicy === 'prohibited';
         const isOverBudget = budget > tier.monthlyPrice;
-        const isCapped = isProhibited && isOverBudget;
+        const isCapped = isOverBudget;
 
         const unspentBudget = isCapped ? budget - tier.monthlyPrice : 0;
-        const normalizedTokens = isCapped ? baseTokens : tokensPerDollar * budget;
-        const normalizedRequests = isCapped ? rawRequests : Math.round(requestsPerDollar * budget);
-        const capNote = isCapped
-          ? ` · Single-seat cap (TOS prohibits multi-accounting; $${unspentBudget.toFixed(0)} unspent budget)`
+        const normalizedTokens = baseTokens;
+        const normalizedRequests = rawRequests;
+        const capNote = isOverBudget
+          ? isProhibited
+            ? ` · Single-seat cap (TOS prohibits multi-accounting; $${unspentBudget.toFixed(0)} unspent budget)`
+            : ` · Single-seat subscription ($${unspentBudget.toFixed(0)} unspent budget; use Dave Mode or Mix & Match to stack)`
           : '';
 
         subscriptionOptions.push({
@@ -497,6 +500,7 @@ export function computeApplesToApples(
           monthlyRequests: normalizedRequests,
           rawMonthlyTokens: baseTokens,
           rawMonthlyRequests: rawRequests,
+          vendorQuotaRequests: vendorQuota ?? undefined,
           isCapped,
           unspentBudget: isCapped ? unspentBudget : undefined,
           stackingPolicy: plan.stackingPolicy,
@@ -667,24 +671,14 @@ export function parseTierRequestLimit(limits?: Record<string, unknown>): number 
 }
 
 /**
- * Monthly agent-request estimate for a tier.
- * If a model-specific token yield was resolved that differs from the tier baseline,
- * requests are derived from that model's token yield at the standard 21K request size.
- * Otherwise, checks if the vendor published an explicit request limit (numeric or parsed string).
- * Falls back to deriving requests from monthly tokens at standard 21K request size.
+ * Monthly normalized agent-request estimate for a tier.
+ * Standardizes on the 21K token standard agent request (STANDARD_AGENT_REQUEST_TOKENS)
+ * so that request counts and costPer1kRequests across plans and models compare identical
+ * compute work. Vendor-published request quotas in tier.limits are parsed via
+ * parseTierRequestLimit and exposed separately as vendorQuotaRequests for informational display.
  */
 export function tierRawRequests(tier: PlanTier, baseTokens?: number): number {
-  const tierBaselineTokens = tier.estimatedTokenBudget?.estimatedMillionTokens || 0;
-  if (baseTokens != null && baseTokens > 0 && Math.abs(baseTokens - tierBaselineTokens) > 0.001) {
-    return Math.round((baseTokens * 1_000_000) / STANDARD_AGENT_REQUEST_TOKENS);
-  }
-
-  const parsed = parseTierRequestLimit(tier.limits);
-  if (parsed !== null && parsed > 0) {
-    return parsed;
-  }
-
-  const monthlyTokens = baseTokens ?? tierBaselineTokens;
+  const monthlyTokens = baseTokens ?? (tier.estimatedTokenBudget?.estimatedMillionTokens || 0);
   return Math.round((monthlyTokens * 1_000_000) / STANDARD_AGENT_REQUEST_TOKENS);
 }
 
@@ -1047,13 +1041,20 @@ export function calculatePoolDrain(
       const supported = isItemSupported(item);
       if (supported) supportedCount++;
 
-      const isPremium = item.modelId.toLowerCase().includes('claude') ||
-                        item.modelId.toLowerCase().includes('opus') ||
-                        item.modelId.toLowerCase().includes('sonnet') ||
-                        item.modelId.toLowerCase().includes('fable') ||
-                        item.modelName.toLowerCase().includes('claude') ||
-                        item.modelName.toLowerCase().includes('opus') ||
-                        item.modelName.toLowerCase().includes('sonnet');
+      const lowerId = item.modelId.toLowerCase();
+      const lowerName = item.modelName.toLowerCase();
+      const effectiveRate = item.tokensMillion > 0 ? item.costPpu / item.tokensMillion : 0;
+      const isPremium =
+        lowerId.includes('claude') ||
+        lowerId.includes('opus') ||
+        lowerId.includes('sonnet') ||
+        lowerId.includes('fable') ||
+        lowerName.includes('claude') ||
+        lowerName.includes('opus') ||
+        lowerName.includes('sonnet') ||
+        /gpt-[45]|o1|o3|o4|gemini.*pro|grok-[34]/i.test(lowerId) ||
+        /gpt-[45]|o1|o3|o4|gemini.*pro|grok-[34]/i.test(lowerName) ||
+        effectiveRate >= 4.0;
 
       const poolCap = isPremium ? premiumCap : standardCap;
       let coveredCost = 0;
