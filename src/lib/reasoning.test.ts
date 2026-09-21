@@ -136,3 +136,56 @@ describe('Extended Thinking & Reasoning Token Engine', () => {
     expect(anthropicApi?.absorptionScore).toBeLessThanOrEqual(40);
   });
 });
+
+describe('Reasoning feasibility guard (VULN-06)', () => {
+  const baseModel: NormalizedModel = {
+    id: 'anthropic/claude-sonnet-5',
+    name: 'Claude Sonnet 5',
+    provider: 'anthropic',
+    series: 'Claude',
+    modality: 'text->text',
+    contextWindow: 200000,
+    maxOutput: 64000,
+    pricing: { input: 3.0, output: 15.0, cachedInput: 0.3, cachedInputWrite: 3.75, reasoning: null, webSearch: null },
+    blendedCost: 6.0,
+    agentBlendedCost: 1.5,
+    costPer1kRequests: 30.0,
+    benchmarks: { intelligenceIndex: 88, codingIndex: 85, agenticIndex: 84, valueScore: 78 },
+    reasoning: null,
+    isFree: false,
+    isBatch: false,
+  };
+
+  const tinyModel: NormalizedModel = {
+    ...baseModel,
+    id: 'tiny/small-model',
+    name: 'Tiny Small Model',
+    contextWindow: 32000,
+    maxOutput: 8000,
+  };
+
+  it('rejects max effort on a 32K-context model as an impossible combination', () => {
+    const turn = calculateReasoningCost(tinyModel, 0.75, 'max');
+    expect(turn.feasible).toBe(false);
+    expect(turn.infeasibilityReason).toContain('32,000');
+  });
+
+  it('rejects reasoning that exceeds the max completion cap even when context fits', () => {
+    const cappedModel: NormalizedModel = { ...baseModel, contextWindow: 200000, maxOutput: 8000 };
+    const turn = calculateReasoningCost(cappedModel, 0.75, 'high');
+    expect(turn.feasible).toBe(false);
+    expect(turn.infeasibilityReason).toContain('caps output');
+  });
+
+  it('keeps medium effort feasible on the frontier model', () => {
+    const turn = calculateReasoningCost(baseModel, 0.75, 'medium');
+    expect(turn.feasible).toBe(true);
+    expect(turn.infeasibilityReason).toBeNull();
+  });
+
+  it('treats unknown windows (0) as feasible rather than fabricating a constraint', () => {
+    const unknown = { ...baseModel, contextWindow: 0, maxOutput: 0 };
+    const turn = calculateReasoningCost(unknown, 0.75, 'max');
+    expect(turn.feasible).toBe(true);
+  });
+});

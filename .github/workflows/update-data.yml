@@ -7,16 +7,23 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
+
+concurrency:
+  group: 'data-refresh'
+  cancel-in-progress: false
 
 jobs:
   refresh-data:
     runs-on: ubuntu-latest
     steps:
+      # Actions are pinned by commit SHA (VULN-01): tag refs are mutable and
+      # a compromised upstream action would inherit `contents: write`.
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
           cache: 'npm'
@@ -33,14 +40,41 @@ jobs:
       - name: Validate data invariants
         run: npm run validate-data
 
-      - name: Commit and push changes
+      # VULN-01: never auto-push third-party-derived data straight to main.
+      # Refreshes land on a branch as a PR so a human (or required check)
+      # gates anything that reaches the deployed site.
+      - name: Create data refresh pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          BRANCH="data-refresh/$(date +%Y-%m-%d)"
+          git checkout -b "$BRANCH"
           git add public/data/
+
           if git diff --cached --quiet; then
-            echo "No data changes to commit."
-          else
-            git commit -m "chore(data): refresh model pricing and benchmarks [skip ci]"
-            git push
+            echo "No data changes to propose."
+            exit 0
           fi
+
+          git commit -m "chore(data): refresh model pricing and benchmarks"
+          git push --force origin "$BRANCH"
+
+          # Reuse an open PR for the same branch if one exists.
+          EXISTING=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number' || true)
+          if [ -n "$EXISTING" ]; then
+            gh pr comment "$EXISTING" --body "Automated data refresh updated (run ${GITHUB_RUN_ID})."
+            exit 0
+          fi
+
+          gh pr create \
+            --title "chore(data): scheduled model & benchmark refresh ($(date +%Y-%m-%d))" \
+            --body "Automated daily data refresh from OpenRouter and Artificial Analysis.
+
+            - \`validate-data\` passed (schema + price sanity bounds).
+            - Review the \`public/data/\` diff before merging; price anomalies are flagged by the validation bounds but cannot be fully ruled out.
+            - Merging this PR triggers the Pages deploy." \
+            --base main \
+            --head "$BRANCH"

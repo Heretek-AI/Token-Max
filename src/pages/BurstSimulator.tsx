@@ -6,6 +6,7 @@ import {
   type TurnCadence,
 } from '../lib/throttle';
 import type { ThrottleStatus } from '../lib/throttle-profiles';
+import { numParam } from '../lib/params';
 import {
   Zap,
   Gauge,
@@ -20,6 +21,7 @@ import {
   RotateCcw,
   Sparkles,
   Info,
+  DollarSign,
 } from 'lucide-react';
 import {
   ResponsiveContainer,
@@ -74,12 +76,13 @@ const PRESETS: Preset[] = [
 export default function BurstSimulator() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Read initial parameters from URL or use defaults
-  const initialConcurrency = Math.min(10, Math.max(1, Number(searchParams.get('agents')) || 2));
-  const initialDuration = Math.min(8, Math.max(1, Number(searchParams.get('duration')) || 4));
+  // Read initial parameters from URL or use defaults (zero-safe: `?prior=0`
+  // and `?agents=0`-style values must not collapse to defaults, VULN-13)
+  const initialConcurrency = numParam(searchParams.get('agents'), 2, 1, 10);
+  const initialDuration = numParam(searchParams.get('duration'), 4, 1, 8);
   const rawCadence = searchParams.get('cadence') as TurnCadence;
   const initialCadence: TurnCadence = (rawCadence && CADENCE_DEFINITIONS[rawCadence]) ? rawCadence : 'standard';
-  const initialPrior = Math.min(90, Math.max(0, Number(searchParams.get('prior')) || 20));
+  const initialPrior = numParam(searchParams.get('prior'), 20, 0, 90);
 
   const [concurrency, setConcurrency] = useState<number>(initialConcurrency);
   const [sprintDuration, setSprintDuration] = useState<number>(initialDuration);
@@ -152,6 +155,7 @@ export default function BurstSimulator() {
   const estimatedTokensM = Number(((totalTurnsAttempted * 21000) / 1000000).toFixed(1));
   const smoothCount = simulationResults.filter((r) => r.status === 'smooth').length;
   const queuedCount = simulationResults.filter((r) => r.status === 'queued').length;
+  const overageCount = simulationResults.filter((r) => r.status === 'overage').length;
   const blockedCount = simulationResults.filter((r) => r.status === 'blocked').length;
 
   const filteredResults = useMemo(() => {
@@ -489,7 +493,7 @@ export default function BurstSimulator() {
                         <div className="flex justify-between gap-4 capitalize">
                           <span className="text-text-muted">Status:</span>
                           <span className={`font-semibold ${
-                            data.status === 'smooth' ? 'text-emerald-400' : data.status === 'queued' ? 'text-amber-400' : 'text-rose-400'
+                            data.status === 'smooth' ? 'text-emerald-400' : data.status === 'queued' ? 'text-amber-400' : data.status === 'overage' ? 'text-orange-400' : 'text-rose-400'
                           }`}>
                             {data.status}
                           </span>
@@ -509,6 +513,8 @@ export default function BurstSimulator() {
                         ? '#10b981'
                         : entry.status === 'queued'
                         ? '#f59e0b'
+                        : entry.status === 'overage'
+                        ? '#f97316'
                         : '#ef4444'
                     }
                   />
@@ -566,6 +572,17 @@ export default function BurstSimulator() {
               Queued ({queuedCount})
             </button>
             <button
+              onClick={() => setStatusFilter('overage')}
+              className={`px-3 py-1 rounded font-medium transition-colors flex items-center gap-1 ${
+                statusFilter === 'overage'
+                  ? 'bg-orange-950/80 text-orange-300 border border-orange-600/40'
+                  : 'text-text-muted hover:bg-surface hover:text-orange-400'
+              }`}
+            >
+              <DollarSign className="w-3.5 h-3.5" />
+              Overage ({overageCount})
+            </button>
+            <button
               onClick={() => setStatusFilter('blocked')}
               className={`px-3 py-1 rounded font-medium transition-colors flex items-center gap-1 ${
                 statusFilter === 'blocked'
@@ -583,7 +600,12 @@ export default function BurstSimulator() {
         <div className="divide-y divide-steel-800/80">
           {filteredResults.map((result) => {
             const isSelected = activeDetail?.profile.id === result.profile.id;
-            const statusConfig = {
+            const statusConfigTable: Record<ThrottleStatus, {
+              label: string;
+              badge: string;
+              icon: typeof ShieldCheck;
+              color: string;
+            }> = {
               smooth: {
                 label: 'Smooth Sprint',
                 badge: 'bg-emerald-950/60 text-emerald-300 border-emerald-600/40',
@@ -596,13 +618,20 @@ export default function BurstSimulator() {
                 icon: AlertTriangle,
                 color: 'text-amber-400',
               },
+              overage: {
+                label: 'Paid Overage',
+                badge: 'bg-orange-950/60 text-orange-300 border-orange-600/40',
+                icon: DollarSign,
+                color: 'text-orange-400',
+              },
               blocked: {
                 label: 'Session Blocked',
                 badge: 'bg-rose-950/60 text-rose-300 border-rose-600/40',
                 icon: XCircle,
                 color: 'text-rose-400',
               },
-            }[result.status];
+            };
+            const statusConfig = statusConfigTable[result.status];
 
             const StatusIcon = statusConfig.icon;
 
@@ -654,7 +683,7 @@ export default function BurstSimulator() {
                   </div>
 
                   {/* Turns Throughput Breakdown */}
-                  <div className="grid grid-cols-3 gap-3 text-center min-w-[200px]">
+                  <div className="grid grid-cols-4 gap-3 text-center min-w-[240px]">
                     <div className="p-1.5 rounded bg-void-950/40 border border-steel-800">
                       <div className="text-[10px] uppercase text-text-muted">Fast</div>
                       <div className="text-xs font-mono font-bold text-emerald-400">
@@ -665,6 +694,12 @@ export default function BurstSimulator() {
                       <div className="text-[10px] uppercase text-text-muted">Queued</div>
                       <div className="text-xs font-mono font-bold text-amber-400">
                         {result.slowTurnsCompleted}
+                      </div>
+                    </div>
+                    <div className="p-1.5 rounded bg-void-950/40 border border-steel-800">
+                      <div className="text-[10px] uppercase text-text-muted">Overage</div>
+                      <div className="text-xs font-mono font-bold text-orange-400">
+                        {result.overageTurns}
                       </div>
                     </div>
                     <div className="p-1.5 rounded bg-void-950/40 border border-steel-800">

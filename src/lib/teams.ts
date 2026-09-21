@@ -175,7 +175,10 @@ function computePersonaApiCost(p: DeveloperPersona, model?: NormalizedModel): nu
   if (!model) return p.estimatedDirectApiCost;
   const inPrice = model.pricing.input ?? model.blendedCost * 0.75;
   const outPrice = model.pricing.output ?? model.blendedCost * 1.75;
-  const cachedPrice = model.pricing.cachedInput ?? inPrice * 0.1;
+  // Never fabricate a discount for an unknown cache price (invariant I):
+  // an unknown cache rate is priced at full input, matching
+  // getEffectiveCacheMultiplier's "no caching" convention.
+  const cachedPrice = model.pricing.cachedInput ?? inPrice;
   const { costPerRequest } = calculateAgentRequestCost(model, 0.75);
 
   const agentCost = p.monthlyAgentTurns * costPerRequest;

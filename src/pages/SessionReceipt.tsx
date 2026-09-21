@@ -21,6 +21,7 @@ import {
   RotateCcw,
   Zap,
   TrendingDown,
+  AlertTriangle,
 } from 'lucide-react';
 
 export default function SessionReceipt() {
@@ -85,6 +86,7 @@ export default function SessionReceipt() {
       `================================================`,
       `          TOKEN-MAX AGENT SESSION RECEIPT       `,
       `================================================`,
+      receiptReport.tokensMeasured ? null : `*** ESTIMATED: transcript had no token accounting. ***`,
       `Session: ${activeSession.sessionTitle}`,
       `Turns Executed: ${activeSession.totalTurns}`,
       `Tool Invocations: ${activeSession.toolInvocationsCount}`,
@@ -210,6 +212,18 @@ export default function SessionReceipt() {
         {errorMsg && (
           <div className="mt-4 p-2.5 rounded bg-rose-950/80 border border-rose-600/40 text-xs text-rose-300">
             {errorMsg}
+          </div>
+        )}
+
+        {!receiptReport.tokensMeasured && (
+          <div className="mt-4 p-3 rounded-lg bg-amber-950/60 border border-amber-600/40 text-xs text-amber-200 flex items-start gap-2">
+            <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-bold">Estimated receipt.</span> This transcript contained no token
+              accounting — token counts and costs below are synthesized from the standard 21K agent
+              request shape, not measured from your session. Treat every dollar figure as a rough
+              planning estimate.
+            </div>
           </div>
         )}
       </div>

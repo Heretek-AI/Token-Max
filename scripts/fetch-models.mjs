@@ -27,6 +27,8 @@ async function fetchModels() {
   const { inputTokens: chatIn, outputTokens: chatOut } = constants.chatRequest;
   const { inputWeight: blendIn, outputWeight: blendOut } = constants.chatBlend;
   const cacheRate = constants.defaultCacheRate;
+  const cacheWriteShare = constants.cacheWriteShare ?? 0;
+  const cacheWritePremium = constants.cacheWritePremium ?? 1.25;
   const agentRequestTokens = agentIn + agentOut;
 
   const response = await fetch('https://openrouter.ai/api/v1/models', { headers });
@@ -108,19 +110,16 @@ async function fetchModels() {
       cachedInputWrite = upstreamCacheWrite * 1_000_000;
     }
     if (cachedInput === null) {
+      // Documented per-provider fallback ratios from data/estimate-constants.json
+      // (VULN-15: previously scattered literals). Unknown providers get no
+      // fabricated discount — cached tokens bill at full input price.
+      const fallbacks = constants.providerCacheReadFallback ?? {};
       const provLower = provider.toLowerCase();
       const idLower = id.toLowerCase();
       if (inputPrice > 0) {
-        if (provLower.includes('anthropic') || idLower.includes('claude')) {
-          cachedInput = inputPrice * 0.10;
-        } else if (provLower.includes('deepseek') || idLower.includes('deepseek')) {
-          cachedInput = inputPrice * 0.10;
-        } else if (provLower.includes('z-ai') || idLower.includes('glm')) {
-          cachedInput = inputPrice * 0.10;
-        } else if (provLower.includes('google') || idLower.includes('gemini')) {
-          cachedInput = inputPrice * 0.25;
-        } else if (provLower.includes('openai') || idLower.includes('gpt') || idLower.includes('codex')) {
-          cachedInput = inputPrice * 0.50;
+        const fallbackKey = Object.keys(fallbacks).find(k => provLower.includes(k) || idLower.includes(k));
+        if (fallbackKey) {
+          cachedInput = inputPrice * fallbacks[fallbackKey];
         }
       }
     }
@@ -128,10 +127,17 @@ async function fetchModels() {
     // Agentic coding calculation: standard agent request (default 20K input at
     // 75% cache + 1K output) from the shared estimate constants.
     // When no cache price is known, charge full input price for cached tokens (conservative).
+    // Amortized cache-write share (VULN-14): the fraction of cached context
+    // rewritten each turn is billed at the provider's write rate instead of
+    // being silently treated as a free read.
     const freshIn = agentIn * (1 - cacheRate);
     const cachedIn = agentIn * cacheRate;
     const cachePrice = cachedInput !== null ? cachedInput : inputPrice;
-    const agentReqCost = (freshIn * inputPrice / 1e6) + (cachedIn * cachePrice / 1e6) + (agentOut * outputPrice / 1e6);
+    const writePrice = cachedInputWrite !== null ? cachedInputWrite : inputPrice * cacheWritePremium;
+    const agentReqCost = (freshIn * inputPrice / 1e6) +
+      (cachedIn * (1 - cacheWriteShare) * cachePrice / 1e6) +
+      (cachedIn * cacheWriteShare * writePrice / 1e6) +
+      (agentOut * outputPrice / 1e6);
     const agentBlendedCost = (agentReqCost / agentRequestTokens) * 1e6;
 
     const createdUnix = Number.isFinite(model.created) ? model.created : null;

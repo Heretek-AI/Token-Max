@@ -38,6 +38,11 @@ export interface SessionReceiptReport {
   modelRepricings: ModelRepricingItem[];
   subscriptionImpacts: SubscriptionImpactItem[];
   headlineSummary: string;
+  /**
+   * False when the parser synthesized the token counts (VULN-05): the receipt
+   * must be presented as an estimate, not a measured bill.
+   */
+  tokensMeasured: boolean;
 }
 
 /**
@@ -173,9 +178,11 @@ export function calculateSessionReceipt(
   ];
 
   const cheapest = modelRepricings[0];
-  const headlineSummary = cheapest && cheapest.sessionCost < baselineTotalCost
+  const tokensMeasured = session.measuredTokens !== false;
+  const estimatePrefix = tokensMeasured ? '' : 'ESTIMATED (transcript contained no token accounting — parser assumed ~21K in / 900 out per turn at 75% cache). ';
+  const headlineSummary = estimatePrefix + (cheapest && cheapest.sessionCost < baselineTotalCost
     ? `This session cost $${baselineTotalCost.toFixed(2)} on ${baselineModel?.name || 'Sonnet 5'}. It would have cost $${cheapest.sessionCost.toFixed(2)} on ${cheapest.modelName} (${cheapest.savingsPercentVsBaseline}% cheaper).`
-    : `This session executed ${session.totalTurns} turns across ${(session.totalTokens / 1e6).toFixed(2)}M tokens at a ${Math.round(session.effectiveCacheHitRate * 100)}% prompt cache hit rate.`;
+    : `This session executed ${session.totalTurns} turns across ${(session.totalTokens / 1e6).toFixed(2)}M tokens at a ${Math.round(session.effectiveCacheHitRate * 100)}% prompt cache hit rate.`);
 
   return {
     session,
@@ -185,5 +192,6 @@ export function calculateSessionReceipt(
     modelRepricings,
     subscriptionImpacts,
     headlineSummary,
+    tokensMeasured,
   };
 }

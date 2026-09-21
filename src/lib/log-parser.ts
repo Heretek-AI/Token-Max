@@ -21,6 +21,12 @@ export interface ParsedAgentSession {
   effectiveCacheHitRate: number; // 0 to 1
   toolInvocationsCount: number;
   turns: ParsedSessionTurn[];
+  /**
+   * True when the transcript contained real token accounting.
+   * False means the parser synthesized the numbers (VULN-05) — receipts must
+   * flag these as estimates, never present them as measured cost.
+   */
+  measuredTokens: boolean;
 }
 
 /**
@@ -38,6 +44,7 @@ export const SAMPLE_AGENT_SESSION: ParsedAgentSession = {
   totalTokens: 1392400,
   effectiveCacheHitRate: 0.78, // 78% cache hit rate
   toolInvocationsCount: 46,
+  measuredTokens: true,
   turns: Array.from({ length: 38 }, (_, i) => {
     const isToolHeavy = i % 2 === 1;
     const input = 32000 + i * 800;
@@ -102,6 +109,7 @@ function parseClineJson(data: any, filename: string): ParsedAgentSession {
   let totalCachedTokens = 0;
   let totalOutputTokens = 0;
   let toolInvocationsCount = 0;
+  let sawMeasuredTokens = false;
   const turns: ParsedSessionTurn[] = [];
 
   messages.forEach((msg, idx) => {
@@ -109,6 +117,8 @@ function parseClineJson(data: any, filename: string): ParsedAgentSession {
     const cachedTok = safeTokenNumber(msg.cacheReads ?? msg.cachedTokens ?? msg.usage?.prompt_tokens_details?.cached_tokens);
     const outTok = safeTokenNumber(msg.tokensOut ?? msg.outputTokens ?? msg.usage?.completion_tokens);
     const tools = Array.isArray(msg.tool_calls || msg.tools) ? (msg.tool_calls || msg.tools).length : 0;
+
+    if (inTok > 0 || outTok > 0) sawMeasuredTokens = true;
 
     if (inTok > 0 || outTok > 0 || tools > 0) {
       totalInputTokens += inTok;
@@ -145,6 +155,7 @@ function parseClineJson(data: any, filename: string): ParsedAgentSession {
     effectiveCacheHitRate: effectiveCacheHitRate || 0.72,
     toolInvocationsCount: toolInvocationsCount > 0 ? toolInvocationsCount : Math.round(totalTurns * 1.2),
     turns,
+    measuredTokens: sawMeasuredTokens,
   };
 }
 
@@ -154,7 +165,8 @@ function parseJsonlSession(lines: string[], filename: string): ParsedAgentSessio
   let totalCachedTokens = 0;
   let totalOutputTokens = 0;
   let toolInvocationsCount = 0;
-  const turns: ParsedSessionTurn[] = [];
+  let sawMeasuredTokens = false;
+  const turns: ParsedAgentSession['turns'] = [];
 
   for (const line of lines) {
     try {
@@ -175,6 +187,8 @@ function parseJsonlSession(lines: string[], filename: string): ParsedAgentSessio
         inTok = 20000 + stepIndex * 600;
         cachedTok = Math.round(inTok * 0.75);
         outTok = 850;
+      } else {
+        sawMeasuredTokens = true;
       }
 
       totalInputTokens += inTok;
@@ -214,6 +228,7 @@ function parseJsonlSession(lines: string[], filename: string): ParsedAgentSessio
     effectiveCacheHitRate,
     toolInvocationsCount,
     turns,
+    measuredTokens: sawMeasuredTokens,
   };
 }
 
@@ -236,6 +251,7 @@ function parseGenericSession(text: string, filename: string): ParsedAgentSession
     totalTokens: totalInputTokens + totalOutputTokens,
     effectiveCacheHitRate: 0.75,
     toolInvocationsCount: Math.round(turnsCount * 1.3),
+    measuredTokens: false,
     turns: Array.from({ length: turnsCount }, (_, i) => ({
       stepIndex: i + 1,
       role: 'assistant',

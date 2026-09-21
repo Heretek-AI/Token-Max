@@ -129,3 +129,62 @@ describe('hardware economics engine', () => {
     expect(result.monthlySavingsVsApi).toBeLessThan(0);
   });
 });
+
+describe('Physical workload feasibility (VULN-04)', () => {
+  it('flags a workload that exceeds the configured duty cycle as infeasible', () => {
+    // Mac Mini flagship decodes at 24 tok/s. 40M tokens/mo needs ~463h of pure
+    // decode, but 1h/day x 30.4 only affords ~30h — physically impossible.
+    const result = computeHardwareEconomics({
+      presetId: 'mac-mini-m4-pro-64gb',
+      amortizationMonths: 24,
+      salvageValuePercent: 20,
+      electricityKwhCost: 0.16,
+      dailyInferenceHours: 1,
+      dailyIdleHours: 9,
+      monthlyTokenVolumeM: 40,
+      inputRatio: 0.8,
+      cloudApiInputPerM: 3.0,
+      cloudApiOutputPerM: 15.0,
+    });
+
+    expect(result.infeasibleWorkload).toBe(true);
+    expect(result.requiredInferenceHours).toBeGreaterThan(400);
+    expect(result.feasibleMonthlyVolumeM).toBeLessThan(40);
+  });
+
+  it('marks a workload achievable within the duty cycle as feasible', () => {
+    const result = computeHardwareEconomics({
+      presetId: 'mac-mini-m4-pro-64gb',
+      amortizationMonths: 24,
+      salvageValuePercent: 20,
+      electricityKwhCost: 0.16,
+      dailyInferenceHours: 3,
+      dailyIdleHours: 9,
+      monthlyTokenVolumeM: 5,
+      inputRatio: 0.8,
+      cloudApiInputPerM: 3.0,
+      cloudApiOutputPerM: 15.0,
+    });
+
+    expect(result.infeasibleWorkload).toBe(false);
+    expect(result.feasibleMonthlyVolumeM).toBeGreaterThanOrEqual(5);
+  });
+
+  it('only quotes payback when the amortized monthly alpha is positive', () => {
+    // Cloud cost below amortized local cost must suppress payback entirely so
+    // the headline metrics can never contradict each other.
+    const result = computeHardwareEconomics({
+      presetId: 'custom-dual-rtx-5090',
+      amortizationMonths: 24,
+      salvageValuePercent: 10,
+      electricityKwhCost: 0.2,
+      dailyInferenceHours: 6,
+      dailyIdleHours: 12,
+      monthlyTokenVolumeM: 1,
+      inputRatio: 0.8,
+      cloudApiInputPerM: 0.14,
+      cloudApiOutputPerM: 0.28,
+    });
+    expect(result.paybackMonthsVsApi).toBeNull();
+  });
+});

@@ -20,6 +20,8 @@
   },
   "defaultCacheRate": 0.75,
   "cacheWritePremium": 1.25,
+  "_cacheWriteShare": "Fraction of the cached context rewritten per turn (VULN-14: cold-prefix writes at the cache-write premium were never charged). 6% matches the empirical fresh-context share of the 20K-in agentic request being written to cache each turn.",
+  "cacheWriteShare": 0.06,
   "timeOfDayBlend": {
     "_comment": "Time-of-day volume blend for providers with off-peak discounts (e.g. DeepSeek, Z.ai). Default 80% off-peak, 20% peak.",
     "offPeakShare": 0.8,
@@ -29,5 +31,15 @@
     "chat": 0.5,
     "standard": 0.75,
     "deepAgent": 0.92
+  },
+  "_sessionCacheModel": "Multi-turn session cache model (WorkflowCalculator): of the tokens re-read within one session, this residual share re-pays full input price due to cache invalidations (tool outputs, file edits).",
+  "sessionCacheBustResidual": 0.15,
+  "_providerCacheReadFallback": "Documented cache-read ratios used ONLY when the upstream API omits cache prices (scripts/fetch-models.mjs). Keys are lowercase provider/id substrings.",
+  "providerCacheReadFallback": {
+    "anthropic": 0.10,
+    "deepseek": 0.10,
+    "z-ai": 0.10,
+    "google": 0.25,
+    "openai": 0.50
   }
 }

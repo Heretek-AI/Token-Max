@@ -1,5 +1,6 @@
 export type ThrottleExhaustionBehavior = 'hard-block' | 'slow-queue' | 'payg-overage';
-export type ThrottleStatus = 'smooth' | 'queued' | 'blocked';
+/** 'overage' = served beyond quota as paid overage (payg-overage profiles, VULN-03). */
+export type ThrottleStatus = 'smooth' | 'queued' | 'overage' | 'blocked';
 
 export interface ThrottleProfile {
   id: string;

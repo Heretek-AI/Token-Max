@@ -456,3 +456,77 @@ and `node scripts/build-data.mjs`.
 - `npm test` — 109/109 tests pass across 8 test suites.
 - `npm run build` — Clean production build.
 
+
+---
+
+## Adversarial Audit Remediation Pass (September 20, 2026)
+
+Full hostile audit (15 findings, VULN-01 through VULN-15) remediated in one pass.
+
+### Summary of Fixes
+
+1. **VULN-01 (Critical) — Data pipeline supply chain**: `update-data.yml` no longer auto-pushes
+   third-party-derived data to `main`; refreshes open a PR (branch `data-refresh/<date>`) for human
+   review. All GitHub Actions pinned by commit SHA. `validate-data.mjs` gained price sanity bounds
+   (non-free models must have positive finite in/out prices; ceilings $1,000/$2,000 per M; cachedInput
+   must be null or finite ≥ 0).
+2. **VULN-02 (High) — Cache scaling on metered quotas**: `computeApplesToApples` now applies
+   symmetric cache scaling **only to dollar-credit pools** (`isDollarPoolTier`: `limits` containing a
+   credit key or `perModelTokenBudgets` on a credit/equal-rate basis). Usage-metered quotas deliver
+   fixed tokens regardless of the user's cache rate and are never scaled.
+3. **VULN-03 (High) — payg-overage never throttled**: `simulateSprintThrottle` now emits a distinct
+   `overage` status for `payg-overage` profiles (Google AI Pro, OpenCode Zen, DeepSeek PAYG) once a
+   window/monthly ceiling is crossed; `SimulationResult.overageTurns` reports billed excess; overall
+   status resolves by severity (`smooth < queued < overage < blocked`). BurstSimulator gains an
+   Overage filter, badge, chart color, and stat column.
+4. **VULN-04 (High) — Hardware feasibility & payback basis**: `computeHardwareEconomics` derives
+   `requiredInferenceHours` from the preset's flagship decode throughput and reports
+   `infeasibleWorkload` / `feasibleMonthlyVolumeM`. Payback is only quoted when the amortized monthly
+   alpha is positive, so headline savings and payback cannot contradict. HardwareBreakeven renders
+   the infeasibility warning with the required-vs-available decode hours.
+5. **VULN-05 (High) — Synthetic receipts**: `ParsedAgentSession.measuredTokens` distinguishes
+   measured from parser-fabricated token counts; `SessionReceiptReport.tokensMeasured` propagates it;
+   the receipt page and copied receipt both flag estimated sessions; the headline prefix
+   "ESTIMATED …" prevents synthetic numbers passing as a bill.
+6. **VULN-06 (Medium) — Impossible reasoning combos**: `calculateReasoningCost` checks
+   input+reasoning+output against `contextWindow` and reasoning+output against `maxOutput` (unknown
+   caps treated as feasible); ReasoningExploder disables infeasible effort pills and renders the
+   impossibility reason.
+7. **VULN-07 (Medium) — Cache-assumption regex hijack**: `parsePlanCacheAssumption` anchors the
+   percent to cache context (`NN% cache|hit` or `cache … NN%`), so discount percentages cannot be
+   misparsed as cache rates; results clamp to ≤ 0.95.
+8. **VULN-08 (Medium) — Divergent cache heuristics**: the ad-hoc `(1 − assumed×0.8)` formula for
+   unmatched tiers was replaced by the same model-priced ratio used for matched tiers (via a
+   lab-representative basis model), gated identically on dollar pools.
+9. **VULN-09 (Medium) — Arbitrage spend asymmetry**: the callout now discloses when the API leg
+   outspends a capped single-seat subscription by >1.25x and points to Dave Mode / Mix & Match.
+10. **VULN-10 (Medium) — ToS classifier liability**: `'no guarantee'` removed from TRAINS evidence;
+    `ipIndemnity: true` renders "Indemnity Offered (warning)" with a carve-outs caveat instead of
+    "Full Indemnity"; string indemnities get a verify-scope label; `classifyGotcha` only assigns
+    critical data-privacy severity on strong training/retention signals, weak mentions ("training"
+    inside a caching sentence) downgrade to warning.
+11. **VULN-11 (Medium) — Benchmark starvation**: `build-data.mjs` gained an effort-suffix-stripped
+    fuzzy matching fallback (recovered 11 of 35 models; match rate 29% → 60%) and a hard floor:
+    builds fail below a 25% match rate unless `ALLOW_LOW_BENCH_MATCH=1`.
+12. **VULN-12 (Medium) — Quota/time realism**: weekly quotas convert at 52/12 weeks (not ×4); the
+    throttle simulator carries a deferred-turn backlog so slow-queue delay actually reduces
+    completed turns instead of being cosmetic.
+13. **VULN-13 (Medium) — Zero-hostile URL params**: shared `numParam` helper (`src/lib/params.ts`)
+    replaces `Number(x) || default` in HardwareBreakeven and BurstSimulator; `?salvage=0`,
+    `?prior=0`, `?idleHours=0` now render as configured.
+14. **VULN-14 (Medium) — Cache-write premium + clamp unification**: `cacheWriteShare` (0.06) added to
+    `data/estimate-constants.json` and wired into `agentBlendedCost` in both `fetch-models.mjs` and
+    `build-data.mjs` (amortized write cost at the provider write rate); salvage clamp unified at 50
+    via `SALVAGE_CLAMP_MAX`; `costPer1kRequests || 1` → `?? 1` (invariant I).
+15. **VULN-15 (Low) — Literal extraction**: session cache-bust residual (0.15) and provider
+    cache-read fallback ratios moved into `data/estimate-constants.json`; teams.ts no longer
+    fabricates a 10% cache discount for unknown cache prices (conservative full-input fallback).
+    Residual: `classifyModelTier`'s hardcoded model-name table and teams.ts chat workload shapes
+    remain flagged for a future data-driven refactor.
+
+### Verification
+- `npm run lint` — 0 errors, 0 warnings.
+- `npm run validate-data` — 34 plans and 422 usage-limit entries pass all schema invariants (now
+  including price sanity bounds).
+- `npm test` — 127/127 tests pass across 8 suites (expanded by regression tests for VULN-02/03/04/05/06/07/09 and updated expectations for VULN-10/12).
+- `npm run build` — Clean production build.

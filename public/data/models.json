@@ -19,7 +19,7 @@
       "webSearch": null
     },
     "blendedCost": 0.5249999999999999,
-    "agentBlendedCost": 0.1714,
+    "agentBlendedCost": 0.1849,
     "costPer1kRequests": 1.8,
     "benchmarks": {
       "intelligenceIndex": 29.2,
@@ -53,7 +53,7 @@
       "webSearch": null
     },
     "blendedCost": 0.5249999999999999,
-    "agentBlendedCost": 0.1714,
+    "agentBlendedCost": 0.1849,
     "costPer1kRequests": 1.8,
     "benchmarks": {
       "intelligenceIndex": 29.2,
@@ -87,7 +87,7 @@
       "webSearch": null
     },
     "blendedCost": 0.28500000000000003,
-    "agentBlendedCost": 0.1143,
+    "agentBlendedCost": 0.1214,
     "costPer1kRequests": 0.96,
     "benchmarks": {
       "intelligenceIndex": 25.3,
@@ -121,7 +121,7 @@
       "webSearch": null
     },
     "blendedCost": 1.3975,
-    "agentBlendedCost": 0.4736,
+    "agentBlendedCost": 0.5151,
     "costPer1kRequests": 4.68,
     "benchmarks": {
       "intelligenceIndex": 44.8,
@@ -155,7 +155,7 @@
       "webSearch": null
     },
     "blendedCost": 1.075,
-    "agentBlendedCost": 0.3643,
+    "agentBlendedCost": 0.3962,
     "costPer1kRequests": 3.6,
     "benchmarks": {
       "intelligenceIndex": 44.8,
@@ -163,7 +163,7 @@
       "agenticIndex": 53.1,
       "valueScore": 5794.4
     },
-    "benchmarkSource": "openrouter",
+    "benchmarkSource": "artificial-analysis",
     "reasoning": null,
     "isFree": false,
     "isBatch": true,
@@ -189,7 +189,7 @@
       "webSearch": null
     },
     "blendedCost": 0.14250000000000002,
-    "agentBlendedCost": 0.0486,
+    "agentBlendedCost": 0.0526,
     "costPer1kRequests": 0.48,
     "benchmarks": {
       "intelligenceIndex": 41.8,
@@ -223,7 +223,7 @@
       "webSearch": null
     },
     "blendedCost": 0.5249999999999999,
-    "agentBlendedCost": 0.1329,
+    "agentBlendedCost": 0.1487,
     "costPer1kRequests": 1.8,
     "benchmarks": {
       "intelligenceIndex": 39.5,
@@ -257,7 +257,7 @@
       "webSearch": null
     },
     "blendedCost": 1.98,
-    "agentBlendedCost": 0.5343,
+    "agentBlendedCost": 0.6031,
     "costPer1kRequests": 6.6,
     "benchmarks": {
       "intelligenceIndex": 36,
@@ -265,7 +265,7 @@
       "agenticIndex": 41.3,
       "valueScore": 2726.8
     },
-    "benchmarkSource": "openrouter",
+    "benchmarkSource": "artificial-analysis",
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
@@ -291,7 +291,7 @@
       "webSearch": null
     },
     "blendedCost": 0.99,
-    "agentBlendedCost": 0.2671,
+    "agentBlendedCost": 0.3016,
     "costPer1kRequests": 3.3,
     "benchmarks": {
       "intelligenceIndex": 36,
@@ -299,7 +299,7 @@
       "agenticIndex": 41.3,
       "valueScore": 5453.5
     },
-    "benchmarkSource": "openrouter",
+    "benchmarkSource": "artificial-analysis",
     "reasoning": null,
     "isFree": false,
     "isBatch": true,
@@ -325,7 +325,7 @@
       "webSearch": null
     },
     "blendedCost": 20,
-    "agentBlendedCost": 5.4762,
+    "agentBlendedCost": 5.969,
     "costPer1kRequests": 70,
     "benchmarks": {
       "intelligenceIndex": 52.7,
@@ -359,7 +359,7 @@
       "webSearch": null
     },
     "blendedCost": 10,
-    "agentBlendedCost": 2.7381,
+    "agentBlendedCost": 2.9845,
     "costPer1kRequests": 35,
     "benchmarks": {
       "intelligenceIndex": 52.7,
@@ -367,7 +367,7 @@
       "agenticIndex": 51,
       "valueScore": 642.9
     },
-    "benchmarkSource": "openrouter",
+    "benchmarkSource": "artificial-analysis",
     "reasoning": null,
     "isFree": false,
     "isBatch": true,
@@ -393,7 +393,7 @@
       "webSearch": null
     },
     "blendedCost": 4,
-    "agentBlendedCost": 1.0952,
+    "agentBlendedCost": 1.1938,
     "costPer1kRequests": 14,
     "benchmarks": {
       "intelligenceIndex": 47,
@@ -427,7 +427,7 @@
       "webSearch": null
     },
     "blendedCost": 3,
-    "agentBlendedCost": 0.9405,
+    "agentBlendedCost": 1.0369,
     "costPer1kRequests": 10,
     "benchmarks": {
       "intelligenceIndex": 45.4,
@@ -435,7 +435,7 @@
       "agenticIndex": 56,
       "valueScore": 2132.7
     },
-    "benchmarkSource": "openrouter",
+    "benchmarkSource": "artificial-analysis",
     "reasoning": null,
     "isFree": false,
     "isBatch": false,
@@ -461,7 +461,7 @@
       "webSearch": null
     },
     "blendedCost": 3,
-    "agentBlendedCost": 0.9405,
+    "agentBlendedCost": 1.0369,
     "costPer1kRequests": 10,
     "benchmarks": {
       "intelligenceIndex": 39.9,
@@ -495,7 +495,7 @@
       "webSearch": null
     },
     "blendedCost": 3,
-    "agentBlendedCost": 0.9405,
+    "agentBlendedCost": 1.0369,
     "costPer1kRequests": 10,
     "benchmarks": {
       "intelligenceIndex": 39.9,
@@ -507,6 +507,40 @@
     "reasoning": null,
     "isFree": false,
     "isBatch": true,
+    "tierClass": "frontier"
+  },
+  {
+    "id": "meta/muse-spark-1.3-contributor",
+    "name": "Meta: Muse Spark 1.3 Contributor",
+    "provider": "meta",
+    "series": "Llama",
+    "releasedAt": "2026-09-02",
+    "createdUnix": 1788381519,
+    "unbenchmarked": false,
+    "modality": "text+image+file+audio+video->text",
+    "contextWindow": 1048576,
+    "maxOutput": 943718,
+    "pricing": {
+      "input": 0.09999999999999999,
+      "output": 0.19999999999999998,
+      "cachedInput": 0.002,
+      "cachedInputWrite": null,
+      "reasoning": null,
+      "webSearch": null
+    },
+    "blendedCost": 0.125,
+    "agentBlendedCost": 0.04,
+    "costPer1kRequests": 0.39999999999999997,
+    "benchmarks": {
+      "intelligenceIndex": 48.1,
+      "codingIndex": 75.8,
+      "agenticIndex": 55.5,
+      "valueScore": 51336
+    },
+    "benchmarkSource": "artificial-analysis",
+    "reasoning": null,
+    "isFree": false,
+    "isBatch": false,
     "tierClass": "frontier"
   },
   {
@@ -529,7 +563,7 @@
       "webSearch": null
     },
     "blendedCost": 2,
-    "agentBlendedCost": 0.6071,
+    "agentBlendedCost": 0.6677,
     "costPer1kRequests": 6.750000000000001,
     "benchmarks": {
       "intelligenceIndex": 39.6,
@@ -563,7 +597,7 @@
       "webSearch": null
     },
     "blendedCost": 2,
-    "agentBlendedCost": 0.6071,
+    "agentBlendedCost": 0.6677,
     "costPer1kRequests": 6.750000000000001,
     "benchmarks": {
       "intelligenceIndex": 33.7,
@@ -576,40 +610,6 @@
     "isFree": false,
     "isBatch": false,
     "tierClass": "frontier"
-  },
-  {
-    "id": "meta/muse-spark-1.3-contributor",
-    "name": "Meta: Muse Spark 1.3 Contributor",
-    "provider": "meta",
-    "series": "Llama",
-    "releasedAt": "2026-09-02",
-    "createdUnix": 1788381519,
-    "unbenchmarked": true,
-    "modality": "text+image+file+audio+video->text",
-    "contextWindow": 1048576,
-    "maxOutput": 943718,
-    "pricing": {
-      "input": 0.09999999999999999,
-      "output": 0.19999999999999998,
-      "cachedInput": 0.002,
-      "cachedInputWrite": null,
-      "reasoning": null,
-      "webSearch": null
-    },
-    "blendedCost": 0.125,
-    "agentBlendedCost": 0.0348,
-    "costPer1kRequests": 0.39999999999999997,
-    "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": null,
-      "agenticIndex": null,
-      "valueScore": null
-    },
-    "benchmarkSource": null,
-    "reasoning": null,
-    "isFree": false,
-    "isBatch": false,
-    "tierClass": "balanced"
   },
   {
     "id": "google/gemini-3.8-flash",
@@ -631,7 +631,7 @@
       "webSearch": null
     },
     "blendedCost": 1.5,
-    "agentBlendedCost": 0.4107,
+    "agentBlendedCost": 0.4093,
     "costPer1kRequests": 5.25,
     "benchmarks": {
       "intelligenceIndex": 40.9,
@@ -665,7 +665,7 @@
       "webSearch": null
     },
     "blendedCost": 0.75,
-    "agentBlendedCost": 0.2054,
+    "agentBlendedCost": 0.2055,
     "costPer1kRequests": 2.625,
     "benchmarks": {
       "intelligenceIndex": 40.9,
@@ -673,7 +673,7 @@
       "agenticIndex": 40.2,
       "valueScore": 7785.3
     },
-    "benchmarkSource": "openrouter",
+    "benchmarkSource": "artificial-analysis",
     "reasoning": null,
     "isFree": false,
     "isBatch": true,
@@ -699,7 +699,7 @@
       "webSearch": null
     },
     "blendedCost": 1.5,
-    "agentBlendedCost": 0.4107,
+    "agentBlendedCost": 0.4093,
     "costPer1kRequests": 5.25,
     "benchmarks": {
       "intelligenceIndex": 39.1,
@@ -733,7 +733,7 @@
       "webSearch": null
     },
     "blendedCost": 20,
-    "agentBlendedCost": 4.9405,
+    "agentBlendedCost": 5.4655,
     "costPer1kRequests": 70,
     "benchmarks": {
       "intelligenceIndex": 53.4,
@@ -767,7 +767,7 @@
       "webSearch": null
     },
     "blendedCost": 10,
-    "agentBlendedCost": 2.4702,
+    "agentBlendedCost": 2.7327,
     "costPer1kRequests": 35,
     "benchmarks": {
       "intelligenceIndex": 53.4,
@@ -775,7 +775,7 @@
       "agenticIndex": 57.9,
       "valueScore": 688.5
     },
-    "benchmarkSource": "openrouter",
+    "benchmarkSource": "artificial-analysis",
     "reasoning": null,
     "isFree": false,
     "isBatch": true,
@@ -801,7 +801,7 @@
       "webSearch": null
     },
     "blendedCost": 10,
-    "agentBlendedCost": 2.7381,
+    "agentBlendedCost": 2.9845,
     "costPer1kRequests": 35,
     "benchmarks": {
       "intelligenceIndex": 50.8,
@@ -835,7 +835,7 @@
       "webSearch": null
     },
     "blendedCost": 3,
-    "agentBlendedCost": 1.119,
+    "agentBlendedCost": 1.2048,
     "costPer1kRequests": 10,
     "benchmarks": {
       "intelligenceIndex": 44.3,
@@ -869,7 +869,7 @@
       "webSearch": null
     },
     "blendedCost": 3,
-    "agentBlendedCost": 0.9762,
+    "agentBlendedCost": 1.0705,
     "costPer1kRequests": 10,
     "benchmarks": {
       "intelligenceIndex": 38.8,
@@ -903,7 +903,7 @@
       "webSearch": null
     },
     "blendedCost": 1.5625,
-    "agentBlendedCost": 0.5595,
+    "agentBlendedCost": 0.6179,
     "costPer1kRequests": 5,
     "benchmarks": {
       "intelligenceIndex": 24.9,
@@ -937,7 +937,7 @@
       "webSearch": null
     },
     "blendedCost": 3.6012500000000003,
-    "agentBlendedCost": 0.9843,
+    "agentBlendedCost": 1.0657,
     "costPer1kRequests": 12.73,
     "benchmarks": {
       "intelligenceIndex": 43.6,
@@ -971,7 +971,7 @@
       "webSearch": null
     },
     "blendedCost": 6,
-    "agentBlendedCost": 1.6429,
+    "agentBlendedCost": 1.7907,
     "costPer1kRequests": 21,
     "benchmarks": {
       "intelligenceIndex": 43.6,
@@ -979,7 +979,7 @@
       "agenticIndex": 50,
       "valueScore": 1030.3
     },
-    "benchmarkSource": "openrouter",
+    "benchmarkSource": "artificial-analysis",
     "reasoning": null,
     "isFree": false,
     "isBatch": true,
@@ -1005,7 +1005,7 @@
       "webSearch": null
     },
     "blendedCost": 1.7125,
-    "agentBlendedCost": 0.531,
+    "agentBlendedCost": 0.575,
     "costPer1kRequests": 5.8999999999999995,
     "benchmarks": {
       "intelligenceIndex": 27,
@@ -1039,7 +1039,7 @@
       "webSearch": null
     },
     "blendedCost": 3,
-    "agentBlendedCost": 1.7857,
+    "agentBlendedCost": 1.8018,
     "costPer1kRequests": 10.5,
     "benchmarks": {
       "intelligenceIndex": 14.2,
@@ -1073,7 +1073,7 @@
       "webSearch": null
     },
     "blendedCost": 1.5,
-    "agentBlendedCost": 0.8929,
+    "agentBlendedCost": 0.9009,
     "costPer1kRequests": 5.25,
     "benchmarks": {
       "intelligenceIndex": 14.2,
@@ -1081,7 +1081,7 @@
       "agenticIndex": 7,
       "valueScore": 1892.7
     },
-    "benchmarkSource": "openrouter",
+    "benchmarkSource": "artificial-analysis",
     "reasoning": null,
     "isFree": false,
     "isBatch": true,
@@ -1107,7 +1107,7 @@
       "webSearch": null
     },
     "blendedCost": 0.26249999999999996,
-    "agentBlendedCost": 0.075,
+    "agentBlendedCost": 0.0824,
     "costPer1kRequests": 0.9,
     "benchmarks": {
       "intelligenceIndex": 11.3,
@@ -1141,7 +1141,7 @@
       "webSearch": null
     },
     "blendedCost": 0.54375,
-    "agentBlendedCost": 0.1476,
+    "agentBlendedCost": 0.1707,
     "costPer1kRequests": 1.74,
     "benchmarks": {
       "intelligenceIndex": 26,
@@ -1175,15 +1175,15 @@
       "webSearch": null
     },
     "blendedCost": 0.17500000000000002,
-    "agentBlendedCost": 0.0487,
+    "agentBlendedCost": 0.056,
     "costPer1kRequests": 0.56,
     "benchmarks": {
-      "intelligenceIndex": null,
-      "codingIndex": 56.8,
-      "agenticIndex": 15.8,
-      "valueScore": 21304.3
+      "intelligenceIndex": 26,
+      "codingIndex": 60.2,
+      "agenticIndex": 21.3,
+      "valueScore": 23822.9
     },
-    "benchmarkSource": "openrouter",
+    "benchmarkSource": "artificial-analysis",
     "reasoning": null,
     "isFree": false,
     "isBatch": false,

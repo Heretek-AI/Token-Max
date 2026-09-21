@@ -89,7 +89,9 @@ export function calculateBudgetResults(
       // yields keep the legacy 3K (2K-in/1K-out) request definition.
       const requests1k = blendMode === 'agentic'
         ? (millionTokens * 1_000_000) / STANDARD_AGENT_REQUEST_TOKENS
-        : (budget / (m.costPer1kRequests || 1)) * 1000;
+        // Nullish coalescing (never `||`): a legitimate $0/M request cost must
+        // not be replaced by the fallback divisor (invariant I).
+        : (budget / (m.costPer1kRequests ?? 1)) * 1000;
 
       return {
         modelId: m.id,
@@ -265,20 +267,43 @@ export function matchesPlanModel(planModelName: string, model: NormalizedModel):
  */
 export function parsePlanCacheAssumption(tier: PlanTier): number {
   const metaStr = tier.estimatedTokenBudget?.estimateMeta?.cacheAssumption;
+  // Anchor the percent to explicit cache context so discount percentages
+  // ("90% discount", "50% off-peak") cannot hijack the cache rate.
   if (metaStr) {
-    const match = metaStr.match(/([0-9]+)%/);
-    if (match) {
-      return parseInt(match[1], 10) / 100;
+    const anchored = metaStr.match(/([0-9]+)\s*%\s*(?:cache|hit)/i) || metaStr.match(/cache[^.]*?([0-9]+)\s*%/i);
+    if (anchored) {
+      return clampCacheAssumption(parseInt(anchored[1], 10) / 100);
     }
   }
   const assumptions = tier.estimatedTokenBudget?.assumptions;
   if (assumptions) {
-    const match = assumptions.match(/([0-9]+)%\s*cache/i);
-    if (match) {
-      return parseInt(match[1], 10) / 100;
+    const anchored = assumptions.match(/([0-9]+)\s*%\s*(?:cache|hit)/i) || assumptions.match(/cache[^.]*?([0-9]+)\s*%/i);
+    if (anchored) {
+      return clampCacheAssumption(parseInt(anchored[1], 10) / 100);
     }
   }
-  return DEFAULT_CACHE_RATE;
+  return clampCacheAssumption(DEFAULT_CACHE_RATE);
+}
+
+/**
+ * Plans whose tiers meter a fixed dollar-credit pool scale their token yield
+ * with the effective cost of the drained model (spend X credits -> fewer
+ * tokens on pricier turns). Usage/request-metered quotas grant the same
+ * tokens regardless of the user's cache hit rate, so they must NOT be scaled.
+ */
+export function isDollarPoolTier(tier: PlanTier): boolean {
+  if (tier.perModelTokenBudgets) {
+    const bases = Object.values(tier.perModelTokenBudgets).map(e => e?.basis);
+    if (bases.some(b => b === 'list-price-credit' || b === 'equal-rate')) return true;
+  }
+  const limits = tier.limits ?? {};
+  return Object.keys(limits).some(k => k.toLowerCase().includes('credit'));
+}
+
+function clampCacheAssumption(rate: number): number {
+  if (!Number.isFinite(rate) || rate < 0) return DEFAULT_CACHE_RATE;
+  // Deep-agent workloads rarely sustain > 95% cache hits; treat anything above as data noise.
+  return Math.min(rate, 0.95);
 }
 
 export function calculateAgentRequestCost(
@@ -430,11 +455,18 @@ export function computeApplesToApples(
       const resolved = resolveTierModelBudget(tier, model.name, model.id, planModelName);
       const rawBaseTokens = resolved.tokens || 0;
 
-      // Symmetric cache scaling: dynamically adjust subscription capacity with active cacheRate
+      // Cache scaling only applies to dollar-credit pools: the same monthly
+      // spend buys fewer tokens when turns are priced at lower cache-hit
+      // rates. Usage/request-metered quotas deliver fixed tokens regardless
+      // of the user's cache rate, so they are left unscaled (VULN-02).
+      const cacheScaleApplies = isDollarPoolTier(tier);
       const planAssumedCache = parsePlanCacheAssumption(tier);
-      const turnCostAssumed = calculateAgentRequestCost(model, planAssumedCache as CacheRate).costPerRequest;
-      const turnCostUser = calculateAgentRequestCost(model, cacheRate).costPerRequest;
-      const cacheScaleFactor = (turnCostAssumed > 0 && turnCostUser > 0) ? (turnCostAssumed / turnCostUser) : 1.0;
+      let cacheScaleFactor = 1.0;
+      if (cacheScaleApplies) {
+        const turnCostAssumed = calculateAgentRequestCost(model, planAssumedCache as CacheRate).costPerRequest;
+        const turnCostUser = calculateAgentRequestCost(model, cacheRate).costPerRequest;
+        cacheScaleFactor = (turnCostAssumed > 0 && turnCostUser > 0) ? (turnCostAssumed / turnCostUser) : 1.0;
+      }
 
       const baseTokens = Math.round(rawBaseTokens * cacheScaleFactor);
       const rawRequests = tierRawRequests(tier, baseTokens);
@@ -499,8 +531,18 @@ export function computeApplesToApples(
         if (tier.monthlyPrice > budget) continue;
 
         const rawBaseTokens = tier.estimatedTokenBudget?.estimatedMillionTokens || 0;
+        // Same dollar-pool gate as matched tiers so a plan never scales in
+        // opposite directions depending on model-name matching (VULN-08).
         const planAssumedCache = parsePlanCacheAssumption(tier);
-        const cacheScaleFactor = (1 - planAssumedCache * 0.8) / (1 - cacheRate * 0.8);
+        let cacheScaleFactor = 1.0;
+        if (isDollarPoolTier(tier)) {
+          const basisModel = cleanModels.find(m => detectModelLab(m) === (detectPlanLabs(plan, tier)[0] ?? 'all')) ?? cleanModels[0];
+          if (basisModel) {
+            const turnCostAssumed = calculateAgentRequestCost(basisModel, planAssumedCache as CacheRate).costPerRequest;
+            const turnCostUser = calculateAgentRequestCost(basisModel, cacheRate).costPerRequest;
+            cacheScaleFactor = (turnCostAssumed > 0 && turnCostUser > 0) ? (turnCostAssumed / turnCostUser) : 1.0;
+          }
+        }
         const baseTokens = Math.round(rawBaseTokens * (cacheScaleFactor > 0 ? cacheScaleFactor : 1.0));
         const rawRequests = tierRawRequests(tier, baseTokens);
         const vendorQuota = parseTierRequestLimit(tier.limits);
@@ -610,13 +652,26 @@ export function computeApplesToApples(
         ? `nearest-quality API match (CI ±${qualityGap.toFixed(1)})`
         : 'nearest available API match';
 
+      // Spend parity: a single-seat subscription spends only its tier price
+      // while the API leg spends the full budget. Surface the asymmetry
+      // whenever the API leg spends meaningfully more (VULN-09).
+      const subSpend = bestSubscription.monthlyCost;
+      const apiSpend = apiOption.monthlyCost;
+      const spendAsymmetry = apiSpend > subSpend * 1.25
+        ? ` Subscription spends $${subSpend.toFixed(0)}/mo vs $${apiSpend.toFixed(0)}/mo on the API leg${
+            isFinite(apiSpend / (subSpend || 1))
+              ? ` (${(apiSpend / (subSpend || 1)).toFixed(1)}x the spend — use Dave Mode or Mix & Match to equalize)`
+              : ''
+          }`
+        : '';
+
       if (subTokens >= apiTokens * 1.25) {
         const multiplier = Number((subTokens / (apiTokens || 1)).toFixed(1));
         arbitrageCallout = {
           winnerType: 'subscription',
           multiplier,
           headline: `Coding Subscription Wins for ${labName} (${multiplier}x Compute)`,
-          description: `${bestSubscription.planName} (${bestSubscription.tierName}) running ${bestSubscription.name} yields ~${formatMillionTokens(subTokens)} normalized tokens (~${bestSubscription.monthlyRequests.toLocaleString()} requests), beating direct ${apiOption.name} API (~${formatMillionTokens(apiTokens)} tokens) for $${budget}/mo. Compared as ${qualityNote}.`,
+          description: `${bestSubscription.planName} (${bestSubscription.tierName}) running ${bestSubscription.name} yields ~${formatMillionTokens(subTokens)} normalized tokens (~${bestSubscription.monthlyRequests.toLocaleString()} requests), beating direct ${apiOption.name} API (~${formatMillionTokens(apiTokens)} tokens) for $${budget}/mo. Compared as ${qualityNote}.${spendAsymmetry}`,
         };
       } else if (apiTokens >= subTokens * 1.25) {
         const multiplier = Number((apiTokens / (subTokens || 1)).toFixed(1));
@@ -624,14 +679,14 @@ export function computeApplesToApples(
           winnerType: 'api',
           multiplier,
           headline: `Direct API Wins for ${labName} (${multiplier}x Compute)`,
-          description: `Direct pay-per-token API for ${apiOption.name} delivers ~${formatMillionTokens(apiTokens)} tokens (~${apiOption.monthlyRequests.toLocaleString()} requests), outperforming coding subscriptions (~${formatMillionTokens(subTokens)} normalized tokens) for $${budget}/mo. Compared as ${qualityNote}.`,
+          description: `Direct pay-per-token API for ${apiOption.name} delivers ~${formatMillionTokens(apiTokens)} tokens (~${apiOption.monthlyRequests.toLocaleString()} requests), outperforming coding subscriptions (~${formatMillionTokens(subTokens)} normalized tokens) for $${budget}/mo. Compared as ${qualityNote}.${spendAsymmetry}`,
         };
       } else {
         arbitrageCallout = {
           winnerType: 'even',
           multiplier: 1.0,
           headline: `Balanced Value for ${labName}`,
-          description: `Both direct API (${apiOption.name}) and subscriptions (${bestSubscription.planName} running ${bestSubscription.name}) offer comparable compute near ${formatMillionTokens(subTokens)} tokens for $${budget}/mo. Compared as ${qualityNote}.`,
+          description: `Both direct API (${apiOption.name}) and subscriptions (${bestSubscription.planName} running ${bestSubscription.name}) offer comparable compute near ${formatMillionTokens(subTokens)} tokens for $${budget}/mo. Compared as ${qualityNote}.${spendAsymmetry}`,
         };
       }
     }
@@ -686,11 +741,13 @@ export function parseTierRequestLimit(limits?: Record<string, unknown>): number 
         return Math.round(parseFloat(kMixMatch[1]) * 1000);
       }
 
-      // 3. Weekly requests scaled x4: e.g. "12,000/week", "1,000 requests per 7-day"
+      // 3. Weekly requests scaled to a monthly equivalent (52/12 weeks per
+      // month). Weekly quotas usually coexist with undocumented monthly
+      // ceilings, so scale conservatively (VULN-12).
       const weekMatch = val.match(/(?:≈|~)?\s*([0-9]+(?:,[0-9]+)*(?:\.[0-9]+)?)\s*(?:agentic\s*)?requests?\s*(?:\/|\s*per\s*)\s*(?:week|7-day)/i) ||
                         val.match(/([0-9]+(?:,[0-9]+)*)\s*\/\s*week/i);
       if (weekMatch) {
-        return Math.round(parseFloat(weekMatch[1].replace(/,/g, '')) * 4);
+        return Math.round(parseFloat(weekMatch[1].replace(/,/g, '')) * (52 / 12));
       }
 
       // 4. Simple leading count: e.g. "50 agentic requests/mo", "50 requests"

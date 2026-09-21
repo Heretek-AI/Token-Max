@@ -136,3 +136,36 @@ describe('Throttle Simulation Engine', () => {
     }
   });
 });
+
+describe('Payg-overage simulation (VULN-03)', () => {
+  const getProfile = (id: string): ThrottleProfile => {
+    const found = THROTTLE_PROFILES.find((p) => p.id === id);
+    if (!found) throw new Error(`Profile ${id} not found`);
+    return found;
+  };
+
+  it('flags Google AI Pro as paid overage instead of infinitely smooth under saturating load', () => {
+    const googlePro = getProfile('google-ai-pro');
+    // 8 agents at rapid cadence burn through the 90-turn / 5h window fast.
+    const result = simulateSprintThrottle(googlePro, {
+      concurrency: 8,
+      sprintDurationHours: 4,
+      turnPace: 'rapid',
+    });
+
+    expect(result.status).toBe('overage');
+    expect(result.overageTurns).toBeGreaterThan(0);
+    expect(result.throttleReason).not.toBeNull();
+  });
+
+  it('never shows overage for plans that simply survive the sprint', () => {
+    const claudeCode = getProfile('claude-code-pro');
+    const result = simulateSprintThrottle(claudeCode, {
+      concurrency: 1,
+      sprintDurationHours: 2,
+      turnPace: 'deep',
+    });
+    expect(result.status).toBe('smooth');
+    expect(result.overageTurns).toBe(0);
+  });
+});

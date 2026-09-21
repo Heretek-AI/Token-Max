@@ -17,6 +17,19 @@ function normalizeStr(str) {
   return (str || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 }
 
+// Effort/variant suffixes AA appends to benchmark names ("Grok 4.6 (medium)").
+const EFFORT_SUFFIX_RE = /\s*\((?:low|medium|high|max|xhigh)\)\s*$/i;
+
+function normalizeBenchmarkName(name) {
+  return normalizeStr((name || '').replace(EFFORT_SUFFIX_RE, ''));
+}
+
+// Minimum fraction of catalog models that must receive benchmark data.
+// Below this the benchmark feed has drifted and the quality-filtered
+// leaderboards silently starve (VULN-11). Set ALLOW_LOW_BENCH_MATCH=1 to
+// bypass with a warning.
+const MIN_BENCH_MATCH_RATE = 0.25;
+
 function classifyModelTier(model) {
   const id = (model.id || '').toLowerCase();
   const name = (model.name || '').toLowerCase();
@@ -61,6 +74,8 @@ async function buildData() {
   const { inputTokens: agentIn, outputTokens: agentOut } = estimateConstants.agentRequest;
   const agentRequestTokens = agentIn + agentOut;
   const cacheRate = estimateConstants.defaultCacheRate;
+  const cacheWriteShare = estimateConstants.cacheWriteShare ?? 0;
+  const cacheWritePremium = estimateConstants.cacheWritePremium ?? 1.25;
 
   // 1. Load models
   let models = [];
@@ -81,18 +96,33 @@ async function buildData() {
 
   // 2. Merge benchmarks into models with enhanced matching
   let matchedCount = 0;
+  const fuzzyMatches = [];
+  const benchBySlug = new Map(benchmarks.map(b => [normalizeStr(b.slug || ''), b]));
+  const benchByName = new Map(benchmarks.map(b => [normalizeBenchmarkName(b.name), b]));
+
   for (const model of models) {
     const modelIdClean = model.id.split('/').pop() || '';
     const mIdNorm = normalizeStr(modelIdClean);
-    const mNameNorm = normalizeStr(model.name);
+    const mNameNorm = normalizeBenchmarkName(model.name);
 
-      const match = benchmarks.find(b => {
-        const bSlugClean = b.slug || '';
-        const bSlugNorm = normalizeStr(bSlugClean);
-        const bNameNorm = normalizeStr(b.name);
+    // Pass 1: exact normalized slug/name equality.
+    let match = benchmarks.find(b => {
+      const bSlugNorm = normalizeStr(b.slug || '');
+      const bNameNorm = normalizeBenchmarkName(b.name);
+      return bSlugNorm === mIdNorm || bNameNorm === mNameNorm;
+    });
 
-        return bSlugNorm === mIdNorm || bNameNorm === mNameNorm;
-      });
+    // Pass 2 (VULN-11): effort-suffix-stripped fuzzy match so "Grok 4.6 (medium)"
+    // still matches "grok-4.6" instead of silently starving the leaderboard.
+    if (!match && benchmarks.length > 0) {
+      match =
+        benchBySlug.get(mIdNorm) ||
+        (mIdNorm.length >= 5
+          ? [...benchBySlug.entries()].find(([slug]) => slug.startsWith(mIdNorm) || mIdNorm.startsWith(slug) && slug.length >= 5)?.[1]
+          : undefined) ||
+        benchByName.get(mNameNorm);
+      if (match) fuzzyMatches.push(`${model.id} -> ${match.name ?? match.slug}`);
+    }
 
     if (match && match.evaluations) {
       matchedCount++;
@@ -114,19 +144,24 @@ async function buildData() {
       model.benchmarkSource = 'openrouter';
     }
 
-    // Cache pricing: never fabricate a discount. Use the real cachedInput from
-    // the upstream fetch; unknown cache prices are treated as no caching.
-    const inputPrice = model.pricing?.input || 0;
-    const outputPrice = model.pricing?.output || 0;
-    const cachedInput = model.pricing?.cachedInput;
-
     // Standard Agent Request from the shared estimate constants (default
     // 20K input at 75% cache + 1K output). When no cache price is known,
     // charge full input price for cached tokens (conservative).
+    // Amortized cache-write share (VULN-14): keep in lockstep with
+    // scripts/fetch-models.mjs so both agents of record agree.
+    const inputPrice = model.pricing?.input || 0;
+    const outputPrice = model.pricing?.output || 0;
+    const cachedInput = model.pricing?.cachedInput;
+    const cachedInputWrite = model.pricing?.cachedInputWrite;
+
     const freshIn = agentIn * (1 - cacheRate);
     const cachedIn = agentIn * cacheRate;
     const cachePrice = cachedInput !== null && cachedInput !== undefined ? cachedInput : inputPrice;
-    const agentReqCost = (freshIn * inputPrice / 1e6) + (cachedIn * cachePrice / 1e6) + (agentOut * outputPrice / 1e6);
+    const writePrice = cachedInputWrite !== null && cachedInputWrite !== undefined ? cachedInputWrite : inputPrice * cacheWritePremium;
+    const agentReqCost = (freshIn * inputPrice / 1e6) +
+      (cachedIn * (1 - cacheWriteShare) * cachePrice / 1e6) +
+      (cachedIn * cacheWriteShare * writePrice / 1e6) +
+      (agentOut * outputPrice / 1e6);
     model.agentBlendedCost = parseFloat(((agentReqCost / agentRequestTokens) * 1e6).toFixed(4));
 
     // Assign tier
@@ -151,7 +186,21 @@ async function buildData() {
     }
   }
 
-  console.log(`Matched ${matchedCount} models with Artificial Analysis benchmarks.`);
+  console.log(`Matched ${matchedCount} models with Artificial Analysis benchmarks (${fuzzyMatches.length} via fuzzy fallback).`);
+  if (fuzzyMatches.length > 0) {
+    for (const f of fuzzyMatches.slice(0, 10)) console.log(`  fuzzy: ${f}`);
+  }
+
+  // Match-rate floor (VULN-11): a drifted benchmark feed must not silently
+  // starve the quality-filtered leaderboards of coding indices.
+  if (models.length > 0 && benchmarks.length > 0 && matchedCount / models.length < MIN_BENCH_MATCH_RATE) {
+    const msg = `Benchmark match rate ${matchedCount}/${models.length} (${(matchedCount / models.length * 100).toFixed(1)}%) is below the ${MIN_BENCH_MATCH_RATE * 100}% floor — the benchmark feed has likely drifted. Fix the matching or set ALLOW_LOW_BENCH_MATCH=1 to override.`;
+    if (process.env.ALLOW_LOW_BENCH_MATCH === '1') {
+      console.warn(`WARNING: ${msg}`);
+    } else {
+      throw new Error(msg);
+    }
+  }
 
   // Authoritative series re-derive + unbenchmarked flag + age/hub re-assertion.
   // models.json may be stale from an older run; re-enforce the invariants here.

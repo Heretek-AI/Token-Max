@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { CodingPlan, NormalizedModel, CacheRate, WorkloadItem } from '../../lib/types';
 import { getEffectiveCacheMultiplier, calculatePoolDrain, resolveTierModelBudget, QUALITY } from '../../lib/pricing';
-import { DEFAULT_CACHE_RATE } from '../../lib/estimate-constants';
+import { DEFAULT_CACHE_RATE, SESSION_CACHE_BUST_RESIDUAL } from '../../lib/estimate-constants';
 import {
   Workflow,
   Sparkles,
@@ -111,7 +111,7 @@ function sessionCost(
   const baseFresh = Math.min(sessionInputSum, finalContextTokens);
   const reReadTokens = Math.max(0, sessionInputSum - baseFresh);
   const uncachedOverhead = Math.max(0, 1 - cacheRate);
-  const freshInput = baseFresh + reReadTokens * uncachedOverhead * 0.15;
+  const freshInput = baseFresh + reReadTokens * uncachedOverhead * SESSION_CACHE_BUST_RESIDUAL;
   const cachedInput = Math.max(0, sessionInputSum - freshInput);
 
   return (

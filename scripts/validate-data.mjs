@@ -185,6 +185,12 @@ async function validateModels(models) {
     'GLM', 'Kimi', 'Mistral', 'MiMo', 'other',
   ]);
 
+  // Price sanity bounds (VULN-01): structural validation alone let an
+  // upstream regression or a poisoned fetch auto-deploy absurd yields.
+  // Sane ceiling: no per-million list price above $1,000 in/$2,000 out.
+  const MAX_INPUT_PER_M = 1_000;
+  const MAX_OUTPUT_PER_M = 2_000;
+
   const SERIES_CAP = 3;
   const AGE_WINDOW_DAYS = 365;
   const cutoffUnix = Math.floor(Date.now() / 1000) - AGE_WINDOW_DAYS * 86400;
@@ -195,6 +201,31 @@ async function validateModels(models) {
     if (!m || typeof m !== 'object') {
       err(`${where}: not an object`);
       continue;
+    }
+
+    // --- price plausibility bounds (VULN-01) ---
+    const pricing = m.pricing ?? {};
+    const inP = pricing.input;
+    const outP = pricing.output;
+    if (typeof inP !== 'number' || !Number.isFinite(inP) || inP < 0) {
+      err(`${where}: input price must be a finite non-negative number, got ${inP}`);
+    } else if (!m.isFree && !m.isBatch && inP === 0) {
+      err(`${where}: non-free model has $0 input price (upstream data regression?)`);
+    } else if (inP > MAX_INPUT_PER_M) {
+      err(`${where}: input price $${inP}/M exceeds sanity ceiling $${MAX_INPUT_PER_M}/M`);
+    }
+    if (typeof outP !== 'number' || !Number.isFinite(outP) || outP < 0) {
+      err(`${where}: output price must be a finite non-negative number, got ${outP}`);
+    } else if (!m.isFree && !m.isBatch && outP === 0) {
+      err(`${where}: non-free model has $0 output price (upstream data regression?)`);
+    } else if (outP > MAX_OUTPUT_PER_M) {
+      err(`${where}: output price $${outP}/M exceeds sanity ceiling $${MAX_OUTPUT_PER_M}/M`);
+    }
+    if (pricing.cachedInput != null && (!Number.isFinite(pricing.cachedInput) || pricing.cachedInput < 0)) {
+      err(`${where}: cachedInput must be null or a finite non-negative number`);
+    }
+    if (typeof m.blendedCost === 'number' && m.blendedCost < 0) {
+      err(`${where}: blendedCost must not be negative`);
     }
 
     if (typeof m.series !== 'string' || m.series.length === 0) {

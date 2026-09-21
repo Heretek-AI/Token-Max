@@ -56,6 +56,10 @@ export interface ReasoningTurnCost {
   totalCost: number;
   reasoningTokens: number;
   inflationMultiplier: number; // totalCost / baseCost
+  /** True when input + reasoning + output fit the model's context and output caps. */
+  feasible: boolean;
+  /** Human-readable reason when infeasible, else null. */
+  infeasibilityReason: string | null;
 }
 
 export interface MonthlyReasoningWorkload {
@@ -214,6 +218,22 @@ export function calculateReasoningCost(
   const totalCost = baseCost + reasoningCost;
   const inflationMultiplier = baseCost > 0 ? totalCost / baseCost : 1.0;
 
+  // Feasibility guard (VULN-06): input + reasoning + output must fit inside
+  // the model's context window, and reasoning + output must fit its max
+  // completion cap. Unknown caps (0) are treated as feasible.
+  let feasible = true;
+  let infeasibilityReason: string | null = null;
+  const requiredContext = AGENT_REQUEST_INPUT_TOKENS + reasoningTokens + AGENT_REQUEST_OUTPUT_TOKENS;
+  if (model.contextWindow > 0 && requiredContext > model.contextWindow) {
+    feasible = false;
+    infeasibilityReason = `${effortSpec.label} reasoning needs ${requiredContext.toLocaleString()} context tokens but ${model.name} only supports ${model.contextWindow.toLocaleString()}.`;
+  }
+  const requiredOutput = reasoningTokens + AGENT_REQUEST_OUTPUT_TOKENS;
+  if (feasible && model.maxOutput > 0 && requiredOutput > model.maxOutput) {
+    feasible = false;
+    infeasibilityReason = `${effortSpec.label} reasoning generates ${requiredOutput.toLocaleString()} completion tokens but ${model.name} caps output at ${model.maxOutput.toLocaleString()}.`;
+  }
+
   return {
     baseCost,
     inputCost,
@@ -222,6 +242,8 @@ export function calculateReasoningCost(
     totalCost,
     reasoningTokens,
     inflationMultiplier: Number(inflationMultiplier.toFixed(2)),
+    feasible,
+    infeasibilityReason,
   };
 }
 

@@ -58,16 +58,21 @@ describe('classifyTraining', () => {
 });
 
 describe('getIndemnityInfo', () => {
-  it('labels boolean true as full indemnity', () => {
-    expect(getIndemnityInfo(plan({ ipIndemnity: true })).label).toBe('Full Indemnity');
+  it('never labels boolean true as unconditional "Full Indemnity" (VULN-10)', () => {
+    const info = getIndemnityInfo(plan({ ipIndemnity: true }));
+    expect(info.label).toBe('Indemnity Offered');
+    expect(info.tone).toBe('warning');
+    expect(info.description).toContain('carve-outs');
   });
 
   it('labels z-ai-style strings as enterprise only', () => {
     expect(getIndemnityInfo(plan({ ipIndemnity: 'Enterprise Team contracts only' })).label).toBe('Enterprise Only');
   });
 
-  it('labels an unknown string as unclear rather than none', () => {
-    expect(getIndemnityInfo(plan({ ipIndemnity: 'Full indemnity on all paid plans' })).label).toBe('Full Indemnity');
+  it('flags indemnity strings with a verify-scope caveat rather than promising full coverage', () => {
+    const info = getIndemnityInfo(plan({ ipIndemnity: 'Full indemnity on all paid plans' }));
+    expect(info.label).toBe('Indemnity Stated (verify scope)');
+    expect(info.tone).toBe('warning');
   });
 });
 

@@ -6,8 +6,10 @@ import { LoadingSpinner } from '../components/shared/LoadingSpinner';
 import {
   HARDWARE_PRESETS,
   computeHardwareEconomics,
+  SALVAGE_CLAMP_MAX,
   type HardwarePreset,
 } from '../lib/hardware';
+import { numParam } from '../lib/params';
 import { formatPrice } from '../lib/pricing';
 import {
   Cpu,
@@ -24,6 +26,7 @@ import {
   Layers,
   Sparkles,
 } from 'lucide-react';
+
 import {
   ResponsiveContainer,
   LineChart,
@@ -43,13 +46,13 @@ export default function HardwareBreakeven() {
 
   // Read initial params
   const initialPresetId = searchParams.get('preset') || 'mac-mini-m4-pro-64gb';
-  const initialAmortization = Math.min(48, Math.max(6, Number(searchParams.get('amortization')) || 24));
-  const initialSalvage = Math.min(50, Math.max(0, Number(searchParams.get('salvage')) || 20));
-  const initialKwhCost = Math.min(1.0, Math.max(0.01, Number(searchParams.get('kwh')) || 0.16));
-  const initialDailyInference = Math.min(24, Math.max(1, Number(searchParams.get('infHours')) || 3));
-  const initialDailyIdle = Math.min(24, Math.max(0, Number(searchParams.get('idleHours')) || 9));
-  const initialVolumeM = Math.min(100, Math.max(0.5, Number(searchParams.get('volume')) || 6));
-  const initialInputRatio = Math.min(0.95, Math.max(0.5, Number(searchParams.get('inputRatio')) || 0.8));
+  const initialAmortization = numParam(searchParams.get('amortization'), 24, 6, 48);
+  const initialSalvage = numParam(searchParams.get('salvage'), 20, 0, SALVAGE_CLAMP_MAX);
+  const initialKwhCost = numParam(searchParams.get('kwh'), 0.16, 0.01, 1.0);
+  const initialDailyInference = numParam(searchParams.get('infHours'), 3, 1, 24);
+  const initialDailyIdle = numParam(searchParams.get('idleHours'), 9, 0, 24);
+  const initialVolumeM = numParam(searchParams.get('volume'), 6, 0.5, 100);
+  const initialInputRatio = numParam(searchParams.get('inputRatio'), 0.8, 0.5, 0.95);
   const initialApiId = searchParams.get('api') || 'anthropic/claude-3.7-sonnet';
   const initialPlanId = searchParams.get('plan') || 'cursor-pro';
 
@@ -573,6 +576,28 @@ export default function HardwareBreakeven() {
               </div>
             </div>
           </div>
+
+          {/* Workload feasibility warning (VULN-04) */}
+          {economics.infeasibleWorkload && (
+            <div className="p-3 rounded-lg bg-amber-950/50 border border-amber-700/40 text-xs text-amber-200 flex items-start gap-2">
+              <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              <div>
+                <span className="font-bold">Infeasible workload for this duty cycle.</span> Generating{' '}
+                {monthlyTokenVolumeM}M tokens/mo needs ~{economics.requiredInferenceHours}h of pure decode at{' '}
+                {currentPreset.recommendedModels[0]?.tokensPerSec ?? 0} tok/s, but your configured schedule
+                allows at most {economics.feasibleMonthlyVolumeM}M tok/mo ({dailyInferenceHours}h/day × 30.4).
+                Either raise daily inference hours, lower the volume target, or pick a faster preset —
+                the crossover verdict above cannot be physically realized at this setting.
+              </div>
+            </div>
+          )}
+          {!economics.infeasibleWorkload && (
+            <p className="text-[11px] font-mono text-steel-500">
+              Feasibility check: {economics.requiredInferenceHours}h decode required vs{' '}
+              {(dailyInferenceHours * 30.4375).toFixed(1)}h available — workload fits the configured duty cycle.
+              Payback is quoted against full CapEx; headline savings use the amortized basis.
+            </p>
+          )}
 
           {/* Interactive Chart Container */}
           <div className="border border-steel-700/60 rounded-xl p-5 bg-surface space-y-4">

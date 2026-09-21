@@ -48,7 +48,8 @@ const TRAINS_PHRASES = [
   'used for model improvement',
   'interactions are recorded and used',
   'may be used for model improvement',
-  'no guarantee',
+  // 'no guarantee' removed (VULN-10): hedges about uptime/confidentiality are
+  // not evidence that a vendor trains on customer data.
 ];
 
 const OPT_OUT_PHRASES = ['opt-out', 'opt out', 'privacy mode', 'training opt-out', 'in-settings opt-out'];
@@ -152,9 +153,13 @@ export function getIndemnityInfo(plan: CodingPlan): IndemnityInfo {
   const ip = plan.ipIndemnity;
   if (ip === true) {
     return {
-      label: 'Full Indemnity',
-      tone: 'success',
-      description: 'Full legal IP indemnification covered for copyright infringement on generated code.',
+      // VULN-10: a boolean cannot establish unconditional coverage. Real
+      // indemnities carry carve-outs (modification, combination, breach of
+      // usage policy) and liability caps — never present this as "Full".
+      label: 'Indemnity Offered',
+      tone: 'warning',
+      description:
+        'Vendor advertises IP indemnification. Scope, carve-outs and liability caps are defined in the vendor’s legal terms — verify before relying on this for compliance.',
     };
   }
   if (typeof ip === 'string') {
@@ -163,7 +168,11 @@ export function getIndemnityInfo(plan: CodingPlan): IndemnityInfo {
       return { label: 'Enterprise Only', tone: 'warning', description: ip };
     }
     if (lower.includes('full') || lower.includes('all plans')) {
-      return { label: 'Full Indemnity', tone: 'success', description: ip };
+      return {
+        label: 'Indemnity Stated (verify scope)',
+        tone: 'warning',
+        description: ip,
+      };
     }
     return { label: 'Unclear', tone: 'muted', description: ip };
   }
@@ -182,7 +191,10 @@ export interface GotchaClassification {
 }
 
 const RESTRICTION_WORDS = ['ban', 'banned', 'suspend', 'suspension', 'bulk', 'multiple accounts', 'multi-account', 'account sharing', 'unauthorized', 'tool-only', 'lock-in', 'error 1113', 'circumvent', 'breach', 'prohibited'];
-const PRIVACY_WORDS = ['train', 'training', 'privacy', 'telemetry', 'human review', 'data retention', 'zero retention'];
+/** Strong privacy signals that warrant CRITICAL severity (VULN-10). */
+const PRIVACY_STRONG_WORDS = ['train on', 'trains on', 'trained on', 'used for training', 'used to train', 'human review', 'data retention', 'zero retention', 'not used for training'];
+/** Weak privacy mentions (e.g. "training" inside a caching sentence) only justify a warning. */
+const PRIVACY_WEAK_WORDS = ['train', 'training', 'privacy', 'telemetry'];
 const LEGAL_WORDS = ['indemnity', 'indemnification', 'copyright', 'liability', 'ip ', 'legal'];
 const BILLING_WORDS = ['bill', 'billing', 'fee', 'fees', 'charge', 'overage', 'refund', 'refunds', 'cost', 'expire', 'expires', 'rate', '$', 'price', 'non-refundable'];
 const LIMIT_WORDS = ['limit', 'limits', 'throttle', 'cooldown', 'hard limit', 'quota', 'cap', 'resets', 'reset'];
@@ -200,8 +212,13 @@ export function classifyGotcha(text: string): GotchaClassification {
   if (matchesWord(lower, RESTRICTION_WORDS)) {
     return { category: 'restrictions', severity: 'critical' };
   }
-  if (matchesWord(lower, PRIVACY_WORDS)) {
+  if (matchesWord(lower, PRIVACY_STRONG_WORDS)) {
     return { category: 'data-privacy', severity: 'critical' };
+  }
+  if (matchesWord(lower, PRIVACY_WEAK_WORDS)) {
+    // Weak signal: the word "training"/"privacy" appears without an actual
+    // training-on-data claim (e.g. "Privacy mode keeps code out of training").
+    return { category: 'data-privacy', severity: 'warning' };
   }
   if (matchesWord(lower, LEGAL_WORDS)) {
     return { category: 'ip-legal', severity: 'warning' };

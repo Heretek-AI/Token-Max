@@ -65,6 +65,8 @@ export interface SimulationResult {
   fastTurnsCompleted: number;
   slowTurnsCompleted: number;
   blockedTurns: number;
+  /** Turns billed as paid overage when a payg-overage profile crossed its quota ceiling. */
+  overageTurns: number;
   effectiveThroughputPercent: number;
   headroomScore: number; // 0 to 100
   timeline: SimulationTimelinePoint[];
@@ -77,6 +79,9 @@ function formatMinutesToHours(minutes: number): string {
   if (m === 0) return `${h}h`;
   return `${h}h ${m}m`;
 }
+
+/** Severity rank so the sprint's overall status always reflects the worst outcome. */
+const STATUS_SEVERITY: Record<ThrottleStatus, number> = { smooth: 0, queued: 1, overage: 2, blocked: 3 };
 
 /**
  * Runs a discrete time-step simulation (step = 5 minutes) of an intensive coding sprint
@@ -118,6 +123,11 @@ export function simulateSprintThrottle(
   let slowTurnsCompleted = 0;
   let blockedTurns = 0;
   let cumulativeTurns = 0;
+  // Deferred turns from prior queue delays (VULN-12): a queued step cannot
+  // magically complete its full turn allocation; the backlog spills into
+  // later steps and reduces throughput realistically.
+  let deferredTurns = 0;
+  let overageTurns = 0;
 
   const timeline: SimulationTimelinePoint[] = [
     {
@@ -134,9 +144,27 @@ export function simulateSprintThrottle(
   const hasConcurrencyViolation = safeConcurrency > profile.maxConcurrency;
 
   for (let currentMinute = stepMinutes; currentMinute <= totalMinutes; currentMinute += stepMinutes) {
-    const turnsAttempted = turnsPerStep;
+    // Queue-delay backlog reduces the turns actually executable this step.
+    // A 30s/turn slow-queue delay over a 5-minute step caps the step at
+    // floor(step / delay) full-speed-equivalent allocations; the deficit is
+    // deferred, not silently completed (VULN-12).
+    let turnsAttempted = turnsPerStep;
     let stepStatus: ThrottleStatus = 'smooth';
     let stepDelay = 0;
+
+    if (deferredTurns > 0) {
+      if (profile.exhaustionBehavior === 'hard-block') {
+        // Blocked turns never recover; drop the backlog.
+        deferredTurns = 0;
+      } else if (profile.slowQueueDelaySec > 0) {
+        const executableRatio = Math.min(1, (stepMinutes * 60) / (profile.slowQueueDelaySec * turnsPerStepPerAgent * safeConcurrency * safeConcurrency));
+        const executable = Math.max(1, Math.floor(turnsPerStep * executableRatio));
+        turnsAttempted = Math.min(turnsPerStep, executable);
+        deferredTurns = Math.max(0, deferredTurns - (turnsPerStep - turnsAttempted));
+        stepStatus = 'queued';
+        stepDelay = profile.slowQueueDelaySec;
+      }
+    }
 
     // 1. Check instantaneous concurrency
     if (hasConcurrencyViolation) {
@@ -176,6 +204,12 @@ export function simulateSprintThrottle(
           if (!firstThrottleReason) {
             firstThrottleReason = `Rolling ${profile.rollingWindowHours}h window exceeded: degraded to slow queue`;
           }
+        } else if (profile.exhaustionBehavior === 'payg-overage') {
+          // PAYG profiles never block; excess turns bill as paid overage (VULN-03).
+          stepStatus = 'overage';
+          if (!firstThrottleReason) {
+            firstThrottleReason = `Rolling ${profile.rollingWindowHours}h window exceeded: excess turns continue as paid overage`;
+          }
         }
       }
     }
@@ -194,6 +228,11 @@ export function simulateSprintThrottle(
           if (!firstThrottleReason) {
             firstThrottleReason = `Monthly fast pool exhausted (${profile.monthlyFastRequests} reqs): sprint blocked`;
           }
+        } else if (profile.exhaustionBehavior === 'payg-overage') {
+          if (!firstThrottleReason) {
+            firstThrottleReason = `Monthly pool exhausted (${profile.monthlyFastRequests} reqs): excess turns continue as paid overage`;
+          }
+          stepStatus = 'overage';
         }
       }
     }
@@ -201,25 +240,53 @@ export function simulateSprintThrottle(
     // Process turns for this step
     if (stepStatus === 'blocked') {
       blockedTurns += turnsAttempted;
-      if (firstThrottleMinute === null) {
-        firstThrottleMinute = currentMinute;
+      if (STATUS_SEVERITY['blocked'] > STATUS_SEVERITY[overallStatus]) {
         overallStatus = 'blocked';
       }
-    } else if (stepStatus === 'queued') {
-      slowTurnsCompleted += turnsAttempted;
+      if (firstThrottleMinute === null) {
+        firstThrottleMinute = currentMinute;
+      }
+    } else if (stepStatus === 'overage') {
+      // Served beyond quota — turns complete but bill as paid overage (VULN-03).
+      overageTurns += turnsAttempted;
       cumulativeTurns += turnsAttempted;
       rollingWindowHistory.push({ minute: currentMinute, turns: turnsAttempted });
       if (remainingMonthlyFast !== null) {
         remainingMonthlyFast = Math.max(0, remainingMonthlyFast - turnsAttempted);
       }
+      if (STATUS_SEVERITY['overage'] > STATUS_SEVERITY[overallStatus]) {
+        overallStatus = 'overage';
+      }
       if (firstThrottleMinute === null) {
         firstThrottleMinute = currentMinute;
-        overallStatus = overallStatus === 'blocked' ? 'blocked' : 'queued';
+      }
+    } else if (stepStatus === 'queued') {
+      // Queue degradation defers the un-executable share of this step's turns.
+      const deferred = Math.max(0, turnsAttempted - Math.max(1, Math.floor(turnsPerStep * 0.7)));
+      deferredTurns += deferred;
+      slowTurnsCompleted += turnsAttempted;
+      cumulativeTurns += turnsAttempted;
+      if (profile.exhaustionBehavior === 'payg-overage') {
+        overageTurns += turnsAttempted;
+      }
+      rollingWindowHistory.push({ minute: currentMinute, turns: turnsAttempted });
+      if (remainingMonthlyFast !== null) {
+        remainingMonthlyFast = Math.max(0, remainingMonthlyFast - turnsAttempted);
+      }
+      if (STATUS_SEVERITY['queued'] > STATUS_SEVERITY[overallStatus]) {
+        overallStatus = 'queued';
+      }
+      if (firstThrottleMinute === null) {
+        firstThrottleMinute = currentMinute;
       }
     } else {
       // Smooth step
       fastTurnsCompleted += turnsAttempted;
       cumulativeTurns += turnsAttempted;
+      if (profile.exhaustionBehavior === 'payg-overage' && firstThrottleReason !== null) {
+        // Once a PAYG ceiling was crossed, all subsequent turns bill as overage.
+        overageTurns += turnsAttempted;
+      }
       rollingWindowHistory.push({ minute: currentMinute, turns: turnsAttempted });
       if (remainingMonthlyFast !== null) {
         remainingMonthlyFast = Math.max(0, remainingMonthlyFast - turnsAttempted);
@@ -278,6 +345,7 @@ export function simulateSprintThrottle(
     blockedTurns: Math.round(blockedTurns),
     effectiveThroughputPercent: Math.min(100, Math.max(0, effectiveThroughputPercent)),
     headroomScore: Math.min(100, Math.max(0, headroomScore)),
+    overageTurns: Math.round(overageTurns),
     timeline,
   };
 }
@@ -289,12 +357,12 @@ export function simulateAllProfiles(params: SprintSimulationParams): SimulationR
   const results = THROTTLE_PROFILES.map((profile) => simulateSprintThrottle(profile, params));
 
   // Sort order:
-  // 1. Smooth before Queued before Blocked
+  // 1. Smooth before Queued before Overage before Blocked
   // 2. Higher headroom score
   // 3. Longer survival hours
   // 4. Lower monthly price
   return results.sort((a, b) => {
-    const statusWeight = { smooth: 3, queued: 2, blocked: 1 };
+    const statusWeight = { smooth: 4, queued: 3, overage: 2, blocked: 1 };
     if (statusWeight[a.status] !== statusWeight[b.status]) {
       return statusWeight[b.status] - statusWeight[a.status];
     }

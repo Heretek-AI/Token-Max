@@ -34,7 +34,7 @@ export interface HardwareEconomicsInputs {
   presetId: string;
   customCapexUsd?: number;
   amortizationMonths: number; // e.g. 12, 24, 36, 48
-  salvageValuePercent: number; // e.g. 0 to 40%
+  salvageValuePercent: number; // e.g. 0 to 50% (single clamp constant shared with the UI slider)
   electricityKwhCost: number; // default $0.16/kWh
   dailyInferenceHours: number; // default 3 hrs
   dailyIdleHours: number; // default 9 hrs
@@ -73,7 +73,16 @@ export interface HardwareEconomicsResult {
   paybackMonthsVsPlan: number | null;
   crossoverSeries: CrossoverPoint[];
   cumulativeTcoSeries: CumulativePoint[];
+  /** Hours of pure decode needed per month to generate the requested volume on the preset's flagship model. */
+  requiredInferenceHours: number;
+  /** True when requiredInferenceHours exceeds the configured daily inference budget. */
+  infeasibleWorkload: boolean;
+  /** Largest monthly volume (M tokens) the configured duty cycle can physically generate. */
+  feasibleMonthlyVolumeM: number;
 }
+
+/** Single salvage-value clamp shared by the engine and the UI slider (VULN-14). */
+export const SALVAGE_CLAMP_MAX = 50;
 
 export const HARDWARE_PRESETS: HardwarePreset[] = [
   {
@@ -381,7 +390,7 @@ export function computeHardwareEconomics(inputs: HardwareEconomicsInputs): Hardw
   const capex = inputs.customCapexUsd ?? preset.capexUsd;
 
   // 1. Amortization with salvage value
-  const netDepreciationCapEx = capex * (1 - Math.max(0, Math.min(60, inputs.salvageValuePercent)) / 100);
+  const netDepreciationCapEx = capex * (1 - Math.max(0, Math.min(SALVAGE_CLAMP_MAX, inputs.salvageValuePercent)) / 100);
   const months = Math.max(1, inputs.amortizationMonths);
   const monthlyAmortizationCost = netDepreciationCapEx / months;
 
@@ -416,24 +425,35 @@ export function computeHardwareEconomics(inputs: HardwareEconomicsInputs): Hardw
   // volumeM = totalMonthlyLocalCost / blendedApiRatePerM
   const crossoverVolumeM = blendedApiRatePerM > 0 ? totalMonthlyLocalCost / blendedApiRatePerM : 0;
 
-  // 7. Payback period in months
-  // Capital outlay / monthly operational savings vs cloud
-  // Monthly cloud spend avoided - ongoing monthly electricity cost = net cash flow benefit
-  const netMonthlyBenefitVsApi = monthlyCloudApiCost - monthlyElectricityCost;
+  // 7. Physical feasibility: generating the requested volume requires
+  // volume / throughput seconds of pure decode (VULN-04). Compare against
+  // the configured daily inference budget so infeasible workloads are
+  // flagged instead of silently "winning" the breakeven verdict.
+  const decodeTokensPerSec = preset.recommendedModels[0]?.tokensPerSec ?? 1;
+  const requiredInferenceHours = (Math.max(0, inputs.monthlyTokenVolumeM) * 1e6) / (decodeTokensPerSec * 3600);
+  const availableInferenceHours = Math.max(0, inputs.dailyInferenceHours) * 30.4375;
+  const feasibleMonthlyVolumeM = (availableInferenceHours * decodeTokensPerSec * 3600) / 1e6;
+  const infeasibleWorkload = requiredInferenceHours > availableInferenceHours * 1.001;
+
+  // 8. Payback period in months
+  // Capital outlay / monthly operational savings vs cloud. Both payback and
+  // headline alpha use the same amortized cost basis so the two metrics can
+  // never contradict each other (VULN-04).
+  const netMonthlyBenefitVsApi = monthlyCloudApiCost - monthlyElectricityCost - monthlyAmortizationCost;
   let paybackMonthsVsApi: number | null = null;
   if (netMonthlyBenefitVsApi > 0) {
-    paybackMonthsVsApi = capex / netMonthlyBenefitVsApi;
+    paybackMonthsVsApi = capex / (monthlyCloudApiCost - monthlyElectricityCost);
   }
 
   let paybackMonthsVsPlan: number | null = null;
   if (monthlyCloudPlanCost !== null) {
-    const netMonthlyBenefitVsPlan = monthlyCloudPlanCost - monthlyElectricityCost;
-    if (netMonthlyBenefitVsPlan > 0) {
-      paybackMonthsVsPlan = capex / netMonthlyBenefitVsPlan;
+    const grossMonthlyBenefitVsPlan = monthlyCloudPlanCost - monthlyElectricityCost;
+    if (grossMonthlyBenefitVsPlan > 0) {
+      paybackMonthsVsPlan = capex / grossMonthlyBenefitVsPlan;
     }
   }
 
-  // 8. Generate Crossover Volume series (0 to 30M tokens in steps)
+  // 10. Generate Crossover Volume series (0 to 30M tokens in steps)
   const crossoverSeries: CrossoverPoint[] = [];
   const maxVolume = Math.max(30, Math.ceil(Math.max(crossoverVolumeM * 1.5, inputs.monthlyTokenVolumeM * 1.5)));
   const steps = 15;
@@ -450,7 +470,7 @@ export function computeHardwareEconomics(inputs: HardwareEconomicsInputs): Hardw
     });
   }
 
-  // 9. Generate Cumulative TCO over 36 months
+  // 11. Generate Cumulative TCO over 36 months
   const cumulativeTcoSeries: CumulativePoint[] = [];
   for (let m = 1; m <= 36; m++) {
     // Local cumulative: Capex upfront + monthly electricity
@@ -480,5 +500,8 @@ export function computeHardwareEconomics(inputs: HardwareEconomicsInputs): Hardw
     paybackMonthsVsPlan: paybackMonthsVsPlan !== null ? Number(paybackMonthsVsPlan.toFixed(1)) : null,
     crossoverSeries,
     cumulativeTcoSeries,
+    requiredInferenceHours: Number(requiredInferenceHours.toFixed(1)),
+    infeasibleWorkload,
+    feasibleMonthlyVolumeM: Number(feasibleMonthlyVolumeM.toFixed(1)),
   };
 }

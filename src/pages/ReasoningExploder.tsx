@@ -8,6 +8,7 @@ import {
   calculateReasoningCost,
   calculateMonthlyReasoningWorkload,
   type ReasoningEffort,
+  type ReasoningTurnCost,
 } from '../lib/reasoning';
 import type { CacheRate } from '../lib/types';
 import { formatPrice } from '../lib/pricing';
@@ -108,6 +109,16 @@ export default function ReasoningExploder() {
     if (!activeModel) return null;
     return calculateMonthlyReasoningWorkload(activeModel, turns, cacheRate, effort);
   }, [activeModel, turns, cacheRate, effort]);
+
+  // Feasibility per effort level for the active model (VULN-06)
+  const effortFeasibility = useMemo(() => {
+    if (!activeModel) return null;
+    const map = {} as Record<ReasoningEffort, ReasoningTurnCost>;
+    for (const eKey of ['off', 'low', 'medium', 'high', 'max'] as ReasoningEffort[]) {
+      map[eKey] = calculateReasoningCost(activeModel, cacheRate, eKey);
+    }
+    return map;
+  }, [activeModel, cacheRate]);
 
   // Popular reasoning benchmark models for side-by-side comparison
   const comparisonModels = useMemo(() => {
@@ -215,22 +226,38 @@ export default function ReasoningExploder() {
           {(['off', 'low', 'medium', 'high', 'max'] as ReasoningEffort[]).map((eKey) => {
             const spec = REASONING_EFFORT_SPECS[eKey];
             const isActive = effort === eKey;
+            const infeasible = effortFeasibility != null && !effortFeasibility[eKey].feasible;
+            const infeasibleTitle = effortFeasibility?.[eKey].infeasibilityReason ?? '';
             return (
               <button
                 key={eKey}
-                onClick={() => handleEffortChange(eKey)}
+                onClick={() => { if (!infeasible) handleEffortChange(eKey); }}
+                disabled={infeasible}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-all ${
-                  isActive
+                  infeasible
+                    ? 'border-steel-800 bg-void-950/60 text-steel-600 line-through cursor-not-allowed'
+                    : isActive
                     ? 'border-blood-500/80 bg-blood-950/60 text-blood-200 shadow-[0_0_12px_hsl(0_70%_40%_/0.25)]'
                     : 'border-steel-700/60 bg-void-950/40 text-steel-300 hover:border-steel-500 hover:text-text'
                 }`}
-                title={spec.description}
+                title={infeasible ? `Infeasible: ${infeasibleTitle}` : spec.description}
               >
                 {spec.label}
               </button>
             );
           })}
         </div>
+
+        {/* Infeasible effort warning (VULN-06) */}
+        {effortFeasibility && !effortFeasibility[effort].feasible && (
+          <div className="mt-3 p-3 rounded-lg bg-amber-950/50 border border-amber-700/40 text-xs text-amber-200 flex items-start gap-2">
+            <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-bold">Impossible combination.</span>{' '}
+              {effortFeasibility[effort].infeasibilityReason}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Interactive Controls & Cost KPIs */}

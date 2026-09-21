@@ -148,3 +148,37 @@ describe('Agent Log Parser & Session Receipt Engine', () => {
     expect(() => parseAgentLog(hugeLog, 'huge.json')).toThrow('25MB');
   });
 });
+
+describe('Token accounting provenance (VULN-05)', () => {
+  it('marks JSONL transcripts with real token fields as measured', () => {
+    const jsonl = [
+      JSON.stringify({ input_tokens: 12000, cached_tokens: 9000, output_tokens: 700 }),
+      JSON.stringify({ input_tokens: 15000, cached_tokens: 11000, output_tokens: 900 }),
+    ].join('\n');
+    const session = parseAgentLog(jsonl, 'measured.jsonl');
+    expect(session.measuredTokens).toBe(true);
+  });
+
+  it('marks token-less transcripts as estimated so receipts cannot pass them off as bills', () => {
+    const jsonl = [
+      JSON.stringify({ type: 'USER_INPUT', message: 'fix the tests' }),
+      JSON.stringify({ type: 'ASSISTANT', message: 'done' }),
+    ].join('\n');
+    const session = parseAgentLog(jsonl, 'no-tokens.jsonl');
+    expect(session.measuredTokens).toBe(false);
+
+    const report = calculateSessionReceipt(session, []);
+    expect(report.tokensMeasured).toBe(false);
+    expect(report.headlineSummary).toContain('ESTIMATED');
+  });
+
+  it('marks generic text fallbacks as estimated', () => {
+    const session = parseAgentLog('some random markdown\nwith lines\nbut no json', 'notes.md');
+    expect(session.format).toBe('generic-agent');
+    expect(session.measuredTokens).toBe(false);
+  });
+
+  it('keeps the built-in sample session measured', () => {
+    expect(SAMPLE_AGENT_SESSION.measuredTokens).toBe(true);
+  });
+});

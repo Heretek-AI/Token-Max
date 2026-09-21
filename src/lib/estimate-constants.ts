@@ -20,6 +20,10 @@ export const AGENT_TASK_OPTIMISTIC_TOKENS = constants.agentTask.optimisticTokens
 export const DEFAULT_CACHE_RATE = constants.defaultCacheRate as CacheRate;
 /** Anthropic cache-write premium (5-minute TTL) used when a provider price is missing. */
 export const CACHE_WRITE_PREMIUM = constants.cacheWritePremium;
+/** Default fraction of cached context rewritten per turn (see data/estimate-constants.json _cacheWriteShare). */
+export const CACHE_WRITE_SHARE = constants.cacheWriteShare as number;
 export const TIME_OF_DAY_BLEND = constants.timeOfDayBlend;
 export const AGENT_CACHE_PRESETS = constants.agentCachePresets;
+/** Residual full-price share of re-read tokens inside one multi-turn session (cache invalidations). */
+export const SESSION_CACHE_BUST_RESIDUAL = constants.sessionCacheBustResidual as number;
 

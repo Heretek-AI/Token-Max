@@ -589,7 +589,8 @@ describe('Adversarial Edge Cases & Guardrails', () => {
     expect(parseTierRequestLimit({ requests: '~15K mix estimate (~26K with DeepSeek V4 Flash at typical cache)' })).toBe(15000);
     expect(parseTierRequestLimit({ requests: '~100K mix estimate' })).toBe(100000);
     expect(parseTierRequestLimit({ agenticRequests: '50 agentic requests/mo (chat + agentic coding)' })).toBe(50);
-    expect(parseTierRequestLimit({ requests: '1,000 requests per 7-day sliding window' })).toBe(4000);
+    // Weekly quotas scale by 52/12 weeks per month (VULN-12), not a flat x4.
+    expect(parseTierRequestLimit({ requests: '1,000 requests per 7-day sliding window' })).toBe(4333);
     expect(parseTierRequestLimit({ fastRequests: 500 })).toBe(500);
     // Ignores pure dollar credit strings
     expect(parseTierRequestLimit({ monthlyCredits: '$10/mo compute credits' })).toBe(null);
@@ -845,7 +846,7 @@ describe('Adversarial Edge Cases & Guardrails', () => {
     expect(result.savings).toBeLessThan(0);
   });
 
-  it('computeApplesToApples applies symmetric cache scaling to subscription yields', () => {
+  it('does NOT cache-scale usage-metered subscription yields (cache rate is irrelevant to fixed quotas)', () => {
     const testModel = model({
       id: 'z-ai/glm-5.3',
       name: 'GLM-5.3',
@@ -873,42 +874,84 @@ describe('Adversarial Edge Cases & Guardrails', () => {
 
     const testPlan = plan({ id: 'z-ai', name: 'Z.ai', tiers: [testTier] });
 
-    // When cacheRate is 75% (lower than 95% plan assumption), subscription tokens scale down symmetrically
+    // Metered quota: the vendor delivers the same tokens no matter what the
+    // user's own cache hit rate is (VULN-02 regression guard).
     const result75 = computeApplesToApples([testModel], [testPlan], 'all', 100, 0, 0.75);
     const sub75 = result75.options.find(o => o.type === 'subscription');
-
-    // When cacheRate is 0% (fresh tokens, no cache), subscription tokens scale down even further
     const result0 = computeApplesToApples([testModel], [testPlan], 'all', 100, 0, 0.0);
     const sub0 = result0.options.find(o => o.type === 'subscription');
 
     expect(sub75).toBeDefined();
     expect(sub0).toBeDefined();
-    // 0% cache delivers fewer tokens than 75% cache for the subscription
+    expect(sub75!.monthlyTokens).toBe(1000);
+    expect(sub0!.monthlyTokens).toBe(1000);
+  });
+
+  it('cache-scales dollar-credit pools whose yield depends on per-turn cost', () => {
+    const testModel = model({
+      id: 'z-ai/glm-5.3',
+      name: 'GLM-5.3',
+      pricing: { input: 1.0, output: 2.0, cachedInput: 0.1, cachedInputWrite: null, reasoning: null, webSearch: null },
+      blendedCost: 1.25,
+      benchmarks: { codingIndex: 75, intelligenceIndex: 75, agenticIndex: 75, valueScore: 200 },
+    });
+
+    const creditTier = tier({
+      name: 'Pool',
+      monthlyPrice: 80,
+      limits: { monthlyCredits: '$80/mo usage value credits' },
+      models: ['GLM-5.3'],
+      estimatedTokenBudget: { estimatedMillionTokens: 1000, assumptions: '95% cache hit rate' },
+    });
+    const creditPlan = plan({ id: 'credit-test', name: 'CreditPool', tiers: [creditTier] });
+
+    const result0 = computeApplesToApples([testModel], [creditPlan], 'all', 100, 0, 0.0);
+    const result75 = computeApplesToApples([testModel], [creditPlan], 'all', 100, 0, 0.75);
+    const sub0 = result0.options.find(o => o.type === 'subscription');
+    const sub75 = result75.options.find(o => o.type === 'subscription');
+
+    expect(sub0).toBeDefined();
+    expect(sub75).toBeDefined();
+    // A dollar pool buys fewer tokens when turns are priced without cache discounts.
     expect(sub0!.monthlyTokens).toBeLessThan(sub75!.monthlyTokens);
-    // 75% cache delivers fewer tokens than the 95% marketing estimate (1000M)
     expect(sub75!.monthlyTokens).toBeLessThan(1000);
   });
 
-  it('parsePlanCacheAssumption correctly parses declared cache hit percentages', () => {
-    const tier95 = tier({
+  it('parsePlanCacheAssumption ignores discount percentages and anchors on cache context', () => {
+    const discountFirst = tier({
       estimatedTokenBudget: {
         estimatedMillionTokens: 100,
-        assumptions: '95% cache hit rate',
-        estimateMeta: { cacheAssumption: '95% cache hit rate', sourceUrl: 'test', sourceType: 'official', confidence: 'high', verifiedAt: '2026-09-19' },
+        assumptions: 'At 90% discount, 75% cache hit rate',
+        estimateMeta: { cacheAssumption: 'At 90% discount, 75% cache hit rate', sourceUrl: 'test', sourceType: 'official', confidence: 'high', verifiedAt: '2026-09-19' },
       },
     });
-    expect(parsePlanCacheAssumption(tier95)).toBe(0.95);
+    expect(parsePlanCacheAssumption(discountFirst)).toBe(0.75);
 
-    const tier75 = tier({
+    const discountOnly = tier({
       estimatedTokenBudget: {
         estimatedMillionTokens: 100,
-        assumptions: '75% cache hit rate',
+        assumptions: '50% off-peak discount applies',
       },
     });
-    expect(parsePlanCacheAssumption(tier75)).toBe(0.75);
+    // No cache-context percent: fall back to the documented default, not 0.5.
+    expect(parsePlanCacheAssumption(discountOnly)).toBe(0.75);
+  });
 
-    const tierDefault = tier();
-    expect(parsePlanCacheAssumption(tierDefault)).toBe(0.75);
+  it('discloses spend asymmetry when the API leg outspends a capped subscription in the arbitrage callout', () => {
+    const sonnetModel = model({
+      id: 'anthropic/claude-sonnet-5',
+      name: 'Claude Sonnet 5',
+      benchmarks: { codingIndex: 85, intelligenceIndex: null, agenticIndex: null, valueScore: null },
+    });
+    const cheapSub = plan({
+      id: 'cheap-sub',
+      name: 'Cheap Sub',
+      tiers: [tier({ monthlyPrice: 20, models: ['Claude Sonnet 5'], estimatedTokenBudget: { estimatedMillionTokens: 1, assumptions: 'test' } })],
+    });
+
+    const result = computeApplesToApples([sonnetModel], [cheapSub], 'all', 200, 0, 0.75);
+    expect(result.arbitrageCallout).not.toBeNull();
+    expect(result.arbitrageCallout!.description).toContain('spends $20/mo vs $200/mo on the API leg');
   });
 });
 
