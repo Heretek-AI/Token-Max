@@ -113,21 +113,21 @@
     "contextWindow": 1310720,
     "maxOutput": 131072,
     "pricing": {
-      "input": 0.896,
-      "output": 2.816,
-      "cachedInput": 0.1664,
+      "input": 0.9099999999999999,
+      "output": 2.8600000000000003,
+      "cachedInput": 0.169,
       "cachedInputWrite": null,
       "reasoning": null,
       "webSearch": null
     },
-    "blendedCost": 1.376,
-    "agentBlendedCost": 0.4663,
-    "costPer1kRequests": 4.6080000000000005,
+    "blendedCost": 1.3975,
+    "agentBlendedCost": 0.4736,
+    "costPer1kRequests": 4.68,
     "benchmarks": {
       "intelligenceIndex": 44.8,
       "codingIndex": 74.8,
       "agenticIndex": 53.1,
-      "valueScore": 4526.9
+      "valueScore": 4457.2
     },
     "benchmarkSource": "artificial-analysis",
     "reasoning": null,
@@ -215,16 +215,16 @@
     "contextWindow": 1048576,
     "maxOutput": 384000,
     "pricing": {
-      "input": 0.15,
-      "output": 0.6,
-      "cachedInput": 0.003,
+      "input": 0.3,
+      "output": 1.2,
+      "cachedInput": 0.006,
       "cachedInputWrite": null,
       "reasoning": null,
       "webSearch": null
     },
-    "blendedCost": 0.26249999999999996,
-    "agentBlendedCost": 0.0664,
-    "costPer1kRequests": 0.9,
+    "blendedCost": 0.5249999999999999,
+    "agentBlendedCost": 0.1329,
+    "costPer1kRequests": 1.8,
     "benchmarks": {
       "intelligenceIndex": 39.5,
       "codingIndex": null,
@@ -249,21 +249,21 @@
     "contextWindow": 1048576,
     "maxOutput": 384000,
     "pricing": {
-      "input": 0.66,
-      "output": 1.9800000000000002,
-      "cachedInput": 0.022,
+      "input": 1.32,
+      "output": 3.9600000000000004,
+      "cachedInput": 0.044,
       "cachedInputWrite": null,
       "reasoning": null,
       "webSearch": null
     },
-    "blendedCost": 0.99,
-    "agentBlendedCost": 0.2671,
-    "costPer1kRequests": 3.3,
+    "blendedCost": 1.98,
+    "agentBlendedCost": 0.5343,
+    "costPer1kRequests": 6.6,
     "benchmarks": {
       "intelligenceIndex": 36,
       "codingIndex": 68.8,
       "agenticIndex": 41.3,
-      "valueScore": 5453.5
+      "valueScore": 2726.8
     },
     "benchmarkSource": "openrouter",
     "reasoning": null,
@@ -929,21 +929,21 @@
     "contextWindow": 1048576,
     "maxOutput": 943718,
     "pricing": {
-      "input": 1.7,
-      "output": 8.5,
-      "cachedInput": 0.17,
+      "input": 1.675,
+      "output": 9.38,
+      "cachedInput": 0.1943,
       "cachedInputWrite": null,
       "reasoning": null,
       "webSearch": null
     },
-    "blendedCost": 3.4,
-    "agentBlendedCost": 0.931,
-    "costPer1kRequests": 11.9,
+    "blendedCost": 3.6012500000000003,
+    "agentBlendedCost": 0.9843,
+    "costPer1kRequests": 12.73,
     "benchmarks": {
       "intelligenceIndex": 43.6,
       "codingIndex": 76.2,
       "agenticIndex": 50,
-      "valueScore": 1818.2
+      "valueScore": 1716.6
     },
     "benchmarkSource": "artificial-analysis",
     "reasoning": null,
