@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-09-21T02:50:22.938Z",
+  "generatedAt": "2026-09-23T11:12:19.802Z",
   "constants": {
     "agentTurnTokens": 21000,
     "defaultCacheRate": 0.75,
