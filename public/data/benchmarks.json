@@ -48,9 +48,9 @@
       "cacheHit": 0.07
     },
     "performance": {
-      "tokensPerSecond": 330.93,
-      "ttft": 25.92,
-      "e2e": 27.43
+      "tokensPerSecond": 275.9,
+      "ttft": 13.78,
+      "e2e": 15.59
     },
     "costs": {
       "totalCost": 1622.73,
@@ -87,6 +87,35 @@
     }
   },
   {
+    "id": "24d8fdfe-6241-424e-b7b7-1b6efb06e4fb",
+    "slug": "mimo-v2-6-pro",
+    "name": "MiMo-V2.6-Pro",
+    "series": "MiMo",
+    "releasedAt": "2026-09-21",
+    "createdUnix": 1789948800,
+    "unbenchmarked": false,
+    "creator": "Xiaomi",
+    "evaluations": {
+      "intelligenceIndex": 46.3,
+      "codingIndex": null,
+      "agenticIndex": null
+    },
+    "pricing": {
+      "input": 0.43,
+      "output": 0.87,
+      "cacheHit": 0
+    },
+    "performance": {
+      "tokensPerSecond": 53.91,
+      "ttft": 2.72,
+      "e2e": 49.09
+    },
+    "costs": {
+      "totalCost": 206.66,
+      "costPerTask": 0.1332
+    }
+  },
+  {
     "id": "00f1248e-78e3-4230-8dc8-5e13ba8645e2",
     "slug": "mimo-v2-5-pro",
     "name": "MiMo-V2.5-Pro",
@@ -106,9 +135,9 @@
       "cacheHit": 0
     },
     "performance": {
-      "tokensPerSecond": 47.2,
-      "ttft": 3.13,
-      "e2e": 56.1
+      "tokensPerSecond": 47.51,
+      "ttft": 6.51,
+      "e2e": 59.12
     },
     "costs": {
       "totalCost": 138.26,
@@ -135,38 +164,9 @@
       "cacheHit": 0
     },
     "performance": {
-      "tokensPerSecond": 32.57,
-      "ttft": 5.28,
-      "e2e": 82.03
-    },
-    "costs": {
-      "totalCost": null,
-      "costPerTask": null
-    }
-  },
-  {
-    "id": "4764d31d-f4af-4297-8bd1-e993f26bcb64",
-    "slug": "mimo-v2-5-pro-non-reasoning",
-    "name": "MiMo-V2.5-Pro (Non-reasoning)",
-    "series": "MiMo",
-    "releasedAt": "2026-04-22",
-    "createdUnix": 1776816000,
-    "unbenchmarked": false,
-    "creator": "Xiaomi",
-    "evaluations": {
-      "intelligenceIndex": 18.3,
-      "codingIndex": null,
-      "agenticIndex": null
-    },
-    "pricing": {
-      "input": 0.43,
-      "output": 0.87,
-      "cacheHit": 0
-    },
-    "performance": {
-      "tokensPerSecond": 53.85,
-      "ttft": 2.61,
-      "e2e": 11.89
+      "tokensPerSecond": 36.55,
+      "ttft": 3.31,
+      "e2e": 71.72
     },
     "costs": {
       "totalCost": null,
@@ -193,9 +193,9 @@
       "cacheHit": 0.05
     },
     "performance": {
-      "tokensPerSecond": 99.76,
-      "ttft": 2.96,
-      "e2e": 28.02
+      "tokensPerSecond": 83.11,
+      "ttft": 3.62,
+      "e2e": 33.7
     },
     "costs": {
       "totalCost": 924.68,
@@ -246,18 +246,105 @@
       "agenticIndex": 27.9
     },
     "pricing": {
-      "input": 0,
-      "output": 0,
-      "cacheHit": null
+      "input": 0.07,
+      "output": 0.22,
+      "cacheHit": 0.01
     },
     "performance": {
-      "tokensPerSecond": 161.49,
-      "ttft": 2.65,
-      "e2e": 18.13
+      "tokensPerSecond": 158.52,
+      "ttft": 2.5,
+      "e2e": 18.27
     },
     "costs": {
       "totalCost": null,
       "costPerTask": null
+    }
+  },
+  {
+    "id": "01459872-433a-4ab2-8e99-7083162172eb",
+    "slug": "gpt-6-sol-low",
+    "name": "GPT-6 Sol (low)",
+    "series": "GPT",
+    "releasedAt": "2026-09-22",
+    "createdUnix": 1790035200,
+    "unbenchmarked": false,
+    "creator": "OpenAI",
+    "evaluations": {
+      "intelligenceIndex": 33.9,
+      "codingIndex": null,
+      "agenticIndex": null
+    },
+    "pricing": {
+      "input": 2,
+      "output": 10,
+      "cacheHit": 0.2
+    },
+    "performance": {
+      "tokensPerSecond": 118.36,
+      "ttft": 1.44,
+      "e2e": 5.66
+    },
+    "costs": {
+      "totalCost": 268.13,
+      "costPerTask": 0.1322
+    }
+  },
+  {
+    "id": "19813eb2-460a-475c-af65-810bb8660fec",
+    "slug": "gpt-6-luna-xhigh",
+    "name": "GPT-6 Luna (xhigh)",
+    "series": "GPT",
+    "releasedAt": "2026-09-22",
+    "createdUnix": 1790035200,
+    "unbenchmarked": false,
+    "creator": "OpenAI",
+    "evaluations": {
+      "intelligenceIndex": 33.9,
+      "codingIndex": null,
+      "agenticIndex": null
+    },
+    "pricing": {
+      "input": 0.1,
+      "output": 0.5,
+      "cacheHit": 0.01
+    },
+    "performance": {
+      "tokensPerSecond": 151.26,
+      "ttft": 16.44,
+      "e2e": 19.75
+    },
+    "costs": {
+      "totalCost": 66.37,
+      "costPerTask": 0.0417
+    }
+  },
+  {
+    "id": "36667da0-9222-4967-adbb-f7efa15ad213",
+    "slug": "gpt-6-luna-medium",
+    "name": "GPT-6 Luna (medium)",
+    "series": "GPT",
+    "releasedAt": "2026-09-22",
+    "createdUnix": 1790035200,
+    "unbenchmarked": false,
+    "creator": "OpenAI",
+    "evaluations": {
+      "intelligenceIndex": 29.5,
+      "codingIndex": null,
+      "agenticIndex": null
+    },
+    "pricing": {
+      "input": 0.1,
+      "output": 0.5,
+      "cacheHit": 0.01
+    },
+    "performance": {
+      "tokensPerSecond": 142.82,
+      "ttft": 5.28,
+      "e2e": 8.78
+    },
+    "costs": {
+      "totalCost": 31.16,
+      "costPerTask": 0.0173
     }
   },
   {
@@ -280,9 +367,9 @@
       "cacheHit": 0.25
     },
     "performance": {
-      "tokensPerSecond": 37.28,
-      "ttft": 3.05,
-      "e2e": 70.12
+      "tokensPerSecond": 39.18,
+      "ttft": 2.98,
+      "e2e": 66.8
     },
     "costs": {
       "totalCost": 4934.79,
@@ -309,9 +396,9 @@
       "cacheHit": 0.02
     },
     "performance": {
-      "tokensPerSecond": 61.35,
-      "ttft": 2.75,
-      "e2e": 43.5
+      "tokensPerSecond": 53.2,
+      "ttft": 2.74,
+      "e2e": 49.74
     },
     "costs": {
       "totalCost": 362.72,
@@ -328,110 +415,81 @@
     "unbenchmarked": false,
     "creator": "Alibaba",
     "evaluations": {
-      "intelligenceIndex": 22.4,
+      "intelligenceIndex": 20.2,
       "codingIndex": 44.6,
       "agenticIndex": 22.4
     },
     "pricing": {
       "input": 0.5,
       "output": 3,
-      "cacheHit": 0.05
+      "cacheHit": 0.1
     },
     "performance": {
-      "tokensPerSecond": 50.54,
+      "tokensPerSecond": 49.09,
       "ttft": 3.88,
-      "e2e": 13.77
+      "e2e": 14.06
     },
     "costs": {
-      "totalCost": null,
-      "costPerTask": null
+      "totalCost": 2022.49,
+      "costPerTask": 2.4878
     }
   },
   {
-    "id": "1f541ef3-913f-4eb2-9d07-0e93c7a9a5e3",
-    "slug": "gpt-6-astra-xhigh",
-    "name": "GPT-6 Astra (xhigh)",
-    "series": "GPT",
-    "releasedAt": "2026-09-03",
-    "createdUnix": 1788393600,
+    "id": "272f5f03-aea9-4675-a244-2b753b618cdf",
+    "slug": "grok-4-7-high",
+    "name": "Grok 4.7 (high)",
+    "series": "Grok",
+    "releasedAt": "2026-09-21",
+    "createdUnix": 1789948800,
     "unbenchmarked": false,
-    "creator": "OpenAI",
+    "creator": "SpaceXAI",
     "evaluations": {
-      "intelligenceIndex": 52.4,
-      "codingIndex": 75.9,
-      "agenticIndex": 50.2
+      "intelligenceIndex": 46.3,
+      "codingIndex": null,
+      "agenticIndex": null
     },
     "pricing": {
-      "input": 10,
-      "output": 50,
-      "cacheHit": 1
+      "input": 2,
+      "output": 6,
+      "cacheHit": 0.5
     },
     "performance": {
-      "tokensPerSecond": 62.78,
-      "ttft": 121.42,
-      "e2e": 129.38
+      "tokensPerSecond": 53.91,
+      "ttft": 0.84,
+      "e2e": 10.12
     },
     "costs": {
-      "totalCost": 3802.98,
-      "costPerTask": 2.3088
+      "totalCost": 3880.88,
+      "costPerTask": 2.7261
     }
   },
   {
-    "id": "2f339a97-9a0d-499a-9cb5-e0db665bfa25",
-    "slug": "gpt-6-astra",
-    "name": "GPT-6 Astra (max)",
-    "series": "GPT",
-    "releasedAt": "2026-09-03",
-    "createdUnix": 1788393600,
+    "id": "59627802-1546-422c-9a65-65b61c022d36",
+    "slug": "grok-4-7",
+    "name": "Grok 4.7 (xhigh)",
+    "series": "Grok",
+    "releasedAt": "2026-09-21",
+    "createdUnix": 1789948800,
     "unbenchmarked": false,
-    "creator": "OpenAI",
+    "creator": "SpaceXAI",
     "evaluations": {
-      "intelligenceIndex": 52.7,
-      "codingIndex": 76.9,
-      "agenticIndex": 51
+      "intelligenceIndex": 46.4,
+      "codingIndex": null,
+      "agenticIndex": null
     },
     "pricing": {
-      "input": 10,
-      "output": 50,
-      "cacheHit": 1
+      "input": 2,
+      "output": 6,
+      "cacheHit": 0.5
     },
     "performance": {
-      "tokensPerSecond": 68.7,
-      "ttft": 257.73,
-      "e2e": 265.01
+      "tokensPerSecond": 39.16,
+      "ttft": 0.87,
+      "e2e": 13.63
     },
     "costs": {
-      "totalCost": 5324.1,
-      "costPerTask": 3.2575
-    }
-  },
-  {
-    "id": "a3f8100d-e38f-408b-b0fa-0085dae18dc1",
-    "slug": "gpt-6-astra-low",
-    "name": "GPT-6 Astra (low)",
-    "series": "GPT",
-    "releasedAt": "2026-09-03",
-    "createdUnix": 1788393600,
-    "unbenchmarked": false,
-    "creator": "OpenAI",
-    "evaluations": {
-      "intelligenceIndex": 45.8,
-      "codingIndex": 75.7,
-      "agenticIndex": 38.8
-    },
-    "pricing": {
-      "input": 10,
-      "output": 50,
-      "cacheHit": 1
-    },
-    "performance": {
-      "tokensPerSecond": 62.04,
-      "ttft": 2.55,
-      "e2e": 10.61
-    },
-    "costs": {
-      "totalCost": 1536.78,
-      "costPerTask": 0.8175
+      "totalCost": 4967.35,
+      "costPerTask": 3.7383
     }
   },
   {
@@ -454,71 +512,13 @@
       "cacheHit": 0.5
     },
     "performance": {
-      "tokensPerSecond": 61.45,
-      "ttft": 36.12,
-      "e2e": 44.26
+      "tokensPerSecond": 58.46,
+      "ttft": 26.77,
+      "e2e": 35.32
     },
     "costs": {
       "totalCost": 1936.75,
       "costPerTask": 1.4963
-    }
-  },
-  {
-    "id": "c07e65e6-32fc-451e-938d-7477a1c3ffcc",
-    "slug": "grok-4-6-low",
-    "name": "Grok 4.6 (low)",
-    "series": "Grok",
-    "releasedAt": "2026-08-12",
-    "createdUnix": 1786492800,
-    "unbenchmarked": false,
-    "creator": "SpaceXAI",
-    "evaluations": {
-      "intelligenceIndex": 35.1,
-      "codingIndex": 66.3,
-      "agenticIndex": 41.2
-    },
-    "pricing": {
-      "input": 2,
-      "output": 6,
-      "cacheHit": 0.5
-    },
-    "performance": {
-      "tokensPerSecond": 57.48,
-      "ttft": 7.65,
-      "e2e": 16.35
-    },
-    "costs": {
-      "totalCost": 760.75,
-      "costPerTask": 0.4753
-    }
-  },
-  {
-    "id": "c8adc5cf-fd5a-407b-af51-dc3bede3e49c",
-    "slug": "grok-4-6",
-    "name": "Grok 4.6 (high)",
-    "series": "Grok",
-    "releasedAt": "2026-08-12",
-    "createdUnix": 1786492800,
-    "unbenchmarked": false,
-    "creator": "SpaceXAI",
-    "evaluations": {
-      "intelligenceIndex": 44.3,
-      "codingIndex": 76.8,
-      "agenticIndex": 53
-    },
-    "pricing": {
-      "input": 2,
-      "output": 6,
-      "cacheHit": 0.5
-    },
-    "performance": {
-      "tokensPerSecond": 62.96,
-      "ttft": 39.04,
-      "e2e": 46.98
-    },
-    "costs": {
-      "totalCost": 2351.83,
-      "costPerTask": 1.8589
     }
   },
   {
@@ -541,9 +541,9 @@
       "cacheHit": 0.15
     },
     "performance": {
-      "tokensPerSecond": 240.68,
-      "ttft": 23.69,
-      "e2e": 34.08
+      "tokensPerSecond": 218.61,
+      "ttft": 20.98,
+      "e2e": 32.41
     },
     "costs": {
       "totalCost": 2000.35,
@@ -570,9 +570,9 @@
       "cacheHit": 0.15
     },
     "performance": {
-      "tokensPerSecond": 292.76,
-      "ttft": 21.99,
-      "e2e": 30.53
+      "tokensPerSecond": 228.02,
+      "ttft": 21.86,
+      "e2e": 32.83
     },
     "costs": {
       "totalCost": 1655.27,
@@ -599,9 +599,9 @@
       "cacheHit": 0.04
     },
     "performance": {
-      "tokensPerSecond": 94.74,
-      "ttft": 0.97,
-      "e2e": 27.36
+      "tokensPerSecond": 92.48,
+      "ttft": 0.95,
+      "e2e": 27.98
     },
     "costs": {
       "totalCost": 151.68,
@@ -609,90 +609,90 @@
     }
   },
   {
-    "id": "05776db7-f5c0-40f7-b824-079160f8cfa8",
-    "slug": "claude-fable-5-1-low",
-    "name": "Claude Fable 5.1 (Adaptive Reasoning, Low Effort, Default Fallback)",
+    "id": "2f3c4dc9-a450-4303-8697-0237257cf08f",
+    "slug": "claude-opus-5-5",
+    "name": "Claude Opus 5.5 (Adaptive Reasoning, Max Effort, Default Fallback)",
     "series": "Claude",
-    "releasedAt": "2026-09-01",
-    "createdUnix": 1788220800,
+    "releasedAt": "2026-09-22",
+    "createdUnix": 1790035200,
     "unbenchmarked": false,
     "creator": "Anthropic",
     "evaluations": {
-      "intelligenceIndex": 46.8,
-      "codingIndex": 75.2,
-      "agenticIndex": 47.1
+      "intelligenceIndex": 57.6,
+      "codingIndex": null,
+      "agenticIndex": null
     },
     "pricing": {
-      "input": 10,
-      "output": 50,
-      "cacheHit": 0.25
+      "input": 4,
+      "output": 20,
+      "cacheHit": 0.2
     },
     "performance": {
-      "tokensPerSecond": 55.43,
-      "ttft": 8.16,
-      "e2e": 17.18
+      "tokensPerSecond": null,
+      "ttft": null,
+      "e2e": null
     },
     "costs": {
-      "totalCost": 3157.66,
-      "costPerTask": 2.371
+      "totalCost": 8708.2,
+      "costPerTask": 5.982
     }
   },
   {
-    "id": "3b7de71c-e034-4591-8ca6-6b6be2fa471f",
-    "slug": "claude-fable-5-1-medium",
-    "name": "Claude Fable 5.1 (Adaptive Reasoning, Medium Effort, Default Fallback)",
+    "id": "4416ca93-fde6-4b7b-abbc-3a6be109cc3d",
+    "slug": "claude-opus-5-5-low",
+    "name": "Claude Opus 5.5 (Adaptive Reasoning, Low Effort, Default Fallback)",
     "series": "Claude",
-    "releasedAt": "2026-09-01",
-    "createdUnix": 1788220800,
+    "releasedAt": "2026-09-17",
+    "createdUnix": 1789603200,
     "unbenchmarked": false,
     "creator": "Anthropic",
     "evaluations": {
-      "intelligenceIndex": 48.9,
-      "codingIndex": 77.1,
-      "agenticIndex": 50.2
+      "intelligenceIndex": 42.3,
+      "codingIndex": null,
+      "agenticIndex": null
     },
     "pricing": {
-      "input": 10,
-      "output": 50,
-      "cacheHit": 0.25
+      "input": 4,
+      "output": 20,
+      "cacheHit": 0.2
     },
     "performance": {
-      "tokensPerSecond": 57.34,
-      "ttft": 8.41,
-      "e2e": 17.13
+      "tokensPerSecond": 76.32,
+      "ttft": 4.79,
+      "e2e": 11.34
     },
     "costs": {
-      "totalCost": 3983.28,
-      "costPerTask": 2.9826
+      "totalCost": 860.33,
+      "costPerTask": 0.5512
     }
   },
   {
-    "id": "3e87c73e-a257-495e-9730-367a66229811",
-    "slug": "claude-fable-5-1",
-    "name": "Claude Fable 5.1 (Adaptive Reasoning, Max Effort, Default Fallback)",
+    "id": "df5bf99d-d228-4715-b41b-19ca86118777",
+    "slug": "claude-opus-5-5-xhigh",
+    "name": "Claude Opus 5.5 (Adaptive Reasoning, Xhigh Effort, Default Fallback)",
     "series": "Claude",
-    "releasedAt": "2026-09-01",
-    "createdUnix": 1788220800,
+    "releasedAt": "2026-09-17",
+    "createdUnix": 1789603200,
     "unbenchmarked": false,
     "creator": "Anthropic",
     "evaluations": {
-      "intelligenceIndex": 53.4,
-      "codingIndex": 81.6,
-      "agenticIndex": 57.9
+      "intelligenceIndex": 56,
+      "codingIndex": null,
+      "agenticIndex": null
     },
     "pricing": {
-      "input": 10,
-      "output": 50,
-      "cacheHit": 0.25
+      "input": 4,
+      "output": 20,
+      "cacheHit": 0.2
     },
     "performance": {
-      "tokensPerSecond": 68.73,
-      "ttft": 242.36,
-      "e2e": 249.64
+      "tokensPerSecond": 92.44,
+      "ttft": 155.45,
+      "e2e": 160.86
     },
     "costs": {
-      "totalCost": 13128.86,
-      "costPerTask": 7.6297
+      "totalCost": 4056.65,
+      "costPerTask": 3.4591
     }
   },
   {
@@ -715,9 +715,9 @@
       "cacheHit": 0.01
     },
     "performance": {
-      "tokensPerSecond": 229.09,
-      "ttft": 0.93,
-      "e2e": 11.84
+      "tokensPerSecond": 226.56,
+      "ttft": 1.08,
+      "e2e": 12.11
     },
     "costs": {
       "totalCost": 476.89,
@@ -744,9 +744,9 @@
       "cacheHit": 0.01
     },
     "performance": {
-      "tokensPerSecond": 236.34,
-      "ttft": 1.07,
-      "e2e": 11.65
+      "tokensPerSecond": 222.57,
+      "ttft": 1.11,
+      "e2e": 12.34
     },
     "costs": {
       "totalCost": 445.41,
@@ -773,9 +773,9 @@
       "cacheHit": 0.04
     },
     "performance": {
-      "tokensPerSecond": 105.19,
-      "ttft": 1.66,
-      "e2e": 25.43
+      "tokensPerSecond": 66.31,
+      "ttft": 1.63,
+      "e2e": 39.34
     },
     "costs": {
       "totalCost": 1122.27,
@@ -802,9 +802,9 @@
       "cacheHit": 0.15
     },
     "performance": {
-      "tokensPerSecond": 138.12,
-      "ttft": 2.27,
-      "e2e": 20.37
+      "tokensPerSecond": 145.81,
+      "ttft": 2.25,
+      "e2e": 19.4
     },
     "costs": {
       "totalCost": 1159.93,
@@ -831,9 +831,9 @@
       "cacheHit": null
     },
     "performance": {
-      "tokensPerSecond": 143.3,
-      "ttft": 0.75,
-      "e2e": 4.24
+      "tokensPerSecond": 151.34,
+      "ttft": 0.76,
+      "e2e": 4.06
     },
     "costs": {
       "totalCost": null,
@@ -860,9 +860,9 @@
       "cacheHit": null
     },
     "performance": {
-      "tokensPerSecond": 154.95,
-      "ttft": 0.73,
-      "e2e": 16.87
+      "tokensPerSecond": 165.7,
+      "ttft": 0.75,
+      "e2e": 15.84
     },
     "costs": {
       "totalCost": 78.7,
@@ -889,9 +889,9 @@
       "cacheHit": 0.3
     },
     "performance": {
-      "tokensPerSecond": 40.53,
-      "ttft": 4.49,
-      "e2e": 66.17
+      "tokensPerSecond": 35.44,
+      "ttft": 4.88,
+      "e2e": 75.42
     },
     "costs": {
       "totalCost": null,
@@ -918,9 +918,9 @@
       "cacheHit": 0.3
     },
     "performance": {
-      "tokensPerSecond": 42.89,
-      "ttft": 3.72,
-      "e2e": 62
+      "tokensPerSecond": 36.74,
+      "ttft": 4.08,
+      "e2e": 72.13
     },
     "costs": {
       "totalCost": 3658.07,
@@ -947,9 +947,9 @@
       "cacheHit": 0.19
     },
     "performance": {
-      "tokensPerSecond": 61.64,
-      "ttft": 2.94,
-      "e2e": 47.21
+      "tokensPerSecond": 59.91,
+      "ttft": 3.55,
+      "e2e": 49.1
     },
     "costs": {
       "totalCost": 992.88,
@@ -976,9 +976,9 @@
       "cacheHit": 0.03
     },
     "performance": {
-      "tokensPerSecond": 95.01,
-      "ttft": 2.52,
-      "e2e": 28.83
+      "tokensPerSecond": 61.45,
+      "ttft": 3.11,
+      "e2e": 43.8
     },
     "costs": {
       "totalCost": 280.28,
@@ -1005,9 +1005,9 @@
       "cacheHit": 0.26
     },
     "performance": {
-      "tokensPerSecond": 71.75,
-      "ttft": 2.91,
-      "e2e": 37.75
+      "tokensPerSecond": 60.69,
+      "ttft": 3.41,
+      "e2e": 44.6
     },
     "costs": {
       "totalCost": 2503.48,
@@ -1034,9 +1034,9 @@
       "cacheHit": null
     },
     "performance": {
-      "tokensPerSecond": 172.32,
-      "ttft": 1.22,
-      "e2e": 15.73
+      "tokensPerSecond": 141.77,
+      "ttft": 1.42,
+      "e2e": 19.05
     },
     "costs": {
       "totalCost": 2503.7,
