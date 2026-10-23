@@ -48,9 +48,9 @@
       "cacheHit": 0.07
     },
     "performance": {
-      "tokensPerSecond": 330.93,
-      "ttft": 25.92,
-      "e2e": 27.43
+      "tokensPerSecond": 343.52,
+      "ttft": 22.7,
+      "e2e": 24.15
     },
     "costs": {
       "totalCost": 1622.73,
@@ -107,8 +107,8 @@
     },
     "performance": {
       "tokensPerSecond": 47.2,
-      "ttft": 3.13,
-      "e2e": 56.1
+      "ttft": 2.77,
+      "e2e": 55.74
     },
     "costs": {
       "totalCost": 138.26,
@@ -135,9 +135,9 @@
       "cacheHit": 0
     },
     "performance": {
-      "tokensPerSecond": 32.57,
-      "ttft": 5.28,
-      "e2e": 82.03
+      "tokensPerSecond": 32.76,
+      "ttft": 5.07,
+      "e2e": 81.38
     },
     "costs": {
       "totalCost": null,
@@ -164,9 +164,9 @@
       "cacheHit": 0
     },
     "performance": {
-      "tokensPerSecond": 53.85,
-      "ttft": 2.61,
-      "e2e": 11.89
+      "tokensPerSecond": 50.51,
+      "ttft": 2.42,
+      "e2e": 12.32
     },
     "costs": {
       "totalCost": null,
@@ -251,9 +251,9 @@
       "cacheHit": null
     },
     "performance": {
-      "tokensPerSecond": 161.49,
-      "ttft": 2.65,
-      "e2e": 18.13
+      "tokensPerSecond": 154.67,
+      "ttft": 2.86,
+      "e2e": 19.02
     },
     "costs": {
       "totalCost": null,
@@ -280,9 +280,9 @@
       "cacheHit": 0.25
     },
     "performance": {
-      "tokensPerSecond": 37.28,
-      "ttft": 3.05,
-      "e2e": 70.12
+      "tokensPerSecond": 39.18,
+      "ttft": 3.08,
+      "e2e": 66.89
     },
     "costs": {
       "totalCost": 4934.79,
@@ -309,9 +309,9 @@
       "cacheHit": 0.02
     },
     "performance": {
-      "tokensPerSecond": 61.35,
-      "ttft": 2.75,
-      "e2e": 43.5
+      "tokensPerSecond": 63.78,
+      "ttft": 2.72,
+      "e2e": 41.92
     },
     "costs": {
       "totalCost": 362.72,
@@ -338,9 +338,9 @@
       "cacheHit": 0.05
     },
     "performance": {
-      "tokensPerSecond": 50.54,
-      "ttft": 3.88,
-      "e2e": 13.77
+      "tokensPerSecond": 52.71,
+      "ttft": 3.87,
+      "e2e": 13.35
     },
     "costs": {
       "totalCost": null,
@@ -368,8 +368,8 @@
     },
     "performance": {
       "tokensPerSecond": 62.78,
-      "ttft": 121.42,
-      "e2e": 129.38
+      "ttft": 139.48,
+      "e2e": 147.45
     },
     "costs": {
       "totalCost": 3802.98,
@@ -396,9 +396,9 @@
       "cacheHit": 1
     },
     "performance": {
-      "tokensPerSecond": 68.7,
-      "ttft": 257.73,
-      "e2e": 265.01
+      "tokensPerSecond": 71.39,
+      "ttft": 253.04,
+      "e2e": 260.04
     },
     "costs": {
       "totalCost": 5324.1,
@@ -425,9 +425,9 @@
       "cacheHit": 1
     },
     "performance": {
-      "tokensPerSecond": 62.04,
+      "tokensPerSecond": 59.1,
       "ttft": 2.55,
-      "e2e": 10.61
+      "e2e": 11.01
     },
     "costs": {
       "totalCost": 1536.78,
@@ -454,9 +454,9 @@
       "cacheHit": 0.5
     },
     "performance": {
-      "tokensPerSecond": 61.45,
-      "ttft": 36.12,
-      "e2e": 44.26
+      "tokensPerSecond": 62.65,
+      "ttft": 38.19,
+      "e2e": 46.17
     },
     "costs": {
       "totalCost": 1936.75,
@@ -483,9 +483,9 @@
       "cacheHit": 0.5
     },
     "performance": {
-      "tokensPerSecond": 57.48,
-      "ttft": 7.65,
-      "e2e": 16.35
+      "tokensPerSecond": 58.38,
+      "ttft": 8.84,
+      "e2e": 17.4
     },
     "costs": {
       "totalCost": 760.75,
@@ -512,9 +512,9 @@
       "cacheHit": 0.5
     },
     "performance": {
-      "tokensPerSecond": 62.96,
-      "ttft": 39.04,
-      "e2e": 46.98
+      "tokensPerSecond": 69.7,
+      "ttft": 46,
+      "e2e": 53.17
     },
     "costs": {
       "totalCost": 2351.83,
@@ -541,9 +541,9 @@
       "cacheHit": 0.15
     },
     "performance": {
-      "tokensPerSecond": 240.68,
-      "ttft": 23.69,
-      "e2e": 34.08
+      "tokensPerSecond": 245.93,
+      "ttft": 21.58,
+      "e2e": 31.75
     },
     "costs": {
       "totalCost": 2000.35,
@@ -570,9 +570,9 @@
       "cacheHit": 0.15
     },
     "performance": {
-      "tokensPerSecond": 292.76,
-      "ttft": 21.99,
-      "e2e": 30.53
+      "tokensPerSecond": 305.1,
+      "ttft": 23.18,
+      "e2e": 31.37
     },
     "costs": {
       "totalCost": 1655.27,
@@ -599,9 +599,9 @@
       "cacheHit": 0.04
     },
     "performance": {
-      "tokensPerSecond": 94.74,
-      "ttft": 0.97,
-      "e2e": 27.36
+      "tokensPerSecond": 91.83,
+      "ttft": 1.05,
+      "e2e": 28.28
     },
     "costs": {
       "totalCost": 151.68,
@@ -628,9 +628,9 @@
       "cacheHit": 0.25
     },
     "performance": {
-      "tokensPerSecond": 55.43,
-      "ttft": 8.16,
-      "e2e": 17.18
+      "tokensPerSecond": 57.19,
+      "ttft": 9.06,
+      "e2e": 17.8
     },
     "costs": {
       "totalCost": 3157.66,
@@ -658,8 +658,8 @@
     },
     "performance": {
       "tokensPerSecond": 57.34,
-      "ttft": 8.41,
-      "e2e": 17.13
+      "ttft": 8.72,
+      "e2e": 17.45
     },
     "costs": {
       "totalCost": 3983.28,
@@ -686,9 +686,9 @@
       "cacheHit": 0.25
     },
     "performance": {
-      "tokensPerSecond": 68.73,
-      "ttft": 242.36,
-      "e2e": 249.64
+      "tokensPerSecond": 69.71,
+      "ttft": 275.35,
+      "e2e": 282.52
     },
     "costs": {
       "totalCost": 13128.86,
@@ -715,9 +715,9 @@
       "cacheHit": 0.01
     },
     "performance": {
-      "tokensPerSecond": 229.09,
-      "ttft": 0.93,
-      "e2e": 11.84
+      "tokensPerSecond": 238.8,
+      "ttft": 1.17,
+      "e2e": 11.64
     },
     "costs": {
       "totalCost": 476.89,
@@ -744,8 +744,8 @@
       "cacheHit": 0.01
     },
     "performance": {
-      "tokensPerSecond": 236.34,
-      "ttft": 1.07,
+      "tokensPerSecond": 238.65,
+      "ttft": 1.18,
       "e2e": 11.65
     },
     "costs": {
@@ -773,9 +773,9 @@
       "cacheHit": 0.04
     },
     "performance": {
-      "tokensPerSecond": 105.19,
-      "ttft": 1.66,
-      "e2e": 25.43
+      "tokensPerSecond": 108.24,
+      "ttft": 1.65,
+      "e2e": 24.75
     },
     "costs": {
       "totalCost": 1122.27,
@@ -802,9 +802,9 @@
       "cacheHit": 0.15
     },
     "performance": {
-      "tokensPerSecond": 138.12,
-      "ttft": 2.27,
-      "e2e": 20.37
+      "tokensPerSecond": 143.36,
+      "ttft": 2.26,
+      "e2e": 19.69
     },
     "costs": {
       "totalCost": 1159.93,
@@ -831,9 +831,9 @@
       "cacheHit": null
     },
     "performance": {
-      "tokensPerSecond": 143.3,
-      "ttft": 0.75,
-      "e2e": 4.24
+      "tokensPerSecond": 145.51,
+      "ttft": 0.74,
+      "e2e": 4.18
     },
     "costs": {
       "totalCost": null,
@@ -861,7 +861,7 @@
     },
     "performance": {
       "tokensPerSecond": 154.95,
-      "ttft": 0.73,
+      "ttft": 0.74,
       "e2e": 16.87
     },
     "costs": {
@@ -889,9 +889,9 @@
       "cacheHit": 0.3
     },
     "performance": {
-      "tokensPerSecond": 40.53,
-      "ttft": 4.49,
-      "e2e": 66.17
+      "tokensPerSecond": 40.79,
+      "ttft": 4.74,
+      "e2e": 66.03
     },
     "costs": {
       "totalCost": null,
@@ -918,9 +918,9 @@
       "cacheHit": 0.3
     },
     "performance": {
-      "tokensPerSecond": 42.89,
-      "ttft": 3.72,
-      "e2e": 62
+      "tokensPerSecond": 43.59,
+      "ttft": 3.77,
+      "e2e": 61.12
     },
     "costs": {
       "totalCost": 3658.07,
@@ -948,8 +948,8 @@
     },
     "performance": {
       "tokensPerSecond": 61.64,
-      "ttft": 2.94,
-      "e2e": 47.21
+      "ttft": 3,
+      "e2e": 47.27
     },
     "costs": {
       "totalCost": 992.88,
@@ -977,8 +977,8 @@
     },
     "performance": {
       "tokensPerSecond": 95.01,
-      "ttft": 2.52,
-      "e2e": 28.83
+      "ttft": 2.43,
+      "e2e": 28.75
     },
     "costs": {
       "totalCost": 280.28,
@@ -1006,8 +1006,8 @@
     },
     "performance": {
       "tokensPerSecond": 71.75,
-      "ttft": 2.91,
-      "e2e": 37.75
+      "ttft": 2.9,
+      "e2e": 37.74
     },
     "costs": {
       "totalCost": 2503.48,
@@ -1034,9 +1034,9 @@
       "cacheHit": null
     },
     "performance": {
-      "tokensPerSecond": 172.32,
+      "tokensPerSecond": 161.3,
       "ttft": 1.22,
-      "e2e": 15.73
+      "e2e": 16.72
     },
     "costs": {
       "totalCost": 2503.7,
